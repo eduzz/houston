@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build": "tsc -p .",
+    "prepare": "yarn build",
     "lint": "yarn eslint \"./src/**/*.ts\" \"./src/**/*.tsx\""
   },
   "husky": {
