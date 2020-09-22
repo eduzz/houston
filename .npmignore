@@ -1,1 +1,11 @@
-~*
+.vscode
+docs
+node_modules
+.editorconfig
+.eslintignore
+.eslintrc.json
+.prettierrc
+tsconfig.json
+README.md
+*.tsx
+.git
