@@ -1,9 +1,9 @@
 {
   "name": "@eduzz/houston",
   "description": "Eduzz Components UI",
-  "version": "0.0.1",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "version": "0.0.6",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "author": "Eduzz Team",
   "license": "MIT",
   "private": false,

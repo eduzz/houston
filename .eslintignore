@@ -1,4 +1,6 @@
-config-overrides.js
 node_modules
 .vscode
-lib
+docs
+
+*.js
+*.d.ts
