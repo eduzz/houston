@@ -20,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "concurrently -r \"yarn lint -p tsconfig.json\"",
+      "pre-commit": "concurrently -r \"yarn lint\"",
       "post-merge": "yarn"
     }
   },
