@@ -27,7 +27,7 @@ interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
   type: 'primary' | 'secondary' | 'text';
 }
 
-const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(function (props, ref) {
   const { className, children, style, onClick, disabled, startIcon, type, href, endIcon, fullWidth, id } = props;
   const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id };
 
