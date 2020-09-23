@@ -2,7 +2,18 @@ import ButtonMUI, { ButtonProps } from '@material-ui/core/Button';
 
 import React from 'react';
 
-interface IButtonProps extends Partial<ButtonProps> {
+type ButtonPropsExtends =
+  | 'id'
+  | 'className'
+  | 'style'
+  | 'onClick'
+  | 'disabled'
+  | 'startIcon'
+  | 'href'
+  | 'endIcon'
+  | 'fullWidth';
+
+interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
   /**
    * Use case
    *
@@ -12,32 +23,31 @@ interface IButtonProps extends Partial<ButtonProps> {
    *
    * `text` button text
    */
-  context: 'primary' | 'secondary' | 'text';
+  type: 'primary' | 'secondary' | 'text';
 }
 
-const Button = React.forwardRef<unknown, IButtonProps>((props, ref) => {
-  const { className, children, style, onClick, disabled, startIcon, context, href, endIcon, fullWidth } = props;
-  const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth };
+const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
+  const { className, children, style, onClick, disabled, startIcon, type, href, endIcon, fullWidth, id } = props;
+  const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id };
 
-  switch (context) {
+  switch (type) {
     case 'primary':
       return (
-        <ButtonMUI {...buttonProps} variant='contained' color='primary' ref={() => ref}>
+        <ButtonMUI {...buttonProps} variant='contained' color='primary' ref={ref}>
           {children}
         </ButtonMUI>
       );
 
     case 'secondary':
       return (
-        <ButtonMUI {...buttonProps} variant='outlined' color='primary' ref={() => ref}>
+        <ButtonMUI {...buttonProps} variant='outlined' color='primary' ref={ref}>
           {children}
         </ButtonMUI>
       );
 
     default:
-    case 'text':
       return (
-        <ButtonMUI {...buttonProps} variant='text' color='primary' ref={() => ref}>
+        <ButtonMUI {...buttonProps} variant='text' color='primary' ref={ref}>
           {children}
         </ButtonMUI>
       );

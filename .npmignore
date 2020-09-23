@@ -7,5 +7,7 @@ node_modules
 .prettierrc
 tsconfig.json
 README.md
-*.tsx
+/**/**/*.tsx
+/**/**/*.ts
+!/**/**/*.d.ts
 .git
