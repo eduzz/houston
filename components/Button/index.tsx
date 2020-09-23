@@ -11,6 +11,7 @@ type ButtonPropsExtends =
   | 'startIcon'
   | 'href'
   | 'endIcon'
+  | 'children'
   | 'fullWidth';
 
 interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
