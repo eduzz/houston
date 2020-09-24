@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import ButtonMUI, { ButtonProps } from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import { useTheme } from '../ThemeProvider/context';
@@ -26,13 +27,28 @@ interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
    * `text` button text
    */
   type: 'primary' | 'secondary' | 'text';
+  loading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
   const theme = useTheme();
 
-  const { className, children, style, onClick, disabled, startIcon, type, href, endIcon, fullWidth, id } = props;
-  const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id };
+  const {
+    className,
+    children,
+    style,
+    onClick,
+    disabled,
+    startIcon,
+    type,
+    href,
+    endIcon,
+    fullWidth,
+    id,
+    loading
+  } = props;
+
+  const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id, loading };
 
   const variantMap = {
     primary: 'contained',
@@ -43,7 +59,13 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =>
 
   return (
     <ThemeProvider theme={theme}>
-      <ButtonMUI {...buttonProps} variant={variant} color='primary' ref={ref}>
+      <ButtonMUI
+        {...buttonProps}
+        startIcon={loading ? <CircularProgress /> : startIcon}
+        variant={variant}
+        color='primary'
+        ref={ref}
+      >
         {children}
       </ButtonMUI>
     </ThemeProvider>
