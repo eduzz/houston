@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { Theme, ThemeProvider as ThemeProviderMUI, ThemeProviderProps } from '@material-ui/core/styles';
+import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
+import ContextTheme from './context';
 import generateCustom from './custom';
 
 export type IThemeProviderApplications = 'select' | 'orbita' | 'blinket' | 'custom';
@@ -36,7 +37,7 @@ function ThemeProvider(props: IThemeProviderProps) {
 
   if (loading) return null;
 
-  return <ThemeProviderMUI theme={theme}>{children}</ThemeProviderMUI>;
+  return <ContextTheme.Provider value={theme}>{children}</ContextTheme.Provider>;
 }
 
 export default ThemeProvider;

@@ -5,7 +5,7 @@
     }
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "eslint-plugin-import-helpers"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "eslint-plugin-import-helpers", "eslint-plugin-unused-imports"],
   "extends": ["plugin:react/recommended", "prettier/@typescript-eslint", "plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaVersion": 10,
@@ -90,6 +90,7 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "unused-imports/no-unused-imports-ts": "error",
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
