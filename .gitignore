@@ -17,3 +17,4 @@ yarn-error.log*
 
 *.js
 *.d.ts
+*.map

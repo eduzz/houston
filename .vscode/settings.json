@@ -11,8 +11,8 @@
     "**/.svn": true,
     "**/.tmp": true,
     "**/bin/**": true,
-    "**/obj/**": true,
-    "node_modules": true
+    "**/obj/**": true
+    // "node_modules": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescriptHero.imports.multiLineTrailingComma": false,

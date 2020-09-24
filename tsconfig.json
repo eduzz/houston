@@ -4,11 +4,11 @@
     "declaration": true,
     "declarationDir": "./",
     "module": "CommonJs",
-    "target": "es6",
-    "lib": ["dom", "es2017"],
+    "target": "es5",
     "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
     "sourceMap": false,
-    "jsx": "preserve",
+    "jsx": "react",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -18,9 +18,15 @@
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "importHelpers": true,
-    "skipLibCheck": true,
-    "noEmit": true,
-    "types": ["react"]
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules", "*.d.ts", "**/**/*.d.ts", "**/**/*.d.ts", "docs/*"]
+  "include": [
+    "./*.tsx",
+    "./*.ts",
+    "./*.d.ts",
+    "./components/**/*.ts",
+    "./components/**/*.tsx",
+    "./components/**/*.d.ts"
+  ],
+  "exclude": ["node_modules", "./*.d.ts", "./**/*.d.ts", "./**/*.d.ts", "./docs/*"]
 }
