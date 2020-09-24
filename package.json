@@ -15,7 +15,7 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "scripts": {
-    "build": "tsc -p .",
+    "build": "git clean -f -x && tsc -p .",
     "prepare": "yarn build",
     "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\""
   },
