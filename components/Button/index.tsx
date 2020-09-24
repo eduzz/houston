@@ -1,6 +1,6 @@
-import ButtonMUI, { ButtonProps } from '@material-ui/core/Button';
-
 import React from 'react';
+
+import ButtonMUI, { ButtonProps } from '@material-ui/core/Button';
 
 type ButtonPropsExtends =
   | 'id'
@@ -19,9 +19,7 @@ interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
    * Use case
    *
    * `primary` button contained
-   *
    * `secondary` button outlined
-   *
    * `text` button text
    */
   type: 'primary' | 'secondary' | 'text';
@@ -31,28 +29,18 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(function (props
   const { className, children, style, onClick, disabled, startIcon, type, href, endIcon, fullWidth, id } = props;
   const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id };
 
-  switch (type) {
-    case 'primary':
-      return (
-        <ButtonMUI {...buttonProps} variant='contained' color='primary' ref={ref}>
-          {children}
-        </ButtonMUI>
-      );
+  const variantMap = {
+    primary: 'contained',
+    secondary: 'outlined'
+  };
 
-    case 'secondary':
-      return (
-        <ButtonMUI {...buttonProps} variant='outlined' color='primary' ref={ref}>
-          {children}
-        </ButtonMUI>
-      );
+  const variant = variantMap[type] || 'text';
 
-    default:
-      return (
-        <ButtonMUI {...buttonProps} variant='text' color='primary' ref={ref}>
-          {children}
-        </ButtonMUI>
-      );
-  }
+  return (
+    <ButtonMUI {...buttonProps} variant={variant} color='primary' ref={ref}>
+      {children}
+    </ButtonMUI>
+  );
 });
 
-export default Button;
+export default React.memo(Button);
