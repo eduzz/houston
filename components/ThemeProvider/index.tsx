@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 
 import { Theme, ThemeProvider as ThemeProviderMUI, ThemeProviderProps } from '@material-ui/core/styles';
 
@@ -14,10 +14,10 @@ interface IThemeProviderProps extends Partial<ThemeProviderProps> {
 function ThemeProvider(props: IThemeProviderProps) {
   const { children, application } = props;
 
-  const [loading, setLoading] = useState<boolean>(true);
-  const [theme, setTheme] = useState<Theme>(null);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [theme, setTheme] = React.useState<Theme>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     import(`./${application}`).then(module => {
       setTheme(module.default);
       setLoading(false);
