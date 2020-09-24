@@ -5,7 +5,7 @@
     }
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "eslint-plugin-import-helpers"],
   "extends": ["plugin:react/recommended", "prettier/@typescript-eslint", "plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaVersion": 10,
@@ -48,6 +48,22 @@
       }
     ],
     "eqeqeq": 0,
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "always",
+        "groups": [
+          "/^react/",
+          "/^@material-ui/",
+          "module",
+          ["parent", "sibling", "index"]
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        }
+      }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "@typescript-eslint/no-unused-vars": ["warn"],
