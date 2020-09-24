@@ -3,7 +3,7 @@ import * as React from 'react';
 import ButtonMUI, { ButtonProps } from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import ContextTheme from '../ThemeProvider/context';
+import { useTheme } from '../ThemeProvider/context';
 
 type ButtonPropsExtends =
   | 'id'
@@ -28,8 +28,8 @@ interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
   type: 'primary' | 'secondary' | 'text';
 }
 
-const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(function (props, ref) {
-  const themeContext = React.useContext(ContextTheme);
+const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
+  const theme = useTheme();
 
   const { className, children, style, onClick, disabled, startIcon, type, href, endIcon, fullWidth, id } = props;
   const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id };
@@ -42,7 +42,7 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(function (props
   const variant = variantMap[type] || 'text';
 
   return (
-    <ThemeProvider theme={themeContext}>
+    <ThemeProvider theme={theme}>
       <ButtonMUI {...buttonProps} variant={variant} color='primary' ref={ref}>
         {children}
       </ButtonMUI>

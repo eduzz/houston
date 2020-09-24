@@ -37,7 +37,7 @@ function ThemeProvider(props: IThemeProviderProps) {
 
   if (loading) return null;
 
-  return <ContextTheme.Provider value={theme}>{children}</ContextTheme.Provider>;
+  return <ContextTheme value={theme}>{children}</ContextTheme>;
 }
 
 export default ThemeProvider;

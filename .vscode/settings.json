@@ -1,7 +1,4 @@
 {
-  "editor.formatOnPaste": false,
-  "editor.formatOnSave": false,
-  "editor.formatOnType": false,
   "eslint.enable": true,
   "eslint.validate": [
     "javascript",
@@ -10,13 +7,13 @@
     "typescriptreact"
   ],
   "files.exclude": {
-    "**/*.lock.json": false,
-    "**/.DS_Store": false,
-    "**/.git": false,
-    "**/.svn": false,
-    "**/.tmp": false,
-    "**/bin/**": false,
-    "**/obj/**": false
+    "**/*.lock.json": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.tmp": true,
+    "**/bin/**": true,
+    "**/obj/**": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescriptHero.imports.multiLineTrailingComma": false,
