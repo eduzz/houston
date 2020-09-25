@@ -1,12 +1,13 @@
 {
   "name": "@eduzz/houston",
   "description": "Eduzz Components UI",
-  "version": "0.0.22",
+  "version": "0.0.24",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
   "license": "MIT",
   "private": false,
+  "homepage": "https://github.com/eduzz/houston",
   "repository": {
     "type": "git",
     "url": "https://github.com/eduzz/houston"
