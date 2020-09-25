@@ -34,7 +34,7 @@ import ThemeProvider from '@eduzz/houston/components/ThemeProvider';
 </ThemeProvider>
 ```
 
-| application     | value     | done          |
+| application      | value     | done          |
 | ---------------- | --------- | ------------- |
 | Select Afiliados | select    | true          |
 | Órbita           | orbita    | false         |

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ThemeProvider as ThemeProviderMUI, Theme, ThemeProviderProps } from '@material-ui/core/styles';
+import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
 import ContextTheme from './context';
@@ -40,11 +40,7 @@ function ThemeProvider(props: IThemeProviderProps) {
 
   if (loading) return null;
 
-  return (
-    <ThemeProviderMUI theme={theme}>
-      <ContextTheme value={theme}>{children}</ContextTheme>
-    </ThemeProviderMUI>
-  );
+  return <ContextTheme value={theme}>{children}</ContextTheme>;
 }
 
 export default ThemeProvider;
