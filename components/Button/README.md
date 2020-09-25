@@ -25,7 +25,7 @@ import { Button } from '@eduzz/houston';
 | prop | type | required | default |
 | ---- | ---- | -------- | ------- |
 | className | string | false | - |
-| style | false | React.CSSProperties | - |
+| style | React.CSSProperties | false | - |
 | onClick | (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | false | - |
 | disabled | boolean | false | false |
 | startIcon | React.Node | false | - |
