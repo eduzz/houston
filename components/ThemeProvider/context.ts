@@ -4,7 +4,7 @@ import { Theme } from '@material-ui/core/styles';
 
 export type ContextThemeType = Partial<Theme>;
 
-const ContextTheme = React.createContext<ContextThemeType>(null);
+const ContextTheme = React.createContext<ContextThemeType>({} as ContextThemeType);
 const ContextThemeProvider = ContextTheme.Provider;
 
 export function useTheme() {

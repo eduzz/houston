@@ -22,7 +22,9 @@ import Button from '@eduzz/houston/components/Button';
 
 ### Configuration
 
-In the project's root file
+* For the project to be able to migrate little by little, we individually implemented ThemeProvider above all the components so as not to overwrite the current project theme.
+
+In the project's root file (optional)
 
 ```
 import ThemeProvider from '@eduzz/houston/components/ThemeProvider';
@@ -43,3 +45,4 @@ import ThemeProvider from '@eduzz/houston/components/ThemeProvider';
 | Checkount Sun    | sun       |
 | Telescope        | telescope |
 | Alumy            | alumy     |
+| Custom Pallete   | custom    |

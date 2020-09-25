@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
+import { ThemeProvider as ThemeProviderMUI, Theme, ThemeProviderProps } from '@material-ui/core/styles';
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
 import ContextTheme from './context';
-import generateCustom from './custom';
+import generateCustomTheme from './custom';
 
 export type IThemeProviderApplications = 'select' | 'orbita' | 'blinket' | 'custom';
 
@@ -13,6 +13,9 @@ interface IThemeProviderProps extends Partial<ThemeProviderProps> {
    * Application theme
    */
   application: IThemeProviderApplications;
+  /**
+   * Custom pallete colors
+   */
   paletteOptions?: PaletteOptions;
 }
 
@@ -24,7 +27,7 @@ function ThemeProvider(props: IThemeProviderProps) {
 
   React.useEffect(() => {
     if (application === 'custom') {
-      setTheme(generateCustom(paletteOptions));
+      setTheme(generateCustomTheme(paletteOptions));
       setLoading(false);
       return;
     }
@@ -37,7 +40,11 @@ function ThemeProvider(props: IThemeProviderProps) {
 
   if (loading) return null;
 
-  return <ContextTheme value={theme}>{children}</ContextTheme>;
+  return (
+    <ThemeProviderMUI theme={theme}>
+      <ContextTheme value={theme}>{children}</ContextTheme>
+    </ThemeProviderMUI>
+  );
 }
 
 export default ThemeProvider;

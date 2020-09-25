@@ -38,14 +38,14 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =>
     children,
     style,
     onClick,
-    disabled,
+    disabled = false,
     startIcon,
     type,
     href,
     endIcon,
     fullWidth,
     id,
-    loading
+    loading = false
   } = props;
 
   const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id, loading };
@@ -61,7 +61,8 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =>
     <ThemeProvider theme={theme}>
       <ButtonMUI
         {...buttonProps}
-        startIcon={loading ? <CircularProgress /> : startIcon}
+        disabled={loading ? loading : disabled}
+        startIcon={loading ? <CircularProgress size={18} color='inherit' /> : startIcon}
         variant={variant}
         color='primary'
         ref={ref}
