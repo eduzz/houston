@@ -16,7 +16,7 @@
     "**/obj/**": true,
     "node_modules": true,
     "**/**/*.js": false,
-    "**/**/*.d.ts": true
+    // "**/**/*.d.ts": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescriptHero.imports.multiLineTrailingComma": false,

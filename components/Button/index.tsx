@@ -26,7 +26,7 @@ interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
    * `secondary` button outlined
    * `text` button text
    */
-  type: 'primary' | 'secondary' | 'text';
+  type?: 'primary' | 'secondary' | 'text';
   loading?: boolean;
 }
 
@@ -40,15 +40,15 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =>
     onClick,
     disabled = false,
     startIcon,
-    type,
+    type = 'primary',
     href,
     endIcon,
-    fullWidth,
+    fullWidth = false,
     id,
     loading = false
   } = props;
 
-  const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id, loading };
+  const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id };
 
   const variantMap = {
     primary: 'contained',
@@ -61,8 +61,9 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =>
     <ThemeProvider theme={theme}>
       <ButtonMUI
         {...buttonProps}
-        disabled={loading ? loading : disabled}
+        disabled={disabled || loading ? true : false}
         startIcon={loading ? <CircularProgress size={18} color='inherit' /> : startIcon}
+        endIcon={loading ? null : endIcon}
         variant={variant}
         color='primary'
         ref={ref}
