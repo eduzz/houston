@@ -22,6 +22,8 @@ import { Button } from '@eduzz/houston';
 
 ### Configuration
 
+*** This Provider will not temporarily replace the current theme of the project, it will only style Houston's components according to the application. Enabling the migration of components gradually. ***
+
 In the project's root file
 
 ```
