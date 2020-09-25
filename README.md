@@ -11,13 +11,13 @@ $ yarn add @eduzz/houston
 ### Use
 
 ```
-import { Button } from '@eduzz/houston';
+import Button from '@eduzz/houston/components/Button'; (recommended)
 ```
 
 or
 
 ```
-import Button from '@eduzz/houston/components/Button';
+import { Button } from '@eduzz/houston';
 ```
 
 ### Configuration
@@ -34,7 +34,7 @@ import ThemeProvider from '@eduzz/houston/components/ThemeProvider';
 </ThemeProvider>
 ```
 
-| Applications     | value     | done          |
+| application     | value     | done          |
 | ---------------- | --------- | ------------- |
 | Select Afiliados | select    | true          |
 | Órbita           | orbita    | false         |
