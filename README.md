@@ -2,6 +2,8 @@
 
 <img src="docs/assets/welcome.svg" width="100%" />
 
+[![version](https://img.shields.io/npm/v/@eduzz/houston?color=%23E3F2FF)](https://www.npmjs.com/package/@eduzz/houston)
+
 ### Installation
 
 ```
