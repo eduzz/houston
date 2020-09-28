@@ -24,7 +24,7 @@
     "max-lines": ["error", 300],
     "max-len": [
       "warn",
-      120,
+      125,
       2,
       {
         "ignorePattern": "^(import|export)",
