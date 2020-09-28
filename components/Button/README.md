@@ -27,11 +27,11 @@ import { Button } from '@eduzz/houston';
 | className | `string` | false | - |
 | style | `React.CSSProperties` | false | - |
 | onClick | `(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void` | false | - |
-| disabled | `boolean` | false | false |
+| disabled | `boolean` | false | `false` |
 | startIcon | `React.Node` | false | - |
-| type | `primary`, `secondary`, `text` | false | primary |
+| type | `primary`, `secondary`, `text` | false | `primary` |
 | href | `string` | false | - |
 | endIcon | `React.Node` | false | - |
-| fullWidth | `boolean` | false | false |
+| fullWidth | `boolean` | false | `false` |
 | id | `string` | false | - |
-| loading | `boolean` | false | false |
+| loading | `boolean` | false | `false` |
