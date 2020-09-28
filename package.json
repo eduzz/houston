@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston",
   "description": "Eduzz Components UI",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
