@@ -4,7 +4,7 @@
 
 [![version](https://img.shields.io/npm/v/@eduzz/houston?color=%23E3F2FF)](https://www.npmjs.com/package/@eduzz/houston)
 [![size](https://img.shields.io/bundlephobia/min/@eduzz/houston?color=%23E3F2FF)](https://www.npmjs.com/package/@eduzz/houston)
-[![commits](https://img.shields.io/github/last-commit/eduzz/houston?color=%23E3F2FF)](https://github.com/eduzz/houston/commits)
+[![version](https://img.shields.io/github/last-commit/eduzz/houston?color=%23E3F2FF)](https://github.com/eduzz/houston/commits)
 
 ### Installation
 
