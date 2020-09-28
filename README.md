@@ -34,15 +34,15 @@ import ThemeProvider from '@eduzz/houston/components/ThemeProvider';
 </ThemeProvider>
 ```
 
-| application      | value     | done          |
-| ---------------- | --------- | ------------- |
-| Select Afiliados | select    | true          |
-| Órbita           | orbita    | false         |
-| Jobzz            | jobzz     | false         |
-| Blinket          | blinket   | false         |
-| Safe Vídeo       | safevideo | false         |
-| Nutror           | nutror    | false         |
-| Checkount Sun    | sun       | false         |
-| Telescope        | telescope | false         |
-| Alumy            | alumy     | false         |
-| Custom Pallete   | custom    | false         |
+| application      | value       | done          |
+| ---------------- | ----------- | ------------- |
+| Select Afiliados | `select`    | true          |
+| Órbita           | `orbita`    | false         |
+| Jobzz            | `jobzz`     | false         |
+| Blinket          | `blinket`   | false         |
+| Safe Vídeo       | `safevideo` | false         |
+| Nutror           | `nutror`    | false         |
+| Checkount Sun    | `sun`       | false         |
+| Telescope        | `telescope` | false         |
+| Alumy            | `alumy`     | false         |
+| Custom Pallete   | `custom`    | false         |
