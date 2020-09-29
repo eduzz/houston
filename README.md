@@ -49,4 +49,5 @@ import ThemeProvider from '@eduzz/houston/components/ThemeProvider';
 | Checkount Sun    | `sun`       | false         |
 | Telescope        | `telescope` | false         |
 | Alumy            | `alumy`     | false         |
+| Backoffice       | `backoffice`| false         |
 | Custom Pallete   | `custom`    | false         |
