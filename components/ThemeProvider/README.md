@@ -24,4 +24,4 @@ In the project's root file
 
 | prop | type | required | default |
 | ---- | ---- | -------- | ------- |
-| application | `select`, `orbita`, `jobzz`, `blinket`, `safevideo`, `nutror`, `sun`, `telescope`, `alumy`, `custom` | true | - |
+| application | `select`, `orbita`, `jobzz`, `blinket`, `safevideo`, `nutror`, `sun`, `telescope`, `alumy`, `backoffice`, `custom` | true | - |

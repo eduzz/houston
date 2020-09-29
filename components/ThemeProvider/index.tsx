@@ -6,7 +6,7 @@ import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 import ContextTheme from './context';
 import generateCustomTheme from './custom';
 
-export type IThemeProviderApplications = 'select' | 'orbita' | 'blinket' | 'custom';
+export type IThemeProviderApplications = 'select' | 'orbita' | 'blinket' | 'backoffice' | 'custom';
 
 interface IThemeProviderProps extends Partial<ThemeProviderProps> {
   /**
