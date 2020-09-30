@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston",
   "description": "Eduzz Components UI",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -36,6 +36,7 @@
   },
   "peerDependencies": {
     "@material-ui/core": ">=4",
+    "@material-ui/lab": ">=4",
     "@material-ui/styles": ">=4",
     "react": ">=16.8.0"
   },
