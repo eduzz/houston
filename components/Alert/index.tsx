@@ -18,7 +18,7 @@ interface IActions extends Omit<IButtonProps, 'onClick' | 'children'> {
 interface IAlertProps extends Pick<AlertProps, AlertPropsExtends> {
   type?: Color;
   title?: React.ReactNode;
-  closabled?: boolean;
+  closable?: boolean;
   actions?: IActions[];
 }
 
@@ -41,7 +41,7 @@ const Alert = React.forwardRef<HTMLDivElement, IAlertProps>((props, ref) => {
 
   const [hide, setHide] = React.useState<boolean>(false);
 
-  const { id, className, children, style, type = 'success', icon, title, onClose, actions, closabled } = props;
+  const { id, className, children, style, type = 'success', icon, title, onClose, actions, closable } = props;
   const alertProps = { id, className, style, severity: type, icon, onClose };
 
   const handleClickHide = React.useCallback(() => setHide(true), []);
@@ -52,7 +52,7 @@ const Alert = React.forwardRef<HTMLDivElement, IAlertProps>((props, ref) => {
         <AlertMUI
           {...alertProps}
           ref={ref}
-          onClose={closabled ? handleClickHide : onClose}
+          onClose={closable ? handleClickHide : onClose}
           action={
             actions?.length ? (
               <div className={classes.controlButtons}>
