@@ -27,7 +27,7 @@ import { Alert } from '@eduzz/houston';
 | style | `React.CSSProperties` | false | - | - |
 | type | `success`, `info`, `warning`, `error` | false | `success` | - |
 | onClose | `(event: React.SyntheticEvent) => void` | false | - | - |
-| icon | `React.ReactNode`, `false` | false | - | If `false`, the icon will be hidden. |
+| icon | `React.ReactNode`, `false` | false | `type` icon | If `false`, the icon will be hidden. |
 | title | `React.ReactNode` | false | - | - |
 | closabled | `boolean` | false | false | If true, the component controls the state itself. |
 | actions | `IActions[]` | false | [] | - |
