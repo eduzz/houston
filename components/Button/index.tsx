@@ -18,7 +18,9 @@ type ButtonPropsExtends =
   | 'children'
   | 'fullWidth';
 
-interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
+export type IButtonType = 'primary' | 'secondary' | 'text';
+
+export interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
   /**
    * Use case
    *
@@ -26,7 +28,7 @@ interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
    * `secondary` button outlined
    * `text` button text
    */
-  type?: 'primary' | 'secondary' | 'text';
+  type?: IButtonType;
   loading?: boolean;
 }
 

@@ -15,10 +15,10 @@
     "**/bin/**": true,
     "**/obj/**": true,
     "node_modules": true,
-    "**/**/*.js": false,
-    // "**/**/*.d.ts": true
+    "**/**/*.js": true,
+    "**/**/*.d.ts": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk": "/Users/fernandomoraes/Desktop/eduzz/houston/node_modules/typescript/lib",
   "typescriptHero.imports.multiLineTrailingComma": false,
   "typescriptHero.imports.organizeOnSave": false,
   "editor.codeActionsOnSave": {

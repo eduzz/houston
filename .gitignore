@@ -18,3 +18,5 @@ yarn-error.log*
 *.js
 *.d.ts
 *.map
+
+!mui.d.ts
