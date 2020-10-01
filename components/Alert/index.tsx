@@ -35,7 +35,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const Alert = React.forwardRef<HTMLButtonElement, IAlertProps>((props, ref) => {
+const Alert = React.forwardRef<HTMLDivElement, IAlertProps>((props, ref) => {
   const theme = useTheme();
   const classes = useStyles();
 
