@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import Collapse from '@material-ui/core/Collapse';
-import { createStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import AlertMUI, { AlertProps, Color } from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 
 import Button, { IButtonProps } from '../Button';
-import { useTheme } from '../ThemeProvider/context';
+import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
 type AlertPropsExtends = 'id' | 'className' | 'style' | 'children' | 'severity' | 'onClose' | 'icon';
 
@@ -36,7 +36,6 @@ const useStyles = makeStyles(() =>
 );
 
 const Alert = React.forwardRef<HTMLDivElement, IAlertProps>((props, ref) => {
-  const theme = useTheme();
   const classes = useStyles();
 
   const [hide, setHide] = React.useState<boolean>(false);
@@ -47,7 +46,7 @@ const Alert = React.forwardRef<HTMLDivElement, IAlertProps>((props, ref) => {
   const handleClickHide = React.useCallback(() => setHide(true), []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <WrapperTheme>
       <Collapse in={!hide} timeout={500}>
         <AlertMUI
           {...alertProps}
@@ -74,7 +73,7 @@ const Alert = React.forwardRef<HTMLDivElement, IAlertProps>((props, ref) => {
           {children}
         </AlertMUI>
       </Collapse>
-    </ThemeProvider>
+    </WrapperTheme>
   );
 });
 
