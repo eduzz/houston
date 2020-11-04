@@ -2,3 +2,4 @@
 node_modules
 .git
 *.log
+packages/ui-components/.ultra.cache.json

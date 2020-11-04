@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig.dev.json",
   "compilerOptions": {
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "jsx": "react",
+    "noFallthroughCasesInSwitch": true
   }
 }

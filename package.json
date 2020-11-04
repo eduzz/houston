@@ -6,7 +6,9 @@
     "dev"
   ],
   "scripts": {
-    "start": "yarn workspaces run -j 4 -pt start"
+    "build": "yarn ultra -r build",
+    "prestart": "yarn build",
+    "start": "yarn ultra -r start"
   },
   "husky": {
     "hooks": {

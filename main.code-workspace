@@ -5,15 +5,18 @@
 			"path": "."
 		},
 		{
-			"path": "./packages/ui-components"
-		},
-		{
 			"path": "./dev"
 		},
 		{
+			"name": "@eduzz/houston-ui",
+			"path": "./packages/ui-components"
+		},
+		{
+			"name": "@eduzz/eslint-config-houston",
 			"path": "./packages/eslint-config"
 		},
 		{
+			"name": "@eduzz/houston",
 			"path": "./packages/bundle"
 		}
 	],

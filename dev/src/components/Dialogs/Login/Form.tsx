@@ -1,11 +1,12 @@
 import React, { memo, MouseEvent } from 'react';
 
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+
+import Button from '@eduzz/houston-ui/Button';
 
 import TextField from 'components/Shared/Fields/Text';
 import { logError } from 'helpers/rxjs-operators/logError';
@@ -51,12 +52,10 @@ const LoginDialogForm = memo((props: IProps) => {
         </CardContent>
 
         <CardActions className={classes.buttons}>
-          <Button disabled={formik.isSubmitting} size='small' onClick={props.onRecoveryAccess}>
+          <Button disabled={formik.isSubmitting} onClick={props.onRecoveryAccess}>
             Recuperar Acesso
           </Button>
-          <Button disabled={formik.isSubmitting} color='primary' type='submit'>
-            Entrar
-          </Button>
+          <Button disabled={formik.isSubmitting}>Entrar</Button>
         </CardActions>
 
         {formik.isSubmitting && <LinearProgress color='primary' />}
