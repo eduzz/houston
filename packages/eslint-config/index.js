@@ -55,6 +55,7 @@ module.exports = {
         'groups': [
           '/^react/',
           '/^@material-ui/',
+          '/^@eduzz/',
           'module',
           ['parent', 'sibling', 'index']
         ],

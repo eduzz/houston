@@ -1,7 +1,25 @@
 {
   "private": true,
-  "name": "@eduzz/houston",
+  "name": "@eduzz/houston-workspaces",
   "workspaces": [
-    "packages/*"
-  ]
+    "packages/*",
+    "dev"
+  ],
+  "scripts": {
+    "start": "yarn workspaces run -j 4 -pt start"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn workspaces run -pt pre-commit"
+    }
+  },
+  "devDependencies": {
+    "husky": "4.3.0",
+    "ultra-runner": "3.5.0"
+  },
+  "ultra": {
+    "concurrent": [
+      "pre-commit"
+    ]
+  }
 }

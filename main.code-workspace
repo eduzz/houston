@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"name": "all",
+			"path": "."
+		},
+		{
+			"path": "./packages/ui-components"
+		},
+		{
+			"path": "./dev"
+		},
+		{
+			"path": "./packages/eslint-config"
+		},
+		{
+			"path": "./packages/bundle"
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "/Users/fernandomoraes/Desktop/eduzz/houston/node_modules/typescript/lib"
+	}
+}

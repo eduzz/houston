@@ -16,34 +16,30 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "scripts": {
+    "start": "yarn tsc -w --preserveWatchOutput",
     "clean": "git add . && git clean -f -x",
     "build": "yarn clean && tsc -p .",
     "prepare": "yarn build",
-    "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\""
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "concurrently -r \"yarn lint\"",
-      "post-merge": "yarn"
-    }
+    "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\"",
+    "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc --noEmit\"",
+    "post-merge": "yarn"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
+    "@material-ui/core": "4",
     "@material-ui/lab": "^4.0.0-alpha.56",
-    "@material-ui/styles": "^4.10.0",
+    "@material-ui/styles": "4",
     "react": "^16.13.1"
   },
   "peerDependencies": {
-    "@material-ui/core": ">=4",
-    "@material-ui/lab": ">=4",
-    "@material-ui/styles": ">=4",
-    "react": ">=16.8.0"
+    "@material-ui/core": "4",
+    "@material-ui/lab": "4",
+    "@material-ui/styles": "4",
+    "react": ">=16.8"
   },
   "devDependencies": {
     "@types/react": "16.9.55",
     "concurrently": "5.3.0",
     "@eduzz/eslint-config-houston": "*",
-    "husky": "4.3.0",
     "typescript": "4.0.5"
   }
 }

@@ -24,12 +24,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "./*.tsx",
-    "./*.ts",
-    "./*.d.ts",
-    "./components/**/*.ts",
-    "./components/**/*.tsx",
-    "./components/**/*.d.ts"
+    "./**/*.tsx",
+    "./**/*.ts"
   ],
   "exclude": [
     "node_modules",
