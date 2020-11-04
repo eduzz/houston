@@ -1,58 +1,7 @@
 {
+  "private": true,
   "name": "@eduzz/houston",
-  "description": "Eduzz Components UI",
-  "version": "0.0.48",
-  "main": "./index.js",
-  "types": "./index.d.ts",
-  "author": "Eduzz Team",
-  "license": "MIT",
-  "private": false,
-  "homepage": "https://github.com/eduzz/houston",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/eduzz/houston"
-  },
-  "bugs": {
-    "url": "https://github.com/eduzz/houston/issues"
-  },
-  "scripts": {
-    "clean": "git clean -f -x",
-    "build": "yarn clean && tsc -p .",
-    "prepare": "yarn build",
-    "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\""
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "concurrently -r \"yarn lint\"",
-      "post-merge": "yarn"
-    }
-  },
-  "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "@material-ui/styles": "^4.10.0",
-    "react": "^16.13.1"
-  },
-  "peerDependencies": {
-    "@material-ui/core": ">=4",
-    "@material-ui/lab": ">=4",
-    "@material-ui/styles": ">=4",
-    "react": ">=16.8.0"
-  },
-  "devDependencies": {
-    "@types/react": "16.9.55",
-    "@typescript-eslint/eslint-plugin": "4.6.0",
-    "@typescript-eslint/parser": "4.6.0",
-    "concurrently": "5.3.0",
-    "eslint": "7.12.1",
-    "eslint-config-prettier": "6.15.0",
-    "eslint-plugin-import-helpers": "1.1.0",
-    "eslint-plugin-prettier": "3.1.4",
-    "eslint-plugin-react": "7.21.5",
-    "eslint-plugin-react-hooks": "4.2.0",
-    "eslint-plugin-unused-imports": "1.0.0",
-    "husky": "4.3.0",
-    "prettier": "2.1.2",
-    "typescript": "4.0.5"
-  }
+  "workspaces": [
+    "@eduzz/houston-ui"
+  ]
 }
