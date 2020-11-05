@@ -8,6 +8,9 @@
 			"path": "./dev"
 		},
 		{
+			"path": "./docs"
+		},
+		{
 			"name": "@eduzz/houston-ui",
 			"path": "./packages/ui-components"
 		},
