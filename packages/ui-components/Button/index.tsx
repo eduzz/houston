@@ -20,9 +20,10 @@ type ButtonPropsExtends =
   | 'href'
   | 'endIcon'
   | 'children'
+  | 'type'
   | 'fullWidth';
 
-export type IButtonType = 'primary' | 'secondary' | 'text';
+export type IButtonVariant = 'primary' | 'secondary' | 'text';
 
 export interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
   /**
@@ -32,28 +33,22 @@ export interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
    * `secondary` button outlined
    * `text` button text
    */
-  type?: IButtonType;
+  variant?: IButtonVariant;
   loading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
   const {
-    className,
     children,
-    style,
-    onClick,
     disabled = false,
     startIcon,
-    type = 'primary',
-    href,
+    variant: variantProp = 'primary',
     endIcon,
-    fullWidth = false,
-    id,
-    loading = false
+    loading = false,
+    ...buttonProps
   } = props;
 
-  const buttonProps = { className, style, onClick, disabled, startIcon, href, endIcon, fullWidth, id };
-  const variant = variantMap[type] || 'text';
+  const variant = variantMap[variantProp] || 'text';
 
   return (
     <WrapperTheme>
