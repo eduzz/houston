@@ -1,0 +1,31 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "files.exclude": {
+    "**/*.lock.json": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.tmp": true,
+    "**/bin/**": true,
+    "**/obj/**": true,
+    "node_modules": true,
+    "**/**/*.js": {
+      "when": "$(basename).ts"
+    },
+    "**/**/**.js": {
+      "when": "$(basename).tsx"
+    },
+    "**/**/*.d.ts": true
+  },
+  "typescript.tsdk": "/Users/fernandomoraes/Desktop/eduzz/houston/node_modules/typescript/lib",
+  "typescriptHero.imports.multiLineTrailingComma": false,
+  "typescriptHero.imports.organizeOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
