@@ -52,10 +52,12 @@ const LoginDialogForm = memo((props: IProps) => {
         </CardContent>
 
         <CardActions className={classes.buttons}>
-          <Button disabled={formik.isSubmitting} onClick={props.onRecoveryAccess}>
+          <Button disabled={formik.isSubmitting} variant='text' onClick={props.onRecoveryAccess}>
             Recuperar Acesso
           </Button>
-          <Button disabled={formik.isSubmitting}>Entrar</Button>
+          <Button type='submit' disabled={formik.isSubmitting}>
+            Entrar
+          </Button>
         </CardActions>
 
         {formik.isSubmitting && <LinearProgress color='primary' />}
