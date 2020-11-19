@@ -6,8 +6,9 @@ import Hidden from '@material-ui/core/Hidden';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import withWidth, { WithWidth } from '@material-ui/core/withWidth';
 
-import clsx from 'clsx';
 import MoreIcon from 'mdi-react/MoreIcon';
+
+import clsx from 'clsx';
 
 import Content from './Content';
 import { DrawerContext } from './context';
@@ -26,17 +27,16 @@ interface IProps extends RouteComponentProps<{}>, Props<{}>, WithWidth {
 
 const useStyle = makeStyles(theme => ({
   drawer: {
-    width: theme.variables.drawerWidthFull,
+    width: 240,
     borderRight: 'none !important',
-    boxShadow: `${theme.variables.boxShadow} !important`,
     [theme.breakpoints.up('md')]: {
-      width: theme.variables.drawerWidthFull,
+      width: 240,
       position: 'relative',
       height: '100vh'
     }
   },
   drawerFull: {
-    width: theme.variables.drawerWidthFull,
+    width: 240,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
@@ -48,7 +48,7 @@ const useStyle = makeStyles(theme => ({
       duration: theme.transitions.duration.leavingScreen
     }),
     overflowX: 'hidden',
-    width: theme.variables.drawerWidthMini
+    width: 55
   }
 }));
 

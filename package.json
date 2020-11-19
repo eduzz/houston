@@ -6,7 +6,7 @@
     "dev"
   ],
   "scripts": {
-    "build": "yarn ultra -r build",
+    "build": "yarn ultra -r -b build",
     "prestart": "yarn build",
     "start": "yarn ultra -r start"
   },

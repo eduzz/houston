@@ -11,7 +11,6 @@ import { darken } from '@material-ui/core/styles/colorManipulator';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import PermissionHide from 'components/Shared/PermissionHide';
 import ExpandMoreIcon from 'mdi-react/ExpandMoreIcon';
 
 import { IMenu } from '..';
@@ -79,53 +78,49 @@ const DrawerListItem = memo((props: IProps) => {
 
   if (!props.data.submenu || !props.data.submenu.length) {
     return (
-      <PermissionHide>
-        <ListItem button disableGutters className={classes.item} onClick={handleClick}>
-          {!!props.data.icon && (
-            <Tooltip
-              title={props.data.display}
-              placement='right'
-              arrow
-              disableHoverListener={context.isTemporary || context.isFull}
-            >
-              <ListItemIcon className={classes.icon} classes={{ root: classes.text }}>
-                <props.data.icon />
-              </ListItemIcon>
-            </Tooltip>
-          )}
-          <ListItemText primary={props.data.display} classes={{ primary: classes.text }} />
-        </ListItem>
-      </PermissionHide>
+      <ListItem button disableGutters className={classes.item} onClick={handleClick}>
+        {!!props.data.icon && (
+          <Tooltip
+            title={props.data.display}
+            placement='right'
+            arrow
+            disableHoverListener={context.isTemporary || context.isFull}
+          >
+            <ListItemIcon className={classes.icon} classes={{ root: classes.text }}>
+              <props.data.icon />
+            </ListItemIcon>
+          </Tooltip>
+        )}
+        <ListItemText primary={props.data.display} classes={{ primary: classes.text }} />
+      </ListItem>
     );
   }
 
   return (
-    <PermissionHide>
-      <ExpansionPanel
-        expanded={expanded}
-        onChange={handleExandedClick}
-        className={`${classes.expandablePanel} ${expanded ? 'active' : ''}`}
+    <ExpansionPanel
+      expanded={expanded}
+      onChange={handleExandedClick}
+      className={`${classes.expandablePanel} ${expanded ? 'active' : ''}`}
+    >
+      <ExpansionPanelSummary
+        className={classes.expandableTitle}
+        expandIcon={<ExpandMoreIcon className={classes.icon} />}
       >
-        <ExpansionPanelSummary
-          className={classes.expandableTitle}
-          expandIcon={<ExpandMoreIcon className={classes.icon} />}
-        >
-          {!!props.data.icon && (
-            <ListItemIcon className={classes.icon} classes={{ root: classes.text }}>
-              <props.data.icon />
-            </ListItemIcon>
-          )}
-          <ListItemText primary={props.data.display} classes={{ primary: classes.text }} />
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.expandableDetails}>
-          <List className={classes.innerList}>
-            {props.data.submenu.map(sub => (
-              <DrawerListItem key={sub.path} data={sub} onClick={handleSubClick} />
-            ))}
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </PermissionHide>
+        {!!props.data.icon && (
+          <ListItemIcon className={classes.icon} classes={{ root: classes.text }}>
+            <props.data.icon />
+          </ListItemIcon>
+        )}
+        <ListItemText primary={props.data.display} classes={{ primary: classes.text }} />
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails className={classes.expandableDetails}>
+        <List className={classes.innerList}>
+          {props.data.submenu.map(sub => (
+            <DrawerListItem key={sub.path} data={sub} onClick={handleSubClick} />
+          ))}
+        </List>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   );
 });
 

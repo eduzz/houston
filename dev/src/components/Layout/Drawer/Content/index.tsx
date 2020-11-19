@@ -26,7 +26,7 @@ const useStyle = makeStyles(theme => ({
     textAlign: 'center'
   },
   headerLogo: {
-    minHeight: theme.variables.headerHeight - 11
+    minHeight: 67 - 11
   },
   logo: {
     maxWidth: 'calc(100% - 10px)',

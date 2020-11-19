@@ -3,6 +3,7 @@
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
+    "noFallthroughCasesInSwitch": false,
     "experimentalDecorators": true,
     "lib": [
       "es2017",

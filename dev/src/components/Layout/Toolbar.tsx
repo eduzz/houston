@@ -1,4 +1,4 @@
-import React, { memo, Props, useCallback, useContext } from 'react';
+import React, { memo, useCallback, useContext } from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
@@ -7,24 +7,25 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import CoreToolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-import clsx from 'clsx';
 import MenuIcon from 'mdi-react/MenuIcon';
 
-import { DrawerContext } from './Drawer/context';
-import UserMenu from './UserMenu';
+import clsx from 'clsx';
 
-interface IProps extends Props<{}> {
+import { DrawerContext } from './Drawer/context';
+
+interface IProps {
   title?: string;
+  children?: React.ReactNode;
 }
 
 const useStyle = makeStyles(theme => ({
   root: {
-    height: theme.variables.headerHeight,
-    marginTop: theme.variables.contentPadding * -1,
-    marginBottom: theme.variables.contentPadding,
+    height: 67,
+    marginTop: 12 * -1,
+    marginBottom: 12,
     [theme.breakpoints.up('sm')]: {
-      marginTop: theme.variables.contentPaddingUpSm * -1,
-      marginBottom: theme.variables.contentPaddingUpSm
+      marginTop: 24 * -1,
+      marginBottom: 24
     }
   },
   appBar: {
@@ -38,11 +39,11 @@ const useStyle = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       backgroundColor: theme.palette.type === 'light' ? 'white' : null,
       color: theme.palette.type === 'light' ? theme.palette.text.primary : null,
-      width: `calc(100% - ${theme.variables.drawerWidthFull}px)`
+      width: 'calc(100% - 240px)'
     }
   },
   appBarDrawerMini: {
-    width: `calc(100% - ${theme.variables.drawerWidthMini}px)`
+    width: 'calc(100% - 55px)'
   },
   iconMenu: {
     marginLeft: '-15px'
@@ -75,9 +76,6 @@ const Toolbar = memo((props: IProps) => {
                 <Typography variant='h6' color='inherit' noWrap>
                   {props.title || 'App'}
                 </Typography>
-              </Grid>
-              <Grid item xs={false}>
-                <UserMenu />
               </Grid>
             </Grid>
           )}

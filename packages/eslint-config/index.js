@@ -56,6 +56,7 @@ module.exports = {
           '/^react/',
           '/^@material-ui/',
           '/^@eduzz/',
+          '/^mdi-react/',
           'module',
           ['parent', 'sibling', 'index']
         ],
