@@ -1,6 +1,9 @@
 import { StyleRules } from '@material-ui/core/styles';
+import { Palette } from '@material-ui/core/styles/createPalette';
 import { Overrides } from '@material-ui/core/styles/overrides';
 import { LabComponentNameToClassKey } from '@material-ui/lab/themeAugmentation';
+
+import themeVariable from './variables';
 
 export type LabOverrides = {
   [Name in keyof LabComponentNameToClassKey]?: Partial<StyleRules<LabComponentNameToClassKey[Name]>>;
@@ -8,161 +11,130 @@ export type LabOverrides = {
 
 interface ICustomOverrides extends Partial<Overrides>, Partial<LabOverrides> {}
 
-const overrides: ICustomOverrides = {
-  MuiButton: {
-    root: {
-      textTransform: 'none',
-      padding: '0px 16px',
-      height: 40,
-      borderRadius: 4,
-      fontWeight: 600
-    },
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function overrides(pallet: Palette): ICustomOverrides {
+  return {
+    MuiButton: {
+      root: {
+        textTransform: 'none',
+        padding: '10px 16px',
+        height: 40,
+        borderRadius: themeVariable.radius(),
+        fontWeight: 600,
 
-    label: {
-      lineHeight: 1.25
-    },
+        '&+button': {
+          marginLeft: themeVariable.spacing()
+        },
 
-    sizeSmall: {
-      height: 30
-    },
+        '&:before': {
+          content: '" "',
+          position: 'absolute',
+          left: -4,
+          right: -4,
+          top: -4,
+          bottom: -4,
+          border: '2px solid transparent',
+          transition: '0.3s',
+          borderRadius: themeVariable.radius(2)
+        },
 
-    sizeLarge: {
-      height: 50
-    },
+        '&:focus:not(:active):not(:hover):before': {
+          borderColor: themeVariable.colors.focusLine
+        }
+      },
 
-    startIcon: {
-      marginRight: 8
-    },
+      label: {
+        lineHeight: 1.5,
+        fontSize: '0.85rem'
+      },
 
-    contained: {
-      padding: '0px 16px',
+      sizeSmall: {
+        height: 30
+      },
 
-      '&$disabled': {
-        color: '#546E7A !important',
-        backgroundColor: '#B0BEC5'
+      sizeLarge: {
+        height: 50
+      },
+
+      startIcon: {
+        marginRight: 8
+      },
+
+      containedPrimary: {
+        '&:hover': {
+          backgroundColor: pallet.primary.light
+        },
+        '&:active': {
+          backgroundColor: pallet.primary.dark
+        },
+        '&$disabled': {
+          color: pallet.grey[500],
+          backgroundColor: pallet.grey[300]
+        }
+      },
+
+      outlinedPrimary: {
+        borderColor: pallet.primary.lighter,
+        '&:before': {
+          left: -5,
+          right: -5,
+          top: -5,
+          bottom: -5
+        },
+        '&:hover': {
+          backgroundColor: 'transparent'
+        },
+        '&:active': {
+          borderColor: pallet.primary.dark,
+          color: pallet.primary.dark
+        },
+        '&$disabled': {
+          color: pallet.grey[300],
+          borderColor: pallet.grey[300]
+        }
+      },
+
+      text: {
+        '&$disabled': {
+          color: pallet.grey[300]
+        }
       }
     },
 
-    outlined: {
-      padding: '0px 16px',
-
-      '&$disabled': {
-        color: '#B0BEC5',
-        borderColor: '#B0BEC5'
+    MuiAlertTitle: {
+      root: {
+        fontWeight: 600
       }
     },
 
-    text: {
-      padding: '0px 16px',
+    MuiAlert: {
+      root: {
+        borderRadius: 4
+      },
 
-      '&$disabled': {
-        color: '#B0BEC5'
+      icon: {
+        alignItems: 'center'
+      },
+
+      message: {
+        fontWeight: 600
+      },
+
+      standardSuccess: {
+        backgroundColor: '#D2EBD3'
+      },
+
+      standardError: {
+        backgroundColor: '#FDD9D7'
+      },
+
+      standardInfo: {
+        backgroundColor: '#CDEBFA'
+      },
+
+      standardWarning: {
+        backgroundColor: '#FFF4D4'
       }
     }
-  },
-
-  MuiTypography: {
-    root: {
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    body1: {
-      fontSize: 16,
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    body2: {
-      fontSize: 14,
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    h1: {
-      fontSize: 32,
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    h2: {
-      fontSize: 24,
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    h3: {
-      fontSize: 20,
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    h4: {
-      fontSize: 16,
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    h5: {
-      fontSize: 14,
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    h6: {
-      fontSize: 12,
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    subtitle1: {
-      fontSize: 14,
-      lineHeight: 1.5,
-      fontWeight: 400
-    },
-
-    subtitle2: {
-      fontSize: 12,
-      lineHeight: 1.5,
-      fontWeight: 400
-    }
-  },
-
-  MuiAlertTitle: {
-    root: {
-      fontWeight: 600
-    }
-  },
-
-  MuiAlert: {
-    root: {
-      borderRadius: 4
-    },
-
-    icon: {
-      alignItems: 'center'
-    },
-
-    message: {
-      fontWeight: 600
-    },
-
-    standardSuccess: {
-      backgroundColor: '#D2EBD3'
-    },
-
-    standardError: {
-      backgroundColor: '#FDD9D7'
-    },
-
-    standardInfo: {
-      backgroundColor: '#CDEBFA'
-    },
-
-    standardWarning: {
-      backgroundColor: '#FFF4D4'
-    }
-  }
-};
-
-export default overrides;
+  };
+}

@@ -1,5 +1,17 @@
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
+declare module '@material-ui/core/styles/createPalette' {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  export interface SimplePaletteColorOptions {
+    lighter?: string;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  export interface PaletteColor {
+    lighter?: string;
+  }
+}
+
 const palette: PaletteOptions = {
   grey: {
     300: '#B0BEC5',

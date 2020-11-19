@@ -25,6 +25,13 @@ function ThemeProvider(props: IThemeProviderProps) {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [theme, setTheme] = React.useState<Theme>(null);
 
+  const styleContent = React.useMemo(
+    () => ({
+      __html: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');"
+    }),
+    []
+  );
+
   React.useEffect(() => {
     if (application === 'custom') {
       setTheme(generateCustomTheme(paletteOptions));
@@ -40,7 +47,12 @@ function ThemeProvider(props: IThemeProviderProps) {
 
   if (loading) return null;
 
-  return <ContextTheme value={theme}>{children}</ContextTheme>;
+  return (
+    <React.Fragment>
+      <style dangerouslySetInnerHTML={styleContent} />
+      <ContextTheme value={theme}>{children}</ContextTheme>
+    </React.Fragment>
+  );
 }
 
 export default ThemeProvider;
