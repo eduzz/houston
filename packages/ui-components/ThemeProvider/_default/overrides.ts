@@ -22,10 +22,6 @@ export default function overrides(pallet: Palette): ICustomOverrides {
         borderRadius: themeVariable.radius(),
         fontWeight: 600,
 
-        '&+button': {
-          marginLeft: themeVariable.spacing()
-        },
-
         '&:before': {
           content: '" "',
           position: 'absolute',
@@ -45,7 +41,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
       label: {
         lineHeight: 1.5,
-        fontSize: '0.85rem'
+        fontSize: themeVariable.textSize('small')
       },
 
       sizeSmall: {
@@ -98,6 +94,50 @@ export default function overrides(pallet: Palette): ICustomOverrides {
         '&$disabled': {
           color: pallet.grey[300]
         }
+      }
+    },
+
+    MuiOutlinedInput: {
+      input: {
+        height: 45,
+        boxSizing: 'border-box',
+        fontSize: themeVariable.textSize(),
+        padding: `${themeVariable.spacing(3)}px ${themeVariable.spacing(4)}px`,
+        '&$disabled': {
+          backgroundColor: pallet.grey['100']
+        }
+      },
+      inputMultiline: {
+        minHeight: 96
+      }
+    },
+
+    MuiFormHelperText: {
+      root: {
+        fontSize: themeVariable.textSize('x-small')
+      },
+      contained: {
+        marginLeft: 2,
+        marginRight: 0
+      }
+    },
+
+    MuiFormControl: {
+      marginNormal: {
+        marginTop: 0,
+        marginBottom: themeVariable.spacing(3)
+      }
+    },
+
+    MuiInputLabel: {
+      root: {
+        fontSize: themeVariable.textSize()
+      },
+      outlined: {
+        transform: `translate(${themeVariable.spacing(4)}px, ${themeVariable.spacing(4) - 2}px) scale(1)`
+      },
+      shrink: {
+        transform: `translate(${themeVariable.spacing(4)}px, -6px) scale(0.80) !important`
       }
     },
 

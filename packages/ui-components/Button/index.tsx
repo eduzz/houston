@@ -7,8 +7,6 @@ import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
 type ButtonPropsExtends =
   | 'id'
-  | 'className'
-  | 'style'
   | 'onClick'
   | 'disabled'
   | 'startIcon'
