@@ -1,6 +1,6 @@
-import { IFormMask } from '../adapters';
+import IFormMaskAdapter from '@eduzz/houston-core/maskAdapter';
 
-const moneyMask: IFormMask = {
+const moneyMask: IFormMaskAdapter = {
   apply: (value: number | string) => {
     if (value === null || value === undefined || value === '') return '';
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value) || 0);

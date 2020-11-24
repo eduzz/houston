@@ -1,6 +1,6 @@
-import { IFormMask } from '../adapters';
+import IFormMaskAdapter from '@eduzz/houston-core/maskAdapter';
 
-const phoneMask: IFormMask = {
+const phoneMask: IFormMaskAdapter = {
   apply: (value: string) => {
     if (!value) return '';
 

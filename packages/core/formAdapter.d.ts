@@ -1,5 +1,5 @@
 export default interface IFormAdapter<V extends { [key: string]: any }> {
-  handleSubmit?: () => void;
+  handleSubmit?: (event: any) => void;
   handleChange?: (name: string) => (value: any) => void;
   getFieldValue?: (name: string) => any;
   setFieldValue?: (name: string, value: any) => void;

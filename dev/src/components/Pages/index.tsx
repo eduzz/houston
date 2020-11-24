@@ -3,11 +3,13 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+import FormTextboxIcon from 'mdi-react/FormTextboxIcon';
 import ViewDashboardIcon from 'mdi-react/ViewDashboardIcon';
 
 import Drawer from 'components/Layout/Drawer';
 
-import DashboardIndexPage from './Dashboard';
+import DashboardPage from './Dashboard';
+import FormsPage from './Forms';
 
 export const ScrollTopContext = React.createContext<Function>(() => {});
 
@@ -34,7 +36,10 @@ const IndexPage = memo((props: {}) => {
   const classes = useStyles(props);
 
   const mainContent = useRef<HTMLDivElement>();
-  const [menu] = useState(() => [{ path: '/', display: 'Dashboard', icon: ViewDashboardIcon }]);
+  const [menu] = useState(() => [
+    { path: '/', display: 'Dashboard', icon: ViewDashboardIcon },
+    { path: '/forms', display: 'Forms', icon: FormTextboxIcon }
+  ]);
 
   const scrollTop = useCallback(() => setTimeout(() => mainContent.current.scrollTo(0, 0), 100), []);
   const renderRedirect = useCallback(() => <Redirect to='/' />, []);
@@ -46,7 +51,8 @@ const IndexPage = memo((props: {}) => {
           <Drawer menu={menu}>
             <main ref={mainContent} className={classes.content}>
               <Switch>
-                <Route path='/' component={DashboardIndexPage} />
+                <Route path='/forms' component={FormsPage} />
+                <Route path='/' component={DashboardPage} />
                 <Route render={renderRedirect} />
               </Switch>
             </main>

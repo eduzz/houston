@@ -97,15 +97,20 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       }
     },
 
+    MuiInputBase: {
+      root: {
+        '&$disabled': {
+          backgroundColor: pallet.grey['100']
+        }
+      }
+    },
+
     MuiOutlinedInput: {
       input: {
         height: 45,
         boxSizing: 'border-box',
         fontSize: themeVariable.textSize(),
-        padding: `${themeVariable.spacing(3)}px ${themeVariable.spacing(4)}px`,
-        '&$disabled': {
-          backgroundColor: pallet.grey['100']
-        }
+        padding: `${themeVariable.spacing(3)}px ${themeVariable.spacing(4)}px`
       },
       inputMultiline: {
         minHeight: 96
@@ -124,7 +129,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiFormControl: {
       marginNormal: {
-        marginTop: 0,
+        marginTop: themeVariable.spacing(1),
         marginBottom: themeVariable.spacing(3)
       }
     },

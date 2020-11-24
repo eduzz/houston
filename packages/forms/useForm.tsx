@@ -26,7 +26,7 @@ export interface IUseFormParams<Values> {
   initialValues?: Partial<Values>;
   validationSchema?: (yup: Yup) => any;
   onSubmitWithErrors?: (errors: FormikErrors<Values>, values: Partial<Values>) => void;
-  onSubmit: <T = any>(values: Values, formikHelpers: FormikHelpers<Values>) => void | Observable<T>;
+  onSubmit: (values: Values, formikHelpers: FormikHelpers<Values>) => void | Promise<any> | Observable<any>;
 }
 
 export default function useForm<Values = {}>({
@@ -45,7 +45,8 @@ export default function useForm<Values = {}>({
       switchMap(({ model, formikHelpers }) => {
         const result$ = onSubmit(model as Values, formikHelpers);
 
-        const result = (!result$ ? of(null) : result$).pipe(
+        const result = of(true).pipe(
+          switchMap(() => (!result$ ? of(null) : result$)),
           catchError(() => of(null)),
           share()
         );
@@ -83,7 +84,7 @@ export default function useForm<Values = {}>({
     return handlers[field];
   }).current;
 
-  const handleSubmit = useCallback(() => formik.handleSubmit(), [formik]);
+  const handleSubmit = useCallback(e => formik.handleSubmit(e), [formik]);
 
   return {
     handleSubmit,

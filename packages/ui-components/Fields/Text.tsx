@@ -14,8 +14,8 @@ import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
 type FieldTextPropsExtends =
   | 'id'
-  | 'name'
   | 'label'
+  | 'name'
   | 'disabled'
   | 'placeholder'
   | 'type'
@@ -33,7 +33,11 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
 }
 
 const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
-  ({ form, mask, value, name, loading, onChange, errorMessage: errorMessageProp, ...props }, ref) => {
+  ({ form, mask, value, name, loading, onChange, errorMessage: errorMessageProp, fullWidth, ...props }, ref) => {
+    if (!name && form) {
+      throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
+    }
+
     value = form && name ? form.getFieldValue(name) : value;
     const { maskClean, maskedValue } = useMask(mask, value);
 
@@ -79,6 +83,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
           value={maskedValue ?? ''}
           inputRef={ref}
           onChange={handleChange}
+          fullWidth={fullWidth ?? true}
           InputLabelProps={inputLabelProps}
           InputProps={inputProps}
         />

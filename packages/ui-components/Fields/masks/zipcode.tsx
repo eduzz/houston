@@ -1,6 +1,6 @@
-import { IFormMask } from '../adapters';
+import IFormMaskAdapter from '@eduzz/houston-core/maskAdapter';
 
-const zipcodeMask: IFormMask = {
+const zipcodeMask: IFormMaskAdapter = {
   apply: (value: string) => {
     if (!value) return '';
     return value.replace(/^(\d{0,5})(\d{0,3}).*/, '$1-$2').replace(/-$/, '');
