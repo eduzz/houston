@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { IFormMask } from '../Fields/adapters';
+import IFormMaskAdapter from '@eduzz/houston-core/maskAdapter';
 
 export interface IMaskFunction {
   apply(value: string | number): string;
   clean(value: string): string | number;
 }
 
-export default function useMask(mask: IFormMask, value: any) {
+export default function useMask(mask: IFormMaskAdapter, value: any) {
   const { apply: maskApply, clean: maskClean } = React.useMemo(() => {
     return mask ?? { apply: (v: string) => v, clean: (v: string) => v };
   }, [mask]);

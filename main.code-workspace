@@ -11,8 +11,16 @@
 			"path": "./docs"
 		},
 		{
+			"name": "@eduzz/core",
+			"path": "./packages/core"
+		},
+		{
 			"name": "@eduzz/houston-ui",
 			"path": "./packages/ui-components"
+		},
+		{
+			"name": "@eduzz/houston-forms",
+			"path": "./packages/forms"
 		},
 		{
 			"name": "@eduzz/eslint-config-houston",
@@ -24,6 +32,6 @@
 		}
 	],
 	"settings": {
-		"typescript.tsdk": "/Users/fernandomoraes/Desktop/eduzz/houston/node_modules/typescript/lib"
+		"typescript.tsdk": "./node_modules/typescript/lib"
 	}
 }

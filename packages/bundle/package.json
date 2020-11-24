@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@eduzz/houston-ui": "*",
+    "@eduzz/houston-forms": "*",
     "@eduzz/eslint-config-houston": "*"
   }
 }

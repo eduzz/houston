@@ -6,9 +6,11 @@ import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
 import { InputLabelProps } from '@material-ui/core/InputLabel';
 import TextFieldMUI, { TextFieldProps } from '@material-ui/core/TextField';
 
+import IFormAdapter from '@eduzz/houston-core/formAdapter';
+import IFormMask from '@eduzz/houston-core/maskAdapter';
+
 import useMask from '../hooks/useMask';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
-import { IFormAdapter, IFormMask } from './adapters';
 
 type FieldTextPropsExtends =
   | 'id'
@@ -26,12 +28,12 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
   loading?: boolean;
   errorMessage?: string;
   mask?: IFormMask;
-  form?: IFormAdapter;
+  form?: IFormAdapter<any>;
   onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
 }
 
-const TextField = React.memo<ITextFieldProps>(
-  ({ form, mask, value, name, loading, onChange, errorMessage: errorMessageProp, ...props }) => {
+const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
+  ({ form, mask, value, name, loading, onChange, errorMessage: errorMessageProp, ...props }, ref) => {
     value = form && name ? form.getFieldValue(name) : value;
     const { maskClean, maskedValue } = useMask(mask, value);
 
@@ -69,12 +71,13 @@ const TextField = React.memo<ITextFieldProps>(
         <TextFieldMUI
           error={hasError}
           {...props}
-          disabled={form?.isSubmitting() || props.disabled}
+          disabled={form?.isSubmitting || props.disabled}
           helperText={errorMessage ?? props.helperText}
           name={name}
           margin='normal'
           variant='outlined'
           value={maskedValue ?? ''}
+          inputRef={ref}
           onChange={handleChange}
           InputLabelProps={inputLabelProps}
           InputProps={inputProps}
@@ -84,4 +87,4 @@ const TextField = React.memo<ITextFieldProps>(
   }
 );
 
-export default TextField;
+export default React.memo(TextField);
