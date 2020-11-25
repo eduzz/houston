@@ -43,7 +43,7 @@ export default function useForm<Values = {}>({
   useObservable(() => {
     return submitData.pipe(
       switchMap(({ model, formikHelpers }) => {
-        const result$ = onSubmit(model as Values, formikHelpers);
+        const result$ = onSubmit && onSubmit(model as Values, formikHelpers);
 
         const result = of(true).pipe(
           switchMap(() => (!result$ ? of(null) : result$)),
@@ -60,7 +60,7 @@ export default function useForm<Values = {}>({
 
   const formik = useFormik<Partial<Values>>({
     initialValues: initialValues ?? {},
-    validationSchema: () => validationSchema(yup),
+    validationSchema: validationSchema ? () => validationSchema(yup) : null,
     onSubmit: (model, formikHelpers) => {
       submitData.next({ model, formikHelpers });
       return new Promise(resolve => setTimeout(() => resolve(promiseRef.promise), 500));

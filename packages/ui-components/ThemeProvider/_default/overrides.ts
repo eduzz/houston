@@ -40,7 +40,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       },
 
       label: {
-        lineHeight: 1.5,
+        lineHeight: themeVariable.lineHeight('compact'),
         fontSize: themeVariable.textSize('small')
       },
 

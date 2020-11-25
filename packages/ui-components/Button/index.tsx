@@ -5,16 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
-type ButtonPropsExtends =
-  | 'id'
-  | 'onClick'
-  | 'disabled'
-  | 'startIcon'
-  | 'href'
-  | 'endIcon'
-  | 'children'
-  | 'type'
-  | 'fullWidth';
+type ButtonPropsExtends = 'id' | 'onClick' | 'disabled' | 'href' | 'children' | 'type' | 'fullWidth';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
 
@@ -31,23 +22,15 @@ export interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
 }
 
 const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
-  const {
-    children,
-    disabled = false,
-    startIcon,
-    variant = 'contained',
-    endIcon,
-    loading = false,
-    ...buttonProps
-  } = props;
+  const { children, disabled = false, variant = 'contained', loading = false, ...buttonProps } = props;
 
   return (
     <WrapperTheme>
       <ButtonMUI
         {...buttonProps}
         disabled={disabled || loading ? true : false}
-        startIcon={loading ? <CircularProgress size={18} color='inherit' /> : startIcon}
-        endIcon={loading ? null : endIcon}
+        startIcon={loading ? <CircularProgress size={18} color='inherit' /> : null}
+        endIcon={loading ? null : null}
         disableRipple
         disableFocusRipple
         disableElevation

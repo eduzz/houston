@@ -9,9 +9,9 @@ const cpfMask: IFormMaskAdapter = {
 
     return value
       .replace(regexp, result)
-      .replace(/[-.\\]$/, '')
-      .replace(/[-.\\]$/, '')
-      .replace(/[-.\\]$/, '');
+      .replace(/[-./]$/, '')
+      .replace(/[-./]$/, '')
+      .replace(/[-./]$/, '');
   },
   clean: (value: string) => (value || '').replace(/\D/gi, '').substr(0, 11)
 };

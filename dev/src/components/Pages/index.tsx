@@ -3,13 +3,17 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+import FormatFontIcon from 'mdi-react/FormatFontIcon';
 import FormTextboxIcon from 'mdi-react/FormTextboxIcon';
+import GestureTapButtonIcon from 'mdi-react/GestureTapButtonIcon';
 import ViewDashboardIcon from 'mdi-react/ViewDashboardIcon';
 
 import Drawer from 'components/Layout/Drawer';
 
+import ButtonsPage from './Buttons';
 import DashboardPage from './Dashboard';
 import FormsPage from './Forms';
+import TypographyPage from './Typography';
 
 export const ScrollTopContext = React.createContext<Function>(() => {});
 
@@ -38,7 +42,9 @@ const IndexPage = memo((props: {}) => {
   const mainContent = useRef<HTMLDivElement>();
   const [menu] = useState(() => [
     { path: '/', display: 'Dashboard', icon: ViewDashboardIcon },
-    { path: '/forms', display: 'Forms', icon: FormTextboxIcon }
+    { path: '/forms', display: 'Forms', icon: FormTextboxIcon },
+    { path: '/typography', display: 'Typography', icon: FormatFontIcon },
+    { path: '/buttons', display: 'Buttons', icon: GestureTapButtonIcon }
   ]);
 
   const scrollTop = useCallback(() => setTimeout(() => mainContent.current.scrollTo(0, 0), 100), []);
@@ -52,6 +58,8 @@ const IndexPage = memo((props: {}) => {
             <main ref={mainContent} className={classes.content}>
               <Switch>
                 <Route path='/forms' component={FormsPage} />
+                <Route path='/typography' component={TypographyPage} />
+                <Route path='/buttons' component={ButtonsPage} />
                 <Route path='/' component={DashboardPage} />
                 <Route render={renderRedirect} />
               </Switch>

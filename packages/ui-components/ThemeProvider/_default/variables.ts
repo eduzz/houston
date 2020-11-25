@@ -9,13 +9,30 @@ const fontSizes = {
   'xx-large': 40
 };
 
+const lineHeights = {
+  compact: 1.2,
+  normal: 1.5,
+  confortable: 1.8
+};
+
+const fontWeight = {
+  light: 300,
+  regular: 400,
+  semibold: 600,
+  bold: 700
+};
+
+export type FontSizes = keyof typeof fontSizes;
+export type LineHeights = keyof typeof lineHeights;
+export type FontWeight = keyof typeof fontWeight;
+
 const themeVariable = {
-  colors: {
-    focusLine: '#B0BEC5'
-  },
+  colors: { focusLine: '#B0BEC5' },
   radius: (unit: number = 1) => 4 * unit,
   spacing: (unit: number = 4) => 4 * unit,
-  textSize: (size: keyof typeof fontSizes = 'normal') => fontSizes[size]
+  textSize: (size: FontSizes = 'normal') => fontSizes[size],
+  lineHeight: (size: LineHeights = 'normal') => lineHeights[size],
+  fontWeight: (size: FontWeight = 'regular') => fontWeight[size]
 };
 
 export default themeVariable;
