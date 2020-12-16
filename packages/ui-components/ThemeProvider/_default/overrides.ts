@@ -40,6 +40,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       },
 
       label: {
+        fontFamily: themeVariable.fontFamily,
         lineHeight: themeVariable.lineHeight('compact'),
         fontSize: themeVariable.textSize('small')
       },
@@ -99,6 +100,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiInputBase: {
       root: {
+        fontFamily: themeVariable.fontFamily,
         '&$disabled': {
           backgroundColor: pallet.grey['100']
         }
@@ -119,6 +121,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiFormHelperText: {
       root: {
+        fontFamily: themeVariable.fontFamily,
         fontSize: themeVariable.textSize('x-small')
       },
       contained: {
@@ -134,15 +137,22 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       }
     },
 
+    MuiFormLabel: {
+      root: {
+        fontFamily: themeVariable.fontFamily
+      }
+    },
+
     MuiInputLabel: {
       root: {
+        fontFamily: themeVariable.fontFamily,
         fontSize: themeVariable.textSize()
       },
       outlined: {
         transform: `translate(${themeVariable.spacing(4)}px, ${themeVariable.spacing(4) - 2}px) scale(1)`
       },
       shrink: {
-        transform: `translate(${themeVariable.spacing(4)}px, -6px) scale(0.80) !important`
+        transform: `translate(${themeVariable.spacing(4)}px, -6px) scale(0.70) !important`
       }
     },
 

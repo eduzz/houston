@@ -41,18 +41,21 @@ const useStyle = makeStyles(theme => ({
     color: 'inherit'
   },
   expandablePanel: {
-    background: theme.palette.primary.main,
+    background: 'transparent',
     color: theme.palette.primary.contrastText,
-    marginLeft: -10,
+    marginRight: -20,
     boxShadow: 'none',
     margin: 0,
+    '&:before': {
+      display: 'none'
+    },
     '&.active': {
-      background: darken(theme.palette.primary.main, 0.1)
+      background: 'transparent'
     }
   },
   expandableTitle: {
     '&:hover': {
-      background: darken(theme.palette.primary.main, 0.1)
+      background: 'transparent'
     }
   },
   expandableDetails: {

@@ -27,7 +27,7 @@ function ThemeProvider(props: IThemeProviderProps) {
 
   const styleContent = React.useMemo(
     () => ({
-      __html: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');"
+      __html: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');"
     }),
     []
   );

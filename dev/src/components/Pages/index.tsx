@@ -8,7 +8,7 @@ import FormTextboxIcon from 'mdi-react/FormTextboxIcon';
 import GestureTapButtonIcon from 'mdi-react/GestureTapButtonIcon';
 import ViewDashboardIcon from 'mdi-react/ViewDashboardIcon';
 
-import Drawer from 'components/Layout/Drawer';
+import Drawer, { IMenu } from 'components/Layout/Drawer';
 
 import ButtonsPage from './Buttons';
 import DashboardPage from './Dashboard';
@@ -40,9 +40,14 @@ const IndexPage = memo((props: {}) => {
   const classes = useStyles(props);
 
   const mainContent = useRef<HTMLDivElement>();
-  const [menu] = useState(() => [
+  const [menu] = useState<IMenu[]>(() => [
     { path: '/', display: 'Dashboard', icon: ViewDashboardIcon },
-    { path: '/forms', display: 'Forms', icon: FormTextboxIcon },
+    {
+      path: '/forms',
+      display: 'Forms',
+      icon: FormTextboxIcon,
+      submenu: [{ path: '/forms/text', display: 'Text' }]
+    },
     { path: '/typography', display: 'Typography', icon: FormatFontIcon },
     { path: '/buttons', display: 'Buttons', icon: GestureTapButtonIcon }
   ]);

@@ -18,6 +18,7 @@ interface ITypographyProps extends Pick<TypographyProps, TypographyPropsExtends>
 
 const useStyle = makeStyles({
   text: (props: ITypographyProps) => ({
+    fontFamily: themeVariable.fontFamily,
     fontSize: themeVariable.textSize(props.size ?? 'normal'),
     lineHeight: themeVariable.lineHeight(props.lineHeight ?? 'normal'),
     fontWeight: themeVariable.fontWeight(props.fontWeight ?? 'regular'),
