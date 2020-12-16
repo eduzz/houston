@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "husky": "4.3.0",
-    "ultra-runner": "3.5.0"
+    "ultra-runner": "3.7.1"
   },
   "ultra": {
     "concurrent": [
