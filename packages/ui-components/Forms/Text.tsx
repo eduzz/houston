@@ -11,6 +11,7 @@ import IFormMask from '@eduzz/houston-core/maskAdapter';
 
 import useMask from '../hooks/useMask';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
+import { FormFieldsContext } from './Form';
 
 type FieldTextPropsExtends =
   | 'id'
@@ -33,7 +34,13 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
 }
 
 const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
-  ({ form, mask, value, name, loading, onChange, errorMessage: errorMessageProp, fullWidth, ...props }, ref) => {
+  (
+    { form: formProps, mask, value, name, loading, onChange, errorMessage: errorMessageProp, fullWidth, ...props },
+    ref
+  ) => {
+    const formContext = React.useContext(FormFieldsContext);
+    const form = formProps ?? formContext;
+
     if (!name && form) {
       throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
     }

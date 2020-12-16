@@ -8,13 +8,16 @@ import Typography from '@material-ui/core/Typography';
 
 import useForm from '@eduzz/houston-forms/useForm';
 import Button from '@eduzz/houston-ui/Button';
-import cnpjMask from '@eduzz/houston-ui/Fields/masks/cnpj';
-import cpfMask from '@eduzz/houston-ui/Fields/masks/cpf';
-import documentMask from '@eduzz/houston-ui/Fields/masks/document';
-import moneyMask from '@eduzz/houston-ui/Fields/masks/money';
-import phoneMask from '@eduzz/houston-ui/Fields/masks/phone';
-import zipcodeMask from '@eduzz/houston-ui/Fields/masks/zipcode';
-import TextField from '@eduzz/houston-ui/Fields/Text';
+import CheckboxField from '@eduzz/houston-ui/Forms/Checkbox';
+import Form from '@eduzz/houston-ui/Forms/Form';
+import cnpjMask from '@eduzz/houston-ui/Forms/masks/cnpj';
+import cpfMask from '@eduzz/houston-ui/Forms/masks/cpf';
+import documentMask from '@eduzz/houston-ui/Forms/masks/document';
+import moneyMask from '@eduzz/houston-ui/Forms/masks/money';
+import phoneMask from '@eduzz/houston-ui/Forms/masks/phone';
+import zipcodeMask from '@eduzz/houston-ui/Forms/masks/zipcode';
+import RadioField from '@eduzz/houston-ui/Forms/Radio';
+import TextField from '@eduzz/houston-ui/Forms/Text';
 
 import Toolbar from 'components/Layout/Toolbar';
 
@@ -34,7 +37,7 @@ const FormsPage = memo(() => {
       }),
     onSubmit: () => {
       return new Promise(resolve => {
-        setTimeout(() => resolve(), 3000);
+        setTimeout(() => resolve(null), 3000);
       });
     }
   });
@@ -89,18 +92,18 @@ const FormsPage = memo(() => {
           </Grid>
         </CardContent>
 
-        <form onSubmit={form.handleSubmit}>
+        <Form context={form}>
           <CardContent>
             <Typography gutterBottom variant='h5'>
-              Validation
+              Validation with Form Context
             </Typography>
 
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6} lg={4}>
-                <TextField label='Name' name='name' form={form} />
+                <TextField label='Name' name='name' />
               </Grid>
               <Grid item xs={12} sm={6} lg={4}>
-                <TextField label='Money' name='money' form={form} mask={moneyMask} />
+                <TextField label='Money' name='money' mask={moneyMask} />
               </Grid>
             </Grid>
 
@@ -108,7 +111,16 @@ const FormsPage = memo(() => {
               Submit
             </Button>
           </CardContent>
-        </form>
+        </Form>
+
+        <CardContent>
+          <Typography gutterBottom variant='h5'>
+            Checkbox
+          </Typography>
+
+          <CheckboxField label='Label' description='Test of helper text' name='check' form={form} />
+          <RadioField label='Label' description='Test of helper text' name='radio' form={form} />
+        </CardContent>
       </Card>
     </Fragment>
   );

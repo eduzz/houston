@@ -94,7 +94,8 @@ export default function useForm<Values = {}>({
       formik.setFieldTouched(name, true, false);
       formik.setFieldValue(name, value, true);
     },
-    getFieldError: (name: string) => formik.getFieldMeta(name).error,
+    getFieldError: (name: string) =>
+      formik.touched[name] || formik.submitCount > 0 ? formik.getFieldMeta(name).error : '',
     reset: values => formik.resetForm({ values: values === undefined ? initialValues : values }),
     values: formik.values,
     isSubmitting: formik.isSubmitting,

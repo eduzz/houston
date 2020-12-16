@@ -12,8 +12,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "sed -i '' -E 's/cd \".+\"/cd \".\"/' .git/hooks/husky.local.sh && yarn ultra -r pre-commit",
-      "post-merge": "sed -i '' -E 's/cd \".+\"/cd \".\"/' .git/hooks/husky.local.sh && yarn ultra -r post-merge"
+      "pre-commit": "(cd $(git rev-parse --show-toplevel) && bash scripts/pre-commit.sh)",
+      "post-merge": "(cd $(git rev-parse --show-toplevel) && bash scripts/pre-commit.sh)"
     }
   },
   "devDependencies": {
