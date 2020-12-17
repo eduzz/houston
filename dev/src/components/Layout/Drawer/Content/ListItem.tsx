@@ -28,7 +28,6 @@ const useStyle = makeStyles(theme => ({
     opacity: 0.8,
     '&.active': {
       opacity: 1,
-      margin: 0,
       background: darken(theme.palette.primary.main, 0.3)
     }
   },
@@ -51,6 +50,7 @@ const useStyle = makeStyles(theme => ({
       display: 'none'
     },
     '&.active': {
+      margin: 0,
       background: 'transparent'
     }
   },
