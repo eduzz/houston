@@ -32,7 +32,7 @@ const useStyle = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       width: 240,
       position: 'relative',
-      height: '100vh'
+      overflowY: 'auto'
     }
   },
   drawerFull: {

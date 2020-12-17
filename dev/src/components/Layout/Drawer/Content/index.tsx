@@ -19,7 +19,8 @@ const useStyle = makeStyles(theme => ({
   root: {
     background: theme.palette.grey['900'],
     color: theme.palette.primary.contrastText,
-    height: '100vh'
+    height: '100vh',
+    overflowY: 'auto'
   },
   header: {
     padding: '10px 0',

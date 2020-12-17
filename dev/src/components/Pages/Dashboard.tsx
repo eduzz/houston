@@ -6,14 +6,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import Button from '@eduzz/houston-ui/Button';
-import moneyMask from '@eduzz/houston-ui/Forms/masks/money';
 import TextField from '@eduzz/houston-ui/Forms/Text';
 
 import Toolbar from 'components/Layout/Toolbar';
 
 const DashboardIndexPage = memo(() => {
   const [text, setText] = useState<string>();
-  const [money, setMoney] = useState<number>(15);
 
   return (
     <Fragment>
@@ -54,12 +52,6 @@ const DashboardIndexPage = memo(() => {
                 errorMessage='This is a custom error message'
                 fullWidth
               />
-            </Grid>
-          </Grid>
-
-          <Grid container spacing={2}>
-            <Grid item>
-              <TextField label='Money' value={money} onChange={setMoney} mask={moneyMask} />
             </Grid>
           </Grid>
 

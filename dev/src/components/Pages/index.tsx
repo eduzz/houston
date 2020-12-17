@@ -12,7 +12,9 @@ import Drawer, { IMenu } from 'components/Layout/Drawer';
 
 import ButtonsPage from './Buttons';
 import DashboardPage from './Dashboard';
-import FormsPage from './Forms';
+import FormChoosePage from './Forms/Choose';
+import FormTextPage from './Forms/Text';
+import FormValidationPage from './Forms/Validation';
 import TypographyPage from './Typography';
 
 export const ScrollTopContext = React.createContext<Function>(() => {});
@@ -46,7 +48,11 @@ const IndexPage = memo((props: {}) => {
       path: '/forms',
       display: 'Forms',
       icon: FormTextboxIcon,
-      submenu: [{ path: '/forms/text', display: 'Text' }]
+      submenu: [
+        { path: '/forms/text', display: 'Text' },
+        { path: '/forms/choose', display: 'Choose' },
+        { path: '/forms/validation', display: 'Validation' }
+      ]
     },
     { path: '/typography', display: 'Typography', icon: FormatFontIcon },
     { path: '/buttons', display: 'Buttons', icon: GestureTapButtonIcon }
@@ -62,7 +68,10 @@ const IndexPage = memo((props: {}) => {
           <Drawer menu={menu}>
             <main ref={mainContent} className={classes.content}>
               <Switch>
-                <Route path='/forms' component={FormsPage} />
+                <Route path='/forms/text' component={FormTextPage} />
+                <Route path='/forms/choose' component={FormChoosePage} />
+                <Route path='/forms/choose' component={FormChoosePage} />
+                <Route path='/forms/validation' component={FormValidationPage} />
                 <Route path='/typography' component={TypographyPage} />
                 <Route path='/buttons' component={ButtonsPage} />
                 <Route path='/' component={DashboardPage} />
