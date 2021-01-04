@@ -3,6 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+import AlertCircleIcon from 'mdi-react/AlertCircleIcon';
 import FormatFontIcon from 'mdi-react/FormatFontIcon';
 import FormTextboxIcon from 'mdi-react/FormTextboxIcon';
 import GestureTapButtonIcon from 'mdi-react/GestureTapButtonIcon';
@@ -10,6 +11,7 @@ import ViewDashboardIcon from 'mdi-react/ViewDashboardIcon';
 
 import Drawer, { IMenu } from 'components/Layout/Drawer';
 
+import AlertPage from './Alert';
 import ButtonsPage from './Buttons';
 import DashboardPage from './Dashboard';
 import FormChoosePage from './Forms/Choose';
@@ -44,6 +46,7 @@ const IndexPage = memo((props: {}) => {
   const mainContent = useRef<HTMLDivElement>();
   const [menu] = useState<IMenu[]>(() => [
     { path: '/', display: 'Dashboard', icon: ViewDashboardIcon },
+    { path: '/alert', display: 'Alert', icon: AlertCircleIcon },
     {
       path: '/forms',
       display: 'Forms',
@@ -68,6 +71,7 @@ const IndexPage = memo((props: {}) => {
           <Drawer menu={menu}>
             <main ref={mainContent} className={classes.content}>
               <Switch>
+                <Route path='/alert' component={AlertPage} />
                 <Route path='/forms/text' component={FormTextPage} />
                 <Route path='/forms/choose' component={FormChoosePage} />
                 <Route path='/forms/choose' component={FormChoosePage} />
