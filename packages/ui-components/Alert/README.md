@@ -2,19 +2,13 @@
 
 ### Import
 
-```
-import Button from '@eduzz/houston/components/Alert'; (recommended)
-```
-
-or
-
-```
-import { Alert } from '@eduzz/houston';
+```js
+import Button from '@eduzz/houston-ui/Alert';
 ```
 
 ### Use
 
-```
+```jsx
 <Alert>My Alert</Alert>
 ```
 

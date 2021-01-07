@@ -1,20 +1,14 @@
-# Button
+# Typography
 
 ### Import
 
-```
-import Typography from '@eduzz/houston/components/Typography'; (recommended)
-```
-
-or
-
-```
-import { Typography } from '@eduzz/houston';
+```js
+import Typography from '@eduzz/houston-ui/Typography';
 ```
 
 ### Use
 
-```
+```jsx
 <Typography>My text</Typography>
 ```
 

@@ -3,8 +3,12 @@ import * as React from 'react';
 import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
+import { ToastContainer } from '@eduzz/houston-ui/Toast';
+
 import ContextTheme from './context';
 import generateCustomTheme from './custom';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 export type IThemeProviderApplications = 'select' | 'orbita' | 'blinket' | 'backoffice' | 'custom';
 
@@ -50,7 +54,11 @@ function ThemeProvider(props: IThemeProviderProps) {
   return (
     <React.Fragment>
       <style dangerouslySetInnerHTML={styleContent} />
-      <ContextTheme value={theme}>{children}</ContextTheme>
+
+      <ContextTheme value={theme}>
+        <ToastContainer />
+        {children}
+      </ContextTheme>
     </React.Fragment>
   );
 }

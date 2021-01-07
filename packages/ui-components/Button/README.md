@@ -1,11 +1,9 @@
 # Button
 
-Houston has three types of buttons and they can be configured according to the need for use within Eduzz applications.
-
 ### Import
 
 ```js
-import Button from '@eduzz/houston/Button';
+import Button from '@eduzz/houston-ui/Button';
 ```
 
 ### Use

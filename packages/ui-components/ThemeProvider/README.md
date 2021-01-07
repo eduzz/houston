@@ -2,21 +2,15 @@
 
 ### Import
 
-```
-import ThemeProvider from '@eduzz/houston/components/ThemeProvider'; (recommended)
-```
-
-or
-
-```
-import { ThemeProvider } from '@eduzz/houston';
+```js
+import ThemeProvider from '@eduzz/houston-ui/components/ThemeProvider';
 ```
 
 ### Use
 
 In the project's root file
 
-```
+```jsx
 <ThemeProvider application='APPLICATION_NAME'>....</ThemeProvider>
 ```
 
