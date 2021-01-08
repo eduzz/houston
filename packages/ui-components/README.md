@@ -14,14 +14,8 @@ $ yarn add @eduzz/houston
 
 ### Use
 
-```
-import Button from '@eduzz/houston/components/Button'; (recommended)
-```
-
-or
-
-```
-import { Button } from '@eduzz/houston';
+```js
+import Button from '@eduzz/houston-ui/Button';
 ```
 
 ### Configuration
@@ -30,8 +24,8 @@ import { Button } from '@eduzz/houston';
 
 In the project's root file
 
-```
-import ThemeProvider from '@eduzz/houston/components/ThemeProvider';
+```jsx
+import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
 
 <ThemeProvider application='APPLICATION_NAME'>
   {...}
