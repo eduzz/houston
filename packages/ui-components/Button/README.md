@@ -16,8 +16,6 @@ import Button from '@eduzz/houston-ui/Button';
 
 | prop      | type                                                               | required | default   |
 |-----------|--------------------------------------------------------------------|----------|-----------|
-| className | `string`                                                           | false    | -         |
-| style     | `React.CSSProperties`                                              | false    | -         |
 | onClick   | `(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void` | false    | -         |
 | disabled  | `boolean`                                                          | false    | `false`   |
 | startIcon | `React.Node`                                                       | false    | -         |

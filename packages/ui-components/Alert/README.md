@@ -16,9 +16,6 @@ import Button from '@eduzz/houston-ui/Alert';
 
 | prop | type | required | default | description |
 | ---- | ---- | -------- | ------- | ----------- |
-| id | `string` | false | - | - |
-| className | `string` | false | - | - |
-| style | `React.CSSProperties` | false | - | - |
 | type | `success`, `info`, `warning`, `error` | false | `success` | - |
 | onClose | `(event: React.SyntheticEvent) => void` | false | - | If there is a value, it automatically adds the "X". |
 | icon | `React.ReactNode`, `false` | false | `type` icon | If `false`, the icon will be hidden. |
