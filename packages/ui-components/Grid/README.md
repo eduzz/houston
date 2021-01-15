@@ -3,8 +3,8 @@
 ### Import
 
 ```js
-import Row from '@eduzz/houston-ui/Grid/Row';
 import Column from '@eduzz/houston-ui/Grid/Column';
+import Row from '@eduzz/houston-ui/Grid/Row';
 ```
 
 ### Use
@@ -24,7 +24,7 @@ import Column from '@eduzz/houston-ui/Grid/Column';
 | type | `confortable`, `cozy`, `compact` | true | - |
 | alignItems | `flex-start`, `center`, `flex-end`, `stretch`, `baseline` | false | - |
 | justify | `flex-start`, `center`, `flex-end`, `space-between`, `space-around`, `space-evenly` | false | - |
-| fluid | `boolean` | false | - |
+| fluid | `boolean` | false | false |
 
 
 ### Column Props available
