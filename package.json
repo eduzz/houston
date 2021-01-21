@@ -7,8 +7,9 @@
   ],
   "scripts": {
     "build": "yarn ultra -r -b build",
-    "prestart": "yarn build",
-    "start": "yarn ultra -r start"
+    "prestart": "yarn clean && yarn build",
+    "start": "yarn ultra -r start",
+    "clean": "git add . && git clean -f -x"
   },
   "husky": {
     "hooks": {
