@@ -17,8 +17,7 @@
   },
   "scripts": {
     "start": "yarn tsc -w --preserveWatchOutput",
-    "clean": "git add . && git clean -f -x",
-    "build": "yarn clean && tsc -p .",
+    "build": "tsc -p .",
     "prepare": "yarn build",
     "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\"",
     "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc --noEmit\"",
