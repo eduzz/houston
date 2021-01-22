@@ -12,11 +12,14 @@ import Toolbar from 'components/Layout/Toolbar';
 
 const FormSelectPage = memo(() => {
   const [text, setText] = useState('');
+  const [multiple, setMultiple] = useState([]);
 
   const [options] = useState<ISelectFieldOption[]>(() => [
     { value: 1, label: 'Option 1' },
     { value: 2, label: 'Option 2' },
-    { value: 3, label: 'Option 3 (disabled)', disabled: true }
+    { value: 3, label: 'Option 3 (disabled)', disabled: true },
+    { value: 4, label: 'Option 4' },
+    { value: 5, label: 'Option 5' }
   ]);
 
   return (
@@ -64,10 +67,10 @@ const FormSelectPage = memo(() => {
               <SelectField
                 label='Label'
                 multiple
-                emptyOption='Selecione...'
+                emptyOption='Limpar'
                 options={options}
-                value={text}
-                onChange={setText}
+                value={multiple}
+                onChange={setMultiple}
               />
             </Grid>
           </Grid>

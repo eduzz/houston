@@ -89,6 +89,7 @@ export default function useForm<Values = {}>({
   return {
     handleSubmit,
     handleChange,
+    handleReset: () => formik.resetForm({ values: initialValues }),
     getFieldValue: name => formik.getFieldMeta(name).value,
     setFieldValue: (name: string, value: any) => {
       formik.setFieldTouched(name, true, false);

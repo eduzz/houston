@@ -1,10 +1,12 @@
 import * as React from 'react';
 
+import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import InputLabel from '@material-ui/core/InputLabel';
+import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select, { SelectProps } from '@material-ui/core/Select';
 
@@ -13,7 +15,7 @@ import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from './Form';
 
-type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple' | 'value';
+type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple';
 
 export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExtends> {
   loading?: boolean;
@@ -22,6 +24,8 @@ export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExt
   form?: IFormAdapter<any>;
   options?: ISelectFieldOption[];
   emptyOption?: string;
+  maxLabelItems?: number;
+  value?: any;
   onChange?: (value: any, event: React.ChangeEvent<{ name?: string; value: any }>) => any;
 }
 
@@ -40,6 +44,7 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
       name,
       loading,
       onChange,
+      maxLabelItems,
       errorMessage: errorMessageProp,
       fullWidth,
       options,
@@ -68,10 +73,30 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
       [loading]
     );
 
+    const renderValue = React.useCallback(
+      selected => {
+        return !Array.isArray(selected)
+          ? options.find(o => selected === o.value)?.label
+          : selected.length > (maxLabelItems ?? 3)
+          ? `${selected.length} selecionados`
+          : options
+              .filter(o => selected.includes(o.value))
+              .map(o => o.label)
+              .join(', ');
+      },
+      [options, maxLabelItems]
+    );
+
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<{ name?: string; value: any }>) => {
-        onChange && onChange(e.target.value, e);
-        form && form.setFieldValue(name, e.target.value);
+        let value = e.target.value;
+
+        if (Array.isArray(value) && value.includes('')) {
+          value = [];
+        }
+
+        onChange && onChange(value, e);
+        form && form.setFieldValue(name, value);
       },
       [onChange, form, name]
     );
@@ -91,16 +116,18 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
             inputRef={ref}
             disabled={form?.isSubmitting || props.disabled}
             name={name}
-            value={value ?? ''}
+            value={value ?? (props.multiple ? [] : '')}
             onChange={handleChange}
             fullWidth={fullWidth ?? true}
             label={label}
             endAdornment={endAdornment}
+            renderValue={renderValue}
           >
             {emptyOption && <MenuItem value={''}>{emptyOption}</MenuItem>}
             {(options || []).map(option => (
               <MenuItem disabled={option.disabled} key={option.value} value={option.value}>
-                {option.label}
+                {props.multiple && <Checkbox checked={value?.includes(option.value)} />}
+                <ListItemText primary={option.label} />
               </MenuItem>
             ))}
           </Select>

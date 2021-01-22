@@ -112,6 +112,10 @@ export default function overrides(pallet: Palette): ICustomOverrides {
         '&:focus': {
           backgroundColor: 'transparent'
         }
+      },
+
+      selectMenu: {
+        height: 45
       }
     },
 
