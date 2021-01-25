@@ -21,7 +21,7 @@
     "allowSyntheticDefaultImports": false,
     "noUnusedLocals": true,
     "importHelpers": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "include": [
     "./**/*.tsx",
@@ -29,8 +29,7 @@
   ],
   "exclude": [
     "node_modules",
-    "./*.d.ts",
-    "./**/*.d.ts",
+    "*.d.ts",
     "./**/*.d.ts",
     "./docs/*"
   ]

@@ -107,6 +107,18 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       }
     },
 
+    MuiSelect: {
+      select: {
+        '&:focus': {
+          backgroundColor: 'transparent'
+        }
+      },
+
+      selectMenu: {
+        height: 45
+      }
+    },
+
     MuiOutlinedInput: {
       input: {
         height: 45,

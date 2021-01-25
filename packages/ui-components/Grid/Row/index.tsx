@@ -8,7 +8,6 @@ import clsx from 'clsx';
 const useStyles = makeStyles(() =>
   createStyles({
     confortable: {
-      margin: '0 18px',
       width: 'calc(100% - 36px)',
       maxWidth: 1062
     },
@@ -47,7 +46,7 @@ interface IProps extends Pick<GridProps, GridPropsExtends> {
    * `cozy` spacing medium
    * `compact` spacing small
    */
-  type: IRowType;
+  type?: IRowType;
   /**
    * max-width ignore
    */
@@ -77,9 +76,9 @@ const Row = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
     <Grid
       {...props}
       container
-      className={clsx(config[type].className, fluid && classes.fluid)}
+      className={clsx(config[type ?? 'confortable'].className, fluid && classes.fluid)}
       ref={ref}
-      spacing={config[type].spacing}
+      spacing={config[type ?? 'confortable'].spacing}
     >
       {children}
     </Grid>
