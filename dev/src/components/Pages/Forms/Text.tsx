@@ -42,15 +42,15 @@ const FormTextPage = memo(() => {
               <TextField label='Label' placeholder='Placeholder' value={text} onChange={setText} />
               <TextField label='Disabled' disabled value='Value' />
               <TextField label='Loading' loading value={text} onChange={setText} />
-              <TextField label='Helper Text' helperText='A exampe of a helper text' value={text} onChange={setText} />
-              <TextField label='Error' errorMessage='A exampe of an error message' value={text} onChange={setText} />
+              <TextField label='Helper Text' helperText='A example of a helper text' value={text} onChange={setText} />
+              <TextField label='Error' errorMessage='A example of an error message' value={text} onChange={setText} />
             </Grid>
             <Grid item xs={12} sm={6} lg={4}>
               <TextField label='Multine' value={text} onChange={setText} multiline />
               <TextField label='Multine' disabled value={text} onChange={setText} multiline />
               <TextField
                 label='Error'
-                errorMessage='A exampe of an error message'
+                errorMessage='A example of an error message'
                 value={text}
                 onChange={setText}
                 multiline

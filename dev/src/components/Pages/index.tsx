@@ -9,6 +9,7 @@ import AlertPage from './Alert';
 import ButtonsPage from './Buttons';
 import DashboardPage from './Dashboard';
 import FormChoosePage from './Forms/Choose';
+import FormSelectPage from './Forms/Select';
 import FormTextPage from './Forms/Text';
 import FormValidationPage from './Forms/Validation';
 import GridPage from './Grid';
@@ -51,6 +52,7 @@ const IndexPage = memo((props: {}) => {
       submenu: [
         { path: '/forms/text', display: 'Text' },
         { path: '/forms/choose', display: 'Choose' },
+        { path: '/forms/select', display: 'Select' },
         { path: '/forms/validation', display: 'Validation' }
       ]
     },
@@ -75,6 +77,7 @@ const IndexPage = memo((props: {}) => {
                 <Route path='/forms/text' component={FormTextPage} />
                 <Route path='/forms/choose' component={FormChoosePage} />
                 <Route path='/forms/choose' component={FormChoosePage} />
+                <Route path='/forms/select' component={FormSelectPage} />
                 <Route path='/forms/validation' component={FormValidationPage} />
                 <Route path='/typography' component={TypographyPage} />
                 <Route path='/' component={DashboardPage} />
