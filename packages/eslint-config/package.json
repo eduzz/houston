@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/eslint-config-houston",
   "private": false,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Eduzz Houston Eslint Config",
   "author": "Eduzz Team",
   "license": "MIT",
@@ -14,8 +14,7 @@
   "bugs": {
     "url": "https://github.com/eduzz/houston/issues"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4",
     "@typescript-eslint/parser": "^4",
     "eslint": "^7",
@@ -29,6 +28,7 @@
     "prettier": "^2",
     "typescript": "^4"
   },
+  "devDependencies": {},
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "^4",
     "@typescript-eslint/parser": "^4",
