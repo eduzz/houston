@@ -2,46 +2,33 @@
 
 <img src="docs/assets/welcome.svg" width="100%" />
 
-[![version](https://img.shields.io/npm/v/@eduzz/houston?color=%23E3F2FF)](https://www.npmjs.com/package/@eduzz/houston)
-[![size](https://img.shields.io/bundlephobia/min/@eduzz/houston?color=%23E3F2FF)](https://www.npmjs.com/package/@eduzz/houston)
-[![version](https://img.shields.io/github/last-commit/eduzz/houston?color=%23E3F2FF)](https://github.com/eduzz/houston/commits)
+### Instalação Completa
 
-### Installation
+```bash
+# todos os packages de uso
+yarn add @eduzz/houston 
 
-```
-$ yarn add @eduzz/houston
-```
-
-### Use
-
-```
-import Button from '@eduzz/houston-ui/Button';
+# package do eslint, infelizmente o eslint pede que os plugins sejam instalados diretamente no projeto
+yarn add --dev @eduzz/eslint-config-houston @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-eslint-plugin eslint-plugin-import-helpers eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports prettier 
 ```
 
-### Configuration
+### Projetos
 
-**This Provider will not temporarily replace the current theme of the project, it will only style Houston's components according to the application. Enabling the migration of components gradually.**
+| Package                      | Descrição                                                                      | Link                           |
+|------------------------------|--------------------------------------------------------------------------------|--------------------------------|
+| @eduzz/houston-ui            | Componentes do houston para web                                                | [Ver](/packages/ui-components) |
+| @eduzz/eslint-config-houston | Configuração padrão para o eslint                                              | [Ver](/packages/eslint-config) |
+| @eduzz/houston-forms         | Hooks para validação de formulário                                             | [Ver](/packages/forms)         |
+| @eduzz/core                  | Configurações compartilhadas entre os projetos, não deve ser usado diretamente | [Ver](/packages/core)          |
 
-In the project's root file
 
-```
-import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
+### Quer contribuir?
 
-<ThemeProvider application='APPLICATION_NAME'>
-  {...}
-</ThemeProvider>
-```
+Veja os detalhes [aqui](/CONTRIBUTING.md)
 
-| application      | value       | done          |
-| ---------------- | ----------- | ------------- |
-| Select Afiliados | `select`    | true          |
-| Órbita           | `orbita`    | false         |
-| Jobzz            | `jobzz`     | false         |
-| Blinket          | `blinket`   | false         |
-| Safe Vídeo       | `safevideo` | false         |
-| Nutror           | `nutror`    | false         |
-| Checkount Sun    | `sun`       | false         |
-| Telescope        | `telescope` | false         |
-| Alumy            | `alumy`     | false         |
-| Backoffice       | `backoffice`| false         |
-| Custom Pallete   | `custom`    | false         |
+### Links Úteis
+
+|       |                                                                                                  |
+|-------|--------------------------------------------------------------------------------------------------|
+| Jira  | [Ver](https://eduzzjira.atlassian.net/secure/RapidBoard.jspa?rapidView=165)                      |
+| Figma | [Ver](https://www.figma.com/file/Z1MocTqXbRPGdaHMM9t4Zv/Houston-Design-System?node-id=176%3A276) |

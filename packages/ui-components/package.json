@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-ui",
   "description": "Eduzz Houston Components UI",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -41,8 +41,7 @@
   "devDependencies": {
     "@eduzz/eslint-config-houston": "*",
     "@types/react": "16.9.55",
-    "@types/react-toastify": "^4.1.0",
-    "concurrently": "5.3.0",
-    "typescript": "4.0.5"
+    "@types/react-toastify": "4.1.0",
+    "concurrently": "5.3.0"
   }
 }

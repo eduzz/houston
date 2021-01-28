@@ -23,8 +23,6 @@
     "**/**/*.d.ts": true
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescriptHero.imports.multiLineTrailingComma": false,
-  "typescriptHero.imports.organizeOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }

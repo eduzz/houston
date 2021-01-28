@@ -3,12 +3,10 @@ import * as React from 'react';
 import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
-import { ToastContainer } from '@eduzz/houston-ui/Toast';
-
+import { _setCurrentTheme } from '../Toast';
+import ToastContainer from '../Toast/Container';
 import ContextTheme from './context';
 import generateCustomTheme from './custom';
-
-import 'react-toastify/dist/ReactToastify.css';
 
 export type IThemeProviderApplications = 'select' | 'orbita' | 'blinket' | 'backoffice' | 'custom';
 
@@ -48,6 +46,10 @@ function ThemeProvider(props: IThemeProviderProps) {
       setLoading(false);
     });
   }, [application, paletteOptions]);
+
+  React.useEffect(() => {
+    _setCurrentTheme(theme);
+  }, [theme]);
 
   if (loading) return null;
 

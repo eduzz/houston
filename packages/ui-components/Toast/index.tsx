@@ -1,95 +1,51 @@
-import * as React from 'react';
-import {
-  toast,
-  ToastContainer as ToastContainerToastify,
-  ToastContainerProps,
-  ToastOptions,
-  Slide
-} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import themePalette from '@eduzz/houston-ui/ThemeProvider/_default/palette';
-import themeVariable from '@eduzz/houston-ui/ThemeProvider/_default/variables';
+import * as React from 'react';
+import { toast, ToastOptions } from 'react-toastify';
+
+import { Theme } from '@material-ui/core/styles';
+
+import themePalette from '../ThemeProvider/_default/palette';
 
 type IToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
-
 interface IToastOptions extends Pick<ToastOptions, IToastPropsExtends> {}
-const Toast = {
-  success: (content: React.ReactNode, options?: IToastOptions) =>
+
+let currentTheme: Theme;
+
+export function _setCurrentTheme(theme: Theme) {
+  currentTheme = theme;
+}
+
+class Toast {
+  private static defaultOptions: ToastOptions = {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false
+  };
+
+  static success(content: React.ReactNode, options?: IToastOptions): void {
     toast.success(content, {
+      ...this.defaultOptions,
       ...options,
-      style: {
-        background: '#4CAF50'
-      }
-    }),
+      style: { ...(currentTheme ? { background: currentTheme.palette.success.main } : {}) }
+    });
+  }
 
-  error: (content: React.ReactNode, options?: IToastOptions) =>
+  static error(content: React.ReactNode, options?: IToastOptions): void {
     toast.error(content, {
+      ...this.defaultOptions,
       ...options,
-      style: {
-        background: '#F44336'
-        // background: themePalette.error.main don't work =/
-      }
-    }),
+      style: { ...(currentTheme ? { background: currentTheme.palette.error.main } : {}) }
+    });
+  }
 
-  info: (content: React.ReactNode, options?: IToastOptions) =>
+  static info(content: React.ReactNode, options?: IToastOptions): void {
     toast.info(content, {
+      ...this.defaultOptions,
       ...options,
-      style: {
-        background: themePalette.grey[500]
-      }
-    })
-};
-
-export const ToastContainer: React.FC<ToastContainerProps> = React.memo((props: ToastContainerProps) => {
-  const styleContent = React.useMemo(
-    () => ({
-      __html: `
-        .Toastify__toast {
-          border-radius: 4px;
-          margin-bottom: 16px;
-          padding: 8px 16px;
-        }
-
-        .Toastify__toast-body {
-          font-family: ${themeVariable.fontFamily};
-          font-weight: 600;
-          padding-right: 8px;
-          line-height: 1.45;
-        }
-
-        .Toastify__close-button {
-          align-self: center;
-        }
-      `
-    }),
-    []
-  );
-
-  return (
-    <>
-      <style dangerouslySetInnerHTML={styleContent} />
-
-      <ToastContainerToastify
-        {...props}
-        transition={Slide}
-        position='top-right'
-        autoClose={false}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        limit={2}
-        toastStyle={
-          {
-            // don't work =(
-          }
-        }
-      />
-    </>
-  );
-});
+      style: { ...(currentTheme ? { background: themePalette.grey[500] } : {}) }
+    });
+  }
+}
 
 export default Toast;

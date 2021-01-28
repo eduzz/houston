@@ -24,7 +24,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@eduzz/eslint-config-houston": "*",
-    "typescript": "4.0.5"
+    "@eduzz/eslint-config-houston": "*"
   }
 }

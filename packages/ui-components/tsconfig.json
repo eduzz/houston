@@ -24,13 +24,10 @@
     "skipLibCheck": true,
   },
   "include": [
-    "./**/*.tsx",
-    "./**/*.ts"
+    "**/*.tsx",
+    "**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "*.d.ts",
-    "./**/*.d.ts",
-    "./docs/*"
+    "node_modules"
   ]
 }
