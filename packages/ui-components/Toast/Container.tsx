@@ -42,7 +42,7 @@ const ToastContainer: React.FC<ToastContainerProps> = React.memo((props: ToastCo
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
-        draggable
+        draggable={false}
         pauseOnHover
         limit={2}
       />

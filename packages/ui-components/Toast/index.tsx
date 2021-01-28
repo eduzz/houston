@@ -16,28 +16,36 @@ export function _setCurrentTheme(theme: Theme) {
   currentTheme = theme;
 }
 
-const Toast = {
-  success: (content: React.ReactNode, options?: IToastOptions) =>
+class Toast {
+  private static defaultOptions: ToastOptions = {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false
+  };
+
+  static success(content: React.ReactNode, options?: IToastOptions): void {
     toast.success(content, {
+      ...this.defaultOptions,
       ...options,
       style: { ...(currentTheme ? { background: currentTheme.palette.success.main } : {}) }
-    }),
+    });
+  }
 
-  error: (content: React.ReactNode, options?: IToastOptions) =>
+  static error(content: React.ReactNode, options?: IToastOptions): void {
     toast.error(content, {
+      ...this.defaultOptions,
       ...options,
-      style: {
-        background: (themePalette.error as any).main
-      }
-    }),
+      style: { ...(currentTheme ? { background: currentTheme.palette.error.main } : {}) }
+    });
+  }
 
-  info: (content: React.ReactNode, options?: IToastOptions) =>
+  static info(content: React.ReactNode, options?: IToastOptions): void {
     toast.info(content, {
+      ...this.defaultOptions,
       ...options,
-      style: {
-        background: themePalette.grey[500]
-      }
-    })
-};
+      style: { ...(currentTheme ? { background: themePalette.grey[500] } : {}) }
+    });
+  }
+}
 
 export default Toast;
