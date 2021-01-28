@@ -33,5 +33,14 @@
 	],
 	"settings": {
 		"typescript.tsdk": "./node_modules/typescript/lib"
-	}
+	},
+	"extensions": {
+		"recommendations": [
+			"darkriszty.markdown-table-prettify"
+		]
+	},
+	"recommendations": [
+		"darkriszty.markdown-table-prettify",
+		"dbaeumer.vscode-eslint"
+	]
 }

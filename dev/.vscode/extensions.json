@@ -2,7 +2,8 @@
   "recommendations": [
     "christian-kohler.npm-intellisense",
     "christian-kohler.path-intellisense",
-    "dbaeumer.vscode-eslint",
-    "rbbit.typescript-hero"
+    "rbbit.typescript-hero",
+    "darkriszty.markdown-table-prettify",
+    "dbaeumer.vscode-eslint"
   ]
 }
