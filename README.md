@@ -22,6 +22,10 @@ yarn add --dev @eduzz/eslint-config-houston @typescript-eslint/eslint-plugin @ty
 | @eduzz/core                  | Configurações compartilhadas entre os projetos, não deve ser usado diretamente | [Ver](/packages/core)          |
 
 
+### Quer contribuir?
+
+Veja os detalhes [aqui](/CONTRIBUTING.md)
+
 ### Links Úteis
 
 |       |                                                                                                  |
