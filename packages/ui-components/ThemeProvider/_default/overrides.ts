@@ -202,6 +202,34 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       standardWarning: {
         backgroundColor: '#FFF4D4'
       }
+    },
+
+    MuiTableCell: {
+      head: {
+        fontWeight: 600
+      },
+
+      sizeSmall: {
+        fontSize: themeVariable.textSize('small')
+      }
+    },
+
+    MuiTableSortLabel: {
+      root: {
+        '&:focus': {
+          color: 'inherit'
+        },
+
+        '&$active': {
+          '&$root': {
+            '&$active': {
+              '& $icon': {
+                color: '#1e2a45'
+              }
+            }
+          }
+        }
+      }
     }
   };
 }

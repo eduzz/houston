@@ -72,9 +72,12 @@ const Row = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
     }
   };
 
+  const rowProps = { ...props };
+  delete rowProps.fluid;
+
   return (
     <Grid
-      {...props}
+      {...rowProps}
       container
       className={clsx(config[type ?? 'confortable'].className, fluid && classes.fluid)}
       ref={ref}

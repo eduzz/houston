@@ -16,12 +16,10 @@ import Button from '@eduzz/houston-ui/Button';
 
 | prop      | type                                                               | required | default   |
 |-----------|--------------------------------------------------------------------|----------|-----------|
-| onClick   | `(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void` | false    | -         |
 | disabled  | `boolean`                                                          | false    | `false`   |
 | startIcon | `React.Node`                                                       | false    | -         |
 | variant   | `primary`, `secondary`, `text`                                     | false    | `primary` |
 | href      | `string`                                                           | false    | -         |
 | endIcon   | `React.Node`                                                       | false    | -         |
 | fullWidth | `boolean`                                                          | false    | `false`   |
-| id        | `string`                                                           | false    | -         |
 | loading   | `boolean`                                                          | false    | `false`   |

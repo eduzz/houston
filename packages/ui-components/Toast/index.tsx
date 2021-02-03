@@ -73,7 +73,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = React.memo((props: 
         {...props}
         transition={Slide}
         position='top-right'
-        autoClose={false}
+        autoClose={5000}
         hideProgressBar
         newestOnTop={false}
         closeOnClick
