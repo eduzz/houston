@@ -48,14 +48,14 @@ import Table from '@eduzz/houston-ui/Table';
 
 ### Table props available
 
-| prop         | type                                    | required | default  | description |
-|--------------|-----------------------------------------|----------|----------| ----------- |
-| loading      | `boolean`                               | false    | `false`  | - |
-| onSortable   | `(ordernation: ITableSortable) => void` | false    | -        | Function called when clicked on a `sortable` column |
+| prop         | type                                    | required | default  | description                                            |
+|--------------|-----------------------------------------|----------|----------|--------------------------------------------------------|
+| loading      | `boolean`                               | false    | `false`  | -                                                      |
+| onSortable   | `(ordernation: ITableSortable) => void` | false    | -        | Function called when clicked on a `sortable` column    |
 | stickyHeader | `boolean`                               | false    | `false`  | Fixed header, maximum height (`maxHeight`) is required |
-| size         | `Size`                                  | false    | `medium` | - |
-| maxHeight    | `number`                                | false    | -        | - |
-| messages     | `ITableMessages`                        | false    | `false`  | Messages for some internal events |
+| size         | `Size`                                  | false    | `medium` | -                                                      |
+| maxHeight    | `number`                                | false    | -        | -                                                      |
+| messages     | `ITableMessages`                        | false    | `false`  | Messages for some internal events                      |
 
 
 ### Table Column props available
@@ -66,7 +66,7 @@ import Table from '@eduzz/houston-ui/Table';
 | label    | `React.ReactNode` | true     | -       | -                                                                                                          |
 | width    | `number`          | false    | -       | -                                                                                                          |
 | align    | `ITableAlign`     | false    | `left`  | -                                                                                                          |
-| sortable | `boolean`         | false    | false   | When `true`, when clicking on the column, calls the `onSortable` function passing the `field` and the sort |
+| sortable | `boolean`         | false    | `false` | When `true`, when clicking on the column, calls the `onSortable` function passing the `field` and the sort |
 
 
 ### Table Row props available
@@ -87,16 +87,16 @@ import Table from '@eduzz/houston-ui/Table';
 
 ### Table Actions props available
 
-| prop  | type                      | required | default | description |
-|-------|---------------------------|----------|---------|-------------|
-| label | `React.ReactNode | false` | false    | `Ações` | -           |
-| align | `ITableAlign`             | false    | `left`  |             |
+| prop  | type                       | required | default | description |
+|-------|----------------------------|----------|---------|-------------|
+| label | `React.ReactNode`, `false` | false    | `Ações` | -           |
+| align | `ITableAlign`              | false    | `left`  |             |
 
 
 ### Table Options props available
 
-| prop     | type                        | required | default | description                           |
-|----------|-----------------------------|----------|---------|---------------------------------------|
-| onClick  | `(data: unknown) => void`   | false    | -       | Function triggered on click           |
-| disabled | `IOptionFunction | boolean` | false    | `false` | -                                     |
-| hide     | `IOptionFunction | boolean` | false    | `false` | Controls the rendering of the element |
+| prop     | type                                    | required | default | description                           |
+|----------|-----------------------------------------|----------|---------|---------------------------------------|
+| onClick  | `(data: unknown) => void`               | false    | -       | Function triggered on click           |
+| disabled | `(data: unknown) => boolean`, `boolean` | false    | `false` | -                                     |
+| hide     | `(data: unknown) => boolean`, `boolean` | false    | `false` | Controls the rendering of the element |
