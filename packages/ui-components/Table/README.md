@@ -9,10 +9,11 @@ import Table from '@eduzz/houston-ui/Table';
 ### Use
 
 ```jsx
-<Table>
-  {columns.map((column, index) => (
-    <Table.Column key={`column-${index}`} {...column} />
-  ))}
+<Table onSortable={handleSortable}>
+  <Table.Column field='date' label='Date' sortable />
+  <Table.Column field='product' label='Produto' sortable />
+  <Table.Column field='client' label='Cliente' sortable />
+  <Table.Column field='value' label='Preço' align='right' />
 
   {rows.map((row, index) => (
     <Table.Row key={`row-${index}`} data={row}>
