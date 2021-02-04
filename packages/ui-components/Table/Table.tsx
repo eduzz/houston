@@ -8,7 +8,7 @@ import TableActions from './Actions';
 import Cell, { ITableCellProps } from './Cell';
 import TableColumn, { ITableColumnProps } from './Column';
 import TableContextProvider from './context';
-import { ITableActions, ITableRow, ITableSortable, ITableSubComponents } from './interfaces';
+import { ITableActions, ITableMessages, ITableRow, ITableSortable, ITableSubComponents } from './interfaces';
 import Actions from './internals/Actions';
 import Columns from './internals/Columns';
 import Rows from './internals/Rows';
@@ -32,9 +32,7 @@ interface IProps extends Pick<TableProps, TablePropsExtends> {
   /**
    * Messages for some situations, example: `when there is no date`
    */
-  messages?: {
-    noData?: React.ReactNode;
-  };
+  messages?: ITableMessages;
 }
 
 interface ITableProps
