@@ -58,7 +58,7 @@ import Table from '@eduzz/houston-ui/Table';
 | messages     | `ITableMessages`                        | false    | `false`  | Messages for some internal events                      |
 
 
-### Table Column props available
+### Table.Column props available
 
 | prop     | type              | required | default | description                                                                                                |
 |----------|-------------------|----------|---------|------------------------------------------------------------------------------------------------------------|
@@ -69,14 +69,14 @@ import Table from '@eduzz/houston-ui/Table';
 | sortable | `boolean`         | false    | `false` | When `true`, when clicking on the column, calls the `onSortable` function passing the `field` and the sort |
 
 
-### Table Row props available
+### Table.Row props available
 
 | prop | type      | required | default | description |
 |------|-----------|----------|---------|-------------|
 | data | `unknown` | true     | -       | Row values  |
 
 
-### Table Cell props available
+### Table.Cell props available
 
 | prop     | type          | required | default | description                                         |
 |----------|---------------|----------|---------|-----------------------------------------------------|
@@ -85,7 +85,7 @@ import Table from '@eduzz/houston-ui/Table';
 | colSpan  | `number`      | false    | -       | -                                                   |
 
 
-### Table Actions props available
+### Table.Actions props available
 
 | prop  | type                       | required | default | description |
 |-------|----------------------------|----------|---------|-------------|
@@ -93,7 +93,7 @@ import Table from '@eduzz/houston-ui/Table';
 | align | `ITableAlign`              | false    | `left`  |             |
 
 
-### Table Options props available
+### Table.Options props available
 
 | prop     | type                                    | required | default | description                           |
 |----------|-----------------------------------------|----------|---------|---------------------------------------|
