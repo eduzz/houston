@@ -8,6 +8,7 @@ export interface ITableOptionProps extends Pick<React.HTMLAttributes<HTMLDivElem
   onClick?: (data: unknown) => void;
   disabled?: IOptionFunction | boolean;
   hide?: IOptionFunction | boolean;
+  icon?: React.ReactNode;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

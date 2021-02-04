@@ -101,3 +101,4 @@ import Table from '@eduzz/houston-ui/Table';
 | onClick  | `(data: unknown) => void`               | false    | -       | Function triggered on click           |
 | disabled | `(data: unknown) => boolean`, `boolean` | false    | `false` | -                                     |
 | hide     | `(data: unknown) => boolean`, `boolean` | false    | `false` | Controls the rendering of the element |
+| icon     | `React.ReactNode`                       | false    | -       | -                                     |

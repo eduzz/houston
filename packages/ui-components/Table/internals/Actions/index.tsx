@@ -2,10 +2,26 @@ import * as React from 'react';
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import { useTableContext } from '../../context';
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    option: {
+      display: 'flex',
+      alignItems: 'center',
+
+      '& svg': {
+        marginRight: 4,
+        fontSize: 24
+      }
+    }
+  })
+);
+
 const Actions: React.FC<{}> = () => {
+  const classes = useStyles();
   const { currentRow, actions, anchorEl, setAnchorEl, options, setOptions } = useTableContext();
 
   const handleCloseActions = React.useCallback(() => {
@@ -41,6 +57,7 @@ const Actions: React.FC<{}> = () => {
         vertical: 'top',
         horizontal: 'center'
       }}
+      elevation={2}
     >
       {(!options?.length ? actions?.options : options)?.map((option, index) => {
         const optionProps = { ...option };
@@ -57,6 +74,7 @@ const Actions: React.FC<{}> = () => {
         delete optionProps.onClick;
         delete optionProps.disabled;
         delete optionProps.hide;
+        delete optionProps.icon;
 
         if (hide) {
           return null;
@@ -69,7 +87,10 @@ const Actions: React.FC<{}> = () => {
             onClick={() => handleClick(option?.onClick)}
             disabled={disabled}
           >
-            {option?.children}
+            <div className={classes.option}>
+              {option?.icon && option?.icon}
+              {option?.children}
+            </div>
           </MenuItem>
         );
       })}

@@ -230,6 +230,13 @@ export default function overrides(pallet: Palette): ICustomOverrides {
           }
         }
       }
+    },
+
+    MuiMenuItem: {
+      root: {
+        fontSize: themeVariable.textSize('normal'),
+        fontWeight: themeVariable.fontWeight('semibold')
+      }
     }
   };
 }

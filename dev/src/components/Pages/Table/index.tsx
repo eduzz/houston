@@ -8,6 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import TagFacesIcon from '@material-ui/icons/TagFaces';
 
 import Button from '@eduzz/houston-ui/Button';
 import Column from '@eduzz/houston-ui/Grid/Column';
@@ -192,13 +193,15 @@ const TablePage = memo(() => {
 
                 {/* generic actions */}
                 <Table.Actions align='right'>
-                  <Table.Option disabled={true} onClick={handleClick}>
+                  <Table.Option icon={<TagFacesIcon />} disabled={true} onClick={handleClick}>
                     Detalhes
                   </Table.Option>
-                  <Table.Option hide={(row: IRowValue) => row.id === 5} onClick={handleClick}>
+                  <Table.Option icon={<TagFacesIcon />} hide={(row: IRowValue) => row.id === 5} onClick={handleClick}>
                     Editar
                   </Table.Option>
-                  <Table.Option onClick={handleClick}>Excluir</Table.Option>
+                  <Table.Option icon={<TagFacesIcon />} onClick={handleClick}>
+                    Excluir
+                  </Table.Option>
                 </Table.Actions>
               </Table>
             </Column>
