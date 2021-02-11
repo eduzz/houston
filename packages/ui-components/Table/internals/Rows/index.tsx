@@ -7,6 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
+// eslint-disable-next-line no-restricted-imports
+import * as lodash from 'lodash';
+
 import { truncateText } from '../../../Helpers/functions';
 import { useTableContext } from '../../context';
 import { ITableOptionProps } from '../../Option';
@@ -29,10 +32,24 @@ const useStyles = makeStyles(() =>
 
 const Rows: React.FC<{}> = () => {
   const classes = useStyles();
-  const { loading, columns, rows, actions, setAnchorEl, setOptions, setCurrentRow, messages } = useTableContext();
+  const {
+    loading,
+    columns,
+    rows,
+    currentRow,
+    actions,
+    setAnchorEl,
+    setOptions,
+    setCurrentRow,
+    messages
+  } = useTableContext();
 
   const handleSetCurrentRow = React.useCallback(
-    (event: React.MouseEvent<HTMLElement>, data: unknown, options: ITableOptionProps[]) => {
+    (event: React.MouseEvent<HTMLElement>, data: unknown = null, options: ITableOptionProps[]) => {
+      if (!data) {
+        console.error('@eduzz/houston-ui: when the share component is used, the line must offer the property `data`');
+      }
+
       setCurrentRow(data);
       setAnchorEl(event.currentTarget);
       setOptions(options && options);
@@ -66,14 +83,15 @@ const Rows: React.FC<{}> = () => {
 
       {!loading &&
         rows.map((row, index) => (
-          <TableRow hover key={`row-${index}`}>
+          <TableRow hover key={`row-${index}`} selected={currentRow && lodash.isEqual(currentRow, row.data)}>
             {row?.cells?.map((cell, i) => {
               const cellProps = { ...cell };
+
               delete cellProps.children;
               delete cellProps.truncate;
 
               return (
-                <TableCell key={`cell-${i}`} {...cellProps}>
+                <TableCell key={`row-${index}-cell-${i}`} {...cellProps}>
                   {cell?.truncate && (
                     <span title={String(cell.children)}>{truncateText(String(cell.children), cell.truncate)}</span>
                   )}

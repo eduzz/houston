@@ -15,6 +15,10 @@ export interface ITableColumnProps extends Pick<React.HTMLAttributes<HTMLTableCe
    * Default `left`
    */
   align?: ITableAlign;
+  /**
+   * Control of ordered columns
+   * Default `false`
+   */
   sortable?: boolean;
 }
 

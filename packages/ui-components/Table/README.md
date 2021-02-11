@@ -9,14 +9,14 @@ import Table from '@eduzz/houston-ui/Table';
 ### Use
 
 ```jsx
-<Table onSortable={handleSortable}>
+<Table loading={loading} onSortable={handleSortable}>
   <Table.Column field='date' label='Date' sortable />
   <Table.Column field='product' label='Produto' sortable />
   <Table.Column field='client' label='Cliente' sortable />
   <Table.Column field='value' label='Preço' align='right' />
 
-  {rows.map((row, index) => (
-    <Table.Row key={`row-${index}`} data={row}>
+  {rows.map(row => (
+    <Table.Row key={`row-${row.id}`} data={row}>
       <Table.Cell>{row.date}</Table.Cell>
       <Table.Cell truncate={20}>{row.product}</Table.Cell>
       <Table.Cell>{row.client}</Table.Cell>
@@ -44,6 +44,16 @@ import Table from '@eduzz/houston-ui/Table';
     </Table.Option>
     <Table.Option onClick={handleClick}>Excluir</Table.Option>
   </Table.Actions>
+
+  {/* pagination */}
+  <Table.Pagination
+    page={1}
+    perPage={20}
+    totalPages={3}
+    onChangeRowsPerPage={handleChangeRowsPerPage}
+    onChangeGoToPage={handleChangeGoToPage}
+    onChangePage={handleChangePage}
+  />
 </Table>
 ```
 
@@ -72,9 +82,9 @@ import Table from '@eduzz/houston-ui/Table';
 
 ### Table.Row props available
 
-| prop | type      | required | default | description |
-|------|-----------|----------|---------|-------------|
-| data | `unknown` | true     | -       | Row values  |
+| prop | type      | required | default | description                                                               |
+|------|-----------|----------|---------|---------------------------------------------------------------------------|
+| data | `unknown` | true     | -       | Row values, used only when there are actions (Table.Actions) in the table |
 
 
 ### Table.Cell props available
@@ -102,3 +112,16 @@ import Table from '@eduzz/houston-ui/Table';
 | disabled | `(data: unknown) => boolean`, `boolean` | false    | `false` | -                                     |
 | hide     | `(data: unknown) => boolean`, `boolean` | false    | `false` | Controls the rendering of the element |
 | icon     | `React.ReactNode`                       | false    | -       | -                                     |
+
+### Table.Pagination props available
+
+| prop                | type                                                   | required | default                 | description                                                     |
+|---------------------|--------------------------------------------------------|----------|-------------------------|-----------------------------------------------------------------|
+| page                | `number`                                               | true     | -                       | -                                                               |
+| perPage             | `number`                                               | true     | -                       | -                                                               |
+| totalPages          | `number`                                               | true     | -                       | -                                                               |
+| optionsPerPage      | `number[]`                                             | false    | `[15, 25, 35, 50, 100]` | Values ​​on select items per page                                 |
+| labelItensPerPage   | `string`                                               | false    | `Itens por página:`     | -                                                               |
+| onChangeRowsPerPage | `onChangeRowsPerPage?: (rowsPerPage: number) => void;` | false    | -                       | If the prop does not exist, the component will not be displayed |
+| onChangeGoToPage    | `onChangeGoToPage?: (goToPage: number) => void;`       | false    | -                       | If the prop does not exist, the component will not be displayed |
+| onChangePage        | `onChangePage?: (page: number) => void;`               | false    | -                       | If the prop does not exist, the component will not be displayed |

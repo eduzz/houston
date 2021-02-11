@@ -40,14 +40,14 @@ const Columns: React.FC<{}> = () => {
   return (
     <TableHead>
       <TableRow>
-        {columns.map((column, index) => {
+        {columns.map(column => {
           const currentSortable = sortable?.field === column.field;
           const columnProps = { ...column };
           delete columnProps.sortable;
 
           return (
             <TableCell
-              key={`column-${index}`}
+              key={`column-${column.field}`}
               {...columnProps}
               sortDirection={currentSortable ? sortable?.order : false}
             >

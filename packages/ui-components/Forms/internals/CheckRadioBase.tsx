@@ -4,12 +4,21 @@ import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Radio from '@material-ui/core/Radio';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
 import WrapperTheme from '../../ThemeProvider/WrapperTheme';
 import Typography from '../../Typography';
 import { FormFieldsContext } from '../Form';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    marginDense: {
+      padding: 0
+    }
+  })
+);
 
 type FieldCheckboxPropsExtends = 'checked' | 'value' | 'onChange';
 
@@ -21,6 +30,7 @@ export interface ICheckboxRadioFieldProps extends Pick<CheckboxProps, FieldCheck
   errorMessage?: string;
   form?: IFormAdapter<any>;
   isMultiple?: boolean;
+  margin?: 'none' | 'normal';
 }
 
 const CheckboxRadioField = React.memo<ICheckboxRadioFieldProps>(
@@ -34,8 +44,10 @@ const CheckboxRadioField = React.memo<ICheckboxRadioFieldProps>(
     value,
     errorMessage: errorMessageProp,
     isMultiple,
-    onChange
+    onChange,
+    margin
   }) => {
+    const classes = useStyles();
     const formContext = React.useContext(FormFieldsContext);
     const form = formProps ?? formContext;
 
@@ -78,7 +90,14 @@ const CheckboxRadioField = React.memo<ICheckboxRadioFieldProps>(
     return (
       <WrapperTheme>
         <FormControlLabel
-          control={<Control checked={isChecked} onChange={handleChange} name={name} />}
+          control={
+            <Control
+              classes={{ root: margin === 'none' && classes.marginDense }}
+              checked={isChecked}
+              onChange={handleChange}
+              name={name}
+            />
+          }
           label={
             typeof label !== 'string' ? (
               label

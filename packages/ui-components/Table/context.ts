@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ITableColumnProps } from './Column';
 import { ITableActions, ITableMessages, ITableRow, ITableSortable } from './interfaces';
 import { ITableOptionProps } from './Option';
+import { ITablePagination } from './Pagination';
 
 interface ITableContext {
   loading: boolean;
@@ -21,6 +22,8 @@ interface ITableContext {
 
   options: ITableOptionProps[];
   setOptions: React.Dispatch<React.SetStateAction<ITableOptionProps[]>>;
+
+  pagination: ITablePagination | undefined;
 }
 
 export const TableContext = React.createContext<ITableContext>({} as ITableContext);

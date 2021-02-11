@@ -3,6 +3,7 @@ import { Palette } from '@material-ui/core/styles/createPalette';
 import { Overrides } from '@material-ui/core/styles/overrides';
 import { LabComponentNameToClassKey } from '@material-ui/lab/themeAugmentation';
 
+import palette from './palette';
 import themeVariable from './variables';
 
 export type LabOverrides = {
@@ -116,6 +117,14 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
       selectMenu: {
         height: 45
+      },
+
+      iconOutlined: {
+        right: 4
+      },
+
+      icon: {
+        top: 'calc(50% - 14px)'
       }
     },
 
@@ -204,7 +213,19 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       }
     },
 
+    MuiTableRow: {
+      root: {
+        '&$selected': {
+          background: 'rgba(177, 177, 177, 0.08)'
+        }
+      }
+    },
+
     MuiTableCell: {
+      root: {
+        padding: '12px 20px'
+      },
+
       head: {
         fontWeight: 600
       },
@@ -235,7 +256,34 @@ export default function overrides(pallet: Palette): ICustomOverrides {
     MuiMenuItem: {
       root: {
         fontSize: themeVariable.textSize('normal'),
-        fontWeight: themeVariable.fontWeight('semibold')
+        fontWeight: themeVariable.fontWeight('regular')
+      }
+    },
+
+    MuiPaginationItem: {
+      root: {
+        margin: '0 2px',
+        minWidth: 30,
+        padding: '0 4px'
+      }
+    },
+
+    MuiPagination: {
+      ul: {
+        '& li': {
+          '&:first-child, &:last-child': {
+            border: `1px solid ${palette.grey[300]}`,
+            borderRadius: 4
+          },
+
+          '&:first-child': {
+            marginRight: 8
+          },
+
+          '&:last-child': {
+            marginLeft: 8
+          }
+        }
       }
     }
   };

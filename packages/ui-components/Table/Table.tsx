@@ -11,8 +11,10 @@ import TableContextProvider from './context';
 import { ITableActions, ITableMessages, ITableRow, ITableSortable, ITableSubComponents } from './interfaces';
 import Actions from './internals/Actions';
 import Columns from './internals/Columns';
+import Pagination from './internals/Pagination';
 import Rows from './internals/Rows';
 import Option, { ITableOptionProps } from './Option';
+import TablePagination, { ITablePagination } from './Pagination';
 import Row from './Row';
 
 type TablePropsExtends = 'id' | 'className' | 'children';
@@ -46,7 +48,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const [currentRow, setCurrentRow] = React.useState<unknown>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const columns: ITableColumnProps[] = React.useMemo(
+  const columns: ITableColumnProps[] | [] = React.useMemo(
     () =>
       React.Children.map(children, child => {
         if (!child || !React.isValidElement(child) || child?.type !== TableColumn) {
@@ -58,7 +60,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     [children]
   );
 
-  const rows: ITableRow[] = React.useMemo(
+  const rows: ITableRow[] | [] = React.useMemo(
     () =>
       React.Children.map(children, child => {
         if (!child || !React.isValidElement(child) || child?.type !== Row) {
@@ -127,6 +129,21 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     [children]
   );
 
+  const pagination: ITablePagination | undefined = React.useMemo(
+    () =>
+      React.Children.map(children, child => {
+        if (!child || !React.isValidElement(child) || child?.type !== TablePagination) {
+          return null;
+        }
+
+        const props = { ...child.props };
+        delete props?.children;
+
+        return { ...props };
+      })?.[0],
+    [children]
+  );
+
   return (
     <WrapperTheme>
       <TableContextProvider
@@ -146,7 +163,9 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
           setAnchorEl,
 
           options,
-          setOptions
+          setOptions,
+
+          pagination
         }}
       >
         <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
@@ -156,6 +175,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
           </TableMUI>
         </TableContainer>
 
+        <Pagination />
         <Actions />
       </TableContextProvider>
     </WrapperTheme>
@@ -167,5 +187,6 @@ Table.Row = Row;
 Table.Cell = Cell;
 Table.Actions = TableActions;
 Table.Option = Option;
+Table.Pagination = TablePagination;
 
 export default Table;

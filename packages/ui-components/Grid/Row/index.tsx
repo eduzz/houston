@@ -8,21 +8,16 @@ import clsx from 'clsx';
 const useStyles = makeStyles(() =>
   createStyles({
     confortable: {
-      width: 'calc(100% - 36px)',
-      maxWidth: 1062
+      margin: 0,
+      width: '100%'
     },
     cozy: {
-      margin: '0 28px',
-      width: 'calc(100% - 56px)',
-      maxWidth: 1062
+      margin: 0,
+      width: '100%'
     },
     compact: {
-      margin: '0 20px',
-      width: 'calc(100% - 40px)',
-      maxWidth: 1062
-    },
-    fluid: {
-      maxWidth: '100%'
+      margin: 0,
+      width: '100%'
     }
   })
 );
@@ -45,43 +40,41 @@ interface IProps extends Pick<GridProps, GridPropsExtends> {
    * `confortable` spacing big
    * `cozy` spacing medium
    * `compact` spacing small
+   *  default `cozy`
    */
   type?: IRowType;
-  /**
-   * max-width ignore
-   */
-  fluid?: boolean;
 }
 
 const Row = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
-  const { children, type, fluid = false } = props;
+  const { children, type } = props;
   const classes = useStyles();
 
-  const config: IConfig = {
-    confortable: {
-      className: classes.confortable,
-      spacing: 5
-    },
-    cozy: {
-      className: classes.cozy,
-      spacing: 2
-    },
-    compact: {
-      className: classes.compact,
-      spacing: 1
-    }
-  };
+  const config: IConfig = React.useMemo(() => {
+    return {
+      confortable: {
+        className: classes.confortable,
+        spacing: 5
+      },
+      cozy: {
+        className: classes.cozy,
+        spacing: 2
+      },
+      compact: {
+        className: classes.compact,
+        spacing: 1
+      }
+    };
+  }, [classes.compact, classes.confortable, classes.cozy]);
 
   const rowProps = { ...props };
-  delete rowProps.fluid;
 
   return (
     <Grid
       {...rowProps}
       container
-      className={clsx(config[type ?? 'confortable'].className, fluid && classes.fluid)}
+      className={clsx(config[type ?? 'cozy'].className)}
       ref={ref}
-      spacing={config[type ?? 'confortable'].spacing}
+      spacing={config[type ?? 'cozy'].spacing}
     >
       {children}
     </Grid>

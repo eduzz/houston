@@ -13,7 +13,7 @@ const useStyles = makeStyles(() =>
       alignItems: 'center',
 
       '& svg': {
-        marginRight: 4,
+        marginRight: 8,
         fontSize: 24
       }
     }
@@ -22,12 +22,13 @@ const useStyles = makeStyles(() =>
 
 const Actions: React.FC<{}> = () => {
   const classes = useStyles();
-  const { currentRow, actions, anchorEl, setAnchorEl, options, setOptions } = useTableContext();
+  const { currentRow, actions, anchorEl, setAnchorEl, options, setOptions, setCurrentRow } = useTableContext();
 
   const handleCloseActions = React.useCallback(() => {
+    setCurrentRow(null);
     setAnchorEl(null);
     setTimeout(() => setOptions([]), 150);
-  }, [setAnchorEl, setOptions]);
+  }, [setAnchorEl, setOptions, setCurrentRow]);
 
   const handleClick = React.useCallback(
     (callback: (data: unknown) => void) => {

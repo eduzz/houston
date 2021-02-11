@@ -11,6 +11,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
 
 import Button from '@eduzz/houston-ui/Button';
+import CheckboxField from '@eduzz/houston-ui/Forms/Checkbox';
 import Column from '@eduzz/houston-ui/Grid/Column';
 import Row from '@eduzz/houston-ui/Grid/Row';
 import Table from '@eduzz/houston-ui/Table';
@@ -33,8 +34,11 @@ const TablePage = memo(() => {
   const [size, setSize] = useState<'small' | 'medium'>('medium');
   const [fixedHeader, setFixedHeader] = useState<boolean>(false);
   const [showRows, setShowRows] = useState<boolean>(true);
+  const [pagination, setPagination] = useState<boolean>(true);
+  const [paginationTable, setPaginationTable] = useState({ page: 1, perPage: 15, totalPages: 10 });
 
   const headTable: ITableColumnProps[] = [
+    { field: 'select', label: <CheckboxField label='' name='check-all' margin='none' />, width: 80 },
     { field: 'date', label: 'Data', sortable: true },
     { field: 'product', label: 'Produto', sortable: true },
     { field: 'client', label: 'Cliente', sortable: true },
@@ -100,6 +104,19 @@ const TablePage = memo(() => {
     }, 2000);
   }, []);
 
+  const handleChangeRowsPerPage = useCallback((perPage: number) => {
+    setPaginationTable(pagination => ({ ...pagination, perPage }));
+    console.log('perPage ', perPage);
+  }, []);
+
+  const handleChangeGoToPage = useCallback((page: number) => {
+    console.log('go to page ', page);
+  }, []);
+
+  const handleChangePage = useCallback((page: number) => {
+    console.log('change age ', page);
+  }, []);
+
   useEffect(() => {
     getData();
   }, [getData]);
@@ -110,7 +127,7 @@ const TablePage = memo(() => {
 
       <Card>
         <CardContent>
-          <Row type='cozy' fluid>
+          <Row type='cozy'>
             <Column md={3} xs={12}>
               <FormLabel>Table size</FormLabel>
               <RadioGroup
@@ -152,11 +169,25 @@ const TablePage = memo(() => {
                 ))}
               </RadioGroup>
             </Column>
+
+            <Column md={3} xs={12}>
+              <FormLabel>Pagination</FormLabel>
+              <RadioGroup
+                name='rows'
+                value={pagination ? 'true' : 'false'}
+                onChange={(_: React.ChangeEvent<HTMLInputElement>, value: string) => setPagination(value === 'true')}
+                row
+              >
+                {['true', 'false'].map((value, index) => (
+                  <FormControlLabel key={`option-rows-${index}`} value={value} control={<Radio />} label={value} />
+                ))}
+              </RadioGroup>
+            </Column>
           </Row>
         </CardContent>
 
         <CardContent>
-          <Row type='cozy' fluid>
+          <Row>
             <Column xs={12}>
               <Table
                 loading={loading}
@@ -172,16 +203,19 @@ const TablePage = memo(() => {
                   <Table.Column key={`th-${index}`} {...column} />
                 ))}
 
-                {(!showRows ? [] : [...rows, ...rows]).map((row, index) => (
+                {(!showRows ? [] : rows).map((row, index) => (
                   <Table.Row key={`row-${index}`} data={row}>
+                    <Table.Cell>
+                      <CheckboxField label='' name='check' margin='none' />
+                    </Table.Cell>
                     <Table.Cell>{row.date}</Table.Cell>
                     <Table.Cell truncate={20}>{row.product}</Table.Cell>
                     <Table.Cell>{row.client}</Table.Cell>
                     <Table.Cell align='right'>{row.value}</Table.Cell>
 
+                    {/* specific actions */}
                     {index === 2 && (
                       <Table.Actions>
-                        {/* specific actions */}
                         <Table.Option onClick={handleClick}>Opção diferenciada</Table.Option>
                         <Table.Option onClick={handleClick}>Detalhes</Table.Option>
                         <Table.Option onClick={handleClick}>Editar</Table.Option>
@@ -203,6 +237,16 @@ const TablePage = memo(() => {
                     Excluir
                   </Table.Option>
                 </Table.Actions>
+
+                {/* pagination */}
+                {pagination && (
+                  <Table.Pagination
+                    {...paginationTable}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                    onChangeGoToPage={handleChangeGoToPage}
+                    onChangePage={handleChangePage}
+                  />
+                )}
               </Table>
             </Column>
           </Row>

@@ -31,11 +31,25 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
   mask?: IFormMask;
   form?: IFormAdapter<any>;
   onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
+  onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
+  margin?: 'none' | 'dense' | 'normal';
 }
 
 const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
   (
-    { form: formProps, mask, value, name, loading, onChange, errorMessage: errorMessageProp, fullWidth, ...props },
+    {
+      form: formProps,
+      mask,
+      value,
+      name,
+      loading,
+      onChange,
+      onBlur,
+      errorMessage: errorMessageProp,
+      fullWidth,
+      margin,
+      ...props
+    },
     ref
   ) => {
     const formContext = React.useContext(FormFieldsContext);
@@ -54,6 +68,14 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
         form && form.setFieldValue(name, maskClean(e.currentTarget.value));
       },
       [onChange, maskClean, form, name]
+    );
+
+    const handleBlur = React.useCallback(
+      (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        onBlur && onBlur(maskClean(e.currentTarget.value), e);
+        form && form.setFieldTouched(name, true);
+      },
+      [form, name, onBlur, maskClean]
     );
 
     const inputLabelProps = React.useMemo<InputLabelProps>(
@@ -85,11 +107,12 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
           disabled={form?.isSubmitting || props.disabled}
           helperText={errorMessage ?? props.helperText}
           name={name}
-          margin='normal'
+          margin={margin ?? 'normal'}
           variant='outlined'
           value={maskedValue ?? ''}
           inputRef={ref}
           onChange={handleChange}
+          onBlur={handleBlur}
           fullWidth={fullWidth ?? true}
           InputLabelProps={inputLabelProps}
           InputProps={inputProps}
