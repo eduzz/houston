@@ -86,6 +86,11 @@ const Pagination: React.FC<{}> = () => {
   const handleBlurGoToPage = React.useCallback(
     (_: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const page = Number(event.target.value) || 1;
+
+      if (page === pagination?.page) {
+        return;
+      }
+
       pagination?.onChangeGoToPage && pagination?.onChangeGoToPage(page);
     },
     [pagination]

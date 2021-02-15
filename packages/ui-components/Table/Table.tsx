@@ -5,17 +5,25 @@ import TableContainer from '@material-ui/core/TableContainer';
 
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 import TableActions from './Actions';
-import Cell, { ITableCellProps } from './Cell';
+import TableCell, { ITableCellProps } from './Cell';
+import TableCollapse from './Collapse';
 import TableColumn, { ITableColumnProps } from './Column';
 import TableContextProvider from './context';
-import { ITableActions, ITableMessages, ITableRow, ITableSortable, ITableSubComponents } from './interfaces';
+import {
+  ITableActions,
+  ITableCollapse,
+  ITableMessages,
+  ITableRow,
+  ITableSortable,
+  ITableSubComponents
+} from './interfaces';
 import Actions from './internals/Actions';
 import Columns from './internals/Columns';
 import Pagination from './internals/Pagination';
 import Rows from './internals/Rows';
-import Option, { ITableOptionProps } from './Option';
+import TableOption, { ITableOptionProps } from './Option';
 import TablePagination, { ITablePagination } from './Pagination';
-import Row from './Row';
+import TableRow from './Row';
 
 type TablePropsExtends = 'id' | 'className' | 'children';
 
@@ -30,6 +38,9 @@ interface IProps extends Pick<TableProps, TablePropsExtends> {
    * Default `medium`
    */
   size?: Size;
+  /**
+   * Max Height table container
+   */
   maxHeight?: number;
   /**
    * Messages for some situations, example: `when there is no date`
@@ -48,13 +59,64 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const [currentRow, setCurrentRow] = React.useState<unknown>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
+  const getActions = React.useCallback((content: React.ReactChildren | React.ReactNode) => {
+    const actions: ITableActions | undefined = React.Children.map(content, (child: React.ReactNode) => {
+      if (!child || !React.isValidElement(child) || child?.type !== TableActions) return null;
+
+      const options = React.Children.map(child?.props?.children, option => {
+        if (!option || !React.isValidElement(option) || option?.type !== TableOption) return;
+        return option?.props;
+      });
+
+      return { ...child.props, options };
+    })?.[0];
+
+    return actions || null;
+  }, []);
+
+  const getCollapseData = React.useCallback(
+    (content: React.ReactNode) => {
+      const actions = getActions(content);
+
+      const rows: ITableRow[] = React.Children.map(content, (child: React.ReactNode) => {
+        let cells: ITableCellProps[] = [];
+        let options: ITableOptionProps[] = [];
+
+        if (!child || !React.isValidElement(child) || child?.type !== TableRow) return null;
+
+        React.Children.map(child?.props?.children, (c: React.ReactNode) => {
+          if (!c || !React.isValidElement(c)) return;
+
+          if (c?.type === TableActions) {
+            options = [
+              ...options,
+              ...c?.props?.children.map((opt: React.ReactNode) => {
+                if (!opt || !React.isValidElement(opt) || opt?.type !== TableOption) return;
+                return opt.props;
+              })
+            ];
+
+            return;
+          }
+
+          if (c?.type === TableCell) {
+            cells = [...cells, c?.props];
+            return;
+          }
+        });
+
+        return { ...child.props, options, cells };
+      });
+
+      return { rows, actions };
+    },
+    [getActions]
+  );
+
   const columns: ITableColumnProps[] | [] = React.useMemo(
     () =>
       React.Children.map(children, child => {
-        if (!child || !React.isValidElement(child) || child?.type !== TableColumn) {
-          return;
-        }
-
+        if (!child || !React.isValidElement(child) || child?.type !== TableColumn) return;
         return { ...child.props };
       }),
     [children]
@@ -63,26 +125,25 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const rows: ITableRow[] | [] = React.useMemo(
     () =>
       React.Children.map(children, child => {
-        if (!child || !React.isValidElement(child) || child?.type !== Row) {
-          return null;
-        }
-
         let cells: ITableCellProps[] = [];
         let options: ITableOptionProps[] = [];
+        let collapse: ITableCollapse = null;
 
-        React.Children.map(child.props.children, (c: React.ReactNode) => {
-          if (!c || !React.isValidElement(c)) {
+        if (!child || !React.isValidElement(child) || child?.type !== TableRow) return null;
+
+        React.Children.map(child?.props?.children, (c: React.ReactNode) => {
+          if (!c || !React.isValidElement(c)) return;
+
+          if (c.type === TableCollapse) {
+            collapse = { ...c?.props, ...getCollapseData(c?.props?.children) };
             return;
           }
 
-          if (c?.type === TableActions) {
+          if (c.type === TableActions) {
             options = [
               ...options,
               ...c?.props?.children.map((opt: React.ReactNode) => {
-                if (!opt || !React.isValidElement(opt) || opt?.type !== Option) {
-                  return;
-                }
-
+                if (!opt || !React.isValidElement(opt) || opt?.type !== TableOption) return;
                 return opt.props;
               })
             ];
@@ -90,59 +151,31 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
             return;
           }
 
-          if (c?.type === Cell) {
+          if (c.type === TableCell) {
             cells = [...cells, c.props];
             return;
           }
-
-          return;
         });
 
-        const props = { ...child.props };
-        delete props?.children;
-
-        return { ...props, cells, options };
+        return { ...child.props, cells, options, collapse };
       }),
-    [children]
+    [children, getCollapseData]
   );
 
-  const actions: ITableActions | undefined = React.useMemo(
-    () =>
-      React.Children.map(children, child => {
-        if (!child || !React.isValidElement(child) || child?.type !== TableActions) {
-          return null;
-        }
-
-        const options = React.Children.map(child.props.children, option => {
-          if (!option || !React.isValidElement(option) || option.type !== Option) {
-            return;
-          }
-
-          return option.props;
-        });
-
-        const props = { ...child.props };
-        delete props?.children;
-
-        return { ...props, options };
-      })?.[0],
-    [children]
-  );
+  const actions = React.useMemo(() => getActions(children), [getActions, children]);
 
   const pagination: ITablePagination | undefined = React.useMemo(
     () =>
       React.Children.map(children, child => {
-        if (!child || !React.isValidElement(child) || child?.type !== TablePagination) {
-          return null;
-        }
-
-        const props = { ...child.props };
-        delete props?.children;
-
-        return { ...props };
+        if (!child || !React.isValidElement(child) || child?.type !== TablePagination) return null;
+        return { ...child.props };
       })?.[0],
     [children]
   );
+
+  const hasCollapseData = !!rows.filter(v => v.collapse).length;
+
+  console.log(rows);
 
   return (
     <WrapperTheme>
@@ -158,6 +191,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
           columns,
           rows,
           actions,
+          hasCollapseData,
 
           anchorEl,
           setAnchorEl,
@@ -183,10 +217,11 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
 }) as ITableProps;
 
 Table.Column = TableColumn;
-Table.Row = Row;
-Table.Cell = Cell;
+Table.Row = TableRow;
+Table.Cell = TableCell;
 Table.Actions = TableActions;
-Table.Option = Option;
+Table.Option = TableOption;
 Table.Pagination = TablePagination;
+Table.Collapse = TableCollapse;
 
 export default Table;

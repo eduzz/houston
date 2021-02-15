@@ -1,5 +1,6 @@
 import Actions, { ITableActionsProps } from './Actions';
 import Cell, { ITableCellProps } from './Cell';
+import Collapse, { ITableCollapseProps } from './Collapse';
 import Column from './Column';
 import Option, { ITableOptionProps } from './Option';
 import Pagination from './Pagination';
@@ -12,6 +13,7 @@ export interface ITableSubComponents {
   Actions: typeof Actions;
   Option: typeof Option;
   Pagination: typeof Pagination;
+  Collapse: typeof Collapse;
 }
 
 type ITableCell = { cells?: ITableCellProps[] };
@@ -20,9 +22,16 @@ type ITableOptions = { options?: ITableOptionProps[] };
 
 export type ITableAlign = 'inherit' | 'left' | 'center' | 'right' | 'justify';
 
-export interface ITableRow extends ITableRowProps, ITableCell, ITableOptions {}
-
 export interface ITableActions extends ITableActionsProps, ITableOptions {}
+
+export interface ITableCollapse extends ITableCollapseProps {
+  rows: ITableRow[];
+  actions: ITableActions;
+}
+
+export interface ITableRow extends ITableRowProps, ITableCell, ITableOptions {
+  collapse: ITableCollapse | null;
+}
 
 export interface ITableSortable {
   field: string;
@@ -30,5 +39,5 @@ export interface ITableSortable {
 }
 
 export interface ITableMessages {
-  noData?: React.ReactNode;
+  empty?: React.ReactNode;
 }

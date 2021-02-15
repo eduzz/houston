@@ -13,6 +13,7 @@ interface ITableContext {
   columns: ITableColumnProps[];
   rows: ITableRow[];
   actions: ITableActions | undefined;
+  hasCollapseData: boolean;
 
   currentRow: unknown;
   setCurrentRow: React.Dispatch<React.SetStateAction<unknown>>;

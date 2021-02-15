@@ -25,7 +25,7 @@ import Table from '@eduzz/houston-ui/Table';
       {/* specific actions */}
       {row.type === 2 && (
         <Table.Actions>
-          <Table.Option onClick={handleClick}>Opção diferenciada</Table.Option>
+          <Table.Option disable={row.id === 1} onClick={handleClick}>Opção diferenciada</Table.Option>
           <Table.Option onClick={handleClick}>Detalhes</Table.Option>
           <Table.Option onClick={handleClick}>Editar</Table.Option>
           <Table.Option onClick={handleClick}>Excluir</Table.Option>
@@ -39,7 +39,7 @@ import Table from '@eduzz/houston-ui/Table';
     <Table.Option disabled={true} onClick={handleClick}>
       Detalhes
     </Table.Option>
-    <Table.Option hide={(row: IRowValue) => row.id === 5} onClick={handleClick}>
+    <Table.Option hide={row => row.id === 5} onClick={handleClick}>
       Editar
     </Table.Option>
     <Table.Option onClick={handleClick}>Excluir</Table.Option>
@@ -113,6 +113,7 @@ import Table from '@eduzz/houston-ui/Table';
 | hide     | `(data: unknown) => boolean`, `boolean` | false    | `false` | Controls the rendering of the element |
 | icon     | `React.ReactNode`                       | false    | -       | -                                     |
 
+
 ### Table.Pagination props available
 
 | prop                | type                                                   | required | default                 | description                                                     |
@@ -125,3 +126,11 @@ import Table from '@eduzz/houston-ui/Table';
 | onChangeRowsPerPage | `onChangeRowsPerPage?: (rowsPerPage: number) => void;` | false    | -                       | If the prop does not exist, the component will not be displayed |
 | onChangeGoToPage    | `onChangeGoToPage?: (goToPage: number) => void;`       | false    | -                       | If the prop does not exist, the component will not be displayed |
 | onChangePage        | `onChangePage?: (page: number) => void;`               | false    | -                       | If the prop does not exist, the component will not be displayed |
+
+
+### Table.Collapse props available
+
+| prop       | type         | required | default | description |
+|------------|--------------|----------|---------|-------------|
+| loading    | `boolean`    | false    | -       | -           |
+| onCollapse | `() => void` | false    | -       | -           |

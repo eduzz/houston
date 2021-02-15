@@ -9,7 +9,7 @@ import { useTableContext } from '../../context';
 import { ITableSortable } from '../../interfaces';
 
 const Columns: React.FC<{}> = () => {
-  const { loading, columns, actions, onSortable, rows } = useTableContext();
+  const { loading, columns, actions, onSortable, rows, hasCollapseData } = useTableContext();
 
   const [sortable, setSortable] = React.useState<ITableSortable | null>(null);
 
@@ -73,6 +73,8 @@ const Columns: React.FC<{}> = () => {
             {!actions?.label && actions.label !== false ? 'Ações' : actions.label}
           </TableCell>
         )}
+
+        {hasCollapseData && <TableCell width={50} />}
       </TableRow>
     </TableHead>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { Fragment, memo, useState } from 'react';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
@@ -30,6 +31,7 @@ interface IRowValue {
 
 const TablePage = memo(() => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [collapseLoading, setCollapseLoading] = useState<boolean>(true);
 
   const [size, setSize] = useState<'small' | 'medium'>('medium');
   const [fixedHeader, setFixedHeader] = useState<boolean>(false);
@@ -38,7 +40,7 @@ const TablePage = memo(() => {
   const [paginationTable, setPaginationTable] = useState({ page: 1, perPage: 15, totalPages: 10 });
 
   const headTable: ITableColumnProps[] = [
-    { field: 'select', label: <CheckboxField label='' name='check-all' margin='none' />, width: 80 },
+    { field: 'select', label: <CheckboxField label='' name='check-all' margin='none' />, width: 50 },
     { field: 'date', label: 'Data', sortable: true },
     { field: 'product', label: 'Produto', sortable: true },
     { field: 'client', label: 'Cliente', sortable: true },
@@ -104,6 +106,12 @@ const TablePage = memo(() => {
     }, 2000);
   }, []);
 
+  const handleCollapse = useCallback(() => {
+    setTimeout(() => {
+      setCollapseLoading(false);
+    }, 2000);
+  }, []);
+
   const handleChangeRowsPerPage = useCallback((perPage: number) => {
     setPaginationTable(pagination => ({ ...pagination, perPage }));
     console.log('perPage ', perPage);
@@ -111,9 +119,11 @@ const TablePage = memo(() => {
 
   const handleChangeGoToPage = useCallback((page: number) => {
     console.log('go to page ', page);
+    setPaginationTable(pagination => ({ ...pagination, page }));
   }, []);
 
   const handleChangePage = useCallback((page: number) => {
+    setPaginationTable(pagination => ({ ...pagination, page }));
     console.log('change age ', page);
   }, []);
 
@@ -196,7 +206,7 @@ const TablePage = memo(() => {
                 stickyHeader={fixedHeader}
                 maxHeight={fixedHeader && 300}
                 messages={{
-                  noData: 'Algum conteúdo vai aqui, quando não houver data.'
+                  empty: 'Algum conteúdo vai aqui, quando não houver data.'
                 }}
               >
                 {headTable.map((column, index) => (
@@ -221,6 +231,35 @@ const TablePage = memo(() => {
                         <Table.Option onClick={handleClick}>Editar</Table.Option>
                         <Table.Option onClick={handleClick}>Excluir</Table.Option>
                       </Table.Actions>
+                    )}
+
+                    {/* collapse */}
+                    {(index === 2 || index === 4) && (
+                      <Table.Collapse loading={collapseLoading} onCollapse={handleCollapse}>
+                        <Table.Row data={row}>
+                          <Table.Cell>22/12/2222</Table.Cell>
+                          <Table.Cell>Produto de teste</Table.Cell>
+                        </Table.Row>
+
+                        <Table.Row data={row}>
+                          <Table.Cell>23/12/2333</Table.Cell>
+                          <Table.Cell>Produto de teste</Table.Cell>
+
+                          {/* specific actions */}
+                          {index === 2 && (
+                            <Table.Actions>
+                              <Table.Option onClick={handleClick}>Opção diferenciada</Table.Option>
+                              <Table.Option onClick={handleClick}>Excluir</Table.Option>
+                            </Table.Actions>
+                          )}
+                        </Table.Row>
+
+                        {/* actions collapse */}
+                        <Table.Actions align='right'>
+                          <Table.Option onClick={handleClick}>Atualizar</Table.Option>
+                          <Table.Option onClick={handleClick}>Excluir</Table.Option>
+                        </Table.Actions>
+                      </Table.Collapse>
                     )}
                   </Table.Row>
                 ))}

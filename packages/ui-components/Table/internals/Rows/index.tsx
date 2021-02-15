@@ -1,10 +1,13 @@
 import * as React from 'react';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 // eslint-disable-next-line no-restricted-imports
@@ -32,6 +35,7 @@ const useStyles = makeStyles(() =>
 
 const Rows: React.FC<{}> = () => {
   const classes = useStyles();
+
   const {
     loading,
     columns,
@@ -41,8 +45,13 @@ const Rows: React.FC<{}> = () => {
     setAnchorEl,
     setOptions,
     setCurrentRow,
-    messages
+    messages,
+    hasCollapseData
   } = useTableContext();
+
+  const [collapse, setCollapse] = React.useState<unknown | null>(null);
+
+  const countColumns = columns?.length + 1 + Number(hasCollapseData) || 1;
 
   const handleSetCurrentRow = React.useCallback(
     (event: React.MouseEvent<HTMLElement>, data: unknown = null, options: ITableOptionProps[]) => {
@@ -57,12 +66,24 @@ const Rows: React.FC<{}> = () => {
     [setAnchorEl, setOptions, setCurrentRow]
   );
 
+  const handleClickCollapse = React.useCallback(
+    (data: unknown = null) => {
+      if (collapse && lodash.isEqual(collapse, data)) {
+        setCollapse(null);
+        return;
+      }
+
+      setCollapse(data);
+    },
+    [collapse]
+  );
+
   if (!rows?.length) {
     return (
       <TableBody>
         <TableRow>
-          <TableCell align='center' colSpan={columns?.length + 1 || 1}>
-            <div className={classes.loader}>{messages?.noData ? messages.noData : 'Nenhum registro encontrado.'}</div>
+          <TableCell align='center' colSpan={countColumns}>
+            <div className={classes.loader}>{messages?.empty ? messages.empty : 'Nenhum registro encontrado.'}</div>
           </TableCell>
         </TableRow>
       </TableBody>
@@ -73,7 +94,7 @@ const Rows: React.FC<{}> = () => {
     <TableBody>
       {loading && (
         <TableRow>
-          <TableCell align='center' colSpan={columns?.length + 1 || 1}>
+          <TableCell align='center' colSpan={countColumns}>
             <div className={classes.loader}>
               <CircularProgress />
             </div>
@@ -107,6 +128,24 @@ const Rows: React.FC<{}> = () => {
                   <MoreHorizIcon />
                 </div>
               </TableCell>
+            )}
+
+            {hasCollapseData && (
+              <>
+                {!row.collapse && <TableCell key={`row-${index}-collapse`} />}
+
+                {row.collapse && (
+                  <TableCell key={`row-${index}-collapse`}>
+                    <IconButton size='small' onClick={() => handleClickCollapse(row.data)}>
+                      {collapse && lodash.isEqual(collapse, row.data) ? (
+                        <KeyboardArrowUpIcon />
+                      ) : (
+                        <KeyboardArrowDownIcon />
+                      )}
+                    </IconButton>
+                  </TableCell>
+                )}
+              </>
             )}
           </TableRow>
         ))}
