@@ -50,7 +50,7 @@ const Rows: React.FC<{}> = () => {
     numberColumns
   } = useTableContext();
 
-  const [collapse, setCollapse] = React.useState<unknown | null>(null);
+  const [currentItemCollapse, setCurrentItemCollapse] = React.useState<unknown | null>(null);
 
   const handleSetCurrentRow = React.useCallback(
     (event: React.MouseEvent<HTMLElement>, row: ITableRow = null) => {
@@ -69,16 +69,16 @@ const Rows: React.FC<{}> = () => {
     (row: Partial<ITableRow>) => {
       const callback = row?.collapse?.onCollapse;
 
-      if (collapse && lodash.isEqual(collapse, row?.data)) {
+      if (currentItemCollapse && lodash.isEqual(currentItemCollapse, row?.data)) {
         callback(null);
-        setCollapse(null);
+        setCurrentItemCollapse(null);
         return;
       }
 
       callback(row?.data);
-      setCollapse(row?.data);
+      setCurrentItemCollapse(row?.data);
     },
-    [collapse]
+    [currentItemCollapse]
   );
 
   if (!rows?.length) {
@@ -128,7 +128,7 @@ const Rows: React.FC<{}> = () => {
                   {row?.collapse && (
                     <TableCell key={`row-${index}-collapse`}>
                       <IconButton size='small' onClick={() => handleClickCollapse(row)}>
-                        {collapse && lodash.isEqual(collapse, row.data) ? (
+                        {currentItemCollapse && lodash.isEqual(currentItemCollapse, row.data) ? (
                           <KeyboardArrowUpIcon />
                         ) : (
                           <KeyboardArrowDownIcon />
@@ -140,7 +140,7 @@ const Rows: React.FC<{}> = () => {
               )}
             </TableRow>
 
-            <Collapse collapse={collapse} row={row} />
+            {row?.collapse && <Collapse collapse={currentItemCollapse} row={row} />}
           </React.Fragment>
         ))}
     </TableBody>

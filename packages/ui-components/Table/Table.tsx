@@ -97,21 +97,20 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
         React.Children.map(child?.props?.children, (c: React.ReactNode) => {
           if (!c || !React.isValidElement(c)) return;
 
-          if (c?.type === TableActions) {
-            options = [
-              ...options,
-              ...c?.props?.children.map((opt: React.ReactNode) => {
-                if (!opt || !React.isValidElement(opt) || opt?.type !== TableOption) return;
-                return opt.props;
-              })
-            ];
+          switch (c.type) {
+            case TableActions:
+              options = [
+                ...options,
+                ...c?.props?.children.map((opt: React.ReactNode) => {
+                  if (!opt || !React.isValidElement(opt) || opt?.type !== TableOption) return;
+                  return opt.props;
+                })
+              ];
+              break;
 
-            return;
-          }
-
-          if (c?.type === TableCell) {
-            cells = [...cells, c?.props];
-            return;
+            case TableCell:
+              cells = [...cells, c?.props];
+              break;
           }
         });
 
@@ -135,26 +134,24 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
         React.Children.map(child?.props?.children, (c: React.ReactNode) => {
           if (!c || !React.isValidElement(c)) return;
 
-          if (c.type === TableCollapse) {
-            collapse = { ...c?.props, ...getCollapseData(c?.props?.children) };
-            return;
-          }
+          switch (c.type) {
+            case TableCollapse:
+              collapse = { ...c?.props, ...getCollapseData(c?.props?.children) };
+              break;
 
-          if (c.type === TableActions) {
-            options = [
-              ...options,
-              ...c?.props?.children.map((opt: React.ReactNode) => {
-                if (!opt || !React.isValidElement(opt) || opt?.type !== TableOption) return;
-                return opt.props;
-              })
-            ];
+            case TableActions:
+              options = [
+                ...options,
+                ...c?.props?.children.map((opt: React.ReactNode) => {
+                  if (!opt || !React.isValidElement(opt) || opt?.type !== TableOption) return;
+                  return opt.props;
+                })
+              ];
+              break;
 
-            return;
-          }
-
-          if (c.type === TableCell) {
-            cells = [...cells, c.props];
-            return;
+            case TableCell:
+              cells = [...cells, c.props];
+              break;
           }
         });
 

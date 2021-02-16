@@ -17,18 +17,18 @@ const Columns: React.FC<{}> = () => {
     (field: string) => {
       if (sortable?.field !== field) {
         setSortable({ field, order: 'asc' });
-        onSortable({ field, order: 'asc' });
+        onSortable && onSortable({ field, order: 'asc' });
         return;
       }
 
       if (sortable?.field === field && sortable.order === 'asc') {
         setSortable({ ...sortable, order: 'desc' });
-        onSortable({ field, order: 'desc' });
+        onSortable && onSortable({ field, order: 'desc' });
         return;
       }
 
       setSortable(null);
-      onSortable(null);
+      onSortable && onSortable(null);
     },
     [sortable, onSortable]
   );
@@ -43,13 +43,14 @@ const Columns: React.FC<{}> = () => {
         {columns.map(column => {
           const currentSortable = sortable?.field === column.field;
           const columnProps = { ...column };
+
           delete columnProps.sortable;
 
           return (
             <TableCell
               key={`column-${column.field}`}
-              {...columnProps}
               sortDirection={currentSortable ? sortable?.order : false}
+              {...columnProps}
             >
               {column?.sortable && (
                 <TableSortLabel

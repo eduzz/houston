@@ -116,10 +116,10 @@ const Collapse: React.FC<IProps> = ({ collapse, row }) => {
     <>
       <TableRow className={classes.rowCollapse}>
         <TableCell colSpan={numberColumns} className={classes.cellCollapse}>
-          <CollapseMUI in={collapse && lodash.isEqual(collapse, row.data)} timeout='auto' unmountOnExit>
-            {collapse && lodash.isEqual(collapse, row.data) && (
-              <Table size='small'>
-                {type === 'table' && (
+          <CollapseMUI in={collapse && lodash.isEqual(collapse, row.data)} timeout={500} unmountOnExit>
+            <Table size='small'>
+              <>
+                {!loading && type === 'table' && (
                   <TableHead>
                     <TableRow>
                       {columns?.map(column => {
@@ -175,18 +175,8 @@ const Collapse: React.FC<IProps> = ({ collapse, row }) => {
                       </TableRow>
                     ))}
                 </TableBody>
-              </Table>
-            )}
-
-            {(!collapse || !lodash.isEqual(collapse, row.data)) && (
-              <Table>
-                <TableBody>
-                  <TableRow>
-                    <TableCell />
-                  </TableRow>
-                </TableBody>
-              </Table>
-            )}
+              </>
+            </Table>
           </CollapseMUI>
         </TableCell>
       </TableRow>
