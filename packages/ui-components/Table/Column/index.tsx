@@ -1,16 +1,17 @@
 import * as React from 'react';
 
+import { TableCellProps } from '@material-ui/core/TableCell';
+
 import { ITableAlign } from '../interfaces';
 
-type ITableColumnExtends = 'id' | 'className' | 'style' | 'tabIndex';
+type ITableColumnExtends = 'id' | 'className' | 'style' | 'tabIndex' | 'width';
 
-export interface ITableColumnProps extends Pick<React.HTMLAttributes<HTMLTableCellElement>, ITableColumnExtends> {
+export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExtends> {
   /**
    * Unique key, used for sorting
    */
   field: string;
   label: React.ReactNode;
-  width?: number;
   /**
    * Default `left`
    */

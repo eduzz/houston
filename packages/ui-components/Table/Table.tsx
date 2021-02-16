@@ -56,10 +56,19 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const { children, loading, onSortable, stickyHeader, size, maxHeight, messages } = props;
 
   const [options, setOptions] = React.useState<ITableOptionProps[]>([]);
-  const [currentRow, setCurrentRow] = React.useState<unknown>(null);
+  const [currentRow, setCurrentRow] = React.useState<ITableRow>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const getActions = React.useCallback((content: React.ReactChildren | React.ReactNode) => {
+  const getColumns = React.useCallback(
+    (content: React.ReactChildren | React.ReactNode): ITableColumnProps[] | [] =>
+      React.Children.map(content, child => {
+        if (!child || !React.isValidElement(child) || child?.type !== TableColumn) return;
+        return { ...child.props };
+      }),
+    []
+  );
+
+  const getActions = React.useCallback((content: React.ReactChildren | React.ReactNode): ITableActions | undefined => {
     const actions: ITableActions | undefined = React.Children.map(content, (child: React.ReactNode) => {
       if (!child || !React.isValidElement(child) || child?.type !== TableActions) return null;
 
@@ -75,7 +84,8 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   }, []);
 
   const getCollapseData = React.useCallback(
-    (content: React.ReactNode) => {
+    (content: React.ReactNode): ITableCollapse => {
+      const columns = getColumns(content);
       const actions = getActions(content);
 
       const rows: ITableRow[] = React.Children.map(content, (child: React.ReactNode) => {
@@ -108,18 +118,9 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
         return { ...child.props, options, cells };
       });
 
-      return { rows, actions };
+      return { columns, rows, actions };
     },
-    [getActions]
-  );
-
-  const columns: ITableColumnProps[] | [] = React.useMemo(
-    () =>
-      React.Children.map(children, child => {
-        if (!child || !React.isValidElement(child) || child?.type !== TableColumn) return;
-        return { ...child.props };
-      }),
-    [children]
+    [getActions, getColumns]
   );
 
   const rows: ITableRow[] | [] = React.useMemo(
@@ -162,8 +163,6 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     [children, getCollapseData]
   );
 
-  const actions = React.useMemo(() => getActions(children), [getActions, children]);
-
   const pagination: ITablePagination | undefined = React.useMemo(
     () =>
       React.Children.map(children, child => {
@@ -173,9 +172,10 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     [children]
   );
 
+  const columns = React.useMemo(() => getColumns(children), [getColumns, children]);
+  const actions = React.useMemo(() => getActions(children), [getActions, children]);
   const hasCollapseData = !!rows.filter(v => v.collapse).length;
-
-  console.log(rows);
+  const numberColumns = columns?.length + 1 + Number(hasCollapseData) || 1;
 
   return (
     <WrapperTheme>
@@ -191,7 +191,6 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
           columns,
           rows,
           actions,
-          hasCollapseData,
 
           anchorEl,
           setAnchorEl,
@@ -199,7 +198,10 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
           options,
           setOptions,
 
-          pagination
+          pagination,
+
+          hasCollapseData,
+          numberColumns
         }}
       >
         <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>

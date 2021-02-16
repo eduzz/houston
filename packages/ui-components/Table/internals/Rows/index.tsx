@@ -13,9 +13,10 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 // eslint-disable-next-line no-restricted-imports
 import * as lodash from 'lodash';
 
-import { truncateText } from '../../../Helpers/functions';
 import { useTableContext } from '../../context';
-import { ITableOptionProps } from '../../Option';
+import { ITableRow } from '../../interfaces';
+import Cell from '../Cell';
+import Collapse from '../Collapse';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -38,7 +39,6 @@ const Rows: React.FC<{}> = () => {
 
   const {
     loading,
-    columns,
     rows,
     currentRow,
     actions,
@@ -46,34 +46,37 @@ const Rows: React.FC<{}> = () => {
     setOptions,
     setCurrentRow,
     messages,
-    hasCollapseData
+    hasCollapseData,
+    numberColumns
   } = useTableContext();
 
   const [collapse, setCollapse] = React.useState<unknown | null>(null);
 
-  const countColumns = columns?.length + 1 + Number(hasCollapseData) || 1;
-
   const handleSetCurrentRow = React.useCallback(
-    (event: React.MouseEvent<HTMLElement>, data: unknown = null, options: ITableOptionProps[]) => {
-      if (!data) {
+    (event: React.MouseEvent<HTMLElement>, row: ITableRow = null) => {
+      if (!row.data) {
         console.error('@eduzz/houston-ui: when the share component is used, the line must offer the property `data`');
       }
 
-      setCurrentRow(data);
+      setCurrentRow(row);
       setAnchorEl(event.currentTarget);
-      setOptions(options && options);
+      setOptions(row?.options);
     },
     [setAnchorEl, setOptions, setCurrentRow]
   );
 
   const handleClickCollapse = React.useCallback(
-    (data: unknown = null) => {
-      if (collapse && lodash.isEqual(collapse, data)) {
+    (row: Partial<ITableRow>) => {
+      const callback = row?.collapse?.onCollapse;
+
+      if (collapse && lodash.isEqual(collapse, row?.data)) {
+        callback(null);
         setCollapse(null);
         return;
       }
 
-      setCollapse(data);
+      callback(row?.data);
+      setCollapse(row?.data);
     },
     [collapse]
   );
@@ -82,7 +85,7 @@ const Rows: React.FC<{}> = () => {
     return (
       <TableBody>
         <TableRow>
-          <TableCell align='center' colSpan={countColumns}>
+          <TableCell align='center' colSpan={numberColumns}>
             <div className={classes.loader}>{messages?.empty ? messages.empty : 'Nenhum registro encontrado.'}</div>
           </TableCell>
         </TableRow>
@@ -94,7 +97,7 @@ const Rows: React.FC<{}> = () => {
     <TableBody>
       {loading && (
         <TableRow>
-          <TableCell align='center' colSpan={countColumns}>
+          <TableCell align='center' colSpan={numberColumns}>
             <div className={classes.loader}>
               <CircularProgress />
             </div>
@@ -104,50 +107,41 @@ const Rows: React.FC<{}> = () => {
 
       {!loading &&
         rows.map((row, index) => (
-          <TableRow hover key={`row-${index}`} selected={currentRow && lodash.isEqual(currentRow, row.data)}>
-            {row?.cells?.map((cell, i) => {
-              const cellProps = { ...cell };
+          <React.Fragment key={`table-row-${index}`}>
+            <TableRow hover selected={currentRow && lodash.isEqual(currentRow?.data, row.data)}>
+              {row?.cells?.map((cell, i) => (
+                <Cell key={`row-${index}-cell-${i}`} {...cell} />
+              ))}
 
-              delete cellProps.children;
-              delete cellProps.truncate;
-
-              return (
-                <TableCell key={`row-${index}-cell-${i}`} {...cellProps}>
-                  {cell?.truncate && (
-                    <span title={String(cell.children)}>{truncateText(String(cell.children), cell.truncate)}</span>
-                  )}
-
-                  {!cell?.truncate && cell.children}
+              {actions && (
+                <TableCell align='right'>
+                  <div className={classes.buttonAction} onClick={e => handleSetCurrentRow(e, row)}>
+                    <MoreHorizIcon />
+                  </div>
                 </TableCell>
-              );
-            })}
+              )}
 
-            {actions && (
-              <TableCell align='right'>
-                <div className={classes.buttonAction} onClick={e => handleSetCurrentRow(e, row?.data, row?.options)}>
-                  <MoreHorizIcon />
-                </div>
-              </TableCell>
-            )}
+              {hasCollapseData && (
+                <>
+                  {!row?.collapse && <TableCell key={`row-${index}-collapse`} />}
 
-            {hasCollapseData && (
-              <>
-                {!row.collapse && <TableCell key={`row-${index}-collapse`} />}
+                  {row?.collapse && (
+                    <TableCell key={`row-${index}-collapse`}>
+                      <IconButton size='small' onClick={() => handleClickCollapse(row)}>
+                        {collapse && lodash.isEqual(collapse, row.data) ? (
+                          <KeyboardArrowUpIcon />
+                        ) : (
+                          <KeyboardArrowDownIcon />
+                        )}
+                      </IconButton>
+                    </TableCell>
+                  )}
+                </>
+              )}
+            </TableRow>
 
-                {row.collapse && (
-                  <TableCell key={`row-${index}-collapse`}>
-                    <IconButton size='small' onClick={() => handleClickCollapse(row.data)}>
-                      {collapse && lodash.isEqual(collapse, row.data) ? (
-                        <KeyboardArrowUpIcon />
-                      ) : (
-                        <KeyboardArrowDownIcon />
-                      )}
-                    </IconButton>
-                  </TableCell>
-                )}
-              </>
-            )}
-          </TableRow>
+            <Collapse collapse={collapse} row={row} />
+          </React.Fragment>
         ))}
     </TableBody>
   );

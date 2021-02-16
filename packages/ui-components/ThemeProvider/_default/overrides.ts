@@ -223,11 +223,13 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiTableCell: {
       root: {
-        padding: '12px 20px'
+        padding: '12px 20px',
+        borderColor: '#ECEFF1'
       },
 
       head: {
-        fontWeight: 600
+        fontWeight: 600,
+        color: '#37474F'
       },
 
       sizeSmall: {
@@ -237,6 +239,8 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiTableSortLabel: {
       root: {
+        color: '#37474F',
+
         '&:focus': {
           color: 'inherit'
         },

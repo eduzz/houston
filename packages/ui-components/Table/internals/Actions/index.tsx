@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import { useTableContext } from '../../context';
+import MenuActions from '../MenuActions';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,15 +25,18 @@ const Actions: React.FC<{}> = () => {
   const { currentRow, actions, anchorEl, setAnchorEl, options, setOptions, setCurrentRow } = useTableContext();
 
   const handleCloseActions = React.useCallback(() => {
-    setCurrentRow(null);
     setAnchorEl(null);
-    setTimeout(() => setOptions([]), 150);
+
+    setTimeout(() => {
+      setOptions([]);
+      setCurrentRow(null);
+    }, 180);
   }, [setAnchorEl, setOptions, setCurrentRow]);
 
   const handleClick = React.useCallback(
     (callback: (data: unknown) => void) => {
       handleCloseActions();
-      callback(currentRow);
+      callback(currentRow?.data);
     },
     [handleCloseActions, currentRow]
   );
@@ -43,33 +46,19 @@ const Actions: React.FC<{}> = () => {
   }
 
   return (
-    <Menu
-      anchorEl={anchorEl}
-      open={!!anchorEl}
-      onClose={handleCloseActions}
-      getContentAnchorEl={null}
-      disableAutoFocusItem
-      disableAutoFocus
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center'
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center'
-      }}
-      elevation={2}
-    >
+    <MenuActions anchorEl={anchorEl} open={!!anchorEl} onClose={handleCloseActions}>
       {(!options?.length ? actions?.options : options)?.map((option, index) => {
         const optionProps = { ...option };
 
         const disabled =
           typeof option?.disabled === 'boolean'
             ? option?.disabled
-            : option?.disabled && currentRow && option.disabled(currentRow);
+            : option?.disabled && currentRow && option.disabled(currentRow?.data);
 
         const hide =
-          typeof option?.hide === 'boolean' ? option?.hide : option?.hide && currentRow && option.hide(currentRow);
+          typeof option?.hide === 'boolean'
+            ? option?.hide
+            : option?.hide && currentRow && option.hide(currentRow?.data);
 
         delete optionProps.children;
         delete optionProps.onClick;
@@ -95,7 +84,7 @@ const Actions: React.FC<{}> = () => {
           </MenuItem>
         );
       })}
-    </Menu>
+    </MenuActions>
   );
 };
 

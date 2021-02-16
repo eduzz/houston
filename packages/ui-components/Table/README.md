@@ -121,8 +121,8 @@ import Table from '@eduzz/houston-ui/Table';
 | page                | `number`                                               | true     | -                       | -                                                               |
 | perPage             | `number`                                               | true     | -                       | -                                                               |
 | totalPages          | `number`                                               | true     | -                       | -                                                               |
-| optionsPerPage      | `number[]`                                             | false    | `[15, 25, 35, 50, 100]` | Values ​​on select items per page                                 |
-| labelItensPerPage   | `string`                                               | false    | `Itens por página:`     | -                                                               |
+| optionsPerPage      | `number[]`                                             | false    | `[15, 25, 35, 50, 100]` | Values ​​on select items per page                               |
+| labelItensPerPage   | `React.ReactNode`                                      | false    | `Itens por página:`     | -                                                               |
 | onChangeRowsPerPage | `onChangeRowsPerPage?: (rowsPerPage: number) => void;` | false    | -                       | If the prop does not exist, the component will not be displayed |
 | onChangeGoToPage    | `onChangeGoToPage?: (goToPage: number) => void;`       | false    | -                       | If the prop does not exist, the component will not be displayed |
 | onChangePage        | `onChangePage?: (page: number) => void;`               | false    | -                       | If the prop does not exist, the component will not be displayed |
@@ -130,7 +130,8 @@ import Table from '@eduzz/houston-ui/Table';
 
 ### Table.Collapse props available
 
-| prop       | type         | required | default | description |
-|------------|--------------|----------|---------|-------------|
-| loading    | `boolean`    | false    | -       | -           |
-| onCollapse | `() => void` | false    | -       | -           |
+| prop       | type                       | required | default | description                                                      |
+|------------|----------------------------|----------|---------|------------------------------------------------------------------|
+| loading    | `boolean`                  | false    | -       | -                                                                |
+| onCollapse | `(data?: unknown) => void` | false    | -       | Function called when clicking to open / close the collapsed item |
+| type       | `list`, `table`            | false    | `table` | If `list` will not render the bottom columns and borders         |

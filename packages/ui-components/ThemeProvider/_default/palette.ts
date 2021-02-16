@@ -14,6 +14,7 @@ declare module '@material-ui/core/styles/createPalette' {
 
 const palette: PaletteOptions = {
   grey: {
+    200: '#ECEFF1',
     300: '#B0BEC5',
     400: '#78909C',
     500: '#546E7A',

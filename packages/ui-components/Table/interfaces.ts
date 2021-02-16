@@ -1,7 +1,7 @@
 import Actions, { ITableActionsProps } from './Actions';
 import Cell, { ITableCellProps } from './Cell';
 import Collapse, { ITableCollapseProps } from './Collapse';
-import Column from './Column';
+import Column, { ITableColumnProps } from './Column';
 import Option, { ITableOptionProps } from './Option';
 import Pagination from './Pagination';
 import Row, { ITableRowProps } from './Row';
@@ -20,11 +20,14 @@ type ITableCell = { cells?: ITableCellProps[] };
 
 type ITableOptions = { options?: ITableOptionProps[] };
 
+export type ITableCollapseType = 'list' | 'table';
+
 export type ITableAlign = 'inherit' | 'left' | 'center' | 'right' | 'justify';
 
 export interface ITableActions extends ITableActionsProps, ITableOptions {}
 
 export interface ITableCollapse extends ITableCollapseProps {
+  columns: ITableColumnProps[];
   rows: ITableRow[];
   actions: ITableActions;
 }

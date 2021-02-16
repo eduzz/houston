@@ -9,7 +9,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import Button from '@eduzz/houston-ui/Button';
 import CheckboxField from '@eduzz/houston-ui/Forms/Checkbox';
@@ -37,6 +40,7 @@ const TablePage = memo(() => {
   const [fixedHeader, setFixedHeader] = useState<boolean>(false);
   const [showRows, setShowRows] = useState<boolean>(true);
   const [pagination, setPagination] = useState<boolean>(true);
+  const [collapse, setCollapse] = useState<boolean>(true);
   const [paginationTable, setPaginationTable] = useState({ page: 1, perPage: 15, totalPages: 10 });
 
   const headTable: ITableColumnProps[] = [
@@ -45,6 +49,12 @@ const TablePage = memo(() => {
     { field: 'product', label: 'Produto', sortable: true },
     { field: 'client', label: 'Cliente', sortable: true },
     { field: 'value', label: 'Valor', align: 'right' }
+  ];
+
+  const headTableCollapse: Partial<ITableColumnProps[]> = [
+    { field: 'date', label: 'Data' },
+    { field: 'product', label: 'Produto' },
+    { field: 'value', label: 'Bla Bla' }
   ];
 
   const rows: IRowValue[] = [
@@ -106,7 +116,9 @@ const TablePage = memo(() => {
     }, 2000);
   }, []);
 
-  const handleCollapse = useCallback(() => {
+  const handleCollapse = useCallback((data: unknown) => {
+    console.log(data);
+
     setTimeout(() => {
       setCollapseLoading(false);
     }, 2000);
@@ -137,7 +149,7 @@ const TablePage = memo(() => {
 
       <Card>
         <CardContent>
-          <Row type='cozy'>
+          <Row>
             <Column md={3} xs={12}>
               <FormLabel>Table size</FormLabel>
               <RadioGroup
@@ -194,6 +206,24 @@ const TablePage = memo(() => {
               </RadioGroup>
             </Column>
           </Row>
+
+          <br />
+
+          <Row>
+            <Column md={3} xs={12}>
+              <FormLabel>Collapse Items</FormLabel>
+              <RadioGroup
+                name='collapse'
+                value={collapse ? 'true' : 'false'}
+                onChange={(_: React.ChangeEvent<HTMLInputElement>, value: string) => setCollapse(value === 'true')}
+                row
+              >
+                {['true', 'false'].map((value, index) => (
+                  <FormControlLabel key={`option-collapse-${index}`} value={value} control={<Radio />} label={value} />
+                ))}
+              </RadioGroup>
+            </Column>
+          </Row>
         </CardContent>
 
         <CardContent>
@@ -226,7 +256,9 @@ const TablePage = memo(() => {
                     {/* specific actions */}
                     {index === 2 && (
                       <Table.Actions>
-                        <Table.Option onClick={handleClick}>Opção diferenciada</Table.Option>
+                        <Table.Option icon={<TagFacesIcon />} onClick={handleClick}>
+                          Opção diferenciada
+                        </Table.Option>
                         <Table.Option onClick={handleClick}>Detalhes</Table.Option>
                         <Table.Option onClick={handleClick}>Editar</Table.Option>
                         <Table.Option onClick={handleClick}>Excluir</Table.Option>
@@ -234,21 +266,29 @@ const TablePage = memo(() => {
                     )}
 
                     {/* collapse */}
-                    {(index === 2 || index === 4) && (
+                    {collapse && (index === 2 || index === 4) && (
                       <Table.Collapse loading={collapseLoading} onCollapse={handleCollapse}>
+                        {headTableCollapse.map((column, index) => (
+                          <Table.Column key={`collapse-th-${index}`} {...column} />
+                        ))}
+
                         <Table.Row data={row}>
                           <Table.Cell>22/12/2222</Table.Cell>
                           <Table.Cell>Produto de teste</Table.Cell>
+                          <Table.Cell>Outro dado</Table.Cell>
                         </Table.Row>
 
                         <Table.Row data={row}>
                           <Table.Cell>23/12/2333</Table.Cell>
                           <Table.Cell>Produto de teste</Table.Cell>
+                          <Table.Cell>Outro dado</Table.Cell>
 
                           {/* specific actions */}
                           {index === 2 && (
                             <Table.Actions>
-                              <Table.Option onClick={handleClick}>Opção diferenciada</Table.Option>
+                              <Table.Option icon={<TagFacesIcon />} onClick={handleClick}>
+                                Opção diferenciada
+                              </Table.Option>
                               <Table.Option onClick={handleClick}>Excluir</Table.Option>
                             </Table.Actions>
                           )}
@@ -266,13 +306,13 @@ const TablePage = memo(() => {
 
                 {/* generic actions */}
                 <Table.Actions align='right'>
-                  <Table.Option icon={<TagFacesIcon />} disabled={true} onClick={handleClick}>
+                  <Table.Option icon={<VisibilityIcon />} disabled={true} onClick={handleClick}>
                     Detalhes
                   </Table.Option>
-                  <Table.Option icon={<TagFacesIcon />} hide={(row: IRowValue) => row.id === 5} onClick={handleClick}>
+                  <Table.Option icon={<EditIcon />} hide={(row: IRowValue) => row.id === 1} onClick={handleClick}>
                     Editar
                   </Table.Option>
-                  <Table.Option icon={<TagFacesIcon />} onClick={handleClick}>
+                  <Table.Option icon={<DeleteIcon />} onClick={handleClick}>
                     Excluir
                   </Table.Option>
                 </Table.Actions>

@@ -13,10 +13,9 @@ interface ITableContext {
   columns: ITableColumnProps[];
   rows: ITableRow[];
   actions: ITableActions | undefined;
-  hasCollapseData: boolean;
 
-  currentRow: unknown;
-  setCurrentRow: React.Dispatch<React.SetStateAction<unknown>>;
+  currentRow: ITableRow;
+  setCurrentRow: React.Dispatch<React.SetStateAction<ITableRow>>;
 
   anchorEl: HTMLElement | null;
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement>>;
@@ -25,6 +24,9 @@ interface ITableContext {
   setOptions: React.Dispatch<React.SetStateAction<ITableOptionProps[]>>;
 
   pagination: ITablePagination | undefined;
+
+  hasCollapseData: boolean;
+  numberColumns: number;
 }
 
 export const TableContext = React.createContext<ITableContext>({} as ITableContext);
