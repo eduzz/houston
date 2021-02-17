@@ -50,7 +50,7 @@ const BoxPage = memo(() => {
         <CardContent>
           <Button
             onClick={() =>
-              window.open('https://github.com/eduzz/houston/tree/master/packages/ui-components/Alert', '_blank')
+              window.open('https://github.com/eduzz/houston/tree/master/packages/ui-components/Box', '_blank')
             }
           >
             Documentation
