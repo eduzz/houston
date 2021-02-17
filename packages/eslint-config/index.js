@@ -55,6 +55,7 @@ module.exports = {
         'groups': [
           '/^react/',
           '/^@material-ui/',
+          '/^rxjs/',
           '/^@eduzz/',
           '/^mdi-react/',
           'module',
