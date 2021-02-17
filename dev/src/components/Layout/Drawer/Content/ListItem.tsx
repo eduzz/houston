@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useContext, useState } from 'react';
 
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionActions';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -101,30 +101,27 @@ const DrawerListItem = memo((props: IProps) => {
   }
 
   return (
-    <ExpansionPanel
+    <Accordion
       expanded={expanded}
       onChange={handleExandedClick}
       className={`${classes.expandablePanel} ${expanded ? 'active' : ''}`}
     >
-      <ExpansionPanelSummary
-        className={classes.expandableTitle}
-        expandIcon={<ExpandMoreIcon className={classes.icon} />}
-      >
+      <AccordionSummary className={classes.expandableTitle} expandIcon={<ExpandMoreIcon className={classes.icon} />}>
         {!!props.data.icon && (
           <ListItemIcon className={classes.icon} classes={{ root: classes.text }}>
             <props.data.icon />
           </ListItemIcon>
         )}
         <ListItemText primary={props.data.display} classes={{ primary: classes.text }} />
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.expandableDetails}>
+      </AccordionSummary>
+      <AccordionDetails className={classes.expandableDetails}>
         <List className={classes.innerList}>
           {props.data.submenu.map(sub => (
             <DrawerListItem key={sub.path} data={sub} onClick={handleSubClick} />
           ))}
         </List>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 });
 

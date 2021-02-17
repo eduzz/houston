@@ -70,9 +70,9 @@ const GridPage = memo(() => {
         </CardContent>
 
         <CardContent>
-          <FormLabel>Row type (type)</FormLabel>
-          <Row type='confortable'>
+          <Row type='cozy'>
             <Column xs={12}>
+              <FormLabel>Row type (type)</FormLabel>
               <RadioGroup
                 name='type'
                 value={type.toString()}
@@ -85,12 +85,12 @@ const GridPage = memo(() => {
               </RadioGroup>
             </Column>
           </Row>
-        </CardContent>
 
-        <CardContent>
-          <FormLabel>Columns</FormLabel>
-          <Row type='confortable'>
+          <br />
+
+          <Row type='cozy'>
             <Column xs={12}>
+              <FormLabel>Columns</FormLabel>
               <RadioGroup
                 name='columns'
                 value={columns.toString()}
@@ -103,12 +103,12 @@ const GridPage = memo(() => {
               </RadioGroup>
             </Column>
           </Row>
-        </CardContent>
 
-        <CardContent>
-          <FormLabel>Fluid</FormLabel>
-          <Row type='confortable'>
+          <br />
+
+          <Row type='cozy'>
             <Column xs={12}>
+              <FormLabel>Fluid</FormLabel>
               <RadioGroup
                 name='fluid'
                 value={fluid ? 'true' : 'false'}
@@ -121,12 +121,12 @@ const GridPage = memo(() => {
               </RadioGroup>
             </Column>
           </Row>
-        </CardContent>
 
-        <CardContent>
-          <FormLabel>Align (alignItems)</FormLabel>
-          <Row type='confortable'>
+          <br />
+
+          <Row type='cozy'>
             <Column xs={12}>
+              <FormLabel>Align (alignItems)</FormLabel>
               <RadioGroup
                 name='align'
                 value={align}
@@ -139,12 +139,12 @@ const GridPage = memo(() => {
               </RadioGroup>
             </Column>
           </Row>
-        </CardContent>
 
-        <CardContent>
-          <FormLabel>Justify (justify)</FormLabel>
-          <Row type='confortable'>
+          <br />
+
+          <Row type='cozy'>
             <Column xs={12}>
+              <FormLabel>Justify (justify)</FormLabel>
               <RadioGroup
                 name='justify'
                 value={justify}
@@ -160,7 +160,7 @@ const GridPage = memo(() => {
         </CardContent>
 
         <CardContent className={classes.container}>
-          <Row type={type} style={{ background: '#073b4c' }} fluid={fluid} alignItems={align} justify={justify}>
+          <Row type={type} style={{ background: '#073b4c' }} alignItems={align} justify={justify}>
             {new Array(columns).fill('').map((_, index) => (
               <Column
                 xs={(12 / columns) as boolean | 'auto' | 12 | 2 | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11}
@@ -173,7 +173,7 @@ const GridPage = memo(() => {
         </CardContent>
 
         <CardContent className={classes.container}>
-          <Row type={type} style={{ background: '#073b4c' }} fluid={fluid} alignItems={align} justify={justify}>
+          <Row type={type} style={{ background: '#073b4c' }} alignItems={align} justify={justify}>
             {new Array(2).fill('').map((_, index) => (
               <Column md={4} key={index + 1}>
                 <div className={`${classes.column} ${index % 2 === 0 ? '--diff' : ''}`}>{index + 1}</div>

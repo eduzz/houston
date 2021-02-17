@@ -15,7 +15,7 @@ import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from './Form';
 
-type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple';
+type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple' | 'className';
 
 export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExtends> {
   loading?: boolean;
@@ -27,6 +27,7 @@ export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExt
   maxLabelItems?: number;
   value?: any;
   onChange?: (value: any, event: React.ChangeEvent<{ name?: string; value: any }>) => any;
+  margin?: 'none' | 'dense' | 'normal';
 }
 
 export interface ISelectFieldOption {
@@ -50,6 +51,7 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
       options,
       emptyOption,
       helperText,
+      margin,
       ...props
     },
     ref
@@ -108,7 +110,12 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
 
     return (
       <WrapperTheme>
-        <FormControl margin={'normal'} fullWidth={fullWidth ?? true} error={!!errorMessage} variant='outlined'>
+        <FormControl
+          margin={margin ?? 'normal'}
+          fullWidth={fullWidth ?? true}
+          error={!!errorMessage}
+          variant='outlined'
+        >
           {!!label && <InputLabel error={!!errorMessage}>{label}</InputLabel>}
           <Select
             error={hasError}

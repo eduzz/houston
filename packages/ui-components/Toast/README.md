@@ -18,8 +18,8 @@ function handle() {
 
 ### Options available
 
-| option | type | description |
-| ------ | ---- | ----------- |
-| onOpen | `function` | Called when the notification appear |
-| onClose | `function` | Called when the notification disappear |
+| option  | type       | description                                 |
+|---------|------------|---------------------------------------------|
+| onOpen  | `function` | Called when the notification appear         |
+| onClose | `function` | Called when the notification disappear      |
 | onClick | `function` | Called when click inside Toast notification |
