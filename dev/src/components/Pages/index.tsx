@@ -6,6 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Drawer, { IMenu } from 'components/Layout/Drawer';
 
 import AlertPage from './Alert';
+import BoxPage from './Box';
 import ButtonsPage from './Buttons';
 import DashboardPage from './Dashboard';
 import FormChoosePage from './Forms/Choose';
@@ -45,6 +46,7 @@ const IndexPage = memo((props: {}) => {
   const [menu] = useState<IMenu[]>(() => [
     { path: '/', display: 'Dashboard' },
     { path: '/alert', display: 'Alert' },
+    { path: '/box', display: 'Box' },
     { path: '/buttons', display: 'Buttons' },
     { path: '/grid', display: 'Grid' },
     {
@@ -73,6 +75,7 @@ const IndexPage = memo((props: {}) => {
             <main ref={mainContent} className={classes.content}>
               <Switch>
                 <Route path='/alert' component={AlertPage} />
+                <Route path='/box' component={BoxPage} />
                 <Route path='/buttons' component={ButtonsPage} />
                 <Route path='/grid' component={GridPage} />
                 <Route path='/toast' component={ToastPage} />
