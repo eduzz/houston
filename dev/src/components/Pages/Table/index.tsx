@@ -5,10 +5,6 @@ import { useEffect } from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
@@ -36,11 +32,11 @@ const TablePage = memo(() => {
   const [loading, setLoading] = useState<boolean>(true);
   const [collapseLoading, setCollapseLoading] = useState<boolean>(true);
 
-  const [size, setSize] = useState<'small' | 'medium'>('medium');
+  const [small, setSmall] = useState<boolean>(false);
   const [fixedHeader, setFixedHeader] = useState<boolean>(false);
-  const [showRows, setShowRows] = useState<boolean>(true);
-  const [pagination, setPagination] = useState<boolean>(true);
-  const [collapse, setCollapse] = useState<boolean>(true);
+  const [hideRows, setHideRows] = useState<boolean>(false);
+  const [pagination, setPagination] = useState<boolean>(false);
+  const [collapse, setCollapse] = useState<boolean>(false);
   const [paginationTable, setPaginationTable] = useState({ page: 1, perPage: 15, totalPages: 10 });
 
   const headTable: ITableColumnProps[] = [
@@ -136,7 +132,7 @@ const TablePage = memo(() => {
 
   const handleChangePage = useCallback((page: number) => {
     setPaginationTable(pagination => ({ ...pagination, page }));
-    console.log('change age ', page);
+    console.log('change page ', page);
   }, []);
 
   useEffect(() => {
@@ -150,78 +146,41 @@ const TablePage = memo(() => {
       <Card>
         <CardContent>
           <Row>
-            <Column md={3} xs={12}>
-              <FormLabel>Table size</FormLabel>
-              <RadioGroup
+            <Column xs={12}>
+              <CheckboxField
+                label='Table small'
                 name='size'
-                value={size.toString()}
-                onChange={(_: React.ChangeEvent<HTMLInputElement>, value: 'small' | 'medium') => setSize(value)}
-                row
-              >
-                {['small', 'medium'].map(value => (
-                  <FormControlLabel key={value} value={value} control={<Radio />} label={value} />
-                ))}
-              </RadioGroup>
-            </Column>
+                value={small}
+                onChange={(_: React.ChangeEvent<HTMLInputElement>, checked: boolean) => setSmall(checked)}
+              />
 
-            <Column md={3} xs={12}>
-              <FormLabel>Fixed header</FormLabel>
-              <RadioGroup
+              <CheckboxField
+                label='Fixed Header'
                 name='fixedHeader'
-                value={fixedHeader ? 'true' : 'false'}
-                onChange={(_: React.ChangeEvent<HTMLInputElement>, value: string) => setFixedHeader(value === 'true')}
-                row
-              >
-                {['true', 'false'].map((value, index) => (
-                  <FormControlLabel key={`option-fixed-${index}`} value={value} control={<Radio />} label={value} />
-                ))}
-              </RadioGroup>
-            </Column>
+                value={fixedHeader}
+                onChange={(_: React.ChangeEvent<HTMLInputElement>, checked: boolean) => setFixedHeader(checked)}
+              />
 
-            <Column md={3} xs={12}>
-              <FormLabel>Show rows</FormLabel>
-              <RadioGroup
-                name='rows'
-                value={showRows ? 'true' : 'false'}
-                onChange={(_: React.ChangeEvent<HTMLInputElement>, value: string) => setShowRows(value === 'true')}
-                row
-              >
-                {['true', 'false'].map((value, index) => (
-                  <FormControlLabel key={`option-rows-${index}`} value={value} control={<Radio />} label={value} />
-                ))}
-              </RadioGroup>
-            </Column>
+              <CheckboxField
+                label='Hide rows'
+                name='hideRows'
+                value={hideRows}
+                onChange={(_: React.ChangeEvent<HTMLInputElement>, checked: boolean) => setHideRows(checked)}
+              />
 
-            <Column md={3} xs={12}>
-              <FormLabel>Pagination</FormLabel>
-              <RadioGroup
-                name='rows'
-                value={pagination ? 'true' : 'false'}
-                onChange={(_: React.ChangeEvent<HTMLInputElement>, value: string) => setPagination(value === 'true')}
-                row
-              >
-                {['true', 'false'].map((value, index) => (
-                  <FormControlLabel key={`option-rows-${index}`} value={value} control={<Radio />} label={value} />
-                ))}
-              </RadioGroup>
-            </Column>
-          </Row>
+              <CheckboxField
+                label='Pagination'
+                name='pagination'
+                value={pagination}
+                onChange={(_: React.ChangeEvent<HTMLInputElement>, checked: boolean) => setPagination(checked)}
+              />
 
-          <br />
-
-          <Row>
-            <Column md={3} xs={12}>
-              <FormLabel>Collapse Items</FormLabel>
-              <RadioGroup
+              <CheckboxField
+                label='Collapse Items'
                 name='collapse'
-                value={collapse ? 'true' : 'false'}
-                onChange={(_: React.ChangeEvent<HTMLInputElement>, value: string) => setCollapse(value === 'true')}
-                row
-              >
-                {['true', 'false'].map((value, index) => (
-                  <FormControlLabel key={`option-collapse-${index}`} value={value} control={<Radio />} label={value} />
-                ))}
-              </RadioGroup>
+                value={collapse}
+                onChange={(_: React.ChangeEvent<HTMLInputElement>, checked: boolean) => setCollapse(checked)}
+              />
             </Column>
           </Row>
         </CardContent>
@@ -232,7 +191,7 @@ const TablePage = memo(() => {
               <Table
                 loading={loading}
                 onSortable={handleSortable}
-                size={size}
+                size={small ? 'small' : 'medium'}
                 stickyHeader={fixedHeader}
                 maxHeight={fixedHeader && 300}
                 messages={{
@@ -243,7 +202,7 @@ const TablePage = memo(() => {
                   <Table.Column key={`th-${index}`} {...column} />
                 ))}
 
-                {(!showRows ? [] : rows).map((row, index) => (
+                {(hideRows ? [] : rows).map((row, index) => (
                   <Table.Row key={`row-${index}`} data={row}>
                     <Table.Cell>
                       <CheckboxField label='' name='check' margin='none' />

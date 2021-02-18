@@ -11,11 +11,12 @@ import ThemeProvider from '@eduzz/houston-ui/components/ThemeProvider';
 In the project's root file
 
 ```jsx
-<ThemeProvider application='APPLICATION_NAME'>....</ThemeProvider>
+const palette: IThemePalette = {};
+<ThemeProvider palette={palette}>....</ThemeProvider>
 ```
 
 ### Props available
 
-| prop | type | required | default |
-| ---- | ---- | -------- | ------- |
-| application | `select`, `orbita`, `jobzz`, `blinket`, `safevideo`, `nutror`, `sun`, `telescope`, `alumy`, `backoffice`, `custom` | true | - |
+| prop    | type            | required | default         |
+|---------|-----------------|----------|-----------------|
+| palette | `IThemePalette` | false    | `default theme` |

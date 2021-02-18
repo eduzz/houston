@@ -24,7 +24,7 @@ type FieldCheckboxPropsExtends = 'checked' | 'value' | 'onChange';
 
 export interface ICheckboxRadioFieldProps extends Pick<CheckboxProps, FieldCheckboxPropsExtends> {
   Control: typeof Checkbox | typeof Radio;
-  label: React.ReactNode;
+  label?: React.ReactNode;
   description?: string;
   name: string;
   errorMessage?: string;
@@ -96,10 +96,11 @@ const CheckboxRadioField = React.memo<ICheckboxRadioFieldProps>(
               checked={isChecked}
               onChange={handleChange}
               name={name}
+              color='primary'
             />
           }
           label={
-            typeof label !== 'string' ? (
+            label && typeof label !== 'string' ? (
               label
             ) : (
               <React.Fragment>
@@ -107,7 +108,10 @@ const CheckboxRadioField = React.memo<ICheckboxRadioFieldProps>(
                   {label}
                   {description && (
                     <React.Fragment>
-                      <br /> <Typography size='x-small'>{description}</Typography>
+                      <br />{' '}
+                      <Typography size='x-small' fontWeight='regular'>
+                        {description}
+                      </Typography>
                     </React.Fragment>
                   )}
                 </Typography>

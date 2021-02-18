@@ -8,50 +8,32 @@ import ToastContainer from '../Toast/Container';
 import ContextTheme from './context';
 import generateCustomTheme from './custom';
 
-export type IThemeProviderApplications = 'select' | 'orbita' | 'blinket' | 'backoffice' | 'custom';
+export interface IThemePalette extends PaletteOptions {}
 
-interface IThemeProviderProps extends Partial<ThemeProviderProps> {
+type IThemeExtends = 'children';
+
+interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
   /**
-   * Application theme
+   * Custom pallete colors (MUI)
    */
-  application: IThemeProviderApplications;
-  /**
-   * Custom pallete colors
-   */
-  paletteOptions?: PaletteOptions;
+  palette?: IThemePalette;
 }
 
 function ThemeProvider(props: IThemeProviderProps) {
-  const { children, application, paletteOptions } = props;
+  const { children, palette } = props;
 
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [theme, setTheme] = React.useState<Theme>(null);
+  const theme: Theme = React.useMemo(() => generateCustomTheme(palette), [palette]);
 
   const styleContent = React.useMemo(
     () => ({
-      __html: "@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');"
+      __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');
+      `
     }),
     []
   );
 
-  React.useEffect(() => {
-    if (application === 'custom') {
-      setTheme(generateCustomTheme(paletteOptions));
-      setLoading(false);
-      return;
-    }
-
-    import(`./${application}`).then(module => {
-      setTheme(module.default);
-      setLoading(false);
-    });
-  }, [application, paletteOptions]);
-
-  React.useEffect(() => {
-    _setCurrentTheme(theme);
-  }, [theme]);
-
-  if (loading) return null;
+  React.useEffect(() => _setCurrentTheme(theme), [theme]);
 
   return (
     <React.Fragment>
@@ -65,4 +47,4 @@ function ThemeProvider(props: IThemeProviderProps) {
   );
 }
 
-export default ThemeProvider;
+export default React.memo(ThemeProvider);
