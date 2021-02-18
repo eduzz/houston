@@ -7,7 +7,7 @@ import props from './props';
 import typography from './typography';
 import themeVariable from './variables';
 
-export default function generateTheme(customPalette: PaletteOptions) {
+export default function generateTheme(customPalette?: PaletteOptions) {
   const palette = createPalette({ ...defaultPalette, ...customPalette });
 
   return createMuiTheme({

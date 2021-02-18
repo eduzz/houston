@@ -14,12 +14,12 @@ yarn add --dev @eduzz/eslint-config-houston @typescript-eslint/eslint-plugin @ty
 
 ### Projetos
 
-| Package                      | Descrição                                                                      | Link                           |
-|------------------------------|--------------------------------------------------------------------------------|--------------------------------|
-| @eduzz/houston-ui            | Componentes do houston para web                                                | [Ver](/packages/ui-components) |
-| @eduzz/eslint-config-houston | Configuração padrão para o eslint                                              | [Ver](/packages/eslint-config) |
-| @eduzz/houston-forms         | Hooks para validação de formulário                                             | [Ver](/packages/forms)         |
-| @eduzz/core                  | Configurações compartilhadas entre os projetos, não deve ser usado diretamente | [Ver](/packages/core)          |
+| Package                      | Descrição                                                                      | Link                                  |
+|------------------------------|--------------------------------------------------------------------------------|---------------------------------------|
+| @eduzz/houston-ui            | Componentes UI para web                                                        | [Visualizar](/packages/ui-components) |
+| @eduzz/eslint-config-houston | Configuração padrão para o eslint                                              | [Visualizar](/packages/eslint-config) |
+| @eduzz/houston-forms         | Hooks para validação de formulários                                            | [Visualizar](/packages/forms)         |
+| @eduzz/core                  | Configurações compartilhadas entre os projetos, não deve ser usado diretamente | [Visualizar](/packages/core)          |
 
 
 ### Quer contribuir?
@@ -28,7 +28,6 @@ Veja os detalhes [aqui](/CONTRIBUTING.md)
 
 ### Links Úteis
 
-|       |                                                                                                  |
 |-------|--------------------------------------------------------------------------------------------------|
-| Jira  | [Ver](https://eduzzjira.atlassian.net/secure/RapidBoard.jspa?rapidView=165)                      |
-| Figma | [Ver](https://www.figma.com/file/Z1MocTqXbRPGdaHMM9t4Zv/Houston-Design-System?node-id=176%3A276) |
+| Jira  | [Visualizar](https://eduzzjira.atlassian.net/secure/RapidBoard.jspa?rapidView=165)                      |
+| Figma | [Visualizar](https://www.figma.com/file/Z1MocTqXbRPGdaHMM9t4Zv/Houston-Design-System?node-id=176%3A276) |

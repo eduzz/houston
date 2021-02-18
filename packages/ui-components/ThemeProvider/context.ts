@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { Theme } from '@material-ui/core/styles';
 
-import orbita from './orbita';
+import generateTheme from './_default';
 
 export type ContextThemeType = Partial<Theme>;
 
-const ContextTheme = React.createContext<ContextThemeType>(orbita);
+const ContextTheme = React.createContext<ContextThemeType>(generateTheme());
 const ContextThemeProvider = ContextTheme.Provider;
 
 export function useTheme() {
