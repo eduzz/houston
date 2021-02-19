@@ -30,27 +30,27 @@ const Box = React.forwardRef<HTMLDivElement, IProps>((props: IProps) => {
     createStyles({
       box: {
         [theme.breakpoints.up('xs')]: {
-          padding: xs && xs?.padding ? xs?.padding : '12px',
+          padding: xs && xs?.padding,
           margin: xs && xs?.margin ? xs?.margin : '16px 0'
         },
 
         [theme.breakpoints.up('sm')]: {
-          padding: sm && sm?.padding ? sm?.padding : '12px',
+          padding: sm && sm?.padding,
           margin: sm && sm?.margin ? sm?.margin : '16px 0'
         },
 
         [theme.breakpoints.up('md')]: {
-          padding: md && md?.padding ? md?.padding : '12px',
+          padding: md && md?.padding,
           margin: md && md?.margin ? md?.margin : '16px 0'
         },
 
         [theme.breakpoints.up('lg')]: {
-          padding: lg && lg?.padding ? lg?.padding : '12px',
+          padding: lg && lg?.padding,
           margin: lg && lg?.margin ? lg?.margin : '16px 0'
         },
 
         [theme.breakpoints.up('xl')]: {
-          padding: xl && xl?.padding ? xl?.padding : '12px',
+          padding: xl && xl?.padding,
           margin: xl && xl?.margin ? xl?.margin : '16px 0'
         }
       }

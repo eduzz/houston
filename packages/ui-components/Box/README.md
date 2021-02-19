@@ -24,8 +24,8 @@ import Box from '@eduzz/houston-ui/Box';
 
 | prop | type | required | default | description |
 | ---- | ---- | -------- | ------- | ----------- |
-| xs | `{ margin: string, padding: string }` | false | - | - |
-| sm | `{ margin: string, padding: string }` | false | - | - |
-| md | `{ margin: string, padding: string }` | false | - | - |
-| lg | `{ margin: string, padding: string }` | false | - | - |
-| xl | `{ margin: string, padding: string }` | false | - | - |
+| xs | `{ margin: string | number, padding: string | number }` | false | - | - |
+| sm | `{ margin: string | number, padding: string | number }` | false | - | - |
+| md | `{ margin: string | number, padding: string | number }` | false | - | - |
+| lg | `{ margin: string | number, padding: string | number }` | false | - | - |
+| xl | `{ margin: string | number, padding: string | number }` | false | - | - |
