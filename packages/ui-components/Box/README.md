@@ -3,21 +3,29 @@
 ### Import
 
 ```js
-import Box from '@eduzz/houston-ui/Alert';
+import Box from '@eduzz/houston-ui/Box';
 ```
 
 ### Use
 
 ```jsx
-<Box>Your component here</Box>
+<Box
+    xs={{ margin: '0', padding: '0' }}
+    sm={{ margin: '0 12px', padding: '20px' }}
+    md={{ margin: '0 12px', padding: '40px' }}
+    lg={{ margin: '0 12px', padding: '60px' }}
+    className={classes.root}
+>
+    Your component here
+</Box>
 ```
 
 ### Props available
 
 | prop | type | required | default | description |
 | ---- | ---- | -------- | ------- | ----------- |
-| xs | `{ margin: string, padding: string }` | true | `{ margin: '0', padding: '0' }` | - |
-| sm | `{ margin: string, padding: string }` | true | `{ margin: '0', padding: '0' }` | - |
-| md | `{ margin: string, padding: string }` | true | `{ margin: '0', padding: '0' }` | - |
-| lg | `{ margin: string, padding: string }` | true | `{ margin: '0', padding: '0' }` | - |
-| xl | `{ margin: string, padding: string }` | true | `{ margin: '0', padding: '0' }` | - |
+| xs | `{ margin: string, padding: string }` | true | - | - |
+| sm | `{ margin: string, padding: string }` | false | - | - |
+| md | `{ margin: string, padding: string }` | false | - | - |
+| lg | `{ margin: string, padding: string }` | false | - | - |
+| xl | `{ margin: string, padding: string }` | false | - | - |

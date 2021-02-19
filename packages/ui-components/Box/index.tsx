@@ -23,7 +23,7 @@ interface IProps extends Pick<BoxProps, BoxPropsExtends> {
   xl?: ISpacement;
 }
 
-const Box: React.FC<IProps> = (props: IProps) => {
+const Box = React.forwardRef<HTMLDivElement, IProps>((props: IProps) => {
   const { children, xs, sm, md, lg, xl, className } = props;
 
   const useStyles = makeStyles(theme =>
@@ -67,6 +67,6 @@ const Box: React.FC<IProps> = (props: IProps) => {
       </BoxMUI>
     </WrapperTheme>
   );
-};
+});
 
 export default React.memo(Box);
