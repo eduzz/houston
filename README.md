@@ -28,6 +28,7 @@ Veja os detalhes [aqui](/CONTRIBUTING.md)
 
 ### Links Úteis
 
-|-------|--------------------------------------------------------------------------------------------------|
+| *     | Link                                                                                                    |
+|-------|---------------------------------------------------------------------------------------------------------|
 | Jira  | [Visualizar](https://eduzzjira.atlassian.net/secure/RapidBoard.jspa?rapidView=165)                      |
 | Figma | [Visualizar](https://www.figma.com/file/Z1MocTqXbRPGdaHMM9t4Zv/Houston-Design-System?node-id=176%3A276) |

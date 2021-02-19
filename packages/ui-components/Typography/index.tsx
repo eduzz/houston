@@ -22,7 +22,7 @@ const useStyle = makeStyles({
     fontSize: themeVariable.textSize(props.size ?? 'normal'),
     lineHeight: themeVariable.lineHeight(props.lineHeight ?? 'normal'),
     fontWeight: themeVariable.fontWeight(props.fontWeight ?? 'regular'),
-    marginBottom: props.marginBottom ? themeVariable.spacing(3) : null
+    marginBottom: props.marginBottom ? themeVariable.spacing(2) : null
   })
 });
 

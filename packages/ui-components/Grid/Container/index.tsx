@@ -5,24 +5,24 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
+import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import GridContextProvider from '../context';
+import { IContainerType, IGridConfig } from '../interfaces';
+
 const useStyles = makeStyles(() =>
   createStyles({
-    confortable: {
+    root: {
       width: '100%',
       maxWidth: 1062,
-      margin: '0 auto',
+      margin: '0 auto'
+    },
+    comfortable: {
       padding: '0 18px'
     },
     cozy: {
-      width: '100%',
-      maxWidth: 1062,
-      margin: '0 auto',
       padding: '0 28px'
     },
     compact: {
-      width: '100%',
-      maxWidth: 1062,
-      margin: '0 auto',
       padding: '0 20px'
     },
     fluid: {
@@ -31,40 +31,38 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type ContainerPropsExtends = 'id' | 'className' | 'children' | 'style';
-
-export type IConfig = {
-  [key: string]: {
-    className: string;
-  };
-};
-
-export type IContainerType = 'confortable' | 'cozy' | 'compact';
+type ContainerPropsExtends = 'id' | 'className' | 'children' | 'style' | 'tabIndex';
 
 interface IProps extends Pick<ContainerProps, ContainerPropsExtends> {
   /**
-   * Type container (spacing, margins)
+   * Type container
    *
-   * `confortable` spacing big
+   * `comfortable` spacing big
    * `cozy` spacing medium
    * `compact` spacing small
+   *
    *  default `cozy`
    */
-  type?: IContainerType;
+  spacing?: IContainerType;
   /**
-   * max-width ignore
+   * Types layout
+   *
+   * `fluid` max-width ignored
+   * `solid` limited
+   *
+   * default `solid`
    */
-  fluid?: boolean;
+  layout?: 'fluid' | 'solid';
 }
 
 const Container = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
-  const { children, type, fluid = false } = props;
+  const { children, spacing, layout = 'solid' } = props;
   const classes = useStyles();
 
-  const config: IConfig = React.useMemo(() => {
+  const config: IGridConfig = React.useMemo(() => {
     return {
-      confortable: {
-        className: classes.confortable
+      comfortable: {
+        className: classes.comfortable
       },
       cozy: {
         className: classes.cozy
@@ -73,22 +71,25 @@ const Container = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
         className: classes.compact
       }
     };
-  }, [classes.compact, classes.confortable, classes.cozy]);
+  }, [classes.compact, classes.comfortable, classes.cozy]);
 
-  const containerProps = { ...props };
-
-  delete containerProps.fluid;
-  delete containerProps.children;
-  delete containerProps.type;
+  const containerProps = React.useMemo(
+    () => (({ id, className, style, tabIndex }) => ({ id, className, style, tabIndex }))(props),
+    [props]
+  );
 
   return (
-    <MUIContainer
-      {...containerProps}
-      className={clsx(config[type ?? 'cozy'].className, fluid && classes.fluid)}
-      ref={ref}
-    >
-      {children}
-    </MUIContainer>
+    <WrapperTheme>
+      <GridContextProvider value={{ spacing }}>
+        <MUIContainer
+          {...containerProps}
+          ref={ref}
+          className={clsx(classes.root, config[spacing ?? 'cozy'].className, layout === 'fluid' && classes.fluid)}
+        >
+          {children}
+        </MUIContainer>
+      </GridContextProvider>
+    </WrapperTheme>
   );
 });
 

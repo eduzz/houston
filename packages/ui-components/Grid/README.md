@@ -11,8 +11,20 @@ import Row from '@eduzz/houston-ui/Grid/Row';
 ### Use
 
 ```jsx
-<Container type='cozy'>
-  <Row type='cozy'>
+<Container spacing='comfortable'>
+  <Row alignItems='center'>
+    <Column xs={12} sm={12} md={12} lg={12} xl={12}>
+      ...
+    </Column>
+  </Row>
+
+  <Row alignItems='flex-end'>
+    <Column xs={12} sm={12} md={12} lg={12} xl={12}>
+      ...
+    </Column>
+  </Row>
+
+  <Row justify='center'>
     <Column xs={12} sm={12} md={12} lg={12} xl={12}>
       ...
     </Column>
@@ -20,30 +32,38 @@ import Row from '@eduzz/houston-ui/Grid/Row';
 <Container>
 ```
 
+### Do not do it
+
 ```jsx
-<Grid.Container type='cozy'>
-  <Grid.Row>
-    <Grid.Column xs={12} sm={12} md={12} lg={12} xl={12}>
+<Container spacing='comfortable'>
+  <Row alignItems='center'>
+    <Column xs={12} sm={12} md={12} lg={12} xl={12}>
       ...
-    </Grid.Column>
-  </Grid.Row>
-<Grid.Container>
+    </Column>
+  </Row>
+
+  // ❌  A `Container` cannot be inside another `Container`
+  <Container spacing='compact'>
+    <Row alignItems='center'>
+      <Column xs={12} sm={12} md={12} lg={12} xl={12}>
+        ...
+      </Column>
+    </Row>
+  <Container>
+<Container>
 ```
 
 ### Container Props available
 
-| prop       | type                                                                                | required | default |
-|------------|-------------------------------------------------------------------------------------|----------|---------|
-| type       | `confortable`, `cozy`, `compact`                                                    | false    | `cozy`  |
-| alignItems | `flex-start`, `center`, `flex-end`, `stretch`, `baseline`                           | false    | -       |
-| justify    | `flex-start`, `center`, `flex-end`, `space-between`, `space-around`, `space-evenly` | false    | -       |
-| fluid      | `boolean`                                                                           | false    | false   |
+| prop    | type                             | required | default |
+|---------|----------------------------------|----------|---------|
+| spacing | `comfortable`, `cozy`, `compact` | false    | `cozy`  |
+| layout  | `fluid`, `solid`                 | false    | `solid` |
 
 ### Row Props available
 
 | prop       | type                                                                                | required | default |
 |------------|-------------------------------------------------------------------------------------|----------|---------|
-| type       | `confortable`, `cozy`, `compact`                                                    | false    | `cozy`  |
 | alignItems | `flex-start`, `center`, `flex-end`, `stretch`, `baseline`                           | false    | -       |
 | justify    | `flex-start`, `center`, `flex-end`, `space-between`, `space-around`, `space-evenly` | false    | -       |
 
