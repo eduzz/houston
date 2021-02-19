@@ -1,59 +1,72 @@
 import * as React from 'react';
 
 import BoxMUI, { BoxProps } from '@material-ui/core/Box';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+
+import clsx from 'clsx';
 
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
+export type ISpacement = {
+  margin?: number | string;
+  padding?: number | string;
+};
+
 type BoxPropsExtends = 'id' | 'className' | 'style' | 'children';
 
-interface IBoxProps extends Pick<BoxProps, BoxPropsExtends> {
-  xs: { margin: string; padding: string };
-  sm?: { margin: string; padding: string };
-  md?: { margin: string; padding: string };
-  lg?: { margin: string; padding: string };
-  xl?: { margin: string; padding: string };
+interface IProps extends Pick<BoxProps, BoxPropsExtends> {
+  style?: React.CSSProperties;
+  xs?: ISpacement;
+  sm?: ISpacement;
+  md?: ISpacement;
+  lg?: ISpacement;
+  xl?: ISpacement;
 }
 
-const Box = React.forwardRef<HTMLDivElement, IBoxProps>(({ children, ...props }) => {
-  const [margin, setMargin] = React.useState<string>('0');
-  const [padding, setPadding] = React.useState<string>('0');
+const Box: React.FC<IProps> = (props: IProps) => {
+  const { children, xs, sm, md, lg, xl, className } = props;
 
-  const windowListener = React.useCallback(() => {
-    const queries = [
-      { xs: '(max-width: 600px)' },
-      { sm: '(max-width: 960px) and (min-width: 601px)' },
-      { md: '(max-width: 1280px) and (min-width: 961px)' },
-      { lg: '(max-width: 1920px) and (min-width: 1281px)' },
-      { xl: '(min-width: 1921px)' }
-    ];
+  const useStyles = makeStyles(theme =>
+    createStyles({
+      box: {
+        [theme.breakpoints.up('xs')]: {
+          padding: xs && xs?.padding ? xs?.padding : '12px',
+          margin: xs && xs?.margin ? xs?.margin : '16px 0'
+        },
 
-    const config = queries.reduce((acc, query) => {
-      if (window.matchMedia(Object.values(query)[0]).matches) {
-        return Object.keys(query);
+        [theme.breakpoints.up('sm')]: {
+          padding: sm && sm?.padding ? sm?.padding : '12px',
+          margin: sm && sm?.margin ? sm?.margin : '16px 0'
+        },
+
+        [theme.breakpoints.up('md')]: {
+          padding: md && md?.padding ? md?.padding : '12px',
+          margin: md && md?.margin ? md?.margin : '16px 0'
+        },
+
+        [theme.breakpoints.up('lg')]: {
+          padding: lg && lg?.padding ? lg?.padding : '12px',
+          margin: lg && lg?.margin ? lg?.margin : '16px 0'
+        },
+
+        [theme.breakpoints.up('xl')]: {
+          padding: xl && xl?.padding ? xl?.padding : '12px',
+          margin: xl && xl?.margin ? xl?.margin : '16px 0'
+        }
       }
+    })
+  );
 
-      return acc;
-    }, 'xs');
-
-    if (props[`${Object.values(config)[0]}`]) {
-      setPadding(props[`${Object.values(config)[0]}`].padding);
-      setMargin(props[`${Object.values(config)[0]}`].margin);
-    }
-  }, [props]);
-
-  React.useEffect(() => {
-    windowListener();
-
-    window.addEventListener('resize', windowListener);
-  }, [windowListener]);
+  const classes = useStyles();
+  const divProps = React.useMemo(() => (({ id, style }) => ({ id, style }))(props), [props]);
 
   return (
     <WrapperTheme>
-      <BoxMUI padding={padding} margin={margin} className={props.className}>
+      <BoxMUI {...divProps} className={clsx(className && className, classes.box)}>
         {children}
       </BoxMUI>
     </WrapperTheme>
   );
-});
+};
 
 export default React.memo(Box);
