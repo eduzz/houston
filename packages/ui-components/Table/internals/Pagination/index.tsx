@@ -3,12 +3,11 @@ import * as React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import MUIPagination from '@material-ui/lab/Pagination';
 
-import SelectField from '@eduzz/houston-ui/Forms/Select';
-import TextField from '@eduzz/houston-ui/Forms/Text';
-import Column from '@eduzz/houston-ui/Grid/Column';
-import Row from '@eduzz/houston-ui/Grid/Row';
-import Typography from '@eduzz/houston-ui/Typography';
-
+import SelectField from '../../../Forms/Select';
+import TextField from '../../../Forms/Text';
+import Column from '../../../Grid/Column';
+import Row from '../../../Grid/Row';
+import Typography from '../../../Typography';
 import { useTableContext } from '../../context';
 
 const useStyles = makeStyles(() =>

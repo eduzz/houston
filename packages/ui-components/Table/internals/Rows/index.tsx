@@ -10,13 +10,13 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-// eslint-disable-next-line no-restricted-imports
-import * as lodash from 'lodash';
-
 import { useTableContext } from '../../context';
 import { ITableRow } from '../../interfaces';
 import Cell from '../Cell';
 import Collapse from '../Collapse';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import isEqual = require('lodash/isEqual');
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -69,7 +69,7 @@ const Rows: React.FC<{}> = () => {
     (row: Partial<ITableRow>) => {
       const callback = row?.collapse?.onCollapse;
 
-      if (currentItemCollapse && lodash.isEqual(currentItemCollapse, row?.data)) {
+      if (currentItemCollapse && isEqual(currentItemCollapse, row?.data)) {
         callback(null);
         setCurrentItemCollapse(null);
         return;
@@ -108,7 +108,7 @@ const Rows: React.FC<{}> = () => {
       {!loading &&
         rows.map((row, index) => (
           <React.Fragment key={`table-row-${index}`}>
-            <TableRow hover selected={currentRow && lodash.isEqual(currentRow?.data, row.data)}>
+            <TableRow hover selected={currentRow && isEqual(currentRow?.data, row.data)}>
               {row?.cells?.map((cell, i) => (
                 <Cell key={`row-${index}-cell-${i}`} {...cell} />
               ))}
@@ -128,7 +128,7 @@ const Rows: React.FC<{}> = () => {
                   {row?.collapse && (
                     <TableCell key={`row-${index}-collapse`}>
                       <IconButton size='small' onClick={() => handleClickCollapse(row)}>
-                        {currentItemCollapse && lodash.isEqual(currentItemCollapse, row.data) ? (
+                        {currentItemCollapse && isEqual(currentItemCollapse, row.data) ? (
                           <KeyboardArrowUpIcon />
                         ) : (
                           <KeyboardArrowDownIcon />

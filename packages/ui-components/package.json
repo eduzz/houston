@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-ui",
   "description": "Eduzz Houston Components UI",
-  "version": "0.2.0",
+  "version": "0.5.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -25,11 +25,11 @@
   },
   "dependencies": {
     "@material-ui/core": "4",
-    "@material-ui/icons": "^4.11.2",
+    "@material-ui/icons": "^4",
     "@material-ui/lab": "^4.0.0-alpha.56",
-    "@material-ui/styles": "4",
+    "@material-ui/styles": "^4",
     "clsx": "^1.1.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4",
     "react": "^16.13.1",
     "react-toastify": "^6.2.0"
   },
