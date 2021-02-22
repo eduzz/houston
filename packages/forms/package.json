@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-forms",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "description": "Houston Forms",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -26,12 +26,12 @@
   },
   "dependencies": {
     "@eduzz/houston-core": "*",
+    "@types/yup": "^0.29.9",
     "formik": "^2.2.5",
     "react": "^16.13.1",
     "react-use-observable": "^1.0.2",
     "rxjs": "^6.6.3",
-    "yup": "^0.31.0",
-    "@types/yup": "^0.29.9"
+    "yup": "^0.31.0"
   },
   "peerDependencies": {
     "react": ">=16.8"
