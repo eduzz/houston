@@ -3,11 +3,12 @@ import './yupLocale';
 import { useCallback, useEffect, useRef } from 'react';
 import { useObservable } from 'react-use-observable';
 
+import { Observable, of, Subject } from 'rxjs';
+import { catchError, share, switchMap } from 'rxjs/operators';
+
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
 import { FormikConfig, FormikErrors, FormikHelpers, FormikTouched, useFormik } from 'formik';
-import { Observable, of, Subject } from 'rxjs';
-import { catchError, share, switchMap } from 'rxjs/operators';
 import * as yup from 'yup';
 
 export declare type FormikInstance<Values = any> = ReturnType<typeof useForm> & {
@@ -29,6 +30,10 @@ export interface IUseFormParams<Values> {
   onSubmit: (values: Values, formikHelpers: FormikHelpers<Values>) => void | Promise<any> | Observable<any>;
 }
 
+/**
+ * Hook implemation of IFormAdapter
+ * @param IUseFormParams
+ */
 export default function useForm<Values = {}>({
   onSubmit,
   onSubmitWithErrors,
