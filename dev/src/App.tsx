@@ -4,13 +4,15 @@ import React, { memo } from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
+import ThemeProvider, { IThemePalette } from '@eduzz/houston-ui/ThemeProvider';
 
 import Pages from 'components/Pages';
 
+const palette: IThemePalette = {};
+
 const App = memo(() => {
   return (
-    <ThemeProvider application='orbita'>
+    <ThemeProvider palette={palette}>
       <CssBaseline />
       <Pages />
     </ThemeProvider>

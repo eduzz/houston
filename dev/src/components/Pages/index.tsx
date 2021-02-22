@@ -6,6 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Drawer, { IMenu } from 'components/Layout/Drawer';
 
 import AlertPage from './Alert';
+import BoxPage from './Box';
 import ButtonsPage from './Buttons';
 import DashboardPage from './Dashboard';
 import FormChoosePage from './Forms/Choose';
@@ -13,6 +14,7 @@ import FormSelectPage from './Forms/Select';
 import FormTextPage from './Forms/Text';
 import FormValidationPage from './Forms/Validation';
 import GridPage from './Grid';
+import TablePage from './Table';
 import ToastPage from './Toast';
 import TypographyPage from './Typography';
 
@@ -44,6 +46,7 @@ const IndexPage = memo((props: {}) => {
   const [menu] = useState<IMenu[]>(() => [
     { path: '/', display: 'Dashboard' },
     { path: '/alert', display: 'Alert' },
+    { path: '/box', display: 'Box' },
     { path: '/buttons', display: 'Buttons' },
     { path: '/grid', display: 'Grid' },
     {
@@ -56,6 +59,7 @@ const IndexPage = memo((props: {}) => {
         { path: '/forms/validation', display: 'Validation' }
       ]
     },
+    { path: '/table', display: 'Table' },
     { path: '/toast', display: 'Toast' },
     { path: '/typography', display: 'Typography' }
   ]);
@@ -71,6 +75,7 @@ const IndexPage = memo((props: {}) => {
             <main ref={mainContent} className={classes.content}>
               <Switch>
                 <Route path='/alert' component={AlertPage} />
+                <Route path='/box' component={BoxPage} />
                 <Route path='/buttons' component={ButtonsPage} />
                 <Route path='/grid' component={GridPage} />
                 <Route path='/toast' component={ToastPage} />
@@ -79,6 +84,7 @@ const IndexPage = memo((props: {}) => {
                 <Route path='/forms/choose' component={FormChoosePage} />
                 <Route path='/forms/select' component={FormSelectPage} />
                 <Route path='/forms/validation' component={FormValidationPage} />
+                <Route path='/table' component={TablePage} />
                 <Route path='/typography' component={TypographyPage} />
                 <Route path='/' component={DashboardPage} />
                 <Route render={renderRedirect} />

@@ -3,6 +3,8 @@ import * as React from 'react';
 import Grid, { GridProps } from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
+import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+
 const useStyles = makeStyles(() =>
   createStyles({
     column: {
@@ -12,7 +14,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type IDeletedProps =
+type IOmitProps =
   | 'container'
   | 'item'
   | 'justify'
@@ -23,16 +25,18 @@ type IDeletedProps =
   | 'direction'
   | 'wrap';
 
-interface IProps extends Omit<GridProps, IDeletedProps> {}
+interface IProps extends Omit<GridProps, IOmitProps> {}
 
 const Column = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
   const { children } = props;
   const classes = useStyles();
 
   return (
-    <Grid {...props} classes={{ root: classes.column }} item ref={ref}>
-      {children}
-    </Grid>
+    <WrapperTheme>
+      <Grid {...props} item classes={{ root: classes.column }} ref={ref}>
+        {children}
+      </Grid>
+    </WrapperTheme>
   );
 });
 

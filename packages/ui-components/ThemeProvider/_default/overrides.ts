@@ -1,8 +1,10 @@
+/* eslint-disable max-lines */
 import { StyleRules } from '@material-ui/core/styles';
 import { Palette } from '@material-ui/core/styles/createPalette';
 import { Overrides } from '@material-ui/core/styles/overrides';
 import { LabComponentNameToClassKey } from '@material-ui/lab/themeAugmentation';
 
+import palette from './palette';
 import themeVariable from './variables';
 
 export type LabOverrides = {
@@ -20,7 +22,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
         padding: '10px 16px',
         height: 40,
         borderRadius: themeVariable.radius(),
-        fontWeight: 600,
+        fontWeight: themeVariable.fontWeight('semibold'),
 
         '&:before': {
           content: '" "',
@@ -101,6 +103,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
     MuiInputBase: {
       root: {
         fontFamily: themeVariable.fontFamily,
+
         '&$disabled': {
           backgroundColor: pallet.grey['100']
         }
@@ -116,6 +119,14 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
       selectMenu: {
         height: 45
+      },
+
+      iconOutlined: {
+        right: 4
+      },
+
+      icon: {
+        top: 'calc(50% - 14px)'
       }
     },
 
@@ -142,6 +153,13 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       }
     },
 
+    MuiFormControlLabel: {
+      root: {
+        color: themeVariable.palette.grey[500],
+        fontFamily: themeVariable.fontFamily
+      }
+    },
+
     MuiFormControl: {
       marginNormal: {
         marginTop: themeVariable.spacing(1),
@@ -151,6 +169,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiFormLabel: {
       root: {
+        color: themeVariable.palette.grey[500],
         fontFamily: themeVariable.fontFamily
       }
     },
@@ -158,7 +177,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
     MuiInputLabel: {
       root: {
         fontFamily: themeVariable.fontFamily,
-        fontSize: themeVariable.textSize()
+        fontSize: themeVariable.textSize() + 1
       },
       outlined: {
         transform: `translate(${themeVariable.spacing(4)}px, ${themeVariable.spacing(4) - 2}px) scale(1)`
@@ -170,7 +189,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiAlertTitle: {
       root: {
-        fontWeight: 600
+        fontWeight: themeVariable.fontWeight('semibold')
       }
     },
 
@@ -184,7 +203,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       },
 
       message: {
-        fontWeight: 600
+        fontWeight: themeVariable.fontWeight('semibold')
       },
 
       standardSuccess: {
@@ -201,6 +220,93 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
       standardWarning: {
         backgroundColor: '#FFF4D4'
+      }
+    },
+
+    MuiTableRow: {
+      root: {
+        '&$selected': {
+          background: 'rgba(177, 177, 177, 0.08)'
+        }
+      }
+    },
+
+    MuiTableCell: {
+      root: {
+        padding: '12px 20px',
+        borderColor: '#ECEFF1',
+        color: themeVariable.palette.grey[600]
+      },
+
+      head: {
+        fontWeight: themeVariable.fontWeight('semibold'),
+        color: themeVariable.palette.grey[600]
+      },
+
+      body: {
+        color: themeVariable.palette.grey[600]
+      },
+
+      sizeSmall: {
+        fontSize: themeVariable.textSize('small'),
+        padding: '8px 12px'
+      }
+    },
+
+    MuiTableSortLabel: {
+      root: {
+        color: themeVariable.palette.grey[600],
+
+        '&:focus': {
+          color: 'inherit'
+        },
+
+        '&$active': {
+          color: themeVariable.palette.grey[600],
+
+          '&$root': {
+            '&$active': {
+              '& $icon': {
+                color: themeVariable.palette.grey[600]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    MuiMenuItem: {
+      root: {
+        fontSize: themeVariable.textSize('normal'),
+        fontWeight: themeVariable.fontWeight('regular')
+      }
+    },
+
+    MuiPaginationItem: {
+      root: {
+        margin: '0 2px',
+        minWidth: 30,
+        padding: '0 4px',
+        fontWeight: themeVariable.fontWeight('regular')
+      }
+    },
+
+    MuiPagination: {
+      ul: {
+        '& li': {
+          '&:first-child, &:last-child': {
+            border: `1px solid ${palette.grey[300]}`,
+            borderRadius: 4
+          },
+
+          '&:first-child': {
+            marginRight: 8
+          },
+
+          '&:last-child': {
+            marginLeft: 8
+          }
+        }
       }
     }
   };
