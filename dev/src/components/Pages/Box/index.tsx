@@ -34,13 +34,7 @@ const BoxPage = memo(() => {
 
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Box
-                xs={{ margin: '0', padding: '0' }}
-                sm={{ margin: '0 12px', padding: '20px' }}
-                md={{ margin: '0 12px', padding: '40px' }}
-                lg={{ margin: '0 12px', padding: '60px' }}
-                className={classes.root}
-              >
+              <Box xs={{ margin: '0', padding: '20px' }} className={classes.root}>
                 Success
               </Box>
             </Grid>
