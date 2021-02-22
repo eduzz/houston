@@ -55,12 +55,9 @@ const form = useForm<IModel>({
 
 ### Opções 
 
-| Parametros    | Tipo                                             | Obrigatório | Descrição |
-|---------------|--------------------------------------------------|-------------|-----------|
-| initialValues | Partial do que for passado no Generic do useForm | false       |           |
-
-
- ?: Partial<Values>;
-  validationSchema?: (yup: Yup) => any;
-  onSubmitWithErrors?: (errors: FormikErrors<Values>, values: Partial<Values>) => void;
-  onSubmit: (values: Values, formikHelpers: FormikHelpers<Values>) => void | Promise<any> | Observable<any>;
+| Parametros         | Tipo                                             | Obrigatório | Descrição |
+|--------------------|--------------------------------------------------|-------------|-----------|
+| initialValues      | Partial do que for passado no Generic do useForm | false       |           |
+| validationSchema   | Função geradora do validationSchema              | false       |           |
+| onSubmitWithErrors |                                                  |             |           |
+| onSubmit           |                                                  |             |           |
