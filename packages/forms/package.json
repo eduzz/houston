@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-forms",
-  "version": "0.0.0",
+  "version": "0.7.7",
   "description": "Houston Forms",
   "main": "index.js",
   "types": "./index.d.ts",

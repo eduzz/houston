@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-ui",
   "description": "Eduzz Houston Components UI",
-  "version": "0.0.0",
+  "version": "0.7.7",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
