@@ -73,9 +73,8 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
     const handleBlur = React.useCallback(
       (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         onBlur && onBlur(maskClean(e.currentTarget.value), e);
-        form && form.setFieldTouched(name, true);
       },
-      [form, name, onBlur, maskClean]
+      [onBlur, maskClean]
     );
 
     const inputLabelProps = React.useMemo<InputLabelProps>(

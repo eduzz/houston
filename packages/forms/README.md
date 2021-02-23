@@ -1,5 +1,9 @@
 # Houston Forms
 
+[![version](https://img.shields.io/npm/v/@eduzz/@eduzz/houston-forms)](https://www.npmjs.com/package/@eduzz/houston-forms)
+[![size](https://img.shields.io/bundlephobia/min/@eduzz/houston-forms)](https://www.npmjs.com/package/@eduzz/houston-forms)
+
+
 Implementação padrão do **IFormAdapter** do houston para validação de formulário, foi criado para 
 ser compatível com retornos do RxJs.
 

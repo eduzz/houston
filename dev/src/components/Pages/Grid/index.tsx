@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@eduzz/houston-ui/Button';
 import Column from '@eduzz/houston-ui/Grid/Column';
 import Container from '@eduzz/houston-ui/Grid/Container';
-import Row, { IRowType } from '@eduzz/houston-ui/Grid/Row';
+import Row from '@eduzz/houston-ui/Grid/Row';
 
 import Toolbar from 'components/Layout/Toolbar';
 
@@ -53,7 +53,7 @@ const useStyles = makeStyles(() =>
 const GridPage = memo(() => {
   const classes = useStyles();
 
-  const [type, setType] = useState<IRowType>('confortable');
+  const [type, setType] = useState<any>('confortable');
   const [columns, setColumns] = useState<number>(12);
   const [fluid, setFluid] = useState<boolean>(false);
   const [align, setAlign] = useState<GridItemsAlignment>('center');
@@ -78,7 +78,7 @@ const GridPage = memo(() => {
                 <RadioGroup
                   name='type'
                   value={type.toString()}
-                  onChange={(_: React.ChangeEvent<HTMLInputElement>, value: IRowType) => setType(value)}
+                  onChange={(_: React.ChangeEvent<HTMLInputElement>, value: any) => setType(value)}
                   row
                 >
                   {['confortable', 'cozy', 'compact'].map(value => (

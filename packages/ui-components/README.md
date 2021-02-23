@@ -1,7 +1,7 @@
 # Eduzz Houston
 
-[![version](https://img.shields.io/npm/v/@eduzz/@eduzz/houston-ui)](https://www.npmjs.com/package/@eduzz/houston)
-[![size](https://img.shields.io/bundlephobia/min/@eduzz/houston-ui)](https://www.npmjs.com/package/@eduzz/houston)
+[![version](https://img.shields.io/npm/v/@eduzz/@eduzz/houston-ui)](https://www.npmjs.com/package/@eduzz/houston-ui)
+[![size](https://img.shields.io/bundlephobia/min/@eduzz/houston-ui)](https://www.npmjs.com/package/@eduzz/houston-ui)
 
 ### Installation
 
