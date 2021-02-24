@@ -18,9 +18,9 @@ const useStyles = makeStyles(() =>
 
 type RowPropsExtends = 'id' | 'className' | 'children' | 'justify' | 'alignItems' | 'style';
 
-interface IProps extends Pick<GridProps, RowPropsExtends> {}
+export interface IRowProps extends Pick<GridProps, RowPropsExtends> {}
 
-const Row = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
+const Row = React.forwardRef<HTMLDivElement, IRowProps>((props, ref) => {
   const classes = useStyles();
   const { spacing } = useGrid();
 

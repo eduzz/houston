@@ -11,9 +11,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import Button from '@eduzz/houston-ui/Button';
-import Column from '@eduzz/houston-ui/Grid/Column';
-import Container from '@eduzz/houston-ui/Grid/Container';
-import Row from '@eduzz/houston-ui/Grid/Row';
+import Grid from '@eduzz/houston-ui/Grid';
 
 import Toolbar from 'components/Layout/Toolbar';
 
@@ -71,9 +69,9 @@ const GridPage = memo(() => {
         </CardContent>
 
         <CardContent>
-          <Container spacing='cozy' layout='fluid'>
-            <Row>
-              <Column xs={12}>
+          <Grid.Container spacing='cozy' layout='fluid'>
+            <Grid.Row>
+              <Grid.Column xs={12}>
                 <FormLabel>Row type (type)</FormLabel>
                 <RadioGroup
                   name='type'
@@ -85,13 +83,13 @@ const GridPage = memo(() => {
                     <FormControlLabel key={value} value={value} control={<Radio />} label={value} />
                   ))}
                 </RadioGroup>
-              </Column>
-            </Row>
+              </Grid.Column>
+            </Grid.Row>
 
             <br />
 
-            <Row>
-              <Column xs={12}>
+            <Grid.Row>
+              <Grid.Column xs={12}>
                 <FormLabel>Columns</FormLabel>
                 <RadioGroup
                   name='columns'
@@ -108,13 +106,13 @@ const GridPage = memo(() => {
                     />
                   ))}
                 </RadioGroup>
-              </Column>
-            </Row>
+              </Grid.Column>
+            </Grid.Row>
 
             <br />
 
-            <Row>
-              <Column xs={12}>
+            <Grid.Row>
+              <Grid.Column xs={12}>
                 <FormLabel>Fluid</FormLabel>
                 <RadioGroup
                   name='fluid'
@@ -126,13 +124,13 @@ const GridPage = memo(() => {
                     <FormControlLabel key={value} value={value} control={<Radio />} label={value} />
                   ))}
                 </RadioGroup>
-              </Column>
-            </Row>
+              </Grid.Column>
+            </Grid.Row>
 
             <br />
 
-            <Row>
-              <Column xs={12}>
+            <Grid.Row>
+              <Grid.Column xs={12}>
                 <FormLabel>Align (alignItems)</FormLabel>
                 <RadioGroup
                   name='align'
@@ -144,13 +142,13 @@ const GridPage = memo(() => {
                     <FormControlLabel key={value} value={value} control={<Radio />} label={value} />
                   ))}
                 </RadioGroup>
-              </Column>
-            </Row>
+              </Grid.Column>
+            </Grid.Row>
 
             <br />
 
-            <Row>
-              <Column xs={12}>
+            <Grid.Row>
+              <Grid.Column xs={12}>
                 <FormLabel>Justify (justify)</FormLabel>
                 <RadioGroup
                   name='justify'
@@ -162,31 +160,31 @@ const GridPage = memo(() => {
                     <FormControlLabel key={value} value={value} control={<Radio />} label={value} />
                   ))}
                 </RadioGroup>
-              </Column>
-            </Row>
-          </Container>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid.Container>
         </CardContent>
 
         <CardContent className={classes.container}>
-          <Container spacing='comfortable'>
-            <Row style={{ background: '#073b4c' }} alignItems={align} justify={justify}>
+          <Grid.Container spacing='comfortable'>
+            <Grid.Row style={{ background: '#073b4c' }} alignItems={align} justify={justify}>
               {new Array(columns).fill('').map((_, index) => (
-                <Column xs={true} key={index + 1}>
+                <Grid.Column xs={true} key={index + 1}>
                   <div className={`${classes.column} ${index % 2 === 0 ? '--diff' : ''}`}>{index + 1}</div>
-                </Column>
+                </Grid.Column>
               ))}
-            </Row>
-          </Container>
+            </Grid.Row>
+          </Grid.Container>
         </CardContent>
 
         <CardContent className={classes.container}>
-          <Row style={{ background: '#073b4c' }} alignItems={align} justify={justify}>
+          <Grid.Row style={{ background: '#073b4c' }} alignItems={align} justify={justify}>
             {new Array(2).fill('').map((_, index) => (
-              <Column xs={true} key={index + 1}>
+              <Grid.Column xs={true} key={index + 1}>
                 <div className={`${classes.column} ${index % 2 === 0 ? '--diff' : ''}`}>{index + 1}</div>
-              </Column>
+              </Grid.Column>
             ))}
-          </Row>
+          </Grid.Row>
         </CardContent>
 
         <CardContent>

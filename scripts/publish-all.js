@@ -45,8 +45,8 @@ async function init() {
   await npmLogin();
 
   for (let package of packages) {
-    await changePackageVersion(package);
-    // await publish(package);
+    await changePackageVersion(package, packages);
+    await publish(package);
   }
 
   return true;
@@ -80,9 +80,8 @@ async function changePackageVersion(package, allPackages) {
   content = content.replace(/(.+\"version\"\:\s\").+(\"+)/gim, `$1${currentVersion}$2`);
 
   allPackages.forEach(package => {
-    content = content.replace(new RegExp(`(.+"${package}":\s").+("+)`, "gim"), `$1${currentVersion}$2`);
+    content = content.replace(new RegExp(`(.+"${package.name}":\\s").+("+)`, "gim"), `$1${currentVersion}$2`);
   });
-
 
   fs.writeFileSync(path, content);
   loader.succeed();

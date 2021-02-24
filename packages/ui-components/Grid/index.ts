@@ -1,5 +1,6 @@
 import Column from './Column';
+import Container from './Container';
 import Row from './Row';
-import Container from './Row';
 
-export { Row, Column, Container };
+const Grid = { Row, Column, Container };
+export default Grid;

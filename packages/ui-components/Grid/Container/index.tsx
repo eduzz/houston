@@ -33,7 +33,7 @@ const useStyles = makeStyles(() =>
 
 type ContainerPropsExtends = 'id' | 'className' | 'children' | 'style' | 'tabIndex';
 
-interface IProps extends Pick<ContainerProps, ContainerPropsExtends> {
+export interface IContainerProps extends Pick<ContainerProps, ContainerPropsExtends> {
   /**
    * Type container
    *
@@ -55,7 +55,7 @@ interface IProps extends Pick<ContainerProps, ContainerPropsExtends> {
   layout?: 'fluid' | 'solid';
 }
 
-const Container = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
+const Container = React.forwardRef<HTMLDivElement, IContainerProps>((props, ref) => {
   const { children, spacing, layout = 'solid', ...containerProps } = props;
   const classes = useStyles();
 

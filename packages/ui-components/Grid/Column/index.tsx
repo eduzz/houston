@@ -23,9 +23,9 @@ type IOmitProps =
   | 'direction'
   | 'wrap';
 
-interface IProps extends Omit<GridProps, IOmitProps> {}
+export interface IColumnProps extends Omit<GridProps, IOmitProps> {}
 
-const Column = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
+const Column = React.forwardRef<HTMLDivElement, IColumnProps>((props, ref) => {
   const classes = useStyles();
 
   return <Grid {...props} item classes={{ root: classes.column }} ref={ref} />;
