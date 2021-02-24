@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
@@ -41,6 +42,7 @@ function ThemeProvider(props: IThemeProviderProps) {
 
       <ContextTheme value={theme}>
         <ToastContainer />
+        <CssBaseline />
         {children}
       </ContextTheme>
     </React.Fragment>

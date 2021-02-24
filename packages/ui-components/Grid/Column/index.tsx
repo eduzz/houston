@@ -3,8 +3,6 @@ import * as React from 'react';
 import Grid, { GridProps } from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-import WrapperTheme from '../../ThemeProvider/WrapperTheme';
-
 const useStyles = makeStyles(() =>
   createStyles({
     column: {
@@ -32,11 +30,9 @@ const Column = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
   const classes = useStyles();
 
   return (
-    <WrapperTheme>
-      <Grid {...props} item classes={{ root: classes.column }} ref={ref}>
-        {children}
-      </Grid>
-    </WrapperTheme>
+    <Grid {...props} item classes={{ root: classes.column }} ref={ref}>
+      {children}
+    </Grid>
   );
 });
 

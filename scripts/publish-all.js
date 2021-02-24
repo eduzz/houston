@@ -42,12 +42,27 @@ async function init() {
     return false;
   }
 
+  await npmLogin();
+
   for (let package of packages) {
     await changePackageVersion(package);
     await publish(package);
   }
 
   return true;
+}
+
+async function npmLogin() {
+  try {
+    await exec('npm whoami');
+    return true;
+  } catch (err) { }
+
+  return new Promise((resolve, reject) => {
+    const login = childProccess.spawn('npm', ['login'], { stdio: 'inherit' });
+    login.once('error', err => reject(err));
+    login.once('close', () => resolve());
+  });
 }
 
 async function publish(package) {
@@ -63,7 +78,8 @@ async function changePackageVersion(package) {
   let content = fs.readFileSync(path, 'utf8');
 
   content = content
-    .replace(/(.+\"version\"\:\s\").+(\"+)/gim, `$1${currentVersion}$2`);
+    .replace(/(.+\"version\"\:\s\").+(\"+)/gim, `$1${currentVersion}$2`)
+    .replace(/(.+\"@eduzz\/houston\-core\"\:\s\").+(\"+)/gim, `$1${currentVersion}$2`);
 
   fs.writeFileSync(path, content);
   loader.succeed();
@@ -91,7 +107,8 @@ function exec(command, live) {
 
 init().then(success => {
   if (!success) return;
-  console.log('VERSION CHANGED WITH SUCCESS');
+  console.log('\n');
+  ora(`NEW VERSION CREATED: ${currentVersion}`).succeed();
   process.exit(0);
 }).catch(err => {
   console.error(err);

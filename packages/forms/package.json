@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-forms",
-  "version": "0.7.7",
+  "version": "0.7.9",
   "description": "Houston Forms",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -25,10 +25,9 @@
     "post-merge": "yarn"
   },
   "dependencies": {
-    "@eduzz/houston-core": "*",
+    "@eduzz/houston-core": "0.7.9",
     "@types/yup": "^0.29.9",
     "formik": "^2.2.5",
-    "react": "^16.13.1",
     "react-use-observable": "^1.0.2",
     "rxjs": "^6.6.3",
     "yup": "^0.31.0"
@@ -37,6 +36,7 @@
     "react": ">=16.8"
   },
   "devDependencies": {
+    "react": "^16.13.1",
     "@eduzz/eslint-config-houston": "*",
     "@types/react": "16.9.55",
     "concurrently": "5.3.0"
