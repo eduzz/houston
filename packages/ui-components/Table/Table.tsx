@@ -3,6 +3,8 @@ import * as React from 'react';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 
+import { getReactChildrenProps, isReactComponent } from '../Helpers/functions';
+import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 import TableActions from './Actions';
 import TableCell, { ITableCellProps } from './Cell';
@@ -59,33 +61,20 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const [currentRow, setCurrentRow] = React.useState<ITableRow>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const getColumns = React.useCallback(
-    (content: React.ReactChildren | React.ReactNode): ITableColumnProps[] | [] =>
-      React.Children.map(content, child => {
-        if (!child || !React.isValidElement(child) || child?.type !== TableColumn) return;
-        return { ...child.props };
-      }),
-    []
-  );
-
-  const getActions = React.useCallback((content: React.ReactChildren | React.ReactNode): ITableActions | undefined => {
-    const actions: ITableActions | undefined = React.Children.map(content, (child: React.ReactNode) => {
-      if (!child || !React.isValidElement(child) || child?.type !== TableActions) return null;
-
-      const options = React.Children.map(child?.props?.children, option => {
-        if (!option || !React.isValidElement(option) || option?.type !== TableOption) return;
-        return option?.props;
-      });
-
+  const getActions = React.useCallback((content: React.ReactChildren | React.ReactNode): ITableActions => {
+    return React.Children.map(content, (child: React.ReactElement) => {
+      if (isReactComponent(child, TableActions)) return null;
+      const options = getReactChildrenProps<ITableOptionProps>(child?.props?.children, TableOption);
       return { ...child.props, options };
     })?.[0];
-
-    return actions || null;
   }, []);
+
+  const pagination = useFirstChildrenProps<ITablePagination>(children, TablePagination);
+  const columns = useChildrenProps<ITableColumnProps>(children, TableColumn);
+  const actions = React.useMemo(() => getActions(children), [getActions, children]);
 
   const getCollapseData = React.useCallback(
     (content: React.ReactNode): ITableCollapse => {
-      const columns = getColumns(content);
       const actions = getActions(content);
 
       const rows: ITableRow[] = React.Children.map(content, (child: React.ReactNode) => {
@@ -119,7 +108,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
 
       return { columns, rows, actions };
     },
-    [getActions, getColumns]
+    [columns, getActions]
   );
 
   const rows: ITableRow[] | [] = React.useMemo(
@@ -159,18 +148,6 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       }),
     [children, getCollapseData]
   );
-
-  const pagination: ITablePagination | undefined = React.useMemo(
-    () =>
-      React.Children.map(children, child => {
-        if (!child || !React.isValidElement(child) || child?.type !== TablePagination) return null;
-        return { ...child.props };
-      })?.[0],
-    [children]
-  );
-
-  const columns = React.useMemo(() => getColumns(children), [getColumns, children]);
-  const actions = React.useMemo(() => getActions(children), [getActions, children]);
   const hasCollapseData = !!rows.filter(v => v.collapse).length;
   const numberColumns = columns?.length + 1 + Number(hasCollapseData) || 1;
 

@@ -7,25 +7,22 @@ import clsx from 'clsx';
 
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
-export type ISpacement = {
+type IBoxSpacement = {
   margin?: number | string;
   padding?: number | string;
 };
 
-type BoxPropsExtends = 'id' | 'className' | 'style' | 'children';
+type BoxPropsExtends = 'id' | 'className' | 'children';
 
-interface IProps extends Pick<BoxProps, BoxPropsExtends> {
-  style?: React.CSSProperties;
-  xs?: ISpacement;
-  sm?: ISpacement;
-  md?: ISpacement;
-  lg?: ISpacement;
-  xl?: ISpacement;
+export interface IBoxProps extends Pick<BoxProps, BoxPropsExtends> {
+  xs?: IBoxSpacement;
+  sm?: IBoxSpacement;
+  md?: IBoxSpacement;
+  lg?: IBoxSpacement;
+  xl?: IBoxSpacement;
 }
 
-const Box = React.forwardRef<HTMLDivElement, IProps>((props: IProps) => {
-  const { children, xs, sm, md, lg, xl, className } = props;
-
+const Box = React.memo<IBoxProps>(({ id, children, xs, sm, md, lg, xl, className }) => {
   const useStyles = makeStyles(theme =>
     createStyles({
       box: {
@@ -58,15 +55,14 @@ const Box = React.forwardRef<HTMLDivElement, IProps>((props: IProps) => {
   );
 
   const classes = useStyles();
-  const divProps = React.useMemo(() => (({ id, style }) => ({ id, style }))(props), [props]);
 
   return (
     <WrapperTheme>
-      <BoxMUI {...divProps} className={clsx(className && className, classes.box)}>
+      <BoxMUI id={id} className={clsx(className, classes.box)}>
         {children}
       </BoxMUI>
     </WrapperTheme>
   );
 });
 
-export default React.memo(Box);
+export default Box;
