@@ -16,9 +16,4 @@ export interface ITablePagination extends Pick<React.HTMLAttributes<HTMLTableRow
   onChangePage?: (page: number) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Pagination(props: ITablePagination): null {
-  return null;
-}
-
-export default React.memo(Pagination);
+export default React.memo<ITablePagination>(() => null);

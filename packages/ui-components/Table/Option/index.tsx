@@ -11,9 +11,4 @@ export interface ITableOptionProps extends Pick<React.HTMLAttributes<HTMLDivElem
   icon?: React.ReactNode;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Option(props: ITableOptionProps): null {
-  return null;
-}
-
-export default React.memo(Option);
+export default React.memo<ITableOptionProps>(() => null);

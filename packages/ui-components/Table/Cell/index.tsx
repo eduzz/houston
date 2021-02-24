@@ -11,9 +11,4 @@ export interface ITableCellProps extends Pick<TableCellProps, ITableCellExtends>
   truncate?: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Cell(props: ITableCellProps): null {
-  return null;
-}
-
-export default React.memo(Cell);
+export default React.memo<ITableCellProps>(() => null);

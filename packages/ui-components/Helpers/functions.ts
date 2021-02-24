@@ -8,27 +8,27 @@ export function truncateText(value: string, crop: number) {
   return `${value.slice(0, crop)}...`;
 }
 
-export function getReactChildrenProps<T>(
-  children: React.ReactChildren | React.ReactNode,
+export function getReactChildrenComponent(
+  children: any,
   componentType: React.ReactElement['type']
-): T[] {
+): React.ReactElement[] {
   return React.Children.map(children, child => {
-    if (isReactComponent(child, componentType)) return null;
-    return { ...(child as any).props };
-  }).filter(result => !!result);
+    return isReactComponent(child, componentType) ? child : null;
+  }).filter((result: any) => !!result);
 }
 
-export function getReactFirstChildrenProps<T>(
-  children: React.ReactChildren | React.ReactNode,
-  componentType: React.ReactElement['type']
-): T {
+export function getReactChildrenProps<T>(children: any, componentType: React.ReactElement['type']): T[] {
+  return React.Children.map(children, child => {
+    if (!isReactComponent(child, componentType)) return null;
+    return { ...(child as any).props };
+  }).filter((result: any) => !!result);
+}
+
+export function getReactFirstChildrenProps<T>(children: any, componentType: React.ReactElement['type']): T {
   const result = getReactChildrenProps<T>(children, componentType);
   return result && result[0];
 }
 
-export function isReactComponent(
-  child: React.ReactChildren | React.ReactNode,
-  componentType: React.ReactElement['type']
-): boolean {
-  return !child || !React.isValidElement(child) || child?.type !== componentType;
+export function isReactComponent(child: any, componentType: React.ReactElement['type']): boolean {
+  return child && React.isValidElement(child) && child?.type === componentType;
 }

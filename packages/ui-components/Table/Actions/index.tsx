@@ -15,9 +15,4 @@ export interface ITableActionsProps extends Pick<React.HTMLAttributes<HTMLDivEle
   align?: ITableAlign;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Actions(props: ITableActionsProps): null {
-  return null;
-}
-
-export default React.memo(Actions);
+export default React.memo<ITableActionsProps>(() => null);

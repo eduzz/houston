@@ -3,8 +3,8 @@ import * as React from 'react';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 
-import { getReactChildrenProps, isReactComponent } from '../Helpers/functions';
-import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
+import { getReactChildrenComponent, getReactChildrenProps, isReactComponent } from '../Helpers/functions';
+import { useFirstChildrenProps, useChildrenProps, ReactChild } from '../hooks/useChildrenProps';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 import TableActions from './Actions';
 import TableCell, { ITableCellProps } from './Cell';
@@ -63,7 +63,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
 
   const getActions = React.useCallback((content: React.ReactChildren | React.ReactNode): ITableActions => {
     return React.Children.map(content, (child: React.ReactElement) => {
-      if (isReactComponent(child, TableActions)) return null;
+      if (!isReactComponent(child, TableActions)) return null;
       const options = getReactChildrenProps<ITableOptionProps>(child?.props?.children, TableOption);
       return { ...child.props, options };
     })?.[0];
@@ -77,34 +77,19 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     (content: React.ReactNode): ITableCollapse => {
       const actions = getActions(content);
 
-      const rows: ITableRow[] = React.Children.map(content, (child: React.ReactNode) => {
-        let cells: ITableCellProps[] = [];
-        let options: ITableOptionProps[] = [];
+      const rows: ITableRow[] = React.Children.map(content, (rowChild: ReactChild) => {
+        if (!isReactComponent(rowChild, TableRow)) return null;
 
-        if (!child || !React.isValidElement(child) || child?.type !== TableRow) return null;
+        const options = getReactChildrenComponent(rowChild?.props?.children, TableActions).reduce((acc, child) => {
+          return [...acc, getReactChildrenProps<ITableOptionProps>(child.props?.children, TableOption)];
+        }, []);
 
-        React.Children.map(child?.props?.children, (c: React.ReactNode) => {
-          if (!c || !React.isValidElement(c)) return;
+        const cells = getReactChildrenComponent(rowChild?.props?.children, TableCell).reduce((acc, child) => {
+          return [...acc, child.props];
+        }, [] as ITableCellProps[]);
 
-          switch (c.type) {
-            case TableActions:
-              options = [
-                ...options,
-                ...c?.props?.children.map((opt: React.ReactNode) => {
-                  if (!opt || !React.isValidElement(opt) || opt?.type !== TableOption) return;
-                  return opt.props;
-                })
-              ];
-              break;
-
-            case TableCell:
-              cells = [...cells, c?.props];
-              break;
-          }
-        });
-
-        return { ...child.props, options, cells };
-      });
+        return { ...rowChild.props, options, cells };
+      }).filter(data => !!data);
 
       return { columns, rows, actions };
     },
@@ -148,36 +133,47 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       }),
     [children, getCollapseData]
   );
+
   const hasCollapseData = !!rows.filter(v => v.collapse).length;
   const numberColumns = columns?.length + 1 + Number(hasCollapseData) || 1;
 
+  const contextValue = React.useMemo(
+    () => ({
+      loading,
+      onSortable,
+      messages,
+      currentRow,
+      setCurrentRow,
+      columns,
+      rows,
+      actions,
+      anchorEl,
+      setAnchorEl,
+      options,
+      setOptions,
+      pagination,
+      hasCollapseData,
+      numberColumns
+    }),
+    [
+      actions,
+      anchorEl,
+      columns,
+      currentRow,
+      hasCollapseData,
+      loading,
+      messages,
+      numberColumns,
+      onSortable,
+      options,
+      pagination,
+      rows
+    ]
+  );
+
   return (
     <WrapperTheme>
-      <TableContextProvider
-        value={{
-          loading,
-          onSortable,
-          messages,
-
-          currentRow,
-          setCurrentRow,
-
-          columns,
-          rows,
-          actions,
-
-          anchorEl,
-          setAnchorEl,
-
-          options,
-          setOptions,
-
-          pagination,
-
-          hasCollapseData,
-          numberColumns
-        }}
-      >
+      <TableContextProvider value={contextValue}>
         <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
           <TableMUI ref={ref} stickyHeader={stickyHeader} size={size}>
             <Columns />

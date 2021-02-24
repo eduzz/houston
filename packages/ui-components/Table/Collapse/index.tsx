@@ -18,9 +18,4 @@ export interface ITableCollapseProps extends Pick<TableProps, ITableCollapse> {
   type?: ITableCollapseType;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Collapse(props: ITableCollapseProps): null {
-  return null;
-}
-
-export default React.memo(Collapse);
+export default React.memo<ITableCollapseProps>(() => null);

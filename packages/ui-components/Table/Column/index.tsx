@@ -23,9 +23,4 @@ export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExte
   sortable?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Column(props: ITableColumnProps): null {
-  return null;
-}
-
-export default React.memo(Column);
+export default React.memo<ITableColumnProps>(() => null);

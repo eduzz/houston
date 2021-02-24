@@ -11,9 +11,4 @@ export interface ITableRowProps extends Pick<TableRowProps, ITableRowExtends> {
   data?: unknown;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Row(props: ITableRowProps): null {
-  return null;
-}
-
-export default React.memo(Row);
+export default React.memo<ITableRowProps>(() => null);
