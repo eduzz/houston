@@ -168,13 +168,15 @@ const GridPage = memo(() => {
         </CardContent>
 
         <CardContent className={classes.container}>
-          <Row style={{ background: '#073b4c' }} alignItems={align} justify={justify}>
-            {new Array(columns).fill('').map((_, index) => (
-              <Column xs={true} key={index + 1}>
-                <div className={`${classes.column} ${index % 2 === 0 ? '--diff' : ''}`}>{index + 1}</div>
-              </Column>
-            ))}
-          </Row>
+          <Container spacing='comfortable'>
+            <Row style={{ background: '#073b4c' }} alignItems={align} justify={justify}>
+              {new Array(columns).fill('').map((_, index) => (
+                <Column xs={true} key={index + 1}>
+                  <div className={`${classes.column} ${index % 2 === 0 ? '--diff' : ''}`}>{index + 1}</div>
+                </Column>
+              ))}
+            </Row>
+          </Container>
         </CardContent>
 
         <CardContent className={classes.container}>

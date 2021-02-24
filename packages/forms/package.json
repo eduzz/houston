@@ -33,6 +33,7 @@
     "yup": "^0.31.0"
   },
   "peerDependencies": {
+    "@eduzz/houston-core": "0.7.9",
     "react": ">=16.8"
   },
   "devDependencies": {

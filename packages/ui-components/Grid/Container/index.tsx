@@ -7,7 +7,7 @@ import clsx from 'clsx';
 
 import WrapperTheme from '../../ThemeProvider/WrapperTheme';
 import GridContextProvider from '../context';
-import { IContainerType, IGridConfig } from '../interfaces';
+import { IContainerType } from '../interfaces';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -56,35 +56,18 @@ interface IProps extends Pick<ContainerProps, ContainerPropsExtends> {
 }
 
 const Container = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
-  const { children, spacing, layout = 'solid' } = props;
+  const { children, spacing, layout = 'solid', ...containerProps } = props;
   const classes = useStyles();
 
-  const config: IGridConfig = React.useMemo(() => {
-    return {
-      comfortable: {
-        className: classes.comfortable
-      },
-      cozy: {
-        className: classes.cozy
-      },
-      compact: {
-        className: classes.compact
-      }
-    };
-  }, [classes.compact, classes.comfortable, classes.cozy]);
-
-  const containerProps = React.useMemo(
-    () => (({ id, className, style, tabIndex }) => ({ id, className, style, tabIndex }))(props),
-    [props]
-  );
+  const contextValue = React.useMemo(() => ({ spacing }), [spacing]);
 
   return (
     <WrapperTheme>
-      <GridContextProvider value={{ spacing }}>
+      <GridContextProvider value={contextValue}>
         <MUIContainer
           {...containerProps}
           ref={ref}
-          className={clsx(classes.root, config[spacing ?? 'cozy'].className, layout === 'fluid' && classes.fluid)}
+          className={clsx(classes.root, classes[spacing ?? 'cozy'], layout === 'fluid' && classes.fluid)}
         >
           {children}
         </MUIContainer>

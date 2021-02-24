@@ -46,7 +46,7 @@ async function init() {
 
   for (let package of packages) {
     await changePackageVersion(package);
-    await publish(package);
+    // await publish(package);
   }
 
   return true;
@@ -71,15 +71,18 @@ async function publish(package) {
   await promise;
 }
 
-async function changePackageVersion(package) {
+async function changePackageVersion(package, allPackages) {
   const loader = ora(`CHANGING VERSION: ${package.name}`).start()
 
   const path = `${package.folder}/package.json`;
   let content = fs.readFileSync(path, 'utf8');
 
-  content = content
-    .replace(/(.+\"version\"\:\s\").+(\"+)/gim, `$1${currentVersion}$2`)
-    .replace(/(.+\"@eduzz\/houston\-core\"\:\s\").+(\"+)/gim, `$1${currentVersion}$2`);
+  content = content.replace(/(.+\"version\"\:\s\").+(\"+)/gim, `$1${currentVersion}$2`);
+
+  allPackages.forEach(package => {
+    content = content.replace(new RegExp(`(.+"${package}":\s").+("+)`, "gim"), `$1${currentVersion}$2`);
+  });
+
 
   fs.writeFileSync(path, content);
   loader.succeed();

@@ -9,12 +9,15 @@ import themeVariable from './variables';
 
 export default function generateTheme(customPalette?: PaletteOptions) {
   const palette = createPalette({ ...defaultPalette, ...customPalette });
-
+  console.log('teste');
   return createMuiTheme({
     palette,
     overrides: overrides(palette),
     props,
     typography,
-    spacing: (factor: number) => themeVariable.spacing(factor)
+    spacing: (factor: number) => {
+      console.log({ factor, result: themeVariable.spacing(factor) });
+      return themeVariable.spacing(factor);
+    }
   });
 }

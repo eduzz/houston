@@ -26,14 +26,9 @@ type IOmitProps =
 interface IProps extends Omit<GridProps, IOmitProps> {}
 
 const Column = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
-  const { children } = props;
   const classes = useStyles();
 
-  return (
-    <Grid {...props} item classes={{ root: classes.column }} ref={ref}>
-      {children}
-    </Grid>
-  );
+  return <Grid {...props} item classes={{ root: classes.column }} ref={ref} />;
 });
 
 export default React.memo(Column);
