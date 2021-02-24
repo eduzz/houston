@@ -3,8 +3,8 @@ import * as React from 'react';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 
-import { getReactChildrenComponent, getReactChildrenProps, isReactComponent } from '../Helpers/functions';
-import { useFirstChildrenProps, useChildrenProps, ReactChild } from '../hooks/useChildrenProps';
+import { getReactChildrenComponent, getReactChildrenProps } from '../Helpers/functions';
+import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 import TableActions from './Actions';
 import TableCell, { ITableCellProps } from './Cell';
@@ -54,6 +54,31 @@ interface ITableProps
   extends ITableSubComponents,
     React.ForwardRefExoticComponent<IProps & React.RefAttributes<HTMLTableElement>> {}
 
+const getActions = (content: React.ReactChildren | React.ReactNode): ITableActions => {
+  return getReactChildrenComponent(content, TableActions).map(child => {
+    return { ...child.props, options: getReactChildrenProps<ITableOptionProps>(child?.props?.children, TableOption) };
+  })?.[0];
+};
+
+const getCollapseData = (content: React.ReactNode): ITableCollapse => {
+  const columns = getReactChildrenProps<ITableColumnProps>(content, TableColumn);
+  const actions = getActions(content);
+
+  const rows = getReactChildrenComponent(content, TableRow).map(row => {
+    const options = getReactChildrenComponent(row?.props?.children, TableActions).reduce((acc, child) => {
+      return [...acc, getReactChildrenProps<ITableOptionProps>(child.props?.children, TableOption)];
+    }, []);
+
+    const cells = getReactChildrenComponent(row?.props?.children, TableCell).reduce((acc, child) => {
+      return [...acc, child.props];
+    }, [] as ITableCellProps[]);
+
+    return { ...row.props, options, cells };
+  });
+
+  return { columns, rows, actions };
+};
+
 const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const { children, loading, onSortable, stickyHeader, size, maxHeight, messages } = props;
 
@@ -61,40 +86,9 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const [currentRow, setCurrentRow] = React.useState<ITableRow>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const getActions = React.useCallback((content: React.ReactChildren | React.ReactNode): ITableActions => {
-    return React.Children.map(content, (child: React.ReactElement) => {
-      if (!isReactComponent(child, TableActions)) return null;
-      const options = getReactChildrenProps<ITableOptionProps>(child?.props?.children, TableOption);
-      return { ...child.props, options };
-    })?.[0];
-  }, []);
-
   const pagination = useFirstChildrenProps<ITablePagination>(children, TablePagination);
   const columns = useChildrenProps<ITableColumnProps>(children, TableColumn);
-  const actions = React.useMemo(() => getActions(children), [getActions, children]);
-
-  const getCollapseData = React.useCallback(
-    (content: React.ReactNode): ITableCollapse => {
-      const actions = getActions(content);
-
-      const rows: ITableRow[] = React.Children.map(content, (rowChild: ReactChild) => {
-        if (!isReactComponent(rowChild, TableRow)) return null;
-
-        const options = getReactChildrenComponent(rowChild?.props?.children, TableActions).reduce((acc, child) => {
-          return [...acc, getReactChildrenProps<ITableOptionProps>(child.props?.children, TableOption)];
-        }, []);
-
-        const cells = getReactChildrenComponent(rowChild?.props?.children, TableCell).reduce((acc, child) => {
-          return [...acc, child.props];
-        }, [] as ITableCellProps[]);
-
-        return { ...rowChild.props, options, cells };
-      }).filter(data => !!data);
-
-      return { columns, rows, actions };
-    },
-    [columns, getActions]
-  );
+  const actions = React.useMemo(() => getActions(children), [children]);
 
   const rows: ITableRow[] | [] = React.useMemo(
     () =>
@@ -131,7 +125,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
 
         return { ...child.props, cells, options, collapse };
       }),
-    [children, getCollapseData]
+    [children]
   );
 
   const hasCollapseData = !!rows.filter(v => v.collapse).length;
