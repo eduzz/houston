@@ -9,7 +9,6 @@ import themeVariable from './variables';
 
 export default function generateTheme(customPalette?: PaletteOptions) {
   const palette = createPalette({ ...defaultPalette, ...customPalette });
-  console.log('teste');
   return createMuiTheme({
     palette,
     overrides: overrides(palette),
