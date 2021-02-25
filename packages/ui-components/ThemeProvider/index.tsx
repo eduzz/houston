@@ -18,10 +18,11 @@ interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
    * Custom pallete colors (MUI)
    */
   palette?: IThemePalette;
+  disableCssBaseline?: boolean;
 }
 
 function ThemeProvider(props: IThemeProviderProps) {
-  const { children, palette } = props;
+  const { children, palette, disableCssBaseline } = props;
 
   const theme: Theme = React.useMemo(() => generateCustomTheme(palette), [palette]);
 
@@ -42,7 +43,7 @@ function ThemeProvider(props: IThemeProviderProps) {
 
       <ContextTheme value={theme}>
         <ToastContainer />
-        <CssBaseline />
+        {!disableCssBaseline && <CssBaseline />}
         {children}
       </ContextTheme>
     </React.Fragment>
