@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CollapseMUI from '@material-ui/core/Collapse';
-import MenuItem from '@material-ui/core/MenuItem';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,8 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-// eslint-disable-next-line no-restricted-imports
-import * as lodash from 'lodash';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import isEqual = require('lodash/isEqual');
 
 import { useTableContext } from '../../context';
 import { ITableRow } from '../../interfaces';
@@ -48,16 +47,6 @@ const useStyles = makeStyles(theme =>
 
     list: {
       borderBottom: 0
-    },
-
-    option: {
-      display: 'flex',
-      alignItems: 'center',
-
-      '& svg': {
-        marginRight: 8,
-        fontSize: 24
-      }
     }
   })
 );
@@ -97,14 +86,6 @@ const Collapse: React.FC<IProps> = ({ collapse, row }) => {
     }, 180);
   }, [setAnchorEl]);
 
-  const handleClick = React.useCallback(
-    (callback: (data: unknown) => void) => {
-      handleCloseActions();
-      callback(currentRow?.data);
-    },
-    [handleCloseActions, currentRow]
-  );
-
   if (!row?.collapse) {
     return null;
   }
@@ -116,7 +97,7 @@ const Collapse: React.FC<IProps> = ({ collapse, row }) => {
     <>
       <TableRow className={classes.rowCollapse}>
         <TableCell colSpan={numberColumns} className={classes.cellCollapse}>
-          <CollapseMUI in={collapse && lodash.isEqual(collapse, row.data)} timeout={500} unmountOnExit>
+          <CollapseMUI in={collapse && isEqual(collapse, row.data)} timeout={500} unmountOnExit>
             <Table size='small'>
               <>
                 {!loading && type === 'table' && (
@@ -181,45 +162,12 @@ const Collapse: React.FC<IProps> = ({ collapse, row }) => {
         </TableCell>
       </TableRow>
 
-      <MenuActions anchorEl={anchorEl} open={!!anchorEl} onClose={handleCloseActions}>
-        {(!options?.length ? actions?.options : options)?.map((option, index) => {
-          const optionProps = { ...option };
-
-          const disabled =
-            typeof option?.disabled === 'boolean'
-              ? option?.disabled
-              : option?.disabled && currentRow && option.disabled(currentRow?.data);
-
-          const hide =
-            typeof option?.hide === 'boolean'
-              ? option?.hide
-              : option?.hide && currentRow && option.hide(currentRow?.data);
-
-          delete optionProps.children;
-          delete optionProps.onClick;
-          delete optionProps.disabled;
-          delete optionProps.hide;
-          delete optionProps.icon;
-
-          if (hide) {
-            return null;
-          }
-
-          return (
-            <MenuItem
-              {...optionProps}
-              key={`collapse-menu-option-${index}`}
-              onClick={() => handleClick(option?.onClick)}
-              disabled={disabled}
-            >
-              <div className={classes.option}>
-                {option?.icon && option?.icon}
-                {option?.children}
-              </div>
-            </MenuItem>
-          );
-        })}
-      </MenuActions>
+      <MenuActions
+        anchorEl={anchorEl}
+        onClose={handleCloseActions}
+        options={!options?.length ? actions?.options : options}
+        currentRow={currentRow}
+      />
     </>
   );
 };

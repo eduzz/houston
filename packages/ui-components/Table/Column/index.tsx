@@ -4,7 +4,7 @@ import { TableCellProps } from '@material-ui/core/TableCell';
 
 import { ITableAlign } from '../interfaces';
 
-type ITableColumnExtends = 'id' | 'className' | 'style' | 'tabIndex' | 'width';
+type ITableColumnExtends = 'id' | 'className' | 'tabIndex' | 'width';
 
 export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExtends> {
   /**

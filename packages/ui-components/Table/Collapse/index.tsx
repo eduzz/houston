@@ -4,7 +4,7 @@ import { TableProps } from '@material-ui/core/Table';
 
 import { ITableCollapseType } from '../interfaces';
 
-type ITableCollapse = 'id' | 'className' | 'style' | 'tabIndex' | 'children';
+type ITableCollapse = 'id' | 'className' | 'tabIndex' | 'children';
 
 export interface ITableCollapseProps extends Pick<TableProps, ITableCollapse> {
   loading?: boolean;

@@ -3,7 +3,7 @@ import * as React from 'react';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 
-import { getReactChildrenComponent, getReactChildrenProps } from '../Helpers/functions';
+import { getReactChildrenComponent, getReactChildrenProps, isReactComponent } from '../Helpers/functions';
 import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 import TableActions from './Actions';
@@ -27,10 +27,11 @@ import TableOption, { ITableOptionProps } from './Option';
 import TablePagination, { ITablePagination } from './Pagination';
 import TableRow from './Row';
 
-type TablePropsExtends = 'id' | 'className' | 'children';
-
-interface IProps extends Pick<TableProps, TablePropsExtends> {
+interface IProps extends Pick<TableProps, 'id' | 'className' | 'children'> {
   loading?: boolean;
+  /**
+   * Function called when clicking on an ordered column
+   */
   onSortable?: (ordernation: ITableSortable) => void;
   /**
    * Default `false`
@@ -66,7 +67,7 @@ const getCollapseData = (content: React.ReactNode): ITableCollapse => {
 
   const rows = getReactChildrenComponent(content, TableRow).map(row => {
     const options = getReactChildrenComponent(row?.props?.children, TableActions).reduce((acc, child) => {
-      return [...acc, getReactChildrenProps<ITableOptionProps>(child.props?.children, TableOption)];
+      return [...acc, ...getReactChildrenProps<ITableOptionProps>(child.props?.children, TableOption)];
     }, []);
 
     const cells = getReactChildrenComponent(row?.props?.children, TableCell).reduce((acc, child) => {
@@ -90,43 +91,25 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const columns = useChildrenProps<ITableColumnProps>(children, TableColumn);
   const actions = React.useMemo(() => getActions(children), [children]);
 
-  const rows: ITableRow[] | [] = React.useMemo(
-    () =>
-      React.Children.map(children, child => {
-        let cells: ITableCellProps[] = [];
-        let options: ITableOptionProps[] = [];
-        let collapse: ITableCollapse = null;
+  const rows: ITableRow[] = React.useMemo(() => {
+    return React.Children.map(children, (child: React.ReactElement) => {
+      if (!isReactComponent(child, TableRow)) return;
 
-        if (!child || !React.isValidElement(child) || child?.type !== TableRow) return null;
+      const cells = getReactChildrenComponent(child?.props?.children, TableCell).reduce((acc, child) => {
+        return [...acc, child.props];
+      }, [] as ITableCellProps[]);
 
-        React.Children.map(child?.props?.children, (c: React.ReactNode) => {
-          if (!c || !React.isValidElement(c)) return;
+      const options = getReactChildrenComponent(child?.props?.children, TableActions).reduce((acc, child) => {
+        return [...acc, ...getReactChildrenProps<ITableOptionProps>(child.props?.children, TableOption)];
+      }, []);
 
-          switch (c.type) {
-            case TableCollapse:
-              collapse = { ...c?.props, ...getCollapseData(c?.props?.children) };
-              break;
+      const collapse = getReactChildrenComponent(child?.props?.children, TableCollapse).map(child => {
+        return { ...child.props, ...getCollapseData(child?.props?.children) };
+      })?.[0];
 
-            case TableActions:
-              options = [
-                ...options,
-                ...c?.props?.children.map((opt: React.ReactNode) => {
-                  if (!opt || !React.isValidElement(opt) || opt?.type !== TableOption) return;
-                  return opt.props;
-                })
-              ];
-              break;
-
-            case TableCell:
-              cells = [...cells, c.props];
-              break;
-          }
-        });
-
-        return { ...child.props, cells, options, collapse };
-      }),
-    [children]
-  );
+      return { ...child.props, cells, options, collapse };
+    });
+  }, [children]);
 
   const hasCollapseData = !!rows.filter(v => v.collapse).length;
   const numberColumns = columns?.length + 1 + Number(hasCollapseData) || 1;

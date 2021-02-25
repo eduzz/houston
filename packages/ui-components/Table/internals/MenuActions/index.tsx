@@ -1,16 +1,49 @@
 import * as React from 'react';
 
 import Menu, { MenuProps } from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-interface IProps extends MenuProps {}
+import { ITableRow } from '../../interfaces';
+import { ITableOptionProps } from '../../Option';
 
-const MenuActions: React.FC<IProps> = props => {
-  const menuProps = { ...props };
-  const { children } = props;
+const useStyles = makeStyles(() =>
+  createStyles({
+    option: {
+      display: 'flex',
+      alignItems: 'center',
+
+      '& svg': {
+        marginRight: 8,
+        fontSize: 24
+      }
+    }
+  })
+);
+
+interface ITableMenuProps extends Omit<MenuProps, 'open'> {
+  anchorEl: HTMLElement;
+  onClose: () => void;
+  options: ITableOptionProps[];
+  currentRow: ITableRow;
+}
+
+const MenuActions: React.FC<ITableMenuProps> = ({ onClose, options, anchorEl, currentRow }) => {
+  const classes = useStyles();
+
+  const handleClick = React.useCallback(
+    (callback?: (data: unknown) => void) => {
+      callback && callback(currentRow?.data);
+      onClose();
+    },
+    [onClose, currentRow]
+  );
 
   return (
     <Menu
-      {...menuProps}
+      anchorEl={anchorEl}
+      open={!!anchorEl}
+      onClose={onClose}
       getContentAnchorEl={null}
       disableAutoFocusItem
       disableAutoFocus
@@ -24,7 +57,36 @@ const MenuActions: React.FC<IProps> = props => {
       }}
       elevation={1}
     >
-      {children}
+      {options?.map((option, index) => {
+        const disabled =
+          typeof option?.disabled === 'boolean'
+            ? option?.disabled
+            : option?.disabled && currentRow && option.disabled(currentRow?.data);
+
+        const hide =
+          typeof option?.hide === 'boolean'
+            ? option?.hide
+            : option?.hide && currentRow && option.hide(currentRow?.data);
+
+        if (hide) {
+          return null;
+        }
+
+        return (
+          <MenuItem
+            id={`menu-option-${option.id}`}
+            key={`menu-option-${index}`}
+            className={option.className}
+            onClick={() => handleClick(option?.onClick)}
+            disabled={disabled}
+          >
+            <div className={classes.option}>
+              {option?.icon && option?.icon}
+              {option?.children}
+            </div>
+          </MenuItem>
+        );
+      })}
     </Menu>
   );
 };

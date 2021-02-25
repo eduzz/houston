@@ -33,7 +33,7 @@ export interface ITableCollapse extends ITableCollapseProps {
 }
 
 export interface ITableRow extends ITableRowProps, ITableCell, ITableOptions {
-  collapse: ITableCollapse | null;
+  collapse: ITableCollapse;
 }
 
 export interface ITableSortable {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-type ITablePaginationExtends = 'id' | 'className' | 'style' | 'children';
+type ITablePaginationExtends = 'id' | 'className' | 'children';
 
 export interface ITablePagination extends Pick<React.HTMLAttributes<HTMLTableRowElement>, ITablePaginationExtends> {
   /**

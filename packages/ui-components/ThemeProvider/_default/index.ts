@@ -16,7 +16,6 @@ export default function generateTheme(customPalette?: PaletteOptions) {
     props,
     typography,
     spacing: (factor: number) => {
-      console.log({ factor, result: themeVariable.spacing(factor) });
       return themeVariable.spacing(factor);
     }
   });
