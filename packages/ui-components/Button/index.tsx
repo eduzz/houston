@@ -32,7 +32,7 @@ export interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends> {
 
 const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
   const { children, disabled = false, variant = 'contained', startIcon, loading = false, ...buttonProps } = props;
-
+  console.log('vutton', ButtonMUI);
   return (
     <WrapperTheme>
       <ButtonMUI

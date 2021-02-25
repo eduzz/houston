@@ -7,9 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Button from '@eduzz/houston-ui/Button';
 
-import ButtonsVariantsExampleCode from '!raw-loader!./Examples/Variants';
 import Toolbar from 'components/Layout/Toolbar';
-import Code from 'components/Shared/Code';
 
 import ButtonsVariantsExample from './Examples/Variants';
 
@@ -25,7 +23,6 @@ const FormsPage = memo(() => {
           </Typography>
 
           <ButtonsVariantsExample />
-          <Code content={ButtonsVariantsExampleCode} />
         </CardContent>
 
         <CardContent>

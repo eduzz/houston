@@ -7,25 +7,20 @@
     "dev"
   ],
   "scripts": {
+    "prebuild": "yarn clean",
     "build": "yarn ultra -r -b build",
-    "prestart": "yarn clean && yarn build",
+    "prestart": "yarn build",
     "start": "yarn ultra -r start",
     "prepare": "yarn husky install",
     "publish": "sh ./scripts/publish-all.sh",
     "clean": "git add . && git clean -f -x"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "(cd $(git rev-parse --show-toplevel) && bash scripts/pre-commit.sh)",
-      "post-merge": "(cd $(git rev-parse --show-toplevel) && bash scripts/pre-commit.sh)"
-    }
   },
   "devDependencies": {
     "husky": "5.1.1",
     "inquirer": "7.3.3",
     "ora": "5.3.0",
     "semver": "7.3.4",
-    "typescript": "3.9",
+    "typescript": "4.2",
     "ultra-runner": "3.9.0"
   },
   "ultra": {

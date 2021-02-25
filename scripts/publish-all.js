@@ -5,6 +5,7 @@ const ora = require('ora');
 const inquirer = require('inquirer');
 
 const currentVersion = require('../package.json').version;
+const { clean } = require('semver');
 
 async function init() {
   if (!semver.valid(currentVersion)) {
@@ -43,6 +44,10 @@ async function init() {
   }
 
   await npmLogin();
+
+  const cleanPromise = exec('yarn clean');
+  ora.promise(cleanPromise, 'CLEANING PROJECT');
+  await cleanPromise;
 
   for (let package of packages) {
     await changePackageVersion(package, packages);
