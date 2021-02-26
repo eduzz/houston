@@ -10,13 +10,13 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
+// @ts-ignore
+import isEqual from 'lodash/isEqual';
+
 import { useTableContext } from '../../context';
 import { ITableRow } from '../../interfaces';
 import Cell from '../Cell';
 import Collapse from '../Collapse';
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import isEqual = require('lodash/isEqual');
 
 const useStyles = makeStyles(() =>
   createStyles({

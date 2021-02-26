@@ -10,8 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import isEqual = require('lodash/isEqual');
+// @ts-ignore
+import isEqual from 'lodash/isEqual';
 
 import { useTableContext } from '../../context';
 import { ITableRow } from '../../interfaces';
