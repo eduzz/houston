@@ -41,10 +41,10 @@ const TablePage = memo(() => {
 
   const headTable: ITableColumnProps[] = [
     { field: 'select', label: <CheckboxField label='' name='check-all' margin='none' />, width: 50 },
-    { field: 'date', label: 'Data', sortable: true },
+    { field: 'date', label: 'Data', sortable: true, fixed: true },
     { field: 'product', label: 'Produto', sortable: true },
     { field: 'client', label: 'Cliente', sortable: true },
-    { field: 'value', label: 'Valor', align: 'right' }
+    { field: 'value', label: 'Valor', align: 'right', fixed: true }
   ];
 
   const headTableCollapse: Partial<ITableColumnProps[]> = [
@@ -57,7 +57,9 @@ const TablePage = memo(() => {
     {
       id: 1,
       date: '20/01/21',
-      product: 'Lorem Ipsum Dolor',
+      product:
+        // eslint-disable-next-line max-len
+        'Lorem Ipsum Dolor, Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum',
       client: 'John Doe',
       value: 'R$ 100,00'
     },
@@ -208,7 +210,7 @@ const TablePage = memo(() => {
                       <CheckboxField label='' name='check' margin='none' />
                     </Table.Cell>
                     <Table.Cell>{row.date}</Table.Cell>
-                    <Table.Cell truncate={20}>{row.product}</Table.Cell>
+                    <Table.Cell>{row.product}</Table.Cell>
                     <Table.Cell>{row.client}</Table.Cell>
                     <Table.Cell align='right'>{row.value}</Table.Cell>
 
@@ -254,7 +256,7 @@ const TablePage = memo(() => {
                         </Table.Row>
 
                         {/* actions collapse */}
-                        <Table.Actions align='right'>
+                        <Table.Actions align='right' fixed>
                           <Table.Option onClick={handleClick}>Atualizar</Table.Option>
                           <Table.Option onClick={handleClick}>Excluir</Table.Option>
                         </Table.Actions>
@@ -264,7 +266,7 @@ const TablePage = memo(() => {
                 ))}
 
                 {/* generic actions */}
-                <Table.Actions align='right'>
+                <Table.Actions align='right' fixed>
                   <Table.Option icon={<VisibilityIcon />} disabled={true} onClick={handleClick}>
                     Detalhes
                   </Table.Option>

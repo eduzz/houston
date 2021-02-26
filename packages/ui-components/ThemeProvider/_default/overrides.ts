@@ -227,6 +227,12 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       root: {
         '&$selected': {
           background: 'rgba(177, 177, 177, 0.08)'
+        },
+
+        '&$hover': {
+          '&:hover': {
+            background: themeVariable.palette.grey[100]
+          }
         }
       }
     },
