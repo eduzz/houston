@@ -1,7 +1,10 @@
 import * as React from 'react';
 
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
+
+import clsx from 'clsx';
 
 import { getReactChildrenComponent, getReactChildrenProps, isReactComponent } from '../Helpers/functions';
 import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
@@ -26,6 +29,14 @@ import Rows from './internals/Rows';
 import TableOption, { ITableOptionProps } from './Option';
 import TablePagination, { ITablePagination } from './Pagination';
 import TableRow from './Row';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    fixed: {
+      whiteSpace: 'nowrap'
+    }
+  })
+);
 
 interface IProps extends Pick<TableProps, 'id' | 'className' | 'children'> {
   loading?: boolean;
@@ -81,6 +92,7 @@ const getCollapseData = (content: React.ReactNode): ITableCollapse => {
 };
 
 const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
+  const classes = useStyles();
   const { children, loading, onSortable, stickyHeader, size, maxHeight, messages } = props;
 
   const [options, setOptions] = React.useState<ITableOptionProps[]>([]);
@@ -112,7 +124,8 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   }, [children]);
 
   const hasCollapseData = !!rows.filter(v => v.collapse).length;
-  const numberColumns = columns?.length + 1 + Number(hasCollapseData) || 1;
+  const numberColumns = columns?.length + Number(!!actions) + Number(hasCollapseData) || 0;
+  const hasColumnFixed = !!(actions?.fixed || (columns?.length && columns.filter(c => c.fixed).length));
 
   const contextValue = React.useMemo(
     () => ({
@@ -152,7 +165,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     <WrapperTheme>
       <TableContextProvider value={contextValue}>
         <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
-          <TableMUI ref={ref} stickyHeader={stickyHeader} size={size}>
+          <TableMUI ref={ref} stickyHeader={stickyHeader} size={size} className={clsx(hasColumnFixed && classes.fixed)}>
             <Columns />
             <Rows />
           </TableMUI>

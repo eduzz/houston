@@ -13,6 +13,11 @@ export interface ITableActionsProps extends Pick<React.HTMLAttributes<HTMLDivEle
    * Default `left`
    */
   align?: ITableAlign;
+  /**
+   * If the value is true, the action column will be fixed in the table
+   * Default `false`
+   */
+  fixed?: boolean;
 }
 
 export default React.memo<ITableActionsProps>(() => null);
