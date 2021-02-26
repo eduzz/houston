@@ -15,7 +15,7 @@ import { FormFieldsContext } from '../Form';
 const useStyles = makeStyles(() =>
   createStyles({
     marginDense: {
-      padding: 0
+      padding: '0 8px'
     }
   })
 );

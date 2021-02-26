@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-type ITableOptionExtends = 'id' | 'className' | 'style' | 'children';
+type ITableOptionExtends = 'id' | 'className' | 'children';
 
 type IOptionFunction = (data: unknown) => boolean;
 

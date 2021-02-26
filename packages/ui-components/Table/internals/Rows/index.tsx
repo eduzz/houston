@@ -10,15 +10,15 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
+// @ts-ignore
+import isEqual from 'lodash/isEqual';
+
 import { useTableContext } from '../../context';
 import { ITableRow } from '../../interfaces';
 import Cell from '../Cell';
 import Collapse from '../Collapse';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import isEqual = require('lodash/isEqual');
-
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
   createStyles({
     loader: {
       padding: 16
@@ -30,6 +30,14 @@ const useStyles = makeStyles(() =>
       lineHeight: 0,
       position: 'relative',
       top: 2
+    },
+
+    fixed: {
+      position: 'sticky',
+      top: 0,
+      right: 0,
+      left: 0,
+      background: theme.palette.grey[100]
     }
   })
 );
@@ -39,6 +47,7 @@ const Rows: React.FC<{}> = () => {
 
   const {
     loading,
+    columns,
     rows,
     currentRow,
     actions,
@@ -109,12 +118,15 @@ const Rows: React.FC<{}> = () => {
         rows.map((row, index) => (
           <React.Fragment key={`table-row-${index}`}>
             <TableRow hover selected={currentRow && isEqual(currentRow?.data, row.data)}>
-              {row?.cells?.map((cell, i) => (
-                <Cell key={`row-${index}-cell-${i}`} {...cell} />
-              ))}
+              {row?.cells?.map((cell, i) => {
+                const currentIndex = i + 1;
+                const isFixed = columns[i]?.fixed && (currentIndex === 1 || currentIndex === numberColumns);
+
+                return <Cell key={`row-${index}-cell-${i}`} fixed={isFixed} {...cell} />;
+              })}
 
               {actions && (
-                <TableCell align='right'>
+                <TableCell align='right' className={actions?.fixed && classes.fixed}>
                   <div className={classes.buttonAction} onClick={e => handleSetCurrentRow(e, row)}>
                     <MoreHorizIcon />
                   </div>

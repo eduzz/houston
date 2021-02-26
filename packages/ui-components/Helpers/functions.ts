@@ -29,6 +29,10 @@ export function getReactFirstChildrenProps<T>(children: any, componentType: Reac
   return result && result[0];
 }
 
-export function isReactComponent(child: any, componentType: React.ReactElement['type']): boolean {
-  return child && React.isValidElement(child) && child?.type === componentType;
+export function isReactComponent(child: any, componentType?: React.ReactElement['type']): boolean {
+  if (componentType) {
+    return child && React.isValidElement(child) && child?.type === componentType;
+  }
+
+  return child && React.isValidElement(child);
 }
