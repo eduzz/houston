@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-core",
-  "version": "0.7.13",
+  "version": "0.8.0",
   "description": "Houston Core",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -24,6 +24,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@eduzz/eslint-config-houston": "0.7.13"
+    "@eduzz/eslint-config-houston": "0.8.0"
   }
 }
