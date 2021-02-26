@@ -15,6 +15,7 @@ import FormTextPage from './Forms/Text';
 import FormValidationPage from './Forms/Validation';
 import GridPage from './Grid';
 import TablePage from './Table';
+import TabsPage from './Tabs';
 import ToastPage from './Toast';
 import TypographyPage from './Typography';
 
@@ -61,6 +62,7 @@ const IndexPage = memo((props: {}) => {
     },
     { path: '/table', display: 'Table' },
     { path: '/toast', display: 'Toast' },
+    { path: '/tabs', display: 'Tabs' },
     { path: '/typography', display: 'Typography' }
   ]);
 
@@ -79,6 +81,7 @@ const IndexPage = memo((props: {}) => {
                 <Route path='/buttons' component={ButtonsPage} />
                 <Route path='/grid' component={GridPage} />
                 <Route path='/toast' component={ToastPage} />
+                <Route path='/tabs' component={TabsPage} />
                 <Route path='/forms/text' component={FormTextPage} />
                 <Route path='/forms/choose' component={FormChoosePage} />
                 <Route path='/forms/choose' component={FormChoosePage} />
