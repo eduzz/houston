@@ -58,7 +58,7 @@ const palette: PaletteOptions = {
     contrastText: '#fff'
   },
   info: {
-    light: '#E6F5FC',
+    light: '#CDEBFA',
     main: '#039BE5',
     dark: '#0277B0',
     contrastText: '#fff'

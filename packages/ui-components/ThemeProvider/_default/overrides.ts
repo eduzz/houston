@@ -207,19 +207,19 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       },
 
       standardSuccess: {
-        backgroundColor: '#D2EBD3'
+        backgroundColor: themeVariable.palette.success['light']
       },
 
       standardError: {
-        backgroundColor: '#FDD9D7'
+        backgroundColor: themeVariable.palette.error['light']
       },
 
       standardInfo: {
-        backgroundColor: '#CDEBFA'
+        backgroundColor: themeVariable.palette.info['light']
       },
 
       standardWarning: {
-        backgroundColor: '#FFF4D4'
+        backgroundColor: themeVariable.palette.warning['light']
       }
     },
 
@@ -240,7 +240,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
     MuiTableCell: {
       root: {
         padding: '12px 20px',
-        borderColor: '#ECEFF1',
+        borderColor: themeVariable.palette.grey[200],
         color: themeVariable.palette.grey[600]
       },
 
@@ -312,6 +312,17 @@ export default function overrides(pallet: Palette): ICustomOverrides {
           '&:last-child': {
             marginLeft: 8
           }
+        }
+      }
+    },
+
+    MuiIconButton: {
+      colorPrimary: {
+        '&:hover, &:focus': {
+          backgroundColor: `${palette.grey[200]}`
+        },
+        '&:active': {
+          backgroundColor: `${palette.grey[300]}`
         }
       }
     }
