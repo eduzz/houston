@@ -11,7 +11,6 @@ export interface IButtonProps extends Pick<IconButtonProps, ButtonPropsExtends> 
 const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
   const { children, disabled = false } = props;
 
-  console.log('vutton', IconButtonMUI);
   return (
     <WrapperTheme>
       <IconButtonMUI color='primary' disabled={disabled} disableTouchRipple ref={ref}>
