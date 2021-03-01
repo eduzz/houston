@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useTableContext } from '../../context';
 import MenuActions from '../MenuActions';
 
-const Actions: React.FC<{}> = () => {
+const Actions = () => {
   const { currentRow, actions, anchorEl, setAnchorEl, options, setOptions, setCurrentRow } = useTableContext();
 
   const handleCloseActions = React.useCallback(() => {

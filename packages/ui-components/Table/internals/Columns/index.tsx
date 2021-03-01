@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const Columns: React.FC<{}> = () => {
+const Columns = () => {
   const classes = useStyles();
   const { loading, columns, actions, onSortable, rows, hasCollapseData, numberColumns } = useTableContext();
 
