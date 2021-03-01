@@ -29,7 +29,7 @@ interface IProps extends ITableCellProps {
   list?: boolean;
 }
 
-const Cell: React.FC<IProps> = props => {
+const Cell = (props: IProps) => {
   const classes = useStyles();
 
   const cellProps = {

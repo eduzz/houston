@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const Rows: React.FC<{}> = () => {
+const Rows = () => {
   const classes = useStyles();
 
   const {
@@ -90,7 +90,7 @@ const Rows: React.FC<{}> = () => {
     [currentItemCollapse]
   );
 
-  if (!rows?.length) {
+  if (!loading && !rows?.length) {
     return (
       <TableBody>
         <TableRow>
