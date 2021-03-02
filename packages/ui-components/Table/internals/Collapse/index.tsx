@@ -56,7 +56,7 @@ interface IProps {
   row: ITableRow;
 }
 
-const Collapse: React.FC<IProps> = ({ collapse, row }) => {
+const Collapse = ({ collapse, row }: IProps) => {
   const classes = useStyles();
   const { numberColumns } = useTableContext();
 

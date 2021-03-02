@@ -21,8 +21,7 @@
     "build": "yarn clean && tsc -p .",
     "prepare": "yarn build",
     "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\"",
-    "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc --noEmit\"",
-    "post-merge": "yarn"
+    "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc --noEmit\""
   },
   "dependencies": {
     "@eduzz/houston-core": "0.8.0",

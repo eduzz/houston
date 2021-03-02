@@ -19,8 +19,7 @@
     "clean": "git add . && git clean -f -x",
     "build": "yarn clean",
     "lint": "yarn eslint \"./**/*.ts\"",
-    "pre-commit": "concurrently -r \"yarn lint\"",
-    "post-merge": "yarn"
+    "pre-commit": "concurrently -r \"yarn lint\""
   },
   "dependencies": {},
   "devDependencies": {
