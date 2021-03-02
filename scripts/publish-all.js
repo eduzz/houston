@@ -58,11 +58,6 @@ async function init() {
 }
 
 async function npmLogin() {
-  try {
-    await exec('npm whoami');
-    return true;
-  } catch (err) { }
-
   return new Promise((resolve, reject) => {
     const login = childProccess.spawn('npm', ['login'], { stdio: 'inherit' });
     login.once('error', err => reject(err));
