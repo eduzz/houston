@@ -1061,23 +1061,6 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
-"@eduzz/eslint-config-houston@0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@eduzz/eslint-config-houston/-/eslint-config-houston-0.8.0.tgz#df8664046a0dff4f03424aab6e497cf90e11532e"
-  integrity sha512-XcKs2udJnceyuVVdglhbXD0qpVfkrn9idF0NRy8hgrqKJAC2rchLCTK5tcD7YRZmzWb7e+hContMRU1wlqYwOA==
-  dependencies:
-    "@typescript-eslint/eslint-plugin" "^4"
-    "@typescript-eslint/parser" "^4"
-    eslint "^7"
-    eslint-config-prettier "^6"
-    eslint-plugin-eslint-plugin "^2.3.0"
-    eslint-plugin-import-helpers "^1"
-    eslint-plugin-prettier "^3"
-    eslint-plugin-react "^7"
-    eslint-plugin-react-hooks "^4"
-    eslint-plugin-unused-imports "^1"
-    prettier "^2"
-
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"

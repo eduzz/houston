@@ -8,7 +8,10 @@ export interface ITablePagination extends Pick<React.HTMLAttributes<HTMLTableRow
    */
   page: number;
   perPage: number;
-  totalPages: number;
+  /**
+   * Total rows/items
+   */
+  total: number;
   optionsPerPage?: number[];
   labelItensPerPage?: React.ReactNode;
   onChangeRowsPerPage?: (rowsPerPage: number) => void;

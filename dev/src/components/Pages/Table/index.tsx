@@ -37,7 +37,7 @@ const TablePage = memo(() => {
   const [hideRows, setHideRows] = useState<boolean>(false);
   const [pagination, setPagination] = useState<boolean>(false);
   const [collapse, setCollapse] = useState<boolean>(false);
-  const [paginationTable, setPaginationTable] = useState({ page: 1, perPage: 15, totalPages: 10 });
+  const [paginationTable, setPaginationTable] = useState({ page: 1, perPage: 5, total: 24 });
 
   const headTable: ITableColumnProps[] = [
     { field: 'select', label: <CheckboxField label='' name='check-all' margin='none' />, width: 50 },
