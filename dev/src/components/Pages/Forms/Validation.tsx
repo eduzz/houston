@@ -77,7 +77,7 @@ const FormValidationPage = memo(() => {
               Submit
             </Button>
 
-            <Button variant='text' type='reset' loading={form.isSubmitting} onClick={form.handleReset}>
+            <Button variant='text' type='reset' loading={form.isSubmitting}>
               Reset
             </Button>
           </CardContent>

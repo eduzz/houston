@@ -12,8 +12,8 @@ import Select, { SelectProps } from '@material-ui/core/Select';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
-import { FormFieldsContext } from './Form';
+import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import { FormFieldsContext } from '../Form';
 
 type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple' | 'className';
 

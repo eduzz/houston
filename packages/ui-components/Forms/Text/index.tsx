@@ -9,9 +9,9 @@ import TextFieldMUI, { TextFieldProps } from '@material-ui/core/TextField';
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import IFormMask from '@eduzz/houston-core/maskAdapter';
 
-import useMask from '../hooks/useMask';
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
-import { FormFieldsContext } from './Form';
+import useMask from '../../hooks/useMask';
+import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import { FormFieldsContext } from '../Form';
 
 type FieldTextPropsExtends =
   | 'id'

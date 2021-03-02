@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Checkbox from '@material-ui/core/Checkbox';
 
-import CheckboxRadioField, { ICheckboxRadioFieldProps } from './internals/CheckRadioBase';
+import CheckboxRadioField, { ICheckboxRadioFieldProps } from '../internals/CheckRadioBase';
 
 export interface ICheckboxFieldProps extends Omit<ICheckboxRadioFieldProps, 'Control'> {}
 

@@ -12,7 +12,9 @@ export const FormFieldsContext = React.createContext<IFormAdapter<any>>(null);
 const Form = React.memo<IFormProps>(({ children, context }) => {
   return (
     <FormFieldsContext.Provider value={context}>
-      <form onSubmit={context.handleSubmit}>{children}</form>
+      <form onSubmit={context.handleSubmit} onReset={context.handleReset}>
+        {children}
+      </form>
     </FormFieldsContext.Provider>
   );
 });

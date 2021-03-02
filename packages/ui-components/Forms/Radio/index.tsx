@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Radio from '@material-ui/core/Radio';
 
-import CheckboxRadioField, { ICheckboxRadioFieldProps } from './internals/CheckRadioBase';
+import CheckboxRadioField, { ICheckboxRadioFieldProps } from '../internals/CheckRadioBase';
 
 export interface IRadioFieldProps extends Omit<ICheckboxRadioFieldProps, 'Control' | 'isMultiple'> {}
 
