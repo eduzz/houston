@@ -24,7 +24,7 @@ const BoxPage = memo(() => {
 
   return (
     <Fragment>
-      <Toolbar title='Alert' />
+      <Toolbar title='Box' />
 
       <Card>
         <CardContent>

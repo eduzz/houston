@@ -11,7 +11,9 @@ export type LabOverrides = {
   [Name in keyof LabComponentNameToClassKey]?: Partial<StyleRules<LabComponentNameToClassKey[Name]>>;
 } & {};
 
-interface ICustomOverrides extends Partial<Overrides>, Partial<LabOverrides> {}
+interface ICustomOverrides extends Partial<Overrides>, Partial<LabOverrides> {
+  MuiTabScrollButton: any;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function overrides(pallet: Palette): ICustomOverrides {
@@ -324,6 +326,90 @@ export default function overrides(pallet: Palette): ICustomOverrides {
         },
         '&:active': {
           backgroundColor: `${palette.grey[300]}`
+        }
+      }
+    },
+
+    MuiTabs: {
+      root: {
+        height: 40,
+        minHeight: 40,
+        borderBottom: `1px solid ${palette.grey[200]}`
+      },
+      scrollButtons: {}
+    },
+
+    MuiTabScrollButton: {
+      root: {
+        color: palette.primary['main'],
+        opacity: 1,
+        '&$disabled': {
+          opacity: 1,
+          color: palette.grey[300]
+        }
+      }
+    },
+
+    MuiTab: {
+      root: {
+        height: 40,
+        minHeight: 40,
+        minWidth: '0 !important',
+        lineHeight: themeVariable.lineHeight('normal'),
+        fontSize: themeVariable.textSize('small'),
+        fontWeight: themeVariable.fontWeight('semibold'),
+        textTransform: 'none',
+        padding: `0px ${themeVariable.spacing(4)}px`
+      },
+      labelIcon: {
+        minHeight: 40,
+        paddingTop: 0
+      },
+      wrapper: {
+        flexDirection: 'row',
+        '& > *:first-child': {
+          marginBottom: '0 !important',
+          maxWidth: 20,
+          maxHeight: 20,
+          marginRight: themeVariable.spacing(2)
+        }
+      },
+      textColorPrimary: {
+        color: palette.grey[400],
+        transition: '0.3s',
+        border: '2px solid transparent',
+        borderBottom: 'none',
+        borderRadius: `${themeVariable.radius(1)}px ${themeVariable.radius(1)}px 0 0`,
+        '& svg': {
+          fill: palette.grey[500],
+          transition: '0.3s'
+        },
+        '&:focus': {
+          borderColor: palette.grey[300]
+        },
+        '&:hover:not($selected):not(:active)': {
+          color: palette.primary['light'],
+          '& svg': {
+            fill: palette.primary['light']
+          }
+        },
+        '&:active': {
+          color: palette.primary['dark'],
+          '& svg': {
+            fill: palette.primary['dark']
+          }
+        },
+        '&$selected': {
+          color: palette.primary['main'],
+          '& svg': {
+            fill: palette.primary['main']
+          }
+        },
+        '&$disabled': {
+          color: palette.grey[300],
+          '& svg': {
+            fill: palette.grey[300]
+          }
         }
       }
     }
