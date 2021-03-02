@@ -15,7 +15,7 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "dependencies": {
-    "@eduzz/eslint-config-houston": "0.8.1",
+    "@eduzz/eslint-config-houston": "0.8.0",
     "@eduzz/houston-forms": "0.8.1",
     "@eduzz/houston-ui": "0.8.1"
   }
