@@ -49,7 +49,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const Pagination: React.FC<{}> = () => {
+const Pagination = () => {
   const { loading, pagination } = useTableContext();
 
   const classes = useStyles();

@@ -246,7 +246,8 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
       head: {
         fontWeight: themeVariable.fontWeight('semibold'),
-        color: themeVariable.palette.grey[600]
+        color: themeVariable.palette.grey[600],
+        lineHeight: themeVariable.lineHeight('compact')
       },
 
       body: {

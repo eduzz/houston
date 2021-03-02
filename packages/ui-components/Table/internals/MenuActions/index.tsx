@@ -13,7 +13,7 @@ const useStyles = makeStyles(() =>
       display: 'flex',
       alignItems: 'center',
 
-      '& svg': {
+      '& svg, span': {
         marginRight: 8,
         fontSize: 24
       }
@@ -21,14 +21,14 @@ const useStyles = makeStyles(() =>
   })
 );
 
-interface ITableMenuProps extends Omit<MenuProps, 'open'> {
+interface IProps extends Omit<MenuProps, 'open'> {
   anchorEl: HTMLElement;
   onClose: () => void;
   options: ITableOptionProps[];
   currentRow: ITableRow;
 }
 
-const MenuActions: React.FC<ITableMenuProps> = ({ onClose, options, anchorEl, currentRow }) => {
+const MenuActions = ({ onClose, options, anchorEl, currentRow }: IProps) => {
   const classes = useStyles();
 
   const handleClick = React.useCallback(

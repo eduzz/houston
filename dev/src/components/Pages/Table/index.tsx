@@ -256,7 +256,7 @@ const TablePage = memo(() => {
                         </Table.Row>
 
                         {/* actions collapse */}
-                        <Table.Actions align='right' fixed>
+                        <Table.Actions align='right'>
                           <Table.Option onClick={handleClick}>Atualizar</Table.Option>
                           <Table.Option onClick={handleClick}>Excluir</Table.Option>
                         </Table.Actions>
@@ -266,7 +266,10 @@ const TablePage = memo(() => {
                 ))}
 
                 {/* generic actions */}
-                <Table.Actions align='right' fixed>
+                <Table.Actions align='right'>
+                  <Table.Option icon={<span>a</span>} onClick={handleClick}>
+                    React Node Diff
+                  </Table.Option>
                   <Table.Option icon={<VisibilityIcon />} disabled={true} onClick={handleClick}>
                     Detalhes
                   </Table.Option>
