@@ -1061,6 +1061,28 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@eduzz/houston-forms@0.8.1":
+  version "0.8.0"
+  dependencies:
+    "@eduzz/houston-core" "0.8.0"
+    "@types/yup" "^0.29.9"
+    formik "^2.2.5"
+    react-use-observable "^1.0.2"
+    rxjs "^6.6.3"
+    yup "^0.31.0"
+
+"@eduzz/houston-ui@0.8.1":
+  version "0.8.0"
+  dependencies:
+    "@eduzz/houston-core" "0.8.0"
+    "@material-ui/core" "4"
+    "@material-ui/icons" "^4"
+    "@material-ui/lab" "^4.0.0-alpha.56"
+    clsx "^1.1.1"
+    lodash "^4"
+    react-toastify "^6.2.0"
+    tslib "^2.1.0"
+
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
