@@ -24,3 +24,4 @@ import Button from '@eduzz/houston-ui/Button';
 | endIcon   | `React.Node`                   | false    | -         |
 | fullWidth | `boolean`                      | false    | `false`   |
 | loading   | `boolean`                      | false    | `false`   |
+| onClick   | `function`                     | false    | -         |
