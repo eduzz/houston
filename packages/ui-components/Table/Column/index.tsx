@@ -7,7 +7,7 @@ import { ITableAlign } from '../interfaces';
 type ITableColumnExtends = 'id' | 'className' | 'width';
 
 export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExtends> {
-  label: React.ReactNode;
+  label?: React.ReactNode;
   /**
    * Unique key, used for sorting
    */

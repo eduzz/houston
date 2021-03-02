@@ -78,11 +78,11 @@ const Columns = () => {
                   direction={currentSortable ? sortable?.order : 'asc'}
                   onClick={column?.sortable ? () => handleClickSortable(column.field) : null}
                 >
-                  {column.label}
+                  {column?.label ?? ' '}
                 </TableSortLabel>
               )}
 
-              {!column?.sortable && column.label}
+              {!column?.sortable ? column?.label : ' '}
             </TableCell>
           );
         })}

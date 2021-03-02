@@ -6,6 +6,7 @@ const inquirer = require('inquirer');
 
 const currentVersion = require('../package.json').version;
 const { clean } = require('semver');
+const { version } = require('os');
 
 async function init() {
   if (!semver.valid(currentVersion)) {
@@ -53,6 +54,10 @@ async function init() {
     await changePackageVersion(package, packages);
     await publish(package);
   }
+
+  const gitPromise = exec(`git tag v${currentVersion} && git push --tag`);
+  ora.promise(gitPromise, 'GIT TAG');
+  await gitPromise;
 
   return true;
 }

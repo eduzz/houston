@@ -51,12 +51,13 @@ const useStyles = makeStyles(() =>
 
 const Pagination = () => {
   const { loading, pagination } = useTableContext();
-
   const classes = useStyles();
 
   const [currentPage, setCurrentPage] = React.useState<number>(pagination?.page ?? 1);
 
-  const defaultOptionsPerPage = React.useMemo(() => pagination?.optionsPerPage ?? [15, 25, 35, 50, 100], [pagination]);
+  const defaultOptionsPerPage = React.useMemo(() => pagination?.optionsPerPage ?? [5, 10, 15, 25, 35, 50, 100], [
+    pagination
+  ]);
 
   const handleChangePerPage = React.useCallback(
     (_: any, event: React.ChangeEvent<{ name?: string; value: any }>) => {
@@ -65,22 +66,15 @@ const Pagination = () => {
     [pagination]
   );
 
-  const handleChangeGoToPage = React.useCallback(
-    (_: any, event: React.ChangeEvent<HTMLInputElement>) => {
-      let page = Number(event.target.value) || 1;
+  const handleChangeGoToPage = React.useCallback((_: any, event: React.ChangeEvent<HTMLInputElement>) => {
+    let page = Number(event.target.value) || 1;
 
-      if (page < 1) {
-        page = 1;
-      }
+    if (page < 1) {
+      page = 1;
+    }
 
-      if (page > pagination?.totalPages) {
-        page = pagination?.totalPages;
-      }
-
-      setCurrentPage(page);
-    },
-    [pagination?.totalPages]
-  );
+    setCurrentPage(page);
+  }, []);
 
   const handleBlurGoToPage = React.useCallback(
     (_: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -106,8 +100,8 @@ const Pagination = () => {
     return null;
   }
 
-  if (!pagination?.page || !pagination?.perPage || !pagination?.totalPages) {
-    console.error('@eduzz/houston-ui: the paging component needs three properties (page, perPage and totalPages)');
+  if (!loading && (!pagination?.perPage || !pagination?.total)) {
+    console.error('@eduzz/houston-ui: the paging component needs three properties (perPage and total)');
     return null;
   }
 
@@ -119,7 +113,7 @@ const Pagination = () => {
             {pagination?.onChangeRowsPerPage && (
               <div className={classes.perPage}>
                 <Typography size='small' fontWeight='semibold'>
-                  {pagination?.labelItensPerPage ? pagination?.labelItensPerPage : 'Itens por página:'}
+                  {pagination?.labelItensPerPage ?? 'Itens por página:'}
                 </Typography>
 
                 <SelectField
@@ -139,7 +133,7 @@ const Pagination = () => {
 
                 <TextField
                   margin='none'
-                  value={currentPage || ''}
+                  value={currentPage ?? ''}
                   onChange={handleChangeGoToPage}
                   onBlur={handleBlurGoToPage}
                 />
@@ -152,8 +146,8 @@ const Pagination = () => {
           <Column xs={12} sm={true}>
             <div className={classes.pages}>
               <MUIPagination
-                count={pagination?.totalPages}
-                page={pagination?.page}
+                count={Math.ceil(pagination?.total / pagination?.perPage)}
+                page={pagination?.page ?? 1}
                 shape='rounded'
                 size='medium'
                 onChange={handleChangePage}
