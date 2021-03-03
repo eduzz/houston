@@ -5,8 +5,6 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 
 const currentVersion = require('../package.json').version;
-const { version } = require('os');
-const { isRegExp } = require('util');
 let newVersion = '';
 
 async function init() {
@@ -118,7 +116,7 @@ function exec(command) {
   })
 }
 
-init().then(success => {
+init().then(() => {
   console.log('\n');
   ora(`NEW VERSION CHANGED: ${newVersion}`).succeed();
   process.exit(0);

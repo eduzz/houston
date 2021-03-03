@@ -12,6 +12,7 @@ type ButtonPropsExtends =
   | 'href'
   | 'children'
   | 'type'
+  | 'className'
   | 'fullWidth'
   | 'startIcon'
   | 'endIcon';

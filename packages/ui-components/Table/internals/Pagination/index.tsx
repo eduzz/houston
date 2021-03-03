@@ -100,7 +100,7 @@ const Pagination = () => {
     return null;
   }
 
-  if (!loading && (!pagination?.perPage || !pagination?.total)) {
+  if (!loading && (!pagination?.perPage || (!pagination?.total && pagination?.total !== 0))) {
     console.error('@eduzz/houston-ui: the paging component needs three properties (perPage and total)');
     return null;
   }
