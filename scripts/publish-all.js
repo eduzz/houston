@@ -6,17 +6,21 @@ const inquirer = require('inquirer');
 
 let currentVersion = require('../package.json').version;
 
-async function init() {
-  const versionConfirm = await inquirer.prompt([{
-    name: 'confirmed',
-    type: 'confirm',
-    default: false,
-    message: `Já alterou a versão (${currentVersion})?`
-  }]);
+const isCI = process.argv.slice(2)[0] === '--ci';
 
-  if (!versionConfirm.confirmed) {
-    await generateVersion();
-    currentVersion = require('../package.json').version;
+async function init() {
+  if (!isCI) {
+    const versionConfirm = await inquirer.prompt([{
+      name: 'confirmed',
+      type: 'confirm',
+      default: false,
+      message: `Já alterou a versão (${currentVersion})?`
+    }]);
+
+    if (!versionConfirm.confirmed) {
+      await generateVersion();
+      currentVersion = require('../package.json').version;
+    }
   }
 
   if (!semver.valid(currentVersion)) {
@@ -43,18 +47,21 @@ async function init() {
     await checkVersion(package);
   }
 
-  const params = await inquirer.prompt([{
-    name: 'confirmed',
-    type: 'confirm',
-    default: false,
-    message: 'Tudo OK! Podemos continuar?'
-  }]);
+  if (!isCI) {
+    const params = await inquirer.prompt([{
+      name: 'confirmed',
+      type: 'confirm',
+      default: false,
+      message: 'Tudo OK! Podemos continuar?'
+    }]);
 
-  if (!params.confirmed) {
-    return false;
+
+    if (!params.confirmed) {
+      return false;
+    }
+
+    await npmLogin();
   }
-
-  await npmLogin();
 
   const cleanPromise = exec('yarn clean');
   ora.promise(cleanPromise, 'CLEANING PROJECT');

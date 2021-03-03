@@ -10,10 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: borales/actions-yarn@v2.0.0
         with:
-          node-version: 15
-          registry-url: https://registry.npmjs.org/
-      - run: npm publish
+          cmd: install
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: run publish --ci
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
