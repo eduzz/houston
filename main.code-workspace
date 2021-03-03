@@ -23,6 +23,10 @@
       "path": "./packages/forms"
     },
     {
+      "name": "@eduzz/houston-hooks",
+      "path": "./packages/hooks"
+    },
+    {
       "name": "@eduzz/eslint-config-houston",
       "path": "./packages/eslint-config"
     },

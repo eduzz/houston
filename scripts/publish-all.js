@@ -71,7 +71,7 @@ async function npmLogin() {
 }
 
 async function publish(package) {
-  const promise = exec(`(cd ${package.folder} && npm publish)`);
+  const promise = exec(`(cd ${package.folder} && npm publish --access=public)`);
   ora.promise(promise, `PUBLISHING: ${package.name}`)
   await promise;
 }

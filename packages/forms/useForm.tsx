@@ -1,12 +1,12 @@
 import './yupLocale';
 
 import { useCallback, useEffect, useRef } from 'react';
-import { useObservable } from 'react-use-observable';
 
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, share, switchMap } from 'rxjs/operators';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
+import useObservable from '@eduzz/houston-hooks/useObservable';
 
 import { FormikConfig, FormikErrors, FormikHelpers, FormikTouched, useFormik } from 'formik';
 import * as yup from 'yup';
