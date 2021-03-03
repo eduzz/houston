@@ -4,16 +4,26 @@ const fs = require('fs');
 const ora = require('ora');
 const inquirer = require('inquirer');
 
-const currentVersion = require('../package.json').version;
-const { clean } = require('semver');
-const { version } = require('os');
+let currentVersion = require('../package.json').version;
 
 async function init() {
+  const versionConfirm = await inquirer.prompt([{
+    name: 'confirmed',
+    type: 'confirm',
+    default: false,
+    message: `Já alterou a versão (${currentVersion})?`
+  }]);
+
+  if (!versionConfirm.confirmed) {
+    await generateVersion();
+    currentVersion = require('../package.json').version;
+  }
+
   if (!semver.valid(currentVersion)) {
     throw new Error('Invalid Version: ' + currentVersion);
   }
 
-  ora(' NEW VERSION:' + currentVersion).succeed()
+  ora('NEW VERSION:' + currentVersion).succeed()
 
   let packages = await fs.promises.readdir(`${__dirname}/../packages`);
   packages = packages.map(path => ({
@@ -26,7 +36,7 @@ async function init() {
     package.remoteVersion = remoteVersion;
   }));
 
-  ora(' REMOTE VERSIONS:').info()
+  ora('REMOTE VERSIONS:').info()
   console.table(packages, ['name', 'remoteVersion']);
 
   for (let package of packages) {
@@ -67,6 +77,14 @@ async function npmLogin() {
     const login = childProccess.spawn('npm', ['login'], { stdio: 'inherit' });
     login.once('error', err => reject(err));
     login.once('close', () => resolve());
+  });
+}
+
+async function generateVersion() {
+  return new Promise((resolve, reject) => {
+    const login = childProccess.spawn('yarn', ['run', 'change-version'], { stdio: 'inherit' });
+    login.once('error', err => reject(err));
+    login.once('exit', (code) => code >= 0 ? resolve() : reject());
   });
 }
 
@@ -115,7 +133,7 @@ function exec(command, live) {
 init().then(success => {
   if (!success) return;
   console.log('\n');
-  ora(`NEW VERSION CREATED: ${currentVersion}`).succeed();
+  ora(`NEW VERSION PUBLISHED: ${currentVersion}`).succeed();
   process.exit(0);
 }).catch(err => {
   console.error(err);
