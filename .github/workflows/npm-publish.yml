@@ -15,16 +15,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 15
-          cmd: echo 'https://registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
-          auth-token: ${{ secrets.NPM_TOKEN }}
           cmd: install
       - name: Publish
         uses: borales/actions-yarn@v2.3.0
         with:
           auth-token: ${{ secrets.NPM_TOKEN }}
+          registry-url: https://registry.npmjs.org/:_authToken=${NPM_TOKEN}
           cmd: run publish --ci
       # - name: Create Tag
       #   uses: actions/create-release@v1
