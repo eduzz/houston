@@ -16,11 +16,11 @@ jobs:
         with:
           node-version: 15
       - name: Prepare Env
-        uses: borales/actions-yarn@v2.0.0
+        uses: borales/actions-yarn@v2
         with:
           cmd: install --frozen-lockfile
       - name: Publish
-        uses: borales/actions-yarn@v2.0.0
+        uses: borales/actions-yarn@v2
         with:
           auth-token: ${{ secrets.NPM_TOKEN }}
           cmd: run publish --ci
