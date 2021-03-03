@@ -11,7 +11,6 @@
     "build": "yarn ultra -r -b build",
     "prestart": "yarn build",
     "start": "yarn ultra -r start",
-    "prepare": "yarn husky install",
     "publish": "sh ./scripts/publish-all.sh",
     "change-version": "sh ./scripts/change-version.sh",
     "clean": "git add . && git clean -f -x"
