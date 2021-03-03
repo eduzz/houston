@@ -72,9 +72,11 @@ async function init() {
     await publish(package);
   }
 
-  const gitPromise = exec(`git tag v${currentVersion} && git push --tag`);
-  ora.promise(gitPromise, 'GIT TAG');
-  await gitPromise;
+  if (!isCI) {
+    const gitPromise = exec(`git tag v${currentVersion} && git push --tag`);
+    ora.promise(gitPromise, 'GIT TAG');
+    await gitPromise;
+  }
 
   return true;
 }
