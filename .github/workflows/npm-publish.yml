@@ -11,6 +11,10 @@ jobs:
     steps:
       - name: Clone
         uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
       - name: Prepare Env
         uses: borales/actions-yarn@v2.0.0
         with:
@@ -18,9 +22,8 @@ jobs:
       - name: Publish
         uses: borales/actions-yarn@v2.0.0
         with:
+          auth-token: ${{ secrets.NPM_TOKEN }}
           cmd: run publish --ci
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       # - name: Create Tag
       #   uses: actions/create-release@v1
       #   env:
