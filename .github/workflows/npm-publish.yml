@@ -23,7 +23,7 @@ jobs:
         uses: borales/actions-yarn@v2.3.0
         with:
           auth-token: ${{ secrets.NPM_TOKEN }}
-          registry-url: https://registry.npmjs.org/:_authToken=${NPM_TOKEN}
+          registry-url: https://registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
           cmd: run publish --ci
       # - name: Create Tag
       #   uses: actions/create-release@v1
