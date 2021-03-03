@@ -20,6 +20,7 @@ jobs:
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
+          auth-token: ${{ secrets.NPM_TOKEN }}
           cmd: install
       - name: Publish
         uses: borales/actions-yarn@v2.3.0
