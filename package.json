@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@eduzz/houston-workspaces",
-  "version": "0.9.1",
+  "version": "0.10.1",
   "workspaces": [
     "packages/*",
     "dev"
@@ -13,6 +13,7 @@
     "start": "yarn ultra -r start",
     "prepare": "yarn husky install",
     "publish": "sh ./scripts/publish-all.sh",
+    "change-version": "sh ./scripts/change-version.sh",
     "clean": "git add . && git clean -f -x"
   },
   "devDependencies": {
