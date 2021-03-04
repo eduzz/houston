@@ -46,10 +46,11 @@ jobs:
         run: npm run publish -- --ci
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: Set Version
-        id: current-version
-        run: echo '::set-output name=VERSION::'$(node -p -e "require('./package.json').version") && echo '::set-output name=BETA::'$(node -p -e "require('./package.json').version.includes('beta')")
+      - name: Skip Release
+        id: skip-release
+        run: echo '::set-output name=SKIP::'$(cat .skip-release)
       - name: Create Tag
+        if: steps.skip-release.outputs.SKIP != 'true'
         uses: actions/create-release@v1
         with:
           tag_name: v${{ needs.check-version.outputs.VERSION }}
@@ -82,10 +83,11 @@ jobs:
         run: npm run publish -- --ci
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: Set Version
-        id: current-version
-        run: echo '::set-output name=VERSION::'$(node -p -e "require('./package.json').version") && echo '::set-output name=BETA::'$(node -p -e "require('./package.json').version.includes('beta')")
+      - name: Skip Release
+        id: skip-release
+        run: echo '::set-output name=SKIP::'$(cat .skip-release)
       - name: Create Tag
+        if: steps.skip-release.outputs.SKIP != 'true'
         uses: actions/create-release@v1
         with:
           tag_name: v${{ needs.check-version.outputs.VERSION }}

@@ -78,6 +78,10 @@ async function init() {
     await gitPromise;
   }
 
+  if (isCI) {
+    await exec('echo false > .skip-release');
+  }
+
   return true;
 }
 
@@ -127,6 +131,11 @@ async function checkVersion(package) {
 
   if (isGreater) return;
   ora('Version already published, skipping...').fail();
+
+  if (isCI) {
+    await exec('echo true > .skip-release');
+  }
+
   process.exit(0);
 }
 
