@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 15
       - name: Setup NPM Registry
-        run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > .npmrc && npm config get registry && npm whoami
+        run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > .npmrc && npm config get registry && echo $NPM_AUTH_TOKEN
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
