@@ -18,7 +18,7 @@ jobs:
       - name: Setup NPM Registry
         run: echo 'https://registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > .npmrc
       - name: Setup NPM Check
-        run: npm whoami
+        run: ls -al && npm whoami
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
