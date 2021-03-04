@@ -40,7 +40,7 @@ async function init() {
     message: `A nova versão será ${newVersion} Podemos continuar?`
   }]);
 
-  if(!params.confirmed) {
+  if (!params.confirmed) {
     throw new Error('Cancelado');
   }
 
@@ -54,20 +54,19 @@ async function init() {
   ];
 
   for (let package of packages) {
-    await changePackageVersion(package, packages);
+    await changePackageVersion(package, packages, newVersion);
   }
 }
 
-async function changePackageVersion(package, allPackages) {
+async function changePackageVersion(package, allPackages, newVersion) {
   const loader = ora(`UPDATING VERSION: ${package.name}`).start()
 
   const path = `${package.folder}/package.json`;
   let content = fs.readFileSync(path, 'utf8');
-
-  content = content.replace(/(.+\"version\"\:\s\").+(\"+)/gim, `$1${currentVersion}$2`);
+  content = content.replace(/(.+\"version\"\:\s\").+(\"+)/gim, `$1${newVersion}$2`);
 
   allPackages.forEach(package => {
-    content = content.replace(new RegExp(`(.+"${package.name}":\\s").+("+)`, "gim"), `$1${currentVersion}$2`);
+    content = content.replace(new RegExp(`(.+"${package.name}":\\s").+("+)`, "gim"), `$1${newVersion}$2`);
   });
 
   fs.writeFileSync(path, content);
