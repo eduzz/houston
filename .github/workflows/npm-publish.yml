@@ -32,11 +32,12 @@ jobs:
       #   run: npm run publish -- --ci
       #   env:
       #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      # - name: Create Tag
-      #   uses: actions/create-release@v1
-      #   with:
-      #     tag_name:
-      #     draft: false
-      #     prerelease: false
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Tag
+        uses: actions/create-release@v1
+        with:
+          tag_name: v${{ steps.current-version.outputs.VERSION }}
+          release_name: Release v${{ steps.current-version.outputs.VERSION }}
+          draft: false
+          prerelease: ${{ steps.current-version.outputs.BETA }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
