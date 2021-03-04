@@ -8,6 +8,8 @@ let currentVersion = require('../package.json').version;
 
 const isCI = process.argv.slice(2)[0] === '--ci';
 
+console.log(process.env.NPM_AUTH_TOKEN);
+
 async function init() {
   if (!isCI) {
     const versionConfirm = await inquirer.prompt([{
@@ -84,11 +86,11 @@ async function init() {
 async function npmLogin() {
   return new Promise((resolve, reject) => {
     const cmd = isCI ?
-      childProccess.spawn('npm', ['whoami'], { stdio: 'inherit' }) :
+      childProccess.spawn('npm', ['whoami'], { stdio: 'inherit', env: { ...proccess.env } }) :
       childProccess.spawn('npm', ['login'], { stdio: 'inherit' });
 
     cmd.once('error', err => reject(err));
-    cmd.once('close', code => code >= 1 ? resolve() : reject());
+    cmd.once('close', code => code >= 0 ? resolve() : reject());
   });
 }
 
@@ -132,7 +134,7 @@ async function checkVersion(package) {
 
 function exec(command, live) {
   return new Promise((resolve, reject) => {
-    const proccess = childProccess.exec(command, (err, stdout) => {
+    const proccess = childProccess.exec(command, { env: { ...proccess.env } }, (err, stdout) => {
       if (err) reject(err);
       resolve(stdout?.trim());
     });
