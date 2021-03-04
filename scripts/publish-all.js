@@ -84,7 +84,7 @@ async function init() {
 async function npmLogin() {
   return new Promise((resolve, reject) => {
     const cmd = isCI ?
-      childProccess.spawn('npm', ['whoami', '--verbose'], { stdio: 'inherit', env: { ...process.env } }) :
+      childProccess.spawn('npm', ['whoami'], { stdio: 'inherit', env: { ...process.env } }) :
       childProccess.spawn('npm', ['login'], { stdio: 'inherit' });
 
     cmd.once('error', err => reject(err));
