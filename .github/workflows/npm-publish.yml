@@ -15,19 +15,28 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 15
-      - name: Prepare Env
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install
-      - name: Setup NPM Registry
-        run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > ~/.npmrc && npm config get registry && npm whoami
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: Publish
-        run: npm run publish -- --ci
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Set Version
+        id: current-version
+        run: echo '::set-output name=VERSION::'$(node -p -e "require('./package.json').version") && echo '::set-output name=BETA::'$(node -p -e "require('./package.json').version.includes('beta')")
+      - name: See Version
+        run: echo "VERSION = ${{ steps.current-version.outputs.VERSION }} BETA = ${{ steps.current-version.outputs.BETA }}"
+      # - name: Prepare Env
+      #   uses: borales/actions-yarn@v2.3.0
+      #   with:
+      #     cmd: install
+      # - name: Setup NPM Registry
+      #   run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > ~/.npmrc && npm config get registry && npm whoami
+      #   env:
+      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      # - name: Publish
+      #   run: npm run publish -- --ci
+      #   env:
+      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       # - name: Create Tag
       #   uses: actions/create-release@v1
+      #   with:
+      #     tag_name:
+      #     draft: false
+      #     prerelease: false
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
