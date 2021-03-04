@@ -20,7 +20,7 @@
     "clean": "git add . && git clean -f -x",
     "build": "yarn clean && tsc -p .",
     "prepare": "yarn build",
-    "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\"",
+    "lint": "yarn eslint \"./**/*.tsx\"",
     "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc --noEmit\""
   },
   "dependencies": {
