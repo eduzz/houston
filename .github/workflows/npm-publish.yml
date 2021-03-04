@@ -37,6 +37,7 @@ jobs:
         with:
           tag_name: v${{ steps.current-version.outputs.VERSION }}
           release_name: Release v${{ steps.current-version.outputs.VERSION }}
+          body: No comments
           draft: false
           prerelease: ${{ steps.current-version.outputs.BETA }}
         env:
