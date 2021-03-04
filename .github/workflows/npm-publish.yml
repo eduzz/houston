@@ -16,9 +16,7 @@ jobs:
         with:
           node-version: 15
       - name: Setup NPM Registry
-        run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > .npmrc
-      - name: Setup NPM Check
-        run: ls -al && npm config get registry && npm whoami
+        run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > .npmrc && npm config get registry && npm whoami
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Prepare Env

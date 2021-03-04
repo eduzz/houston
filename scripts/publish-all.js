@@ -59,9 +59,9 @@ async function init() {
     if (!params.confirmed) {
       return false;
     }
-
-    await npmLogin();
   }
+
+  await npmLogin();
 
   const cleanPromise = exec('yarn clean');
   ora.promise(cleanPromise, 'CLEANING PROJECT');
@@ -83,9 +83,12 @@ async function init() {
 
 async function npmLogin() {
   return new Promise((resolve, reject) => {
-    const login = childProccess.spawn('npm', ['login'], { stdio: 'inherit' });
-    login.once('error', err => reject(err));
-    login.once('close', () => resolve());
+    const cmd = isCI ?
+      childProccess.spawn('npm', ['whoami'], { stdio: 'inherit' }) :
+      childProccess.spawn('npm', ['login'], { stdio: 'inherit' });
+
+    cmd.once('error', err => reject(err));
+    cmd.once('close', code => code >= 1 ? resolve() : reject());
   });
 }
 
