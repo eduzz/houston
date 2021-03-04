@@ -8,7 +8,6 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: Publish
     steps:
       - name: Clone
         uses: actions/checkout@v2
@@ -17,15 +16,21 @@ jobs:
         with:
           node-version: 15
       - name: Setup NPM Registry
-        run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > .npmrc && npm config get registry && echo $NPM_AUTH_TOKEN
+        run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > .npmrc && npm config get registry && npm whoami
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Publish
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: run publish --ci
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       # - name: Create Tag
       #   uses: actions/create-release@v1
       #   env:
