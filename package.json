@@ -12,7 +12,7 @@
     "prestart": "yarn build",
     "start": "yarn ultra -r start",
     "prepare": "yarn husky install",
-    "publish": "sh ./scripts/publish-all.sh",
+    "publish": "NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN sh ./scripts/publish-all.sh",
     "change-version": "sh ./scripts/change-version.sh",
     "clean": "git add . && git clean -f -x"
   },

@@ -3,4 +3,4 @@ set -e
 
 BASEDIR="$( cd "$(dirname "$0")" ; pwd -P )"
 
-node $BASEDIR/publish-all.js $1
+NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN node $BASEDIR/publish-all.js $1
