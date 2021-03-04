@@ -8,30 +8,46 @@ const currentVersion = require('../package.json').version;
 let newVersion = '';
 
 async function init() {
-  const versionsPromise = getLastVersions();
-  ora.promise(versionsPromise, 'CHECKING REMOTE VERSIONS');
-  const versions = await versionsPromise;
-
   const answers = await inquirer.prompt([{
+    name: 'manual',
+    type: 'confirm',
+    default: false,
+    message: 'Quer inserir uma versão na marra?'
+  }, {
+    name: 'version',
+    type: 'text',
+    when: a => a.manual,
+    validate: a => semver.valid(a) ? true : 'inválido',
+    message: 'Manda bala:'
+  }, {
     name: 'beta',
     type: 'confirm',
+    when: a => !a.manual,
     default: false,
     message: 'É beta?'
   }, {
     name: 'major',
     type: 'confirm',
+    when: a => !a.manual,
     default: false,
     message: (a) => `Possui Break Change${a.beta ? ' desde de o último beta' : ''}? (major change)`
   }, {
     name: 'minor',
     type: 'confirm',
-    when: a => !a.major,
+    when: a => !a.manual && !a.major,
     default: false,
     message: 'Alguma feature nova? (minor change)'
   }]);
 
+  if (!answers.manual) {
+    const versionsPromise = getLastVersions();
+    ora.promise(versionsPromise, 'CHECKING REMOTE VERSIONS');
+    const versions = await versionsPromise;
 
-  newVersion = generateVersion(answers, versions);
+    newVersion = generateVersion(answers, versions);
+  } else {
+    newVersion = answers.version;
+  }
 
   const params = await inquirer.prompt([{
     name: 'confirmed',
