@@ -22,7 +22,7 @@ jobs:
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
-          cmd: install
+          cmd: install && npm config get registry && npm whoami
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Publish
