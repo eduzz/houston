@@ -86,7 +86,7 @@ async function init() {
 async function npmLogin() {
   return new Promise((resolve, reject) => {
     const cmd = isCI ?
-      childProccess.spawn('npm', ['whoami'], { stdio: 'inherit', env: { ...proccess.env } }) :
+      childProccess.spawn('npm', ['whoami'], { stdio: 'inherit', env: { ...process.env } }) :
       childProccess.spawn('npm', ['login'], { stdio: 'inherit' });
 
     cmd.once('error', err => reject(err));
@@ -134,13 +134,13 @@ async function checkVersion(package) {
 
 function exec(command, live) {
   return new Promise((resolve, reject) => {
-    const proccess = childProccess.exec(command, { env: { ...proccess.env } }, (err, stdout) => {
+    const cmd = childProccess.exec(command, { env: { ...process.env } }, (err, stdout) => {
       if (err) reject(err);
       resolve(stdout?.trim());
     });
 
     if (!live) return;
-    proccess.stdout.on('data', data => console.log(data.toString()));
+    cmd.stdout.on('data', data => console.log(data.toString()));
   })
 }
 
