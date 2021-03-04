@@ -8,7 +8,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: publish
+    environment: Publish
     steps:
       - name: Clone
         uses: actions/checkout@v2
