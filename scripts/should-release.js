@@ -26,6 +26,8 @@ async function init() {
   ora('REMOTE VERSIONS:').info()
   console.table(packages, ['name', 'remoteVersion']);
 
+  await new Promise((resolve) => setTimeout(() => resolve()), 300);
+
   for (let package of packages) {
     await checkVersion(package);
   }
