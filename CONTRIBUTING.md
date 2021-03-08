@@ -44,8 +44,8 @@ suas props/configurações.
 | @eduzz/houston-ui            | Componentes do houston para web                                                |
 | @eduzz/eslint-config-houston | Configuração padrão para o eslint                                              |
 | @eduzz/houston-forms         | Hooks para validação de formulário (livre de plataforma. ex: web ou app)       |
+| @eduzz/houston-hooks         | Hooks de uso geral (livre de plataforma. ex: web ou app)                        |
 | @eduzz/core                  | Configurações compartilhadas entre os projetos, não deve ser usado diretamente |
-
 
 ## Por baixo dos panos 💃
 
