@@ -35,26 +35,26 @@ async function init() {
     folder: `${__dirname}/../packages/${path}`
   }));
 
-  await Promise.all(packages.map(async package => {
-    const remoteVersion = await exec(`npm view ${package.name} version`)
-    package.remoteVersion = remoteVersion;
-  }));
-
-  ora('REMOTE VERSIONS:').info()
-  console.table(packages, ['name', 'remoteVersion']);
-
-  for (let package of packages) {
-    await checkVersion(package);
-  }
-
   if (!isCI) {
+    await Promise.all(packages.map(async package => {
+      const remoteVersion = await exec(`npm view ${package.name} version`)
+      package.remoteVersion = remoteVersion;
+    }));
+
+    ora('REMOTE VERSIONS:').info()
+    console.table(packages, ['name', 'remoteVersion']);
+
+    for (let package of packages) {
+      await c
+      heckVersion(package);
+    }
+
     const params = await inquirer.prompt([{
       name: 'confirmed',
       type: 'confirm',
       default: false,
       message: 'Tudo OK! Podemos continuar?'
     }]);
-
 
     if (!params.confirmed) {
       return false;
@@ -76,10 +76,6 @@ async function init() {
     const gitPromise = exec(`git tag v${currentVersion} && git push --tag`);
     ora.promise(gitPromise, 'GIT TAG');
     await gitPromise;
-  }
-
-  if (isCI) {
-    await exec('echo false > .skip-release');
   }
 
   return true;
@@ -131,10 +127,6 @@ async function checkVersion(package) {
 
   if (isGreater) return;
   ora('Version already published, skipping...').fail();
-
-  if (isCI) {
-    await exec('echo true > .skip-release');
-  }
 
   process.exit(0);
 }

@@ -22,10 +22,27 @@ jobs:
       VERSION: ${{ steps.current-version.outputs.VERSION }}
       BETA: ${{ steps.current-version.outputs.BETA }}
 
-  publish:
-    needs: check-version
+  should-release:
     runs-on: ubuntu-latest
-    if: needs.check-version.outputs.BETA == 'false'
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Run should-release
+        run: sh ./scripts/should-release.sh
+      - name: Check Skip Release
+        id: skip-release
+        run: echo '::set-output name=SKIP::'$(cat .skip-release)
+    outputs:
+      SKIP: ${{ steps.skip-release.outputs.SKIP }}
+
+  publish:
+    needs: [check-version, should-release]
+    runs-on: ubuntu-latest
+    if: needs.check-version.outputs.BETA == 'false' && needs.should-release.outputs.SKIP != 'true'
     steps:
       - name: Clone
         uses: actions/checkout@v2
@@ -49,7 +66,6 @@ jobs:
         id: skip-release
         run: echo '::set-output name=SKIP::'$(cat .skip-release)
       - name: Create Tag
-        if: steps.skip-release.outputs.SKIP != 'true'
         uses: actions/create-release@v1
         with:
           tag_name: v${{ needs.check-version.outputs.VERSION }}
