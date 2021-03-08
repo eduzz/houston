@@ -31,6 +31,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 15
+      - name: Deps
+        run: npm i -g semver
       - name: Run should-release
         run: sh ./scripts/should-release.sh
       - name: Check Skip Release

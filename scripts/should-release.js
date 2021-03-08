@@ -1,8 +1,6 @@
 const childProccess = require('child_process');
-const semver = require('semver');
+const semver = require('/usr/local/lib/node_modules/semver');
 const fs = require('fs');
-const ora = require('ora');
-const inquirer = require('inquirer');
 
 let currentVersion = require('../package.json').version;
 
