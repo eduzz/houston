@@ -42,7 +42,7 @@ jobs:
       SKIP: ${{ steps.skip-release.outputs.SKIP }}
 
   publish-beta:
-    needs: check-version
+    needs: [check-version, should-release]
     runs-on: ubuntu-latest
     if: needs.check-version.outputs.BETA == 'true' && needs.should-release.outputs.SKIP != 'true'
     steps:
