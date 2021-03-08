@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { TableRowProps } from '@material-ui/core/TableRow';
 
-type ITableRowExtends = 'id' | 'className' | 'tabIndex' | 'children';
+type ITableRowExtends = 'id' | 'className' | 'tabIndex' | 'children' | 'onClick' | 'onDoubleClick';
 
 export interface ITableRowProps extends Pick<TableRowProps, ITableRowExtends> {
   /**

@@ -37,7 +37,9 @@ const Cell = (props: IProps) => {
     className: props?.className,
     padding: props?.padding,
     colSpan: props?.colSpan,
-    align: props?.align
+    align: props?.align,
+    onClick: props?.onClick,
+    onDoubleClick: props?.onDoubleClick
   };
 
   const { children, truncate = false, list, fixed } = props;
