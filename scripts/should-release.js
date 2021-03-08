@@ -1,5 +1,5 @@
 const childProccess = require('child_process');
-const semver = require('/usr/local/lib/node_modules/semver');
+const semver = require('/opt/hostedtoolcache/node/15.11.0/x64/lib/semver');
 const fs = require('fs');
 
 let currentVersion = require('../package.json').version;
