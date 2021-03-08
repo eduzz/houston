@@ -117,7 +117,12 @@ const Rows = () => {
       {!loading &&
         rows.map((row, index) => (
           <React.Fragment key={`table-row-${index}`}>
-            <TableRow hover selected={currentRow && isEqual(currentRow?.data, row.data)}>
+            <TableRow
+              hover
+              selected={currentRow && isEqual(currentRow?.data, row.data)}
+              onClick={row?.onClick && row.onClick}
+              onDoubleClick={row?.onDoubleClick && row.onDoubleClick}
+            >
               {row?.cells?.map((cell, i) => {
                 const currentIndex = i + 1;
                 const isFixed = columns[i]?.fixed && (currentIndex === 1 || currentIndex === numberColumns);
