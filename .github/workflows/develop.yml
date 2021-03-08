@@ -22,10 +22,29 @@ jobs:
       VERSION: ${{ steps.current-version.outputs.VERSION }}
       BETA: ${{ steps.current-version.outputs.BETA }}
 
+  should-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Deps
+        run: npm i -g semver ora
+      - name: Run should-release
+        run: sh ./scripts/should-release.sh
+      - name: Check Skip Release
+        id: skip-release
+        run: echo '::set-output name=SKIP::'$(cat .skip-release)
+    outputs:
+      SKIP: ${{ steps.skip-release.outputs.SKIP }}
+
   publish-beta:
     needs: check-version
     runs-on: ubuntu-latest
-    if: needs.check-version.outputs.BETA == 'true'
+    if: needs.check-version.outputs.BETA == 'true' && needs.should-release.outputs.SKIP != 'true'
     steps:
       - name: Clone
         uses: actions/checkout@v2

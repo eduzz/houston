@@ -45,8 +45,7 @@ async function init() {
     console.table(packages, ['name', 'remoteVersion']);
 
     for (let package of packages) {
-      await c
-      heckVersion(package);
+      await checkVersion(package);
     }
 
     const params = await inquirer.prompt([{
