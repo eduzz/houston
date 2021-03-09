@@ -12,14 +12,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 15
-      - uses: kceb/pull-request-url-action@v1
-        id: pr-url
+      - uses: jwalton/gh-find-current-pr@v1
+        id: find-pr
       - name: Discord
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: "@Aldebaran 🦖  Nova PullRequest: ${{ github.context.payload.pull_request.title }} \n${{ steps.pr-url.outputs.url }}"
+          args: "Nova PullRequest: #${{ gsteps.find-pr.outputs.pr }} \nhttps://github.com/eduzz/houston/pull/${{ gsteps.find-pr.outputs.pr }}"
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
