@@ -19,6 +19,6 @@ jobs:
       - name: Discord
         uses: appleboy/discord-action@master
         with:
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          webhook_id: ${{ secrets.DISCORD_RFC_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_RFC_WEBHOOK_TOKEN }}
           args: "RFC: ${{ steps.issue-url.outputs.URL }}"
