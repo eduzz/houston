@@ -11,6 +11,12 @@ jobs:
     steps:
       - name: Clone
         uses: actions/checkout@v2
+      - name: Discord
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          args: The ${{ github.event_name }} event triggered first step
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
