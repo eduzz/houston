@@ -14,9 +14,8 @@ jobs:
       - name: Discord
         uses: appleboy/discord-action@master
         with:
-          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: The ${{ github.event_name }} event triggered first step
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
