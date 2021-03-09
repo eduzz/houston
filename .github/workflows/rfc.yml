@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: data
-        run: echo "${{JSON.stringify(github.event)}}"
+        run: echo "${{toJSON(github.event)}}"
       - name: Discord
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: "RFC ${{JSON.stringify(github.event)}}"
+          args: "RFC ${{toJSON(github.event)}}"
