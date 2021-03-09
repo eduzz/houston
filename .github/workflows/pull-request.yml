@@ -17,8 +17,8 @@ jobs:
       - name: Discord
         uses: appleboy/discord-action@master
         with:
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          webhook_id: ${{ secrets.DISCORD_PR_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_PR_WEBHOOK_TOKEN }}
           args: "PullRequest Criada/Atualizada: #${{ github.event.number }} \nhttps://github.com/eduzz/houston/pull/${{ github.event.number }}"
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0

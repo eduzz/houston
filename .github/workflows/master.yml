@@ -78,6 +78,6 @@ jobs:
       - name: Discord
         uses: appleboy/discord-action@master
         with:
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          webhook_id: ${{ secrets.DISCORD_RELEASE_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_RELEASE_WEBHOOK_TOKEN }}
           args: "Nova versão criada: v${{ needs.check-version.outputs.VERSION }}\n${{ steps.release.outputs.html_url }}"
