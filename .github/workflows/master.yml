@@ -44,48 +44,40 @@ jobs:
   publish:
     needs: [check-version, should-release]
     runs-on: ubuntu-latest
-    # if: needs.check-version.outputs.BETA == 'false' && needs.should-release.outputs.SKIP != 'true'
+    if: needs.check-version.outputs.BETA == 'false' && needs.should-release.outputs.SKIP != 'true'
     steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Prepare Env
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
+      - name: Setup NPM Registry
+        run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > ~/.npmrc && npm config get registry && npm whoami
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Publish
+        run: npm run publish -- --ci
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Create Tag
+        id: release
+        uses: actions/create-release@v1
+        with:
+          tag_name: v${{ needs.check-version.outputs.VERSION }}
+          release_name: Release v${{ needs.check-version.outputs.VERSION }}
+          body: No comments
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Discord
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: "Nova versão criada: v${{ needs.check-version.outputs.VERSION }}\nhttps://google.com"
-      # - name: Clone
-      #   uses: actions/checkout@v2
-      # - name: Setup Node
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: 15
-      # - name: Prepare Env
-      #   uses: borales/actions-yarn@v2.3.0
-      #   with:
-      #     cmd: install
-      # - name: Setup NPM Registry
-      #   run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > ~/.npmrc && npm config get registry && npm whoami
-      #   env:
-      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      # - name: Publish
-      #   run: npm run publish -- --ci
-      #   env:
-      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      # - name: Check Skip Release
-      #   id: skip-release
-      #   run: echo '::set-output name=SKIP::'$(cat .skip-release)
-      # - name: Create Tag
-      #   uses: actions/create-release@v1
-      #   with:
-      #     tag_name: v${{ needs.check-version.outputs.VERSION }}
-      #     release_name: Release v${{ needs.check-version.outputs.VERSION }}
-      #     body: No comments
-      #     draft: false
-      #     prerelease: false
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Discord
-      #   uses: appleboy/discord-action@master
-      #   with:
-      #     webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-      #     webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-      #     args: "Nova versão criada: v${{ needs.check-version.outputs.VERSION }}"
+          args: "Nova versão criada: v${{ needs.check-version.outputs.VERSION }}\n${{ steps.release.outputs.html_url }}"

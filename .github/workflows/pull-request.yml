@@ -12,6 +12,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 15
+      - name: Discord
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          args: "Nova versão criada: v${{ needs.check-version.outputs.VERSION }}\n${{ steps.release.outputs.html_url }}"
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
