@@ -8,9 +8,11 @@ jobs:
   request-for-comments:
     runs-on: ubuntu-latest
     steps:
+      - name: data
+        run: echo "${{JSON.stringify(github.event)}}"
       - name: Discord
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: "RFC ${{github.event}}"
+          args: "RFC ${{JSON.stringify(github.event)}}"
