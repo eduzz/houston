@@ -1,6 +1,8 @@
 name: Pull Request
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 jobs:
   check-lint:
@@ -17,7 +19,7 @@ jobs:
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: "Nova PullRequest: #${{ github.event.number }} \nhttps://github.com/eduzz/houston/pull/${{ github.event.number }}"
+          args: "PullRequest Criada/Atualizada: #${{ github.event.number }} \nhttps://github.com/eduzz/houston/pull/${{ github.event.number }}"
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
