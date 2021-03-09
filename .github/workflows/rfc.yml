@@ -7,12 +7,18 @@ on:
 jobs:
   request-for-comments:
     runs-on: ubuntu-latest
+    if: github.event.project_card.column_id == 13280674 && !!github.event.project_card.content_url
     steps:
-      - name: data
-        run: echo "${{toJSON(github.event)}}"
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Get Issue Url
+        id: issue-url
+        run: echo '::set-output name=URL::'$(node -p -e "'${{ github.event.project_card.content_url }}'.replace('https://api.github.com/repos', 'https://github.com')")
       - name: Discord
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: "RFC: ${{github.event.project_card.content_url}}"
+          args: "RFC: ${{ steps.issue-url.output.URL }}"
