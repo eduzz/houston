@@ -1,0 +1,16 @@
+name: Request For Comments
+
+on: 
+  project_card: 
+    types: ["created", "moved", "converted", "edited"]
+
+jobs:
+  request-for-comments:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          args: "RFC ${{github.event_name}}"
