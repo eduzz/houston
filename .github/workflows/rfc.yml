@@ -15,4 +15,4 @@ jobs:
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          args: "RFC ${{toJSON(github.event)}}"
+          args: "RFC: ${{github.event.project_card.content_url}}"
