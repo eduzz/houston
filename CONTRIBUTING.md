@@ -51,7 +51,7 @@ padrão que disponibilizamos junto com o package **@eduzz/eslint-config-houston*
 
 ### Comunicação e novidades 💬
 
-* [Discord](https://discord.gg/EeCnYRsCkX)
+Entre no nosso servidor no [Discord](https://discord.gg/EeCnYRsCkX).
 
 # Dúvidas?
 
