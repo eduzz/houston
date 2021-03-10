@@ -2,7 +2,6 @@
 
 [![Publish](https://github.com/eduzz/houston/actions/workflows/master.yml/badge.svg)](https://github.com/eduzz/houston/actions/workflows/master.yml)
 
-
 <img src="docs/assets/welcome.svg" width="100%" />
 
 ### Instalação Completa

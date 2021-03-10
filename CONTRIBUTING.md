@@ -39,11 +39,11 @@ suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes j�
 |------------------------------|--------------------------------------------------------------------------------|
 | @eduzz/houston-ui            | Componentes do houston para web                                                |
 | @eduzz/eslint-config-houston | Configuração padrão para o eslint                                              |
-| @eduzz/houston-forms         | Hooks para validação de formulários                                            |
-| @eduzz/houston-hooks         | Hooks váriados                                                                 |
+| @eduzz/houston-forms         | Hooks para validação de formulário (livre de plataforma. ex: web ou app)       |
+| @eduzz/houston-hooks         | Hooks de uso geral (livre de plataforma. ex: web ou app)                        |
 | @eduzz/core                  | Configurações compartilhadas entre os projetos, não deve ser usado diretamente |
 
-### Por baixo dos panos 💃
+## Por baixo dos panos 💃
 
 Utilizamos o [ultra-runner](https://www.npmjs.com/package/ultra-runner) para gerenciar o monorepo, ele é bem simples 
 todos os projetos jão estão configurados com build, dev e precommit unificados, todos os projetos utilizam a configuração do eslint
