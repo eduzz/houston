@@ -27,11 +27,11 @@ yarn add --dev @eduzz/eslint-config-houston @typescript-eslint/eslint-plugin @ty
 
 ### Quer contribuir?
 
-Veja os detalhes [aqui](/CONTRIBUTING.md)
+Veja os detalhes [aqui](/CONTRIBUTING.md).
 
-### Links Úteis
+### Links úteis
 
 | *     | Link                                                                                                    |
 |-------|---------------------------------------------------------------------------------------------------------|
-| Jira  | [Visualizar](https://eduzzjira.atlassian.net/secure/RapidBoard.jspa?rapidView=165)                      |
+| Board | [Visualizar](https://github.com/eduzz/houston/projects/3)                                               |
 | Figma | [Visualizar](https://www.figma.com/file/Z1MocTqXbRPGdaHMM9t4Zv/Houston-Design-System?node-id=176%3A276) |
