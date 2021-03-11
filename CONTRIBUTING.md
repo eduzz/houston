@@ -33,12 +33,12 @@ Ele irá buildar e iniciar todos os projetos e também irá inciar o projeto dev
 
 ### Como iniciar uma tarefa 🦖
 
-1. Veja o quadro de tarefas na aba Projects, aqui mesmo no GitHub. [Link](https://github.com/eduzz/houston/projects/3)
+1. Veja o quadro de tarefas na aba [Projects](https://github.com/eduzz/houston/projects/3), aqui mesmo no GitHub.
 2. Escolha uma a seu gosto.
 3. Mova para a coluna de RFC (Request for comments), na issue da tarefa adicione a sua proposta de como o componente deve se comportar, automaticamente será enviado uma mensagem no discord avisando pedindo pro pessoal comentar lá.
-4. Espere o feedback do pessoal (24hrs ta bom de tamanho!)
-5. Mande bala no código, **faça sua branch apartir da develop**
-6. Abrar um PR linkando a issue e coloque (caso nao seja colocado automaticamente pelo github) eu (@danieloprado) e o fer (@ffernandomoraes) como reviewers e outros que você ache interessante olhar seu código.
+4. Espere o feedback do pessoal (24hrs ta bom de tamanho).
+5. Mande bala no código, **faça sua branch a partir da develop**
+6. Abra um PR linkando a issue e coloque (caso nao seja colocado automaticamente pelo github) eu (@danieloprado), o fer (@ffernandomoraes) como reviewers e outros que você ache interessante olhar seu código. Mova a tarefa no Board.
 7. Quando a PR passar pela verificação automatica será disparado uma mensagem no discord avisando que uma PR está pronta para o review.
 8. Veja os comentários da PR, se tudo estiver correto era será mergeada com a develop e estará na proximá versão.
 
