@@ -1,5 +1,6 @@
 import React, { Fragment, memo } from 'react';
 import { useState } from 'react';
+import { useCallback } from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,7 +12,10 @@ import Typography from '@eduzz/houston-ui/Typography';
 import Toolbar from 'components/Layout/Toolbar';
 
 const TabsPage = memo(() => {
+  const [active, setActive] = useState<number>(0);
   const [numberOfTabs] = useState(() => new Array(7).fill('Content'));
+
+  const handleChangeTab = useCallback((value: number) => setActive(value), []);
 
   return (
     <Fragment>
@@ -19,8 +23,9 @@ const TabsPage = memo(() => {
 
       <Card>
         <CardContent>
-          <Typography size='medium'>Simple</Typography>
+          <Typography size='medium'>Uncontrolled value</Typography>
         </CardContent>
+
         <Tabs>
           {numberOfTabs.map((_, index) => (
             <Tabs.Content
@@ -32,13 +37,31 @@ const TabsPage = memo(() => {
             </Tabs.Content>
           ))}
         </Tabs>
+
         <CardContent>
           <Typography size='medium'>Icons</Typography>
         </CardContent>
+
         <Tabs>
           {numberOfTabs.map((_, index) => (
             <Tabs.Content
               icon={<FaceOutlined />}
+              key={index}
+              label={index === 3 ? 'Tab Disabled' : `Title ${index + 1}`}
+              disabled={index === 3}
+            >
+              <Typography>Content {index + 1}</Typography>
+            </Tabs.Content>
+          ))}
+        </Tabs>
+
+        <CardContent>
+          <Typography size='medium'>Controlled value</Typography>
+        </CardContent>
+
+        <Tabs value={active} onChange={handleChangeTab}>
+          {numberOfTabs.map((_, index) => (
+            <Tabs.Content
               key={index}
               label={index === 3 ? 'Tab Disabled' : `Title ${index + 1}`}
               disabled={index === 3}
