@@ -22,7 +22,7 @@ mas tentamos manter de uma maneira simples para que ficar fácil de entender.
 
 Ele irá buildar e iniciar todos os projetos e também irá inciar o projeto dev no **http://localhost:3000**.
 
-### Como iniciar uma tarefa:
+### Como iniciar uma tarefa 🦖
 
 1. Veja o quadro de tarefas na aba Projects, aqui mesmo no GitHub. [Link](https://github.com/eduzz/houston/projects/3)
 2. Escolha uma a seu gosto.
