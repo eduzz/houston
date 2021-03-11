@@ -51,7 +51,7 @@ suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes j�
 | @eduzz/houston-ui            | Componentes do houston para web                                                |
 | @eduzz/eslint-config-houston | Configuração padrão para o eslint                                              |
 | @eduzz/houston-forms         | Hooks para validação de formulário (livre de plataforma. ex: web ou app)       |
-| @eduzz/houston-hooks         | Hooks de uso geral (livre de plataforma. ex: web ou app)                        |
+| @eduzz/houston-hooks         | Hooks de uso geral (livre de plataforma. ex: web ou app)                       |
 | @eduzz/core                  | Configurações compartilhadas entre os projetos, não deve ser usado diretamente |
 
 ## Por baixo dos panos 💃
@@ -59,6 +59,15 @@ suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes j�
 Utilizamos o [ultra-runner](https://www.npmjs.com/package/ultra-runner) para gerenciar o monorepo, ele é bem simples 
 todos os projetos jão estão configurados com build, dev e precommit unificados, todos os projetos utilizam a configuração do eslint
 padrão que disponibilizamos junto com o package **@eduzz/eslint-config-houston**
+
+### Arquitetura 🏚
+
+No projeto principal (@eduzz/houston-ui) discutimos muito sobre o uso de uma lib base para não termos que fazer tudo 
+do zero e ganhar um pouco de velocidade no inicio, ponderamos sobre o **AntD** mas chegamos a conclusão que ele erá 
+**muito pesado e mudava os padrões** que já aplicamos em projeto atuais hoje, como quase todos os produtos já utilizam
+o **MaterialUI**, optamos por continuar usando ele por baixo mas de uma maneira transparente para caso no futuro decidirmos 
+remover ele, não terá impacta na maneira como usamos os componentes, mas para não impactar uma aplicação que já usa o sistema de 
+temas dele criamos o **WrapperTheme** que aplicará o tema do Houston™ apenas no componentes do Houston™.
 
 ### Comunicação e novidades 💬
 
