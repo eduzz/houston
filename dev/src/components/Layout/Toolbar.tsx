@@ -69,7 +69,9 @@ const Toolbar = memo((props: IProps) => {
           <IconButton color='inherit' onClick={openDrawer} className={classes.iconMenu}>
             <MenuIcon />
           </IconButton>
+
           {props.children}
+
           {!props.children && (
             <Grid container alignItems='center'>
               <Grid item xs={true}>

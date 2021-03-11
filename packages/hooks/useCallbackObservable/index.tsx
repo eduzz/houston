@@ -3,7 +3,7 @@ import * as React from 'react';
 import { NEVER, Observable, Subject } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
-import useObservable from './useObservable';
+import useObservable from '../useObservable';
 
 /**
  * Create a memoized callback that uses an observable and unsubscribe automatically if component unmount

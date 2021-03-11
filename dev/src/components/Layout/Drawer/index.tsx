@@ -104,6 +104,7 @@ const Drawer = memo((props: IProps) => {
             {content}
           </CoreDrawer>
         </Hidden>
+
         <Hidden smDown>
           <CoreDrawer
             variant='permanent'

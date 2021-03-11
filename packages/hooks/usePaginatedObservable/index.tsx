@@ -6,7 +6,7 @@ import { delay, switchMap, tap } from 'rxjs/operators';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';
 
-import useObservable from './useObservable';
+import useObservable from '../useObservable';
 
 export interface IPaginationParams {
   page: number;
