@@ -29,10 +29,10 @@ import Tabs from '@eduzz/houston-ui/Tabs';
 
 ### Props available on Tabs
 
-| prop     | type                      | required | default           |
-|----------|---------------------------|----------|-------------------|
-| value    | `number`                  | false    | Tab index         |
-| onChange | `(value: number) => void` | false    | Receive new index |
+| prop     | type                      | required | default | description       |
+|----------|---------------------------|----------|---------|-------------------|
+| value    | `number`                  | false    | -       | Tab index         |
+| onChange | `(value: number) => void` | false    | -       | Receive new index |
 
 ### Props available on Tabs.Content
 
