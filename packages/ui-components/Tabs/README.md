@@ -20,10 +20,12 @@ import Tabs from '@eduzz/houston-ui/Tabs';
 ### Use controlled value
 
 ```jsx
-<Tabs value={2} onChange={handleChangeTab}>
+// currentTab = 2
+
+<Tabs value={currentTab} onChange={handleChangeTab}>
   <Tabs.Content label='Title 1'>Content 1</Tabs.Content>
   <Tabs.Content label='Title 2' icon={<MyIcon />}>Content 2</Tabs.Content>
-  <Tabs.Content label='Title 3' disabled>Active Tab</Tabs.Content>
+  <Tabs.Content label='Title 3' disabled>*Active Tab*</Tabs.Content>
 </Tabs>
 ```
 
