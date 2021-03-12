@@ -23,7 +23,7 @@ const AlertPage = memo(() => {
 
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Alert>Success</Alert>
+              <Alert closable>Success</Alert>
             </Grid>
             <Grid item xs={12}>
               <Alert type='info'>Info</Alert>
@@ -47,15 +47,19 @@ const AlertPage = memo(() => {
               <Alert closable>Success, updated product!</Alert>
             </Grid>
             <Grid item xs={12}>
-              <Alert type='info' actions={[{ label: 'View', onClick: () => alert('click') }]}>
+              <Alert type='info' closable>
                 New update!
+                <Alert.Action label='Cancel' variant='text' />
+                <Alert.Action label='View' />
               </Alert>
             </Grid>
             <Grid item xs={12}>
-              <Alert title='Oops, error!' type='error'>
+              <Alert title='Oops, error!' type='error' multiline closable>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae error voluptates repellat
                 blanditiis. Temporibus, ipsa. A nemo, molestias quae nam perspiciatis nisi aut delectus ex, amet ut
                 numquam commodi quo.
+                <Alert.Action label='Cancel' variant='text' />
+                <Alert.Action label='View' />
               </Alert>
             </Grid>
           </Grid>
