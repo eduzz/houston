@@ -204,6 +204,10 @@ export default function overrides(pallet: Palette): ICustomOverrides {
         alignItems: 'center'
       },
 
+      action: {
+        marginRight: 0
+      },
+
       message: {
         fontWeight: themeVariable.fontWeight('semibold')
       },
