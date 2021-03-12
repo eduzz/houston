@@ -43,6 +43,10 @@ const useStyles = makeStyles(() =>
 
     multilineIcon: {
       alignItems: 'flex-start'
+    },
+
+    multilineAction: {
+      paddingLeft: 0
     }
   })
 );
@@ -72,7 +76,7 @@ const Alert: AlertComponent = React.memo(props => {
 
   const buttonActions = React.useMemo(
     () =>
-      actions.map((act, index) => {
+      actions?.map((act, index) => {
         const buttonProps = { ...act };
         delete buttonProps.label;
 
@@ -85,14 +89,22 @@ const Alert: AlertComponent = React.memo(props => {
     [actions]
   );
 
+  const renderActions = React.useMemo(() => {
+    if (multiline) return false;
+
+    if (!!actions.length) return <div className={classes.controlButtons}>{buttonActions}</div>;
+
+    return null;
+  }, [multiline, actions, classes, buttonActions]);
+
   return (
     <WrapperTheme>
       <Collapse in={!hide} timeout={500}>
         <AlertMUI
           {...alertProps}
           onClose={closable ? handleClickHide : onClose}
-          action={!multiline && actions.length ? <div className={classes.controlButtons}>{buttonActions}</div> : null}
-          classes={{ icon: multiline && classes.multilineIcon }}
+          action={renderActions}
+          classes={{ icon: multiline && classes.multilineIcon, action: multiline && classes.multilineAction }}
         >
           {title && <AlertTitle>{title}</AlertTitle>}
           {children}
