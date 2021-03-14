@@ -4,7 +4,7 @@
 
 <img src="docs/assets/welcome.svg" width="100%" />
 
-### Instalação Completa
+## Instalação Completa
 
 ```bash
 # todos os packages de uso
@@ -23,7 +23,6 @@ yarn add --dev @eduzz/eslint-config-houston @typescript-eslint/eslint-plugin @ty
 | @eduzz/houston-forms         | Hooks para validação de formulários                                            | [Visualizar](/packages/forms)         | [![version](https://img.shields.io/npm/v/@eduzz/houston-forms)](https://www.npmjs.com/package/@eduzz/houston-forms)                 |
 | @eduzz/houston-hooks         | Hooks váriados                                                                 | [Visualizar](/packages/forms)         | [![version](https://img.shields.io/npm/v/@eduzz/houston-hooks)](https://www.npmjs.com/package/@eduzz/houston-hooks)                 |
 | @eduzz/core                  | Configurações compartilhadas entre os projetos, não deve ser usado diretamente | [Visualizar](/packages/core)          | [![version](https://img.shields.io/npm/v/@eduzz/houston-core)](https://www.npmjs.com/package/@eduzz/houston-core)                   |
-
 
 ### Quer contribuir?
 
