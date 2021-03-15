@@ -1,17 +1,23 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'Houston',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
+  tagline: 'Eduzz Houston Design System',
+  url: 'https://github.com/eduzz/houston',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'eduzz',
+  projectName: 'houston',
+  themes: ['@docusaurus/theme-live-codeblock'],
   themeConfig: {
+    prism: {
+      theme: require('prism-react-renderer/themes/vsDark'),
+      darkTheme: require('prism-react-renderer/themes/vsDark'),
+    },
     navbar: {
-      title: 'Houston',
+      title: 'HOUSTON',
+      style: 'dark',
       logo: {
         alt: 'Houston - Design System',
         src: 'img/logo.svg',
@@ -21,11 +27,21 @@ module.exports = {
           to: 'docs/',
           activeBasePath: 'src/pages/docs',
           label: 'Docs',
-          position: 'left',
+          position: 'right',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          to: 'docs/components-api/api-alert',
+          activeBasePath: 'src/pages/docs',
+          label: 'Component API',
+          position: 'right',
+        },
+        {
+          to: 'blog', 
+          label: 'Blog', 
+          position: 'right'
+        },
+        {
+          href: 'https://github.com/eduzz/houston',
           label: 'GitHub',
           position: 'right',
         },
@@ -89,13 +105,13 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/eduzz/houston/tree/master/docs',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://github.com/eduzz/houston/tree/master/docs',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

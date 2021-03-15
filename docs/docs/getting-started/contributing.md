@@ -1,7 +1,9 @@
 ---
 id: contributing
-title: Como Contribuir
+title: Contributing
 ---
+
+Veja como você pode contribuir para fazer o Houston ficar ainda melhor!
 
 ### Repositório Monorepo 🔀 
 

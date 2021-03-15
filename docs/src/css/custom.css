@@ -6,15 +6,23 @@
  */
 
 /* You can override the default Infima variables here. */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 :root {
   --ifm-color-primary: #0D47A1;
-  --ifm-color-primary-dark: #004085;
-  --ifm-color-primary-darker: #0C4473;
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
-  --ifm-code-font-size: 95%;
+  --ifm-color-primary-dark: #0c4091;
+  --ifm-color-primary-darker: #0b3c89;
+  --ifm-color-primary-darkest: #093271;
+  --ifm-color-primary-light: #0e4eb1;
+  --ifm-color-primary-lighter: #0f52b9;
+  --ifm-color-primary-lightest: #E3F2FF;
+  --ifm-code-background-color: #f0f0f0;
+  --ifm-hr-border-color: #f0f0f0;
+  --ifm-code-font-color: #37474F;
+  --ifm-menu-color-sublist: #151B1E;
+  --ifm-code-font-size: 90%;
+  --ifm-font-family-base: 'Open Sans';
 }
 
 .docusaurus-highlight-code-line {
@@ -22,4 +30,81 @@
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
+}
+
+h3 {
+  border-color: var(--ifm-hr-border-color);
+}
+
+/* Header styles */
+
+article header h1 {
+  font-size: 2rem !important;
+}
+
+/* Navbar styles */
+
+.navbar {
+  background-color: var(--ifm-color-primary);
+}
+
+.navbar__title {
+  padding: 0 12px;
+}
+
+.navbar .navbar__link {
+  font-weight: var(--ifm-font-weight-normal);
+}
+
+.navbar__title:hover, 
+.navbar__brand:hover, 
+.navbar .navbar__link:hover {
+  color: var(--ifm-color-primary-lightest);
+}
+
+/* Menu styles */
+
+.menu {
+  padding-top: 40px !important;
+}
+
+.menu__link:hover {
+  color: var(--ifm-color-primary);
+  background-color: transparent;
+}
+
+.menu__link--sublist {
+  font-size: 90%;
+  color: var(--ifm-menu-color-sublist);
+}
+
+.menu__link:not(.menu__link--sublist) {
+  font-size: 85%;
+}
+
+.menu__link--sublist:after {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem
+}
+
+/* Pagination navigator styles */
+
+.pagination-nav {
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+  padding-top: 32px;
+}
+
+.pagination-nav__link {
+  border: none;
+}
+
+/* Tabs */
+
+.custom-tabs .tabs__item {
+  font-size: 90%;
+}
+
+/* Table of contents */
+
+.table-of-contents__link--active {
+  font-weight: var(--ifm-font-weight-bold);
 }
