@@ -52,7 +52,7 @@ const useStyles = makeStyles(() =>
 );
 
 type IAlertSubcomponentes = {
-  Action?: typeof AlertAction;
+  Action: typeof AlertAction;
 };
 
 interface IAlertComponent
