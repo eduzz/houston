@@ -10,7 +10,7 @@ import Content, { ITabsContentProps } from './Content';
 
 export interface ITabsProps {
   value?: number;
-  onChange?: (position: number) => any;
+  onChange?: (position: number) => void;
   children?: any;
 }
 
@@ -36,9 +36,11 @@ const Tabs: TabsComponent = React.memo<ITabsProps>(props => {
   const currentValue = controlled ? value : position;
 
   const handleChange = React.useCallback(
-    (e: React.SyntheticEvent, value: number) => {
-      onChange && onChange(value);
-      if (controlled) return;
+    (_: React.SyntheticEvent, value: number) => {
+      if (controlled) {
+        onChange && onChange(value);
+        return;
+      }
 
       setPosition(value);
     },
@@ -64,11 +66,20 @@ const Tabs: TabsComponent = React.memo<ITabsProps>(props => {
           onChange={handleChange}
         >
           {tabs?.map(tab => (
-            <MUITab disableRipple key={tab.id} icon={tab.icon as any} label={tab.label} disabled={tab.disabled} />
+            <MUITab
+              disableRipple
+              key={tab.id}
+              icon={tab.icon as any}
+              label={tab.label}
+              disabled={tab.disabled}
+              id={tab.id}
+            />
           ))}
         </MUITabs>
+
         {tabs?.map((tab, index) => (
           <div
+            id={`content-tab-${tab.id}`}
             className={!tab.disablePadding ? classes.containerPadding : null}
             hidden={index !== currentValue}
             key={tab.id}
