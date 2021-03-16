@@ -8,7 +8,7 @@ import AlertTitle from '@material-ui/lab/AlertTitle';
 import Button from '../Button';
 import { getReactChildrenProps } from '../Helpers/functions';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
-import Action, { IAlertActionProps } from './Action';
+import AlertAction, { IAlertActionProps } from './Action';
 
 type AlertPropsExtends = 'id' | 'className' | 'children' | 'severity' | 'onClose' | 'icon';
 
@@ -52,12 +52,12 @@ const useStyles = makeStyles(() =>
 );
 
 type AlertComponent = React.NamedExoticComponent<IAlertProps> & {
-  Action?: typeof Action;
+  Action?: typeof AlertAction;
 };
 
 let alertActionIncrementer = 0;
 
-const Alert: AlertComponent = React.memo(props => {
+const Alert = React.memo(props => {
   const classes = useStyles();
 
   const [hide, setHide] = React.useState<boolean>(false);
@@ -68,7 +68,7 @@ const Alert: AlertComponent = React.memo(props => {
   const handleClickHide = React.useCallback(() => setHide(true), []);
 
   const actions = React.useMemo(() => {
-    return getReactChildrenProps<IAlertActionProps>(children, Action).map(props => ({
+    return getReactChildrenProps<IAlertActionProps>(children, AlertAction).map(props => ({
       ...props,
       id: `action-${alertActionIncrementer++}`
     }));
@@ -81,7 +81,7 @@ const Alert: AlertComponent = React.memo(props => {
         delete buttonProps.label;
 
         return (
-          <Button {...buttonProps} key={`action-${index}`}>
+          <Button {...buttonProps} key={`alert-action-${index}`}>
             {act.label}
           </Button>
         );
@@ -91,9 +91,7 @@ const Alert: AlertComponent = React.memo(props => {
 
   const renderActions = React.useMemo(() => {
     if (multiline) return false;
-
     if (!!actions.length) return <div className={classes.controlButtons}>{buttonActions}</div>;
-
     return null;
   }, [multiline, actions, classes, buttonActions]);
 
@@ -113,8 +111,8 @@ const Alert: AlertComponent = React.memo(props => {
       </Collapse>
     </WrapperTheme>
   );
-});
+}) as AlertComponent;
 
-Alert.Action = Action;
+Alert.Action = AlertAction;
 
 export default Alert;

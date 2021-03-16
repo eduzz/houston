@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-hooks",
   "description": "Eduzz Houston Hooks",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -24,12 +24,12 @@
     "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc --noEmit\""
   },
   "dependencies": {
-    "@eduzz/houston-core": "0.11.1",
+    "@eduzz/houston-core": "0.11.2",
     "lodash": "^4",
     "rxjs": "^6"
   },
   "devDependencies": {
-    "@eduzz/eslint-config-houston": "0.11.1",
+    "@eduzz/eslint-config-houston": "0.11.2",
     "@types/react": "16.9.55",
     "concurrently": "5.3.0",
     "react": "^16.13.1"
