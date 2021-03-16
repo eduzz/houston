@@ -51,13 +51,17 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type AlertComponent = React.NamedExoticComponent<IAlertProps> & {
+type IAlertSubcomponentes = {
   Action?: typeof AlertAction;
 };
 
+interface IAlertComponent
+  extends IAlertSubcomponentes,
+    React.ForwardRefExoticComponent<IAlertProps & React.RefAttributes<AlertProps>> {}
+
 let alertActionIncrementer = 0;
 
-const Alert = React.memo(props => {
+const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
   const classes = useStyles();
 
   const [hide, setHide] = React.useState<boolean>(false);
@@ -100,6 +104,7 @@ const Alert = React.memo(props => {
       <Collapse in={!hide} timeout={500}>
         <AlertMUI
           {...alertProps}
+          ref={ref}
           onClose={closable ? handleClickHide : onClose}
           action={renderActions}
           classes={{ icon: multiline && classes.multilineIcon, action: multiline && classes.multilineAction }}
@@ -111,7 +116,7 @@ const Alert = React.memo(props => {
       </Collapse>
     </WrapperTheme>
   );
-}) as AlertComponent;
+}) as IAlertComponent;
 
 Alert.Action = AlertAction;
 
