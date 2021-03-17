@@ -17,7 +17,7 @@ interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
   /**
    * Custom pallete colors (MUI)
    */
-  palette?: IThemePalette;
+  palette?: Partial<IThemePalette>;
   disableCssBaseline?: boolean;
 }
 

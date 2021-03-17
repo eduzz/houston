@@ -21,6 +21,10 @@ interface IAlertProps extends Pick<AlertProps, AlertPropsExtends> {
 
 const useStyles = makeStyles(() =>
   createStyles({
+    message: {
+      width: '100%'
+    },
+
     controlButtons: {
       display: 'flex',
       alignItems: 'center',
@@ -107,7 +111,11 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
           ref={ref}
           onClose={closable ? handleClickHide : onClose}
           action={renderActions}
-          classes={{ icon: multiline && classes.multilineIcon, action: multiline && classes.multilineAction }}
+          classes={{
+            icon: multiline && classes.multilineIcon,
+            action: multiline && classes.multilineAction,
+            message: classes.message
+          }}
         >
           {title && <AlertTitle>{title}</AlertTitle>}
           {children}
