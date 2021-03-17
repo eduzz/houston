@@ -118,7 +118,7 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
             message: classes.message
           }}
         >
-          {title && <MUIAlertTitle>{title.children}</MUIAlertTitle>}
+          {title && <MUIAlertTitle>{title?.children}</MUIAlertTitle>}
           {children}
           {multiline && <div className={classes.controlButtonsMultiline}>{buttonActions}</div>}
         </AlertMUI>
