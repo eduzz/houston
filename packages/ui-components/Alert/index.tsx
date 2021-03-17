@@ -3,12 +3,13 @@ import * as React from 'react';
 import Collapse from '@material-ui/core/Collapse';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import AlertMUI, { AlertProps, Color } from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
+import MUIAlertTitle from '@material-ui/lab/AlertTitle';
 
 import Button from '../Button';
-import { getReactChildrenProps } from '../Helpers/functions';
+import { useChildrenProps, useFirstChildrenProps } from '../hooks/useChildrenProps';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 import AlertAction, { IAlertActionProps } from './Action';
+import AlertTitle, { IAlertTitleProps } from './Title';
 
 type AlertPropsExtends = 'id' | 'className' | 'children' | 'severity' | 'onClose' | 'icon';
 
@@ -57,6 +58,7 @@ const useStyles = makeStyles(() =>
 
 type IAlertSubcomponentes = {
   Action: typeof AlertAction;
+  Title: typeof AlertTitle;
 };
 
 interface IAlertComponent
@@ -70,17 +72,17 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
 
   const [hide, setHide] = React.useState<boolean>(false);
 
-  const { id, className, children, type = 'success', icon, title, onClose, closable, multiline } = props;
+  const { id, className, children, type = 'success', icon, onClose, closable, multiline } = props;
   const alertProps = { id, className, severity: type, icon, onClose };
 
   const handleClickHide = React.useCallback(() => setHide(true), []);
 
-  const actions = React.useMemo(() => {
-    return getReactChildrenProps<IAlertActionProps>(children, AlertAction).map(props => ({
-      ...props,
-      id: `action-${alertActionIncrementer++}`
-    }));
-  }, [children]);
+  const title = useFirstChildrenProps<IAlertTitleProps>(children, AlertTitle);
+
+  const actions = useChildrenProps<IAlertActionProps>(children, AlertAction).map(props => ({
+    ...props,
+    id: `action-${alertActionIncrementer++}`
+  }));
 
   const buttonActions = React.useMemo(
     () =>
@@ -117,7 +119,7 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
             message: classes.message
           }}
         >
-          {title && <AlertTitle>{title}</AlertTitle>}
+          {title && <MUIAlertTitle>{title.children}</MUIAlertTitle>}
           {children}
           {multiline && <div className={classes.controlButtonsMultiline}>{buttonActions}</div>}
         </AlertMUI>
@@ -126,6 +128,7 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
   );
 }) as IAlertComponent;
 
+Alert.Title = AlertTitle;
 Alert.Action = AlertAction;
 
 export default Alert;
