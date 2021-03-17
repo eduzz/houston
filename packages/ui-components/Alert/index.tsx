@@ -15,7 +15,6 @@ type AlertPropsExtends = 'id' | 'className' | 'children' | 'severity' | 'onClose
 
 interface IAlertProps extends Pick<AlertProps, AlertPropsExtends> {
   type?: Color;
-  title?: React.ReactNode;
   closable?: boolean;
   multiline?: boolean;
 }
