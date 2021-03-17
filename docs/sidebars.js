@@ -1,19 +1,13 @@
 module.exports = {
   docs: {
-    'Getting Started': [
+    'Comece a usar': [
       'getting-started/installation', 
       'getting-started/contributing'
     ],
-    Components: [
-      'components/alert',
-      'components/button',
-      'components/card',
+    Componentes: [
+      'components/alert'
     ],
-    'Components API': [
-      'components-api/api-alert',
-      'components-api/api-button',
-      'components-api/api-card',
-    ],
-    'Versions': ['components-api/api-alert'],
+    Hooks: [
+    ]
   },
 };

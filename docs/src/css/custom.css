@@ -99,6 +99,10 @@ article header h1 {
 
 /* Tabs */
 
+.custom-tabs {
+  margin: 24px 0 0 0;
+}
+
 .custom-tabs .tabs__item {
   font-size: 90%;
 }

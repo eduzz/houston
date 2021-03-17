@@ -1,23 +1,23 @@
 ---
 id: contributing
-title: Contributing
+title: Como contribuir
 ---
 
 Veja como você pode contribuir para fazer o Houston ficar ainda melhor!
 
-### Repositório Monorepo 🔀 
+### Repositório Monorepo 
 
 Utilizamos uma arquitetura monorepo para facilitar na hora de desenvolver,
 mas tentamos manter de uma maneira simples para que ficar fácil de entender.
 
-### Atenção ⚠️
+### Atenção 
 
 * Não utilize o **npm** pois utilizamos o **workspaces** do yarn para ele instalar todas as depedencias de todos os projetos.
 * Todas as funcionalidades Web devem estar no projeto dev, com o máximo de exemplos e codígos de exemplo possível.
 * Lembre-se que o *Houston™️* também será usado com o react-native, menos o package de **ui-components**.
 * Todos os componentes previstos estão no Figma vide quadro abaixo.
 
-### Arquitetura 🏚
+### Arquitetura 
 
 No projeto principal (@eduzz/houston-ui) discutimos muito sobre o uso de uma lib base para não termos que fazer tudo 
 do zero e ganhar um pouco de velocidade no inicio, ponderamos sobre o **AntD** mas chegamos a conclusão que ele erá 
@@ -26,7 +26,7 @@ o **MaterialUI**, optamos por continuar usando ele por baixo mas de uma maneira 
 remover ele, não terá impacta na maneira como usamos os componentes, mas para não impactar uma aplicação que já usa o sistema de 
 temas dele criamos o **WrapperTheme** que aplicará o tema do Houston™ apenas no componentes do Houston™.
 
-### Como rodar 🚀
+### Como rodar 
 
 1. Clonar o repositório
 2. yarn na raiz do projeto
@@ -36,7 +36,7 @@ temas dele criamos o **WrapperTheme** que aplicará o tema do Houston™ apenas 
 
 Ele irá buildar e iniciar todos os projetos e também irá inciar o projeto dev no **http://localhost:3000**.
 
-### Como iniciar uma tarefa 🦖
+### Como iniciar uma tarefa 
 
 1. Veja o quadro de tarefas na aba [Projects](https://github.com/eduzz/houston/projects/3), aqui mesmo no GitHub.
 2. Escolha uma a seu gosto.
@@ -47,16 +47,19 @@ Ele irá buildar e iniciar todos os projetos e também irá inciar o projeto dev
 7. Quando a PR passar pela verificação automatica será disparado uma mensagem no discord avisando que uma PR está pronta para o review.
 8. Veja os comentários da PR, se tudo estiver correto era será mergeada com a develop e estará na proximá versão.
 
-### Backlog 📂
+### Backlog 
 
 Accesse o [Board](https://github.com/eduzz/houston/projects/3) para ver as tarefas e os componentes que faltam.  
 
-### Padrões 💄
+### Padrões 
 
 Sempre que desenvolver um componente ou qualquer funcionalidade adicionar um **README.md** com os detalhes de como usa-lo e 
 suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes já existentes. 
 
-<img src="docs/assets/example 1.png" width="250" />
+<img src="../../assets/example 1.png" width="250" />
+
+<br/>
+<br/>
 
 **Lembre-se de cada responsabilidade:**
 
@@ -68,17 +71,17 @@ suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes j�
 | @eduzz/houston-hooks         | Hooks de uso geral (livre de plataforma. ex: web ou app)                       |
 | @eduzz/core                  | Configurações compartilhadas entre os projetos, não deve ser usado diretamente |
 
-## Por baixo dos panos 💃
+### Por baixo dos panos 
 
 Utilizamos o [ultra-runner](https://www.npmjs.com/package/ultra-runner) para gerenciar o monorepo, ele é bem simples 
 todos os projetos jão estão configurados com build, dev e precommit unificados, todos os projetos utilizam a configuração do eslint
 padrão que disponibilizamos junto com o package **@eduzz/eslint-config-houston**
 
-### Comunicação e novidades 💬
+### Comunicação e novidades 
 
 Entre no nosso servidor no [Discord](https://discord.gg/EeCnYRsCkX).
 
-# Dúvidas?
+### Dúvidas?
 
 * Sobre a parte de dev 💪: @ffernandomoraes ou @danieloprado
 * Sobre a parte de design 🌈: @murilolamarca

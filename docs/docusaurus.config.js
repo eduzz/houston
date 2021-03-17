@@ -30,15 +30,9 @@ module.exports = {
           position: 'right',
         },
         {
-          to: 'docs/components-api/api-alert',
-          activeBasePath: 'src/pages/docs',
-          label: 'Component API',
+          href: 'https://github.com/eduzz/houston/releases',
+          label: 'Versões',
           position: 'right',
-        },
-        {
-          to: 'blog', 
-          label: 'Blog', 
-          position: 'right'
         },
         {
           href: 'https://github.com/eduzz/houston',
