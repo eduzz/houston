@@ -17,11 +17,10 @@
     "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc --noEmit\""
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.71",
-    "@docusaurus/preset-classic": "2.0.0-alpha.71",
-    "@docusaurus/theme-live-codeblock": "2.0.0-alpha.71",
-    "@eduzz/houston": "^0.11.8",
-    "@eduzz/houston-ui": "^0.11.8",
+    "@docusaurus/core": "2.0.0-alpha.72",
+    "@docusaurus/preset-classic": "2.0.0-alpha.72",
+    "@docusaurus/theme-live-codeblock": "2.0.0-alpha.72",
+    "@eduzz/houston": "*",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "react": "^16.13.1",

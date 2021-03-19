@@ -2,8 +2,8 @@
 module.exports = {
   title: 'Houston',
   tagline: 'Eduzz Houston Design System',
-  url: 'https://github.com/eduzz/houston',
-  baseUrl: '/',
+  url: 'https://eduzz.github.io',
+  baseUrl: '/houston/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -71,11 +71,7 @@ module.exports = {
             {
               label: 'Style Guide',
               to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
+            }
           ],
         },
         {
