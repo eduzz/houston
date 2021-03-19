@@ -18,7 +18,7 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": false,
+    "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "importHelpers": true,
     "skipLibCheck": true,
@@ -31,7 +31,7 @@
   "include": [
     "**/*.tsx",
     "**/*.ts"
-, "docusaurus.config.js"  ],
+  ],
   "exclude": [
     "node_modules"
   ]

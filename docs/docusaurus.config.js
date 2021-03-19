@@ -11,9 +11,18 @@ module.exports = {
   projectName: 'houston',
   themes: ['@docusaurus/theme-live-codeblock'],
   themeConfig: {
+    colorMode: {
+      disableSwitch: true,
+    },
     prism: {
       theme: require('prism-react-renderer/themes/vsDark'),
       darkTheme: require('prism-react-renderer/themes/vsDark'),
+    },
+    algolia: {
+      apiKey: 'YOUR_API_KEY',
+      indexName: 'YOUR_INDEX_NAME',
+      contextualSearch: true,
+      searchParameters: {},
     },
     navbar: {
       title: 'HOUSTON',
@@ -26,7 +35,19 @@ module.exports = {
         {
           to: 'docs/',
           activeBasePath: 'src/pages/docs',
-          label: 'Docs',
+          label: 'Design',
+          position: 'right',
+        },
+        {
+          to: 'docs/',
+          activeBasePath: 'src/pages/docs',
+          label: 'Conteúdo',
+          position: 'right',
+        },
+        {
+          to: 'docs/',
+          activeBasePath: 'src/pages/docs',
+          label: 'Componentes',
           position: 'right',
         },
         {
@@ -84,7 +105,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Houston by Eduzz.`,
     },
   },
   presets: [
