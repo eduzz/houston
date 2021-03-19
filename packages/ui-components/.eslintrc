@@ -1,8 +1,0 @@
-{
-  "extends": [
-    "@eduzz/eslint-config-houston"
-  ],
-  "rules": {
-    "no-restricted-imports": ["error", "date-fns", "mdi-react", "lodash", "@material-ui/core", "@material-ui/styles", "@eduzz/houston-ui/*"]
-  }
-}
