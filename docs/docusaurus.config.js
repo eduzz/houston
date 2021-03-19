@@ -2,13 +2,13 @@
 module.exports = {
   title: 'Houston',
   tagline: 'Eduzz Houston Design System',
-  url: 'https://eduzz.github.io/',
-  baseUrl: '/houston',
+  url: 'https://eduzz.github.io',
+  baseUrl: '/houston/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'eduzz',
-  projectName: 'eduzz.github.io',
+  projectName: 'github.com/eduzz/houston',
   themes: ['@docusaurus/theme-live-codeblock'],
   themeConfig: {
     prism: {
