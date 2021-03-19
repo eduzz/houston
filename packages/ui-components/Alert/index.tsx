@@ -3,24 +3,28 @@ import * as React from 'react';
 import Collapse from '@material-ui/core/Collapse';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import AlertMUI, { AlertProps, Color } from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
+import MUIAlertTitle from '@material-ui/lab/AlertTitle';
 
 import Button from '../Button';
-import { getReactChildrenProps } from '../Helpers/functions';
+import { useChildrenProps, useFirstChildrenProps } from '../hooks/useChildrenProps';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
-import Action, { IAlertActionProps } from './Action';
+import AlertAction, { IAlertActionProps } from './Action';
+import AlertTitle, { IAlertTitleProps } from './Title';
 
 type AlertPropsExtends = 'id' | 'className' | 'children' | 'severity' | 'onClose' | 'icon';
 
 interface IAlertProps extends Pick<AlertProps, AlertPropsExtends> {
   type?: Color;
-  title?: React.ReactNode;
   closable?: boolean;
   multiline?: boolean;
 }
 
 const useStyles = makeStyles(() =>
   createStyles({
+    message: {
+      width: '100%'
+    },
+
     controlButtons: {
       display: 'flex',
       alignItems: 'center',
@@ -51,28 +55,33 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type AlertComponent = React.NamedExoticComponent<IAlertProps> & {
-  Action?: typeof Action;
+type IAlertSubcomponentes = {
+  Action: typeof AlertAction;
+  Title: typeof AlertTitle;
 };
+
+interface IAlertComponent
+  extends IAlertSubcomponentes,
+    React.ForwardRefExoticComponent<IAlertProps & React.RefAttributes<AlertProps>> {}
 
 let alertActionIncrementer = 0;
 
-const Alert: AlertComponent = React.memo(props => {
+const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
   const classes = useStyles();
 
   const [hide, setHide] = React.useState<boolean>(false);
 
-  const { id, className, children, type = 'success', icon, title, onClose, closable, multiline } = props;
+  const { id, className, children, type = 'success', icon, onClose, closable, multiline } = props;
   const alertProps = { id, className, severity: type, icon, onClose };
 
   const handleClickHide = React.useCallback(() => setHide(true), []);
 
-  const actions = React.useMemo(() => {
-    return getReactChildrenProps<IAlertActionProps>(children, Action).map(props => ({
-      ...props,
-      id: `action-${alertActionIncrementer++}`
-    }));
-  }, [children]);
+  const title = useFirstChildrenProps<IAlertTitleProps>(children, AlertTitle);
+
+  const actions = useChildrenProps<IAlertActionProps>(children, AlertAction).map(props => ({
+    ...props,
+    id: `action-${alertActionIncrementer++}`
+  }));
 
   const buttonActions = React.useMemo(
     () =>
@@ -81,7 +90,7 @@ const Alert: AlertComponent = React.memo(props => {
         delete buttonProps.label;
 
         return (
-          <Button {...buttonProps} key={`action-${index}`}>
+          <Button {...buttonProps} key={`alert-action-${index}`}>
             {act.label}
           </Button>
         );
@@ -91,9 +100,7 @@ const Alert: AlertComponent = React.memo(props => {
 
   const renderActions = React.useMemo(() => {
     if (multiline) return false;
-
     if (!!actions.length) return <div className={classes.controlButtons}>{buttonActions}</div>;
-
     return null;
   }, [multiline, actions, classes, buttonActions]);
 
@@ -102,19 +109,25 @@ const Alert: AlertComponent = React.memo(props => {
       <Collapse in={!hide} timeout={500}>
         <AlertMUI
           {...alertProps}
+          ref={ref}
           onClose={closable ? handleClickHide : onClose}
           action={renderActions}
-          classes={{ icon: multiline && classes.multilineIcon, action: multiline && classes.multilineAction }}
+          classes={{
+            icon: multiline && classes.multilineIcon,
+            action: multiline && classes.multilineAction,
+            message: classes.message
+          }}
         >
-          {title && <AlertTitle>{title}</AlertTitle>}
+          {title && <MUIAlertTitle>{title?.children}</MUIAlertTitle>}
           {children}
           {multiline && <div className={classes.controlButtonsMultiline}>{buttonActions}</div>}
         </AlertMUI>
       </Collapse>
     </WrapperTheme>
   );
-});
+}) as IAlertComponent;
 
-Alert.Action = Action;
+Alert.Title = AlertTitle;
+Alert.Action = AlertAction;
 
 export default Alert;

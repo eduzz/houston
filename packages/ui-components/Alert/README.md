@@ -18,8 +18,9 @@ import Alert from '@eduzz/houston-ui/Alert';
     <Alert.Action label='View' />
 </Alert>
 
-<Alert title='Oops, error!' type='error' multiline>
-    Multiline Alert.
+<Alert type='error' multiline>
+    <Alert.Title>Multiline Alert.</Alert.Title>
+    
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae error voluptates repellat
     blanditiis. Temporibus, ipsa. A nemo, molestias quae nam perspiciatis nisi aut delectus ex, amet ut
     numquam commodi quo.
@@ -36,9 +37,12 @@ import Alert from '@eduzz/houston-ui/Alert';
 | type      | `success`, `info`, `warning`, `error`   | false    | `success`   | -                                                                                                |
 | onClose   | `(event: React.SyntheticEvent) => void` | false    | -           | If there is a value, it automatically adds the "X".                                              |
 | icon      | `React.ReactNode`, `false`              | false    | `type` icon | If `false`, the icon will be hidden.                                                             |
-| title     | `React.ReactNode`                       | false    | -           | -                                                                                                |
 | closable  | `boolean`                               | false    | false       | If true, the component controls the state itself and there is no need to use the `onClose` prop. |
 | multiline | `boolean`                               | false    | false       | If true, the actions will drop to the line below the text.                                       |
+
+### Alert.Title props available
+
+The component receive only the child.
 
 ### Alert.Action props available
 
