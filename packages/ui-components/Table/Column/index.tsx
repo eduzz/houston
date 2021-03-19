@@ -4,9 +4,10 @@ import { TableCellProps } from '@material-ui/core/TableCell';
 
 import { ITableAlign } from '../interfaces';
 
-type ITableColumnExtends = 'id' | 'className' | 'width';
+type ITableColumnExtends = 'id' | 'className';
 
 export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExtends> {
+  width?: number;
   label?: React.ReactNode;
   /**
    * Unique key, used for sorting
