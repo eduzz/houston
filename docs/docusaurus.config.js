@@ -8,7 +8,7 @@ module.exports = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'eduzz',
-  projectName: 'github.com/eduzz/houston',
+  projectName: 'houston',
   themes: ['@docusaurus/theme-live-codeblock'],
   themeConfig: {
     prism: {
