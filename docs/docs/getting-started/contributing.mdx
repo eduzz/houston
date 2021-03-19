@@ -3,6 +3,8 @@ id: contributing
 title: Como contribuir
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 Veja como você pode contribuir para fazer o Houston ficar ainda melhor!
 
 ### Repositório Monorepo 
@@ -92,16 +94,16 @@ yarn houston-docs
 
 O CLI irá perguntar qual tipo de documentação você quer criar: documentação de componente, hook ou outro. Selecione a opção desejada através das setas do teclado:
 
-<img src={'../../assets/doc-CLI-example.jpeg'} alt="Selecione o tipo de documentação" />
+<img src={useBaseUrl('/img/doc-CLI-example.jpeg')} alt="Selecione o tipo de documentação" />
 
 Informe qual **id** e **título** da sua documentação.
 
-<img src={'../../assets/doc-CLI-example-doc-created.jpeg'} alt="Preencha os dados da documentação" />
+<img src={useBaseUrl('/img/doc-CLI-example-doc-created.jpeg')} alt="Preencha os dados da documentação" />
 
 Ao finalizar, será criado um componente seguindo o template correspondente ao tipo de documentação que deseja criar. Você pode encontrar o arquivo da documentação no projeto em
 docs/[tipo_da_doc]/[id].mdx.
 
-<img src={'../../assets/doc-CLI-example-doc-created-path.jpeg'} alt="Arquivo criado para documentação" />
+<img  src={useBaseUrl('/img/doc-CLI-example-doc-created-path.jpeg')} alt="Arquivo criado para documentação" />
 
 Toda o projeto da documentação foi desenvolvido utilizando o [Docusaurus](https://v2.docusaurus.io/docs/next/).
 
