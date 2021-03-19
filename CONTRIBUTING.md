@@ -51,7 +51,7 @@ Accesse o [Board](https://github.com/eduzz/houston/projects/3) para ver as taref
 Sempre que desenvolver um componente ou qualquer funcionalidade adicionar um **README.md** com os detalhes de como usa-lo e 
 suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes já existentes. 
 
-<img src="docs/assets/example 1.png" width="250" />
+<img src="docs/static/example 1.png" width="250" />
 
 **Lembre-se de cada responsabilidade:**
 
