@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+
 import Alert from '@eduzz/houston-ui/Alert';
 
 const ComponentExample = memo(() => {

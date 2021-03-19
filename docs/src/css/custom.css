@@ -20,6 +20,11 @@
   --ifm-code-background-color: #f0f0f0;
   --ifm-hr-border-color: #f0f0f0;
   --ifm-code-font-color: #37474F;
+  --ifm-color-success: #D2EBD3;
+  --ifm-color-info: #CDEBFA;
+  --ifm-color-warning: #FFF4D4;
+  --ifm-color-danger: #FDD9D7;
+  --ifm-alert-color: #37474F;
   --ifm-menu-color-sublist: #151B1E;
   --ifm-code-font-size: 90%;
   --ifm-font-family-base: 'Open Sans';
@@ -32,8 +37,22 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
+html[data-theme='dark'] {
+  --ifm-menu-color-sublist: #E3F2FF;
+}
+
 h3 {
   border-color: var(--ifm-hr-border-color);
+}
+
+/* Admonition */
+.admonition {
+  font-size: 90%;
+}
+
+.admonition code {
+  background-color: rgba(0,0,0, .1);
+  color: var(--ifm-alert-color);
 }
 
 /* Header styles */
