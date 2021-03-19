@@ -7,7 +7,6 @@ on:
 
 jobs:
   publish:
-    needs: [check-version, should-release]
     runs-on: ubuntu-latest
     steps:
       - name: Clone
