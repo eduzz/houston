@@ -9,7 +9,7 @@ import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
 type TypographyPropsExtends = 'className' | 'style' | 'children';
 
-interface ITypographyProps extends Pick<TypographyProps, TypographyPropsExtends> {
+export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsExtends> {
   size?: FontSizes;
   lineHeight?: LineHeights;
   fontWeight?: FontWeight;

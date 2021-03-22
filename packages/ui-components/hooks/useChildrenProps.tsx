@@ -5,7 +5,10 @@ import { getReactChildrenProps, getReactFirstChildrenProps } from '../Helpers/fu
 export type ReactChildrenOrNode = React.ReactChildren | React.ReactNode;
 export type ReactChild = React.ReactElement;
 
-export function useChildrenProps<T>(children: ReactChildrenOrNode, componentType: React.ReactElement['type']): T[] {
+export function useChildrenProps<T = any>(
+  children: ReactChildrenOrNode,
+  componentType: React.ReactElement['type']
+): T[] {
   const result = React.useMemo(() => {
     return getReactChildrenProps<T>(children, componentType);
   }, [children, componentType]);
