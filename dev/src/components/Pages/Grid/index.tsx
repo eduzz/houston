@@ -51,7 +51,7 @@ const useStyles = makeStyles(() =>
 const GridPage = memo(() => {
   const classes = useStyles();
 
-  const [type, setType] = useState<any>('confortable');
+  const [type, setType] = useState<any>('comfortable');
   const [columns, setColumns] = useState<number>(12);
   const [fluid, setFluid] = useState<boolean>(false);
   const [align, setAlign] = useState<GridItemsAlignment>('center');
@@ -79,7 +79,7 @@ const GridPage = memo(() => {
                   onChange={(_: React.ChangeEvent<HTMLInputElement>, value: any) => setType(value)}
                   row
                 >
-                  {['confortable', 'cozy', 'compact'].map(value => (
+                  {['comfortable', 'cozy', 'compact'].map(value => (
                     <FormControlLabel key={value} value={value} control={<Radio />} label={value} />
                   ))}
                 </RadioGroup>
