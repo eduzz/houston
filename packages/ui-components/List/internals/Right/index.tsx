@@ -12,30 +12,8 @@ import { IListRightProps } from '../../Right';
 const useStyles = makeStyles(theme =>
   createStyles({
     iconRoot: {
-      color: theme.palette.grey[500],
       minWidth: 20,
       '& svg': {
-        width: 20,
-        height: 20
-      }
-    },
-    spaceRight: {
-      marginRight: 8
-    },
-    left: {
-      backgroundColor: theme.palette.grey[200]
-    },
-    leftStriped: {
-      backgroundColor: '#fff'
-    },
-    leftIcon: {
-      width: 20,
-      height: 20
-    },
-    leftImage: {
-      color: theme.palette.grey[600],
-      marginRight: 8,
-      '& > svg': {
         width: 20,
         height: 20
       }
@@ -61,18 +39,6 @@ const Right = ({ icon, text, onClick, ...rest }: IProps) => {
   const classes = useStyles();
 
   if (icon) {
-    if (onClick) {
-      return (
-        <IconButtonMUI
-          className={clsx([classes.rightRoot, classes.iconRoot, onClick && classes.clickable])}
-          onClick={onClick && onClick}
-          size='small'
-        >
-          {icon}
-        </IconButtonMUI>
-      );
-    }
-
     return (
       <ListItemIconMUI
         className={clsx([classes.rightRoot, classes.iconRoot, onClick && classes.clickable])}
@@ -83,7 +49,19 @@ const Right = ({ icon, text, onClick, ...rest }: IProps) => {
     );
   }
 
-  if (!icon && text) {
+  if (icon && onClick) {
+    return (
+      <IconButtonMUI
+        className={clsx([classes.rightRoot, classes.iconRoot, onClick && classes.clickable])}
+        onClick={onClick && onClick}
+        size='small'
+      >
+        {icon}
+      </IconButtonMUI>
+    );
+  }
+
+  if (text) {
     return (
       <TypographyMUI
         {...rest}

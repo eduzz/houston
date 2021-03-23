@@ -6,6 +6,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
+import { isReactComponent } from '../../../Helpers/functions';
 import { IListLeftProps } from '../../Left';
 
 const useStyles = makeStyles(theme =>
@@ -19,11 +20,7 @@ const useStyles = makeStyles(theme =>
         height: 20
       }
     },
-    leftIcon: {
-      width: 20,
-      height: 20
-    },
-    leftImage: {
+    imageRoot: {
       color: theme.palette.grey[600],
       backgroundColor: theme.palette.grey[200],
       marginRight: 8,
@@ -51,11 +48,13 @@ const Left = ({ icon, image, striped = false, ...rest }: IProps) => {
     );
   }
 
-  if (!icon && image) {
-    return typeof image === 'string' ? (
-      <AvatarMUI {...rest} src={image} className={clsx([classes.leftImage, striped && classes.striped])} />
-    ) : (
-      <AvatarMUI {...rest} className={clsx([classes.leftImage, striped && classes.striped])}>
+  if (typeof image === 'string') {
+    return <AvatarMUI {...rest} src={image} className={clsx([classes.imageRoot, striped && classes.striped])} />;
+  }
+
+  if (isReactComponent(image)) {
+    return (
+      <AvatarMUI {...rest} className={clsx([classes.imageRoot, striped && classes.striped])}>
         {image}
       </AvatarMUI>
     );

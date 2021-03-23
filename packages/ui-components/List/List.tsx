@@ -4,7 +4,6 @@ import ListMUI, { ListProps as ListPropsMUI } from '@material-ui/core/List';
 
 import { getReactFirstChildrenProps, isReactComponent } from '../Helpers/functions';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
-import ListContextProvider from './context';
 import { IListItem } from './interfaces';
 import Items from './internals/Items';
 import Item from './Item';
@@ -44,21 +43,11 @@ const List: ListComponent = React.memo<IListProps>(({ children, stripedRows = fa
     });
   }, [children]);
 
-  const contextValue = React.useMemo(
-    () => ({
-      items,
-      stripedRows
-    }),
-    [items, stripedRows]
-  );
-
   return (
     <WrapperTheme>
-      <ListContextProvider value={contextValue}>
-        <ListMUI component='ul' {...props}>
-          <Items />
-        </ListMUI>
-      </ListContextProvider>
+      <ListMUI component='ul' {...props}>
+        <Items items={items} stripedRows={stripedRows} />
+      </ListMUI>
     </WrapperTheme>
   );
 });
