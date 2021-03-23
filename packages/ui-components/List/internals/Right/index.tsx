@@ -39,14 +39,7 @@ const Right = ({ icon, text, onClick, ...rest }: IProps) => {
   const classes = useStyles();
 
   if (icon) {
-    return (
-      <ListItemIconMUI
-        className={clsx([classes.rightRoot, classes.iconRoot, onClick && classes.clickable])}
-        onClick={onClick && onClick}
-      >
-        {icon}
-      </ListItemIconMUI>
-    );
+    return <ListItemIconMUI className={clsx([classes.rightRoot, classes.iconRoot])}>{icon}</ListItemIconMUI>;
   }
 
   if (icon && onClick) {
