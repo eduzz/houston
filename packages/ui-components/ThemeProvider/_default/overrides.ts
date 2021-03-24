@@ -209,7 +209,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       },
 
       message: {
-        fontWeight: themeVariable.fontWeight('semibold')
+        fontWeight: themeVariable.fontWeight('regular')
       },
 
       standardSuccess: {

@@ -1,6 +1,8 @@
+const nodeVersion = process.version.replace('v', '');
+
 const childProccess = require('child_process');
-const semver = require('/opt/hostedtoolcache/node/15.11.0/x64/lib/node_modules/semver');
-const ora = require('/opt/hostedtoolcache/node/15.11.0/x64/lib/node_modules/ora');
+const semver = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/semver`);
+const ora = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/ora`);
 const fs = require('fs');
 
 let currentVersion = require('../package.json').version;
