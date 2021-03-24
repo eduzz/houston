@@ -131,3 +131,21 @@ article header h1 {
 .table-of-contents__link--active {
   font-weight: var(--ifm-font-weight-bold);
 }
+
+/* boostrap reset */
+.font-weight-light {
+  all: unset !important;
+}
+
+.table {
+  border: 1px solid #dee2e6;
+}
+
+.table thead th {
+  border-bottom: unset;
+}
+
+pre {
+  font-size: 100%;
+  margin-bottom: 0;
+}
