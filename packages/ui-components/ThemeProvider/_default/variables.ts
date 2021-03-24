@@ -14,7 +14,7 @@ const fontSizes = {
 const lineHeights = {
   compact: 1.2,
   normal: 1.5,
-  confortable: 1.8
+  comfortable: 1.8
 };
 
 const fontWeight = {

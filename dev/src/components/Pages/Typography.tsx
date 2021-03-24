@@ -57,7 +57,7 @@ const FormsPage = memo(() => {
             we solve problems
           </Typography>
 
-          <Typography lineHeight='confortable'>
+          <Typography lineHeight='comfortable'>
             We are Houston call us!
             <br />
             we solve problems
