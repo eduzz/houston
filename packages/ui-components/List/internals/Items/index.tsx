@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import ListItemMUI from '@material-ui/core/ListItem';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
@@ -11,23 +11,21 @@ import Right from '../Right';
 import Subtitle from '../Subtitle';
 import Title from '../Title';
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    root: {
-      padding: '12px 16px',
-      borderRadius: 4,
-      alignItems: 'flex-start'
-    },
-    striped: {
-      backgroundColor: theme.palette.grey[200]
-    },
-    textContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignSelf: 'center'
-    }
-  })
-);
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: '12px 16px',
+    borderRadius: 4,
+    alignItems: 'flex-start'
+  },
+  striped: {
+    backgroundColor: theme.palette.grey[200]
+  },
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignSelf: 'center'
+  }
+}));
 
 interface IProps {
   items?: IListItem[];

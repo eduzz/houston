@@ -29,18 +29,15 @@ type ListComponent = React.NamedExoticComponent<IListProps> & {
 const List: ListComponent = React.memo<IListProps>(({ children, stripedRows = false, ...props }) => {
   const items: IListItem[] = React.useMemo(() => {
     return React.Children.map(children, (child: React.ReactElement) => {
-      if (!isReactComponent(child, Item)) return;
+      if (!isReactComponent(child, Item)) return null;
 
       const left = getReactFirstChildrenProps<IListLeftProps>(child?.props?.children, Left);
-
       const title = getReactFirstChildrenProps<IListTitleProps>(child.props?.children, Title);
-
       const subtitle = getReactFirstChildrenProps<IListSubtitleProps>(child.props?.children, Subtitle);
-
       const right = getReactFirstChildrenProps<IListRightProps>(child?.props?.children, Right);
 
-      return { ...child.props, left, title, subtitle, right };
-    });
+      return { left, title, subtitle, right };
+    }).filter(item => !!item);
   }, [children]);
 
   return (
