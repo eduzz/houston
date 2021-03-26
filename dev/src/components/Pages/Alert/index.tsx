@@ -54,7 +54,8 @@ const AlertPage = memo(() => {
               </Alert>
             </Grid>
             <Grid item xs={12}>
-              <Alert title='Oops, error!' type='error' multiline closable>
+              <Alert type='error' multiline closable>
+                <Alert.Title>teste</Alert.Title>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae error voluptates repellat
                 blanditiis. Temporibus, ipsa. A nemo, molestias quae nam perspiciatis nisi aut delectus ex, amet ut
                 numquam commodi quo.

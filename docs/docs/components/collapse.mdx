@@ -1,0 +1,55 @@
+---
+id: collapse
+title: Collapse
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+import CollapseExample from '../../src/examples/components/Collapse';
+import CollapseExampleSource from '!!raw-loader!../../src/examples/components/Collapse';
+
+# Collapse
+
+Expande verticalmente a partir do topo do elemento filho.
+
+<br />
+<br />
+
+<CollapseExample />
+
+<br />
+
+<Tabs
+  className="custom-tabs"
+  defaultValue="code"
+  values={[
+    { label: 'Código-fonte', value: 'code' },
+    { label: 'Código-fonte completo', value: 'full-source' },
+  ]}>
+<TabItem value="code">
+
+```jsx
+import Collapse from '@eduzz/houston-ui/Collapse';
+
+<Collapse visibled={true}>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit qui nam dolores dignissimos! Repudiandae unde
+  facilis commodi quibusdam perspiciatis, excepturi animi quia veniam placeat, ut odio nemo nesciunt totam minima?
+</Collapse>
+```
+
+</TabItem>
+
+<TabItem value="full-source">
+  <CodeBlock className="language-tsx">{CollapseExampleSource}</CodeBlock>
+</TabItem>
+</Tabs>
+
+### Propriedades disponíveis
+
+| prop           | tipo       | obrigatório | padrão | descrição                                                           |
+| -------------- | ---------- | ----------- | ------ | ------------------------------------------------------------------- |
+| visibled       | `boolean`  | true        | -      | -                                                                   |
+| onEnter        | `function` | false       | -      | Função chamada ao clicar para expandir o conteúdo.                  |
+| destroyOnClose | `boolean`  | false       | false  | Se verdadeiro, ao ocultar o conteúdo remove o `children` do render. |
