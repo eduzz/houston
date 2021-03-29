@@ -5,7 +5,6 @@ module.exports = {
       'getting-started/contributing'
     ],
     Componentes: [
-      'components/alert'
     ],
     Hooks: [
     ]

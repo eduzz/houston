@@ -402,6 +402,46 @@ img[align='left'] {
 }
 
 table {
+  margin-bottom: unset;
+  overflow: unset;
+  width: unset;
+
+  display: table;
+  border-collapse: separate;
+  border-spacing: 2px;
+  border-color: gray;
+}
+
+table tr {
+  border-top: unset;
+  background-color:unset;
+  border-color: inherit;
+}
+
+table tr:nth-child(2n) {
+  background-color: unset;
+}
+
+table th,
+table td {
+  border: unset;
+  padding: unset;
+}
+
+table th {
+  background-color: unset;
+  color: unset;
+  font-weight: bold;
+}
+
+table td {
+  color: unset;
+}
+
+/* Markdown table */
+
+
+.mdx-table-container table {
   border-collapse: collapse;
   display: block;
   margin-bottom: var(--ifm-spacing-vertical);
@@ -409,31 +449,31 @@ table {
   width: 100%;
 }
 
-table tr {
-    background-color: var(--ifm-table-background);
-    border-top: var(--ifm-table-border-width) solid
-      var(--ifm-table-border-color);
-  }
+.mdx-table-container table tr {
+  background-color: var(--ifm-table-background);
+  border-top: var(--ifm-table-border-width) solid
+  var(--ifm-table-border-color);
+}
 
-table tr:nth-child(2n) {
-    background-color: var(--ifm-table-stripe-background);
-  }
+.mdx-table-container table tr:nth-child(2n) {
+  background-color: var(--ifm-table-stripe-background);
+}
 
-table th,
-  table td {
-    border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
-    padding: var(--ifm-table-cell-padding);
-  }
-
-table th {
-    background-color: var(--ifm-table-head-background);
-    color: var(--ifm-table-head-color);
-    font-weight: var(--ifm-table-head-font-weight);
-  }
-
+.mdx-table-container table th,
 table td {
-    color: var(--ifm-table-cell-color);
-  }
+  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+  padding: var(--ifm-table-cell-padding);
+}
+
+.mdx-table-container table th {
+  background-color: var(--ifm-table-head-background);
+  color: var(--ifm-table-head-color);
+  font-weight: var(--ifm-table-head-font-weight);
+}
+
+.mdx-table-container table td {
+  color: var(--ifm-table-cell-color);
+}
 
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
