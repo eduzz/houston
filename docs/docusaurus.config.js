@@ -28,12 +28,8 @@ module.exports = {
       title: '',
       logo: {
         alt: 'Houston - Design System',
-<<<<<<< HEAD
         src: 'img/logo.svg',
         srcDark: 'img/logo_dark.svg'
-=======
-        src: 'img/logo.svg'
->>>>>>> develop
       },
       items: [
         {
@@ -55,14 +51,6 @@ module.exports = {
           position: 'right'
         },
         {
-<<<<<<< HEAD
-=======
-          href: 'https://github.com/eduzz/houston/releases',
-          label: 'Versões',
-          position: 'right'
-        },
-        {
->>>>>>> develop
           href: 'https://github.com/eduzz/houston',
           label: 'GitHub',
           position: 'right'
@@ -75,7 +63,6 @@ module.exports = {
           title: 'Documentação',
           items: [
             {
-<<<<<<< HEAD
               label: 'Instalação',
               to: 'docs/',
             },
@@ -84,35 +71,11 @@ module.exports = {
               to: 'docs/',
             }
           ],
-=======
-              label: 'Style Guide',
-              to: 'docs/'
-            }
-          ]
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus'
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus'
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus'
-            }
-          ]
->>>>>>> develop
         },
         {
           title: 'Comunidade',
           items: [
             {
-<<<<<<< HEAD
               label: 'GitHub',
               href: 'https://github.com/eduzz/houston',
             },
@@ -132,20 +95,6 @@ module.exports = {
           na <span>Eduzz<span></div>
         `,
     },
-=======
-              label: 'Blog',
-              to: 'blog'
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus'
-            }
-          ]
-        }
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} Houston by Eduzz.`
-    }
->>>>>>> develop
   },
   presets: [
     [
