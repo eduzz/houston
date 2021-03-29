@@ -6,6 +6,7 @@ import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
 import { _setCurrentTheme } from '../Toast';
 import ToastContainer from '../Toast/Container';
+import themeVariable from './_default/variables';
 import ContextTheme from './context';
 import generateCustomTheme from './custom';
 
@@ -30,6 +31,11 @@ function ThemeProvider(props: IThemeProviderProps) {
     () => ({
       __html: `
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');
+
+        body {
+          font-family: ${themeVariable.fontFamily};
+          font-size: ${themeVariable.textSize('docs')}px;
+        }
       `
     }),
     []

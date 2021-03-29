@@ -12,50 +12,62 @@ module.exports = {
   themes: ['@docusaurus/theme-live-codeblock'],
   themeConfig: {
     colorMode: {
-      disableSwitch: false,
+      disableSwitch: true
     },
     prism: {
       theme: require('prism-react-renderer/themes/vsDark'),
-      darkTheme: require('prism-react-renderer/themes/vsDark'),
+      darkTheme: require('prism-react-renderer/themes/vsDark')
     },
     algolia: {
       apiKey: 'YOUR_API_KEY',
       indexName: 'YOUR_INDEX_NAME',
       contextualSearch: true,
-      searchParameters: {},
+      searchParameters: {}
     },
     navbar: {
       title: '',
       logo: {
         alt: 'Houston - Design System',
+<<<<<<< HEAD
         src: 'img/logo.svg',
         srcDark: 'img/logo_dark.svg'
+=======
+        src: 'img/logo.svg'
+>>>>>>> develop
       },
       items: [
         {
           to: 'docs/',
           activeBasePath: 'src/pages/docs',
           label: 'Design',
-          position: 'right',
+          position: 'right'
         },
         {
           to: 'docs/',
           activeBasePath: 'src/pages/docs',
           label: 'Conteúdo',
-          position: 'right',
+          position: 'right'
         },
         {
           to: 'docs/',
           activeBasePath: 'src/pages/docs',
           label: 'Componentes',
-          position: 'right',
+          position: 'right'
         },
         {
+<<<<<<< HEAD
+=======
+          href: 'https://github.com/eduzz/houston/releases',
+          label: 'Versões',
+          position: 'right'
+        },
+        {
+>>>>>>> develop
           href: 'https://github.com/eduzz/houston',
           label: 'GitHub',
-          position: 'right',
-        },
-      ],
+          position: 'right'
+        }
+      ]
     },
     footer: {
       links: [
@@ -63,6 +75,7 @@ module.exports = {
           title: 'Documentação',
           items: [
             {
+<<<<<<< HEAD
               label: 'Instalação',
               to: 'docs/',
             },
@@ -71,11 +84,35 @@ module.exports = {
               to: 'docs/',
             }
           ],
+=======
+              label: 'Style Guide',
+              to: 'docs/'
+            }
+          ]
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Stack Overflow',
+              href: 'https://stackoverflow.com/questions/tagged/docusaurus'
+            },
+            {
+              label: 'Discord',
+              href: 'https://discordapp.com/invite/docusaurus'
+            },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/docusaurus'
+            }
+          ]
+>>>>>>> develop
         },
         {
           title: 'Comunidade',
           items: [
             {
+<<<<<<< HEAD
               label: 'GitHub',
               href: 'https://github.com/eduzz/houston',
             },
@@ -95,27 +132,34 @@ module.exports = {
           na <span>Eduzz<span></div>
         `,
     },
+=======
+              label: 'Blog',
+              to: 'blog'
+            },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/facebook/docusaurus'
+            }
+          ]
+        }
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} Houston by Eduzz.`
+    }
+>>>>>>> develop
   },
   presets: [
     [
-      '@docusaurus/preset-classic',
+      '@docusaurus/preset-bootstrap',
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/eduzz/houston/tree/master/docs',
+          editUrl: 'https://github.com/eduzz/houston/tree/master/docs'
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/eduzz/houston/tree/master/docs',
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      },
-    ],
-  ],
+          editUrl: 'https://github.com/eduzz/houston/tree/master/docs'
+        }
+      }
+    ]
+  ]
 };

@@ -1,0 +1,88 @@
+---
+id: alert
+title: Alert
+---
+
+<!-- 
+  *** IMPORTANTE:
+  *** Para que sua documentação apareça na sidebar, adicione seu caminho através do arquivo sidebars.js
+-->
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+<!-- Importe o componente no qual você demonstra o Houston aqui -->
+import ComponentExample from '../../src/examples/components/ComponentExample';
+
+<!-- Importe o código do componente no qual você demonstra o Houston aqui, usando !!raw-loader! antes do caminho do componente importado -->
+import ComponentExampleSource from '!!raw-loader!../../src/examples/components/ComponentExample';
+
+<!-- Adicione aqui um texto descrevendo sobre o componente -->
+Descreva aqui um pouco sobre o componente Houston, para o que ele é usado normalmente, etc.
+
+<!-- 
+  *** Seções destinadas a apresentar o componente com exemplos, variações, demonstração de como funciona algumas propriedades, etc.
+  *** Crie quantas seções forem necessárias para documentar o componente
+-->
+### Seção 1
+
+Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero debitis eum, esse id iusto reiciendis quasi aliquid rerum, illo velit nisi sapiente soluta ratione est? Sit provident aperiam exercitationem incidunt!
+
+<br />
+<br />
+
+<!-- Renderize o componente para demonstrar seu funcionamento -->
+<ComponentExample />
+
+<!-- 
+  *** Bloco de código com o exemplo do componente renderizado acima 
+  *** Mantenha as configurações do componente Tabs como está
+  *** Altere apenas os conteúdos dos códigos-fonte
+-->
+<Tabs
+  className="custom-tabs"
+  defaultValue="code"
+  values={[
+    {label: 'Código-fonte', value: 'code'},
+    {label: 'Código-fonte completo', value: 'full-source'},
+  ]}>
+<TabItem value="code">
+{/* Insira o código resumido de como usar o seu componente, incluindo a importação */}
+
+```jsx
+import Alert from '@eduzz/houston-ui/Alert';
+
+<Alert type='info' multiline>
+  <Alert.Title>Demonstração do componente</Alert.Title>
+  Demonstraçao do seu componente Houston que será documentado
+</Alert>
+```
+
+</TabItem>
+<TabItem value="full-source">
+  {/* Referencie o código do componente que criou para demonstrar a utilização do componente Houston importado usando !!raw-loader! */}
+
+  <CodeBlock className="language-tsx">{ComponentExampleSource}</CodeBlock>
+</TabItem>
+</Tabs>
+
+### Seção 2
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ipsum. Doloribus, ipsam id? Ratione blanditiis quod at repudiandae esse cupiditate.
+
+:::danger Caixa de aviso
+
+Caso queira incluir avisos, você pode usar essas caixas contendo os valores: `info`, `note`, `tip`, `caution` ou `danger`.
+
+:::
+
+<!-- Adicione na tabela as propriedades disponíveis no componente Houston que está sendo documentado -->
+### Propriedades disponíveis
+
+Propriedades disponíveis para o componente de Alert:
+
+| prop | tipo | obrigatório | padrão | descrição |
+| ---- | ---- | -------- | ------- | ----------- |
+| type | `success`, `info`, `warning`, `error` | false | `success` | - |
+| onClose | `(event: React.SyntheticEvent) => void` | false | - | Se houver um valor, ele adiciona automaticamente o "X" |
