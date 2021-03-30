@@ -337,6 +337,10 @@ ol ol ol {
   list-style-type: lower-alpha;
 }
 
+.markdown li + li {
+  margin: unset;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -465,8 +469,7 @@ table td {
   background-color: var(--ifm-table-stripe-background);
 }
 
-.mdx-table-container table th,
-table td {
+.mdx-table-container table th, .mdx-table-container table td {
   border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
   padding: var(--ifm-table-cell-padding);
 }
