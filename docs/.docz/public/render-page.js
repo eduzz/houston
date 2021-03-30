@@ -14837,7 +14837,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var scope_0 = __webpack_require__(/*! ./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/c7d4372c7c260ae58e308cace194af10.js */ "./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/c7d4372c7c260ae58e308cace194af10.js").default;
+var scope_0 = __webpack_require__(/*! ./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/d5450800e13149ec3d604b65e9277603.js */ "./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/d5450800e13149ec3d604b65e9277603.js").default;
 
 var scope_1 = __webpack_require__(/*! ./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/e92f8988d65cf25c087d226e6c0ef06f.js */ "./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/e92f8988d65cf25c087d226e6c0ef06f.js").default;
 
@@ -52230,11 +52230,12 @@ module.exports = function(module) {
 /*!***********************************************************************************!*\
   !*** /Users/danielprado/Projects/houston/packages/ui-components/Button/index.tsx ***!
   \***********************************************************************************/
-/*! exports provided: default */
+/*! exports provided: Test, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Test", function() { return Test; });
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../node_modules/@babel/runtime/helpers/esm/extends.js");
 /* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
@@ -52267,6 +52268,18 @@ if (typeof IButtonProps !== 'undefined' && IButtonProps && IButtonProps === Obje
     configurable: true,
     value: {
       name: "IButtonProps",
+      filename: "../packages/ui-components/Button/index.tsx"
+    }
+  });
+}
+
+const Test = () => null;
+
+if (typeof Test !== 'undefined' && Test && Test === Object(Test) && Object.isExtensible(Test) && !Test.hasOwnProperty('__filemeta')) {
+  Object.defineProperty(Test, '__filemeta', {
+    configurable: true,
+    value: {
+      name: "Test",
       filename: "../packages/ui-components/Button/index.tsx"
     }
   });
@@ -53328,9 +53341,9 @@ exports.wrapRootElement = true;
 
 /***/ }),
 
-/***/ "./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/c7d4372c7c260ae58e308cace194af10.js":
+/***/ "./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/d5450800e13149ec3d604b65e9277603.js":
 /*!********************************************************************************************!*\
-  !*** ./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/c7d4372c7c260ae58e308cace194af10.js ***!
+  !*** ./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/d5450800e13149ec3d604b65e9277603.js ***!
   \********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -53348,6 +53361,7 @@ __webpack_require__.r(__webpack_exports__);
   Playground: docz__WEBPACK_IMPORTED_MODULE_0__["Playground"],
   Props: docz__WEBPACK_IMPORTED_MODULE_0__["Props"],
   Button: _eduzz_houston_ui_Button_index_tsx__WEBPACK_IMPORTED_MODULE_1__["default"],
+  Test: _eduzz_houston_ui_Button_index_tsx__WEBPACK_IMPORTED_MODULE_1__["Test"],
   React: react__WEBPACK_IMPORTED_MODULE_2__
 });
 
