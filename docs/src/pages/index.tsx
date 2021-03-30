@@ -1,5 +1,6 @@
 import React from 'react';
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
@@ -40,10 +41,12 @@ const features = [
 ];
 
 function Feature({ imageUrl, title, description }: any) {
+  const imgUrl = useBaseUrl(imageUrl);
+
   return (
     <div className='card'>
       <div className='card__image'>
-        <img src={imageUrl} alt={description} title={title} />
+        <img src={imgUrl} alt={description} title={title} />
       </div>
       <div className='card__body'>
         <h4>{title}</h4>
