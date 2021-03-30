@@ -10,7 +10,7 @@ import styles from './styles.module.css';
 const features = [
   {
     title: 'Design',
-    imageUrl: 'img/thumb.svg',
+    imageUrl: 'img/design.svg',
     description: (
       <>
         Docusaurus was designed from the ground up to be easily installed and used to get your website up and running
@@ -20,7 +20,7 @@ const features = [
   },
   {
     title: 'Conteúdo',
-    imageUrl: 'img/thumb.svg',
+    imageUrl: 'img/conteúdo.svg',
     description: (
       <>
         Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your docs into the{' '}
@@ -30,7 +30,7 @@ const features = [
   },
   {
     title: 'Componentes',
-    imageUrl: 'img/thumb.svg',
+    imageUrl: 'img/componentes.svg',
     description: (
       <>
         Extend or customize your website layout by reusing React. Docusaurus can be extended while reusing the same
@@ -46,8 +46,14 @@ function Feature({ imageUrl, title, description }: any) {
   console.log(imgUrl, title, description);
 
   return (
-    <div className={clsx('col col--3 feature__container', styles.feature)}>
-      {/* <Card title={title} description={description} image={imageUrl} /> */}
+    <div className='card'>
+      <div className='card__image'>
+        <img src={imageUrl} alt={description} title={title} />
+      </div>
+      <div className='card__body'>
+        <h4>{title}</h4>
+        <small>{description}</small>
+      </div>
     </div>
   );
 }
