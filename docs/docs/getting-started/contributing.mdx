@@ -148,6 +148,21 @@ module.exports = {
 };
 ```
 
+#### Utilizando tabelas na documentação
+
+Para estilizar uma tabela realizada através de um arquivo `.mdx`, adicione uma `div` em volta da tabela para que a estilização seja aplicada:
+
+```jsx {9} docs/sidebars.js
+<div class="mdx-table-container">
+
+| prop | tipo | obrigatório | padrão | descrição |
+| ---- | ---- | -------- | ------- | ----------- |
+| type | `success`, `info`, `warning`, `error` | false | `success` | - |
+| onClose | `(event: React.SyntheticEvent) => void` | false | - | Se houver um valor, ele adiciona automaticamente o "X" |
+
+</div>
+```
+
 ### Por baixo dos panos 
 
 Utilizamos o [ultra-runner](https://www.npmjs.com/package/ultra-runner) para gerenciar o monorepo. O ultra-runner é bem simples e

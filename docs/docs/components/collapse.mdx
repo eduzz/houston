@@ -10,16 +10,9 @@ import CodeBlock from '@theme/CodeBlock';
 import CollapseExample from '../../src/examples/components/Collapse';
 import CollapseExampleSource from '!!raw-loader!../../src/examples/components/Collapse';
 
-# Collapse
-
 Expande verticalmente a partir do topo do elemento filho.
 
-<br />
-<br />
-
 <CollapseExample />
-
-<br />
 
 <Tabs
   className="custom-tabs"
@@ -48,8 +41,12 @@ import Collapse from '@eduzz/houston-ui/Collapse';
 
 ### Propriedades disponíveis
 
+<div class="mdx-table-container">
+
 | prop           | tipo       | obrigatório | padrão | descrição                                                           |
 | -------------- | ---------- | ----------- | ------ | ------------------------------------------------------------------- |
 | visibled       | `boolean`  | true        | -      | -                                                                   |
 | onEnter        | `function` | false       | -      | Função chamada ao clicar para expandir o conteúdo.                  |
 | destroyOnClose | `boolean`  | false       | false  | Se verdadeiro, ao ocultar o conteúdo remove o `children` do render. |
+
+</div>
