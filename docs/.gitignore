@@ -1,1 +1,5 @@
-.docz/.cache
+.docz
+.cache
+node_modules
+build
+dist
