@@ -1,5 +1,3 @@
-import 'react-toastify/dist/ReactToastify.css';
-
 import * as React from 'react';
 import { toast, ToastOptions } from 'react-toastify';
 
