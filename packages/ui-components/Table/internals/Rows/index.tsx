@@ -77,15 +77,16 @@ const Rows = () => {
   const handleClickCollapse = React.useCallback(
     (row: Partial<ITableRow>) => {
       const callback = row?.collapse?.onCollapse;
+      const data = row?.data ?? {};
 
-      if (currentItemCollapse && isEqual(currentItemCollapse, row?.data)) {
-        callback(null);
+      if (currentItemCollapse && isEqual(currentItemCollapse, data)) {
+        callback && callback(null);
         setCurrentItemCollapse(null);
         return;
       }
 
-      callback(row?.data);
-      setCurrentItemCollapse(row?.data);
+      callback && callback(data);
+      setCurrentItemCollapse(data);
     },
     [currentItemCollapse]
   );

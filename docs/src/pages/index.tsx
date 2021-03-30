@@ -1,6 +1,5 @@
 import React from 'react';
 
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
@@ -41,10 +40,6 @@ const features = [
 ];
 
 function Feature({ imageUrl, title, description }: any) {
-  const imgUrl = useBaseUrl(imageUrl);
-
-  console.log(imgUrl, title, description);
-
   return (
     <div className='card'>
       <div className='card__image'>
