@@ -1,7 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'Houston',
-  tagline: 'Eduzz Houston Design System',
+  title: 'Houston Design System',
+  tagline: 'O Houston é um conjunto de diretrizes, componentes e padrões para acelerar o design e o desenvolvimento de produto.',
   url: 'https://eduzz.github.io',
   baseUrl: '/houston/',
   onBrokenLinks: 'throw',
@@ -12,100 +12,88 @@ module.exports = {
   themes: ['@docusaurus/theme-live-codeblock'],
   themeConfig: {
     colorMode: {
-      disableSwitch: true,
+      disableSwitch: true
     },
     prism: {
       theme: require('prism-react-renderer/themes/vsDark'),
-      darkTheme: require('prism-react-renderer/themes/vsDark'),
+      darkTheme: require('prism-react-renderer/themes/vsDark')
     },
     algolia: {
       apiKey: 'YOUR_API_KEY',
       indexName: 'YOUR_INDEX_NAME',
       contextualSearch: true,
-      searchParameters: {},
+      searchParameters: {}
     },
     navbar: {
-      title: 'HOUSTON',
-      style: 'dark',
+      title: '',
       logo: {
         alt: 'Houston - Design System',
         src: 'img/logo.svg',
+        srcDark: 'img/logo_dark.svg'
       },
       items: [
         {
           to: 'docs/',
           activeBasePath: 'src/pages/docs',
           label: 'Design',
-          position: 'right',
+          position: 'right'
         },
         {
           to: 'docs/',
           activeBasePath: 'src/pages/docs',
           label: 'Conteúdo',
-          position: 'right',
+          position: 'right'
         },
         {
           to: 'docs/',
           activeBasePath: 'src/pages/docs',
           label: 'Componentes',
-          position: 'right',
-        },
-        {
-          href: 'https://github.com/eduzz/houston/releases',
-          label: 'Versões',
-          position: 'right',
+          position: 'right'
         },
         {
           href: 'https://github.com/eduzz/houston',
           label: 'GitHub',
-          position: 'right',
-        },
-      ],
+          position: 'right'
+        }
+      ]
     },
     footer: {
-      style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Documentação',
           items: [
             {
-              label: 'Style Guide',
+              label: 'Instalação',
+              to: 'docs/',
+            },
+            {
+              label: 'Guia de estilo',
               to: 'docs/',
             }
           ],
         },
         {
-          title: 'Community',
+          title: 'Comunidade',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'GitHub',
+              href: 'https://github.com/eduzz/houston',
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
+              href: 'https://discord.gg/EeCnYRsCkX',
+            }
           ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-          ],
-        },
+        }
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Houston by Eduzz.`,
+      copyright: `
+        © ${new Date().getFullYear()} Houston. Todos os direitos reservados. 
+          <div class='footer__made'>Feito com 
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 11.3557C6 11.3557 1.88519 7.44265 1.13009 6.46434C0.375 5.48603 0 4.35353 0 3.37602C0 1.5115 1.47746 0 3.3 0C4.4161 0 5.40278 0.566833 6 1.43445C6.59722 0.566833 7.5839 0 8.7 0C10.5225 0 12 1.5115 12 3.37602C12 4.35353 11.625 5.48603 10.8699 6.46434C10.1148 7.44265 6 11.3557 6 11.3557Z"/>
+            </svg>
+          na <span>Eduzz<span></div>
+        `,
     },
   },
   presets: [
@@ -114,20 +102,13 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/eduzz/houston/tree/master/docs',
+          editUrl: 'https://github.com/eduzz/houston/tree/master/docs'
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/eduzz/houston/tree/master/docs',
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      },
-    ],
-  ],
+          editUrl: 'https://github.com/eduzz/houston/tree/master/docs'
+        }
+      }
+    ]
+  ]
 };

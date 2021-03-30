@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@eduzz/houston-workspaces",
-  "version": "0.11.8",
+  "version": "0.11.9",
   "workspaces": [
     "packages/*",
     "docs"
@@ -9,7 +9,7 @@
   "scripts": {
     "prebuild": "yarn clean",
     "build": "yarn ultra -r -b build",
-    "prestart": "yarn ultra -r -b --filter 'packages/*' build",
+    "prestart": "yarn clean && yarn ultra -r -b --filter 'packages/*' build",
     "start": "yarn ultra -r start",
     "prepare": "yarn husky install",
     "publish": "NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN sh ./scripts/publish-all.sh",

@@ -120,7 +120,9 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
         >
           {title && <MUIAlertTitle>{title?.children}</MUIAlertTitle>}
           {children}
-          {multiline && <div className={classes.controlButtonsMultiline}>{buttonActions}</div>}
+          {multiline && buttonActions.length > 0 && (
+            <div className={classes.controlButtonsMultiline}>{buttonActions}</div>
+          )}
         </AlertMUI>
       </Collapse>
     </WrapperTheme>
