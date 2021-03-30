@@ -42,7 +42,7 @@
     "webpack-bundle-analyzer": "4.1.0"
   },
   "resolutions": {
-    "react": "16",
+    "react": "17",
     "monaco-editor": "0.20.0"
   },
   "browserslist": [
