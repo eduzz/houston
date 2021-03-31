@@ -3,8 +3,8 @@ export default {
   files: ["./**/*.mdx", "../packages/ui-components/**/*.mdx"],
   docgenConfig: {
     searchPatterns: [
-      "./**/*.{ts,tsx,js,jsx,mjs}",
-      "../packages/ui-components/**/*.{ts,tsx,js,jsx,mjs}",
+      "./**/*.{ts,tsx}",
+      "../packages/ui-components/**/*.{ts,tsx}",
       "!**/node_modules",
       "!**/doczrc.js",
     ]

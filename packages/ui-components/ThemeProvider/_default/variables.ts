@@ -34,8 +34,8 @@ export type FontWeight = keyof typeof fontWeight;
 const themeVariable = {
   fontFamily: 'Open Sans, "Helvetica Neue", Arial, sans-serif',
   colors: { focusLine: '#B0BEC5' },
-  radius: (unit: number = 1) => 4 * unit,
-  spacing: (unit: number = 4) => 4 * unit,
+  radius: (unit = 1) => 4 * unit,
+  spacing: (unit = 4) => 4 * unit,
   textSize: (size: FontSizes = 'normal') => fontSizes[size],
   lineHeight: (size: LineHeights = 'normal') => lineHeights[size],
   fontWeight: (size: FontWeight = 'regular') => fontWeight[size],

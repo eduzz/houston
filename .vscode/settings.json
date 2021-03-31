@@ -1,9 +1,13 @@
 {
-  "eslint.validate": [
+  "eslint.probe": [
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact"
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "mdx"
   ],
   "files.exclude": {
     "**/*.lock.json": true,

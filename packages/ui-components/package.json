@@ -19,7 +19,7 @@
     "start": "yarn tsc -w --preserveWatchOutput",
     "build": "tsc -p .",
     "prepare": "yarn build",
-    "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\"",
+    "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\" \"./**/*.mdx\"",
     "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc --noEmit\""
   },
   "dependencies": {
