@@ -1,6 +1,13 @@
 export default {
   typescript: true,
+  base: "/houston/",
+  title: "Houston",
+  description: "Eduzz Houston Design System",
   files: ["./**/*.mdx", "../packages/**/*.mdx"],
+  themeConfig: {
+    showPlaygroundEditor: false,
+    showDarkModeSwitch: false,
+  },
   docgenConfig: {
     searchPatterns: [
       "./**/*.{ts,tsx}",
