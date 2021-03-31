@@ -41,7 +41,8 @@
       "javascript",
       "javascriptreact",
       "typescript",
-      "typescriptreact"
+      "typescriptreact",
+      "mdx"
     ],
     "files.exclude": {
 			"node_modules": true,
