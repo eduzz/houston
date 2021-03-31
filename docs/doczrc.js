@@ -5,6 +5,9 @@ export default {
   description: "Eduzz Houston Design System",
   files: ["./**/*.mdx", "../packages/**/*.mdx"],
   themeConfig: {
+    header: {
+      bg: 'red'
+    },
     showPlaygroundEditor: false,
     showDarkModeSwitch: false,
   },
