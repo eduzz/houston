@@ -3,7 +3,7 @@
     "files": ["*.mdx"],
     "extends": ["@eduzz/eslint-config-houston/mdx"]
   }, {
-    "files": ["*.tsx", "*.ts"],
+    "files": ["*.tsx", "*.ts", "*.js", "*.jsx"],
     "extends": "@eduzz/eslint-config-houston",
     "rules": {
       "@typescript-eslint/ban-ts-comment": "off",
