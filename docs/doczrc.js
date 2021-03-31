@@ -4,12 +4,37 @@ export default {
   title: "Houston",
   description: "Eduzz Houston Design System",
   files: ["./**/*.mdx", "../packages/**/*.mdx"],
+  groups: {
+    '': [],
+    API: ['Components', 'UI'],
+  },
   themeConfig: {
+    search: true,
+    mainContainer: {
+      fullscreen: false,
+      align: 'center',
+    },
     header: {
-      bg: 'red'
+      icons: 'minimal',
+      fixed: false,
+    },
+    footer: {
+      navigation: false,
+    },
+    logo: {
+      src: '/public/logo.svg',
+      width: 45,
+    },
+    menu: {
+      search: false,
+      headings: {
+        rightSide: true,
+        scrollspy: true,
+        depth: 3,
+      },
     },
     showPlaygroundEditor: false,
-    showDarkModeSwitch: false,
+    showDarkModeSwitch: false
   },
   docgenConfig: {
     searchPatterns: [
