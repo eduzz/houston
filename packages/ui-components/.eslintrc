@@ -8,6 +8,7 @@
     "rules": {
       "@typescript-eslint/ban-ts-comment": "off",
       "no-restricted-imports": ["error", "date-fns", "mdi-react", "lodash", "@material-ui/core", "@material-ui/styles", "@eduzz/houston-ui/*"]
+      
     }
   }]
 }
