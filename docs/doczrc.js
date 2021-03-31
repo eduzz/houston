@@ -34,7 +34,17 @@ export default {
       },
     },
     showPlaygroundEditor: false,
-    showDarkModeSwitch: false
+    showDarkModeSwitch: false,
+    colors: {
+      header: {
+        bg: '#0D47A1',
+        text: 'white',
+        button: {
+          bg: 'red',
+          color: 'green',
+        }
+      }
+    }
   },
   docgenConfig: {
     searchPatterns: [
