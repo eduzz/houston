@@ -3,22 +3,28 @@ name: Button
 menu: Components
 ---
 
-import { Playground, Props } from 'docz';
+import { Playground } from 'docz';
 
-import Button from './index.tsx';
+import Button from './';
 
 # Button
 
-## Propriedades
-
-<Props of={Button} />
-
-## Basic usage
-
-| Teste | props   |
-| ----- | ------- |
-| asdas | asd asd |
+## Use
 
 <Playground>
   <Button>Teste</Button>
 </Playground>
+
+## Props
+
+| prop      | type                           | required | default   |
+| --------- | ------------------------------ | -------- | --------- |
+| disabled  | `boolean`                      | false    | `false`   |
+| startIcon | `React.Node`                   | false    | -         |
+| endIcon   | `React.Node`                   | false    | -         |
+| variant   | `primary`, `secondary`, `text` | false    | `primary` |
+| href      | `string`                       | false    | -         |
+| endIcon   | `React.Node`                   | false    | -         |
+| fullWidth | `boolean`                      | false    | `false`   |
+| loading   | `boolean`                      | false    | `false`   |
+| onClick   | `function`                     | false    | -         |

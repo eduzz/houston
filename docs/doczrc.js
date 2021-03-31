@@ -1,6 +1,6 @@
 export default {
   typescript: true,
-  files: ["./**/*.mdx", "../packages/ui-components/**/*.mdx"],
+  files: ["./**/*.mdx", "../packages/**/*.mdx"],
   docgenConfig: {
     searchPatterns: [
       "./**/*.{ts,tsx}",
