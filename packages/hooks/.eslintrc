@@ -4,6 +4,9 @@
     "extends": ["@eduzz/eslint-config-houston/mdx"]
   }, {
     "files": ["*.tsx", "*.ts", "*.js", "*.jsx"],
-    "extends": "@eduzz/eslint-config-houston"
+    "extends": "@eduzz/eslint-config-houston",
+    "rules": {
+      "@typescript-eslint/ban-ts-comment": "off"
+    }
   }]
 }

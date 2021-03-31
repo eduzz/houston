@@ -34,7 +34,7 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
 
   const [params, setParams] = React.useState<P>({ page: 0, perPage: 30, ...initialParams } as P);
   const mergeParams = React.useCallback(
-    (newParams: Partial<P & { _retry?: number }>, reset: boolean = false) => {
+    (newParams: Partial<P & { _retry?: number }>, reset = false) => {
       setParams(params => {
         if (newParams.page > params.page && (!data.hasMore || isLoading || isLoadingMore)) {
           newParams.page = params.page;

@@ -34,7 +34,7 @@ export interface IUseFormParams<Values> {
  * Hook implemation of IFormAdapter
  * @param IUseFormParams
  */
-export default function useForm<Values = {}>({
+export default function useForm<Values = Record<string, never>>({
   onSubmit,
   onSubmitWithErrors,
   validationSchema,
