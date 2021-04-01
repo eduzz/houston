@@ -11,7 +11,7 @@ function App({ Component, pageProps }: AppProps) {
     const styles = document.querySelector('#jss-server-side');
 
     if (styles) {
-      styles?.parentElement?.removeChild(styles);
+      styles.parentElement?.removeChild(styles);
     }
   }, []);
 
