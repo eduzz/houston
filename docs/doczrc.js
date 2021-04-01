@@ -4,6 +4,10 @@ export default {
   title: "",
   description: "Eduzz Houston Design System",
   files: ["./**/*.mdx", "../CONTRIBUTING.md", "../packages/**/*.mdx"],
+  menu: [
+    'Início',
+    'Como Contribuir'
+  ],
   groups: {
     '': [],
     API: ['Components', 'UI'],
