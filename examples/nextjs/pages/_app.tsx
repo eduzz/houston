@@ -1,5 +1,4 @@
 import '../assets/styles/global.scss';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { useEffect } from 'react';
 
