@@ -8,7 +8,7 @@ mas tentamos manter de uma maneira simples para que fique fácil de entender.
 ### Atenção ⚠️
 
 * Não utilize o **npm** pois utilizamos o **workspaces** do yarn para ele instalar todas as dependências de todos os projetos.
-* Todas as funcionalidades Web devem estar no projeto `dev`, com o máximo de exemplos e códigos de exemplo possível.
+* Todas as funcionalidades Web devem ter um .mdx pois ele gerará o doc, com o máximo de exemplos e códigos de exemplo possível.
 * Lembre-se que o *Houston™️* também será usado com o [`react-native`](https://reactnative.dev), menos o package [**ui-components**](https://github.com/eduzz/houston/tree/master/packages/ui-components).
 * Todos os componentes previstos estão no Figma vide quadro abaixo.
 
@@ -29,7 +29,7 @@ temas dele criamos o **WrapperTheme** que aplicará o tema do Houston™ apenas 
 4. Abra no **VSCode** o projeto pelo **main.code-workspace**
 5. Instale as extensões recomendadas
 
-Ele irá buildar e iniciar todos os projetos e também irá inciar o projeto `dev` em **http://localhost:3000**.
+Ele irá buildar e iniciar o projeto de docs em **http://localhost:3000**.
 
 ### Como iniciar uma tarefa 🦖
 
@@ -49,7 +49,7 @@ Acesse o [Board](https://github.com/eduzz/houston/projects/3) para ver as tarefa
 
 ### Padrões 💄
 
-Sempre que desenvolver um componente ou qualquer funcionalidade adicionar um **README.md** com os detalhes de como usá-lo e 
+Sempre que desenvolver um componente ou qualquer funcionalidade adicionar um **.mdx** com os detalhes de como usá-lo e 
 suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes já existentes.
 
 <img src="docs/static/example 1.png" width="250" />
