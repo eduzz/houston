@@ -57,7 +57,7 @@ Acesse o [Board](https://github.com/eduzz/houston/projects/3) para ver as tarefa
 Sempre que desenvolver um componente ou qualquer funcionalidade adicionar um **.mdx** com os detalhes de como usá-lo e 
 suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes já existentes.
 
-<img src="docs/public/example 1.png" width="250" />
+<img src="https://github.com/eduzz/docs/public/example 1.png" width="250" />
 
 **Lembre-se de cada responsabilidade:**
 
