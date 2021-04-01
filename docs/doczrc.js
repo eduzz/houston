@@ -1,7 +1,7 @@
 export default {
   typescript: true,
   base: "/houston/",
-  title: "Houston",
+  title: "",
   description: "Eduzz Houston Design System",
   files: ["./**/*.mdx", "../packages/**/*.mdx"],
   groups: {
@@ -23,7 +23,7 @@ export default {
     },
     logo: {
       src: '/public/logo.svg',
-      width: 45,
+      width: 150,
     },
     menu: {
       search: false,
