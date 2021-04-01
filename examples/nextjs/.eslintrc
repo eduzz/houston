@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "@eduzz/eslint-config-houston"
+  ],
+  "rules": {
+    "no-restricted-imports": ["error", "@eduzz/houston-ui/*"],
+    "react/react-in-jsx-scope": ["off"]
+  }
+}
