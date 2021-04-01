@@ -2,16 +2,13 @@
 
 [![Publish](https://github.com/eduzz/houston/actions/workflows/master.yml/badge.svg)](https://github.com/eduzz/houston/actions/workflows/master.yml) [![version](https://img.shields.io/npm/v/@eduzz/houston)](https://www.npmjs.com/package/@eduzz/houston-ui)
 
-<img src="docs/static/welcome.svg" width="100%" />
+<img src="docs/public/welcome.svg" width="100%" />
 
 ## Instalação Completa
 
 ```bash
 # todos os packages de uso
 yarn add @eduzz/houston 
-
-# package do eslint, infelizmente o eslint pede que os plugins sejam instalados diretamente no projeto
-yarn add --dev @eduzz/eslint-config-houston @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-eslint-plugin eslint-plugin-import-helpers eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports prettier 
 ```
 
 ### Projetos
