@@ -3,7 +3,7 @@ export default {
   base: "/houston/",
   title: "",
   description: "Eduzz Houston Design System",
-  files: ["./**/*.mdx", "../packages/**/*.mdx"],
+  files: ["./**/*.mdx", "../CONTRIBUTING.md", "../packages/**/*.mdx"],
   groups: {
     '': [],
     API: ['Components', 'UI'],
