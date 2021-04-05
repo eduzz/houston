@@ -1,8 +1,0 @@
-{
-  "extends": [
-    "@eduzz/eslint-config-houston"
-  ],
-  "rules": {
-    "@typescript-eslint/no-require-imports": ["off"]
-  }
-}

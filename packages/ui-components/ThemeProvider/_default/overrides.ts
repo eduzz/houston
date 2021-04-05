@@ -9,7 +9,7 @@ import themeVariable from './variables';
 
 export type LabOverrides = {
   [Name in keyof LabComponentNameToClassKey]?: Partial<StyleRules<LabComponentNameToClassKey[Name]>>;
-} & {};
+};
 
 interface ICustomOverrides extends Partial<Overrides>, Partial<LabOverrides> {
   MuiTabScrollButton: any;

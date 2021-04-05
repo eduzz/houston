@@ -11,22 +11,18 @@ jobs:
     steps:
       - name: Clone
         uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 15
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install
-      - uses: webfactory/ssh-agent@v0.5.0
+      - name: Build
+        uses: borales/actions-yarn@v2.3.0
         with:
-          ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
-      - name: Release to GitHub Pages
+          cmd: build-docs
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@develop
         env:
-          USE_SSH: true
-          GIT_USER: git
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "gh-actions"
-          (cd docs && npm run deploy)
+          REPO: self
+          BRANCH: gh-pages
+          FOLDER: docs/.docz/dist
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

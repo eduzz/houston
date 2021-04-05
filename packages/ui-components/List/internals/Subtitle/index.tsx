@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import Typography from '@eduzz/houston-ui/Typography';
-
+import Typography from '../../../Typography';
 import { IListTitleProps } from '../../Title';
 
 interface IProps extends IListTitleProps {}
