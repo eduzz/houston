@@ -1,66 +1,27 @@
 {
-  "name": "docs",
-  "version": "0.0.0",
   "private": true,
+  "name": "@eduzz/houston-docs",
+  "version": "2.0.0-rc.41",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "doczrc.js",
+    "tsconfig.json",
+    "package.json"
+  ],
   "scripts": {
-    "docusaurus": "docusaurus",
-    "start": "docusaurus start",
-    "build": "docusaurus build",
-    "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
-    "clear": "docusaurus clear",
-    "serve": "docusaurus serve",
-    "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "houston-docs": "yarn run plop",
-    "lint": "yarn eslint \"./src/**/*.{ts,tsx}\"",
-    "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc --noEmit\""
+    "start": "docz dev",
+    "build": "docz build"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.72",
-    "@docusaurus/preset-bootstrap": "^2.0.0-alpha.72",
-    "@docusaurus/preset-classic": "2.0.0-alpha.72",
-    "@docusaurus/theme-bootstrap": "^2.0.0-alpha.72",
-    "@docusaurus/theme-live-codeblock": "2.0.0-alpha.72",
-    "@eduzz/houston": "*",
-    "@mdx-js/react": "^1.6.21",
-    "clsx": "^1.1.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "tslib": "^2.1.0"
-  },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@emotion/react": "11.1.1",
+    "@emotion/styled": "11.0.0",
+    "docz": "latest",
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-alpha.71",
-    "@eduzz/eslint-config-houston": "^0.11.8",
-    "@tsconfig/docusaurus": "^1.0.2",
-    "@types/react": "^16.13.1",
-    "@types/react-helmet": "^6.1.0",
-    "@types/react-router-dom": "^5.1.7",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "concurrently": "5.3.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-eslint-plugin": "^2.3.0",
-    "eslint-plugin-import-helpers": "^1.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-unused-imports": "^1.1.0",
-    "plop": "^2.7.4",
-    "prettier": "^2.2.1",
-    "raw-loader": "^4.0.2",
-    "typescript": "^4.2.3"
+    "@types/react": "16.8.23",
+    "@types/react-dom": "16.8.4"
   }
 }

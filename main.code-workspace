@@ -41,18 +41,19 @@
       "javascript",
       "javascriptreact",
       "typescript",
-      "typescriptreact"
+      "typescriptreact",
+      "mdx"
     ],
     "files.exclude": {
-			"node_modules": true,
-			".ultra.cache.json": true,
+      "node_modules": true,
+      ".ultra.cache.json": true,
       "**/*.css": {
         "when": "$(basename).scss"
       },
       "**/*.js": {
         "when": "$(basename).ts"
-			},
-			"**/*.d.ts": {
+      },
+      "**/*.d.ts": {
         "when": "$(basename).ts"
       },
       "**/*?.js": {

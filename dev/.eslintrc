@@ -1,5 +1,0 @@
-{
-  "extends": [
-    "@eduzz/eslint-config-houston"
-  ]
-}
