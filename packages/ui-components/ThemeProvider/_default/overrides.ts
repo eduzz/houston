@@ -416,6 +416,18 @@ export default function overrides(pallet: Palette): ICustomOverrides {
           }
         }
       }
+    },
+
+    MuiTooltip: {
+      tooltip: {
+        fontSize: themeVariable.textSize('xx-small'),
+        backgroundColor: palette.grey[600],
+        letterSpacing: 0.5
+      },
+
+      arrow: {
+        color: palette.grey[600]
+      }
     }
   };
 }

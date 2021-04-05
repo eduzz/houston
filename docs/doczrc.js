@@ -27,7 +27,7 @@ export default {
     },
     logo: {
       src: '/public/logo.svg',
-      width: 150,
+      width: 170,
     },
     menu: {
       search: false,
