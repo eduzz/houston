@@ -24,7 +24,7 @@ export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
   disabled?: boolean;
 }
 
-const Tooltip = React.memo<ITooltipProps>(({ title, placement = 'top', children, disabled, ...props }) => {
+const Tooltip = React.memo<ITooltipProps>(({ title, placement = 'top', children, disabled = false, ...props }) => {
   return (
     <TooltipMUI
       disableTouchListener={disabled}
