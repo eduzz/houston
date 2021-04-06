@@ -21,12 +21,24 @@ type ITooltipExtends = 'open' | 'onOpen' | 'onClose';
 export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
   title: string;
   placement?: ITooltipPlacement;
+  disabled?: boolean;
 }
 
-const Tooltip = React.memo<ITooltipProps>(({ title, placement = 'top', children, ...props }) => (
-  <TooltipMUI {...props} placement={placement} title={title} arrow>
-    {children as React.ReactElement}
-  </TooltipMUI>
-));
+const Tooltip = React.memo<ITooltipProps>(({ title, placement = 'top', children, disabled, ...props }) => {
+  return (
+    <TooltipMUI
+      disableTouchListener={disabled}
+      disableHoverListener={disabled}
+      disableFocusListener={disabled}
+      onOpen={props?.onOpen}
+      onClose={props?.onClose}
+      placement={placement}
+      title={title}
+      arrow
+    >
+      {children as React.ReactElement}
+    </TooltipMUI>
+  );
+});
 
 export default Tooltip;

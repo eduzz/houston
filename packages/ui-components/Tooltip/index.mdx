@@ -1,6 +1,6 @@
 ---
 name: Tooltip
-route: /components/Tooltip
+route: /components/tooltip
 menu: Components
 ---
 
@@ -24,9 +24,19 @@ import Tooltip from '@eduzz/houston-ui/Tooltip';
 ### Exemplo
 
 <Playground>
-  <Tooltip title='Lorem ipsum dolor'>
-    <Button>John Doe</Button>
-  </Tooltip>
+  <Row>
+    <Column>
+      <Tooltip title='Lorem ipsum dolor'>
+        <Button>John Doe</Button>
+      </Tooltip>
+    </Column>
+
+    <Column>
+      <Tooltip title='Lorem ipsum dolor' disabled>
+        <Button>Desabilitado</Button>
+      </Tooltip>
+    </Column>
+  </Row>
 </Playground>
 
 ### Direção
@@ -64,6 +74,7 @@ import Tooltip from '@eduzz/houston-ui/Tooltip';
 | prop      | tipo                | obrigatório | padrão  | descrição                                |
 | --------- | ------------------- | ----------- | ------- | ---------------------------------------- |
 | title     | `string`            | `true`      | -       | -                                        |
+| disabled  | `boolean`           | `false`     | `false` | -                                        |
 | placement | `ITooltipPlacement` | `false`     | `top`   | -                                        |
 | open      | `boolean`           | `false`     | `false` | Se verdadeiro, sempre exibirá o `title`. |
 | onOpen    | `function`          | `false`     | -       | -                                        |
