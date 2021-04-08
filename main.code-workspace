@@ -6,23 +6,23 @@
     },
     {
       "name": "@eduzz/core",
-      "path": "./docs/src/packages/core"
+      "path": "./source/src/packages/core"
     },
     {
       "name": "@eduzz/houston-ui",
-      "path": "./docs/src/packages/ui-components"
+      "path": "./source/src/packages/ui-components"
     },
     {
       "name": "@eduzz/houston-forms",
-      "path": "./docs/src/packages/forms"
+      "path": "./source/src/packages/forms"
     },
     {
       "name": "@eduzz/houston-hooks",
-      "path": "./docs/src/packages/hooks"
+      "path": "./source/src/packages/hooks"
     },
     {
       "name": "@eduzz/eslint-config-houston",
-      "path": "./docs/src/packages/eslint-config"
+      "path": "./source/src/packages/eslint-config"
     }
   ],
   "settings": {
