@@ -3,9 +3,10 @@ export default {
   base: "/houston/",
   title: "",
   description: "Eduzz Houston Design System",
-  files: ["./**/*.mdx", "../CONTRIBUTING.md", "../ROADMAP.md"],
+  files: ["./**/*.mdx"],
   propsParser: false,
   debug: true,
+  src: "./packages",
   menu: [
     'Início'
   ],

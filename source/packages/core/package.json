@@ -17,12 +17,10 @@
   },
   "scripts": {
     "clean": "git add . && git clean -f -x",
-    "build": "yarn clean",
-    "lint": "yarn eslint \"./**/*.ts\"",
-    "pre-commit": "concurrently -r \"yarn lint\""
+    "build": "tsc -p .",
+    "prepare": "yarn build",
+    "pre-commit": "tsc -p . --noEmit"
   },
   "dependencies": {},
-  "devDependencies": {
-    "@eduzz/eslint-config-houston": "0.11.10"
-  }
+  "devDependencies": {}
 }

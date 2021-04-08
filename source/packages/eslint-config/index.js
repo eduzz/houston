@@ -1,5 +1,5 @@
 module.exports = {
-  'extends': ['./default', 'plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint'],
+  'extends': ['./default', 'plugin:@typescript-eslint/recommended', 'prettier'],
   'rules': {
     '@typescript-eslint/no-unused-vars': ['warn'],
     '@typescript-eslint/adjacent-overload-signatures': ['error'],
