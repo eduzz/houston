@@ -1,0 +1,20 @@
+{
+  "name": "@eduzz/eslint-config-houston",
+  "private": false,
+  "version": "0.11.10",
+  "description": "Eduzz Houston Eslint Config",
+  "author": "Eduzz Team",
+  "license": "MIT",
+  "homepage": "https://github.com/eduzz/houston",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eduzz/houston"
+  },
+  "bugs": {
+    "url": "https://github.com/eduzz/houston/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {}
+}

@@ -3,7 +3,7 @@
   "name": "@eduzz/houston-workspaces",
   "version": "0.11.10",
   "workspaces": [
-    "packages/*",
+    "docs/src/packages/*",
     "docs"
   ],
   "scripts": {

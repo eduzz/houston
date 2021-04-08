@@ -3,10 +3,11 @@ export default {
   base: "/houston/",
   title: "",
   description: "Eduzz Houston Design System",
-  files: ["./**/*.mdx", "../CONTRIBUTING.md", "../packages/**/*.mdx"],
+  files: ["./**/*.mdx", "../CONTRIBUTING.md", "../ROADMAP.md"],
+  propsParser: false,
+  debug: true,
   menu: [
-    'Início',
-    'Como Contribuir'
+    'Início'
   ],
   groups: {
     '': [],
@@ -53,7 +54,6 @@ export default {
   docgenConfig: {
     searchPatterns: [
       "./**/*.{ts,tsx}",
-      "../packages/ui-components/**/*.{ts,tsx}",
       "!**/node_modules",
       "!**/doczrc.js",
     ]
