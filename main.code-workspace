@@ -46,6 +46,9 @@
       "**/*.js": {
         "when": "$(basename).ts"
       },
+      "**/*.jsx": {
+        "when": "$(basename).tsx"
+      },
       "**/*.d.ts": {
         "when": "$(basename).ts"
       },
