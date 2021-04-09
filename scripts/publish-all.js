@@ -29,10 +29,10 @@ async function init() {
 
   ora('NEW VERSION:' + currentVersion).succeed()
 
-  let packages = await fs.promises.readdir(`${__dirname}/../packages`);
+  let packages = await fs.promises.readdir(`${__dirname}/../src/packages`);
   packages = packages.map(path => ({
-    name: require(`${__dirname}/../packages/${path}/package.json`).name,
-    folder: `${__dirname}/../packages/${path}`
+    name: require(`${__dirname}/../src/packages/${path}/package.json`).name,
+    folder: `${__dirname}/../src/packages/${path}`
   }));
 
   if (!isCI) {

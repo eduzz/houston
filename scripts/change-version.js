@@ -60,12 +60,12 @@ async function init() {
     throw new Error('Cancelado');
   }
 
-  let packages = await fs.promises.readdir(`${__dirname}/../packages`);
+  let packages = await fs.promises.readdir(`${__dirname}/../src/packages`);
   packages = [
     { name: 'workspace', folder: `${__dirname}/../` },
     ...packages.map(path => ({
-      name: require(`${__dirname}/../packages/${path}/package.json`).name,
-      folder: `${__dirname}/../packages/${path}`
+      name: require(`${__dirname}/../src/packages/${path}/package.json`).name,
+      folder: `${__dirname}/../src/packages/${path}`
     }))
   ];
 
