@@ -40,26 +40,28 @@
     "files.exclude": {
       "node_modules": true,
       ".ultra.cache.json": true,
-      "**/*.css": true,
-      "**/*.js": true,
-      "**/*.jsx": true,
-      "**/*.d.ts": true,
-      "**/*?.js": true,
-      "**/*.map": true,
+      "**/*.css": {
+        "when": "$(basename).scss"
+      },
+      "**/*.js": {
+        "when": "$(basename).ts"
+      },
+      "**/*.jsx": {
+        "when": "$(basename).tsx"
+      },
+      "**/*.d.ts": {
+        "when": "$(basename).ts"
+      },
+      "**/*?.js": {
+        "when": "$(basename).tsx"
+      },
       "**/*.lock.json": true,
       "**/.DS_Store": true,
       "**/.git": true,
       "**/.svn": true,
       "**/.tmp": true,
       "**/bin/**": true,
-      "**/obj/**": true,
-      "**/**/*.js": {
-        "when": "$(basename).ts"
-      },
-      "**/**/**.js": {
-        "when": "$(basename).tsx"
-      },
-      "**/**/*.d.ts": true
+      "**/obj/**": true
     },
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
