@@ -12,18 +12,18 @@ mas tentamos manter de uma maneira simples para que fique fácil de entender.
 
 ## Atenção
 
-* Não utilize o **npm** pois utilizamos o **workspaces** do yarn para ele instalar todas as dependências de todos os projetos.
-* Todas as funcionalidades Web devem ter um .mdx pois ele gerará o doc, com o máximo de exemplos e códigos de exemplo possível.
-* Lembre-se que o *Houston™️* também será usado com o [`react-native`](https://reactnative.dev), menos o package [**ui-components**](https://github.com/eduzz/houston/tree/master/packages/ui-components).
-* Todos os componentes previstos estão no Figma vide quadro abaixo.
+- Não utilize o **npm** pois utilizamos o **workspaces** do yarn para ele instalar todas as dependências de todos os projetos.
+- Todas as funcionalidades Web devem ter um .mdx pois ele gerará o doc, com o máximo de exemplos e códigos de exemplo possível.
+- Lembre-se que o _Houston™️_ também será usado com o [`react-native`](https://reactnative.dev), menos o package [**ui-components**](https://github.com/eduzz/houston/tree/master/packages/ui-components).
+- Todos os componentes previstos estão no Figma vide quadro abaixo.
 
 ## Arquitetura
 
-No projeto principal (@eduzz/houston-ui) discutimos muito sobre o uso de uma lib base para não termos que fazer tudo 
-do zero e ganhar um pouco de velocidade no início, ponderamos sobre o **AntD** mas chegamos a conclusão que ele era 
+No projeto principal (@eduzz/houston-ui) discutimos muito sobre o uso de uma lib base para não termos que fazer tudo
+do zero e ganhar um pouco de velocidade no início, ponderamos sobre o **AntD** mas chegamos a conclusão que ele era
 **muito pesado e mudava os padrões** que já aplicamos em projeto atuais hoje, como quase todos os produtos já utilizam
-o **MaterialUI**, optamos por continuar usando ele por baixo, mas de uma maneira transparente para caso no futuro decidirmos 
-remover ele, não terá impacto na maneira como usamos os componentes, mas para não impactar uma aplicação que já usa o sistema de 
+o **MaterialUI**, optamos por continuar usando ele por baixo, mas de uma maneira transparente para caso no futuro decidirmos
+remover ele, não terá impacto na maneira como usamos os componentes, mas para não impactar uma aplicação que já usa o sistema de
 temas dele criamos o **WrapperTheme** que aplicará o tema do Houston™ apenas nos componentes do Houston™.
 
 ## Como rodar
@@ -50,19 +50,22 @@ Ele irá buildar e iniciar o projeto de docs em **http://localhost:3000**.
 
 ## Backlog
 
-Acesse o [Board](https://github.com/eduzz/houston/projects/3) para ver as tarefas e os componentes que faltam.  
+Acesse o [Board](https://github.com/eduzz/houston/projects/3) para ver as tarefas e os componentes que faltam.
 
 ## Padrões
 
-Sempre que desenvolver um componente ou qualquer funcionalidade adicionar um **.mdx** com os detalhes de como usá-lo e 
+Sempre que desenvolver um componente ou qualquer funcionalidade adicionar um **.mdx** com os detalhes de como usá-lo e
 suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes já existentes.
 
-<img src="https://rawcdn.githack.com/eduzz/houston/ba3ce41c10c0d745dc1ea545ad7a901942eab1be/src/public/example.png" width="250" />
+<img
+  src="https://rawcdn.githack.com/eduzz/houston/ba3ce41c10c0d745dc1ea545ad7a901942eab1be/source/public/example.png"
+  width="250"
+/>
 
 **Lembre-se de cada responsabilidade:**
 
 | Package                      | Descrição                                                                      |
-|------------------------------|--------------------------------------------------------------------------------|
+| ---------------------------- | ------------------------------------------------------------------------------ |
 | @eduzz/houston-ui            | Componentes do houston para web                                                |
 | @eduzz/eslint-config-houston | Configuração padrão para o eslint                                              |
 | @eduzz/houston-forms         | Hooks para validação de formulário (livre de plataforma. ex: web ou app)       |
@@ -71,7 +74,7 @@ suas props/configurações. Tente seguir ao máximo a sintaxe dos componentes j�
 
 ## Por baixo dos panos
 
-Utilizamos o [ultra-runner](https://www.npmjs.com/package/ultra-runner) para gerenciar o monorepo, ele é bem simples 
+Utilizamos o [ultra-runner](https://www.npmjs.com/package/ultra-runner) para gerenciar o monorepo, ele é bem simples
 todos os projetos jão estão configurados com build, dev e precommit unificados, todos os projetos utilizam a configuração do eslint
 padrão que disponibilizamos junto com o package **@eduzz/eslint-config-houston**
 
@@ -81,5 +84,5 @@ Entre no nosso servidor no [Discord](https://discord.gg/EeCnYRsCkX).
 
 ## Dúvidas?
 
-* Sobre a parte de dev 💪: @ffernandomoraes ou @danieloprado
-* Sobre a parte de design 🌈: @murilolamarca
+- Sobre a parte de dev 💪: @ffernandomoraes ou @danieloprado
+- Sobre a parte de design 🌈: @murilolamarca

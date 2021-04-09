@@ -1,9 +1,0 @@
-{
-  "overrides": [{
-    "files": ["*.mdx"],
-    "extends": ["@eduzz/eslint-config-houston/mdx"]
-  }, {
-    "files": ["*.tsx", "*.ts", "*.js", "*.jsx"],
-    "extends": "@eduzz/eslint-config-houston"
-  }]
-}
