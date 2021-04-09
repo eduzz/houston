@@ -29,11 +29,13 @@ async function init() {
 
   ora('NEW VERSION:' + currentVersion).succeed()
 
-  let packages = await fs.promises.readdir(`${__dirname}/../src/packages`);
-  packages = packages.map(path => ({
-    name: require(`${__dirname}/../src/packages/${path}/package.json`).name,
-    folder: `${__dirname}/../src/packages/${path}`
-  }));
+  let packages = await fs.promises.readdir(`${__dirname}/../src/packages`, { withFileTypes: true });
+  packages = packages
+    .filter(file => file.isDirectory())
+    .map(path => ({
+      name: require(`${__dirname}/../src/packages/${path}/package.json`).name,
+      folder: `${__dirname}/../src/packages/${path}`
+    }));
 
   if (!isCI) {
     await Promise.all(packages.map(async package => {
