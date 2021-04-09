@@ -1,12 +1,14 @@
 # Table
 
-### Import
+Tabelas exibem conjuntos de dados.
+
+### Importação
 
 ```js
 import Table from '@eduzz/houston-ui/Table';
 ```
 
-### Use
+### Exemplo
 
 ```jsx
 <Table loading={loading} onSortable={handleSortable}>
@@ -57,81 +59,81 @@ import Table from '@eduzz/houston-ui/Table';
 </Table>
 ```
 
-### Table props available
+### Table props
 
-| prop         | type                                    | required | default  | description                                            |
-|--------------|-----------------------------------------|----------|----------|--------------------------------------------------------|
-| loading      | `boolean`                               | false    | `false`  | -                                                      |
-| onSortable   | `(ordernation: ITableSortable) => void` | false    | -        | Function called when clicked on a `sortable` column    |
-| stickyHeader | `boolean`                               | false    | `false`  | Fixed header, maximum height (`maxHeight`) is required |
-| size         | `Size`                                  | false    | `medium` | -                                                      |
-| maxHeight    | `number`                                | false    | -        | -                                                      |
-| messages     | `ITableMessages`                        | false    | `false`  | Messages for some internal events                      |
-
-
-### Table.Column props available
-
-| prop     | type              | required | default | description                                                                                                |
-|----------|-------------------|----------|---------|------------------------------------------------------------------------------------------------------------|
-| field    | `string`          | true     | -       | Unique key                                                                                                 |
-| label    | `React.ReactNode` | true     | -       | -                                                                                                          |
-| width    | `number`          | false    | -       | -                                                                                                          |
-| align    | `ITableAlign`     | false    | `left`  | -                                                                                                          |
-| sortable | `boolean`         | false    | `false` | When `true`, when clicking on the column, calls the `onSortable` function passing the `field` and the sort |
+| prop         | tipo                                    | obrigatório | padrão   | descrição                                               |
+|--------------|-----------------------------------------|-------------|----------|---------------------------------------------------------|
+| loading      | `boolean`                               | `false`     | `false`  | -                                                       |
+| onSortable   | `(ordernation: ITableSortable) => void` | `false`     | -        | Função chamada quando clicada em uma coluna `sortable`. |
+| stickyHeader | `boolean`                               | `false`     | `false`  | Cabeçalho fixo, prop `maxHeight`) é necessário.         |
+| size         | `Size`                                  | `false`     | `medium` | -                                                       |
+| maxHeight    | `number`                                | `false`     | -        | -                                                       |
+| messages     | `ITableMessages`                        | `false`     | `false`  | Mensagens para alguns eventos internos.                 |
 
 
-### Table.Row props available
+### Table.Column props
 
-| prop | type      | required | default | description                                                               |
-|------|-----------|----------|---------|---------------------------------------------------------------------------|
-| data | `unknown` | true     | -       | Row values, used only when there are actions (Table.Actions) in the table |
-
-
-### Table.Cell props available
-
-| prop     | type          | required | default | description                                         |
-|----------|---------------|----------|---------|-----------------------------------------------------|
-| align    | `ITableAlign` | false    | `left`  | -                                                   |
-| truncate | `number`      | false    | -       | When filled, we cut the text according to the value |
-| colSpan  | `number`      | false    | -       | -                                                   |
+| prop     | tipo              | obrigatório | padrão  | descrição                                                                                         |
+|----------|-------------------|-------------|---------|---------------------------------------------------------------------------------------------------|
+| field    | `string`          | `true`      | -       | Chave única.                                                                                      |
+| label    | `React.ReactNode` | `true`      | -       | -                                                                                                 |
+| width    | `number`          | `false`     | -       | -                                                                                                 |
+| align    | `ITableAlign`     | `false`     | `left`  | -                                                                                                 |
+| sortable | `boolean`         | `false`     | `false` | Quando `true`, ao clicar na coluna, chama a função` onSortable` passando o `field` e a ordenação. |
 
 
-### Table.Actions props available
+### Table.Row props
 
-| prop  | type                       | required | default | description |
-|-------|----------------------------|----------|---------|-------------|
-| label | `React.ReactNode`, `false` | false    | `Ações` | -           |
-| align | `ITableAlign`              | false    | `left`  |             |
-
-
-### Table.Options props available
-
-| prop     | type                                    | required | default | description                           |
-|----------|-----------------------------------------|----------|---------|---------------------------------------|
-| onClick  | `(data: unknown) => void`               | false    | -       | Function triggered on click           |
-| disabled | `(data: unknown) => boolean`, `boolean` | false    | `false` | -                                     |
-| hide     | `(data: unknown) => boolean`, `boolean` | false    | `false` | Controls the rendering of the element |
-| icon     | `React.ReactNode`                       | false    | -       | -                                     |
+| prop | tipo      | obrigatório | padrão | descrição                                                                    |
+|------|-----------|-------------|--------|------------------------------------------------------------------------------|
+| data | `unknown` | `true`      | -      | Valores de linha, usados ​​apenas quando há ações (Table.Actions) na tabela. |
 
 
-### Table.Pagination props available
+### Table.Cell props
 
-| prop                | type                                                   | required | default                 | description                                                     |
-|---------------------|--------------------------------------------------------|----------|-------------------------|-----------------------------------------------------------------|
-| page                | `number`                                               | true     | -                       | -                                                               |
-| perPage             | `number`                                               | true     | -                       | -                                                               |
-| totalPages          | `number`                                               | true     | -                       | -                                                               |
-| optionsPerPage      | `number[]`                                             | false    | `[15, 25, 35, 50, 100]` | Values ​​on select items per page                               |
-| labelItensPerPage   | `React.ReactNode`                                      | false    | `Itens por página:`     | -                                                               |
-| onChangeRowsPerPage | `onChangeRowsPerPage?: (rowsPerPage: number) => void;` | false    | -                       | If the prop does not exist, the component will not be displayed |
-| onChangeGoToPage    | `onChangeGoToPage?: (goToPage: number) => void;`       | false    | -                       | If the prop does not exist, the component will not be displayed |
-| onChangePage        | `onChangePage?: (page: number) => void;`               | false    | -                       | If the prop does not exist, the component will not be displayed |
+| prop     | tipo          | obrigatório | padrão | descrição                                                                                 |
+|----------|---------------|-------------|--------|-------------------------------------------------------------------------------------------|
+| align    | `ITableAlign` | `false`     | `left` | -                                                                                         |
+| truncate | `number`      | `false`     | -      | Quando preenchido, limitamos o valor de `children` (se for string) de acordo com o valor. |
+| colSpan  | `number`      | `false`     | -      | -                                                                                         |
 
 
-### Table.Collapse props available
+### Table.Actions props
 
-| prop       | type                       | required | default | description                                                      |
-|------------|----------------------------|----------|---------|------------------------------------------------------------------|
-| loading    | `boolean`                  | false    | -       | -                                                                |
-| onCollapse | `(data?: unknown) => void` | false    | -       | Function called when clicking to open / close the collapsed item |
-| type       | `list`, `table`            | false    | `table` | If `list` will not render the bottom columns and borders         |
+| prop  | tipo                       | obrigatório | padrão  | descrição |
+|-------|----------------------------|-------------|---------|-----------|
+| label | `React.ReactNode`, `false` | `false`     | `Ações` | -         |
+| align | `ITableAlign`              | `false`     | `left`  |           |
+
+
+### Table.Options props
+
+| prop     | tipo                                    | obrigatório | padrão  | descrição                            |
+|----------|-----------------------------------------|-------------|---------|--------------------------------------|
+| onClick  | `(data: unknown) => void`               | `false`     | -       | -                                    |
+| disabled | `(data: unknown) => boolean`, `boolean` | `false`     | `false` | -                                    |
+| hide     | `(data: unknown) => boolean`, `boolean` | `false`     | `false` | Controla a renderização do elemento. |
+| icon     | `React.ReactNode`                       | `false`     | -       | -                                    |
+
+
+### Table.Pagination props
+
+| prop                | tipo                                                   | obrigatório | padrão                  | descrição                                             |
+|---------------------|--------------------------------------------------------|-------------|-------------------------|-------------------------------------------------------|
+| page                | `number`                                               | `true`      | -                       | -                                                     |
+| perPage             | `number`                                               | `true`      | -                       | -                                                     |
+| totalPages          | `number`                                               | `true`      | -                       | -                                                     |
+| optionsPerPage      | `number[]`                                             | `false`     | `[15, 25, 35, 50, 100]` | -                                                     |
+| labelItensPerPage   | `React.ReactNode`                                      | `false`     | `Itens por página:`     | -                                                     |
+| onChangeRowsPerPage | `onChangeRowsPerPage?: (rowsPerPage: number) => void;` | `false`     | -                       | Se a prop não existir, o componente não será exibido. |
+| onChangeGoToPage    | `onChangeGoToPage?: (goToPage: number) => void;`       | `false`     | -                       | Se a prop não existir, o componente não será exibido. |
+| onChangePage        | `onChangePage?: (page: number) => void;`               | `false`     | -                       | Se a prop não existir, o componente não será exibido. |
+
+
+### Table.Collapse props
+
+| prop       | tipo                       | obrigatório | padrão  | descrição                                                      |
+|------------|----------------------------|-------------|---------|----------------------------------------------------------------|
+| loading    | `boolean`                  | `false`     | -       | -                                                              |
+| onCollapse | `(data?: unknown) => void` | `false`     | -       | Função chamada ao clicar para abrir / fechar o item recolhido. |
+| type       | `list`, `table`            | `false`     | `table` | Se `list` não renderizará as colunas e bordas inferiores.      |

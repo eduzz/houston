@@ -1,6 +1,8 @@
 # Grid
 
-### Import
+O layout responsivo da grade do Houston se adapta ao tamanho e orientação da tela, garantindo a consistência entre layouts.
+
+### Importação
 
 ```js
 import Container from '@eduzz/houston-ui/Grid/Container';
@@ -8,7 +10,7 @@ import Column from '@eduzz/houston-ui/Grid/Column';
 import Row from '@eduzz/houston-ui/Grid/Row';
 ```
 
-### Use
+### Exemplo
 
 ```jsx
 <Container spacing='comfortable'>
@@ -32,7 +34,7 @@ import Row from '@eduzz/houston-ui/Grid/Row';
 <Container>
 ```
 
-### Do not do it
+### Não faça isso
 
 ```jsx
 <Container spacing='comfortable'>
@@ -42,7 +44,7 @@ import Row from '@eduzz/houston-ui/Grid/Row';
     </Column>
   </Row>
 
-  // ❌  A `Container` cannot be inside another `Container`
+  // ❌  Um `Container` não pode estar dentro de outro` Container`.
   <Container spacing='compact'>
     <Row alignItems='center'>
       <Column xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -53,28 +55,26 @@ import Row from '@eduzz/houston-ui/Grid/Row';
 <Container>
 ```
 
-### Container Props available
+### Container Props
 
-| prop    | type                             | required | default |
-|---------|----------------------------------|----------|---------|
-| spacing | `comfortable`, `cozy`, `compact` | false    | `cozy`  |
-| layout  | `fluid`, `solid`                 | false    | `solid` |
+| prop    | tipo                             | obrigatório | padrão  |
+|---------|----------------------------------|-------------|---------|
+| spacing | `comfortable`, `cozy`, `compact` | `false`     | `cozy`  |
+| layout  | `fluid`, `solid`                 | `false`     | `solid` |
 
-### Row Props available
+### Row Props
 
-| prop       | type                                                                                | required | default |
-|------------|-------------------------------------------------------------------------------------|----------|---------|
-| alignItems | `flex-start`, `center`, `flex-end`, `stretch`, `baseline`                           | false    | -       |
-| justify    | `flex-start`, `center`, `flex-end`, `space-between`, `space-around`, `space-evenly` | false    | -       |
+| prop       | tipo                                                                                | obrigatório | padrão |
+|------------|-------------------------------------------------------------------------------------|-------------|--------|
+| alignItems | `flex-start`, `center`, `flex-end`, `stretch`, `baseline`                           | `false`     | -      |
+| justify    | `flex-start`, `center`, `flex-end`, `space-between`, `space-around`, `space-evenly` | `false`     | -      |
 
-### Column Props available
+### Column Props
 
-| prop | type                                                                             | required | default |
-|------|----------------------------------------------------------------------------------|----------|---------|
-| xs   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | false    | -       |
-| sm   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | false    | -       |
-| md   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | false    | -       |
-| lg   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | false    | -       |
-| xl   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | false    | -       |
-
-Check breakpoints on this [link](https://material-ui.com/pt/customization/breakpoints/).
+| prop | tipo                                                                             | obrigatório | padrão |
+|------|----------------------------------------------------------------------------------|-------------|--------|
+| xs   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | `false`     | -      |
+| sm   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | `false`     | -      |
+| md   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | `false`     | -      |
+| lg   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | `false`     | -      |
+| xl   | `boolean`, `auto`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12` | `false`     | -      |

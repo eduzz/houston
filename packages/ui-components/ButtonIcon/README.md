@@ -1,12 +1,14 @@
 # Button Icon
 
-### Import
+Botões permitem que os usuários tomem ações e decisões com um simples toque.
+
+### Importação
 
 ```js
 import ButtonIcon from '@eduzz/houston-ui/ButtonIcon';
 ```
 
-### Use
+### Exemplo
 
 ```jsx
 <ButtonIcon>
@@ -14,9 +16,9 @@ import ButtonIcon from '@eduzz/houston-ui/ButtonIcon';
 </ButtonIcon>
 ```
 
-### Props available
+### Props
 
-| prop      | type                           | required | default   |
-|-----------|--------------------------------|----------|-----------|
-| disabled  | `boolean`                      | false    | `false`   |
-| onClick   | `function`                     | false    | -         |
+| prop     | tipo       | obrigatório | padrão  |
+|----------|------------|-------------|---------|
+| disabled | `boolean`  | `false`     | `false` |
+| onClick  | `function` | `false`     | -       |

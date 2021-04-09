@@ -7,7 +7,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import themeVariable, { FontSizes, FontWeight, LineHeights } from '../ThemeProvider/_default/variables';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
-type TypographyPropsExtends = 'className' | 'style' | 'children';
+type TypographyPropsExtends = 'className' | 'style' | 'children' | 'variant';
 
 export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsExtends> {
   size?: FontSizes;

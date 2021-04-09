@@ -6,7 +6,6 @@ import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
 interface ICollapseProps {
   visibled: boolean;
-  children?: any;
   onEnter?: () => void;
   destroyOnClose?: boolean;
 }

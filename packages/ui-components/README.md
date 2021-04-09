@@ -1,7 +1,6 @@
 # Eduzz Houston
 
-[![version](https://img.shields.io/npm/v/@eduzz/@eduzz/houston-ui)](https://www.npmjs.com/package/@eduzz/houston-ui)
-[![size](https://img.shields.io/bundlephobia/min/@eduzz/houston-ui)](https://www.npmjs.com/package/@eduzz/houston-ui)
+[![version](https://img.shields.io/npm/v/@eduzz/houston)](https://www.npmjs.com/package/@eduzz/houston-ui)
 
 ### Installation
 
@@ -9,11 +8,11 @@
 $ yarn add @eduzz/houston
 ```
 
-### Configuration
+### Configuração
 
-**This Provider will not temporarily replace the current theme of the project, it will only style Houston's components. Enabling the migration of components gradually.**
+**Este provedor não substituirá temporariamente o tema atual do projeto, apenas estilizará os componentes do Houston. Habilitando a migração de componentes gradualmente.**
 
-In the project's root file
+No arquivo raiz do projeto
 
 ```js
 import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
@@ -24,9 +23,9 @@ const palette: IThemePalette = {};
 <ThemeProvider palette={palette}>....</ThemeProvider>
 ```
 
-### Props available
+### Props
 
-| prop    | type            | required | default         |
-|---------|-----------------|----------|-----------------|
-| palette | `IThemePalette` | false    | `default theme` |
+| prop    | tipo            | obrigatório | padrão          |
+|---------|-----------------|-------------|-----------------|
+| palette | `IThemePalette` | `false`     | `default theme` |
 

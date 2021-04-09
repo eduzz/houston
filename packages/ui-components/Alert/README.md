@@ -1,12 +1,14 @@
 # Alert
 
-### Import
+Um alerta exibe uma mensagem curta e importante de uma forma que atrai a atenção do usuário sem interromper o que ele estiver fazendo.
+
+### Importação
 
 ```js
 import Alert from '@eduzz/houston-ui/Alert';
 ```
 
-### Use
+### Exemplo
 
 ```jsx
 <Alert closable>Simple Alert</Alert>
@@ -30,24 +32,24 @@ import Alert from '@eduzz/houston-ui/Alert';
 </Alert>
 ```
 
-### Alert props available
+### Alert props
 
-| prop      | type                                    | required | default     | description                                                                                      |
-|-----------|-----------------------------------------|----------|-------------|--------------------------------------------------------------------------------------------------|
-| type      | `success`, `info`, `warning`, `error`   | false    | `success`   | -                                                                                                |
-| onClose   | `(event: React.SyntheticEvent) => void` | false    | -           | If there is a value, it automatically adds the "X".                                              |
-| icon      | `React.ReactNode`, `false`              | false    | `type` icon | If `false`, the icon will be hidden.                                                             |
-| closable  | `boolean`                               | false    | false       | If true, the component controls the state itself and there is no need to use the `onClose` prop. |
-| multiline | `boolean`                               | false    | false       | If true, the actions will drop to the line below the text.                                       |
+| prop      | tipo                                    | obrigatório | padrão      | descrição                                                                                        |
+|-----------|-----------------------------------------|-------------|-------------|--------------------------------------------------------------------------------------------------|
+| type      | `success`, `info`, `warning`, `error`   | `false`     | `success`   | -                                                                                                |
+| onClose   | `(event: React.SyntheticEvent) => void` | `false`     | -           | Se houver um valor, ele adiciona automaticamente o "X".                                          |
+| icon      | `React.ReactNode`, `false`              | `false`     | `type` icon | Se `false`, o ícone ficará oculto.                                                               |
+| closable  | `boolean`                               | `false`     | `false`     | Se `true`, o componente controla o próprio estado e não há necessidade de usar a prop `onClose`. |
+| multiline | `boolean`                               | `false`     | `false`     | Se `true`, as ações cairão na linha abaixo do texto.                                             |
 
-### Alert.Title props available
+### Alert.Title props
 
-The component receive only the child.
+O componente recebe apenas o `children`.
 
-### Alert.Action props available
+### Alert.Action props
 
-| prop  | type              | required | default | description |
-|-------|-------------------|----------|---------|-------------|
-| label | `React.ReactNode` | true     | -       | -           |
+| prop  | tipo              | obrigatório | padrão | descrição |
+|-------|-------------------|-------------|--------|-----------|
+| label | `React.ReactNode` | `true`      | -      | -         |
 
-And all available props on *Button component*.
+E todos as props disponíveis no *Componente de botão*.

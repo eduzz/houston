@@ -1,12 +1,14 @@
 # Toast
 
-### Import
+Usado para exibir notificações temporárias.
+
+### Importação
 
 ```js
 import Toast from '@eduzz/houston-ui/Toast';
 ```
 
-### Use
+### Exemplo
 
 ```jsx
 function handle() {
@@ -16,10 +18,10 @@ function handle() {
 }
 ```
 
-### Options available
+### Opções
 
-| option  | type       | description                                 |
-|---------|------------|---------------------------------------------|
-| onOpen  | `function` | Called when the notification appear         |
-| onClose | `function` | Called when the notification disappear      |
-| onClick | `function` | Called when click inside Toast notification |
+| opção   | tipo       | descrição                                |
+|---------|------------|------------------------------------------|
+| onOpen  | `function` | Chamado quando a notificação aparece.    |
+| onClose | `function` | Chamado quando a notificação desaparece. |
+| onClick | `function` | Chamado ao clicar dentro da notificação. |

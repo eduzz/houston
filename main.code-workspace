@@ -5,7 +5,7 @@
       "path": "."
     },
     {
-      "path": "./docs"
+      "path": "./dev"
     },
     {
       "name": "@eduzz/core",
@@ -33,7 +33,7 @@
     }
   ],
   "settings": {
-    "typescript.tsdk": "./node_modules/typescript/lib",
+    "typescript.tsdk": "all/node_modules/typescript/lib",
     "editor.formatOnPaste": false,
     "editor.formatOnSave": false,
     "editor.formatOnType": false,

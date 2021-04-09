@@ -1,12 +1,14 @@
 # Tabs
 
-### Import
+As abas facilitam a exploração e alternam entre diferentes visualizações.
+
+### Importação
 
 ```js
 import Tabs from '@eduzz/houston-ui/Tabs';
 ```
 
-### Use uncontrolled value
+### Valor não controlado
 
 ```jsx
 <Tabs>
@@ -17,30 +19,33 @@ import Tabs from '@eduzz/houston-ui/Tabs';
 </Tabs>
 ```
 
-### Use controlled value
+### Valor controlado
 
 ```jsx
 // currentTab = 2
 
 <Tabs value={currentTab} onChange={handleChangeTab}>
-  <Tabs.Content label='Title 1'>Content 1</Tabs.Content>
+  // 0
+  <Tabs.Content label='Title 1'>Content 1</Tabs.Content> 
+  // 1
   <Tabs.Content label='Title 2' icon={<MyIcon />}>Content 2</Tabs.Content>
+  // 2
   <Tabs.Content label='Title 3' disabled>*Active Tab*</Tabs.Content>
 </Tabs>
 ```
 
-### Props available on Tabs
+### Tabs props
 
-| prop     | type                      | required | default | description       |
-|----------|---------------------------|----------|---------|-------------------|
-| value    | `number`                  | false    | -       | Tab index         |
-| onChange | `(value: number) => void` | false    | -       | Receive new index |
+| prop     | type                      | required | default | description         |
+|----------|---------------------------|----------|---------|---------------------|
+| value    | `number`                  | `false`  | -       | Índice da Tab.      |
+| onChange | `(value: number) => void` | `false`  | -       | Recebe novo índice. |
 
-### Props available on Tabs.Content
+### Tabs.Content props
 
 | prop            | type        | required | default |
 |-----------------|-------------|----------|---------|
-| label           | `string`    | true     | -       |
-| icon            | `ReactNode` | false    | -       |
-| disabled        | `boolean`   | false    | false   |
-| disabledPadding | `boolean`   | false    | false   |
+| label           | `string`    | `true`   | -       |
+| icon            | `ReactNode` | `false`  | -       |
+| disabled        | `boolean`   | `false`  | `false` |
+| disabledPadding | `boolean`   | `false`  | `false` |

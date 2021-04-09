@@ -1,12 +1,14 @@
 # Lista
 
+Listas são continuas, apresentam verticalmente texto ou imagens.
+
 ### Importação
 
 ```js
 import List from '@eduzz/houston-ui/List';
 ```
 
-### Uso
+### Exemplo
 
 ```jsx
 <List stripedRows>
@@ -29,48 +31,48 @@ import List from '@eduzz/houston-ui/List';
 </List>
 ```
 
-### List props disponíveis
+### List props
 
 | prop        | tipe      | obrigatório | padrão  | descrição |
 |-------------|-----------|-------------|---------|-----------|
-| stripedRows | `boolean` | false       | `false` | -         |
+| stripedRows | `boolean` | `false`     | `false` | -         |
 
 
-### List.Item props disponíveis
-
-| prop     | tipe              | obrigatório | padrão | descrição |
-|----------|-------------------|-------------|--------|-----------|
-| children | `React.ReactNode` | true        | -      | -         |
-
-
-### List.Left props disponíveis
-
-| prop  | tipe              | obrigatório | padrão | descrição                             |
-|-------|-------------------|-------------|--------|---------------------------------------|
-| icon  | `React.ReactNode` | false       | -      | -                                     |
-| image | `React.ReactNode` | false       | -      | Só será exibido se a prop icon não possuir valor |
-
-
-### List.Title props disponíveis
+### List.Item props
 
 | prop     | tipe              | obrigatório | padrão | descrição |
 |----------|-------------------|-------------|--------|-----------|
-| children | `React.ReactNode` | true       | -      | -         |
+| children | `React.ReactNode` | `true`      | -      | -         |
+
+
+### List.Left props
+
+| prop  | tipe              | obrigatório | padrão | descrição                                           |
+|-------|-------------------|-------------|--------|-----------------------------------------------------|
+| icon  | `React.ReactNode` | `false`     | -      | -                                                   |
+| image | `React.ReactNode` | `false`     | -      | Só será exibido se a prop `icon` não possuir valor. |
+
+
+### List.Title props
+
+| prop     | tipe              | obrigatório | padrão | descrição |
+|----------|-------------------|-------------|--------|-----------|
+| children | `React.ReactNode` | `true`      | -      | -         |
 
 
 ### List.Subtitle props available
 
 | prop     | tipe              | obrigatório | padrão | descrição |
 |----------|-------------------|-------------|--------|-----------|
-| children | `React.ReactNode` | true       | -      | -         |
+| children | `React.ReactNode` | `true`      | -      | -         |
 
 
-### List.Right props disponíveis
+### List.Right props
 
-| prop    | tipe                                                                                 | obrigatório | padrão | descrição |
-|---------|--------------------------------------------------------------------------------------|-------------|--------|-----------|
-| icon    | `React.ReactNode`                                                                    | false       | -      | -         |
-| onClick | `React.MouseEventHandler<HTMLButtonElement | HTMLDivElement | HTMLParagraphElement>` | false       | -      | -         |
-| text    | `string`                                                                             | false       | -      | Só será exibido se a prop icon não possuir valor        |
+| prop    | tipe                                                                                 | obrigatório | padrão | descrição                                           |
+|---------|--------------------------------------------------------------------------------------|-------------|--------|-----------------------------------------------------|
+| icon    | `React.ReactNode`                                                                    | false       | -      | -                                                   |
+| onClick | `React.MouseEventHandler<HTMLButtonElement | HTMLDivElement | HTMLParagraphElement>` | false       | -      | -                                                   |
+| text    | `string`                                                                             | false       | -      | Só será exibido se a prop `icon` não possuir valor. |
 
 

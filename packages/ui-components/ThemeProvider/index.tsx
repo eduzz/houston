@@ -34,7 +34,8 @@ function ThemeProvider(props: IThemeProviderProps) {
 
         body {
           font-family: ${themeVariable.fontFamily};
-          font-size: ${themeVariable.textSize('docs')}px;
+          font-size: ${themeVariable.textSize('default')}px;
+          letter-spacing: 0;
         }
       `
     }),

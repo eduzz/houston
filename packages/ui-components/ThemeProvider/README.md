@@ -1,16 +1,18 @@
 # ThemeProvider
 
-### Import
+Um provedor de tema genérico e estilizador CSS.
+
+### Importação
 
 ```js
 import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
 ```
 
-### Use
+### Exemplo
 
-**This Provider will not temporarily replace the current theme of the project, it will only style Houston's components. Enabling the migration of components gradually.**
+**Este provedor não substituirá temporariamente o tema atual do projeto, apenas estilizará os componentes do Houston. Habilitando a migração de componentes gradualmente.**
 
-In the project's root file
+No arquivo raiz do projeto
 
 ```jsx
 const palette: IThemePalette = {};
@@ -19,12 +21,12 @@ const palette: IThemePalette = {};
 
 ### Props available
 
-| prop    | type            | required | default         |
-|---------|-----------------|----------|-----------------|
-| palette | `IThemePalette` | false    | `default theme` |
+| prop    | tipo            | obrigatório | padrão          |
+|---------|-----------------|-------------|-----------------|
+| palette | `IThemePalette` | `false`     | `default theme` |
 
 
-### Default Theme
+### Tema padrão
 
 ```js
 {
