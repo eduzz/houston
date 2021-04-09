@@ -32,9 +32,9 @@ async function init() {
   let packages = await fs.promises.readdir(`${__dirname}/../src/packages`, { withFileTypes: true });
   packages = packages
     .filter(file => file.isDirectory())
-    .map(path => ({
-      name: require(`${__dirname}/../src/packages/${path}/package.json`).name,
-      folder: `${__dirname}/../src/packages/${path}`
+    .map(file => ({
+      name: require(`${__dirname}/../src/packages/${file.name}/package.json`).name,
+      folder: `${__dirname}/../src/packages/${file.name}`
     }));
 
   if (!isCI) {

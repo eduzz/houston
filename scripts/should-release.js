@@ -1,9 +1,11 @@
 const nodeVersion = process.version.replace('v', '');
+const fs = require('fs');
+
+const buildGithub = fs.existsSync('/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules');
 
 const childProccess = require('child_process');
-const semver = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/semver`);
-const ora = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/ora`);
-const fs = require('fs');
+const semver = buildGithub ? require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/semver`) : require('semver');
+const ora = buildGithub ? require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/ora`)  : require('ora');
 
 let currentVersion = require('../package.json').version;
 
@@ -17,9 +19,9 @@ async function init() {
   let packages = await fs.promises.readdir(`${__dirname}/../src/packages`, { withFileTypes: true });
   packages = packages
     .filter(file => file.isDirectory())
-    .map(path => ({
-      name: require(`${__dirname}/../src/packages/${path}/package.json`).name,
-      folder: `${__dirname}/../src/packages/${path}`
+    .map(file => ({
+      name: require(`${__dirname}/../src/packages/${file.name}/package.json`).name,
+      folder: `${__dirname}/../src/packages/${file.name}`
     }));
 
   await Promise.all(packages.map(async package => {
