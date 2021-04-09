@@ -41,8 +41,8 @@ export default {
     showDarkModeSwitch: false,
     colors: {
       header: {
-        bg: '#0D47A1',
-        text: 'white',
+        bg: '#F9FAFB',
+        text: '37474F',
         button: {
           bg: 'red',
           color: 'green',
