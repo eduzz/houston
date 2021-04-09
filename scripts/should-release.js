@@ -1,11 +1,10 @@
 const nodeVersion = process.version.replace('v', '');
 const fs = require('fs');
 
-const buildGithub = fs.existsSync('/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules');
 
 const childProccess = require('child_process');
-const semver = buildGithub ? require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/semver`) : require('semver');
-const ora = buildGithub ? require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/ora`)  : require('ora');
+const semver = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/semver`);
+const ora = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/ora`);
 
 let currentVersion = require('../package.json').version;
 
