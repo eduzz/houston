@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
+import { StylesProvider } from '@material-ui/core/styles';
 
 const generateClassName = (rule, styleSheet) => {
   return `${styleSheet.options.classNamePrefix}-${rule.key}`;
