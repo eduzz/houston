@@ -5,7 +5,7 @@ export default {
   description: "Eduzz Houston Design System",
   files: ["./**/*.mdx"],
   propsParser: false,
-  debug: true,
+  debug: false,
   src: "./packages",
   menu: [
     'Início'

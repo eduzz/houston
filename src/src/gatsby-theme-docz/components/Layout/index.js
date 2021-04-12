@@ -7,7 +7,7 @@ import { MainContainer } from 'gatsby-theme-docz/src/components/MainContainer';
 import { Sidebar } from 'gatsby-theme-docz/src/components/Sidebar';
 import { breakpoints } from 'gatsby-theme-docz/src/theme/breakpoints';
 import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import { Box, Flex, jsx } from 'theme-ui';
 import useExtendedMenus from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/hooks/useExtendedMenus';
 import Footer from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Footer';
@@ -30,6 +30,19 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
     setQuery(ev.target.value);
   };
 
+  const styleContent = useMemo(
+    () => ({
+      __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');
+
+        body, * {
+          font-family: "Open Sans";
+        }
+      `
+    }),
+    []
+  );
+
   const {updated} = doc.value || {};
   const mainStyles = {
     marginLeft: align !== 'left' ? 'auto' : 0,
@@ -38,46 +51,14 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
   };
 
   return (
-    <Flex sx={{'& > div': {flex: '1 1 auto'}}} data-testid="layout">
-      <Global styles={globalStyles} />
-      <Box sx={styles.main}>
-        <Header onOpen={() => setOpen((s) => !s)} />
+    <>
+      <style dangerouslySetInnerHTML={styleContent} />
+      <Flex sx={{'& > div': {flex: '1 1 auto'}}} data-testid="layout">
+        <Global styles={globalStyles} />
+        <Box sx={styles.main}>
+          <Header onOpen={() => setOpen((s) => !s)} />
 
-        {fullMainContainer &&
-          <MainContainer
-            style={mainStyles}
-            data-testid="main-container"
-            doc={doc}
-            {...rest}
-          >
-            <Flex
-              sx={{
-                width: '100%',
-                justifyContent: 'stretch',
-                [`@media screen and (max-width: ${breakpoints.desktop}px)`]: {
-                  flexDirection: 'column',
-                },
-              }}
-            >
-              <Content>
-                <div>{children}</div>
-                <Footer updated={updated} menus={menus} />
-              </Content>
-            </Flex>
-          </MainContainer>
-        }
-
-        {!fullMainContainer &&
-          <div sx={styles.wrapper}>
-            <Sidebar
-              ref={ref}
-              open={open}
-              menus={menus}
-              handleChange={handleChange}
-              onFocus={() => setOpen(true)}
-              onBlur={() => setOpen(false)}
-              onClick={() => setOpen(false)}
-            />
+          {fullMainContainer &&
             <MainContainer
               style={mainStyles}
               data-testid="main-container"
@@ -97,14 +78,49 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
                   <div>{children}</div>
                   <Footer updated={updated} menus={menus} />
                 </Content>
-                <NavHeadings />
               </Flex>
             </MainContainer>
-          </div>
-        }
+          }
 
-      </Box>
-    </Flex>
+          {!fullMainContainer &&
+            <div sx={styles.wrapper}>
+              <Sidebar
+                ref={ref}
+                open={open}
+                menus={menus}
+                handleChange={handleChange}
+                onFocus={() => setOpen(true)}
+                onBlur={() => setOpen(false)}
+                onClick={() => setOpen(false)}
+              />
+              <MainContainer
+                style={mainStyles}
+                data-testid="main-container"
+                doc={doc}
+                {...rest}
+              >
+                <Flex
+                  sx={{
+                    width: '100%',
+                    justifyContent: 'stretch',
+                    [`@media screen and (max-width: ${breakpoints.desktop}px)`]: {
+                      flexDirection: 'column',
+                    },
+                  }}
+                >
+                  <Content>
+                    <div>{children}</div>
+                    <Footer updated={updated} menus={menus} />
+                  </Content>
+                  <NavHeadings />
+                </Flex>
+              </MainContainer>
+            </div>
+          }
+
+        </Box>
+      </Flex>
+    </>
   );
 };
 
