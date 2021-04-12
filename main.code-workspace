@@ -5,31 +5,24 @@
       "path": "."
     },
     {
-      "path": "./docs"
-    },
-    {
       "name": "@eduzz/core",
-      "path": "./packages/core"
+      "path": "./src/packages/core"
     },
     {
       "name": "@eduzz/houston-ui",
-      "path": "./packages/ui-components"
+      "path": "./src/packages/ui-components"
     },
     {
       "name": "@eduzz/houston-forms",
-      "path": "./packages/forms"
+      "path": "./src/packages/forms"
     },
     {
       "name": "@eduzz/houston-hooks",
-      "path": "./packages/hooks"
+      "path": "./src/packages/hooks"
     },
     {
       "name": "@eduzz/eslint-config-houston",
-      "path": "./packages/eslint-config"
-    },
-    {
-      "name": "@eduzz/houston",
-      "path": "./packages/bundle"
+      "path": "./src/packages/eslint-config"
     }
   ],
   "settings": {
@@ -45,30 +38,21 @@
       "mdx"
     ],
     "files.exclude": {
-      "node_modules": true,
-      ".ultra.cache.json": true,
-      "**/*.css": {
-        "when": "$(basename).scss"
-      },
-      "**/*.js": {
-        "when": "$(basename).ts"
-      },
-      "**/*.d.ts": {
-        "when": "$(basename).ts"
-      },
-      "**/*?.js": {
-        "when": "$(basename).tsx"
-      },
-      "**/*.lock.json": true,
-      "**/*.map": {
-        "when": "$(basename)"
-      },
-      "**/.DS_Store": true,
-      "**/.git": true,
-      "**/.svn": true,
-      "**/.tmp": true,
-      "**/bin/**": true,
-      "**/obj/**": true
+      "node_modules": false,
+      ".ultra.cache.json": false,
+      "**/*.css": false,
+      "**/*.js": false,
+      "**/*.jsx": false,
+      "**/*.d.ts": false,
+      "**/*?.js": false,
+      "**/*.lock.json": false,
+      "**/*.map": false,
+      "**/.DS_Store": false,
+      "**/.git": false,
+      "**/.svn": false,
+      "**/.tmp": false,
+      "**/bin/**": false,
+      "**/obj/**": false
     },
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true

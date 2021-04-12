@@ -1,0 +1,19 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "es2015",
+    "lib": ["es2017", "dom"],
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": false,
+    "noEmit": true,
+    "jsx": "react",
+    "allowJs": false,
+    "rootDir": "./",
+    "listFiles": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", ".docz"]
+}

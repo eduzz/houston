@@ -1,0 +1,292 @@
+{
+  "config": {
+    "title": "",
+    "description": "Eduzz Houston Design System",
+    "menu": [
+      "Início",
+      "Como Contribuir"
+    ],
+    "version": "2.0.0-rc.41",
+    "repository": null,
+    "native": false,
+    "themeConfig": {
+      "search": true,
+      "mainContainer": {
+        "fullscreen": false,
+        "align": "center"
+      },
+      "header": {
+        "icons": "minimal",
+        "fixed": false
+      },
+      "footer": {
+        "navigation": false
+      },
+      "logo": {
+        "src": "/public/logo.svg",
+        "width": 150
+      },
+      "menu": {
+        "search": false,
+        "headings": {
+          "rightSide": true,
+          "scrollspy": true,
+          "depth": 3
+        }
+      },
+      "showPlaygroundEditor": false,
+      "showDarkModeSwitch": false,
+      "colors": {
+        "header": {
+          "bg": "#F9FAFB",
+          "text": "37474F",
+          "button": {
+            "bg": "red",
+            "color": "green"
+          }
+        }
+      }
+    },
+    "separator": "-",
+    "typescript": true,
+    "base": "/houston/",
+    "files": [
+      "./**/*.mdx",
+      "../CONTRIBUTING.md",
+      "../packages/**/*.mdx"
+    ],
+    "groups": {
+      "": [],
+      "API": [
+        "Components",
+        "UI"
+      ]
+    },
+    "docgenConfig": {
+      "searchPatterns": [
+        "./**/*.{ts,tsx}",
+        "../packages/ui-components/**/*.{ts,tsx}",
+        "!**/node_modules",
+        "!**/doczrc.js"
+      ]
+    }
+  },
+  "props": [
+    {
+      "key": "src/gatsby-theme-docz/custom-components/Header/index.tsx",
+      "value": []
+    }
+  ],
+  "entries": [
+    {
+      "key": "src/getting-started.mdx",
+      "value": {
+        "name": "Início",
+        "route": "/inicio",
+        "id": "1ffaebd174da11b32fa9e92ca9687156",
+        "filepath": "src/getting-started.mdx",
+        "fullpath": "/home/michele/Projects/Eduzz/houston/docs/src/getting-started.mdx",
+        "link": "",
+        "hidden": false,
+        "slug": "src-getting-started",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "eduzz-houston",
+            "depth": 1,
+            "value": "Eduzz Houston"
+          },
+          {
+            "slug": "instalação-completa",
+            "depth": 2,
+            "value": "Instalação Completa"
+          },
+          {
+            "slug": "projetos",
+            "depth": 2,
+            "value": "Projetos"
+          },
+          {
+            "slug": "quer-contribuir",
+            "depth": 2,
+            "value": "Quer contribuir?"
+          },
+          {
+            "slug": "links-úteis",
+            "depth": 2,
+            "value": "Links úteis"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/index.mdx",
+      "value": {
+        "name": "Home",
+        "route": "/",
+        "menu": "",
+        "fullscreen": true,
+        "id": "6576455a124f9aaefd860597f03a8fe4",
+        "filepath": "src/index.mdx",
+        "fullpath": "/home/michele/Projects/Eduzz/houston/docs/src/index.mdx",
+        "link": "",
+        "hidden": false,
+        "slug": "src-index",
+        "headings": []
+      }
+    },
+    {
+      "key": "../CONTRIBUTING.md",
+      "value": {
+        "name": "Como Contribuir",
+        "route": "/contributing",
+        "id": "f45c180d73747f52fbe1c9fba7691053",
+        "filepath": "../CONTRIBUTING.md",
+        "fullpath": "/home/michele/Projects/Eduzz/houston/CONTRIBUTING.md",
+        "link": "",
+        "hidden": false,
+        "slug": "contributing",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "como-contribuir",
+            "depth": 1,
+            "value": "Como Contribuir"
+          },
+          {
+            "slug": "repositório-monorepo",
+            "depth": 2,
+            "value": "Repositório Monorepo"
+          },
+          {
+            "slug": "atenção",
+            "depth": 2,
+            "value": "Atenção"
+          },
+          {
+            "slug": "arquitetura",
+            "depth": 2,
+            "value": "Arquitetura"
+          },
+          {
+            "slug": "como-rodar",
+            "depth": 2,
+            "value": "Como rodar"
+          },
+          {
+            "slug": "como-iniciar-uma-tarefa",
+            "depth": 2,
+            "value": "Como iniciar uma tarefa"
+          },
+          {
+            "slug": "backlog",
+            "depth": 2,
+            "value": "Backlog"
+          },
+          {
+            "slug": "padrões",
+            "depth": 2,
+            "value": "Padrões"
+          },
+          {
+            "slug": "por-baixo-dos-panos",
+            "depth": 2,
+            "value": "Por baixo dos panos"
+          },
+          {
+            "slug": "comunicação-e-novidades",
+            "depth": 2,
+            "value": "Comunicação e novidades"
+          },
+          {
+            "slug": "dúvidas",
+            "depth": 2,
+            "value": "Dúvidas?"
+          }
+        ]
+      }
+    },
+    {
+      "key": "../packages/ui-components/Button/index.mdx",
+      "value": {
+        "name": "Button",
+        "route": "/components/button",
+        "menu": "Components",
+        "id": "520329a8f42b4cc85bd8fc993eceb9c2",
+        "filepath": "../packages/ui-components/Button/index.mdx",
+        "fullpath": "/home/michele/Projects/Eduzz/houston/packages/ui-components/Button/index.mdx",
+        "link": "",
+        "hidden": false,
+        "slug": "packages-ui-components-button-index",
+        "headings": [
+          {
+            "slug": "button",
+            "depth": 1,
+            "value": "Button"
+          },
+          {
+            "slug": "use",
+            "depth": 2,
+            "value": "Use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "../packages/ui-components/Table/index.mdx",
+      "value": {
+        "name": "Table",
+        "route": "/components/table",
+        "menu": "Components",
+        "id": "27a0b3abb158e63b2add044be4a02fdd",
+        "filepath": "../packages/ui-components/Table/index.mdx",
+        "fullpath": "/home/michele/Projects/Eduzz/houston/packages/ui-components/Table/index.mdx",
+        "link": "",
+        "hidden": false,
+        "slug": "packages-ui-components-table-index",
+        "headings": [
+          {
+            "slug": "tabela",
+            "depth": 2,
+            "value": "Tabela"
+          },
+          {
+            "slug": "tabela-simples",
+            "depth": 2,
+            "value": "Tabela simples"
+          },
+          {
+            "slug": "tabela-com-paginação",
+            "depth": 2,
+            "value": "Tabela com paginação"
+          },
+          {
+            "slug": "tabela-com-ações",
+            "depth": 2,
+            "value": "Tabela com ações"
+          },
+          {
+            "slug": "tabela-com-ordenação",
+            "depth": 2,
+            "value": "Tabela com ordenação"
+          },
+          {
+            "slug": "tabela-com-collapse",
+            "depth": 2,
+            "value": "Tabela com collapse"
+          },
+          {
+            "slug": "propriedades-da-tablecolumn",
+            "depth": 2,
+            "value": "Propriedades da Table.Column"
+          }
+        ]
+      }
+    }
+  ]
+}

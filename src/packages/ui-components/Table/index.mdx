@@ -1,0 +1,259 @@
+---
+name: Table
+route: /components/table
+menu: Components
+---
+
+import { Playground } from 'docz';
+
+import Table from './';
+
+# Tabela
+
+Tabelas apresentam informações de uma forma fácil de visualizar, de modo que os usuários podem
+procurar por padrões e percepções.
+
+### Importação
+
+```js
+import Table from '@eduzz/houston-ui/Table';
+```
+
+### Tabela simples
+
+<Playground>
+  <Table>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' />
+    <Table.Column field='owner' label='Produtor' />
+    <Table.Column field='value' label='Valor' align='right' />
+    <Table.Row>
+      <Table.Cell>1</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 120,00</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>2</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 100,00</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>3</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 200,20</Table.Cell>
+    </Table.Row>
+  </Table>
+</Playground>
+
+### Tabela com paginação
+
+<Playground>
+  <Table>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' />
+    <Table.Column field='owner' label='Produtor' />
+    <Table.Column field='value' label='Valor' align='right' />
+    <Table.Row>
+      <Table.Cell>1</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 120,00</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>2</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 100,00</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>3</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 200,20</Table.Cell>
+    </Table.Row>
+    <Table.Pagination page={1} perPage={5} total={20} onChangePage={page => console.log(page)} />
+  </Table>
+</Playground>
+
+### Tabela com ações
+
+<Playground>
+  <Table>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' />
+    <Table.Column field='owner' label='Produtor' />
+    <Table.Column field='value' label='Valor' align='right' />
+    <Table.Row data={{ id: 1, product: 'Produto teste ' }}>
+      <Table.Cell>1</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 120,00</Table.Cell>
+    </Table.Row>
+    <Table.Row data={{ id: 2, product: 'Produto teste ' }}>
+      <Table.Cell>2</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 100,00</Table.Cell>
+    </Table.Row>
+    <Table.Row data={{ id: 3, product: 'Produto teste ' }}>
+      <Table.Cell>3</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 200,20</Table.Cell>
+      <Table.Actions>
+        <Table.Option>Ação especial</Table.Option>
+        <Table.Option>Editar</Table.Option>
+        <Table.Option>Remover</Table.Option>
+      </Table.Actions>
+    </Table.Row>
+    <Table.Actions align='right' label='*'>
+      <Table.Option onClick={row => console.log(row)}>Editar</Table.Option>
+      <Table.Option>Remover</Table.Option>
+    </Table.Actions>
+  </Table>
+</Playground>
+
+### Tabela com ordenação
+
+<Playground>
+  <Table onSortable={ordenation => console.log(ordenation)}>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' sortable />
+    <Table.Column field='owner' label='Produtor' sortable />
+    <Table.Column field='value' label='Valor' align='right' />
+    <Table.Row>
+      <Table.Cell>1</Table.Cell>
+      <Table.Cell>Produto teste 1</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 120,00</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>2</Table.Cell>
+      <Table.Cell>Produto teste 2</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 100,00</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>3</Table.Cell>
+      <Table.Cell>Produto teste 3</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 200,20</Table.Cell>
+    </Table.Row>
+  </Table>
+</Playground>
+
+### Tabela com collapse
+
+<Playground>
+  <Table>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' />
+    <Table.Column field='owner' label='Produtor' />
+    <Table.Column field='value' label='Valor' align='right' />
+    <Table.Row>
+      <Table.Cell>1</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 120,00</Table.Cell>
+    </Table.Row>
+    <Table.Row data={{ id: 2, product: 'Produto teste' }}>
+      <Table.Cell>2</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 100,00</Table.Cell>
+      <Table.Collapse>
+        <Table.Column field='date' label='Data' />
+        <Table.Column field='sales' label='Vendas' />
+        <Table.Row>
+          <Table.Cell>29/03</Table.Cell>
+          <Table.Cell>20 vendas</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>28/03</Table.Cell>
+          <Table.Cell>170 vendas</Table.Cell>
+        </Table.Row>
+      </Table.Collapse>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>3</Table.Cell>
+      <Table.Cell>Produto teste</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 200,20</Table.Cell>
+    </Table.Row>
+  </Table>
+</Playground>
+
+### Propriedades disponíveis Table
+
+| prop         | tipo                                    | obrigatório | padrão   | descrição                                                                               |
+| ------------ | --------------------------------------- | ----------- | -------- | --------------------------------------------------------------------------------------- |
+| loading      | `boolean`                               | `false`     | `false`  | -                                                                                       |
+| onSortable   | `(ordernation: ITableSortable) => void` | `false`     | -        | Função chamada ao clicar em uma coluna `sortable`.                                      |
+| stickyHeader | `boolean`                               | `false`     | `false`  | Header fixo, é necessário inserir um valor na prop `maxHeight` para melhor experiência. |
+| size         | `Size`                                  | `false`     | `medium` | -                                                                                       |
+| maxHeight    | `number`                                | `false`     | -        | -                                                                                       |
+| messages     | `ITableMessages`                        | `false`     | `false`  | Mensagens para eventos internos.                                                        |
+
+### Propriedades disponíveis Table.Column
+
+| prop     | tipo              | obrigatório | padrão  | descrição                                                                                          |
+| -------- | ----------------- | ----------- | ------- | -------------------------------------------------------------------------------------------------- |
+| field    | `string`          | `true`      | -       | Chave única.                                                                                       |
+| label    | `React.ReactNode` | `true`      | -       | -                                                                                                  |
+| width    | `number`          | `false`     | -       | -                                                                                                  |
+| align    | `ITableAlign`     | `false`     | `left`  | -                                                                                                  |
+| sortable | `boolean`         | `false`     | `false` | Se `true`, ao clicar na coluna, chama a função `onSortable` passando a prop `field` e a ordenação. |
+
+### Propriedades disponíveis Table.Row
+
+| prop | tipo      | obrigatório | padrão | descrição                                                                     |
+| ---- | --------- | ----------- | ------ | ----------------------------------------------------------------------------- |
+| data | `unknown` | `true`      | -      | Valores da linha, é necessário apenas quando há o componente `Table.Actions`. |
+
+### Propriedades disponíveis Table.Cell
+
+| prop     | tipo          | obrigatório | padrão | descrição                                                   |
+| -------- | ------------- | ----------- | ------ | ----------------------------------------------------------- |
+| align    | `ITableAlign` | `false`     | `left` | -                                                           |
+| truncate | `number`      | `false`     | -      | Quando preenchido, limita o valor do texto (se for string). |
+| colSpan  | `number`      | `false`     | -      | -                                                           |
+
+### Propriedades disponíveis Table.Actions
+
+| prop  | tipo                       | obrigatório | padrão  | descrição |
+| ----- | -------------------------- | ----------- | ------- | --------- |
+| label | `React.ReactNode`, `false` | `false`     | `Ações` | -         |
+| align | `ITableAlign`              | `false`     | `left`  |           |
+
+### Propriedades disponíveis Table.Options
+
+| prop     | tipo                                    | obrigatório | padrão  | descrição                           |
+| -------- | --------------------------------------- | ----------- | ------- | ----------------------------------- |
+| onClick  | `(data: unknown) => void`               | `false`     | -       | -                                   |
+| disabled | `(data: unknown) => boolean`, `boolean` | `false`     | `false` | -                                   |
+| hide     | `(data: unknown) => boolean`, `boolean` | `false`     | `false` | Controla a rederização do elemento. |
+| icon     | `React.ReactNode`                       | `false`     | -       | -                                   |
+
+### Propriedades disponíveis Table.Pagination
+
+| prop                | tipo                                                   | obrigatório | padrão                  | descrição                                                 |
+| ------------------- | ------------------------------------------------------ | ----------- | ----------------------- | --------------------------------------------------------- |
+| page                | `number`                                               | `true`      | -                       | -                                                         |
+| perPage             | `number`                                               | `true`      | -                       | -                                                         |
+| totalPages          | `number`                                               | `true`      | -                       | -                                                         |
+| optionsPerPage      | `number[]`                                             | `false`     | `[15, 25, 35, 50, 100]` | -                                                         |
+| labelItensPerPage   | `React.ReactNode`                                      | `false`     | `Itens por página:`     | -                                                         |
+| onChangeRowsPerPage | `onChangeRowsPerPage?: (rowsPerPage: number) => void;` | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
+| onChangeGoToPage    | `onChangeGoToPage?: (goToPage: number) => void;`       | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
+| onChangePage        | `onChangePage?: (page: number) => void;`               | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
+
+### Propriedades disponíveis Table.Collapse
+
+| prop       | tipo                       | obrigatório | padrão  | descrição                                                      |
+| ---------- | -------------------------- | ----------- | ------- | -------------------------------------------------------------- |
+| loading    | `boolean`                  | `false`     | -       | -                                                              |
+| onCollapse | `(data?: unknown) => void` | `false`     | -       | Função chamada ao clicar para abrir / fechar o item recolhido. |
+| tipo       | `list`, `table`            | `false`     | `table` | Se `list` não renderizará as colunas e bordas inferiores.      |

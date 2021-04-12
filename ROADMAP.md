@@ -1,3 +1,9 @@
+---
+name: Roadmap
+route: /roadmap
+---
+
+
 # Roadmap
 
 ### Componentes:
@@ -37,7 +43,7 @@
 - ThemeProvider ✅
 - Timeline ❌
 - Toast ✅
-- Tooltip ❌
+- Tooltip ✅
 - Typography ✅
 
 Acompanhe o desenvolvimento dos componentes em nosso [Board](https://github.com/eduzz/houston/projects/3).

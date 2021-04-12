@@ -21,6 +21,8 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
 
   const fullMainContainer = doc.value.fullscreen;
 
+  console.log('fullscreen', true);
+
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const ref = useRef();
