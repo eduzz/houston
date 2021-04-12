@@ -1,6 +1,6 @@
 ---
 name: Icon Button
-route: /components/button-icon
+route: /components/icon-button
 menu: Components
 ---
 
@@ -26,13 +26,18 @@ import ButtonIcon from '@eduzz/houston-ui/ButtonIcon';
   <ButtonIcon>
     <InsertEmoticonIcon />
   </ButtonIcon>
+  <ButtonIcon disabled>
+    <InsertEmoticonIcon />
+  </ButtonIcon>
+  <ButtonIcon>
+    <InsertEmoticonIcon />
+  </ButtonIcon>
 </Playground>
 
 ## Propriedades
 
-### Alert props
-
-| prop     | tipo       | obrigatório | padrão  | descrição |
-| -------- | ---------- | ----------- | ------- | --------- |
-| disabled | `boolean`  | `false`     | `false` | -         |
-| onClick  | `function` | `false`     | -       | -         |
+| prop     | tipo              | obrigatório | padrão   | descrição |
+| -------- | ----------------- | ----------- | -------- | --------- |
+| disabled | `boolean`         | `false`     | `false`  | -         |
+| size     | `small`, `medium` | `false`     | `medium` | -         |
+| onClick  | `function`        | `false`     | -        | -         |

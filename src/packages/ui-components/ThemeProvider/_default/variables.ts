@@ -5,7 +5,7 @@ const fontSizes = {
   'x-small': 12,
   small: 14,
   normal: 15,
-  docs: 16,
+  default: 16,
   medium: 20,
   large: 24,
   'x-large': 32,
