@@ -1,9 +1,10 @@
 const nodeVersion = process.version.replace('v', '');
+const fs = require('fs');
+
 
 const childProccess = require('child_process');
 const semver = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/semver`);
 const ora = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/ora`);
-const fs = require('fs');
 
 let currentVersion = require('../package.json').version;
 
@@ -14,11 +15,13 @@ async function init() {
 
   ora('NEW VERSION:' + currentVersion).succeed()
 
-  let packages = await fs.promises.readdir(`${__dirname}/../packages`);
-  packages = packages.map(path => ({
-    name: require(`${__dirname}/../packages/${path}/package.json`).name,
-    folder: `${__dirname}/../packages/${path}`
-  }));
+  let packages = await fs.promises.readdir(`${__dirname}/../src/packages`, { withFileTypes: true });
+  packages = packages
+    .filter(file => file.isDirectory())
+    .map(file => ({
+      name: require(`${__dirname}/../src/packages/${file.name}/package.json`).name,
+      folder: `${__dirname}/../src/packages/${file.name}`
+    }));
 
   await Promise.all(packages.map(async package => {
     const remoteVersion = await exec(`npm view ${package.name} version`)
