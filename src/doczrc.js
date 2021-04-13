@@ -22,7 +22,7 @@ export default {
     },
     header: {
       icons: 'minimal',
-      fixed: false,
+      fixed: false
     },
     footer: {
       navigation: false,

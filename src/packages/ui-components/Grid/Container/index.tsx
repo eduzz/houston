@@ -33,6 +33,8 @@ const useStyles = makeStyles(() =>
 
 type ContainerPropsExtends = 'id' | 'className' | 'children' | 'style' | 'tabIndex';
 
+export type IConainterLayout = 'fluid' | 'solid';
+
 export interface IContainerProps extends Pick<ContainerProps, ContainerPropsExtends> {
   /**
    * Type container
@@ -52,7 +54,7 @@ export interface IContainerProps extends Pick<ContainerProps, ContainerPropsExte
    *
    * default `solid`
    */
-  layout?: 'fluid' | 'solid';
+  layout?: IConainterLayout;
 }
 
 const Container = React.forwardRef<HTMLDivElement, IContainerProps>((props, ref) => {

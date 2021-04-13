@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
   iconRoot: {
     color: theme.palette.grey[500],
     minWidth: 20,
+    lineHeight: 1.5,
     marginRight: 8,
     '& > svg': {
       width: 20,

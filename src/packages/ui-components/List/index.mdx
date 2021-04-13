@@ -1,0 +1,184 @@
+---
+name: List
+route: /components/list
+menu: Components
+---
+
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+
+import { Playground } from 'docz';
+
+import IconButton from '../ButtonIcon';
+import List from './';
+
+# Lista
+
+Listas são continuas, apresentam verticalmente texto ou imagens.
+
+### Importação
+
+```js
+import List from '@eduzz/houston-ui/List';
+```
+
+### Exemplo
+
+<Playground>
+  <List>
+    <List.Item>
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Right
+        icon={
+          <IconButton>
+            <InsertEmoticonIcon />
+          </IconButton>
+        }
+      />
+    </List.Item>
+    <List.Item>
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Right
+        icon={
+          <IconButton>
+            <InsertEmoticonIcon />
+          </IconButton>
+        }
+      />
+    </List.Item>
+    <List.Item>
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Right
+        icon={
+          <IconButton>
+            <InsertEmoticonIcon />
+          </IconButton>
+        }
+      />
+    </List.Item>
+    <List.Item>
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Right
+        icon={
+          <IconButton>
+            <InsertEmoticonIcon />
+          </IconButton>
+        }
+      />
+    </List.Item>
+    <List.Item>
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Right
+        icon={
+          <IconButton>
+            <InsertEmoticonIcon />
+          </IconButton>
+        }
+      />
+    </List.Item>
+  </List>
+</Playground>
+
+### Listrado
+
+<Playground>
+  <List stripedRows>
+    <List.Item>
+      <List.Left icon={<InsertEmoticonIcon />} />
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Right
+        icon={
+          <IconButton size='small'>
+            <InsertEmoticonIcon />
+          </IconButton>
+        }
+      />
+    </List.Item>
+    <List.Item>
+      <List.Left icon={<InsertEmoticonIcon />} />
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Right
+        icon={
+          <IconButton size='small'>
+            <InsertEmoticonIcon />
+          </IconButton>
+        }
+      />
+    </List.Item>
+    <List.Item>
+      <List.Left icon={<InsertEmoticonIcon />} />
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Right text='lorem ipsum' />
+    </List.Item>
+    <List.Item>
+      <List.Left icon={<InsertEmoticonIcon />} />
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Right
+        icon={
+          <IconButton size='small'>
+            <InsertEmoticonIcon />
+          </IconButton>
+        }
+      />
+    </List.Item>
+    <List.Item>
+      <List.Left icon={<InsertEmoticonIcon />} />
+      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Right
+        icon={
+          <IconButton size='small'>
+            <InsertEmoticonIcon />
+          </IconButton>
+        }
+      />
+    </List.Item>
+  </List>
+</Playground>
+
+## Propriedades
+
+### List props
+
+| prop        | tipe      | obrigatório | padrão  | descrição |
+| ----------- | --------- | ----------- | ------- | --------- |
+| stripedRows | `boolean` | `false`     | `false` | -         |
+
+### List.Item props
+
+| prop     | tipe              | obrigatório | padrão | descrição |
+| -------- | ----------------- | ----------- | ------ | --------- |
+| children | `React.ReactNode` | `true`      | -      | -         |
+
+### List.Left props
+
+| prop  | tipe              | obrigatório | padrão | descrição                                           |
+| ----- | ----------------- | ----------- | ------ | --------------------------------------------------- |
+| icon  | `React.ReactNode` | `false`     | -      | -                                                   |
+| image | `React.ReactNode` | `false`     | -      | Só será exibido se a prop `icon` não possuir valor. |
+
+### List.Title props
+
+| prop     | tipe              | obrigatório | padrão | descrição |
+| -------- | ----------------- | ----------- | ------ | --------- |
+| children | `React.ReactNode` | `true`      | -      | -         |
+
+### List.Subtitle props available
+
+| prop     | tipe              | obrigatório | padrão | descrição |
+| -------- | ----------------- | ----------- | ------ | --------- |
+| children | `React.ReactNode` | `true`      | -      | -         |
+
+### List.Right props
+
+| prop    | tipe              | obrigatório | padrão | descrição                                           |
+| ------- | ----------------- | ----------- | ------ | --------------------------------------------------- |
+| icon    | `React.ReactNode` | false       | -      | -                                                   |
+| onClick | `function`        | false       | -      | -                                                   |
+| text    | `string`          | false       | -      | Só será exibido se a prop `icon` não possuir valor. |
