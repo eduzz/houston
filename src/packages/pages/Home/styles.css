@@ -11,3 +11,18 @@
 .home__features .card:last-child {
   margin: 0;
 }
+
+@media screen and (max-width: 630px) {
+  .home__features {
+    flex-direction: column;
+    align-items: center;
+  }  
+
+  .home__features .card + .card {
+    margin: 1.25rem 0;
+  }
+  
+  .home__features .card:last-child {
+    margin: 0;
+  }
+}

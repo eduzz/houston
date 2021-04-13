@@ -29,3 +29,9 @@
   margin-top: 2.5rem;
 }
 
+@media screen and (max-width: 920px) {
+  .header {
+    margin: -3rem 0 0 -2rem;
+  }  
+}
+
