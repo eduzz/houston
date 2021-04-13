@@ -186,18 +186,20 @@ import Table from '@eduzz/houston-ui/Table';
   </Table>
 </Playground>
 
-### Propriedades disponíveis Table
+## Propriedades disponíveis
 
-| prop         | tipo                                    | obrigatório | padrão   | descrição                                                                               |
-| ------------ | --------------------------------------- | ----------- | -------- | --------------------------------------------------------------------------------------- |
-| loading      | `boolean`                               | `false`     | `false`  | -                                                                                       |
-| onSortable   | `(ordernation: ITableSortable) => void` | `false`     | -        | Função chamada ao clicar em uma coluna `sortable`.                                      |
-| stickyHeader | `boolean`                               | `false`     | `false`  | Header fixo, é necessário inserir um valor na prop `maxHeight` para melhor experiência. |
-| size         | `Size`                                  | `false`     | `medium` | -                                                                                       |
-| maxHeight    | `number`                                | `false`     | -        | -                                                                                       |
-| messages     | `ITableMessages`                        | `false`     | `false`  | Mensagens para eventos internos.                                                        |
+### Table props
 
-### Propriedades disponíveis Table.Column
+| prop         | tipo             | obrigatório | padrão   | descrição                                                                               |
+| ------------ | ---------------- | ----------- | -------- | --------------------------------------------------------------------------------------- |
+| loading      | `boolean`        | `false`     | `false`  | -                                                                                       |
+| onSortable   | `function`       | `false`     | -        | Função chamada ao clicar em uma coluna `sortable`.                                      |
+| stickyHeader | `boolean`        | `false`     | `false`  | Header fixo, é necessário inserir um valor na prop `maxHeight` para melhor experiência. |
+| size         | `Size`           | `false`     | `medium` | -                                                                                       |
+| maxHeight    | `number`         | `false`     | -        | -                                                                                       |
+| messages     | `ITableMessages` | `false`     | `false`  | Mensagens para eventos internos.                                                        |
+
+### Table.Column props
 
 | prop     | tipo              | obrigatório | padrão  | descrição                                                                                          |
 | -------- | ----------------- | ----------- | ------- | -------------------------------------------------------------------------------------------------- |
@@ -207,13 +209,13 @@ import Table from '@eduzz/houston-ui/Table';
 | align    | `ITableAlign`     | `false`     | `left`  | -                                                                                                  |
 | sortable | `boolean`         | `false`     | `false` | Se `true`, ao clicar na coluna, chama a função `onSortable` passando a prop `field` e a ordenação. |
 
-### Propriedades disponíveis Table.Row
+### Table.Row props
 
 | prop | tipo      | obrigatório | padrão | descrição                                                                     |
 | ---- | --------- | ----------- | ------ | ----------------------------------------------------------------------------- |
 | data | `unknown` | `true`      | -      | Valores da linha, é necessário apenas quando há o componente `Table.Actions`. |
 
-### Propriedades disponíveis Table.Cell
+### Table.Cell props
 
 | prop     | tipo          | obrigatório | padrão | descrição                                                   |
 | -------- | ------------- | ----------- | ------ | ----------------------------------------------------------- |
@@ -221,39 +223,39 @@ import Table from '@eduzz/houston-ui/Table';
 | truncate | `number`      | `false`     | -      | Quando preenchido, limita o valor do texto (se for string). |
 | colSpan  | `number`      | `false`     | -      | -                                                           |
 
-### Propriedades disponíveis Table.Actions
+### Table.Actions props
 
 | prop  | tipo                       | obrigatório | padrão  | descrição |
 | ----- | -------------------------- | ----------- | ------- | --------- |
 | label | `React.ReactNode`, `false` | `false`     | `Ações` | -         |
 | align | `ITableAlign`              | `false`     | `left`  |           |
 
-### Propriedades disponíveis Table.Options
+### Table.Options props
 
-| prop     | tipo                                    | obrigatório | padrão  | descrição                           |
-| -------- | --------------------------------------- | ----------- | ------- | ----------------------------------- |
-| onClick  | `(data: unknown) => void`               | `false`     | -       | -                                   |
-| disabled | `(data: unknown) => boolean`, `boolean` | `false`     | `false` | -                                   |
-| hide     | `(data: unknown) => boolean`, `boolean` | `false`     | `false` | Controla a rederização do elemento. |
-| icon     | `React.ReactNode`                       | `false`     | -       | -                                   |
+| prop     | tipo                  | obrigatório | padrão  | descrição                           |
+| -------- | --------------------- | ----------- | ------- | ----------------------------------- |
+| onClick  | `function`            | `false`     | -       | -                                   |
+| disabled | `function`, `boolean` | `false`     | `false` | -                                   |
+| hide     | `function`, `boolean` | `false`     | `false` | Controla a rederização do elemento. |
+| icon     | `React.ReactNode`     | `false`     | -       | -                                   |
 
-### Propriedades disponíveis Table.Pagination
+### Table.Pagination props
 
-| prop                | tipo                                                   | obrigatório | padrão                  | descrição                                                 |
-| ------------------- | ------------------------------------------------------ | ----------- | ----------------------- | --------------------------------------------------------- |
-| page                | `number`                                               | `true`      | -                       | -                                                         |
-| perPage             | `number`                                               | `true`      | -                       | -                                                         |
-| totalPages          | `number`                                               | `true`      | -                       | -                                                         |
-| optionsPerPage      | `number[]`                                             | `false`     | `[15, 25, 35, 50, 100]` | -                                                         |
-| labelItensPerPage   | `React.ReactNode`                                      | `false`     | `Itens por página:`     | -                                                         |
-| onChangeRowsPerPage | `onChangeRowsPerPage?: (rowsPerPage: number) => void;` | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
-| onChangeGoToPage    | `onChangeGoToPage?: (goToPage: number) => void;`       | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
-| onChangePage        | `onChangePage?: (page: number) => void;`               | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
+| prop                | tipo              | obrigatório | padrão                  | descrição                                                 |
+| ------------------- | ----------------- | ----------- | ----------------------- | --------------------------------------------------------- |
+| page                | `number`          | `true`      | -                       | -                                                         |
+| perPage             | `number`          | `true`      | -                       | -                                                         |
+| totalPages          | `number`          | `true`      | -                       | -                                                         |
+| optionsPerPage      | `number[]`        | `false`     | `[15, 25, 35, 50, 100]` | -                                                         |
+| labelItensPerPage   | `React.ReactNode` | `false`     | `Itens por página:`     | -                                                         |
+| onChangeRowsPerPage | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
+| onChangeGoToPage    | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
+| onChangePage        | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
 
-### Propriedades disponíveis Table.Collapse
+### Table.Collapse props
 
-| prop       | tipo                       | obrigatório | padrão  | descrição                                                      |
-| ---------- | -------------------------- | ----------- | ------- | -------------------------------------------------------------- |
-| loading    | `boolean`                  | `false`     | -       | -                                                              |
-| onCollapse | `(data?: unknown) => void` | `false`     | -       | Função chamada ao clicar para abrir / fechar o item recolhido. |
-| tipo       | `list`, `table`            | `false`     | `table` | Se `list` não renderizará as colunas e bordas inferiores.      |
+| prop       | tipo            | obrigatório | padrão  | descrição                                                      |
+| ---------- | --------------- | ----------- | ------- | -------------------------------------------------------------- |
+| loading    | `boolean`       | `false`     | -       | -                                                              |
+| onCollapse | `function`      | `false`     | -       | Função chamada ao clicar para abrir / fechar o item recolhido. |
+| tipo       | `list`, `table` | `false`     | `table` | Se `list` não renderizará as colunas e bordas inferiores.      |

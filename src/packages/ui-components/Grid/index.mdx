@@ -40,14 +40,32 @@ import Row from '@eduzz/houston-ui/Grid/Row';
   </Container>
 </Playground>
 
+### Alinhamento
+
+<Playground>
+  <Container>
+    <Row alignItems='flex-end'>
+      <Column xs={12} sm={4}>
+        <div style={{ width: '100%', height: 150, background: '#eee', borderRadius: 4 }} />
+      </Column>
+      <Column xs={12} sm={4}>
+        <div style={{ width: '100%', height: 120, background: '#eee', borderRadius: 4 }} />
+      </Column>
+      <Column xs={12} sm={4}>
+        <div style={{ width: '100%', height: 90, background: '#eee', borderRadius: 4 }} />
+      </Column>
+    </Row>
+  </Container>
+</Playground>
+
 ## Propriedades
 
 ### Container Props
 
-| prop    | tipo               | obrigatório | padrão  |
-| ------- | ------------------ | ----------- | ------- |
-| spacing | `IContainerType`   | `false`     | `cozy`  |
-| layout  | `IConainterLayout` | `false`     | `solid` |
+| prop    | tipo               | obrigatório | padrão  | descrição                                                       |
+| ------- | ------------------ | ----------- | ------- | --------------------------------------------------------------- |
+| spacing | `IContainerType`   | `false`     | `cozy`  | -                                                               |
+| layout  | `IConainterLayout` | `false`     | `solid` | Se `fluid`, o valor da propriedade CSS `max-width` será `100%`. |
 
 ### Row Props
 

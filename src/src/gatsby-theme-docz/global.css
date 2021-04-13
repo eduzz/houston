@@ -1,0 +1,11 @@
+h3 {
+  margin-bottom: 10px;
+}
+
+p, .token-line{
+  font-size: 16px;
+}
+
+pre {
+  margin-top: 10px !important;
+}

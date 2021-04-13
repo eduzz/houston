@@ -1,3 +1,5 @@
+import './global.css';
+
 import React from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';

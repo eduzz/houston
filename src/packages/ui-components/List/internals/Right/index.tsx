@@ -11,8 +11,11 @@ import clsx from 'clsx';
 import { IListRightProps } from '../../Right';
 
 const useStyles = makeStyles(theme => ({
-  iconRoot: {
+  iconRootRight: {
     minWidth: 20,
+    marginRight: 0,
+    paddingLeft: 16,
+
     '& svg': {
       width: 20,
       height: 20
@@ -38,7 +41,7 @@ const Right = ({ icon, text, onClick, ...rest }: IProps) => {
   if (icon && onClick) {
     return (
       <IconButton
-        className={clsx([classes.rightRoot, classes.iconRoot, onClick && classes.clickable])}
+        className={clsx([classes.rightRoot, classes.iconRootRight, onClick && classes.clickable])}
         onClick={onClick && onClick}
         size='small'
       >
@@ -48,7 +51,7 @@ const Right = ({ icon, text, onClick, ...rest }: IProps) => {
   }
 
   if (icon) {
-    return <ListItemIconMUI className={clsx([classes.rightRoot, classes.iconRoot])}>{icon}</ListItemIconMUI>;
+    return <ListItemIconMUI className={clsx([classes.rightRoot, classes.iconRootRight])}>{icon}</ListItemIconMUI>;
   }
 
   if (text) {
