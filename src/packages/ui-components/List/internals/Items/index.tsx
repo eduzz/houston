@@ -14,16 +14,20 @@ import Title from '../Title';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: '12px 16px',
-    borderRadius: 4,
-    alignItems: 'flex-start'
+    borderRadius: 4
   },
   striped: {
     backgroundColor: theme.palette.grey[200]
   },
   textContainer: {
     display: 'flex',
-    flexDirection: 'column',
-    alignSelf: 'center'
+    alignItems: 'flex-start',
+
+    '& .container': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignSelf: 'center'
+    }
   }
 }));
 
@@ -49,11 +53,13 @@ const Items = ({ items, stripedRows }: IProps) => {
           key={`list-item-${index}`}
           className={clsx([classes.root, shouldDisplayStriped(index) && classes.striped])}
         >
-          {left && <Left icon={left.icon} image={left.image} striped={shouldDisplayStriped(index)} />}
-
           <div className={classes.textContainer}>
-            {title && <Title>{title.children}</Title>}
-            {subtitle && <Subtitle>{subtitle.children}</Subtitle>}
+            {left && <Left icon={left.icon} image={left.image} striped={shouldDisplayStriped(index)} />}
+
+            <div className='container'>
+              {title && <Title>{title.children}</Title>}
+              {subtitle && <Subtitle>{subtitle.children}</Subtitle>}
+            </div>
           </div>
 
           {right && <Right icon={right.icon} text={right.text} onClick={right.onClick} />}

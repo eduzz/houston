@@ -1,17 +1,21 @@
 import * as React from 'react';
 
-import IconButtonMUI from '@material-ui/core/IconButton';
 import ListItemIconMUI from '@material-ui/core/ListItemIcon';
 import { makeStyles } from '@material-ui/core/styles';
-import TypographyMUI from '@material-ui/core/Typography';
+
+import IconButton from '@eduzz/houston-ui/ButtonIcon';
+import Typography from '@eduzz/houston-ui/Typography';
 
 import clsx from 'clsx';
 
 import { IListRightProps } from '../../Right';
 
 const useStyles = makeStyles(theme => ({
-  iconRoot: {
+  iconRootRight: {
     minWidth: 20,
+    marginRight: 0,
+    paddingLeft: 16,
+
     '& svg': {
       width: 20,
       height: 20
@@ -22,8 +26,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto'
   },
   rightText: {
-    fontSize: 10,
-    lineHeight: '15px',
     color: theme.palette.grey[600]
   },
   clickable: {
@@ -38,30 +40,30 @@ const Right = ({ icon, text, onClick, ...rest }: IProps) => {
 
   if (icon && onClick) {
     return (
-      <IconButtonMUI
-        className={clsx([classes.rightRoot, classes.iconRoot, onClick && classes.clickable])}
+      <IconButton
+        className={clsx([classes.rightRoot, classes.iconRootRight, onClick && classes.clickable])}
         onClick={onClick && onClick}
         size='small'
       >
         {icon}
-      </IconButtonMUI>
+      </IconButton>
     );
   }
 
   if (icon) {
-    return <ListItemIconMUI className={clsx([classes.rightRoot, classes.iconRoot])}>{icon}</ListItemIconMUI>;
+    return <ListItemIconMUI className={clsx([classes.rightRoot, classes.iconRootRight])}>{icon}</ListItemIconMUI>;
   }
 
   if (text) {
     return (
-      <TypographyMUI
+      <Typography
         {...rest}
-        component='p'
         className={clsx([classes.rightRoot, classes.rightText, onClick && classes.clickable])}
         onClick={onClick && onClick}
+        size='xx-small'
       >
         {text}
-      </TypographyMUI>
+      </Typography>
     );
   }
 

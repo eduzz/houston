@@ -7,7 +7,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import themeVariable, { FontSizes, FontWeight, LineHeights } from '../ThemeProvider/_default/variables';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
-type TypographyPropsExtends = 'className' | 'style' | 'children';
+type TypographyPropsExtends = 'className' | 'style' | 'children' | 'onClick';
 
 export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsExtends> {
   size?: FontSizes;
@@ -16,23 +16,25 @@ export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsE
   marginBottom?: boolean;
 }
 
-const useStyle = makeStyles({
-  text: (props: ITypographyProps) => ({
-    fontFamily: themeVariable.fontFamily,
-    fontSize: themeVariable.textSize(props.size ?? 'normal'),
-    lineHeight: themeVariable.lineHeight(props.lineHeight ?? 'normal'),
-    fontWeight: themeVariable.fontWeight(props.fontWeight ?? 'regular'),
-    marginBottom: props.marginBottom ? themeVariable.spacing(2) : null
-  })
-});
-
 const Typography = React.forwardRef<HTMLSpanElement, ITypographyProps>((props, ref) => {
-  const { size, lineHeight, fontWeight, className, marginBottom, ...typographyProps } = props;
-  const classes = useStyle({ size, lineHeight, fontWeight, marginBottom });
+  const { className, ...typographyProps } = props;
+
+  const name = React.useMemo(() => Math.random().toString(36).substring(5), []);
+
+  const useStyles = makeStyles(() => ({
+    [name]: {
+      fontSize: themeVariable.textSize(props.size ?? 'normal'),
+      lineHeight: themeVariable.lineHeight(props.lineHeight ?? 'normal'),
+      fontWeight: themeVariable.fontWeight(props.fontWeight ?? 'regular'),
+      marginBottom: props.marginBottom ? themeVariable.spacing(2) : null
+    }
+  }));
+
+  const classes = useStyles();
 
   return (
     <WrapperTheme>
-      <TypographyMUI {...typographyProps} className={`${classes.text} ${className ?? ''}`} ref={ref} />
+      <TypographyMUI className={`${classes[name]} ${className ?? ''}`} {...typographyProps} ref={ref} />
     </WrapperTheme>
   );
 });

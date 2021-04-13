@@ -56,9 +56,6 @@
         "when": "$(basename).tsx"
       },
       "**/*.lock.json": true,
-      "**/*.map": {
-        "when": "$(basename)"
-      },
       "**/.DS_Store": true,
       "**/.git": true,
       "**/.svn": true,

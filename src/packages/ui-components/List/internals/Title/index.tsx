@@ -7,7 +7,7 @@ interface IProps extends IListTitleProps {}
 
 const Title = ({ children, ...props }: IProps) => {
   return (
-    <Typography {...props} size='normal' lineHeight='compact'>
+    <Typography {...props} size='default' fontWeight='regular' lineHeight='compact'>
       {children}
     </Typography>
   );
