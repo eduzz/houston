@@ -1,0 +1,13 @@
+.home__features {
+  display: flex;
+  justify-content: center;
+  padding: 3.75rem 0 8rem 0;
+}
+
+.home__features .card + .card {
+  margin: 0 1.25rem;
+}
+
+.home__features .card:last-child {
+  margin: 0;
+}

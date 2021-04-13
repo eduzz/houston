@@ -1,0 +1,39 @@
+---
+name: Home
+route: /
+menu:
+fullscreen: true
+---
+
+import './styles.css';
+
+import ComponentesThumb from '../../../public/componentes.svg';
+import ConteudoThumb from '../../../public/conteúdo.svg';
+import DesignThumb from '../../../public/design.svg';
+import Card from '../../../src/gatsby-theme-docz/custom-components/Card';
+import Footer from '../../../src/gatsby-theme-docz/custom-components/Footer';
+import Header from '../../../src/gatsby-theme-docz/custom-components/Header';
+
+<Header />
+<main className='home__features'>
+  <Card
+    title='Design'
+    description='Lorem ipsum dolor sit amet, consectetur adipiscing eget hendrerit quam eleifend in.'
+    image={DesignThumb}
+    url='/inicio'
+  />
+  <Card
+    title='Conteúdo'
+    description='Lorem ipsum dolor sit amet, consectetur adipiscing eget hendrerit quam eleifend in.'
+    image={ConteudoThumb}
+    url='/inicio'
+  />
+  <Card
+    title='Componentes'
+    description='Lorem ipsum dolor sit amet, consectetur adipiscing eget hendrerit quam eleifend in.'
+    image={ComponentesThumb}
+    url='/inicio'
+  />
+</main>
+
+<Footer />
