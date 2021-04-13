@@ -3,8 +3,8 @@
     "outDir": "./",
     "declaration": true,
     "declarationDir": "./",
-    "module": "CommonJS",
-    "target": "ESNext",
+    "module": "ESNext",
+    "target": "es5",
     "experimentalDecorators": true,
     "lib": [
       "esnext",
