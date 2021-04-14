@@ -1,22 +1,27 @@
 /** @jsx jsx */
+import React, { useRef, useState, useMemo } from 'react';
+
 import { Global } from '@emotion/core';
+import Footer from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Footer';
+import {
+  Content,
+  globalStyles
+} from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Layout/custom-styles';
+import useExtendedMenus from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/hooks/useExtendedMenus';
 import { useConfig } from 'docz';
-import { Header } from 'gatsby-theme-docz/src/components/Header';
 import * as styles from 'gatsby-theme-docz/src/components/Layout/styles';
 import { MainContainer } from 'gatsby-theme-docz/src/components/MainContainer';
 import { Sidebar } from 'gatsby-theme-docz/src/components/Sidebar';
 import { breakpoints } from 'gatsby-theme-docz/src/theme/breakpoints';
 import PropTypes from 'prop-types';
-import React, { useRef, useState, useMemo } from 'react';
 import { Box, Flex, jsx } from 'theme-ui';
-import useExtendedMenus from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/hooks/useExtendedMenus';
-import Footer from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Footer';
-import NavHeadings from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/NavHeadings';
-import { Content, globalStyles } from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Layout/custom-styles';
 
-export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
+import { Header } from '../Header';
+import NavHeadings from '../NavHeadings';
+
+export const Layout = ({ children, /*pageContext = {},*/ doc = {}, ...rest }) => {
   const {
-    themeConfig: {mainContainer: {fullscreen, align = 'center'} = {}},
+    themeConfig: { mainContainer: { fullscreen, align = 'center' } = {} }
   } = useConfig();
 
   const fullMainContainer = doc.value.fullscreen;
@@ -24,9 +29,9 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const ref = useRef();
-  const menus = useExtendedMenus({query});
+  const menus = useExtendedMenus({ query });
 
-  const handleChange = (ev) => {
+  const handleChange = ev => {
     setQuery(ev.target.value);
   };
 
@@ -43,35 +48,30 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
     []
   );
 
-  const {updated} = doc.value || {};
+  const { updated } = doc.value || {};
   const mainStyles = {
     marginLeft: align !== 'left' ? 'auto' : 0,
     marginRight: align !== 'right' ? 'auto' : 0,
-    ...(fullscreen || fullMainContainer ? {maxWidth: 'none'} : undefined),
+    ...(fullscreen || fullMainContainer ? { maxWidth: 'none' } : undefined)
   };
 
   return (
     <>
       <style dangerouslySetInnerHTML={styleContent} />
-      <Flex sx={{'& > div': {flex: '1 1 auto'}}} data-testid="layout">
+      <Flex sx={{ '& > div': { flex: '1 1 auto' } }} data-testid='layout'>
         <Global styles={globalStyles} />
         <Box sx={styles.main}>
-          <Header onOpen={() => setOpen((s) => !s)} />
+          <Header onOpen={() => setOpen(s => !s)} />
 
-          {fullMainContainer &&
-            <MainContainer
-              style={mainStyles}
-              data-testid="main-container"
-              doc={doc}
-              {...rest}
-            >
+          {fullMainContainer && (
+            <MainContainer style={mainStyles} data-testid='main-container' doc={doc} {...rest}>
               <Flex
                 sx={{
                   width: '100%',
                   justifyContent: 'stretch',
                   [`@media screen and (max-width: ${breakpoints.desktop}px)`]: {
-                    flexDirection: 'column',
-                  },
+                    flexDirection: 'column'
+                  }
                 }}
               >
                 <Content>
@@ -80,9 +80,9 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
                 </Content>
               </Flex>
             </MainContainer>
-          }
+          )}
 
-          {!fullMainContainer &&
+          {!fullMainContainer && (
             <div sx={styles.wrapper}>
               <Sidebar
                 ref={ref}
@@ -93,19 +93,14 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
                 onBlur={() => setOpen(false)}
                 onClick={() => setOpen(false)}
               />
-              <MainContainer
-                style={mainStyles}
-                data-testid="main-container"
-                doc={doc}
-                {...rest}
-              >
+              <MainContainer style={mainStyles} data-testid='main-container' doc={doc} {...rest}>
                 <Flex
                   sx={{
                     width: '100%',
                     justifyContent: 'stretch',
                     [`@media screen and (max-width: ${breakpoints.desktop}px)`]: {
-                      flexDirection: 'column',
-                    },
+                      flexDirection: 'column'
+                    }
                   }}
                 >
                   <Content>
@@ -116,8 +111,7 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
                 </Flex>
               </MainContainer>
             </div>
-          }
-
+          )}
         </Box>
       </Flex>
     </>
@@ -127,5 +121,5 @@ export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
 Layout.propTypes = {
   children: PropTypes.node,
   pageContext: PropTypes.object,
-  doc: PropTypes.object,
+  doc: PropTypes.object
 };
