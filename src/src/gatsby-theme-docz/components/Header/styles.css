@@ -1,0 +1,18 @@
+.header__link {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: #37474F;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0 1rem;
+}
+
+.header__link:hover {
+  text-decoration: none;
+}
+
+.header__remove-border {
+  border-bottom: 0;
+}

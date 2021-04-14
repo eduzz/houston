@@ -7,12 +7,12 @@ export default {
   propsParser: false,
   debug: false,
   src: "./packages",
+  repository: 'https://github.com/eduzz/houston',
   menu: [
-    'Início'
   ],
   groups: {
-    '': [],
-    API: ['Components', 'UI'],
+    'Geral': ['Instalação', 'Como Contribuir', 'Roadmap'],
+    API: ['Componentes', 'UI'],
   },
   themeConfig: {
     search: true,
@@ -22,7 +22,7 @@ export default {
     },
     header: {
       icons: 'minimal',
-      fixed: false
+      fixed: true
     },
     footer: {
       navigation: false,
