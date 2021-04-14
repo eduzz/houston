@@ -11,7 +11,7 @@ import React, { useRef, useState, useMemo } from 'react';
 import { Box, Flex, jsx } from 'theme-ui';
 import useExtendedMenus from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/hooks/useExtendedMenus';
 import Footer from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Footer';
-import NavHeadings from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/NavHeadings';
+import NavHeadings from '../NavHeadings';
 import { Content, globalStyles } from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Layout/custom-styles';
 
 export const Layout = ({children, /*pageContext = {},*/ doc = {}, ...rest}) => {
