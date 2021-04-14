@@ -4,7 +4,6 @@ const ora = require('ora');
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-const currentVersion = require('../package.json').version;
 let newVersion = '';
 
 async function init() {
@@ -60,10 +59,15 @@ async function init() {
     throw new Error('Cancelado');
   }
 
+  const foldersBlackList = ['pages'];
   let packages = await fs.promises.readdir(`${__dirname}/../src/packages`, { withFileTypes: true });
+
   packages = [
-    { name: 'workspace', folder: `${__dirname}/../` },
-    ...packages.filter(file => file.isDirectory()).map(file => ({
+    {
+      name: 'workspace',
+      folder: `${__dirname}/../`
+    },
+    ...packages.filter(file => file.isDirectory() && !foldersBlackList.includes(file.name)).map(file => ({
       name: require(`${__dirname}/../src/packages/${file.name}/package.json`).name,
       folder: `${__dirname}/../src/packages/${file.name}`
     }))
