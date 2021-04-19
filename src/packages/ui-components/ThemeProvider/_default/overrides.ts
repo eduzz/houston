@@ -4,7 +4,6 @@ import { Palette } from '@material-ui/core/styles/createPalette';
 import { Overrides } from '@material-ui/core/styles/overrides';
 import { LabComponentNameToClassKey } from '@material-ui/lab/themeAugmentation';
 
-import palette from './palette';
 import themeVariable from './variables';
 
 export type LabOverrides = {
@@ -15,8 +14,7 @@ interface ICustomOverrides extends Partial<Overrides>, Partial<LabOverrides> {
   MuiTabScrollButton: any;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function overrides(pallet: Palette): ICustomOverrides {
+export default function overrides(palette: Palette): ICustomOverrides {
   return {
     MuiButton: {
       root: {
@@ -63,19 +61,19 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
       containedPrimary: {
         '&:hover': {
-          backgroundColor: pallet.primary.light
+          backgroundColor: palette.primary.light
         },
         '&:active': {
-          backgroundColor: pallet.primary.dark
+          backgroundColor: palette.primary.dark
         },
         '&$disabled': {
-          color: pallet.grey[500],
-          backgroundColor: pallet.grey[300]
+          color: palette.grey[500],
+          backgroundColor: palette.grey[300]
         }
       },
 
       outlinedPrimary: {
-        borderColor: pallet.primary.lighter,
+        borderColor: palette.primary.lighter,
         '&:before': {
           left: -5,
           right: -5,
@@ -86,18 +84,18 @@ export default function overrides(pallet: Palette): ICustomOverrides {
           backgroundColor: 'transparent'
         },
         '&:active': {
-          borderColor: pallet.primary.dark,
-          color: pallet.primary.dark
+          borderColor: palette.primary.dark,
+          color: palette.primary.dark
         },
         '&$disabled': {
-          color: pallet.grey[300],
-          borderColor: pallet.grey[300]
+          color: palette.grey[300],
+          borderColor: palette.grey[300]
         }
       },
 
       text: {
         '&$disabled': {
-          color: pallet.grey[300]
+          color: palette.grey[300]
         }
       }
     },
@@ -107,7 +105,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
         fontFamily: themeVariable.fontFamily,
 
         '&$disabled': {
-          backgroundColor: pallet.grey['100']
+          backgroundColor: palette.grey['100']
         }
       }
     },
@@ -157,7 +155,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiFormControlLabel: {
       root: {
-        color: themeVariable.palette.grey[500],
+        color: palette.grey[500],
         fontFamily: themeVariable.fontFamily
       }
     },
@@ -171,7 +169,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiFormLabel: {
       root: {
-        color: themeVariable.palette.grey[500],
+        color: palette.grey[500],
         fontFamily: themeVariable.fontFamily
       }
     },
@@ -213,19 +211,19 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       },
 
       standardSuccess: {
-        backgroundColor: themeVariable.palette.success['light']
+        backgroundColor: palette.success['light']
       },
 
       standardError: {
-        backgroundColor: themeVariable.palette.error['light']
+        backgroundColor: palette.error['light']
       },
 
       standardInfo: {
-        backgroundColor: themeVariable.palette.info['light']
+        backgroundColor: palette.info['light']
       },
 
       standardWarning: {
-        backgroundColor: themeVariable.palette.warning['light']
+        backgroundColor: palette.warning['light']
       }
     },
 
@@ -237,7 +235,7 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
         '&$hover': {
           '&:hover': {
-            background: themeVariable.palette.grey[100]
+            background: palette.grey[100]
           }
         }
       }
@@ -246,18 +244,18 @@ export default function overrides(pallet: Palette): ICustomOverrides {
     MuiTableCell: {
       root: {
         padding: '12px 20px',
-        borderColor: themeVariable.palette.grey[200],
-        color: themeVariable.palette.grey[600]
+        borderColor: palette.grey[200],
+        color: palette.grey[600]
       },
 
       head: {
         fontWeight: themeVariable.fontWeight('semibold'),
-        color: themeVariable.palette.grey[600],
+        color: palette.grey[600],
         lineHeight: themeVariable.lineHeight('compact')
       },
 
       body: {
-        color: themeVariable.palette.grey[600]
+        color: palette.grey[600]
       },
 
       sizeSmall: {
@@ -268,19 +266,19 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiTableSortLabel: {
       root: {
-        color: themeVariable.palette.grey[600],
+        color: palette.grey[600],
 
         '&:focus': {
           color: 'inherit'
         },
 
         '&$active': {
-          color: themeVariable.palette.grey[600],
+          color: palette.grey[600],
 
           '&$root': {
             '&$active': {
               '& $icon': {
-                color: themeVariable.palette.grey[600]
+                color: palette.grey[600]
               }
             }
           }
@@ -297,8 +295,9 @@ export default function overrides(pallet: Palette): ICustomOverrides {
 
     MuiPaginationItem: {
       root: {
-        margin: '0 2px',
+        margin: '0 1px',
         minWidth: 30,
+        minHeight: 30,
         padding: '0 4px',
         fontWeight: themeVariable.fontWeight('regular')
       }
@@ -308,16 +307,15 @@ export default function overrides(pallet: Palette): ICustomOverrides {
       ul: {
         '& li': {
           '&:first-child, &:last-child': {
-            border: `1px solid ${palette.grey[300]}`,
             borderRadius: 4
           },
 
           '&:first-child': {
-            marginRight: 8
+            marginRight: 4
           },
 
           '&:last-child': {
-            marginLeft: 8
+            marginLeft: 4
           }
         }
       }

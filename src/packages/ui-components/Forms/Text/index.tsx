@@ -23,6 +23,7 @@ type FieldTextPropsExtends =
   | 'fullWidth'
   | 'helperText'
   | 'multiline'
+  | 'className'
   | 'value';
 
 export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExtends> {

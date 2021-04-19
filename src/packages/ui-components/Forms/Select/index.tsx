@@ -15,7 +15,16 @@ import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import WrapperTheme from '../../ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
-type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple' | 'className';
+type FieldSelectPropsExtends =
+  | 'id'
+  | 'label'
+  | 'name'
+  | 'disabled'
+  | 'type'
+  | 'fullWidth'
+  | 'multiple'
+  | 'className'
+  | 'classes';
 
 export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExtends> {
   loading?: boolean;
