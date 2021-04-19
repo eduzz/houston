@@ -5,8 +5,8 @@ import TableCell from '@material-ui/core/TableCell';
 
 import clsx from 'clsx';
 
-import { truncateText } from '../../../Helpers/functions';
-import { ITableCellProps } from '../../Cell';
+import { truncateText } from '../../../../Helpers/functions';
+import { ITableCellProps } from '../../../Cell';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -29,7 +29,7 @@ interface IProps extends ITableCellProps {
   list?: boolean;
 }
 
-const Cell = (props: IProps) => {
+const Cell = React.memo<IProps>(props => {
   const classes = useStyles();
 
   const cellProps = {
@@ -50,6 +50,6 @@ const Cell = (props: IProps) => {
       {!truncate && children}
     </TableCell>
   );
-};
+});
 
-export default React.memo(Cell);
+export default Cell;

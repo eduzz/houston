@@ -16,7 +16,7 @@ export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsE
   marginBottom?: boolean;
 }
 
-const Typography = React.forwardRef<HTMLSpanElement, ITypographyProps>((props, ref) => {
+const Typography = React.forwardRef<HTMLParagraphElement, ITypographyProps>((props, ref) => {
   const { className, ...typographyProps } = props;
 
   const name = React.useMemo(() => Math.random().toString(36).substring(5), []);

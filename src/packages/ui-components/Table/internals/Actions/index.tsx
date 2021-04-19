@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useTableContext } from '../../context';
 import MenuActions from '../MenuActions';
 
-const Actions = () => {
+const Actions = React.memo(() => {
   const { currentRow, actions, anchorEl, setAnchorEl, options, setOptions, setCurrentRow } = useTableContext();
 
   const handleCloseActions = React.useCallback(() => {
@@ -27,6 +27,6 @@ const Actions = () => {
       currentRow={currentRow}
     />
   );
-};
+});
 
-export default React.memo(Actions);
+export default Actions;

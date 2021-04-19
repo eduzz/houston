@@ -10,7 +10,7 @@ import Row from '../../../Grid/Row';
 import Typography from '../../../Typography';
 import { useTableContext } from '../../context';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
   createStyles({
     pagination: {
       marginTop: 12,
@@ -23,10 +23,23 @@ const useStyles = makeStyles(() =>
       alignItems: 'center',
       marginRight: 24,
 
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'center',
+        margin: '0 0 12px 0',
+        display: 'flex'
+      },
+
       '& p': {
         whiteSpace: 'nowrap',
         marginRight: 12
       }
+    },
+
+    wrapperSelectPerPage: {},
+
+    selectPerPage: {
+      height: 35,
+      padding: '8px 12px'
     },
 
     goTo: {
@@ -34,9 +47,21 @@ const useStyles = makeStyles(() =>
       display: 'inline-flex',
       alignItems: 'center',
 
+      [theme.breakpoints.down('xs')]: {
+        margin: '0 auto 12px auto',
+        display: 'flex'
+      },
+
       '& p': {
         whiteSpace: 'nowrap',
         marginRight: 12
+      }
+    },
+
+    inputGoTo: {
+      '& input': {
+        height: 35,
+        padding: '4px 12px'
       }
     },
 
@@ -44,20 +69,22 @@ const useStyles = makeStyles(() =>
       display: 'flex',
       justifyContent: 'flex-end',
       height: '100%',
-      alignItems: 'center'
+      alignItems: 'center',
+
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'center'
+      }
     }
   })
 );
 
-const Pagination = () => {
+const Pagination = React.memo(() => {
   const { loading, pagination } = useTableContext();
   const classes = useStyles();
 
   const [currentPage, setCurrentPage] = React.useState<number>(pagination?.page ?? 1);
 
-  const defaultOptionsPerPage = React.useMemo(() => pagination?.optionsPerPage ?? [5, 10, 15, 25, 35, 50, 100], [
-    pagination
-  ]);
+  const defaultOptionsPerPage = React.useMemo(() => pagination?.optionsPerPage ?? [5, 10, 25, 50, 100], [pagination]);
 
   const handleChangePerPage = React.useCallback(
     (_: any, event: React.ChangeEvent<{ name?: string; value: any }>) => {
@@ -67,7 +94,7 @@ const Pagination = () => {
   );
 
   const handleChangeGoToPage = React.useCallback((_: any, event: React.ChangeEvent<HTMLInputElement>) => {
-    let page = Number(event.target.value) || 1;
+    let page = Number(event.target.value);
 
     if (page < 1) {
       page = 1;
@@ -109,19 +136,22 @@ const Pagination = () => {
     <div className={classes.pagination}>
       <Row>
         {(pagination?.onChangeRowsPerPage || pagination?.onChangeGoToPage) && (
-          <Column xs={12} sm={6}>
+          <Column xs={12} sm={8}>
             {pagination?.onChangeRowsPerPage && (
               <div className={classes.perPage}>
                 <Typography size='small' fontWeight='semibold'>
                   {pagination?.labelItensPerPage ?? 'Itens por página:'}
                 </Typography>
 
-                <SelectField
-                  margin='none'
-                  options={defaultOptionsPerPage.map(value => ({ label: String(value), value }))}
-                  value={pagination?.perPage ?? 15}
-                  onChange={handleChangePerPage}
-                />
+                <div className={classes.wrapperSelectPerPage}>
+                  <SelectField
+                    classes={{ select: classes.selectPerPage }}
+                    margin='none'
+                    options={defaultOptionsPerPage.map(value => ({ label: String(value), value }))}
+                    value={pagination?.perPage ?? 15}
+                    onChange={handleChangePerPage}
+                  />
+                </div>
               </div>
             )}
 
@@ -132,6 +162,7 @@ const Pagination = () => {
                 </Typography>
 
                 <TextField
+                  className={classes.inputGoTo}
                   margin='none'
                   value={currentPage ?? ''}
                   onChange={handleChangeGoToPage}
@@ -158,6 +189,6 @@ const Pagination = () => {
       </Row>
     </div>
   );
-};
+});
 
-export default React.memo(Pagination);
+export default Pagination;

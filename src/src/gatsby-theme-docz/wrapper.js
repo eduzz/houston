@@ -5,7 +5,8 @@ import React from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
 
 const generateClassName = (rule, styleSheet) => {
-  return `${styleSheet.options.classNamePrefix}-${rule.key}`;
+  const random = Math.random().toString(36).substring(5);
+  return `houston-styles-${rule.key}-${random}`;
 }
 
 
