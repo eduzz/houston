@@ -43,6 +43,10 @@ export const Layout = ({ children, /*pageContext = {},*/ doc = {}, ...rest }) =>
         body, * {
           font-family: "Open Sans";
         }
+
+        .bg-grey {
+          background-color: #eee
+        }
       `
     }),
     []
