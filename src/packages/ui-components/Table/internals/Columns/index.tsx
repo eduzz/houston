@@ -20,12 +20,17 @@ const useStyles = makeStyles(theme =>
       right: 0,
       background: theme.palette.grey[100],
       zIndex: 2
+    },
+
+    striped: {
+      background: theme.palette.grey[200]
     }
   })
 );
 
 const Columns = React.memo(() => {
   const classes = useStyles();
+
   const {
     loading,
     columns,
@@ -34,7 +39,8 @@ const Columns = React.memo(() => {
     rows,
     hasCollapseData,
     numberColumns,
-    hasColumnAction
+    hasColumnAction,
+    stripedRows
   } = useTableContext();
 
   const [sortable, setSortable] = React.useState<ITableSortable | null>(null);
@@ -80,7 +86,11 @@ const Columns = React.memo(() => {
               <TableCell
                 id={column?.id}
                 align={column?.align}
-                className={clsx(isFixed && !loading && rows.length && classes.fixed, column?.className)}
+                className={clsx(
+                  isFixed && !loading && rows.length && classes.fixed,
+                  column?.className,
+                  stripedRows && classes.striped
+                )}
                 key={`column-${column.field}`}
                 sortDirection={currentSortable ? sortable?.order : false}
                 width={column?.width}
@@ -102,14 +112,18 @@ const Columns = React.memo(() => {
           })}
 
         {hasColumnAction && (
-          <TableCell align={columnAction[0]?.align} width={50}>
+          <TableCell align={columnAction[0]?.align} width={50} className={stripedRows && classes.striped}>
             {columnAction[0]?.label === false && <>&nbsp;</>}
             {!columnAction[0]?.label && columnAction[0].label !== false ? 'Ações' : columnAction[0].label}
           </TableCell>
         )}
 
         {!hasColumnAction && actions && (
-          <TableCell align={actions?.align} className={actions?.fixed && classes.fixed} width={50}>
+          <TableCell
+            align={actions?.align}
+            className={clsx(actions?.fixed && classes.fixed, stripedRows && classes.striped)}
+            width={50}
+          >
             {actions?.label === false && <>&nbsp;</>}
             {!actions?.label && actions.label !== false ? 'Ações' : actions.label}
           </TableCell>

@@ -52,8 +52,6 @@ const CellMobile = React.memo<IProps>(props => {
   const classes = useStyles();
   const { columns } = useTableContext();
 
-  const { children } = props;
-
   const currentColumns = React.useMemo(() => props?.columns ?? columns, [props.columns, columns]);
 
   const cellAlign = React.useMemo(
@@ -66,7 +64,6 @@ const CellMobile = React.memo<IProps>(props => {
 
   const cellProps = {
     id: props?.id,
-    className: props?.className,
     onClick: props?.onClick,
     onDoubleClick: props?.onDoubleClick
   };
@@ -82,14 +79,14 @@ const CellMobile = React.memo<IProps>(props => {
     <Column
       {...cellProps}
       xs={(props?.xs?.size as GridSize) ?? 12}
-      className={clsx(currentAlign && cellAlign[currentAlign], classes.root)}
+      className={clsx(currentAlign && cellAlign[currentAlign], classes.root, props?.className && props.className)}
       style={{ margin: props?.xs?.margin, order: props?.xs?.order }}
     >
       <Typography size='x-small' fontWeight='regular' lineHeight='compact' className={classes.column}>
         {currentColumn}
       </Typography>
 
-      <div className='content-cell'>{children}</div>
+      <div className='content-cell'>{props.children}</div>
     </Column>
   );
 });

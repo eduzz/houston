@@ -22,14 +22,16 @@ import Table from '@eduzz/houston-ui/Table';
 ### Tabela simples
 
 <Playground>
-  <Table onActionsClick={row => console.log(row)}>
+  <Table id='tabela-test-houston' onActionsClick={row => console.log(row)} stripedRows>
     <Table.Column field='id' label='ID' />
     <Table.Column field='product' label='Produto' />
     <Table.Column field='owner' label='Produtor' />
     <Table.Column field='value' label='Valor' align='right' />
     <Table.Column field='action' label='*' align='right' type='action' />
-    <Table.Row data={{ id: 1 }}>
-      <Table.Cell xs={{ size: 0 }}>1</Table.Cell>
+    <Table.Row data={{ id: 1 }} id='row-test-houston'>
+      <Table.Cell id='cell-test-houston' className='test-classname' xs={{ size: 0 }}>
+        1
+      </Table.Cell>
       <Table.Cell xs={{ size: 12, margin: '0 0 8px 0', order: 1 }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
       <Table.Cell xs={{ size: 6, order: 3, align: 'right' }}>John Doe</Table.Cell>
       <Table.Cell align='right' xs={{ size: 6, order: 2, align: 'left' }}>
@@ -219,6 +221,7 @@ Colunas com ordenações. É necessário a função `onSortable`. (Clique nas co
 | size         | `Size`           | `false`     | `medium` | -                                                                                       |
 | maxHeight    | `number`         | `false`     | -        | -                                                                                       |
 | messages     | `ITableMessages` | `false`     | `false`  | Mensagens para eventos internos.                                                        |
+| stripedRows  | `boolean`        | `false`     | `false`  | -                                                                                       |
 
 ### Table.Column props
 
