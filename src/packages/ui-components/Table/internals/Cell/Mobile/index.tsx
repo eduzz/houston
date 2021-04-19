@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { GridSize } from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
@@ -67,20 +68,20 @@ const CellMobile = React.memo<IProps>(props => {
     id: props?.id,
     className: props?.className,
     onClick: props?.onClick,
-    onDoubleClick: props?.onDoubleClick,
-    xs: props?.xs?.size ?? 12
+    onDoubleClick: props?.onDoubleClick
   };
 
   const currentColumn = React.useMemo(() => currentColumns[props.index].label, [currentColumns, props.index]);
   const currentAlign = React.useMemo(() => props?.xs?.align ?? props?.align, [props?.align, props?.xs?.align]);
 
-  if (!cellProps.xs) {
+  if (!props?.xs) {
     return null;
   }
 
   return (
     <Column
       {...cellProps}
+      xs={(props?.xs?.size as GridSize) ?? 12}
       className={clsx(currentAlign && cellAlign[currentAlign], classes.root)}
       style={{ margin: props?.xs?.margin, order: props?.xs?.order }}
     >
