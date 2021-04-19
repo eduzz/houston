@@ -8,6 +8,7 @@ import { ITablePagination } from './Pagination';
 interface ITableContext {
   loading: boolean;
   onSortable: ({ field, order }: ITableSortable) => void;
+  onActionsClick: (data: unknown) => void;
   messages?: ITableMessages;
 
   columns: ITableColumnProps[];
@@ -26,6 +27,7 @@ interface ITableContext {
   pagination: ITablePagination | undefined;
 
   hasCollapseData: boolean;
+  hasColumnAction: boolean;
   numberColumns: number;
 
   isMobile: boolean;

@@ -22,12 +22,13 @@ import Table from '@eduzz/houston-ui/Table';
 ### Tabela simples
 
 <Playground>
-  <Table>
+  <Table onActionsClick={row => console.log(row)}>
     <Table.Column field='id' label='ID' />
     <Table.Column field='product' label='Produto' />
     <Table.Column field='owner' label='Produtor' />
     <Table.Column field='value' label='Valor' align='right' />
-    <Table.Row>
+    <Table.Column field='action' label='*' align='right' type='action' />
+    <Table.Row data={{ id: 1 }}>
       <Table.Cell xs={{ size: 0 }}>1</Table.Cell>
       <Table.Cell xs={{ size: 12, margin: '0 0 8px 0', order: 1 }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
       <Table.Cell xs={{ size: 6, order: 3, align: 'right' }}>John Doe</Table.Cell>
@@ -35,7 +36,7 @@ import Table from '@eduzz/houston-ui/Table';
         R$ 120,00
       </Table.Cell>
     </Table.Row>
-    <Table.Row>
+    <Table.Row data={{ id: 2 }}>
       <Table.Cell xs={{ size: 0 }}>2</Table.Cell>
       <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
       <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
@@ -43,7 +44,7 @@ import Table from '@eduzz/houston-ui/Table';
         R$ 100,00
       </Table.Cell>
     </Table.Row>
-    <Table.Row>
+    <Table.Row data={{ id: 3 }}>
       <Table.Cell xs={{ size: 0 }}>3</Table.Cell>
       <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
       <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
@@ -51,7 +52,7 @@ import Table from '@eduzz/houston-ui/Table';
         R$ 100,00
       </Table.Cell>
     </Table.Row>
-    <Table.Row>
+    <Table.Row data={{ id: 4 }}>
       <Table.Cell xs={{ size: 0 }}>4</Table.Cell>
       <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
       <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
@@ -221,13 +222,14 @@ Colunas com ordenações. É necessário a função `onSortable`. (Clique nas co
 
 ### Table.Column props
 
-| prop     | tipo              | obrigatório | padrão  | descrição                                                                                          |
-| -------- | ----------------- | ----------- | ------- | -------------------------------------------------------------------------------------------------- |
-| field    | `string`          | `true`      | -       | Chave única.                                                                                       |
-| label    | `React.ReactNode` | `true`      | -       | -                                                                                                  |
-| width    | `number`          | `false`     | -       | -                                                                                                  |
-| align    | `ITableAlign`     | `false`     | `left`  | -                                                                                                  |
-| sortable | `boolean`         | `false`     | `false` | Se `true`, ao clicar na coluna, chama a função `onSortable` passando a prop `field` e a ordenação. |
+| prop     | tipo              | obrigatório | padrão  | descrição                                                                                                                                   |
+| -------- | ----------------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| field    | `string`, `false` | `true`      | -       | Chave única.                                                                                                                                |
+| label    | `React.ReactNode` | `true`      | -       | -                                                                                                                                           |
+| width    | `number`          | `false`     | -       | -                                                                                                                                           |
+| align    | `ITableAlign`     | `false`     | `left`  | -                                                                                                                                           |
+| sortable | `boolean`         | `false`     | `false` | Se `true`, ao clicar na coluna, chama a função `onSortable` passando a prop `field` e a ordenação.                                          |
+| type     | `action`          | `false`     | -       | Se `action`, inserimos no final de todas linhas um ícone de ação. Ao ser clicado chama a função `onActionsClick` passando o valor da linha. |
 
 ### Table.Row props
 

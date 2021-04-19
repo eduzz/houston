@@ -10,7 +10,7 @@ import RowsDesktop from './Desktop';
 import RowsMobile from './Mobile';
 
 const RowsBase = React.memo(() => {
-  const { setAnchorEl, setOptions, setCurrentRow, isMobile } = useTableContext();
+  const { setAnchorEl, setOptions, setCurrentRow, onActionsClick, isMobile } = useTableContext();
 
   const [currentItemCollapse, setCurrentItemCollapse] = React.useState<unknown | null>(null);
 
@@ -44,9 +44,22 @@ const RowsBase = React.memo(() => {
     [currentItemCollapse]
   );
 
+  const handleClickActions = React.useCallback(
+    (data: unknown) => {
+      onActionsClick && onActionsClick(data);
+    },
+    [onActionsClick]
+  );
+
   return (
     <RowContextProvider
-      value={{ currentItemCollapse, setCurrentItemCollapse, handleClickCollapse, handleSetCurrentRow }}
+      value={{
+        currentItemCollapse,
+        setCurrentItemCollapse,
+        handleClickCollapse,
+        handleSetCurrentRow,
+        handleClickActions
+      }}
     >
       {isMobile && <RowsMobile />}
       {!isMobile && <RowsDesktop />}
