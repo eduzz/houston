@@ -93,8 +93,6 @@ const Rows = React.memo<IRowProps>(
               <TableRow
                 hover
                 selected={currentRow && isEqual(currentRow?.data, data)}
-                onClick={row?.onClick && row.onClick}
-                onDoubleClick={row?.onDoubleClick && row.onDoubleClick}
                 className={clsx(classes.root, stripedRows && isOdd && classes.stripedRow, className && className)}
                 {...rowProps}
               >
