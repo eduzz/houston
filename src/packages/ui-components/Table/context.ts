@@ -31,6 +31,7 @@ interface ITableContext {
   numberColumns: number;
 
   isMobile: boolean;
+  stripedRows: boolean;
 }
 
 export const TableContext = React.createContext<ITableContext>({} as ITableContext);
