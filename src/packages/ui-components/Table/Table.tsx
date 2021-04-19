@@ -127,7 +127,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     });
   }, [children]);
 
-  const hasCollapseData = React.useMemo(() => !!rows.filter(v => v.collapse).length, [rows]);
+  const hasCollapseData = React.useMemo(() => rows.some(v => v.collapse), [rows]);
 
   const numberColumns = React.useMemo(() => columns?.length + Number(!!actions) + Number(hasCollapseData) || 0, [
     columns,
