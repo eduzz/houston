@@ -34,7 +34,6 @@ const Cell = React.memo<IProps>(props => {
 
   const cellProps = {
     id: props?.id,
-    className: props?.className,
     padding: props?.padding,
     colSpan: props?.colSpan,
     align: props?.align,
@@ -45,7 +44,10 @@ const Cell = React.memo<IProps>(props => {
   const { children, truncate = false, list, fixed } = props;
 
   return (
-    <TableCell {...cellProps} className={clsx(list && classes.list, fixed && classes.fixed)}>
+    <TableCell
+      {...cellProps}
+      className={clsx(list && classes.list, fixed && classes.fixed, props?.className && props.className)}
+    >
       {truncate && <span title={String(children)}>{truncateText(String(children), truncate)}</span>}
       {!truncate && children}
     </TableCell>

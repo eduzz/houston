@@ -39,7 +39,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-interface IProps extends Pick<TableProps, 'id' | 'className' | 'children'> {
+interface IProps extends Pick<TableProps, 'id' | 'children'> {
   loading?: boolean;
   /**
    * Function called when clicking on an ordered column
@@ -65,6 +65,7 @@ interface IProps extends Pick<TableProps, 'id' | 'className' | 'children'> {
    * Messages for some situations, example: `when there is no date`
    */
   messages?: ITableMessages;
+  stripedRows?: boolean;
 }
 
 interface ITableProps
@@ -101,7 +102,18 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const theme = useTheme();
   const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
 
-  const { children, loading, onSortable, onActionsClick, stickyHeader, size, maxHeight, messages } = props;
+  const {
+    children,
+    loading,
+    onSortable,
+    onActionsClick,
+    stickyHeader,
+    size,
+    maxHeight,
+    messages,
+    stripedRows,
+    ...rest
+  } = props;
 
   const [options, setOptions] = React.useState<ITableOptionProps[]>([]);
   const [currentRow, setCurrentRow] = React.useState<ITableRow>(null);
@@ -172,7 +184,8 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       hasCollapseData,
       hasColumnAction,
       numberColumns,
-      isMobile
+      isMobile,
+      stripedRows
     }),
     [
       actions,
@@ -189,14 +202,19 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       pagination,
       rows,
       isMobile,
-      tableMessages
+      tableMessages,
+      stripedRows
     ]
   );
 
   return (
     <WrapperTheme>
       <TableContextProvider value={contextValue}>
-        {isMobile && <RowsBase />}
+        {isMobile && (
+          <div {...rest}>
+            <RowsBase />
+          </div>
+        )}
 
         {!isMobile && (
           <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
@@ -205,6 +223,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
               stickyHeader={stickyHeader}
               size={size}
               className={clsx(hasColumnFixed && classes.fixed)}
+              {...rest}
             >
               <Columns />
               <RowsBase />

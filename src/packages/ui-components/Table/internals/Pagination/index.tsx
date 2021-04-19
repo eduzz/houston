@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme =>
       marginTop: 12,
       display: 'flex',
       alignItems: 'center',
-      width: '100%'
+      width: '100%',
+      background: '#fff'
     },
 
     perPage: {
@@ -102,7 +103,7 @@ const Pagination = React.memo(() => {
   const handleBlurGoToPage = React.useCallback(
     (_: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       let currentPage = Number(event.target.value);
-      const maxPage = Math.floor(pagination?.total / pagination?.perPage);
+      const maxPage = Math.ceil(pagination?.total / pagination?.perPage);
 
       if (currentPage === pagination?.page) {
         return;

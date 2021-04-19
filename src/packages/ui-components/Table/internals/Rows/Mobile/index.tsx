@@ -15,9 +15,10 @@ import ButtonIcon from '../../../../ButtonIcon';
 import { useTableContext } from '../../../context';
 import CellMobile from '../../Cell/Mobile';
 import Collapse from '../../Collapse';
-import { useRow } from '../context';
 import RowsMobileEmpty from './Empty';
 import RowMobileLoader from './Loader';
+
+import { IRowProps } from '..';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -68,75 +69,83 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const RowsMobile = React.memo(() => {
-  const classes = useStyles();
+const RowsMobile = React.memo<IRowProps>(
+  ({ currentItemCollapse, handleSetCurrentRow, handleClickCollapse, handleClickActions }) => {
+    const classes = useStyles();
 
-  const { currentItemCollapse, handleSetCurrentRow, handleClickCollapse, handleClickActions } = useRow();
+    const { loading, rows, actions, hasCollapseData, hasColumnAction } = useTableContext();
 
-  const { loading, rows, actions, hasCollapseData, hasColumnAction } = useTableContext();
+    const hasActions = React.useMemo(() => actions || hasColumnAction, [actions, hasColumnAction]);
 
-  const hasActions = React.useMemo(() => actions || hasColumnAction, [actions, hasColumnAction]);
+    if (loading) {
+      return <RowMobileLoader />;
+    }
 
-  if (loading) {
-    return <RowMobileLoader />;
+    if (!loading && !rows?.length) {
+      return <RowsMobileEmpty />;
+    }
+
+    return (
+      <>
+        {rows.map((row, index) => {
+          const hasCollapse = hasCollapseData && row?.collapse;
+          const { data = null, cells = [], collapse = null, className, ...rest } = row;
+
+          const rowProps = { ...rest };
+          delete rowProps.options;
+
+          return (
+            <React.Fragment key={`table-row-mobile-${index}`}>
+              <div className={classes.row}>
+                <Row
+                  spacing='compact'
+                  className={clsx(
+                    classes.rowContent,
+                    hasActions && '--hasActions',
+                    hasCollapse && '--hasCollapse',
+                    className && className
+                  )}
+                  {...rowProps}
+                >
+                  {cells?.map((cell, i) => (
+                    <CellMobile key={`row-mobile-${index}-cell-${i}`} index={i} {...cell} />
+                  ))}
+                </Row>
+
+                {hasActions && (
+                  <div className={clsx(classes.rowExtra, hasCollapse && '--hasCollapse')}>
+                    {hasCollapse && (
+                      <ButtonIcon size='small' onClick={() => handleClickCollapse(row)}>
+                        {currentItemCollapse && isEqual(currentItemCollapse, data) ? (
+                          <KeyboardArrowUpIcon />
+                        ) : (
+                          <KeyboardArrowDownIcon />
+                        )}
+                      </ButtonIcon>
+                    )}
+
+                    {hasColumnAction && (
+                      <ButtonIcon size='small' onClick={() => handleClickActions(data)}>
+                        <MoreHorizIcon />
+                      </ButtonIcon>
+                    )}
+
+                    {actions && (
+                      <ButtonIcon size='small' onClick={e => handleSetCurrentRow(e, row)}>
+                        <MoreHorizIcon />
+                      </ButtonIcon>
+                    )}
+                  </div>
+                )}
+
+                {collapse && <Collapse collapse={currentItemCollapse} row={row} />}
+              </div>
+            </React.Fragment>
+          );
+        })}
+      </>
+    );
   }
-
-  if (!loading && !rows?.length) {
-    return <RowsMobileEmpty />;
-  }
-
-  return (
-    <>
-      {rows.map((row, index) => {
-        const hasCollapse = hasCollapseData && row?.collapse;
-
-        return (
-          <React.Fragment key={`table-row-mobile-${index}`}>
-            <div className={classes.row}>
-              <Row
-                className={clsx(classes.rowContent, hasActions && '--hasActions', hasCollapse && '--hasCollapse')}
-                spacing='compact'
-                onClick={row?.onClick && row.onClick}
-                onDoubleClick={row?.onDoubleClick && row.onDoubleClick}
-              >
-                {row?.cells?.map((cell, i) => (
-                  <CellMobile key={`row-mobile-${index}-cell-${i}`} index={i} {...cell} />
-                ))}
-              </Row>
-
-              {hasActions && (
-                <div className={clsx(classes.rowExtra, hasCollapse && '--hasCollapse')}>
-                  {hasCollapse && (
-                    <ButtonIcon size='small' onClick={() => handleClickCollapse(row)}>
-                      {currentItemCollapse && isEqual(currentItemCollapse, row.data) ? (
-                        <KeyboardArrowUpIcon />
-                      ) : (
-                        <KeyboardArrowDownIcon />
-                      )}
-                    </ButtonIcon>
-                  )}
-
-                  {hasColumnAction && (
-                    <ButtonIcon size='small' onClick={() => handleClickActions(row?.data)}>
-                      <MoreHorizIcon />
-                    </ButtonIcon>
-                  )}
-
-                  {actions && (
-                    <ButtonIcon size='small' onClick={e => handleSetCurrentRow(e, row)}>
-                      <MoreHorizIcon />
-                    </ButtonIcon>
-                  )}
-                </div>
-              )}
-
-              {row?.collapse && <Collapse collapse={currentItemCollapse} row={row} />}
-            </div>
-          </React.Fragment>
-        );
-      })}
-    </>
-  );
-});
+);
 
 export default RowsMobile;

@@ -5,9 +5,17 @@ import isEqual from 'lodash/isEqual';
 
 import { useTableContext } from '../../context';
 import { ITableRow } from '../../interfaces';
-import RowContextProvider from './context';
 import RowsDesktop from './Desktop';
 import RowsMobile from './Mobile';
+
+export interface IRowProps {
+  currentItemCollapse: unknown | null;
+  setCurrentItemCollapse: React.Dispatch<unknown>;
+
+  handleSetCurrentRow: (event: React.MouseEvent<HTMLElement>, row?: ITableRow) => void;
+  handleClickCollapse: (row: ITableRow) => void;
+  handleClickActions: (data: unknown) => void;
+}
 
 const RowsBase = React.memo(() => {
   const { setAnchorEl, setOptions, setCurrentRow, onActionsClick, isMobile } = useTableContext();
@@ -52,18 +60,27 @@ const RowsBase = React.memo(() => {
   );
 
   return (
-    <RowContextProvider
-      value={{
-        currentItemCollapse,
-        setCurrentItemCollapse,
-        handleClickCollapse,
-        handleSetCurrentRow,
-        handleClickActions
-      }}
-    >
-      {isMobile && <RowsMobile />}
-      {!isMobile && <RowsDesktop />}
-    </RowContextProvider>
+    <>
+      {isMobile && (
+        <RowsMobile
+          currentItemCollapse={currentItemCollapse}
+          setCurrentItemCollapse={setCurrentItemCollapse}
+          handleSetCurrentRow={handleSetCurrentRow}
+          handleClickCollapse={handleClickCollapse}
+          handleClickActions={handleClickActions}
+        />
+      )}
+
+      {!isMobile && (
+        <RowsDesktop
+          currentItemCollapse={currentItemCollapse}
+          setCurrentItemCollapse={setCurrentItemCollapse}
+          handleSetCurrentRow={handleSetCurrentRow}
+          handleClickCollapse={handleClickCollapse}
+          handleClickActions={handleClickActions}
+        />
+      )}
+    </>
   );
 });
 
