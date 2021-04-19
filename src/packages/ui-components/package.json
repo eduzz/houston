@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-ui",
   "description": "Eduzz Houston Components UI",
-  "version": "0.12.4",
+  "version": "0.12.5",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -22,7 +22,7 @@
     "pre-commit": "tsc -p . --noEmit"
   },
   "dependencies": {
-    "@eduzz/houston-core": "0.12.4",
+    "@eduzz/houston-core": "0.12.5",
     "@material-ui/core": "^4",
     "@material-ui/icons": "^4",
     "@material-ui/lab": "^4.0.0-alpha.56",
@@ -32,7 +32,7 @@
     "tslib": "^2.1.0"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.12.4",
+    "@eduzz/houston-core": "0.12.5",
     "@material-ui/core": "^4",
     "@material-ui/lab": "^4",
     "@material-ui/styles": "^4"
