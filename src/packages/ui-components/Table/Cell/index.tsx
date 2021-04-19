@@ -15,7 +15,7 @@ type ITableCellExtends =
 
 export interface ITableCellXs {
   margin?: number | string;
-  size?: GridSize & 0;
+  size?: GridSize | 0;
   order?: number;
   align?: 'center' | 'right';
 }

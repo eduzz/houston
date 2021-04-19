@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-forms",
-  "version": "0.12.2",
+  "version": "0.12.3",
   "description": "Houston Forms",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -23,15 +23,15 @@
     "pre-commit": "tsc -p . --noEmit"
   },
   "dependencies": {
-    "@eduzz/houston-core": "0.12.2",
-    "@eduzz/houston-hooks": "0.12.2",
+    "@eduzz/houston-core": "0.12.3",
+    "@eduzz/houston-hooks": "0.12.3",
     "@types/yup": "^0.29.9",
     "formik": "^2.2.5",
     "rxjs": "^6",
     "yup": "^0.31.0"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.12.2",
+    "@eduzz/houston-core": "0.12.3",
     "react": ">=16.8"
   },
   "devDependencies": {}
