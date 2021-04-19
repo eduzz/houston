@@ -12,7 +12,7 @@ import { IContainerType } from '../interfaces';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    rowRoot: {
+    root: {
       margin: 0,
       width: '100%'
     }
@@ -44,7 +44,7 @@ const Row = React.forwardRef<HTMLDivElement, IRowProps>((props, ref) => {
 
   return (
     <WrapperTheme>
-      <Grid {...props} container ref={ref} className={clsx(classes.rowRoot, props?.className)} spacing={config} />
+      <Grid {...props} container ref={ref} className={clsx(classes.root, props?.className)} spacing={config} />
     </WrapperTheme>
   );
 });

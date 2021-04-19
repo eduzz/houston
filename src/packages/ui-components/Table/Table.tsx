@@ -103,13 +103,9 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const [currentRow, setCurrentRow] = React.useState<ITableRow>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
+  const columns = useChildrenProps<ITableColumnProps>(children, TableColumn);
   const pagination = useFirstChildrenProps<ITablePagination>(children, TablePagination);
   const actions = React.useMemo(() => getActions(children), [children]);
-
-  const columns = useChildrenProps<ITableColumnProps>(children, TableColumn).map((column, index) => ({
-    ...column,
-    index
-  }));
 
   const rows: ITableRow[] = React.useMemo(() => {
     return React.Children.map(children, (child: React.ReactElement) => {
@@ -190,11 +186,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   return (
     <WrapperTheme>
       <TableContextProvider value={contextValue}>
-        {isMobile && (
-          <div>
-            <RowsBase />
-          </div>
-        )}
+        {isMobile && <RowsBase />}
 
         {!isMobile && (
           <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
