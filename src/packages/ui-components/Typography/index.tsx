@@ -7,7 +7,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import themeVariable, { FontSizes, FontWeight, LineHeights } from '../ThemeProvider/_default/variables';
 import WrapperTheme from '../ThemeProvider/WrapperTheme';
 
-type TypographyPropsExtends = 'className' | 'style' | 'children' | 'onClick';
+type TypographyPropsExtends = 'className' | 'style' | 'children' | 'onClick' | 'variant';
 
 export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsExtends> {
   size?: FontSizes;
@@ -17,16 +17,16 @@ export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsE
 }
 
 const Typography = React.forwardRef<HTMLParagraphElement, ITypographyProps>((props, ref) => {
-  const { className, ...typographyProps } = props;
+  const { className, lineHeight, fontWeight, marginBottom, size, ...typographyProps } = props;
 
-  const name = React.useMemo(() => Math.random().toString(36).substring(5), []);
+  const classPrefix = React.useMemo(() => Math.random().toString(36).substring(5), []);
 
   const useStyles = makeStyles(() => ({
-    [name]: {
-      fontSize: themeVariable.textSize(props.size ?? 'normal'),
-      lineHeight: themeVariable.lineHeight(props.lineHeight ?? 'normal'),
-      fontWeight: themeVariable.fontWeight(props.fontWeight ?? 'regular'),
-      marginBottom: props.marginBottom ? themeVariable.spacing(2) : null
+    [classPrefix]: {
+      fontSize: themeVariable.textSize(size ?? 'normal'),
+      lineHeight: themeVariable.lineHeight(lineHeight ?? 'normal'),
+      fontWeight: themeVariable.fontWeight(fontWeight ?? 'regular'),
+      marginBottom: marginBottom ? themeVariable.spacing(2) : null
     }
   }));
 
@@ -34,7 +34,7 @@ const Typography = React.forwardRef<HTMLParagraphElement, ITypographyProps>((pro
 
   return (
     <WrapperTheme>
-      <TypographyMUI className={`${classes[name]} ${className ?? ''}`} {...typographyProps} ref={ref} />
+      <TypographyMUI className={`${classes[classPrefix]} ${className ?? ''}`} {...typographyProps} ref={ref} />
     </WrapperTheme>
   );
 });
