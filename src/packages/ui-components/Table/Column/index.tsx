@@ -8,7 +8,7 @@ type ITableColumnExtends = 'id' | 'className';
 
 export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExtends> {
   width?: number;
-  label?: React.ReactNode;
+  label?: React.ReactNode | boolean;
   /**
    * Unique key, used for sorting
    */
@@ -29,6 +29,10 @@ export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExte
    * Default `false`
    */
   fixed?: boolean;
+  /**
+   * Create an action column (* priority * when use Table.Actions)
+   */
+  type?: 'action';
 }
 
 export default React.memo<ITableColumnProps>(() => null);

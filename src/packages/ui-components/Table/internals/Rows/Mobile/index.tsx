@@ -71,9 +71,11 @@ const useStyles = makeStyles(theme =>
 const RowsMobile = React.memo(() => {
   const classes = useStyles();
 
-  const { currentItemCollapse, handleSetCurrentRow, handleClickCollapse } = useRow();
+  const { currentItemCollapse, handleSetCurrentRow, handleClickCollapse, handleClickActions } = useRow();
 
-  const { loading, rows, actions, hasCollapseData } = useTableContext();
+  const { loading, rows, actions, hasCollapseData, hasColumnAction } = useTableContext();
+
+  const hasActions = React.useMemo(() => actions || hasColumnAction, [actions, hasColumnAction]);
 
   if (loading) {
     return <RowMobileLoader />;
@@ -92,7 +94,7 @@ const RowsMobile = React.memo(() => {
           <React.Fragment key={`table-row-mobile-${index}`}>
             <div className={classes.row}>
               <Row
-                className={clsx(classes.rowContent, actions && '--hasActions', hasCollapse && '--hasCollapse')}
+                className={clsx(classes.rowContent, hasActions && '--hasActions', hasCollapse && '--hasCollapse')}
                 spacing='compact'
                 onClick={row?.onClick && row.onClick}
                 onDoubleClick={row?.onDoubleClick && row.onDoubleClick}
@@ -102,7 +104,7 @@ const RowsMobile = React.memo(() => {
                 ))}
               </Row>
 
-              {actions && (
+              {hasActions && (
                 <div className={clsx(classes.rowExtra, hasCollapse && '--hasCollapse')}>
                   {hasCollapse && (
                     <ButtonIcon size='small' onClick={() => handleClickCollapse(row)}>
@@ -114,9 +116,17 @@ const RowsMobile = React.memo(() => {
                     </ButtonIcon>
                   )}
 
-                  <ButtonIcon size='small' onClick={e => handleSetCurrentRow(e, row)}>
-                    <MoreHorizIcon />
-                  </ButtonIcon>
+                  {hasColumnAction && (
+                    <ButtonIcon size='small' onClick={() => handleClickActions(row?.data)}>
+                      <MoreHorizIcon />
+                    </ButtonIcon>
+                  )}
+
+                  {actions && (
+                    <ButtonIcon size='small' onClick={e => handleSetCurrentRow(e, row)}>
+                      <MoreHorizIcon />
+                    </ButtonIcon>
+                  )}
                 </div>
               )}
 
