@@ -12,6 +12,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';
 
+import ButtonIcon from '../../../../ButtonIcon';
 import { useTableContext } from '../../../context';
 import Cell from '../../Cell/Desktop';
 import Collapse from '../../Collapse';
@@ -22,11 +23,12 @@ import RowLoader from './Loader';
 const useStyles = makeStyles(theme =>
   createStyles({
     wrapperIconActions: {
-      display: 'inline-flex',
       cursor: 'pointer',
-      lineHeight: 0,
-      position: 'relative',
-      top: 2
+      marginRight: -8,
+
+      '& svg': {
+        color: theme.palette.grey[600]
+      }
     },
 
     fixed: {
@@ -45,9 +47,18 @@ const useStyles = makeStyles(theme =>
 
 const Rows = React.memo(() => {
   const classes = useStyles();
-  const { currentItemCollapse, handleSetCurrentRow, handleClickCollapse } = useRow();
+  const { currentItemCollapse, handleSetCurrentRow, handleClickCollapse, handleClickActions } = useRow();
 
-  const { loading, columns, rows, currentRow, actions, hasCollapseData, numberColumns } = useTableContext();
+  const {
+    loading,
+    columns,
+    rows,
+    currentRow,
+    actions,
+    hasCollapseData,
+    hasColumnAction,
+    numberColumns
+  } = useTableContext();
 
   if (loading) {
     return <RowLoader />;
@@ -74,10 +85,22 @@ const Rows = React.memo(() => {
               return <Cell key={`row-${index}-cell-${i}`} fixed={isFixed} {...cell} />;
             })}
 
-            {actions && (
+            {hasColumnAction && (
+              <TableCell align='right'>
+                <div className={classes.wrapperIconActions}>
+                  <ButtonIcon size='small' onClick={() => handleClickActions(row?.data)}>
+                    <MoreHorizIcon />
+                  </ButtonIcon>
+                </div>
+              </TableCell>
+            )}
+
+            {!hasColumnAction && actions && (
               <TableCell align='right' className={actions?.fixed && classes.fixed}>
-                <div className={classes.wrapperIconActions} onClick={e => handleSetCurrentRow(e, row)}>
-                  <MoreHorizIcon />
+                <div className={classes.wrapperIconActions}>
+                  <ButtonIcon size='small' onClick={e => handleSetCurrentRow(e, row)}>
+                    <MoreHorizIcon />
+                  </ButtonIcon>
                 </div>
               </TableCell>
             )}

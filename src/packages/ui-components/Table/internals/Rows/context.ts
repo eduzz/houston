@@ -8,6 +8,7 @@ interface ITableRowContext {
 
   handleSetCurrentRow: (event: React.MouseEvent<HTMLElement>, row?: ITableRow) => void;
   handleClickCollapse: (row: ITableRow) => void;
+  handleClickActions: (data: unknown) => void;
 }
 
 const RowContext = React.createContext<ITableRowContext>({} as ITableRowContext);

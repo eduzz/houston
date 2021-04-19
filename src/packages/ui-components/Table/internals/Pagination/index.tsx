@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme =>
     pagination: {
       marginTop: 12,
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
+      width: '100%'
     },
 
     perPage: {
@@ -94,24 +95,29 @@ const Pagination = React.memo(() => {
   );
 
   const handleChangeGoToPage = React.useCallback((_: any, event: React.ChangeEvent<HTMLInputElement>) => {
-    let page = Number(event.target.value);
-
-    if (page < 1) {
-      page = 1;
-    }
-
+    const page = Number(event.target.value);
     setCurrentPage(page);
   }, []);
 
   const handleBlurGoToPage = React.useCallback(
     (_: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const page = Number(event.target.value) || 1;
+      let currentPage = Number(event.target.value);
+      const maxPage = Math.floor(pagination?.total / pagination?.perPage);
 
-      if (page === pagination?.page) {
+      if (currentPage === pagination?.page) {
         return;
       }
 
-      pagination?.onChangeGoToPage && pagination?.onChangeGoToPage(page);
+      if (!currentPage) {
+        currentPage = 1;
+      }
+
+      if (currentPage > maxPage) {
+        currentPage = maxPage;
+      }
+
+      setCurrentPage(currentPage);
+      pagination?.onChangeGoToPage && pagination?.onChangeGoToPage(currentPage);
     },
     [pagination]
   );

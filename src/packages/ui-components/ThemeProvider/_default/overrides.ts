@@ -426,6 +426,12 @@ export default function overrides(palette: Palette): ICustomOverrides {
       arrow: {
         color: palette.grey[600]
       }
+    },
+
+    MuiTypography: {
+      body2: {
+        color: palette.grey[500]
+      }
     }
   };
 }

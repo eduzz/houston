@@ -26,7 +26,16 @@ const useStyles = makeStyles(theme =>
 
 const Columns = React.memo(() => {
   const classes = useStyles();
-  const { loading, columns, actions, onSortable, rows, hasCollapseData, numberColumns } = useTableContext();
+  const {
+    loading,
+    columns,
+    actions,
+    onSortable,
+    rows,
+    hasCollapseData,
+    numberColumns,
+    hasColumnAction
+  } = useTableContext();
 
   const [sortable, setSortable] = React.useState<ITableSortable | null>(null);
 
@@ -50,6 +59,8 @@ const Columns = React.memo(() => {
     [sortable, onSortable]
   );
 
+  const columnAction = React.useMemo(() => columns?.filter(c => c?.type === 'action'), [columns]);
+
   if (!columns?.length) {
     return null;
   }
@@ -57,37 +68,47 @@ const Columns = React.memo(() => {
   return (
     <TableHead>
       <TableRow>
-        {columns.map((column, index) => {
-          const currentSortable = sortable?.field === column.field;
-          const currentIndex = index + 1;
-          const isFixed = column?.fixed && (currentIndex === 1 || currentIndex === numberColumns);
+        {columns
+          .filter(c => c?.type !== 'action')
+          .map((column, index) => {
+            const currentSortable = sortable?.field === column.field;
+            const currentIndex = index + 1;
+            const isFixed = column?.fixed && (currentIndex === 1 || currentIndex === numberColumns);
+            const label = column?.label || ' ';
 
-          return (
-            <TableCell
-              id={column?.id}
-              align={column?.align}
-              className={clsx(isFixed && !loading && rows.length && classes.fixed, column?.className)}
-              key={`column-${column.field}`}
-              sortDirection={currentSortable ? sortable?.order : false}
-              width={column?.width}
-            >
-              {column?.sortable && (
-                <TableSortLabel
-                  active={currentSortable}
-                  disabled={loading || rows?.length === 0}
-                  direction={currentSortable ? sortable?.order : 'asc'}
-                  onClick={column?.sortable ? () => handleClickSortable(column.field) : null}
-                >
-                  {column?.label ?? ' '}
-                </TableSortLabel>
-              )}
+            return (
+              <TableCell
+                id={column?.id}
+                align={column?.align}
+                className={clsx(isFixed && !loading && rows.length && classes.fixed, column?.className)}
+                key={`column-${column.field}`}
+                sortDirection={currentSortable ? sortable?.order : false}
+                width={column?.width}
+              >
+                {column?.sortable && (
+                  <TableSortLabel
+                    active={currentSortable}
+                    disabled={loading || rows?.length === 0}
+                    direction={currentSortable ? sortable?.order : 'asc'}
+                    onClick={column?.sortable ? () => handleClickSortable(column.field) : null}
+                  >
+                    {label}
+                  </TableSortLabel>
+                )}
 
-              {!column?.sortable ? column?.label : ' '}
-            </TableCell>
-          );
-        })}
+                {!column?.sortable ? label : ' '}
+              </TableCell>
+            );
+          })}
 
-        {actions && (
+        {hasColumnAction && (
+          <TableCell align={columnAction[0]?.align} width={50}>
+            {columnAction[0]?.label === false && <>&nbsp;</>}
+            {!columnAction[0]?.label && columnAction[0].label !== false ? 'Ações' : columnAction[0].label}
+          </TableCell>
+        )}
+
+        {!hasColumnAction && actions && (
           <TableCell align={actions?.align} className={actions?.fixed && classes.fixed} width={50}>
             {actions?.label === false && <>&nbsp;</>}
             {!actions?.label && actions.label !== false ? 'Ações' : actions.label}

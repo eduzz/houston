@@ -46,6 +46,10 @@ interface IProps extends Pick<TableProps, 'id' | 'className' | 'children'> {
    */
   onSortable?: (ordernation: ITableSortable) => void;
   /**
+   * Function called when clicking in icon action in row
+   */
+  onActionsClick?: (data: unknown) => void;
+  /**
    * Default `false`
    */
   stickyHeader?: boolean;
@@ -97,7 +101,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const theme = useTheme();
   const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
 
-  const { children, loading, onSortable, stickyHeader, size, maxHeight, messages } = props;
+  const { children, loading, onSortable, onActionsClick, stickyHeader, size, maxHeight, messages } = props;
 
   const [options, setOptions] = React.useState<ITableOptionProps[]>([]);
   const [currentRow, setCurrentRow] = React.useState<ITableRow>(null);
@@ -140,6 +144,8 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     [actions, columns]
   );
 
+  const hasColumnAction = React.useMemo(() => columns?.some(c => c?.type === 'action'), [columns]);
+
   const tableMessages: ITableMessages = React.useMemo(
     () => ({
       empty: messages?.empty ? messages.empty : 'Nenhum registro encontrado.'
@@ -151,6 +157,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     () => ({
       loading,
       onSortable,
+      onActionsClick,
       messages: tableMessages,
       currentRow,
       setCurrentRow,
@@ -163,6 +170,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       setOptions,
       pagination,
       hasCollapseData,
+      hasColumnAction,
       numberColumns,
       isMobile
     }),
@@ -172,9 +180,11 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       columns,
       currentRow,
       hasCollapseData,
+      hasColumnAction,
       loading,
       numberColumns,
       onSortable,
+      onActionsClick,
       options,
       pagination,
       rows,
