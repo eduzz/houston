@@ -20,10 +20,11 @@ interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
    */
   palette?: Partial<IThemePalette>;
   disableCssBaseline?: boolean;
+  disabledFontBase?: boolean;
 }
 
 function ThemeProvider(props: IThemeProviderProps) {
-  const { children, palette, disableCssBaseline } = props;
+  const { children, palette, disableCssBaseline, disabledFontBase } = props;
 
   const theme: Theme = React.useMemo(() => generateCustomTheme(palette), [palette]);
 
@@ -32,13 +33,16 @@ function ThemeProvider(props: IThemeProviderProps) {
       __html: `
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');
 
-        body {
-          font-family: ${themeVariable.fontFamily};
-          font-size: ${themeVariable.textSize('default')}px;
+        ${
+          !disabledFontBase &&
+          `body {
+            font-family: ${themeVariable.fontFamily};
+            font-size: ${themeVariable.textSize('default')}px;
+          }`
         }
       `
     }),
-    []
+    [disabledFontBase]
   );
 
   React.useEffect(() => _setCurrentTheme(theme), [theme]);

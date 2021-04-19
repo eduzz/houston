@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const Columns = () => {
+const Columns = React.memo(() => {
   const classes = useStyles();
   const { loading, columns, actions, onSortable, rows, hasCollapseData, numberColumns } = useTableContext();
 
@@ -88,7 +88,7 @@ const Columns = () => {
         })}
 
         {actions && (
-          <TableCell align={actions?.align} className={actions?.fixed && classes.fixed}>
+          <TableCell align={actions?.align} className={actions?.fixed && classes.fixed} width={50}>
             {actions?.label === false && <>&nbsp;</>}
             {!actions?.label && actions.label !== false ? 'Ações' : actions.label}
           </TableCell>
@@ -98,6 +98,6 @@ const Columns = () => {
       </TableRow>
     </TableHead>
   );
-};
+});
 
-export default React.memo(Columns);
+export default Columns;

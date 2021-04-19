@@ -27,6 +27,8 @@ interface ITableContext {
 
   hasCollapseData: boolean;
   numberColumns: number;
+
+  isMobile: boolean;
 }
 
 export const TableContext = React.createContext<ITableContext>({} as ITableContext);

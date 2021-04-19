@@ -28,7 +28,7 @@ interface IProps extends Omit<MenuProps, 'open'> {
   currentRow: ITableRow;
 }
 
-const MenuActions = ({ onClose, options, anchorEl, currentRow }: IProps) => {
+const MenuActions = React.memo<IProps>(({ onClose, options, anchorEl, currentRow }) => {
   const classes = useStyles();
 
   const handleClick = React.useCallback(
@@ -89,6 +89,6 @@ const MenuActions = ({ onClose, options, anchorEl, currentRow }: IProps) => {
       })}
     </Menu>
   );
-};
+});
 
-export default React.memo(MenuActions);
+export default MenuActions;

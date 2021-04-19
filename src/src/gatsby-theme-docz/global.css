@@ -9,3 +9,7 @@ p, .token-line{
 pre {
   margin-top: 10px !important;
 }
+
+table {
+  min-width: 0 !important;
+}

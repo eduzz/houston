@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import clsx from 'clsx';
 
@@ -25,7 +26,7 @@ import {
 import Actions from './internals/Actions';
 import Columns from './internals/Columns';
 import Pagination from './internals/Pagination';
-import Rows from './internals/Rows';
+import RowsBase from './internals/Rows';
 import TableOption, { ITableOptionProps } from './Option';
 import TablePagination, { ITablePagination } from './Pagination';
 import TableRow from './Row';
@@ -93,6 +94,9 @@ const getCollapseData = (content: React.ReactNode): ITableCollapse => {
 
 const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
+
   const { children, loading, onSortable, stickyHeader, size, maxHeight, messages } = props;
 
   const [options, setOptions] = React.useState<ITableOptionProps[]>([]);
@@ -100,8 +104,12 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const pagination = useFirstChildrenProps<ITablePagination>(children, TablePagination);
-  const columns = useChildrenProps<ITableColumnProps>(children, TableColumn);
   const actions = React.useMemo(() => getActions(children), [children]);
+
+  const columns = useChildrenProps<ITableColumnProps>(children, TableColumn).map((column, index) => ({
+    ...column,
+    index
+  }));
 
   const rows: ITableRow[] = React.useMemo(() => {
     return React.Children.map(children, (child: React.ReactElement) => {
@@ -123,15 +131,31 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     });
   }, [children]);
 
-  const hasCollapseData = !!rows.filter(v => v.collapse).length;
-  const numberColumns = columns?.length + Number(!!actions) + Number(hasCollapseData) || 0;
-  const hasColumnFixed = !!(actions?.fixed || (columns?.length && columns.filter(c => c.fixed).length));
+  const hasCollapseData = React.useMemo(() => !!rows.filter(v => v.collapse).length, [rows]);
+
+  const numberColumns = React.useMemo(() => columns?.length + Number(!!actions) + Number(hasCollapseData) || 0, [
+    columns,
+    actions,
+    hasCollapseData
+  ]);
+
+  const hasColumnFixed = React.useMemo(
+    () => !!(actions?.fixed || (columns?.length && columns.filter(c => c.fixed).length)),
+    [actions, columns]
+  );
+
+  const tableMessages: ITableMessages = React.useMemo(
+    () => ({
+      empty: messages?.empty ? messages.empty : 'Nenhum registro encontrado.'
+    }),
+    [messages]
+  );
 
   const contextValue = React.useMemo(
     () => ({
       loading,
       onSortable,
-      messages,
+      messages: tableMessages,
       currentRow,
       setCurrentRow,
       columns,
@@ -143,7 +167,8 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       setOptions,
       pagination,
       hasCollapseData,
-      numberColumns
+      numberColumns,
+      isMobile
     }),
     [
       actions,
@@ -152,24 +177,38 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       currentRow,
       hasCollapseData,
       loading,
-      messages,
       numberColumns,
       onSortable,
       options,
       pagination,
-      rows
+      rows,
+      isMobile,
+      tableMessages
     ]
   );
 
   return (
     <WrapperTheme>
       <TableContextProvider value={contextValue}>
-        <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
-          <TableMUI ref={ref} stickyHeader={stickyHeader} size={size} className={clsx(hasColumnFixed && classes.fixed)}>
-            <Columns />
-            <Rows />
-          </TableMUI>
-        </TableContainer>
+        {isMobile && (
+          <div>
+            <RowsBase />
+          </div>
+        )}
+
+        {!isMobile && (
+          <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
+            <TableMUI
+              ref={ref}
+              stickyHeader={stickyHeader}
+              size={size}
+              className={clsx(hasColumnFixed && classes.fixed)}
+            >
+              <Columns />
+              <RowsBase />
+            </TableMUI>
+          </TableContainer>
+        )}
 
         <Pagination />
         <Actions />
