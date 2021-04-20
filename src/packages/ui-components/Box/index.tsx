@@ -20,9 +20,10 @@ export interface IBoxProps extends Pick<BoxProps, BoxPropsExtends> {
   md?: IBoxSpacement;
   lg?: IBoxSpacement;
   xl?: IBoxSpacement;
+  paper?: boolean;
 }
 
-const Box = React.memo<IBoxProps>(({ id, children, xs, sm, md, lg, xl, className }) => {
+const Box = React.memo<IBoxProps>(({ id, children, xs, sm, md, lg, xl, className, paper }) => {
   const useStyles = makeStyles(theme =>
     createStyles({
       box: {
@@ -50,6 +51,12 @@ const Box = React.memo<IBoxProps>(({ id, children, xs, sm, md, lg, xl, className
           padding: xl && xl?.padding,
           margin: xl && xl?.margin ? xl?.margin : '16px 0'
         }
+      },
+
+      paper: {
+        background: '#fff',
+        boxShadow: theme.shadows[1],
+        borderRadius: 4
       }
     })
   );
@@ -58,7 +65,7 @@ const Box = React.memo<IBoxProps>(({ id, children, xs, sm, md, lg, xl, className
 
   return (
     <WrapperTheme>
-      <BoxMUI id={id} className={clsx(className, classes.box)}>
+      <BoxMUI id={id} className={clsx(className, classes.box, paper && classes.paper)}>
         {children}
       </BoxMUI>
     </WrapperTheme>

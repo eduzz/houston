@@ -101,7 +101,7 @@ const getCollapseData = (content: React.ReactNode): ITableCollapse => {
   return { columns, rows, actions };
 };
 
-const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
+const Table = React.memo<IProps>(props => {
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
@@ -265,7 +265,6 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
         {!isMobile && (
           <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
             <TableMUI
-              ref={ref}
               stickyHeader={stickyHeader}
               size={size}
               className={clsx(hasColumnFixed && classes.fixed)}
