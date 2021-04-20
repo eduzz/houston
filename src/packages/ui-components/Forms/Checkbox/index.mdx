@@ -1,0 +1,104 @@
+---
+name: Checkbox
+route: /components/checkbox
+menu: Componentes
+---
+
+import { Playground } from 'docz';
+
+import CheckboxField from './';
+
+# Checkbox
+
+O componente de caixa de seleção (Checkbox) permite que o usuário selecione um ou mais itens de um determinado grupo.
+
+### Importação
+
+```js
+import CheckboxField from '@eduzz/houston-ui/Forms/Checkbox';
+```
+
+### Variações
+
+<Playground>
+  <div>
+    <CheckboxField name='example-1' label='Exemplo 1' margin='normal' />
+  </div>
+  <div>
+    <CheckboxField
+      name='example-2'
+      label='Exemplo 2'
+      description='Exemplo de utilização do Checkbox com descrição'
+      margin='normal'
+    />
+  </div>
+  <div>
+    <CheckboxField name='example-3' label='Exemplo 3' errorMessage='Mensagem de erro' margin='normal' />
+  </div>
+  <div>
+    <CheckboxField name='example-4' label='Exemplo 4' description='Checkbox sem margem' margin='none' />
+  </div>
+</Playground>
+
+### Formulário
+
+Caso utilize o componente de caixa de seleção sem estar dentro de um contexto de formulário,
+é possível referenciá-lo através da propriedade `form`.
+
+```tsx
+import useForm from '@eduzz/houston-forms/useForm';
+import CheckboxField from '@eduzz/houston-ui/Forms/Checkbox';
+
+interface IModel {
+  name: string;
+}
+
+const MyComponent = () => {
+  const form = useForm<IModel>({
+    onSubmit: () => {}
+  });
+
+  return (
+    <CheckboxField
+      name='example-form'
+      label='Exemplo formulário'
+      description='Checkbox fora de um FormContext'
+      form={form}
+    />
+  );
+};
+```
+
+### Utilizando método onChange (sem hook useForm)
+
+<Playground>
+  {() => {
+    const [value, setValue] = React.useState(false);
+    const handleChange = event => {
+      setValue(event.target.checked);
+      console.log('current checkbox value', event.target.checked);
+    };
+    return (
+      <CheckboxField
+        name='example-on-change'
+        label='Exemplo com método onChange'
+        description='Checkbox utilizando método de onChange'
+        onChange={handleChange}
+      />
+    );
+  }}
+</Playground>
+
+## Propriedades
+
+| prop         | tipo                | obrigatório | padrão  | descrição                                                                                                                           |
+| ------------ | ------------------- | ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| name         | `string`            | `true`      | -       |                                                                                                                                     |
+| label        | `React.ReactNode`   | `false`     | -       |                                                                                                                                     |
+| description  | `string`            | `false`     | -       |                                                                                                                                     |
+| errorMessage | `string`            | `false`     | -       |                                                                                                                                     |
+| form         | `IFormAdapter<any>` | `false`     | -       |                                                                                                                                     |
+| isMultiple   | `boolean`           | `false`     | `false` | Se a propriedade for configurada como `true` é necessário passar um valor para `form` obrigatoriamente                              |
+| margin       | `none`, `normal`    | `false`     | `none`  |                                                                                                                                     |
+| checked      | `boolean`           | `false`     | `false` | Caso a prop `form` esteja configurada, o componente será checado através dos valores do formulário e essa propriedade será ignorada |
+| onChange     | `function`          | `false`     | -       | Função chamada quando o valor do checkbox é alterado                                                                                |
