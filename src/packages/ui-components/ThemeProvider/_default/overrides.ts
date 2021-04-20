@@ -296,10 +296,14 @@ export default function overrides(palette: Palette): ICustomOverrides {
     MuiPaginationItem: {
       root: {
         margin: '0 1px',
-        minWidth: 30,
+        minWidth: 32,
         minHeight: 30,
         padding: '0 4px',
-        fontWeight: themeVariable.fontWeight('regular')
+        fontWeight: themeVariable.fontWeight('semibold'),
+
+        '&$selected': {
+          color: palette.primary.main
+        }
       }
     },
 
@@ -430,7 +434,7 @@ export default function overrides(palette: Palette): ICustomOverrides {
 
     MuiTypography: {
       body2: {
-        color: palette.grey[500]
+        color: palette.grey[400]
       }
     }
   };

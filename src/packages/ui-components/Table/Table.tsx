@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import * as React from 'react';
 
 import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
@@ -6,6 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import clsx from 'clsx';
+// @ts-ignore
+import isEqual from 'lodash/isEqual';
 
 import { getReactChildrenComponent, getReactChildrenProps, isReactComponent } from '../Helpers/functions';
 import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
@@ -26,7 +29,8 @@ import {
 import Actions from './internals/Actions';
 import Columns from './internals/Columns';
 import Pagination from './internals/Pagination';
-import RowsBase from './internals/Rows';
+import RowsDesktop from './internals/Rows/Desktop';
+import RowsMobile from './internals/Rows/Mobile';
 import TableOption, { ITableOptionProps } from './Option';
 import TablePagination, { ITablePagination } from './Pagination';
 import TableRow from './Row';
@@ -118,6 +122,7 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
   const [options, setOptions] = React.useState<ITableOptionProps[]>([]);
   const [currentRow, setCurrentRow] = React.useState<ITableRow>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [currentItemCollapse, setCurrentItemCollapse] = React.useState<unknown | null>(null);
 
   const columns = useChildrenProps<ITableColumnProps>(children, TableColumn);
   const pagination = useFirstChildrenProps<ITablePagination>(children, TablePagination);
@@ -142,6 +147,43 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       return { ...child.props, cells, options, collapse };
     });
   }, [children]);
+
+  const handleSetCurrentRow = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>, row: ITableRow = null) => {
+      if (!row.data) {
+        console.error('@eduzz/houston-ui: when the share component is used, the line must offer the property `data`');
+      }
+
+      setCurrentRow(row);
+      setAnchorEl(event.currentTarget);
+      setOptions(row?.options);
+    },
+    [setAnchorEl, setOptions, setCurrentRow]
+  );
+
+  const handleClickCollapse = React.useCallback(
+    (row: ITableRow) => {
+      const callback = row?.collapse?.onCollapse;
+      const data = row?.data ?? {};
+
+      if (currentItemCollapse && isEqual(currentItemCollapse, data)) {
+        callback && callback(null);
+        setCurrentItemCollapse(null);
+        return;
+      }
+
+      callback && callback(data);
+      setCurrentItemCollapse(data);
+    },
+    [currentItemCollapse]
+  );
+
+  const handleClickActions = React.useCallback(
+    (data: unknown) => {
+      onActionsClick && onActionsClick(data);
+    },
+    [onActionsClick]
+  );
 
   const hasCollapseData = React.useMemo(() => rows.some(v => v.collapse), [rows]);
 
@@ -169,7 +211,6 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
     () => ({
       loading,
       onSortable,
-      onActionsClick,
       messages: tableMessages,
       currentRow,
       setCurrentRow,
@@ -197,7 +238,6 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       loading,
       numberColumns,
       onSortable,
-      onActionsClick,
       options,
       pagination,
       rows,
@@ -212,7 +252,13 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
       <TableContextProvider value={contextValue}>
         {isMobile && (
           <div {...rest}>
-            <RowsBase />
+            <RowsMobile
+              currentItemCollapse={currentItemCollapse}
+              setCurrentItemCollapse={setCurrentItemCollapse}
+              handleSetCurrentRow={handleSetCurrentRow}
+              handleClickCollapse={handleClickCollapse}
+              handleClickActions={handleClickActions}
+            />
           </div>
         )}
 
@@ -226,7 +272,13 @@ const Table = React.forwardRef<HTMLTableElement, IProps>((props, ref) => {
               {...rest}
             >
               <Columns />
-              <RowsBase />
+              <RowsDesktop
+                currentItemCollapse={currentItemCollapse}
+                setCurrentItemCollapse={setCurrentItemCollapse}
+                handleSetCurrentRow={handleSetCurrentRow}
+                handleClickCollapse={handleClickCollapse}
+                handleClickActions={handleClickActions}
+              />
             </TableMUI>
           </TableContainer>
         )}

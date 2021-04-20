@@ -15,12 +15,11 @@ import isEqual from 'lodash/isEqual';
 
 import ButtonIcon from '../../../../ButtonIcon';
 import { useTableContext } from '../../../context';
+import { IRowProps } from '../../../interfaces';
 import Cell from '../../Cell/Desktop';
 import Collapse from '../../Collapse';
 import RowsEmpty from './Empty';
 import RowLoader from './Loader';
-
-import { IRowProps } from '..';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -29,7 +28,9 @@ const useStyles = makeStyles(theme =>
     },
 
     stripedRow: {
-      background: theme.palette.grey[100]
+      '&:nth-of-type(even)': {
+        background: theme.palette.grey[100]
+      }
     },
 
     wrapperIconActions: {
@@ -71,80 +72,78 @@ const Rows = React.memo<IRowProps>(
       stripedRows
     } = useTableContext();
 
-    if (loading) {
-      return <RowLoader />;
-    }
-
     if (!loading && !rows?.length) {
       return <RowsEmpty />;
     }
 
     return (
       <TableBody>
-        {rows.map((row, index) => {
-          const { data = null, cells = [], collapse = null, className, ...rest } = row;
-          const isOdd = index % 2;
+        {loading && <RowLoader />}
 
-          const rowProps = { ...rest };
-          delete rowProps.options;
+        {!loading &&
+          rows.map((row, index) => {
+            const { data = null, cells = [], collapse = null, className, ...rest } = row;
 
-          return (
-            <React.Fragment key={`table-row-${index}`}>
-              <TableRow
-                hover
-                selected={currentRow && isEqual(currentRow?.data, data)}
-                className={clsx(classes.root, stripedRows && isOdd && classes.stripedRow, className && className)}
-                {...rowProps}
-              >
-                {cells?.map((cell, i) => {
-                  const currentIndex = i + 1;
-                  const isFixed = columns[i]?.fixed && (currentIndex === 1 || currentIndex === numberColumns);
-                  return <Cell key={`row-${index}-cell-${i}`} fixed={isFixed} {...cell} />;
-                })}
+            const rowProps = { ...rest };
+            delete rowProps.options;
 
-                {hasColumnAction && (
-                  <TableCell align='right'>
-                    <div className={classes.wrapperIconActions}>
-                      <ButtonIcon size='small' onClick={() => handleClickActions(data)}>
-                        <MoreHorizIcon />
-                      </ButtonIcon>
-                    </div>
-                  </TableCell>
-                )}
+            return (
+              <React.Fragment key={`table-row-${index}`}>
+                <TableRow
+                  hover
+                  selected={currentRow && isEqual(currentRow?.data, data)}
+                  className={clsx(classes.root, stripedRows && classes.stripedRow, className && className)}
+                  {...rowProps}
+                >
+                  {cells?.map((cell, i) => {
+                    const currentIndex = i + 1;
+                    const isFixed = columns[i]?.fixed && (currentIndex === 1 || currentIndex === numberColumns);
+                    return <Cell key={`row-${index}-cell-${i}`} fixed={isFixed} {...cell} />;
+                  })}
 
-                {!hasColumnAction && actions && (
-                  <TableCell align='right' className={actions?.fixed && classes.fixed}>
-                    <div className={classes.wrapperIconActions}>
-                      <ButtonIcon size='small' onClick={e => handleSetCurrentRow(e, row)}>
-                        <MoreHorizIcon />
-                      </ButtonIcon>
-                    </div>
-                  </TableCell>
-                )}
+                  {hasColumnAction && (
+                    <TableCell align='right'>
+                      <div className={classes.wrapperIconActions}>
+                        <ButtonIcon size='small' onClick={() => handleClickActions(data)}>
+                          <MoreHorizIcon />
+                        </ButtonIcon>
+                      </div>
+                    </TableCell>
+                  )}
 
-                {hasCollapseData && (
-                  <>
-                    {!collapse && <TableCell key={`row-${index}-collapse`} className={classes.rowCellCollapse} />}
+                  {!hasColumnAction && actions && (
+                    <TableCell align='right' className={actions?.fixed && classes.fixed}>
+                      <div className={classes.wrapperIconActions}>
+                        <ButtonIcon size='small' onClick={e => handleSetCurrentRow(e, row)}>
+                          <MoreHorizIcon />
+                        </ButtonIcon>
+                      </div>
+                    </TableCell>
+                  )}
 
-                    {collapse && (
-                      <TableCell key={`row-${index}-collapse`} className={classes.rowCellCollapse}>
-                        <IconButton size='small' onClick={() => handleClickCollapse(row)}>
-                          {currentItemCollapse && isEqual(currentItemCollapse, data) ? (
-                            <KeyboardArrowUpIcon />
-                          ) : (
-                            <KeyboardArrowDownIcon />
-                          )}
-                        </IconButton>
-                      </TableCell>
-                    )}
-                  </>
-                )}
-              </TableRow>
+                  {hasCollapseData && (
+                    <>
+                      {!collapse && <TableCell key={`row-${index}-collapse`} className={classes.rowCellCollapse} />}
 
-              {collapse && <Collapse collapse={currentItemCollapse} row={row} />}
-            </React.Fragment>
-          );
-        })}
+                      {collapse && (
+                        <TableCell key={`row-${index}-collapse`} className={classes.rowCellCollapse}>
+                          <IconButton size='small' onClick={() => handleClickCollapse(row)}>
+                            {currentItemCollapse && isEqual(currentItemCollapse, data) ? (
+                              <KeyboardArrowUpIcon />
+                            ) : (
+                              <KeyboardArrowDownIcon />
+                            )}
+                          </IconButton>
+                        </TableCell>
+                      )}
+                    </>
+                  )}
+                </TableRow>
+
+                {collapse && <Collapse collapse={currentItemCollapse} row={row} />}
+              </React.Fragment>
+            );
+          })}
       </TableBody>
     );
   }
