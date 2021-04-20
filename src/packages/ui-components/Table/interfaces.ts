@@ -44,3 +44,12 @@ export interface ITableSortable {
 export interface ITableMessages {
   empty?: React.ReactNode;
 }
+
+export interface IRowProps {
+  currentItemCollapse: unknown | null;
+  setCurrentItemCollapse: React.Dispatch<unknown>;
+
+  handleSetCurrentRow: (event: React.MouseEvent<HTMLElement>, row?: ITableRow) => void;
+  handleClickCollapse: (row: ITableRow) => void;
+  handleClickActions: (data: unknown) => void;
+}

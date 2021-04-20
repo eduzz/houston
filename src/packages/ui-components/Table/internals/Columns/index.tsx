@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme =>
     },
 
     striped: {
-      background: theme.palette.grey[200]
+      background: theme.palette.grey[100]
     }
   })
 );
@@ -91,7 +91,7 @@ const Columns = React.memo(() => {
                   column?.className,
                   stripedRows && classes.striped
                 )}
-                key={`column-${column.field}`}
+                key={`column-${column.field}-${index}`}
                 sortDirection={currentSortable ? sortable?.order : false}
                 width={column?.width}
               >
