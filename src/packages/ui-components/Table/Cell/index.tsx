@@ -13,11 +13,14 @@ type ITableCellExtends =
   | 'onClick'
   | 'onDoubleClick';
 
+export type ITableCellXsAlign = 'left' | 'center' | 'right';
+
 export interface ITableCellXs {
   margin?: number | string;
   size?: GridSize | 0;
   order?: number;
-  align?: 'center' | 'right';
+  align?: ITableCellXsAlign;
+  truncate?: boolean;
 }
 
 export interface ITableCellProps extends Pick<TableCellProps, ITableCellExtends> {

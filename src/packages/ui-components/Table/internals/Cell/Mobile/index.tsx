@@ -25,12 +25,16 @@ const useStyles = makeStyles(theme =>
         marginBottom: 0
       },
 
-      '& .content-cell': {
+      '& .content-cell-truncate': {
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         fontSize: themeVariable.textSize('normal')
       }
+    },
+
+    alignLeft: {
+      textAlign: 'left'
     },
 
     alignCenter: {
@@ -56,10 +60,11 @@ const CellMobile = React.memo<IProps>(props => {
 
   const cellAlign = React.useMemo(
     () => ({
+      left: classes.alignLeft,
       center: classes.alignCenter,
       right: classes.alignRight
     }),
-    [classes.alignRight, classes.alignCenter]
+    [classes.alignRight, classes.alignCenter, classes.alignLeft]
   );
 
   const cellProps = React.useMemo(
@@ -89,7 +94,7 @@ const CellMobile = React.memo<IProps>(props => {
         {currentColumn}
       </Typography>
 
-      <div className='content-cell'>{props.children}</div>
+      <div className={`${props?.xs?.truncate && 'content-cell-truncate'}`}>{props.children}</div>
     </Column>
   );
 });
