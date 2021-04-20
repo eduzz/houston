@@ -22,6 +22,7 @@ export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
   title: string;
   placement?: ITooltipPlacement;
   disabled?: boolean;
+  children: React.ReactNode;
 }
 
 const Tooltip = React.memo<ITooltipProps>(({ title, placement = 'top', children, disabled = false, ...props }) => {
