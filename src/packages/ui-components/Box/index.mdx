@@ -22,26 +22,36 @@ import Box from '@eduzz/houston-ui/Box';
 ### Exemplo
 
 <Playground>
-  <h5>Componente Box</h5>
-  <Box
-    xs={{ margin: 0, padding: 0 }}
-    sm={{ margin: '0 12px', padding: 20 }}
-    md={{ margin: '0 12px', padding: 40 }}
-    lg={{ margin: '0 12px', padding: 60 }}
-    className='bg-grey'
-  >
-    <div style={{ height: 30, background: '#fff', textAlign: 'center' }}>
-      <p>Seu componente aqui</p>
+  <Box xs={{ padding: 20 }}>
+    <div style={{ textAlign: 'center' }}>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi iusto consequuntur molestias, eligendi
+      perspiciatis commodi error vero tempora voluptatum accusamus similique molestiae iste reiciendis animi, nisi
+      mollitia debitis repudiandae soluta.
     </div>
   </Box>
 </Playground>
 
+### Paper
+
+<Playground>
+  <div className='bg-grey'>
+    <Box xs={{ padding: 20 }} paper>
+      <div style={{ textAlign: 'center' }}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi iusto consequuntur molestias, eligendi
+        perspiciatis commodi error vero tempora voluptatum accusamus similique molestiae iste reiciendis animi, nisi
+        mollitia debitis repudiandae soluta.
+      </div>
+    </Box>
+  </div>
+</Playground>
+
 ### Propriedades
 
-| prop | tipo            | obrigatório | padrão                             | descrição                                                                                                       |
-| ---- | --------------- | ----------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| xs   | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | Se for definido valor apenas para a propriedade `xs` todos os outros pontos de quebra vão ter os mesmos valores |
-| sm   | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | -                                                                                                               |
-| md   | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | -                                                                                                               |
-| lg   | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | -                                                                                                               |
-| xl   | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | -                                                                                                               |
+| prop  | tipo            | obrigatório | padrão                             | descrição                                                                                                       |
+| ----- | --------------- | ----------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| xs    | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | Se for definido valor apenas para a propriedade `xs` todos os outros pontos de quebra vão ter os mesmos valores |
+| sm    | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | -                                                                                                               |
+| md    | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | -                                                                                                               |
+| lg    | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | -                                                                                                               |
+| xl    | `IBoxSpacement` | `false`     | `{ margin: '16px 0', padding: 0 }` | -                                                                                                               |
+| paper | `boolean`       | `false`     | `false`                            | -                                                                                                               |
