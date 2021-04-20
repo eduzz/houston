@@ -62,11 +62,14 @@ const CellMobile = React.memo<IProps>(props => {
     [classes.alignRight, classes.alignCenter]
   );
 
-  const cellProps = {
-    id: props?.id,
-    onClick: props?.onClick,
-    onDoubleClick: props?.onDoubleClick
-  };
+  const cellProps = React.useMemo(
+    () => ({
+      id: props?.id,
+      onClick: props?.onClick,
+      onDoubleClick: props?.onDoubleClick
+    }),
+    [props?.id, props?.onClick, props?.onDoubleClick]
+  );
 
   const currentColumn = React.useMemo(() => currentColumns[props.index].label, [currentColumns, props.index]);
   const currentAlign = React.useMemo(() => props?.xs?.align ?? props?.align, [props?.align, props?.xs?.align]);

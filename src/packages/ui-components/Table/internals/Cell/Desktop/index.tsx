@@ -32,16 +32,19 @@ interface IProps extends ITableCellProps {
 const Cell = React.memo<IProps>(props => {
   const classes = useStyles();
 
-  const cellProps = {
-    id: props?.id,
-    padding: props?.padding,
-    colSpan: props?.colSpan,
-    align: props?.align,
-    onClick: props?.onClick,
-    onDoubleClick: props?.onDoubleClick
-  };
+  const cellProps = React.useMemo(
+    () => ({
+      id: props?.id,
+      padding: props?.padding,
+      colSpan: props?.colSpan,
+      align: props?.align,
+      onClick: props?.onClick,
+      onDoubleClick: props?.onDoubleClick
+    }),
+    [props?.id, props?.padding, props?.colSpan, props?.align, props?.onClick, props?.onDoubleClick]
+  );
 
-  const { children, truncate = false, list, fixed } = props;
+  const { children, truncate = false, list = false, fixed = false } = props;
 
   return (
     <TableCell

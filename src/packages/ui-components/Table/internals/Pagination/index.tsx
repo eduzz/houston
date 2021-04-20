@@ -16,8 +16,7 @@ const useStyles = makeStyles(theme =>
       marginTop: 12,
       display: 'flex',
       alignItems: 'center',
-      width: '100%',
-      background: '#fff'
+      width: '100%'
     },
 
     perPage: {
@@ -33,11 +32,10 @@ const useStyles = makeStyles(theme =>
 
       '& p': {
         whiteSpace: 'nowrap',
-        marginRight: 12
+        marginRight: 12,
+        color: theme.palette.grey[600]
       }
     },
-
-    wrapperSelectPerPage: {},
 
     selectPerPage: {
       height: 35,
@@ -56,7 +54,8 @@ const useStyles = makeStyles(theme =>
 
       '& p': {
         whiteSpace: 'nowrap',
-        marginRight: 12
+        marginRight: 12,
+        color: theme.palette.grey[600]
       }
     },
 
@@ -150,7 +149,7 @@ const Pagination = React.memo(() => {
                   {pagination?.labelItensPerPage ?? 'Itens por página:'}
                 </Typography>
 
-                <div className={classes.wrapperSelectPerPage}>
+                <div>
                   <SelectField
                     classes={{ select: classes.selectPerPage }}
                     margin='none'
