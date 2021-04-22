@@ -7,7 +7,8 @@ const useStyles = makeStyles(() =>
   createStyles({
     loader: {
       padding: 16,
-      textAlign: 'center'
+      textAlign: 'center',
+      width: '100%'
     }
   })
 );

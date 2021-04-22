@@ -10,7 +10,8 @@ const useStyles = makeStyles(() =>
   createStyles({
     empty: {
       padding: 16,
-      textAlign: 'center'
+      textAlign: 'center',
+      width: '100%'
     }
   })
 );
