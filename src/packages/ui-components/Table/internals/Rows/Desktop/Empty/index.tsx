@@ -12,7 +12,8 @@ import { useTableContext } from '../../../../context';
 const useStyles = makeStyles(() =>
   createStyles({
     empty: {
-      padding: 16
+      padding: 16,
+      width: '100%'
     }
   })
 );

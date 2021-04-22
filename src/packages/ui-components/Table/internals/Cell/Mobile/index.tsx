@@ -94,7 +94,7 @@ const CellMobile = React.memo<IProps>(props => {
         {currentColumn}
       </Typography>
 
-      <div className={`${props?.xs?.truncate && 'content-cell-truncate'}`}>{props.children}</div>
+      <div className={`${props?.xs?.truncate ? 'content-cell-truncate' : ''}`}>{props.children}</div>
     </Column>
   );
 });
