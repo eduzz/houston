@@ -1,7 +1,7 @@
 ---
-name: Form
-route: /componentes/form
-menu: Componentes
+name: Formulários
+route: /form
+menu:
 ---
 
 import moneyMask from '@eduzz/houston-forms/masks/money';
@@ -32,14 +32,14 @@ import Form from '@eduzz/houston-ui/Forms/Form';
   {() => {
     const form = useForm({
       initialValues: { money: 5 }, //estado inicial, não precisa passar todas as propriedades
-      validationSchema: (
-        yup // não é necessário importar o yup ele será passado como argumento
-      ) =>
-        yup.object().shape({
+      validationSchema: yup => {
+        // não é necessário importar o yup ele será passado como argumento
+        return yup.object().shape({
           name: yup.string().required(),
           money: yup.number().min(10),
           option: yup.number().min(3)
-        }),
+        });
+      },
       onSubmit: () => {
         // onSubmit pode retornar uma promise ou um observable de rxjs, desse jeito ele irá
         // setar corretamente o isSubmitting
@@ -104,9 +104,9 @@ Veja os hooks do Houston para validar formulários e máscaras em [@eduzz/housto
 
 ### useForm props
 
-| prop               | tipo                                          | obrigatório | padrão | descrição                                                                                                         |
-| ------------------ | --------------------------------------------- | ----------- | ------ | ----------------------------------------------------------------------------------------------------------------- |
-| initialValues      | `Partial<any>`                                | `false`     | -      | Estado inicial do formulário, não sendo necessário passar todas as propriedades                                   |
-| validationSchema   | `function`                                    | `false`     | -      | Utilizado para validação do formulário, não sendo necessário importar o yup, pois ele será passado como argumento |
-| onSubmitWithErrors | `function`                                    | `false`     | -      | É possível passar os erros do `Formik` como argumento                                                             |
-| onSubmit           | `function`, `Promise<any>`, `Observable<any>` | `true`      | -      | Pode retornar uma `Promise` ou um `Observable` em RxJS, definindo corretamente o `isSubmitting`                   |
+| prop               | tipo                                          | obrigatório | descrição                                                                                                         |
+| ------------------ | --------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| initialValues      | `Partial<any>`                                | `false`     | Estado inicial do formulário, não sendo necessário passar todas as propriedades                                   |
+| validationSchema   | `function`                                    | `false`     | Utilizado para validação do formulário, não sendo necessário importar o yup, pois ele será passado como argumento |
+| onSubmitWithErrors | `function`                                    | `false`     | É possível passar os erros do `Formik` como argumento                                                             |
+| onSubmit           | `function`, `Promise<any>`, `Observable<any>` | `true`      | Pode retornar uma `Promise` ou um `Observable` em RxJS, definindo corretamente o `isSubmitting`                   |
