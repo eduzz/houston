@@ -1,0 +1,51 @@
+---
+name: Radio
+route: /componentes/radio
+menu: Componentes
+---
+
+import useForm from '@eduzz/houston-forms/useForm';
+
+import { Playground } from 'docz';
+
+import RadioField from './';
+
+# Radio
+
+O componente de Radio é utilizado quando é preciso deixar todas as opções visíveis e permitir a seleção delas.
+
+### Importação
+
+```js
+import RadioField from '@eduzz/houston-ui/Forms/Radio';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const form = useForm({
+      onSubmit: () => {}
+    });
+    return (
+      <div>
+        <RadioField label='Label' description='Descrição do item' name='radio-1' form={form} value={1} />
+        <hr />
+        <RadioField label='Label' errorMessage='Mensagem de erro' name='radio-2' form={form} value={2} />
+      </div>
+    );
+  }}
+</Playground>
+
+### Propriedades
+
+| prop         | tipo                | obrigatório | padrão  | descrição                                                                                                                           |
+| ------------ | ------------------- | ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| name         | `string`            | `true`      | -       |                                                                                                                                     |
+| label        | `React.ReactNode`   | `false`     | -       |                                                                                                                                     |
+| description  | `string`            | `false`     | -       |                                                                                                                                     |
+| errorMessage | `string`            | `false`     | -       |                                                                                                                                     |
+| form         | `IFormAdapter<any>` | `false`     | -       |                                                                                                                                     |
+| margin       | `none`, `normal`    | `false`     | `none`  |                                                                                                                                     |
+| checked      | `boolean`           | `false`     | `false` | Caso a prop `form` esteja configurada, o componente será marcado através dos valores do formulário e essa propriedade será ignorada |
+| onChange     | `function`          | `false`     | -       | Função chamada quando o valor do Radio é alterado                                                                                   |
