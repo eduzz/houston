@@ -1,0 +1,116 @@
+---
+name: Select
+route: /componentes/select
+menu: Componentes
+---
+
+import { Playground } from 'docz';
+
+import SelectField from './';
+
+# Select
+
+O componente de seleção é usado para exibir uma lista de opções para serem selecionadas.
+
+### Importação
+
+```js
+import SelectField from '@eduzz/houston-ui/Forms/Select';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const [text, setText] = React.useState('');
+    const [multiple, setMultiple] = React.useState([]);
+    const [options] = React.useState(() => [
+      { value: 1, label: 'Opção 1' },
+      { value: 2, label: 'Opção 2' },
+      { value: 3, label: 'Opção 3 (desabilitada)', disabled: true },
+      { value: 4, label: 'Opção 4' },
+      { value: 5, label: 'Opção 5' }
+    ]);
+    return (
+      <>
+        <p>Componente de seleção com opção em branco</p>
+        <SelectField
+          label='Componente de seleção'
+          emptyOption='Selecione...'
+          options={options}
+          value={text}
+          onChange={setText}
+        />
+        <p>Componente de seleção desabilitado</p>
+        <SelectField label='Componente de seleção' options={options} disabled value={text} onChange={setText} />
+        <p>Componente de seleção com carregamento</p>
+        <SelectField label='Componente de seleção' options={options} loading value={text} onChange={setText} />
+        <p>Componente de seleção com texto de ajuda</p>
+        <SelectField
+          label='Componente de seleção'
+          helperText='Exemplo de texto de ajuda'
+          options={options}
+          disabled
+          value={text}
+          onChange={setText}
+        />
+        <p>Componente de seleção com mensagem de erro</p>
+        <SelectField
+          label='Componente de seleção'
+          errorMessage='Mensagem de erro'
+          options={options}
+          value={text}
+          onChange={setText}
+        />
+      </>
+    );
+  }}
+</Playground>
+
+### Seleção de múltiplas opções
+
+<Playground>
+  {() => {
+    const [text, setText] = React.useState('');
+    const [multiple, setMultiple] = React.useState([]);
+    const [options] = React.useState(() => [
+      { value: 1, label: 'Opção 1' },
+      { value: 2, label: 'Opção 2' },
+      { value: 3, label: 'Opção 3 (desabilitada)', disabled: true },
+      { value: 4, label: 'Opção 4' },
+      { value: 5, label: 'Opção 5' }
+    ]);
+    return (
+      <SelectField
+        label='Componente de seleção'
+        multiple
+        emptyOption='Limpar'
+        options={options}
+        value={multiple}
+        onChange={setMultiple}
+      />
+    );
+  }}
+</Playground>
+
+### Propriedades
+
+| prop          | tipo                      | obrigatório | padrão  | descrição                                                                            |
+| ------------- | ------------------------- | ----------- | ------- | ------------------------------------------------------------------------------------ |
+| id            | `string`                  | `false`     | -       |                                                                                      |
+| name          | `string`                  | `true`      | -       |                                                                                      |
+| label         | `React.ReactNode`         | `false`     | -       |                                                                                      |
+| disabled      | `boolean`                 | `false`     | `false` |                                                                                      |
+| fullWidth     | `boolean`                 | `false`     | `false` |                                                                                      |
+| multiple      | `boolean`                 | `false`     | `false` | Permite selecionar uma ou mais opções                                                |
+| className     | `string`                  | `false`     | -       |                                                                                      |
+| classes       | `ClassNameMap`            | `false`     | -       |                                                                                      |
+| loading       | `boolean`                 | `false`     | -       | Exibe ícone de carregamento no componente                                            |
+| helperText    | `string`                  | `false`     | -       | Exibe texto de ajuda abaixo do componente de seleção                                 |
+| errorMessage  | `string`                  | `false`     | -       | Exibe uma mensagem de erro no componente de seleção, assim como indica erro no campo |
+| form          | `IFormAdapter`            | `false`     | -       |                                                                                      |
+| options       | `ISelectFieldOption[]`    | `false`     | -       | Lista de opções                                                                      |
+| emptyOption   | `string`                  | `false`     | -       | Texto de uma opção que não possui um valor válido                                    |
+| maxLabelItems | `number`                  | `false`     | -       |                                                                                      |
+| value         | `any`                     | `false`     | -       |                                                                                      |
+| margin        | `none`, `dense`, `normal` | `normal`    | -       |                                                                                      |
