@@ -83,7 +83,7 @@ const Pagination = React.memo(() => {
   const { loading, pagination } = useTableContext();
   const classes = useStyles();
 
-  const [currentPage, setCurrentPage] = React.useState<number>(pagination?.page ?? 1);
+  const [currentPage, setCurrentPage] = React.useState<number>(pagination?.page || 1);
 
   const defaultOptionsPerPage = React.useMemo(() => pagination?.optionsPerPage ?? [5, 10, 25, 50, 100], [pagination]);
 
