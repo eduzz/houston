@@ -1,14 +1,14 @@
 module.exports = {
-  'extends': ['./default', 'plugin:mdx/recommended'],
-  'rules': {
+  extends: ['./default', 'plugin:mdx/recommended'],
+  rules: {
     'max-len': [
       'warn',
-      300,
+      600,
       2,
       {
-        'ignorePattern': '^(import|export|\\|)',
-        'ignoreUrls': true
+        ignorePattern: '^(import|export|\\|)',
+        ignoreUrls: true
       }
     ]
   }
-}
+};

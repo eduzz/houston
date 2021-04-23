@@ -11,7 +11,7 @@ export default {
   menu: [
   ],
   groups: {
-    'Geral': ['Instalação', 'Como Contribuir', 'Roadmap'],
+    'Geral': ['Início', 'Instalação', 'Como Contribuir', 'Roadmap'],
     API: ['Componentes', 'Formulários'],
   },
   themeConfig: {

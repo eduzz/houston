@@ -4,6 +4,8 @@ import CollapseMUI from '@material-ui/core/Collapse';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
+import useLazyArray from '@eduzz/houston-hooks/useLazyArray';
+
 import clsx from 'clsx';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';
@@ -67,10 +69,11 @@ const useStyles = makeStyles(theme =>
 
 const CollapseMobile = React.memo(() => {
   const classes = useStyles();
-  const { row, collapse, handleSetCurrentRow, anchorEl, handleCloseActions, options, currentRow } = useCollapse();
 
+  const { row, collapse, handleSetCurrentRow, anchorEl, handleCloseActions, options, currentRow } = useCollapse();
   const { loading = false, actions = null, rows = [], columns = [] } = row?.collapse;
 
+  const lazyRows = useLazyArray(rows);
   const visibled = React.useMemo(() => !!(collapse && isEqual(collapse, row.data)), [collapse, row.data]);
 
   return (
@@ -80,7 +83,7 @@ const CollapseMobile = React.memo(() => {
           {loading && <LoaderCollapse />}
 
           {!loading &&
-            rows.map((r, index) => (
+            lazyRows.map((row, index) => (
               <div className={classes.row} key={`collapse-mobile-row-${index}`}>
                 <Row
                   className={clsx(classes.rowContent, actions && '--hasActions')}
@@ -88,7 +91,7 @@ const CollapseMobile = React.memo(() => {
                   onClick={row?.onClick && row.onClick}
                   onDoubleClick={row?.onDoubleClick && row.onDoubleClick}
                 >
-                  {r?.cells?.map((cell, i) => (
+                  {row?.cells?.map((cell, i) => (
                     <CellMobile key={`row-mobile-${index}-cell-${i}`} columns={columns} index={i} {...cell} />
                   ))}
                 </Row>

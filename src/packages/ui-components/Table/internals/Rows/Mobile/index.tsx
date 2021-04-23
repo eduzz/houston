@@ -5,6 +5,8 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
+import useLazyArray from '@eduzz/houston-hooks/useLazyArray';
+
 import clsx from 'clsx';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';
@@ -72,6 +74,7 @@ const RowsMobile = React.memo<IRowProps>(
     const classes = useStyles();
 
     const { loading, rows, actions, hasCollapseData, hasColumnAction } = useTableContext();
+    const lazyRows = useLazyArray(rows);
 
     const hasActions = React.useMemo(() => actions || hasColumnAction, [actions, hasColumnAction]);
 
@@ -84,7 +87,7 @@ const RowsMobile = React.memo<IRowProps>(
         {loading && <RowMobileLoader />}
 
         {!loading &&
-          rows.map((row, index) => {
+          lazyRows.map((row, index) => {
             const hasCollapse = hasCollapseData && row?.collapse;
             const { data = null, cells = [], collapse = null, className, ...rest } = row;
 
