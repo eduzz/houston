@@ -4,9 +4,12 @@ route: /components/table
 menu: Componentes
 ---
 
+import { useState } from 'react';
+
 import { Playground } from 'docz';
 
-import Table from './';
+import Button from '../Button';
+import Table from './index.tsx';
 
 # Tabela
 
@@ -207,6 +210,44 @@ Colunas com ordenações. É necessário a função `onSortable`. (Clique nas co
       <Table.Option>Remover</Table.Option>
     </Table.Actions>
   </Table>
+</Playground>
+
+### Performance
+
+Otimizamos para que o processo de render não trave a execução do navegador, assim a linhas vão sendo adicionadas
+de 10 em 10, para mais informações veja o hook **useLazyArray**
+
+<Playground>
+  {() => {
+    const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const addOneHundred = () => {
+      setLoading(true);
+      setTimeout(() => {
+        setRows(new Array(1000).fill('a').map((_, index) => `Produto teste ${index + 1}`));
+        setLoading(false);
+      }, 1000);
+    };
+    return (
+      <>
+        <Button onClick={addOneHundred}>Adicionar 1000</Button>
+        <Table loading={loading} onSortable={ordenation => console.log(ordenation)}>
+          <Table.Column field='id' label='ID' />
+          <Table.Column field='product' label='Produto' sortable />
+          <Table.Column field='owner' label='Produtor' sortable />
+          <Table.Column field='value' label='Valor' align='right' />
+          {rows.map((title, index) => (
+            <Table.Row key={`row-${title}`}>
+              <Table.Cell>{index + 1}</Table.Cell>
+              <Table.Cell>{title}</Table.Cell>
+              <Table.Cell>John Doe</Table.Cell>
+              <Table.Cell align='right'>R$ 120,00</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table>
+      </>
+    );
+  }}
 </Playground>
 
 ### Propriedades disponíveis

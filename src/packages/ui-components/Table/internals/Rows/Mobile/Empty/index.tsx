@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-import Typography from '@eduzz/houston-ui/Typography';
-
+import Typography from '../../../../../Typography';
 import { useTableContext } from '../../../../context';
 
 const useStyles = makeStyles(() =>

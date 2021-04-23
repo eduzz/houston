@@ -9,6 +9,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
+import useLazyArray from '@eduzz/houston-hooks/useLazyArray';
+
 // @ts-ignore
 import isEqual from 'lodash/isEqual';
 
@@ -49,11 +51,13 @@ const useStyles = makeStyles(theme =>
 const Collapse = React.memo(() => {
   const classes = useStyles();
   const { numberColumns } = useTableContext();
-  const { collapse, row, handleSetCurrentRow, anchorEl, handleCloseActions, options, currentRow } = useCollapse();
 
+  const { collapse, row, handleSetCurrentRow, anchorEl, handleCloseActions, options, currentRow } = useCollapse();
   const { loading = false, columns = [], actions = null, type = 'table', rows } = row?.collapse;
 
   const numberColumnsCollapse = React.useMemo(() => columns?.length + 1 + Number(!!actions) || 1, [columns, actions]);
+
+  const lazyRows = useLazyArray(rows);
 
   return (
     <>
@@ -89,15 +93,15 @@ const Collapse = React.memo(() => {
                 {loading && <LoaderCollapse columns={numberColumnsCollapse} />}
 
                 {!loading &&
-                  rows?.map((r, index) => (
+                  lazyRows?.map((row, index) => (
                     <TableRow key={`collapse-row-${index}`}>
-                      {r?.cells?.map((cell, i) => (
+                      {row?.cells?.map((cell, i) => (
                         <Cell key={`collapse-row-${index}-cell-${i}`} list={type === 'list'} {...cell} />
                       ))}
 
                       {actions && (
                         <TableCell align='right' classes={{ root: type === 'list' && classes.list }}>
-                          <div className={classes.wrapperButtonActions} onClick={e => handleSetCurrentRow(e, r)}>
+                          <div className={classes.wrapperButtonActions} onClick={e => handleSetCurrentRow(e, row)}>
                             <MoreHorizIcon />
                           </div>
                         </TableCell>

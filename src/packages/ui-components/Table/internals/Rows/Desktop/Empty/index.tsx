@@ -5,8 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-import Typography from '@eduzz/houston-ui/Typography';
-
+import Typography from '../../../../../Typography';
 import { useTableContext } from '../../../../context';
 
 const useStyles = makeStyles(() =>
