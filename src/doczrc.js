@@ -12,7 +12,7 @@ export default {
   ],
   groups: {
     'Geral': ['Início', 'Instalação', 'Como Contribuir', 'Roadmap'],
-    API: ['Componentes', 'Formulários'],
+    API: ['Componentes', 'Formulários', 'Hooks'],
   },
   themeConfig: {
     search: true,
