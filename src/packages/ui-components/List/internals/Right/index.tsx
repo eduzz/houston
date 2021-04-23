@@ -3,11 +3,10 @@ import * as React from 'react';
 import ListItemIconMUI from '@material-ui/core/ListItemIcon';
 import { makeStyles } from '@material-ui/core/styles';
 
-import IconButton from '@eduzz/houston-ui/ButtonIcon';
-import Typography from '@eduzz/houston-ui/Typography';
-
 import clsx from 'clsx';
 
+import IconButton from '../../../ButtonIcon';
+import Typography from '../../../Typography';
 import { IListRightProps } from '../../Right';
 
 const useStyles = makeStyles(theme => ({

@@ -15,7 +15,7 @@ import isEqual from 'lodash/isEqual';
 
 import ButtonIcon from '../../../../ButtonIcon';
 import { useTableContext } from '../../../context';
-import { IRowProps } from '../../../interfaces';
+import { IRowProps, ITableRow } from '../../../interfaces';
 import Cell from '../../Cell/Desktop';
 import Collapse from '../../Collapse';
 import RowsEmpty from './Empty';
@@ -59,6 +59,7 @@ const useStyles = makeStyles(theme =>
 const Rows = React.memo<IRowProps>(
   ({ currentItemCollapse, handleSetCurrentRow, handleClickCollapse, handleClickActions }) => {
     const classes = useStyles();
+    const [lazyRows, setLazyRows] = React.useState<ITableRow[]>([]);
 
     const {
       loading,
@@ -72,6 +73,19 @@ const Rows = React.memo<IRowProps>(
       stripedRows
     } = useTableContext();
 
+    React.useEffect(() => {
+      const recursive = (index = 0): any => {
+        const newSlice = rows?.slice(index * 10, 10) ?? [];
+
+        if (!newSlice.length) return null;
+
+        setLazyRows(rows => [...rows, ...newSlice]);
+        return setTimeout(() => recursive(index + 1), 0);
+      };
+
+      return () => clearTimeout(recursive());
+    }, [rows]);
+
     if (!loading && !rows?.length) {
       return <RowsEmpty />;
     }
@@ -81,7 +95,7 @@ const Rows = React.memo<IRowProps>(
         {loading && <RowLoader />}
 
         {!loading &&
-          rows.map((row, index) => {
+          lazyRows.map((row, index) => {
             const { data = null, cells = [], collapse = null, className, ...rest } = row;
 
             const rowProps = { ...rest };
