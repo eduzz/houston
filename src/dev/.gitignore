@@ -18,6 +18,9 @@
 .env.test.local
 .env.production.local
 
+src/components
+!src/components/index.template
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

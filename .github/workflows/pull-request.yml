@@ -25,4 +25,4 @@ jobs:
         with:
           cmd: install
       - name: Linter
-        run: yarn lint
+        run: yarn lint && yarn pre-commit

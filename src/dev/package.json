@@ -1,6 +1,6 @@
 {
-  "name": "dev",
-  "version": "0.1.0",
+  "name": "@eduzz/houston-dev",
+  "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@eduzz/houston-forms": "*",
