@@ -1,17 +1,21 @@
+---
+name: Início
+route: /form/start
+menu: Formulários
+---
+
 # Houston Forms
 
 [![version](https://img.shields.io/npm/v/@eduzz/@eduzz/houston-forms)](https://www.npmjs.com/package/@eduzz/houston-forms)
 [![size](https://img.shields.io/bundlephobia/min/@eduzz/houston-forms)](https://www.npmjs.com/package/@eduzz/houston-forms)
-
-
-Implementação padrão do **IFormAdapter** do houston para validação de formulário, foi criado para 
+Implementação padrão do **IFormAdapter** do houston para validação de formulário, foi criado para
 ser compatível com retornos do RxJs.
 
 ### Técnologias
 
-* Formik
-* Yup
-* RxJs
+- Formik
+- Yup
+- RxJs
 
 ### Interface
 
@@ -33,7 +37,8 @@ interface IFormAdapter<V extends { [key: string]: any }> {
 ### Como usar
 
 ```tsx
-interface IModel { // optional
+interface IModel {
+  // optional
   name: string;
   money: number;
   option: number;
@@ -49,7 +54,8 @@ const form = useForm<IModel>({
       option: yup.number().min(3),
       check: yup.bool().required().equals([true])
     }),
-  onSubmit: () => { // Pode retornar uma promise, observable ou 
+  onSubmit: () => {
+    // Pode retornar uma promise, observable ou
     return new Promise(resolve => {
       setTimeout(() => resolve(null), 3000);
     });
@@ -57,10 +63,10 @@ const form = useForm<IModel>({
 });
 ```
 
-### Opções 
+### Opções
 
 | Parametros         | Tipo                                             | Obrigatório | Descrição |
-|--------------------|--------------------------------------------------|-------------|-----------|
+| ------------------ | ------------------------------------------------ | ----------- | --------- |
 | initialValues      | Partial do que for passado no Generic do useForm | false       |           |
 | validationSchema   | Função geradora do validationSchema              | false       |           |
 | onSubmitWithErrors |                                                  |             |           |

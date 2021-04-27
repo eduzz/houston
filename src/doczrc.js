@@ -1,7 +1,7 @@
 export default {
   typescript: true,
   base: "/houston/",
-  title: "",
+  title: "Houston",
   description: "Eduzz Houston Design System",
   files: ["./**/*.mdx"],
   propsParser: false,
@@ -11,7 +11,7 @@ export default {
   menu: [
   ],
   groups: {
-    'Geral': ['Início', 'Instalação', 'Como Contribuir', 'Roadmap'],
+    'Geral': ['Início', 'Instalação', 'Como Contribuir', 'Roadmap', 'ESLint'],
     API: ['Componentes', 'Formulários', 'Hooks'],
   },
   themeConfig: {
