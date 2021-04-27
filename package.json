@@ -4,6 +4,7 @@
   "version": "0.12.10",
   "workspaces": [
     "src/packages/*",
+    "src/dev",
     "src"
   ],
   "scripts": {
