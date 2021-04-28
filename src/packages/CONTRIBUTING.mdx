@@ -32,11 +32,15 @@ temas dele criamos o **WrapperTheme** que aplicará o tema do Houston™ apenas 
 
 1. Clonar o repositório
 2. `yarn` na raiz do projeto
-3. `yarn start`
+3. `yarn start` e escolha qual opção que deseja rodar, sugirimos não rodar os dois pois os scripts são pesados
 4. Abra no **VSCode** o projeto pelo **main.code-workspace**
 5. Instale as extensões recomendadas
 
-Ele irá buildar e iniciar o projeto de docs em **http://localhost:3000**.
+Ele irá buildar e iniciar o projeto de docs em **http://localhost:3000** e o de dev em **http://localhost:3001**.
+
+Use o projeto de **dev** como um playground para poder **testar o componente** pois o docs **NÃO** utiliza typescript e
+por isso não é possível testar as **interfaces e props**. **Não altere nada fora da pasta components**, ela foi adicionada no
+.gitignore para não afetar outro que esteja desenvolvendo também.
 
 ## Como iniciar uma tarefa
 

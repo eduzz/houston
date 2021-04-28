@@ -1,6 +1,5 @@
 import React from 'react';
 
-import './App.css';
 import ComponentDev from './components';
 
 function App() {
