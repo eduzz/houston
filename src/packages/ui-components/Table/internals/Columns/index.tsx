@@ -40,10 +40,11 @@ const Columns = React.memo(() => {
     hasCollapseData,
     numberColumns,
     hasColumnAction,
-    stripedRows
+    stripedRows,
+    initialOrdenation
   } = useTableContext();
 
-  const [sortable, setSortable] = React.useState<ITableSortable | null>(null);
+  const [sortable, setSortable] = React.useState<ITableSortable | null>(initialOrdenation || null);
 
   const handleClickSortable = React.useCallback(
     (field: string) => {
