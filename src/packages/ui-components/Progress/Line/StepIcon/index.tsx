@@ -6,6 +6,8 @@ import Warning from '@material-ui/icons/Warning';
 
 import clsx from 'clsx';
 
+import themeVariable from '../../../ThemeProvider/_default/variables';
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: 40,
@@ -16,21 +18,21 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 16,
     pointerEvents: 'none',
-    fontWeight: 600
+    fontSize: themeVariable.textSize('default'),
+    fontWeight: themeVariable.fontWeight('semibold')
   },
   finished: {
     backgroundColor: theme.palette.success.main,
-    fontWeight: 600,
+    fontWeight: themeVariable.fontWeight('semibold'),
     color: '#fff'
   },
   check: {
-    fontSize: 16
+    fontSize: themeVariable.textSize('default')
   },
   warning: {
     color: theme.palette.error.main,
-    fontSize: 24
+    fontSize: themeVariable.textSize('large')
   }
 }));
 
