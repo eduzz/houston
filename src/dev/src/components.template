@@ -1,0 +1,9 @@
+import React, { memo } from 'react';
+
+import Button from '@eduzz/houston-ui/Button';
+
+const ComponentsDev = memo(() => {
+  return <Button>Teste</Button>;
+});
+
+export default ComponentsDev;
