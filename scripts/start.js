@@ -6,6 +6,8 @@ const path = require('path');
 const inquirer = require('inquirer');
 
 const devPath = `${__dirname}/../src/dev/src/components/index.tsx`;
+const devFolderPath = `${__dirname}/../src/dev/src/components`;
+const templatePath = `${__dirname}/../src/dev/src/components.template`;
 
 async function init(mode) {
   if (!['dev', 'docs', 'both'].includes(mode)) {
@@ -31,7 +33,7 @@ async function init(mode) {
   childProccess.spawnSync('yarn', ['clean'], { stdio: 'inherit' });
  
   if (['dev', 'both'].includes(mode)) {
-    childProccess.spawnSync('yarn', ['build'], { stdio: 'inherit' });
+    // childProccess.spawnSync('yarn', ['build'], { stdio: 'inherit' });
     await createDevFile();
   }
 
@@ -39,10 +41,15 @@ async function init(mode) {
 }
 
 async function createDevFile() {
+  const folderExists = await new Promise(resolve => fs.access(devFolderPath, err => resolve(!err)));
+  if (!folderExists) {
+    fs.mkdirSync(devFolderPath);
+  }
+  
   const exists = await new Promise(resolve => fs.access(devPath, err => resolve(!err)));
   if (exists) return;
 
-  await fs.promises.copyFile(devPath.replace('.tsx', '.template'), devPath);
+  await fs.promises.copyFile(templatePath, devPath);
 }
 
 const mode = process.argv.slice(2)[0]?.replace('--', '');

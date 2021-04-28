@@ -19,7 +19,7 @@
 .env.production.local
 
 src/components
-!src/components/index.template
+!src/components/.gitkeep
 
 npm-debug.log*
 yarn-debug.log*
