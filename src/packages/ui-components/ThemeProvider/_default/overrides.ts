@@ -436,6 +436,38 @@ export default function overrides(palette: Palette): ICustomOverrides {
       body2: {
         color: palette.grey[400]
       }
+    },
+
+    MuiStep: {
+      horizontal: {
+        paddingLeft: 0,
+        paddingRight: 0
+      }
+    },
+
+    MuiStepLabel: {
+      root: {
+        '&$error': {
+          color: palette.error.main
+        }
+      },
+      label: {
+        color: palette.grey[300],
+        fontSize: 16,
+        lineHeight: 1.5,
+        fontWeight: 600,
+        '&$active': {
+          color: palette.success.main,
+          fontWeight: 600
+        },
+        '&$completed': {
+          color: palette.success.main,
+          fontWeight: 600
+        }
+      },
+      iconContainer: {
+        paddingRight: 18
+      }
     }
   };
 }
