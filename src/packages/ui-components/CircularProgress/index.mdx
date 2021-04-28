@@ -6,6 +6,8 @@ menu: Componentes
 
 import { Playground } from 'docz';
 
+import Column from '../Grid/Column';
+import Row from '../Grid/Row';
 import CircularProgress from './';
 
 # Circular Progress
@@ -19,5 +21,15 @@ import CircularProgress from '@eduzz/houston-ui/CircularProgress';
 ### Exemplo
 
 <Playground>
-  <CircularProgress maxSteps={4} currentStep={2} type='numeric' />
+  <Row>
+    <Column>
+      <CircularProgress maxSteps={4} currentStep={2} />
+    </Column>
+    <Column>
+      <CircularProgress maxSteps={4} currentStep={2} type='percentage' />
+    </Column>
+    <Column>
+      <CircularProgress maxSteps={4} currentStep={2} error />
+    </Column>
+  </Row>
 </Playground>
