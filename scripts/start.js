@@ -33,7 +33,7 @@ async function init(mode) {
   childProccess.spawnSync('yarn', ['clean'], { stdio: 'inherit' });
  
   if (['dev', 'both'].includes(mode)) {
-    // childProccess.spawnSync('yarn', ['build'], { stdio: 'inherit' });
+    childProccess.spawnSync('yarn', ['build'], { stdio: 'inherit' });
     await createDevFile();
   }
 
