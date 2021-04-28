@@ -132,7 +132,7 @@ Ações genéricas ou individuais.
 Colunas com ordenações. É necessário a função `onSortable`. (Clique nas colunas)
 
 <Playground>
-  <Table onSortable={ordenation => console.log(ordenation)}>
+  <Table onSortable={ordenation => console.log(ordenation)} initialOrdenation={{ field: 'owner', order: 'desc' }}>
     <Table.Column field='id' label='ID' />
     <Table.Column field='product' label='Produto' sortable />
     <Table.Column field='owner' label='Produtor' sortable />

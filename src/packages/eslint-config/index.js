@@ -1,16 +1,16 @@
 module.exports = {
-  'extends': ['./default', 'plugin:@typescript-eslint/recommended', 'prettier'],
-  'rules': {
+  extends: ['./default', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  rules: {
     '@typescript-eslint/no-unused-vars': ['warn'],
     '@typescript-eslint/adjacent-overload-signatures': ['error'],
     '@typescript-eslint/naming-convention': [
       'error',
       {
-        'selector': 'interface',
-        'format': ['PascalCase'],
-        'custom': {
-          'regex': '^I[A-Za-z]',
-          'match': true
+        selector: 'interface',
+        format: ['PascalCase'],
+        custom: {
+          regex: '^I[A-Za-z]',
+          match: true
         }
       }
     ],
@@ -26,8 +26,8 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': [
       'error',
       {
-        'accessibility': 'off'
+        accessibility: 'off'
       }
     ]
   }
-}
+};

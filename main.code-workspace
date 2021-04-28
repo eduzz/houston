@@ -5,6 +5,10 @@
       "path": "."
     },
     {
+      "name": "dev",
+      "path": "./src/dev"
+    },
+    {
       "name": "@eduzz/core",
       "path": "./src/packages/core"
     },

@@ -1,21 +1,24 @@
 {
   "private": true,
   "name": "@eduzz/houston-workspaces",
-  "version": "0.12.10",
+  "version": "0.12.11",
   "workspaces": [
     "src/packages/*",
+    "src/dev",
     "src"
   ],
   "scripts": {
     "prebuild": "yarn clean",
-    "build": "yarn ultra -r -b build",
+    "build": "yarn ultra -r -b --filter \"src/*\" build",
     "build-docs": "(cd src && yarn build)",
-    "prestart": "yarn clean && rm -rf ./src/.docz",
-    "start": "(cd src && yarn start)",
+    "start": "sh ./scripts/start.sh",
+    "start:docs": "(cd src && yarn start)",
+    "start:dev": "yarn ultra -r --filter \"src/*\" start",
+    "start:both": "yarn ultra -r --concurrency 10 start",
     "prepare": "yarn husky install",
     "publish": "NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN sh ./scripts/publish-all.sh",
     "change-version": "sh ./scripts/change-version.sh",
-    "clean": "git add . && git clean -f -x",
+    "clean": "sh ./scripts/clean.sh",
     "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\" \"./**/*.mdx\"",
     "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -f yarn.lock && yarn install",
     "pre-commit": "concurrently -r \"yarn lint\" \"yarn ultra -r pre-commit\""
@@ -23,8 +26,8 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
-    "eslint": "7.24.0",
-    "eslint-config-prettier": "8.2.0",
+    "eslint": "7.25.0",
+    "eslint-config-prettier": "8.3.0",
     "eslint-plugin-eslint-plugin": "3.0.2",
     "eslint-plugin-import-helpers": "1.1.0",
     "eslint-plugin-mdx": "1.12.0",

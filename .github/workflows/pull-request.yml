@@ -26,3 +26,5 @@ jobs:
           cmd: install
       - name: Linter
         run: yarn lint
+      - name: Build
+        run: yarn build
