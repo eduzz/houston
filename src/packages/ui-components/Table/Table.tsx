@@ -45,6 +45,7 @@ const useStyles = makeStyles(() =>
 
 interface IProps extends Pick<TableProps, 'id' | 'children'> {
   loading?: boolean;
+  initialOrdenation?: ITableSortable;
   /**
    * Function called when clicking on an ordered column
    */
@@ -116,6 +117,7 @@ const Table = React.memo<IProps>(props => {
     maxHeight,
     messages,
     stripedRows,
+    initialOrdenation,
     ...rest
   } = props;
 
@@ -226,7 +228,8 @@ const Table = React.memo<IProps>(props => {
       hasColumnAction,
       numberColumns,
       isMobile,
-      stripedRows
+      stripedRows,
+      initialOrdenation
     }),
     [
       actions,
@@ -243,7 +246,8 @@ const Table = React.memo<IProps>(props => {
       rows,
       isMobile,
       tableMessages,
-      stripedRows
+      stripedRows,
+      initialOrdenation
     ]
   );
 
