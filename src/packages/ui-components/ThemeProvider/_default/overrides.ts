@@ -453,16 +453,16 @@ export default function overrides(palette: Palette): ICustomOverrides {
       },
       label: {
         color: palette.grey[300],
-        fontSize: 16,
+        fontSize: themeVariable.textSize('default'),
         lineHeight: 1.5,
-        fontWeight: 600,
+        fontWeight: themeVariable.fontWeight('semibold'),
         '&$active': {
           color: palette.success.main,
-          fontWeight: 600
+          fontWeight: themeVariable.fontWeight('semibold')
         },
         '&$completed': {
           color: palette.success.main,
-          fontWeight: 600
+          fontWeight: themeVariable.fontWeight('semibold')
         }
       },
       iconContainer: {

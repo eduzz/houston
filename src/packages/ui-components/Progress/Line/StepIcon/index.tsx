@@ -31,8 +31,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: themeVariable.textSize('default')
   },
   warning: {
-    color: theme.palette.error.main,
-    fontSize: themeVariable.textSize('large')
+    color: theme.palette.error.main
   }
 }));
 
