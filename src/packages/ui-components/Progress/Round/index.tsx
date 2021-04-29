@@ -5,8 +5,8 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
-import ProgressIndicator from './ProgressIndicator';
+import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import Typography from '../../Typography';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -29,6 +29,19 @@ const useStyles = makeStyles(theme =>
       '& svg': {
         color: theme.palette.error.main
       }
+    },
+    progressIndicator: {
+      position: 'absolute',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      bottom: 0,
+      top: 0,
+      left: 0,
+      right: 0,
+      '& p': {
+        color: theme.palette.grey[500]
+      }
     }
   })
 );
@@ -40,9 +53,10 @@ interface ICircularProgressProps {
   error?: boolean;
 }
 
-const CircularProgress = React.memo<ICircularProgressProps>(({ currentStep, maxSteps, type, error }) => {
+const ProgressRound = React.memo<ICircularProgressProps>(({ currentStep = 0, maxSteps, type, error }) => {
   const classes = useStyles();
-  const progress = type === 'percentage' ? `${(currentStep / maxSteps) * 100}%` : `${currentStep}/${maxSteps}`;
+  const value = (currentStep / maxSteps) * 100;
+  const progress = type === 'percentage' ? `${value}%` : `${currentStep}/${maxSteps}`;
 
   return (
     <WrapperTheme>
@@ -57,13 +71,15 @@ const CircularProgress = React.memo<ICircularProgressProps>(({ currentStep, maxS
         <CircularProgressMUI
           variant='determinate'
           size={90}
-          value={30}
+          value={value}
           className={clsx(classes.circularProgress, classes.progress, error && classes.progressError)}
         />
-        <ProgressIndicator progress={progress} />
+        <div className={classes.progressIndicator}>
+          <Typography size='default'>{progress}</Typography>
+        </div>
       </div>
     </WrapperTheme>
   );
 });
 
-export default CircularProgress;
+export default ProgressRound;

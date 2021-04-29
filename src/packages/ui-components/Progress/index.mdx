@@ -10,12 +10,14 @@ import LinkIcon from '@material-ui/icons/Link';
 
 import { Playground } from 'docz';
 
-import { useProgress } from '../';
-import Button from '../../Button';
-import Column from '../../Grid/Column';
-import Container from '../../Grid/Container';
-import Row from '../../Grid/Row';
-import ProgressLine from './';
+import Box from '../Box';
+import Button from '../Button';
+import Column from '../Grid/Column';
+import Container from '../Grid/Container';
+import Row from '../Grid/Row';
+import { useProgress } from './';
+import ProgressLine from './Line';
+import ProgressRound from './Round';
 
 # Progress
 
@@ -212,3 +214,86 @@ interface IStep {
 | ----------- | --------- | ----------- | ------ |
 | steps       | `IStep[]` | `true`      | -      |
 | currentStep | `number`  | `false`     | 0      |
+
+## Round
+
+### Importação
+
+```js
+import ProgressRound from '@eduzz/houston-ui/Progress/Round';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const MAX_STEPS = 4;
+    const { nextStep, backStep, setCurrentStep, currentStep } = useProgress();
+    const handleReset = () => setCurrentStep(0);
+    return (
+      <>
+        <Row>
+          <Column>
+            <Box xs={{ padding: '20px 0' }}>
+              <ProgressRound maxSteps={MAX_STEPS} currentStep={currentStep} />
+            </Box>
+          </Column>
+          <Column>
+            <Box xs={{ padding: '20px 0' }}>
+              <ProgressRound type='percentage' maxSteps={MAX_STEPS} currentStep={currentStep} />
+            </Box>
+          </Column>
+        </Row>
+        <Row>
+          {currentStep === MAX_STEPS && (
+            <Column>
+              <Button onClick={handleReset} variant='text'>
+                Resetar
+              </Button>
+            </Column>
+          )}
+          {currentStep !== MAX_STEPS && (
+            <>
+              <Column>
+                <Button onClick={backStep} disabled={currentStep === 0}>
+                  Anterior
+                </Button>
+              </Column>
+              <Column>
+                <Button onClick={nextStep} disabled={currentStep === MAX_STEPS}>
+                  Próximo
+                </Button>
+              </Column>
+            </>
+          )}
+        </Row>
+      </>
+    );
+  }}
+</Playground>
+
+### Erro no progresso
+
+<Playground>
+  <Row>
+    <Column>
+      <Box xs={{ padding: '20px 0' }}>
+        <ProgressRound maxSteps={4} currentStep={2} error />
+      </Box>
+    </Column>
+    <Column>
+      <Box xs={{ padding: '20px 0' }}>
+        <ProgressRound type='percentage' maxSteps={4} currentStep={2} error />
+      </Box>
+    </Column>
+  </Row>
+</Playground>
+
+### Propriedades
+
+| prop        | tipo                    | obrigatório | padrão    | descrição                                                                    |
+| ----------- | ----------------------- | ----------- | --------- | ---------------------------------------------------------------------------- |
+| maxSteps    | `number`                | `true`      | -         | Indica o número máximo de passos do progresso                                |
+| currentStep | `number`                | `false`     | 0         | Indica o passo atual do progresso                                            |
+| type        | `numeric`, `percentage` | `false`     | `numeric` | Indica como vai ser exibido o progresso no componente: número ou porcentagem |
+| error       | `boolean`               | `false`     | `false`   | Se `true`, altera a cor do progresso para cor de erro da paleta de cores     |
