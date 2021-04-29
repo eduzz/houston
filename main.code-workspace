@@ -13,6 +13,10 @@
       "path": "./src/packages/ui-components"
     },
     {
+      "name": "@eduzz/houston-icons",
+      "path": "./src/packages/icons"
+    },
+    {
       "name": "@eduzz/houston-forms",
       "path": "./src/packages/forms"
     },

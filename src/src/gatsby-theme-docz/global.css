@@ -13,3 +13,28 @@ pre {
 table {
   min-width: 0 !important;
 }
+
+/* page icons */
+.list-icons {
+  display: flex;
+  align-items: center;
+  margin: 0 -8px;
+  flex-wrap: wrap;
+}
+
+.icon-preview {
+  width: 95px;
+  background: rgb(246, 248, 250);
+  border-radius: 4px;
+  margin: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px;
+}
+
+.icon-preview .name {
+  font-size: 12px;
+  font-weight: 600;
+}

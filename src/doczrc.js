@@ -11,8 +11,8 @@ export default {
   menu: [
   ],
   groups: {
-    'Geral': ['Início', 'Instalação', 'Como Contribuir', 'Roadmap'],
-    API: ['Componentes', 'Formulários', 'Hooks'],
+    Geral: ['Início', 'Instalação', 'Como Contribuir', 'Roadmap'],
+    API: ['Componentes', 'Formulários', 'Hooks', 'Ícones'],
   },
   themeConfig: {
     search: true,

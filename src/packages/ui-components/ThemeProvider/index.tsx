@@ -33,6 +33,10 @@ function ThemeProvider(props: IThemeProviderProps) {
       __html: `
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');
 
+        .houston-icon {
+          line-height: 0;
+        }
+
         ${
           !disabledFontBase &&
           `body {
