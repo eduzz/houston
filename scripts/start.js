@@ -5,6 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
 
+const children = [];
+
 const devPath = `${__dirname}/../src/dev/src/components/index.tsx`;
 const devFolderPath = `${__dirname}/../src/dev/src/components`;
 const templatePath = `${__dirname}/../src/dev/src/components.template`;
@@ -30,14 +32,23 @@ async function init(mode) {
     mode = answers.mode;
   }
 
-  childProccess.spawnSync('yarn', ['clean'], { stdio: 'inherit' });
- 
+  await spawn('yarn', ['clean'], { stdio: 'inherit' });
+
   if (['dev', 'both'].includes(mode)) {
-    childProccess.spawnSync('yarn', ['build'], { stdio: 'inherit' });
+    await spawn('yarn', ['build'], { stdio: 'inherit' });
     await createDevFile();
   }
 
-  childProccess.spawn('yarn', [`start:${mode}`], { stdio: 'inherit' });
+  await spawn('yarn', [`start:${mode}`], { stdio: 'inherit' });
+}
+
+async function spawn(command, args) {
+  const child = childProccess.spawn(command, args, { stdio: 'inherit' });
+  children.push(child);
+
+  return new Promise((resolve, reject) => {
+    child.once('exit', (code) => code >= 0 ? resolve() : reject());
+  });
 }
 
 async function createDevFile() {
@@ -45,7 +56,7 @@ async function createDevFile() {
   if (!folderExists) {
     fs.mkdirSync(devFolderPath);
   }
-  
+
   const exists = await new Promise(resolve => fs.access(devPath, err => resolve(!err)));
   if (exists) return;
 
@@ -57,4 +68,23 @@ const mode = process.argv.slice(2)[0]?.replace('--', '');
 init(mode).catch(err => {
   console.error(err);
   process.exit(-1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error(reason);
+  console.log(promise);
+});
+
+process.on('uncaughtException', err => {
+  console.error(err);
+});
+
+process.on('SIGINT', () => {
+  children.forEach(child => child.kill());
+  process.exit(0);
 })
+
+process.on('SIGTERM', () => {
+  children.forEach(child => child.kill());
+  process.exit(0);
+});

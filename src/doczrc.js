@@ -8,11 +8,19 @@ export default {
   debug: false,
   src: "./packages",
   repository: 'https://github.com/eduzz/houston',
+  menuDisplayName: {
+    'eduzz/houston-ui': '@eduzz/houston-ui',
+    'eduzz/houston-forms': '@eduzz/houston-forms',
+    'eduzz/houston-hooks': '@eduzz/houston-hooks'
+  },
   menu: [
+    { name: 'eduzz/houston-ui', menu: ['Início'] },
+    { name: 'eduzz/houston-forms', menu: ['Início'] },
+    { name: 'eduzz/houston-hooks', menu: ['Início'] }
   ],
   groups: {
     'Geral': ['Início', 'Instalação', 'Como Contribuir', 'Roadmap', 'ESLint'],
-    API: ['Componentes', 'Formulários', 'Hooks'],
+    'Packages': ['eduzz/houston-ui', 'eduzz/houston-forms', 'eduzz/houston-hooks']
   },
   themeConfig: {
     search: true,
