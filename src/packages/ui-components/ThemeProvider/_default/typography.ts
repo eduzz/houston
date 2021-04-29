@@ -19,7 +19,7 @@ const typography: TypographyOptions = {
   },
 
   button: {
-    fontWeight: 600
+    fontWeight: themeVariable.fontWeight('semibold')
   }
 };
 
