@@ -34,6 +34,7 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
   onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
   onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
   margin?: 'none' | 'dense' | 'normal';
+  fieldEndAdornment?: React.ReactNode;
 }
 
 const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
@@ -49,6 +50,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       errorMessage: errorMessageProp,
       fullWidth,
       margin,
+      fieldEndAdornment,
       ...props
     },
     ref
@@ -85,16 +87,25 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       [props.placeholder]
     );
 
-    const inputProps = React.useMemo(
-      () => ({
-        endAdornment: !loading ? null : (
+    const inputProps = React.useMemo(() => {
+      let endAdornment = null;
+
+      if (fieldEndAdornment) {
+        endAdornment = <InputAdornment position='end'>{fieldEndAdornment}</InputAdornment>;
+      }
+
+      if (loading) {
+        endAdornment = (
           <InputAdornment position='end'>
             <CircularProgress color='secondary' size={20} />
           </InputAdornment>
-        )
-      }),
-      [loading]
-    );
+        );
+      }
+
+      return {
+        endAdornment
+      };
+    }, [loading, fieldEndAdornment]);
 
     const errorMessage = errorMessageProp ?? form?.getFieldError(name);
     const hasError = !!errorMessage;
