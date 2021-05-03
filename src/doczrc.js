@@ -13,11 +13,6 @@ export default {
     'eduzz/houston-forms': '@eduzz/houston-forms',
     'eduzz/houston-hooks': '@eduzz/houston-hooks'
   },
-  menu: [
-    { name: 'eduzz/houston-ui', menu: ['Início'] },
-    { name: 'eduzz/houston-forms', menu: ['Início'] },
-    { name: 'eduzz/houston-hooks', menu: ['Início'] }
-  ],
   groups: {
     'Geral': ['Início', 'Instalação', 'Como Contribuir', 'Roadmap', 'ESLint'],
     'Packages': ['eduzz/houston-ui', 'eduzz/houston-forms', 'eduzz/houston-hooks']
