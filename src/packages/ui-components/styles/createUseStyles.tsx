@@ -7,11 +7,16 @@ type CSSPropertiesPseudo = React.CSSProperties | { [key: string]: React.CSSPrope
 
 type NamedStyles<ClassName extends string, Props> = Record<
   ClassName,
-  CSSPropertiesPseudo | ((params: { props: Partial<Props>; theme: HoustonTheme }) => CSSPropertiesPseudo)
+  CSSPropertiesPseudo | ((param: IUseStyleParam<Props>) => CSSPropertiesPseudo)
 >;
 
+export interface IUseStyleParam<Props> {
+  props: Partial<Props>;
+  theme: HoustonTheme;
+}
+
 export default function createUseStyles<Props extends Record<string, unknown>, ClassName extends string = string>(
-  style: NamedStyles<ClassName, Props> | ((theme: any) => NamedStyles<ClassName, Props>)
+  style: NamedStyles<ClassName, Props>
 ): (props?: Partial<Props>) => Record<ClassName, string> {
   const useStyle = createUseStylesJSS(style);
 
