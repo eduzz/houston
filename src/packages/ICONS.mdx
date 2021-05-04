@@ -4,9 +4,32 @@ route: /icons
 menu:
 ---
 
+import { Playground } from 'docz';
+
 import IconAdd from './icons/Add';
 import IconAlertOutline from './icons/AlertOutline';
 import IconAlertSolid from './icons/AlertSolid';
+import IconAnticipation from './icons/Anticipation';
+import IconApps from './icons/Apps';
+import IconArrowDown from './icons/ArrowDown';
+import IconArrowLeft from './icons/ArrowLeft';
+import IconArrowRight from './icons/ArrowRight';
+import IconArrowUp from './icons/ArrowUp';
+import IconAvatarOutline from './icons/AvatarOutline';
+import IconAvatarSolid from './icons/AvatarSolid';
+import IconBanksplip from './icons/Bankslip';
+import IconBetaTester from './icons/BetaTester';
+import IconBoxOutline from './icons/BoxOutline';
+import IconBoxSolid from './icons/BoxSolid';
+import IconBullet from './icons/Bullet';
+import IconCalendar from './icons/Calendar';
+import IconCameraFrontOutline from './icons/CameraFrontOutline';
+import IconCameraFrontSolid from './icons/CameraFrontSolid';
+import IconCameraOutline from './icons/CameraOutline';
+import IconCameraSolid from './icons/CameraSolid';
+import IconCancel from './icons/Cancel';
+import IconCardOutline from './icons/CardOutline';
+import IconCardSolid from './icons/CardSolid';
 
 # Ícones
 
@@ -26,17 +49,120 @@ import IconAdd from '@eduzz/houston-icons/Add';
 
 ### Lista de ícones
 
-<div className='list-icons'>
-  <div className='icon-preview'>
-    <IconAdd size='large' />
-    <div className='name'>Add</div>
-  </div>
-  <div className='icon-preview'>
-    <IconAlertOutline size='large' />
-    <div className='name'>AlertOutline</div>
-  </div>
-  <div className='icon-preview'>
-    <IconAlertSolid size='large' />
-    <div className='name'>AlertSolid</div>
-  </div>
-</div>
+<Playground>
+  {() => {
+    const size = 'large';
+    const icons = [
+      {
+        icon: <IconAdd size={size} />,
+        name: 'Add'
+      },
+      {
+        icon: <IconAlertOutline size={size} />,
+        name: 'AlertOutline'
+      },
+      {
+        icon: <IconAlertSolid size={size} />,
+        name: 'AlertSolid'
+      },
+      {
+        icon: <IconAnticipation size={size} />,
+        name: 'Anticipation'
+      },
+      {
+        icon: <IconApps size={size} />,
+        name: 'Apps'
+      },
+      {
+        icon: <IconArrowDown size={size} />,
+        name: 'ArrowDown'
+      },
+      {
+        icon: <IconArrowLeft size={size} />,
+        name: 'ArrowLeft'
+      },
+      {
+        icon: <IconArrowRight size={size} />,
+        name: 'ArrowRight'
+      },
+      {
+        icon: <IconArrowUp size={size} />,
+        name: 'ArrowUp'
+      },
+      {
+        icon: <IconAvatarOutline size={size} />,
+        name: 'AvatarOutline'
+      },
+      {
+        icon: <IconAvatarSolid size={size} />,
+        name: 'AvatarSolid'
+      },
+      {
+        icon: <IconBanksplip size={size} />,
+        name: 'Banksplip'
+      },
+      {
+        icon: <IconBetaTester size={size} />,
+        name: 'BetaTester'
+      },
+      {
+        icon: <IconBoxOutline size={size} />,
+        name: 'BoxOutline'
+      },
+      {
+        icon: <IconBoxSolid size={size} />,
+        name: 'BoxSolid'
+      },
+      {
+        icon: <IconBullet size={size} />,
+        name: 'Bullet'
+      },
+      {
+        icon: <IconCalendar size={size} />,
+        name: 'Calendar'
+      },
+      {
+        icon: <IconCameraOutline size={size} />,
+        name: 'CameraOutline'
+      },
+      {
+        icon: <IconCameraSolid size={size} />,
+        name: 'CameraSolid'
+      },
+      {
+        icon: <IconCameraFrontOutline size={size} />,
+        name: 'CameraFrontOutline'
+      },
+      {
+        icon: <IconCameraFrontSolid size={size} />,
+        name: 'CameraFrontSolid'
+      },
+      {
+        icon: <IconCancel size={size} />,
+        name: 'Cancel'
+      },
+      {
+        icon: <IconCardOutline size={size} />,
+        name: 'CardOutline'
+      },
+      {
+        icon: <IconCardSolid size={size} />,
+        name: 'CardSolid'
+      }
+    ];
+    return (
+      <div className='list-icons'>
+        {icons
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((icon, index) => (
+            <div key={`icon-${index}`} className='icon-preview'>
+              {icon.icon}
+              <div className='name' title={icon.name}>
+                {icon.name}
+              </div>
+            </div>
+          ))}
+      </div>
+    );
+  }}
+</Playground>

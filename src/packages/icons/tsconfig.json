@@ -25,12 +25,12 @@
   },
   "include": [
     "./**/*.tsx",
-    "./**/*.ts"
+    "./**/*.ts",
+    "./extra.d.ts"
   ],
   "exclude": [
     "node_modules",
     "./*.d.ts",
-    "./**/*.d.ts",
     "./**/*.d.ts"
   ]
 }

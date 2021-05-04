@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { IIconWebBase } from '../interfaces';
-import IconBase from '../wrapperWeb';
+import { IconWebBase } from '../interfaces';
+import IconBase from '../utils/wrapperWeb';
 import Icon from './svg';
 
-const IconAlertOutline = React.memo<IIconWebBase>(({ ...rest }) => (
+const IconAlertOutline = React.memo<IconWebBase>(({ ...rest }) => (
   <IconBase {...rest}>
     <Icon />
   </IconBase>

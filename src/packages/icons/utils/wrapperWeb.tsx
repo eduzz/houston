@@ -1,9 +1,11 @@
 import * as React from 'react';
 
-import { IIconWebBase } from './interfaces';
-import getIconSize from './utils/getIconSize';
+import clsx from 'clsx';
 
-const IconBase = React.memo<IIconWebBase>(({ children, size, ...rest }) => {
+import { IconWebBase } from '../interfaces';
+import getIconSize from './getIconSize';
+
+const IconBase = React.memo<IconWebBase>(({ children, size, className, ...rest }) => {
   const child = React.useMemo(
     () =>
       React.cloneElement(children as React.ReactElement, {
@@ -13,7 +15,7 @@ const IconBase = React.memo<IIconWebBase>(({ children, size, ...rest }) => {
   );
 
   return (
-    <span className='houston-icon' {...rest}>
+    <span className={clsx('houston-icon', className)} {...rest}>
       {child}
     </span>
   );

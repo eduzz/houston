@@ -23,7 +23,7 @@ table {
 }
 
 .icon-preview {
-  width: 95px;
+  width: calc(100% / 8);
   background: rgb(246, 248, 250);
   border-radius: 4px;
   margin: 8px;
@@ -35,6 +35,11 @@ table {
 }
 
 .icon-preview .name {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
 }
