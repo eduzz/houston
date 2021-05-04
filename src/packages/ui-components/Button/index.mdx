@@ -49,6 +49,11 @@ import Button from '@eduzz/houston-ui/Button';
     <Column>
       <Button loading>loading</Button>
     </Column>
+    <Column>
+      <Button loading loadingText='Carregando...'>
+        loading
+      </Button>
+    </Column>
   </Row>
 </Playground>
 
@@ -67,14 +72,15 @@ import Button from '@eduzz/houston-ui/Button';
 
 ### Propriedades
 
-| prop      | tipo              | obrigatório | padrão    |
-| --------- | ----------------- | ----------- | --------- |
-| disabled  | `boolean`         | `false`     | `false`   |
-| startIcon | `React.ReactNode` | `false`     | -         |
-| endIcon   | `React.ReactNode` | `false`     | -         |
-| variant   | `IButtonVariant`  | `false`     | `primary` |
-| href      | `string`          | `false`     | -         |
-| endIcon   | `React.ReactNode` | `false`     | -         |
-| fullWidth | `boolean`         | `false`     | `false`   |
-| loading   | `boolean`         | `false`     | `false`   |
-| onClick   | `function`        | `false`     | -         |
+| prop        | tipo              | obrigatório | padrão    |
+| ----------- | ----------------- | ----------- | --------- |
+| disabled    | `boolean`         | `false`     | `false`   |
+| startIcon   | `React.ReactNode` | `false`     | -         |
+| endIcon     | `React.ReactNode` | `false`     | -         |
+| variant     | `IButtonVariant`  | `false`     | `primary` |
+| href        | `string`          | `false`     | -         |
+| endIcon     | `React.ReactNode` | `false`     | -         |
+| fullWidth   | `boolean`         | `false`     | `false`   |
+| loading     | `boolean`         | `false`     | `false`   |
+| loadingText | `string`          | `false`     | -         |
+| onClick     | `function`        | `false`     | -         |
