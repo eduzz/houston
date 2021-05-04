@@ -37,7 +37,7 @@ export default function overrides(palette: Palette): ICustomOverrides {
         },
 
         '&:focus:not(:active):not(:hover):before': {
-          borderColor: themeVariable.colors.focusLine
+          borderColor: themeVariable.colors.grey[300]
         }
       },
 
@@ -73,7 +73,7 @@ export default function overrides(palette: Palette): ICustomOverrides {
       },
 
       outlinedPrimary: {
-        borderColor: palette.primary.lighter,
+        borderColor: palette.primary.light,
         '&:before': {
           left: -5,
           right: -5,

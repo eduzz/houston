@@ -32,6 +32,7 @@ export default function useRetryableObservable<T>(
         )
       )
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
   const retry = React.useCallback(() => submitted$.next(true), [submitted$]);

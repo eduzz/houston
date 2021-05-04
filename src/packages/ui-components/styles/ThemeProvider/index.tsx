@@ -2,15 +2,14 @@ import * as React from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
-import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
-import { _setCurrentTheme } from '../Toast';
-import ToastContainer from '../Toast/Container';
-import themeVariable from './_default/variables';
+import { _setCurrentTheme } from '../../Toast';
+import ToastContainer from '../../Toast/Container';
+import defaultThemeVariables from './_default/variables';
 import ContextTheme from './context';
 import generateCustomTheme from './custom';
 
-export interface IThemePalette extends PaletteOptions {}
+export type IThemePalette = Parameters<typeof generateCustomTheme>[0];
 
 type IThemeExtends = 'children';
 
@@ -36,8 +35,8 @@ function ThemeProvider(props: IThemeProviderProps) {
         ${
           !disabledFontBase &&
           `body {
-            font-family: ${themeVariable.fontFamily};
-            font-size: ${themeVariable.textSize('default')}px;
+            font-family: ${defaultThemeVariables.fontFamily};
+            font-size: ${defaultThemeVariables.textSize('default')}px;
           }`
         }
       `
@@ -51,11 +50,11 @@ function ThemeProvider(props: IThemeProviderProps) {
     <React.Fragment>
       <style dangerouslySetInnerHTML={styleContent} />
 
-      <ContextTheme value={theme}>
+      <ContextTheme.Provider value={theme}>
         <ToastContainer />
         {!disableCssBaseline && <CssBaseline />}
         {children}
-      </ContextTheme>
+      </ContextTheme.Provider>
     </React.Fragment>
   );
 }

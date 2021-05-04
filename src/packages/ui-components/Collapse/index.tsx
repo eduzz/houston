@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import CollapseMUI from '@material-ui/core/Collapse';
 
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 
 interface ICollapseProps {
   visibled: boolean;

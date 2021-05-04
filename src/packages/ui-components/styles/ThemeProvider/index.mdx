@@ -1,18 +1,40 @@
-import { PaletteOptions } from '@material-ui/core/styles/createPalette';
+---
+name: Theme Provider
+router: /componentes/theme-provider
+menu: eduzz/houston-ui
+submenu: Componentes
+---
 
-declare module '@material-ui/core/styles/createPalette' {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  export interface SimplePaletteColorOptions {
-    lighter?: string;
-  }
+# Theme Provider
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  export interface PaletteColor {
-    lighter?: string;
-  }
-}
+O provedor de temas (ThemeProvider) não substituirá o tema atual do projeto por completo, apenas estilizará os componentes do Houston,
+possibilitando a migração de componentes gradativamente sem interferir na estilização já existente do projeto.
 
-const palette: PaletteOptions = {
+### Importação
+
+```tsx
+import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
+```
+
+### Uso
+
+No arquivo raiz de seu projeto, defina sua paleta de cores e adicione o provedor da seguinte maneira:
+
+```jsx
+const palette: IThemePalette = {};
+<ThemeProvider palette={palette}>...</ThemeProvider>;
+```
+
+### Propriedades
+
+| prop    | tipo            | obrigatório | padrão      |
+| ------- | --------------- | ----------- | ----------- |
+| palette | `IThemePalette` | `false`     | tema padrão |
+
+### Tema padrão
+
+```js
+{
   background: {
     paper: '#fff',
     default: '#F9FAFB'
@@ -58,7 +80,7 @@ const palette: PaletteOptions = {
     contrastText: '#fff'
   },
   info: {
-    light: '#CDEBFA',
+    light: '#E6F5FC',
     main: '#039BE5',
     dark: '#0277B0',
     contrastText: '#fff'
@@ -75,6 +97,5 @@ const palette: PaletteOptions = {
     primary: '#546E7A',
     secondary: '#78909C'
   }
-};
-
-export default palette;
+}
+```

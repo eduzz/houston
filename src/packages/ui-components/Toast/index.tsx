@@ -3,8 +3,6 @@ import { toast, ToastOptions } from 'react-toastify';
 
 import { Theme } from '@material-ui/core/styles';
 
-import themePalette from '../ThemeProvider/_default/palette';
-
 type IToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 interface IToastOptions extends Pick<ToastOptions, IToastPropsExtends> {}
 
@@ -41,7 +39,7 @@ class Toast {
     toast.info(content, {
       ...this.defaultOptions,
       ...options,
-      style: { ...(currentTheme ? { background: themePalette.grey[500] } : {}) }
+      style: { ...(currentTheme ? { background: currentTheme.palette.grey[500] } : {}) }
     });
   }
 }
