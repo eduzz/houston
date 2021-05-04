@@ -13,3 +13,7 @@ pre {
 table {
   min-width: 0 !important;
 }
+
+button.nav-button {
+  text-align: left;
+}
