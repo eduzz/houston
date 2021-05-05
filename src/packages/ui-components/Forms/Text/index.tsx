@@ -21,8 +21,11 @@ type FieldTextPropsExtends =
   | 'placeholder'
   | 'type'
   | 'fullWidth'
+  | 'required'
+  | 'required'
   | 'helperText'
   | 'multiline'
+  | 'rows'
   | 'className'
   | 'value';
 
@@ -35,6 +38,7 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
   onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
   margin?: 'none' | 'dense' | 'normal';
   fieldEndAdornment?: React.ReactNode;
+  maxLength?: number;
 }
 
 const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
@@ -51,6 +55,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       fullWidth,
       margin,
       fieldEndAdornment,
+      maxLength,
       ...props
     },
     ref
@@ -67,10 +72,16 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange && onChange(maskClean(e.currentTarget.value), e);
-        form && form.setFieldValue(name, maskClean(e.currentTarget.value));
+        let cleanValue = maskClean(e.currentTarget.value);
+
+        if (maxLength) {
+          cleanValue = (cleanValue as string).substring(0, maxLength);
+        }
+
+        onChange && onChange(cleanValue, e);
+        form && form.setFieldValue(name, cleanValue);
       },
-      [onChange, maskClean, form, name]
+      [onChange, maskClean, form, name, maxLength]
     );
 
     const handleBlur = React.useCallback(
@@ -115,7 +126,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
         <TextFieldMUI
           error={hasError}
           {...props}
-          disabled={form?.isSubmitting || props.disabled}
+          disabled={form?.isSubmitting || props.disabled || loading}
           helperText={errorMessage ?? props.helperText}
           name={name}
           margin={margin ?? 'normal'}

@@ -24,6 +24,7 @@ export declare type FormikConfigResolver<Values> = {
 type Yup = typeof yup;
 
 export interface IUseFormParams<Values> {
+  validateOnMount?: boolean;
   initialValues?: Partial<Values>;
   validationSchema?: (yup: Yup) => any;
   onSubmitWithErrors?: (errors: FormikErrors<Values>, values: Partial<Values>) => void;
@@ -38,7 +39,8 @@ export default function useForm<Values = Record<string, never>>({
   onSubmit,
   onSubmitWithErrors,
   validationSchema,
-  initialValues
+  initialValues,
+  validateOnMount = true
 }: IUseFormParams<Values>): IFormAdapter<Values> {
   const promiseRef = useRef<{ promise?: Promise<any> }>({}).current;
   const handlers = useRef<{ [key: string]: (value: any) => void }>({}).current;
@@ -64,6 +66,7 @@ export default function useForm<Values = Record<string, never>>({
   }, []);
 
   const formik = useFormik<Partial<Values>>({
+    validateOnMount,
     initialValues: initialValues ?? {},
     validationSchema: validationSchema ? () => validationSchema(yup) : null,
     onSubmit: (model, formikHelpers) => {
