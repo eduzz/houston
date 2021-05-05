@@ -50,7 +50,8 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =>
         color='primary'
         ref={ref}
       >
-        {loadingText ?? children}
+        {!loading && children}
+        {loading && (loadingText ?? children)}
       </ButtonMUI>
     </WrapperTheme>
   );
