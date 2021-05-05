@@ -1,7 +1,3 @@
-export declare type FormikErrors<Values> = {
-  [K in keyof Values]?: Values[K];
-};
-
 export default interface IFormAdapter<V extends { [key: string]: any }> {
   handleSubmit?: (event: any) => void;
   handleChange?: (name: string) => (value: any) => void;
