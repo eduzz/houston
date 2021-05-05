@@ -22,7 +22,6 @@ type FieldTextPropsExtends =
   | 'type'
   | 'fullWidth'
   | 'required'
-  | 'required'
   | 'helperText'
   | 'multiline'
   | 'rows'
