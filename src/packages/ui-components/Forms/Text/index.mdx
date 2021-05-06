@@ -56,7 +56,7 @@ import TextField from '@eduzz/houston-ui/Forms/Text';
     const [text, setText] = React.useState('');
     return (
       <>
-        <TextField label='Texto com múltiplas linhas' value={text} onChange={setText} multiline />
+        <TextField label='Texto com múltiplas linhas' value={text} onChange={setText} multiline rows={6} />
         <TextField label='Texto com múltiplas linhas' disabled value={text} onChange={setText} multiline />
         <TextField
           label='Texto com múltiplas linhas com erro'
@@ -71,6 +71,10 @@ import TextField from '@eduzz/houston-ui/Forms/Text';
 </Playground>
 
 ### Máscaras
+
+```js
+import maskPhone from '@eduzz/houston-forms/masks/phone';
+```
 
 <Playground>
   {() => {
@@ -96,24 +100,27 @@ import TextField from '@eduzz/houston-ui/Forms/Text';
 
 ### Propriedades
 
-| prop              | tipo                        | obrigatório | padrão  | descrição                                                                          |
-| ----------------- | --------------------------- | ----------- | ------- | ---------------------------------------------------------------------------------- |
-| id                | `string`                    | `false`     | -       |                                                                                    |
-| name              | `string`                    | `true`      | -       |                                                                                    |
-| label             | `React.ReactNode`           | `false`     | -       |                                                                                    |
-| type              | `React.InputHTMLAttributes` | `false`     | `text`  |                                                                                    |
-| placeholder       | `string`                    | `false`     | -       |                                                                                    |
-| disabled          | `boolean`                   | `false`     | `false` |                                                                                    |
-| fullWidth         | `boolean`                   | `false`     | `false` |                                                                                    |
-| multiline         | `boolean`                   | `false`     | `false` | Permite um campo de texto com várias linhas                                        |
-| className         | `string`                    | `false`     | -       |                                                                                    |
-| loading           | `boolean`                   | `false`     | -       | Exibe ícone de carregamento no componente de texto                                 |
-| helperText        | `string`                    | `false`     | -       | Exibe texto de ajuda abaixo do componente de texto                                 |
-| errorMessage      | `string`                    | `false`     | -       | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo |
-| form              | `IFormAdapter`              | `false`     | -       |                                                                                    |
-| mask              | `IFormMask`                 | `false`     | -       | Máscara que será aplicada no campo                                                 |
-| value             | `any`                       | `false`     | -       |                                                                                    |
-| margin            | `none`, `dense`, `normal`   | `normal`    | -       |                                                                                    |
-| onChange          | `function`                  | `false`     | -       | Função disparada ao alterar o valor do campo de texto                              |
-| onBlur            | `function`                  | `false`     | -       | Função disparada ao tirar o foco do componente                                     |
-| fieldEndAdornment | `React.ReactNode`           | `false`     | -       | Ícone ou botão com ícone que será exibido no final do campo                        |
+| prop              | tipo                        | obrigatório | padrão  | descrição                                                                           |
+| ----------------- | --------------------------- | ----------- | ------- | ----------------------------------------------------------------------------------- |
+| id                | `string`                    | `false`     | -       | -                                                                                   |
+| name              | `string`                    | `true`      | -       | -                                                                                   |
+| label             | `React.ReactNode`           | `false`     | -       | -                                                                                   |
+| type              | `React.InputHTMLAttributes` | `false`     | `text`  | -                                                                                   |
+| placeholder       | `string`                    | `false`     | -       | -                                                                                   |
+| disabled          | `boolean`                   | `false`     | `false` | -                                                                                   |
+| fullWidth         | `boolean`                   | `false`     | `false` | -                                                                                   |
+| multiline         | `boolean`                   | `false`     | `false` | Permite um campo de texto com várias linhas.                                        |
+| className         | `string`                    | `false`     | -       | -                                                                                   |
+| loading           | `boolean`                   | `false`     | -       | Exibe ícone de carregamento no componente de texto.                                 |
+| helperText        | `string`                    | `false`     | -       | Exibe texto de ajuda abaixo do componente de texto.                                 |
+| errorMessage      | `string`                    | `false`     | -       | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |
+| form              | `IFormAdapter`              | `false`     | -       | -                                                                                   |
+| mask              | `IFormMask`                 | `false`     | -       | Máscara que será aplicada no campo.                                                 |
+| value             | `any`                       | `false`     | -       | -                                                                                   |
+| margin            | `none`, `dense`, `normal`   | `normal`    | -       | -                                                                                   |
+| onChange          | `function`                  | `false`     | -       | Função disparada ao alterar o valor do campo de texto.                              |
+| onBlur            | `function`                  | `false`     | -       | Função disparada ao tirar o foco do componente.                                     |
+| fieldEndAdornment | `React.ReactNode`           | `false`     | -       | Ícone ou botão com ícone que será exibido no final do campo.                        |
+| maxLength         | `number`                    | `false`     | -       | -                                                                                   |
+| rows              | `number`                    | `false`     | -       | Número de linhas quando `multiline` for verdadeiro.                                 |
+| required          | `boolean`                   | `false`     | -       | -                                                                                   |
