@@ -5,7 +5,7 @@ import HoustonThemeContext from './ThemeProvider/context';
 
 export type HoustonTheme = typeof defaultThemeVariables;
 
-export default function useTheme() {
+export default function useHoustonTheme() {
   const context = React.useContext(HoustonThemeContext);
 
   return {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createUseStyles as createUseStylesJSS } from 'react-jss';
 
-import useTheme, { HoustonTheme } from './useTheme';
+import useHoustonTheme, { HoustonTheme } from './useHoustonTheme';
 
 type CSSPropertiesPseudo = React.CSSProperties | { [key: string]: React.CSSProperties };
 
@@ -21,7 +21,7 @@ export default function createUseStyles<Props extends Record<string, unknown>, C
   const useStyle = createUseStylesJSS(style);
 
   return props => {
-    const theme = useTheme();
+    const theme = useHoustonTheme();
     return useStyle({ props: props ?? {}, theme });
   };
 }
