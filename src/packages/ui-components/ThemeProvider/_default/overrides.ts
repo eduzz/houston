@@ -139,40 +139,50 @@ export default function overrides(palette: Palette): ICustomOverrides {
         padding: 0,
         alignItems: 'center',
         overflow: 'unset',
-        '&$sizeSmall': {
-          backgroundColor: 'red',
-          '& + $switchBase': {
-            padding: 12
+
+        '&$sizeSmall > $switchBase': {
+          padding: 12,
+
+          '&$checked': {
+            transform: 'translateX(8px)'
           }
         }
       },
+
       switchBase: {
         left: -10,
         padding: 12,
+
         '&$checked': {
           transform: 'translateX(16px)',
+
           '& + $track': {
             backgroundColor: palette.primary.main,
             borderColor: palette.primary.main,
             opacity: 1
           }
         },
+
         '&$disabled': {
           color: palette.grey[400],
+
           '& + $track': {
             opacity: 1
           }
         }
       },
+
       thumb: {
         width: 16,
         height: 16,
         boxShadow: 'none',
         transition: 'color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
+
         '&:hover': {
           color: palette.primary.light
         }
       },
+
       colorPrimary: {
         '&:hover': {
           color: palette.grey[200]
@@ -190,6 +200,7 @@ export default function overrides(palette: Palette): ICustomOverrides {
           }
         }
       },
+
       track: {
         backgroundColor: palette.grey[300],
         border: `2px solid ${palette.grey[300]}`,
@@ -198,22 +209,13 @@ export default function overrides(palette: Palette): ICustomOverrides {
         borderRadius: SWITCH_MEDIUM_HEIGHT / 2,
         opacity: 1
       },
+
       sizeSmall: {
         width: 28,
         height: 40,
         padding: 0,
         alignItems: 'center',
-        overflow: 'unset',
-        '& + $switchBase': {
-          padding: 12
-        },
-        '&$switchBase': {
-          padding: 12
-        },
-        switchBase: {
-          width: 12,
-          height: 16
-        }
+        overflow: 'unset'
       }
     },
 
