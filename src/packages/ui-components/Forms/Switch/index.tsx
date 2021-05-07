@@ -25,9 +25,9 @@ const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldP
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-        form && form.setFieldValue(name, checked);
+        form && form.setFieldValue(name, props.defaultChecked ?? checked);
       },
-      [form, name]
+      [form, name, props.defaultChecked]
     );
 
     return (

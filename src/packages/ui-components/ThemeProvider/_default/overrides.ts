@@ -15,6 +15,7 @@ interface ICustomOverrides extends Partial<Overrides>, Partial<LabOverrides> {
 }
 
 const SWITCH_MEDIUM_HEIGHT = 20;
+const SWITCH_SMALL_HEIGHT = 16;
 
 export default function overrides(palette: Palette): ICustomOverrides {
   return {
@@ -134,55 +135,52 @@ export default function overrides(palette: Palette): ICustomOverrides {
 
     MuiSwitch: {
       root: {
-        width: 40,
+        width: 36,
         height: 40,
         padding: 0,
         alignItems: 'center',
         overflow: 'unset',
-
-        '&$sizeSmall > $switchBase': {
-          padding: 12,
-
-          '&$checked': {
-            transform: 'translateX(8px)'
+        '&$sizeSmall': {
+          '& > $switchBase': {
+            padding: 12,
+            '& + $track': {
+              width: 28,
+              height: SWITCH_SMALL_HEIGHT
+            },
+            '&$checked': {
+              transform: 'translateX(8px)'
+            }
           }
         }
       },
-
       switchBase: {
         left: -10,
         padding: 12,
-
+        overflow: 'hidden',
         '&$checked': {
           transform: 'translateX(16px)',
-
           '& + $track': {
             backgroundColor: palette.primary.main,
             borderColor: palette.primary.main,
             opacity: 1
           }
         },
-
         '&$disabled': {
           color: palette.grey[400],
-
           '& + $track': {
             opacity: 1
           }
         }
       },
-
       thumb: {
         width: 16,
         height: 16,
         boxShadow: 'none',
         transition: 'color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
-
         '&:hover': {
           color: palette.primary.light
         }
       },
-
       colorPrimary: {
         '&:hover': {
           color: palette.grey[200]
@@ -200,7 +198,6 @@ export default function overrides(palette: Palette): ICustomOverrides {
           }
         }
       },
-
       track: {
         backgroundColor: palette.grey[300],
         border: `2px solid ${palette.grey[300]}`,
@@ -209,9 +206,8 @@ export default function overrides(palette: Palette): ICustomOverrides {
         borderRadius: SWITCH_MEDIUM_HEIGHT / 2,
         opacity: 1
       },
-
       sizeSmall: {
-        width: 28,
+        width: 40,
         height: 40,
         padding: 0,
         alignItems: 'center',

@@ -5,8 +5,11 @@ menu: eduzz/houston-ui
 submenu: Componentes
 ---
 
+import useForm from '@eduzz/houston-forms/useForm';
+
 import { Playground } from 'docz';
 
+import Form from '../Form';
 import Switch from './';
 
 # Switch
@@ -27,10 +30,48 @@ import Switch from '@eduzz/houston-ui/Forms/Switch';
     const onChange = React.useCallback(() => setChecked(prev => !prev), []);
     return (
       <>
+        <p>Padrão</p>
         <Switch checked={checked} onChange={onChange} />
+        <p>Desabilitado</p>
         <Switch disabled />
+        <p>Habilitado por padrão</p>
+        <Switch defaultChecked />
+        <p>Pequeno</p>
         <Switch size='small' />
       </>
+    );
+  }}
+</Playground>
+
+### Utilizando com Form
+
+<Playground>
+  {() => {
+    const form = useForm({
+      initialValues: { lindo: true }, //estado inicial, não precisa passar todas as propriedades
+      validationSchema: yup => {
+        // não é necessário importar o yup ele será passado como argumento
+        return yup.object().shape({
+          name: yup.string().required(),
+          money: yup.number().min(10),
+          option: yup.number().min(3)
+        });
+      },
+      onSubmit: () => {
+        // onSubmit pode retornar uma promise ou um observable de rxjs, desse jeito ele irá
+        // setar corretamente o isSubmitting
+        return new Promise(resolve => {
+          setTimeout(() => resolve(null), 3000);
+        });
+      }
+    });
+    console.log(form);
+    const [checked, setChecked] = React.useState(false);
+    const onChange = React.useCallback(() => setChecked(prev => !prev), []);
+    return (
+      <Form context={form}>
+        <Switch name='lindo' />
+      </Form>
     );
   }}
 </Playground>
