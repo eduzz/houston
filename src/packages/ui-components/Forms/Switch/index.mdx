@@ -1,0 +1,36 @@
+---
+name: Switch
+route: /componentes/switch
+menu: eduzz/houston-ui
+submenu: Componentes
+---
+
+import { Playground } from 'docz';
+
+import Switch from './';
+
+# Switch
+
+Switches alternam o estado de uma única configuração ligado ou desligado.
+
+### Importação
+
+```js
+import Switch from '@eduzz/houston-ui/Forms/Switch';
+```
+
+### Exemplos
+
+<Playground>
+  {() => {
+    const [checked, setChecked] = React.useState(false);
+    const onChange = React.useCallback(() => setChecked(prev => !prev), []);
+    return (
+      <>
+        <Switch checked={checked} onChange={onChange} />
+        <Switch disabled />
+        <Switch size='small' />
+      </>
+    );
+  }}
+</Playground>

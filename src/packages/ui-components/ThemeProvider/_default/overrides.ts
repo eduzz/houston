@@ -14,6 +14,8 @@ interface ICustomOverrides extends Partial<Overrides>, Partial<LabOverrides> {
   MuiTabScrollButton: any;
 }
 
+const SWITCH_MEDIUM_HEIGHT = 20;
+
 export default function overrides(palette: Palette): ICustomOverrides {
   return {
     MuiButton: {
@@ -127,6 +129,91 @@ export default function overrides(palette: Palette): ICustomOverrides {
 
       icon: {
         top: 'calc(50% - 14px)'
+      }
+    },
+
+    MuiSwitch: {
+      root: {
+        width: 40,
+        height: 40,
+        padding: 0,
+        alignItems: 'center',
+        overflow: 'unset',
+        '&$sizeSmall': {
+          backgroundColor: 'red',
+          '& + $switchBase': {
+            padding: 12
+          }
+        }
+      },
+      switchBase: {
+        left: -10,
+        padding: 12,
+        '&$checked': {
+          transform: 'translateX(16px)',
+          '& + $track': {
+            backgroundColor: palette.primary.main,
+            borderColor: palette.primary.main,
+            opacity: 1
+          }
+        },
+        '&$disabled': {
+          color: palette.grey[400],
+          '& + $track': {
+            opacity: 1
+          }
+        }
+      },
+      thumb: {
+        width: 16,
+        height: 16,
+        boxShadow: 'none',
+        transition: 'color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
+        '&:hover': {
+          color: palette.primary.light
+        }
+      },
+      colorPrimary: {
+        '&:hover': {
+          color: palette.grey[200]
+        },
+        '&$checked': {
+          color: '#fff',
+          '&:hover': {
+            color: palette.primary.light
+          }
+        },
+        '&$disabled': {
+          '& + $track': {
+            backgroundColor: palette.grey[300],
+            opacity: 1
+          }
+        }
+      },
+      track: {
+        backgroundColor: palette.grey[300],
+        border: `2px solid ${palette.grey[300]}`,
+        width: 36,
+        height: SWITCH_MEDIUM_HEIGHT,
+        borderRadius: SWITCH_MEDIUM_HEIGHT / 2,
+        opacity: 1
+      },
+      sizeSmall: {
+        width: 28,
+        height: 40,
+        padding: 0,
+        alignItems: 'center',
+        overflow: 'unset',
+        '& + $switchBase': {
+          padding: 12
+        },
+        '&$switchBase': {
+          padding: 12
+        },
+        switchBase: {
+          width: 12,
+          height: 16
+        }
       }
     },
 
