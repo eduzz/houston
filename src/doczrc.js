@@ -1,6 +1,5 @@
 export default {
   typescript: true,
-  base: "/houston/",
   title: "Houston",
   description: "Eduzz Houston Design System",
   files: ["./**/*.mdx"],
