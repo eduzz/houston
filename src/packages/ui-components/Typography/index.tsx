@@ -5,8 +5,8 @@ import TypographyMUI from '@material-ui/core/Typography';
 import { TypographyProps } from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 
-import themeVariable, { FontSizes, FontWeight, LineHeights } from '../ThemeProvider/_default/variables';
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
+import themeVariable, { FontSizes, FontWeight, LineHeights } from '../styles/ThemeProvider/_default/variables';
+import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 
 type TypographyPropsExtends = 'className' | 'style' | 'children' | 'onClick';
 

@@ -6,7 +6,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
 import Column from '../../../../Grid/Column';
-import themeVariable from '../../../../ThemeProvider/_default/variables';
+import themeVariable from '../../../../styles/ThemeProvider/_default/variables';
 import Typography from '../../../../Typography';
 import { ITableCellProps } from '../../../Cell';
 import { ITableColumnProps } from '../../../Column';

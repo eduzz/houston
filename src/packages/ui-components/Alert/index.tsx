@@ -7,7 +7,7 @@ import MUIAlertTitle from '@material-ui/lab/AlertTitle';
 
 import Button from '../Button';
 import { useChildrenProps, useFirstChildrenProps } from '../hooks/useChildrenProps';
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 import AlertAction, { IAlertActionProps } from './Action';
 import AlertTitle, { IAlertTitleProps } from './Title';
 

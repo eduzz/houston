@@ -14,7 +14,7 @@ export default {
     'eduzz/houston-hooks': '@eduzz/houston-hooks'
   },
   menu: [
-    { name: 'eduzz/houston-ui', menu: ['Início'] },
+    { name: 'eduzz/houston-ui', menu: ['Início', 'Tema e Estilos'] },
     { name: 'eduzz/houston-forms', menu: ['Início'] },
     { name: 'eduzz/houston-hooks', menu: ['Início'] }
   ],

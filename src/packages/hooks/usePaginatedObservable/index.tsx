@@ -79,6 +79,7 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
         }
       )
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, ...deps]);
 
   const retry = React.useCallback(() => {

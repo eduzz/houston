@@ -1,4 +1,4 @@
-{
+module.exports = {
   "overrides": [{
     "files": ["*.mdx"],
     "extends": ["@eduzz/eslint-config-houston/mdx"]

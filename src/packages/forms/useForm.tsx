@@ -63,6 +63,7 @@ export default function useForm<Values = Record<string, never>>({
         return result;
       })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formik = useFormik<Partial<Values>>({

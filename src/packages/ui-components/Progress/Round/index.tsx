@@ -5,7 +5,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
-import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import Typography from '../../Typography';
 
 const useStyles = makeStyles(theme =>

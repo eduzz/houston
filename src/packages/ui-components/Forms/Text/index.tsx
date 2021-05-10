@@ -10,7 +10,7 @@ import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import IFormMask from '@eduzz/houston-core/maskAdapter';
 
 import useMask from '../../hooks/useMask';
-import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
 type FieldTextPropsExtends =
