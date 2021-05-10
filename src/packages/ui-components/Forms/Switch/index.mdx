@@ -11,6 +11,7 @@ import { Playground } from 'docz';
 
 import Column from '../../Grid/Column';
 import Row from '../../Grid/Row';
+import Typography from '../../Typography';
 import Form from '../Form';
 import Switch from './';
 
@@ -32,7 +33,7 @@ import Switch from '@eduzz/houston-ui/Forms/Switch';
     const onChange = React.useCallback(() => setChecked(prev => !prev), []);
     return (
       <>
-        <p>Padrão</p>
+        <Typography>Padrão</Typography>
         <Row>
           <Column>
             <Switch checked={checked} onChange={onChange} />
@@ -41,7 +42,7 @@ import Switch from '@eduzz/houston-ui/Forms/Switch';
             <Switch size='small' checked={checked} onChange={onChange} />
           </Column>
         </Row>
-        <p>Desabilitado</p>
+        <Typography>Desabilitado</Typography>
         <Row>
           <Column>
             <Switch defaultChecked disabled />

@@ -37,7 +37,7 @@ const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldP
           name={name}
           inputRef={ref}
           onChange={onChange || handleChange}
-          className={props.className ? props.className : ''}
+          className={props.className}
           color='primary'
           checked={form?.values[name] ?? props.checked}
           {...props}
