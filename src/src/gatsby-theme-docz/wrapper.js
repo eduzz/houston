@@ -17,7 +17,7 @@ function fixLayout() {
 
   fixedLayout = true;
   aButton.click();
-  setTimeout(() => window.history.back(), 100);
+  setTimeout(() => window.history.back(), 500);
 }
 
 const generateClassName = (rule, styleSheet) => {
