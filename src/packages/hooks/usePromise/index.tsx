@@ -17,7 +17,9 @@ export default function usePromise<T>(promiseGenerator: () => Promise<T>, deps: 
         setError(err);
       });
 
-    return () => (isSubscribed = false);
+    return () => {
+      isSubscribed = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deps]);
 
