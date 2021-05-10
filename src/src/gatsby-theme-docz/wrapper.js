@@ -4,17 +4,13 @@ import React from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
 
-
-function fixLayout() {
-  const aButton = document.querySelector('.sidebar a');
-  if(!aButton) return;
-  aButton.click();
-  setTimeout(() => history.back(), 100);
-}
-fixLayout();
-
+const isSSR = typeof window === "undefined" || !window.document;
 
 const generateClassName = (rule, styleSheet) => {
+  if (isSSR) {
+    return `${styleSheet.options.classNamePrefix}-${rule.key}`;
+  }
+
   const random = Math.random().toString(36).substring(5);
   return `${styleSheet.options.classNamePrefix}-${rule.key}-${random}`;
 }
