@@ -12,7 +12,7 @@ function fixLayout() {
   if(!aButton) return;
 
   aButton.click();
-  setTimeout(() => window.history.back(), 100);
+  setTimeout(() => window.history.back(), 500);
 }
 
 fixLayout();
