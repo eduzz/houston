@@ -142,13 +142,18 @@ export default function overrides(palette: Palette): ICustomOverrides {
         overflow: 'unset',
         '&$sizeSmall': {
           '& > $switchBase': {
+            top: 2,
             padding: 12,
             '& + $track': {
               width: 28,
               height: SWITCH_SMALL_HEIGHT
             },
             '&$checked': {
-              transform: 'translateX(8px)'
+              transform: 'translateX(12px)'
+            },
+            '& span > $thumb': {
+              width: 12,
+              height: 12
             }
           }
         }
@@ -194,7 +199,8 @@ export default function overrides(palette: Palette): ICustomOverrides {
         '&$disabled': {
           '& + $track': {
             backgroundColor: palette.grey[300],
-            opacity: 1
+            opacity: 1,
+            borderColor: palette.grey[300]
           }
         }
       },
@@ -207,7 +213,7 @@ export default function overrides(palette: Palette): ICustomOverrides {
         opacity: 1
       },
       sizeSmall: {
-        width: 40,
+        width: 28,
         height: 40,
         padding: 0,
         alignItems: 'center',

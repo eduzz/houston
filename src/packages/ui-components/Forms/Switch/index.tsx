@@ -25,9 +25,9 @@ const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldP
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-        form && form.setFieldValue(name, props.defaultChecked ?? checked);
+        form && form.setFieldValue(name, checked);
       },
-      [form, name, props.defaultChecked]
+      [form, name]
     );
 
     return (
@@ -39,6 +39,7 @@ const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldP
           onChange={onChange || handleChange}
           className={props.className ? props.className : ''}
           color='primary'
+          checked={form?.values[name] ?? props.checked}
           {...props}
         />
       </WrapperTheme>

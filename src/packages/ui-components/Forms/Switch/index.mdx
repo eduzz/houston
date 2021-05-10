@@ -9,12 +9,14 @@ import useForm from '@eduzz/houston-forms/useForm';
 
 import { Playground } from 'docz';
 
+import Column from '../../Grid/Column';
+import Row from '../../Grid/Row';
 import Form from '../Form';
 import Switch from './';
 
 # Switch
 
-Switches alternam o estado de uma única configuração ligado ou desligado.
+Switches alternam o estado de uma única configuração, sendo ligado ou desligado.
 
 ### Importação
 
@@ -31,13 +33,31 @@ import Switch from '@eduzz/houston-ui/Forms/Switch';
     return (
       <>
         <p>Padrão</p>
-        <Switch checked={checked} onChange={onChange} />
+        <Row>
+          <Column>
+            <Switch checked={checked} onChange={onChange} />
+          </Column>
+          <Column>
+            <Switch size='small' checked={checked} onChange={onChange} />
+          </Column>
+        </Row>
         <p>Desabilitado</p>
-        <Switch disabled />
-        <p>Habilitado por padrão</p>
-        <Switch defaultChecked />
-        <p>Pequeno</p>
-        <Switch size='small' />
+        <Row>
+          <Column>
+            <Switch defaultChecked disabled />
+          </Column>
+          <Column>
+            <Switch size='small' defaultChecked disabled />
+          </Column>
+        </Row>
+        <Row>
+          <Column>
+            <Switch disabled />
+          </Column>
+          <Column>
+            <Switch size='small' disabled />
+          </Column>
+        </Row>
       </>
     );
   }}
@@ -45,18 +65,14 @@ import Switch from '@eduzz/houston-ui/Forms/Switch';
 
 ### Utilizando com Form
 
+```js
+import useForm from '@eduzz/houston-forms/useForm';
+```
+
 <Playground>
   {() => {
     const form = useForm({
-      initialValues: { lindo: true }, //estado inicial, não precisa passar todas as propriedades
-      validationSchema: yup => {
-        // não é necessário importar o yup ele será passado como argumento
-        return yup.object().shape({
-          name: yup.string().required(),
-          money: yup.number().min(10),
-          option: yup.number().min(3)
-        });
-      },
+      initialValues: { darkTheme: true }, //estado inicial, não precisa passar todas as propriedades
       onSubmit: () => {
         // onSubmit pode retornar uma promise ou um observable de rxjs, desse jeito ele irá
         // setar corretamente o isSubmitting
@@ -65,13 +81,24 @@ import Switch from '@eduzz/houston-ui/Forms/Switch';
         });
       }
     });
-    console.log(form);
-    const [checked, setChecked] = React.useState(false);
-    const onChange = React.useCallback(() => setChecked(prev => !prev), []);
     return (
       <Form context={form}>
-        <Switch name='lindo' />
+        <p>Valor atual do switch: {String(form.values.darkTheme)}</p>
+        <Switch name='darkTheme' />
       </Form>
     );
   }}
 </Playground>
+
+### Propriedades
+
+| prop           | tipo                | obrigatório | padrão     | descrição |
+| -------------- | ------------------- | ----------- | ---------- | --------- |
+| id             | `string`            | `false`     | -          | -         |
+| name           | `string`            | `true`      | -          | -         |
+| className      | `string`            | `false`     | -          | -         |
+| checked        | `boolean`           | `false`     | `false`    | -         |
+| defaultChecked | `boolean`           | `false`     | `false`    | -         |
+| size           | `'small ou medium'` | `false`     | `'medium'` | -         |
+| onChange       | `function`          | `false`     | -          | -         |
+| disabled       | `boolean`           | `false`     | `false`    | -         |
