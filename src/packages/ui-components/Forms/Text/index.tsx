@@ -26,6 +26,9 @@ type FieldTextPropsExtends =
   | 'multiline'
   | 'rows'
   | 'className'
+  | 'onKeyPress'
+  | 'onKeyUp'
+  | 'onKeyDown'
   | 'value';
 
 export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExtends> {
@@ -36,7 +39,9 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
   onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
   onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
   margin?: 'none' | 'dense' | 'normal';
-  fieldEndAdornment?: React.ReactNode;
+  endAdornment?: React.ReactNode;
+  startAdornment?: React.ReactNode;
+  onPressEnter?: (value: any) => any;
   maxLength?: number;
 }
 
@@ -53,8 +58,10 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       errorMessage: errorMessageProp,
       fullWidth,
       margin,
-      fieldEndAdornment,
+      endAdornment,
+      startAdornment,
       maxLength,
+      onPressEnter,
       ...props
     },
     ref
@@ -98,14 +105,19 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
     );
 
     const inputProps = React.useMemo(() => {
-      let endAdornment = null;
+      let end = null;
+      let start = null;
 
-      if (fieldEndAdornment) {
-        endAdornment = <InputAdornment position='end'>{fieldEndAdornment}</InputAdornment>;
+      if (endAdornment) {
+        end = <InputAdornment position='end'>{endAdornment}</InputAdornment>;
+      }
+
+      if (startAdornment) {
+        start = <InputAdornment position='start'>{startAdornment}</InputAdornment>;
       }
 
       if (loading) {
-        endAdornment = (
+        end = (
           <InputAdornment position='end'>
             <CircularProgress color='secondary' size={20} />
           </InputAdornment>
@@ -113,9 +125,20 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       }
 
       return {
-        endAdornment
+        endAdornment: end,
+        startAdornment: start
       };
-    }, [loading, fieldEndAdornment]);
+    }, [loading, endAdornment, startAdornment]);
+
+    const handlePressEnter = React.useCallback(
+      (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          onPressEnter(form.getFieldValue(name));
+        }
+      },
+      [form, name, onPressEnter]
+    );
 
     const errorMessage = errorMessageProp ?? form?.getFieldError(name);
     const hasError = !!errorMessage;
@@ -137,6 +160,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
           fullWidth={fullWidth ?? true}
           InputLabelProps={inputLabelProps}
           InputProps={inputProps}
+          onKeyPress={onPressEnter ? handlePressEnter : props.onKeyPress}
         />
       </WrapperTheme>
     );
