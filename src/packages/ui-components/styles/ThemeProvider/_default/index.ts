@@ -1,14 +1,13 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import createPalette, { PaletteOptions } from '@material-ui/core/styles/createPalette';
+import createPalette from '@material-ui/core/styles/createPalette';
 
 import overrides from './overrides';
-import defaultPalette from './palette';
 import props from './props';
 import typography from './typography';
 import themeVariable from './variables';
 
-export default function generateTheme(customPalette?: PaletteOptions) {
-  const palette = createPalette({ ...defaultPalette, ...customPalette });
+export default function generateTheme(customPalette?: Partial<typeof themeVariable.colors>) {
+  const palette = createPalette({ ...themeVariable.colors, ...customPalette });
 
   return createMuiTheme({
     palette,

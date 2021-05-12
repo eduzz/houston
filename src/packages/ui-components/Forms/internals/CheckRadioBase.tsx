@@ -8,7 +8,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
-import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import Typography from '../../Typography';
 import { FormFieldsContext } from '../Form';
 

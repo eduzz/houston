@@ -3,7 +3,7 @@ import * as React from 'react';
 import ListMUI, { ListProps as ListPropsMUI } from '@material-ui/core/List';
 
 import { getReactFirstChildrenProps, isReactComponent } from '../Helpers/functions';
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 import { IListItem } from './interfaces';
 import Items from './internals/Items';
 import Item from './Item';

@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
-import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import ProgressBar from './ProgressBar';
 import StepIcon from './StepIcon';
 

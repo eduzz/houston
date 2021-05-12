@@ -5,7 +5,7 @@ import MUITab from '@material-ui/core/Tab';
 import MUITabs from '@material-ui/core/Tabs';
 
 import { getReactChildrenProps } from '../Helpers/functions';
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 import Content, { ITabsContentProps } from './Content';
 
 export interface ITabsProps {

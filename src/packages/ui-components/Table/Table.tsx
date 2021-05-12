@@ -12,7 +12,7 @@ import isEqual from 'lodash/isEqual';
 
 import { getReactChildrenComponent, getReactChildrenProps, isReactComponent } from '../Helpers/functions';
 import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 import TableActions from './Actions';
 import TableCell, { ITableCellProps } from './Cell';
 import TableCollapse from './Collapse';

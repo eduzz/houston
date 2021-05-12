@@ -28,6 +28,7 @@ export default function useCallbackObservable<T>(
         )
       )
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
   const callback = React.useCallback((...args: any[]) => submitted$.next(args), [submitted$]);

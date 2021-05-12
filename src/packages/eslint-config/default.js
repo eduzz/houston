@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const generator = require('./generator');
+
 module.exports = {
   settings: {
     react: {
@@ -67,7 +70,7 @@ module.exports = {
       }
     ],
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': generator.exhaustiveDeps(),
     'quote-props': 'off',
     'react/style-prop-object': 'off',
     'no-useless-escape': 'error',

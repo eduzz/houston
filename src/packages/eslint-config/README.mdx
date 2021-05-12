@@ -4,7 +4,7 @@ route: /eslint
 menu:
 ---
 
-## ESLint Config
+# ESLint Config
 
 Para configurar no padrão do Houston, primerio você deve adicionar as dependências, pois o eslint exige que plugins devem,
 ser adicionados no projeto principal:
@@ -26,3 +26,26 @@ module.exports = {
   ...require('@eduzz/eslint-config-houston/.prettierrc')
 };
 ```
+
+## Generator
+
+Para que o eslint verifique e aplica a regra correta do **react-hooks/exhaustive-deps** é preciso adicionar seus custom hooks
+nas regras do .eslintrc, para facilitar esse processo criamos um **generator**.
+
+```js
+// .eslintrc.js <~precisa ser .js
+const generator = require('@eduzz/eslint-config-houston/generator');
+
+module.exports = {
+  extends: ['@eduzz/eslint-config-houston'],
+  rules: {
+    'react-hooks/exhaustive-deps': generator.exhaustiveDeps('warn', ['useMyCustomHook', true])
+  }
+};
+```
+
+| Método         | Params                                                                                                                       |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| exhaustiveDeps | 1. 'warn' \| 'error'<br />2. Array com seus hooks <br />3. boolean se deve ou não adicionar os hooks do @eduzz/houston-hooks |
+
+**⚠️ Vale ressaltar que os custom hooks devem seguir o padrão de que o segundo parametro seja a deps**

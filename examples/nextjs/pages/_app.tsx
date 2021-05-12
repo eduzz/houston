@@ -2,7 +2,7 @@ import '../assets/styles/global.scss';
 
 import { useEffect } from 'react';
 
-import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
+import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
 
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 
