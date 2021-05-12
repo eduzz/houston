@@ -20,7 +20,7 @@ const PasswordField = React.memo<IPasswordFieldProps>(props => {
     </IconButton>
   );
 
-  return <TextField {...props} type={showPassword ? 'text' : 'password'} fieldEndAdornment={fieldEndAdornment} />;
+  return <TextField {...props} type={showPassword ? 'text' : 'password'} endAdornment={fieldEndAdornment} />;
 });
 
 export default PasswordField;

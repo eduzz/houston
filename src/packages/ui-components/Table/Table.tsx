@@ -189,11 +189,10 @@ const Table = React.memo<IProps>(props => {
 
   const hasCollapseData = React.useMemo(() => rows.some(v => v.collapse), [rows]);
 
-  const numberColumns = React.useMemo(() => columns?.length + Number(!!actions) + Number(hasCollapseData) || 0, [
-    columns,
-    actions,
-    hasCollapseData
-  ]);
+  const numberColumns = React.useMemo(
+    () => columns?.length + Number(!!actions) + Number(hasCollapseData) || 0,
+    [columns, actions, hasCollapseData]
+  );
 
   const hasColumnFixed = React.useMemo(
     () => !!(actions?.fixed || (columns?.length && columns.filter(c => c.fixed).length)),

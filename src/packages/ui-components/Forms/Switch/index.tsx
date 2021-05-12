@@ -4,7 +4,7 @@ import SwitchMUI, { SwitchProps } from '@material-ui/core/Switch';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
-import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
 type FieldSwitchPropsExtends = 'id' | 'className' | 'checked' | 'defaultChecked' | 'disabled' | 'size' | 'onChange';
