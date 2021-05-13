@@ -3,10 +3,10 @@ import * as React from 'react';
 import { Observable, of } from 'rxjs';
 import { delay, switchMap, tap } from 'rxjs/operators';
 
-// @ts-ignore
-import isEqual from 'lodash/isEqual';
-
 import useObservable from '../useObservable';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const isEqual = require('lodash/isEqual');
 
 export interface IPaginationParams {
   page: number;
