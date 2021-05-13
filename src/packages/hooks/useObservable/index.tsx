@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Observable } from 'rxjs';
 
-import { getConfig } from '..';
+import { getConfig } from '../config';
 
 export type observerFunction<T> = () => Observable<T>;
 

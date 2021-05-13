@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-core",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "description": "Houston Core",
   "main": "index.js",
   "types": "./index.d.ts",

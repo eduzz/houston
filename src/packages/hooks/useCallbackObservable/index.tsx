@@ -3,8 +3,7 @@ import * as React from 'react';
 import { NEVER, Observable, Subject } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
-import { getConfig } from '..';
-
+import { getConfig } from '../config';
 import useObservable from '../useObservable';
 
 /**
