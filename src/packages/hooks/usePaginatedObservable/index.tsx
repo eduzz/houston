@@ -61,8 +61,8 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
         delete sendParams._retry;
         return observableGenerator(sendParams);
       }),
-      tap(
-        response => {
+      tap({
+        next: response => {
           setIsLoading(false);
           setIsLoadingMore(false);
 
@@ -73,11 +73,11 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
             return { total, result, hasMore: result.length < total };
           });
         },
-        () => {
+        error: () => {
           setIsLoading(false);
           setIsLoadingMore(false);
         }
-      )
+      })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, ...deps]);
