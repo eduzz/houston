@@ -131,13 +131,15 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
     }, [loading, endAdornment, startAdornment]);
 
     const handlePressEnter = React.useCallback(
-      (e: React.KeyboardEvent<HTMLDivElement>) => {
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement;
+
         if (e.key === 'Enter') {
           e.preventDefault();
-          onPressEnter(form.getFieldValue(name));
+          onPressEnter(!form || !form?.getFieldValue ? maskClean(target.value) : form.getFieldValue(name));
         }
       },
-      [form, name, onPressEnter]
+      [form, name, onPressEnter, maskClean]
     );
 
     const errorMessage = errorMessageProp ?? form?.getFieldError(name);

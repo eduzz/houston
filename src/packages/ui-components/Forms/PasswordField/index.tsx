@@ -14,10 +14,13 @@ const PasswordField = React.memo<IPasswordFieldProps>(props => {
 
   const handleShowPassword = React.useCallback(() => setShowPassword(showPassword => !showPassword), []);
 
-  const fieldEndAdornment = (
-    <IconButton aria-label='toggle password visibility' onClick={handleShowPassword}>
-      {showPassword ? <Visibility /> : <VisibilityOff />}
-    </IconButton>
+  const fieldEndAdornment = React.useMemo(
+    () => (
+      <IconButton aria-label='toggle password visibility' onClick={handleShowPassword}>
+        {showPassword ? <Visibility /> : <VisibilityOff />}
+      </IconButton>
+    ),
+    [handleShowPassword, showPassword]
   );
 
   return <TextField {...props} type={showPassword ? 'text' : 'password'} endAdornment={fieldEndAdornment} />;
