@@ -4,14 +4,14 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 
 import Typography from '../../Typography';
 
-interface ILabelProps {
+interface ILabelBaseProps {
   hasError: boolean;
   label?: React.ReactNode;
   description?: React.ReactNode;
-  errorMessage: string;
+  errorMessage?: string;
 }
 
-const LabelBase = React.memo<ILabelProps>(({ hasError, label, description, errorMessage }) => {
+const LabelBase = React.memo<ILabelBaseProps>(({ hasError, label, description, errorMessage }) => {
   if (label && typeof label !== 'string') {
     return <>{label}</>;
   }
