@@ -60,12 +60,8 @@ const BaseRadioField = React.memo<IRadioBaseFieldProps>(
       [form, name, onChange]
     );
 
-    const errorMessage = React.useMemo(
-      () => errorMessageProp ?? form?.getFieldError(name),
-      [form, name, errorMessageProp]
-    );
-
-    const hasError = React.useMemo(() => !!errorMessage, [errorMessage]);
+    const errorMessage = errorMessageProp ?? form?.getFieldError(name);
+    const hasError = !!errorMessage;
 
     return (
       <WrapperTheme>

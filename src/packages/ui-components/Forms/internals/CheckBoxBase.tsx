@@ -78,12 +78,8 @@ const CheckboxRadioField = React.memo<ICheckboxBaseFieldProps>(
       [form, isMultiple, name, onChange, value]
     );
 
-    const errorMessage = React.useMemo(
-      () => errorMessageProp ?? form?.getFieldError(name),
-      [form, name, errorMessageProp]
-    );
-
-    const hasError = React.useMemo(() => !!errorMessage, [errorMessage]);
+    const errorMessage = errorMessageProp ?? form?.getFieldError(name);
+    const hasError = !!errorMessage;
 
     if (isMultiple && !form) {
       throw new Error(`CheckboxField ${name}: form is required for isMultiple`);
