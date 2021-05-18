@@ -14,6 +14,7 @@ export interface ITablePagination extends Pick<React.HTMLAttributes<HTMLTableRow
   total: number;
   optionsPerPage?: number[];
   labelItensPerPage?: React.ReactNode;
+  labelGoToPage?: React.ReactNode;
   onChangeRowsPerPage?: (rowsPerPage: number) => void;
   onChangeGoToPage?: (goToPage: number) => void;
   onChangePage?: (page: number) => void;
