@@ -3,4 +3,4 @@ set -e
 
 BASEDIR="$( cd "$(dirname "$0")" ; pwd -P )"
 
-node $BASEDIR/start.js $1
+node $BASEDIR/start.js "$@"

@@ -5,4 +5,33 @@ menu: eduzz/houston-hooks
 submenu: Hooks
 ---
 
+import Button from '@eduzz/houston-ui/Button';
+import Typography from '@eduzz/houston-ui/Typography';
+
+import { Playground } from 'docz';
+
+import useBoolean from '.';
+
 # useBoolean
+
+Esse é um hooks apenas para facilitar o uso de booleanos, útil quando deseja passar como callback de uma função
+
+<Playground>
+  {() => {
+    const [value, toggleValue, toTrue, toFalse] = useBoolean();
+    return (
+      <div>
+        <Typography>Value: {value.toString()}</Typography>
+        <Button onClick={toggleValue}>Click to toggle</Button>
+        <span style={{ marginLeft: 10 }} />
+        <Button onClick={toTrue} disabled={value}>
+          Click to set true
+        </Button>
+        <span style={{ marginLeft: 10 }} />
+        <Button onClick={toFalse} disabled={!value}>
+          Click to set false
+        </Button>
+      </div>
+    );
+  }}
+</Playground>
