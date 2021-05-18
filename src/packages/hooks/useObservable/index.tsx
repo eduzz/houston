@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { Observable } from 'rxjs';
 
+import { getConfig } from '../config';
+
 export type observerFunction<T> = () => Observable<T>;
 
 /**
@@ -29,17 +31,18 @@ export default function useObservable<T>(
 
     defaultValueRef.current = null;
 
-    const sub = cb().subscribe(
-      (data: T) => {
+    const sub = cb().subscribe({
+      next: (data: T) => {
         setValue(data);
         setError(undefined);
       },
-      (err: any) => {
+      error: err => {
+        getConfig().onUnhandledError(err, 'hooks');
         setValue(null);
         setError(err);
       },
-      () => setComplete(true)
-    );
+      complete: () => setComplete(true)
+    });
     return () => sub.unsubscribe();
   }, [cb, defaultValue]);
 

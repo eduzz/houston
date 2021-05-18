@@ -3,6 +3,7 @@ import * as React from 'react';
 import { BehaviorSubject, NEVER } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
+import { getConfig } from '../config';
 import useObservable, { observerFunction } from '../useObservable';
 
 /**
@@ -16,16 +17,19 @@ export default function useRetryableObservable<T>(
 ): [T | undefined, any, boolean, () => void, undefined] {
   const [data, setData] = React.useState<T | undefined>();
   const [error, setError] = React.useState();
-  const submitted$ = React.useRef(new BehaviorSubject<boolean>(true)).current;
+  const doRetry$ = React.useRef(new BehaviorSubject<boolean>(true)).current;
 
   const [, , completed] = useObservable(() => {
-    return submitted$.pipe(
-      tap(() => setData(undefined)),
-      tap(() => setError(undefined)),
+    return doRetry$.pipe(
+      tap(() => {
+        setData(undefined);
+        setError(undefined);
+      }),
       switchMap(() =>
         observableGenerator().pipe(
           tap(result => setData(result)),
           catchError(err => {
+            getConfig().onUnhandledError(err, 'hooks');
             setError(err);
             return NEVER;
           })
@@ -35,7 +39,7 @@ export default function useRetryableObservable<T>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  const retry = React.useCallback(() => submitted$.next(true), [submitted$]);
+  const retry = React.useCallback(() => doRetry$.next(true), [doRetry$]);
 
   return [data, error, completed, retry, undefined];
 }
