@@ -2,15 +2,13 @@ import * as React from 'react';
 
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Radio from '@material-ui/core/Radio';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
 import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
-import Typography from '../../Typography';
 import { FormFieldsContext } from '../Form';
+import LabelBase from './LabelBase';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -22,8 +20,8 @@ const useStyles = makeStyles(() =>
 
 type FieldCheckboxPropsExtends = 'checked' | 'value' | 'onChange';
 
-export interface ICheckboxRadioFieldProps extends Pick<CheckboxProps, FieldCheckboxPropsExtends> {
-  Control: typeof Checkbox | typeof Radio;
+export interface ICheckboxBaseFieldProps extends Pick<CheckboxProps, FieldCheckboxPropsExtends> {
+  Control: typeof Checkbox;
   label?: React.ReactNode;
   description?: string;
   name: string;
@@ -33,7 +31,7 @@ export interface ICheckboxRadioFieldProps extends Pick<CheckboxProps, FieldCheck
   margin?: 'none' | 'normal';
 }
 
-const CheckboxRadioField = React.memo<ICheckboxRadioFieldProps>(
+const CheckboxRadioField = React.memo<ICheckboxBaseFieldProps>(
   ({
     Control,
     label,
@@ -99,26 +97,7 @@ const CheckboxRadioField = React.memo<ICheckboxRadioFieldProps>(
               color='primary'
             />
           }
-          label={
-            label && typeof label !== 'string' ? (
-              label
-            ) : (
-              <React.Fragment>
-                <Typography>
-                  {label}
-                  {description && (
-                    <React.Fragment>
-                      <br />{' '}
-                      <Typography size='x-small' fontWeight='regular'>
-                        {description}
-                      </Typography>
-                    </React.Fragment>
-                  )}
-                </Typography>
-                {hasError && <FormHelperText error={true}>{errorMessage}</FormHelperText>}
-              </React.Fragment>
-            )
-          }
+          label={<LabelBase hasError={hasError} errorMessage={errorMessage} label={label} description={description} />}
         />
       </WrapperTheme>
     );

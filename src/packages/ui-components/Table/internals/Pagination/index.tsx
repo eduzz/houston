@@ -164,7 +164,7 @@ const Pagination = React.memo(() => {
             {pagination?.onChangeGoToPage && (
               <div className={classes.goTo}>
                 <Typography size='small' fontWeight='semibold'>
-                  Ir para:
+                  {pagination?.labelGoToPage ?? 'Ir para:'}
                 </Typography>
 
                 <TextField
