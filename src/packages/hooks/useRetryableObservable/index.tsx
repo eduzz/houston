@@ -9,17 +9,17 @@ import useObservable, { observerFunction } from '../useObservable';
 /**
  * Create a memoized observable and unsubscribe automatically if component unmount and a
  * retry function
- * @returns [observableValue, error, isCompleted, retryFunction]
+ * @returns [observableValue, error, completed, retryFunction, loading]
  */
 export default function useRetryableObservable<T>(
   observableGenerator: observerFunction<T>,
   deps: React.DependencyList
-): [T | undefined, any, boolean, () => void, undefined] {
+): [T | undefined, any, boolean, () => void, boolean, undefined] {
   const [data, setData] = React.useState<T | undefined>();
   const [error, setError] = React.useState();
   const doRetry$ = React.useRef(new BehaviorSubject<boolean>(true)).current;
 
-  const [, , completed] = useObservable(() => {
+  const [, , completed, loading] = useObservable(() => {
     return doRetry$.pipe(
       tap(() => {
         setData(undefined);
@@ -41,5 +41,5 @@ export default function useRetryableObservable<T>(
 
   const retry = React.useCallback(() => doRetry$.next(true), [doRetry$]);
 
-  return [data, error, completed, retry, undefined];
+  return [data, error, completed, retry, loading, undefined];
 }

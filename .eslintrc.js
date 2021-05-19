@@ -1,7 +1,10 @@
 module.exports = {
   "overrides": [{
     "files": ["*.mdx"],
-    "extends": ["@eduzz/eslint-config-houston/mdx"]
+    "extends": ["@eduzz/eslint-config-houston/mdx"],
+    "rules": {
+      "react-hooks/exhaustive-deps": "off"
+    }
   }, {
     "files": ["*.tsx", "*.ts", "*.js", "*.jsx"],
     "extends": "@eduzz/eslint-config-houston",
