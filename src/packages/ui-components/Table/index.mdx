@@ -278,9 +278,10 @@ de 10 em 10, para mais informações veja o hook **useLazyArray**
 
 ### Table.Row props
 
-| prop | tipo      | obrigatório | padrão | descrição                                                                     |
-| ---- | --------- | ----------- | ------ | ----------------------------------------------------------------------------- |
-| data | `unknown` | `true`      | -      | Valores da linha, é necessário apenas quando há o componente `Table.Actions`. |
+| prop         | tipo              | obrigatório | padrão | descrição                                                                     |
+| ------------ | ----------------- | ----------- | ------ | ----------------------------------------------------------------------------- |
+| data         | `unknown`         | `false`     | -      | Valores da linha, é necessário apenas quando há o componente `Table.Actions`. |
+| endAdornment | `React.ReactNode` | `false`     | -      | Conteúdo adicionado no final (em baixo) da linha.                             |
 
 ### Table.Cell props
 
