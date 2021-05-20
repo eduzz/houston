@@ -105,6 +105,8 @@ const Rows = React.memo<IRowProps>(
               onDoubleClick: row?.onDoubleClick
             };
 
+            const hasEndAdornment = !!row?.endAdornment;
+
             return (
               <React.Fragment key={`table-row-${index}`}>
                 <TableRow
@@ -116,7 +118,6 @@ const Rows = React.memo<IRowProps>(
                   {cells?.map((cell, i) => {
                     const currentIndex = i + 1;
                     const isFixed = columns[i]?.fixed && (currentIndex === 1 || currentIndex === numberColumns);
-                    const hasEndAdornment = !!row?.endAdornment;
 
                     return (
                       <Cell
@@ -129,7 +130,7 @@ const Rows = React.memo<IRowProps>(
                   })}
 
                   {hasColumnAction && (
-                    <TableCell align='right'>
+                    <TableCell align='right' className={hasEndAdornment && classes.hasEndAdornment}>
                       <div className={classes.wrapperIconActions}>
                         <ButtonIcon size='small' onClick={() => handleClickActions(data)}>
                           <MoreHorizIcon />
