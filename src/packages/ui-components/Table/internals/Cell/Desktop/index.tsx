@@ -14,6 +14,10 @@ const useStyles = makeStyles(theme =>
       borderBottom: 0
     },
 
+    hasEndAdornment: {
+      borderBottom: 0
+    },
+
     fixed: {
       position: 'sticky',
       top: 0,
@@ -27,6 +31,7 @@ const useStyles = makeStyles(theme =>
 interface IProps extends ITableCellProps {
   fixed?: boolean;
   list?: boolean;
+  hasEndAdornment?: boolean;
 }
 
 const Cell = React.memo<IProps>(props => {
@@ -44,12 +49,17 @@ const Cell = React.memo<IProps>(props => {
     [props?.id, props?.padding, props?.colSpan, props?.align, props?.onClick, props?.onDoubleClick]
   );
 
-  const { children, truncate = false, list = false, fixed = false } = props;
+  const { children, truncate = false, list = false, fixed = false, hasEndAdornment = false } = props;
 
   return (
     <TableCell
       {...cellProps}
-      className={clsx(list && classes.list, fixed && classes.fixed, props?.className && props.className)}
+      className={clsx(
+        list && classes.list,
+        fixed && classes.fixed,
+        hasEndAdornment && classes.hasEndAdornment,
+        props?.className
+      )}
     >
       {truncate && <span title={String(children)}>{truncateText(String(children), truncate)}</span>}
       {!truncate && children}
