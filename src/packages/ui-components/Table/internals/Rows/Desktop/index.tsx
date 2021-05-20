@@ -38,7 +38,10 @@ const useStyles = makeStyles(theme =>
     },
 
     cellEndAdornment: {
-      paddingTop: 0
+      paddingTop: 0,
+      '&:empty': {
+        padding: 0
+      }
     },
 
     wrapperIconActions: {
