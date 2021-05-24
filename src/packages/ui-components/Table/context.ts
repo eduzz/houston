@@ -7,6 +7,7 @@ import { ITablePagination } from './Pagination';
 
 interface ITableContext {
   loading: boolean;
+  initialOrdenation?: ITableSortable;
   onSortable: ({ field, order }: ITableSortable) => void;
   messages?: ITableMessages;
 

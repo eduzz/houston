@@ -1,20 +1,23 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const generator = require('./generator');
+
 module.exports = {
-  'settings': {
-    'react': {
-      'version': 'detect'
+  settings: {
+    react: {
+      version: 'detect'
     }
   },
-  'plugins': ['react', 'react-hooks', 'prettier', 'eslint-plugin-import-helpers', 'eslint-plugin-unused-imports'],
-  'extends': ['plugin:react/recommended', 'plugin:prettier/recommended'],
-  'parserOptions': {
-    'ecmaVersion': 10,
-    'sourceType': 'module',
-    'ecmaFeatures': {
-      'modules': true,
-      'jsx': true
+  plugins: ['react', 'react-hooks', 'prettier', 'eslint-plugin-import-helpers', 'eslint-plugin-unused-imports'],
+  extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
+  parserOptions: {
+    ecmaVersion: 10,
+    sourceType: 'module',
+    ecmaFeatures: {
+      modules: true,
+      jsx: true
     }
   },
-  'rules': {
+  rules: {
     'no-restricted-globals': ['error'],
     'react/display-name': ['off'],
     'react/prop-types': ['off'],
@@ -26,32 +29,32 @@ module.exports = {
       125,
       2,
       {
-        'ignorePattern': '^(import|export)',
-        'ignoreUrls': true
+        ignorePattern: '^(import|export)',
+        ignoreUrls: true
       }
     ],
     'no-multiple-empty-lines': [
       'error',
       {
-        'max': 1
+        max: 1
       }
     ],
     'no-trailing-spaces': ['error'],
     'no-extra-semi': ['error'],
     'no-var': ['error'],
-    'quotes': [
+    quotes: [
       'error',
       'single',
       {
-        'avoidEscape': true
+        avoidEscape: true
       }
     ],
-    'eqeqeq': 0,
+    eqeqeq: 0,
     'import-helpers/order-imports': [
       'warn',
       {
-        'newlinesBetween': 'always',
-        'groups': [
+        newlinesBetween: 'always',
+        groups: [
           '/^react/',
           '/^@material-ui/',
           '/^rxjs/',
@@ -60,17 +63,17 @@ module.exports = {
           'module',
           ['parent', 'sibling', 'index']
         ],
-        'alphabetize': {
-          'order': 'asc',
-          'ignoreCase': true
+        alphabetize: {
+          order: 'asc',
+          ignoreCase: true
         }
       }
     ],
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': generator.exhaustiveDeps(),
     'quote-props': 'off',
     'react/style-prop-object': 'off',
     'no-useless-escape': 'error',
     'unused-imports/no-unused-imports-ts': 'error'
   }
-}
+};

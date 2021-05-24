@@ -4,16 +4,30 @@ import React from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
 
-const generateClassName = (rule, styleSheet) => {
-  if (process.env.NODE_ENV === 'development') {
-    const random = Math.random().toString(36).substring(5);
-    return `${styleSheet.options.classNamePrefix}-${rule.key}-${random}`;
-  }
+let fixedLayout = false;
 
-  return `${styleSheet.options.classNamePrefix}-${rule.key}`;
+function fixLayout() {
+  if(fixedLayout) return;
+
+  const isSSR = typeof window === "undefined" || !window.document;
+  if (isSSR) return;
+
+  const aButton = window.document.querySelector('.sidebar a');
+  if (!aButton) return;
+
+  fixedLayout = true;
+  aButton.click();
+  setTimeout(() => window.history.back(), 500);
+}
+
+const generateClassName = (rule, styleSheet) => {
+  const random = Math.random().toString(36).substring(5);
+  return `${styleSheet.options.classNamePrefix}-${rule.key}-${random}`;
 }
 
 export default ({ children }) => {
+  React.useEffect(() => fixLayout(), []);
+
   return (
     <StylesProvider generateClassName={generateClassName}>
       {children}

@@ -10,7 +10,7 @@ import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import IFormMask from '@eduzz/houston-core/maskAdapter';
 
 import useMask from '../../hooks/useMask';
-import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
 type FieldTextPropsExtends =
@@ -21,9 +21,14 @@ type FieldTextPropsExtends =
   | 'placeholder'
   | 'type'
   | 'fullWidth'
+  | 'required'
   | 'helperText'
   | 'multiline'
+  | 'rows'
   | 'className'
+  | 'onKeyPress'
+  | 'onKeyUp'
+  | 'onKeyDown'
   | 'value';
 
 export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExtends> {
@@ -34,6 +39,10 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
   onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
   onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
   margin?: 'none' | 'dense' | 'normal';
+  endAdornment?: React.ReactNode;
+  startAdornment?: React.ReactNode;
+  onPressEnter?: (value: any) => any;
+  maxLength?: number;
 }
 
 const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
@@ -49,6 +58,10 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       errorMessage: errorMessageProp,
       fullWidth,
       margin,
+      endAdornment,
+      startAdornment,
+      maxLength,
+      onPressEnter,
       ...props
     },
     ref
@@ -65,10 +78,16 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange && onChange(maskClean(e.currentTarget.value), e);
-        form && form.setFieldValue(name, maskClean(e.currentTarget.value));
+        let cleanValue = maskClean(e.currentTarget.value);
+
+        if (maxLength) {
+          cleanValue = (cleanValue as string).substring(0, maxLength);
+        }
+
+        onChange && onChange(cleanValue, e);
+        form && form.setFieldValue(name, cleanValue);
       },
-      [onChange, maskClean, form, name]
+      [onChange, maskClean, form, name, maxLength]
     );
 
     const handleBlur = React.useCallback(
@@ -85,15 +104,42 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       [props.placeholder]
     );
 
-    const inputProps = React.useMemo(
-      () => ({
-        endAdornment: !loading ? null : (
+    const inputProps = React.useMemo(() => {
+      let end = null;
+      let start = null;
+
+      if (endAdornment) {
+        end = <InputAdornment position='end'>{endAdornment}</InputAdornment>;
+      }
+
+      if (startAdornment) {
+        start = <InputAdornment position='start'>{startAdornment}</InputAdornment>;
+      }
+
+      if (loading) {
+        end = (
           <InputAdornment position='end'>
             <CircularProgress color='secondary' size={20} />
           </InputAdornment>
-        )
-      }),
-      [loading]
+        );
+      }
+
+      return {
+        endAdornment: end,
+        startAdornment: start
+      };
+    }, [loading, endAdornment, startAdornment]);
+
+    const handlePressEnter = React.useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement;
+
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          onPressEnter(!form || !form?.getFieldValue ? maskClean(target.value) : form.getFieldValue(name));
+        }
+      },
+      [form, name, onPressEnter, maskClean]
     );
 
     const errorMessage = errorMessageProp ?? form?.getFieldError(name);
@@ -104,7 +150,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
         <TextFieldMUI
           error={hasError}
           {...props}
-          disabled={form?.isSubmitting || props.disabled}
+          disabled={form?.isSubmitting || props.disabled || loading}
           helperText={errorMessage ?? props.helperText}
           name={name}
           margin={margin ?? 'normal'}
@@ -116,6 +162,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
           fullWidth={fullWidth ?? true}
           InputLabelProps={inputLabelProps}
           InputProps={inputProps}
+          onKeyPress={onPressEnter ? handlePressEnter : props.onKeyPress}
         />
       </WrapperTheme>
     );

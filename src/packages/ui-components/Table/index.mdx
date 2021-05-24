@@ -1,7 +1,8 @@
 ---
 name: Table
-route: /components/table
-menu: Componentes
+route: /ui-components/table
+menu: eduzz/houston-ui
+submenu: Componentes
 ---
 
 import { useState } from 'react';
@@ -132,7 +133,7 @@ Ações genéricas ou individuais.
 Colunas com ordenações. É necessário a função `onSortable`. (Clique nas colunas)
 
 <Playground>
-  <Table onSortable={ordenation => console.log(ordenation)}>
+  <Table onSortable={ordenation => console.log(ordenation)} initialOrdenation={{ field: 'owner', order: 'desc' }}>
     <Table.Column field='id' label='ID' />
     <Table.Column field='product' label='Produto' sortable />
     <Table.Column field='owner' label='Produtor' sortable />
@@ -277,9 +278,10 @@ de 10 em 10, para mais informações veja o hook **useLazyArray**
 
 ### Table.Row props
 
-| prop | tipo      | obrigatório | padrão | descrição                                                                     |
-| ---- | --------- | ----------- | ------ | ----------------------------------------------------------------------------- |
-| data | `unknown` | `true`      | -      | Valores da linha, é necessário apenas quando há o componente `Table.Actions`. |
+| prop         | tipo              | obrigatório | padrão | descrição                                                                     |
+| ------------ | ----------------- | ----------- | ------ | ----------------------------------------------------------------------------- |
+| data         | `unknown`         | `false`     | -      | Valores da linha, é necessário apenas quando há o componente `Table.Actions`. |
+| endAdornment | `React.ReactNode` | `false`     | -      | Conteúdo adicionado no final (em baixo) da linha.                             |
 
 ### Table.Cell props
 
@@ -315,6 +317,7 @@ de 10 em 10, para mais informações veja o hook **useLazyArray**
 | totalPages          | `number`          | `true`      | -                       | -                                                         |
 | optionsPerPage      | `number[]`        | `false`     | `[15, 25, 35, 50, 100]` | -                                                         |
 | labelItensPerPage   | `React.ReactNode` | `false`     | `Itens por página:`     | -                                                         |
+| labelGoToPage       | `React.ReactNode` | `false`     | `Ir para:`              | -                                                         |
 | onChangeRowsPerPage | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
 | onChangeGoToPage    | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
 | onChangePage        | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |

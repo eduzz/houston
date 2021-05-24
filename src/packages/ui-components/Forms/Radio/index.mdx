@@ -1,13 +1,15 @@
 ---
 name: Radio
 route: /componentes/radio
-menu: Componentes
+menu: eduzz/houston-ui
+submenu: Componentes
 ---
 
 import useForm from '@eduzz/houston-forms/useForm';
 
 import { Playground } from 'docz';
 
+import Form from '../Form';
 import RadioField from './';
 
 # Radio
@@ -20,7 +22,7 @@ O componente de Radio é utilizado quando é preciso deixar todas as opções vi
 import RadioField from '@eduzz/houston-ui/Forms/Radio';
 ```
 
-### Exemplo
+### Exemplo com Form
 
 <Playground>
   {() => {
@@ -28,10 +30,34 @@ import RadioField from '@eduzz/houston-ui/Forms/Radio';
       onSubmit: () => {}
     });
     return (
+      <Form context={form}>
+        <RadioField label='Opção 1' name='radio' value={123} />
+        <RadioField label='Opção 2' name='radio' value={1} />
+      </Form>
+    );
+  }}
+</Playground>
+
+### Exemplo sem Form
+
+<Playground>
+  {() => {
+    return (
       <div>
-        <RadioField label='Label' description='Descrição do item' name='radio-1' form={form} value={1} />
-        <hr />
-        <RadioField label='Label' errorMessage='Mensagem de erro' name='radio-2' form={form} value={2} />
+        <RadioField
+          label='Label'
+          description='Descrição do item'
+          name='radio-1'
+          onChange={e => console.log(e.target.value)}
+          value={1}
+        />
+        <RadioField
+          label='Label'
+          errorMessage='Mensagem de erro'
+          name='radio-2'
+          onChange={e => console.log(e.target.value)}
+          value={2}
+        />
       </div>
     );
   }}

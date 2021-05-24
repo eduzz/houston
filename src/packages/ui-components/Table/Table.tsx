@@ -12,7 +12,7 @@ import isEqual from 'lodash/isEqual';
 
 import { getReactChildrenComponent, getReactChildrenProps, isReactComponent } from '../Helpers/functions';
 import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 import TableActions from './Actions';
 import TableCell, { ITableCellProps } from './Cell';
 import TableCollapse from './Collapse';
@@ -45,6 +45,7 @@ const useStyles = makeStyles(() =>
 
 interface IProps extends Pick<TableProps, 'id' | 'children'> {
   loading?: boolean;
+  initialOrdenation?: ITableSortable;
   /**
    * Function called when clicking on an ordered column
    */
@@ -116,6 +117,7 @@ const Table = React.memo<IProps>(props => {
     maxHeight,
     messages,
     stripedRows,
+    initialOrdenation,
     ...rest
   } = props;
 
@@ -187,11 +189,10 @@ const Table = React.memo<IProps>(props => {
 
   const hasCollapseData = React.useMemo(() => rows.some(v => v.collapse), [rows]);
 
-  const numberColumns = React.useMemo(() => columns?.length + Number(!!actions) + Number(hasCollapseData) || 0, [
-    columns,
-    actions,
-    hasCollapseData
-  ]);
+  const numberColumns = React.useMemo(
+    () => columns?.length + Number(!!actions) + Number(hasCollapseData) || 0,
+    [columns, actions, hasCollapseData]
+  );
 
   const hasColumnFixed = React.useMemo(
     () => !!(actions?.fixed || (columns?.length && columns.filter(c => c.fixed).length)),
@@ -226,7 +227,8 @@ const Table = React.memo<IProps>(props => {
       hasColumnAction,
       numberColumns,
       isMobile,
-      stripedRows
+      stripedRows,
+      initialOrdenation
     }),
     [
       actions,
@@ -243,7 +245,8 @@ const Table = React.memo<IProps>(props => {
       rows,
       isMobile,
       tableMessages,
-      stripedRows
+      stripedRows,
+      initialOrdenation
     ]
   );
 

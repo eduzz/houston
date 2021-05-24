@@ -3,6 +3,7 @@ import * as React from 'react';
 import { NEVER, Observable, Subject } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
+import { getConfig } from '../config';
 import useObservable from '../useObservable';
 
 /**
@@ -22,12 +23,14 @@ export default function useCallbackObservable<T>(
       switchMap(args =>
         observableGenerator(...args).pipe(
           catchError(err => {
+            getConfig().onUnhandledError(err, 'hooks');
             setError(err);
             return NEVER;
           })
         )
       )
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
   const callback = React.useCallback((...args: any[]) => submitted$.next(args), [submitted$]);

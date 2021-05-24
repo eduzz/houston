@@ -19,6 +19,8 @@ import { Box, Flex, jsx } from 'theme-ui';
 import { Header } from '../Header';
 import NavHeadings from '../NavHeadings';
 
+styles.wrapper.gridTemplateColumns = '300px minmax(0, 1fr)';
+
 export const Layout = ({ children, /*pageContext = {},*/ doc = {}, ...rest }) => {
   const {
     themeConfig: { mainContainer: { fullscreen, align = 'center' } = {} }

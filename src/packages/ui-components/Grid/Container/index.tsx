@@ -5,7 +5,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
-import WrapperTheme from '../../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import GridContextProvider from '../context';
 import { IContainerType } from '../interfaces';
 
@@ -33,7 +33,7 @@ const useStyles = makeStyles(() =>
 
 type ContainerPropsExtends = 'id' | 'className' | 'children' | 'style' | 'tabIndex';
 
-export type IConainterLayout = 'fluid' | 'solid';
+export type IContainterLayout = 'fluid' | 'solid';
 
 export interface IContainerProps extends Pick<ContainerProps, ContainerPropsExtends> {
   /**
@@ -54,7 +54,7 @@ export interface IContainerProps extends Pick<ContainerProps, ContainerPropsExte
    *
    * default `solid`
    */
-  layout?: IConainterLayout;
+  layout?: IContainterLayout;
 }
 
 const Container = React.forwardRef<HTMLDivElement, IContainerProps>((props, ref) => {

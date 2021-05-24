@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme =>
     },
 
     striped: {
-      background: theme.palette.grey[100]
+      background: 'transparent'
     }
   })
 );
@@ -40,10 +40,11 @@ const Columns = React.memo(() => {
     hasCollapseData,
     numberColumns,
     hasColumnAction,
-    stripedRows
+    stripedRows,
+    initialOrdenation
   } = useTableContext();
 
-  const [sortable, setSortable] = React.useState<ITableSortable | null>(null);
+  const [sortable, setSortable] = React.useState<ITableSortable | null>(initialOrdenation || null);
 
   const handleClickSortable = React.useCallback(
     (field: string) => {
@@ -110,14 +111,12 @@ const Columns = React.memo(() => {
               </TableCell>
             );
           })}
-
         {hasColumnAction && (
           <TableCell align={columnAction[0]?.align} width={50} className={stripedRows && classes.striped}>
             {columnAction[0]?.label === false && <>&nbsp;</>}
             {!columnAction[0]?.label && columnAction[0].label !== false ? 'Ações' : columnAction[0].label}
           </TableCell>
         )}
-
         {!hasColumnAction && actions && (
           <TableCell
             align={actions?.align}
@@ -128,7 +127,6 @@ const Columns = React.memo(() => {
             {!actions?.label && actions.label !== false ? 'Ações' : actions.label}
           </TableCell>
         )}
-
         {hasCollapseData && <TableCell width={50} />}
       </TableRow>
     </TableHead>

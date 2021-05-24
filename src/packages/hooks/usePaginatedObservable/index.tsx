@@ -3,10 +3,10 @@ import * as React from 'react';
 import { Observable, of } from 'rxjs';
 import { delay, switchMap, tap } from 'rxjs/operators';
 
-// @ts-ignore
-import isEqual from 'lodash/isEqual';
-
 import useObservable from '../useObservable';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const isEqual = require('lodash/isEqual');
 
 export interface IPaginationParams {
   page: number;
@@ -61,8 +61,8 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
         delete sendParams._retry;
         return observableGenerator(sendParams);
       }),
-      tap(
-        response => {
+      tap({
+        next: response => {
           setIsLoading(false);
           setIsLoadingMore(false);
 
@@ -73,12 +73,13 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
             return { total, result, hasMore: result.length < total };
           });
         },
-        () => {
+        error: () => {
           setIsLoading(false);
           setIsLoadingMore(false);
         }
-      )
+      })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, ...deps]);
 
   const retry = React.useCallback(() => {

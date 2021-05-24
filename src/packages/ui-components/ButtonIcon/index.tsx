@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import IconButtonMUI, { IconButtonProps } from '@material-ui/core/IconButton';
 
-import WrapperTheme from '../ThemeProvider/WrapperTheme';
+import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 
 type ButtonPropsExtends = 'disabled' | 'children' | 'onClick' | 'className' | 'size';
 

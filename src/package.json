@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@eduzz/houston-docs",
-  "version": "2.0.0-rc.41",
+  "version": "0.0.1",
   "license": "MIT",
   "files": [
     "src/",
@@ -14,14 +14,14 @@
     "build": "docz build"
   },
   "dependencies": {
-    "@emotion/react": "11.1.1",
-    "@emotion/styled": "11.0.0",
+    "@emotion/react": "11.4.0",
+    "@emotion/styled": "11.3.0",
     "docz": "latest",
-    "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "react": "^16",
+    "react-dom": "^16"
   },
   "devDependencies": {
-    "@types/react": "16.8.23",
-    "@types/react-dom": "16.8.4"
+    "@types/react": "^16",
+    "@types/react-dom": "^16"
   }
 }
