@@ -1,14 +1,19 @@
 import * as React from 'react';
 
-import { IShowcaseStep } from './interfaces';
-import { IShowcaseButtonProps } from './ShowcaseButton';
+import { IShowcaseStep, IShowcaseButtons } from './interfaces';
+import { IShowcaseTitleProps } from './ShowcaseTitle';
 
 interface IShowcaseContext {
+  title: IShowcaseTitleProps;
+  stepCounter: boolean;
   steps: IShowcaseStep[];
-  button: IShowcaseButtonProps;
-
+  genericButtons: IShowcaseButtons;
+  size: 'small' | 'medium' | 'large';
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  onNextStep: () => void;
+  onPreviousStep: () => void;
+  handleClose: () => void;
 }
 
 export const ShowcaseContext = React.createContext<IShowcaseContext>({} as IShowcaseContext);
