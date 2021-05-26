@@ -22,3 +22,5 @@ yarn-error.log*
 
 !extra.d.ts
 !.prettierrc.js
+
+/_dump

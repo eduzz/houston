@@ -18,6 +18,7 @@
     "prepare": "yarn husky install",
     "publish": "NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN sh ./scripts/publish-all.sh",
     "change-version": "sh ./scripts/change-version.sh",
+    "create-icon": "sh ./scripts/create-icon.sh",
     "clean": "sh ./scripts/clean.sh",
     "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\" \"./**/*.mdx\"",
     "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -f yarn.lock && yarn install",
