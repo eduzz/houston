@@ -40,7 +40,7 @@ const Steps = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            margin: '0 20px 90px 0',
+            margin: '0 20px 96px 0',
 
             '& .content-image': {
               [theme.breakpoints.up('xs')]: {
@@ -48,12 +48,12 @@ const Steps = () => {
                 height: 222
               },
 
-              [theme.breakpoints.up('md')]: {
+              [theme.breakpoints.up('sm')]: {
                 width: size === 'small' ? widthSizes[size] : 420,
                 height: size === 'small' ? heightSizes[size] : 346
               },
 
-              [theme.breakpoints.up('lg')]: {
+              [theme.breakpoints.up('md')]: {
                 width: size === 'small' || size === 'medium' ? widthSizes[size] : 482,
                 height: size === 'small' || size === 'medium' ? heightSizes[size] : 370
               },
@@ -70,11 +70,11 @@ const Steps = () => {
                 WebkitLineClamp: 6
               },
 
-              [theme.breakpoints.up('md')]: {
+              [theme.breakpoints.up('sm')]: {
                 WebkitLineClamp: size === 'small' ? lineClamps[size] : 4
               },
 
-              [theme.breakpoints.up('lg')]: {
+              [theme.breakpoints.up('md')]: {
                 WebkitLineClamp: size === 'small' || size === 'medium' ? lineClamps[size] : 3
               },
               alignSelf: 'baseline',
@@ -96,8 +96,8 @@ const Steps = () => {
 
   const classes = useStyles();
   const theme = useTheme();
-  const sm = useMediaQuery<Theme>(theme.breakpoints.down('sm'));
-  const md = useMediaQuery<Theme>(theme.breakpoints.down('md'));
+  const sm = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
+  const md = useMediaQuery<Theme>(theme.breakpoints.down('sm'));
 
   React.useEffect(() => {
     if (sm || size === 'small') {

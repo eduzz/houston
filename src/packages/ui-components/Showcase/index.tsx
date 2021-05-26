@@ -37,11 +37,6 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
     medium: 468
   };
 
-  const heightSizes = {
-    small: 479,
-    medium: 555
-  };
-
   const useStyles = makeStyles(theme =>
     createStyles({
       modal: {
@@ -49,11 +44,11 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
           width: 296
         },
 
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
           width: size === 'small' ? widthSizes[size] : 468
         },
 
-        [theme.breakpoints.up('lg')]: {
+        [theme.breakpoints.up('md')]: {
           width: size === 'small' || size === 'medium' ? widthSizes[size] : 530
         },
 
@@ -64,7 +59,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
         background: 'white',
         borderRadius: 4,
         transform: 'translate(-50%, -50%)',
-        maxHeight: '75vh',
+        maxHeight: '85vh',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
@@ -76,15 +71,15 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
 
           '& .card-content-mui': {
             [theme.breakpoints.up('xs')]: {
-              width: 248
+              width: 296
+            },
+
+            [theme.breakpoints.up('sm')]: {
+              width: size === 'small' ? widthSizes[size] : 468
             },
 
             [theme.breakpoints.up('md')]: {
-              width: size === 'small' ? heightSizes[size] : 420
-            },
-
-            [theme.breakpoints.up('lg')]: {
-              width: size === 'small' || size === 'medium' ? widthSizes[size] : 482
+              width: size === 'small' || size === 'medium' ? widthSizes[size] : 530
             },
 
             padding: '16px 24px 0'

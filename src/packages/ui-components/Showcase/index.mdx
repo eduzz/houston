@@ -1,0 +1,96 @@
+---
+name: Showcase
+route: /ui-components/showcase
+menu: eduzz/houston-ui
+submenu: Componentes
+---
+
+import { useState } from 'react';
+
+import { Playground } from 'docz';
+
+import Button from '../Button';
+import Column from '../Grid/Column';
+import Container from '../Grid/Container';
+import Row from '../Grid/Row';
+import Showcase from './index.tsx';
+
+# Showcase
+
+O componente Showcase é utilizado para exibir informações de forma interativa ao usuário.
+
+### Importação
+
+```ts
+import Showcase from '@eduzz/houston-ui/Showcase';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const [open, setOpen] = useState(false);
+    const setModalOpen = () => setOpen(true);
+    return (
+      <Container>
+        <Row justify='center'>
+          <Column xs={12}>
+            <Button onClick={setModalOpen} variant='outlined'>
+              Abrir Showcase Large
+            </Button>
+            <Showcase
+              open={open}
+              onFinish={() => console.log('Enviar para o analytics que o usuário finalizou todos os steps')}
+              onNext={currentStep => console.log(`Salvar no localstorage o step ${currentStep}`)}
+              onPrevious={currentStep => console.log('Mostrar toast perguntado se o usuário precisa de ajuda.')}
+              onClose={currentStep => console.log('Salvar no localstorage e enviar para o analytics')}
+              stepCounter
+            >
+              <Showcase.Title>Tiringa para presidente do Brasil!</Showcase.Title>
+              <Showcase.Step>
+                <Showcase.Image src='https://pbs.twimg.com/media/EY_koBHX0AAuwbm.jpg' />
+                <Showcase.Text>
+                  Que Tiringa é o mais brabo todo mundo sabe, o que não sabe é que ele é a pessoa mais indicada para
+                  presidir nossa nação. Confira o porquê Tiringa deve ser o presidente.
+                </Showcase.Text>
+                <Showcase.StepButtons>
+                  <Showcase.PreviousButton label='Back' />
+                  <Showcase.NextButton label='Next' />
+                  <Showcase.CloseButton label='Close' />
+                </Showcase.StepButtons>
+              </Showcase.Step>
+              <Showcase.Step>
+                <Showcase.Image src='https://i.ytimg.com/vi/5o2WtzhE_q4/hqdefault.jpg' />
+                <Showcase.Text content='Esse é o segundo step' />
+                <Showcase.StepButtons hideCloseButton />
+              </Showcase.Step>
+              <Showcase.Step>
+                <Showcase.Image src='https://pbs.twimg.com/media/EY_koBHX0AAuwbm.jpg' />
+                <Showcase.Text>Esse é o terceiro step</Showcase.Text>
+              </Showcase.Step>
+              <Showcase.Step>
+                <Showcase.Image src='https://pbs.twimg.com/media/EY_koBHX0AAuwbm.jpg' />
+                <Showcase.Text>Esse é o quarto step</Showcase.Text>
+              </Showcase.Step>
+              <Showcase.GenericButtons>
+                <Showcase.PreviousButton label='Retroceder' />
+                <Showcase.NextButton label='Avançar' />
+                <Showcase.LastButton label='Você chegou!' />
+                <Showcase.CloseButton label='Ver depois' />
+              </Showcase.GenericButtons>
+            </Showcase>
+          </Column>
+        </Row>
+      </Container>
+    );
+  }}
+</Playground>
+
+### Propriedades
+
+| prop        | tipo                    | obrigatório | padrão    | descrição                                                                    |
+| ----------- | ----------------------- | ----------- | --------- | ---------------------------------------------------------------------------- |
+| maxSteps    | `number`                | `true`      | -         | Indica o número máximo de passos do progresso                                |
+| currentStep | `number`                | `false`     | 0         | Indica o passo atual do progresso                                            |
+| type        | `numeric`, `percentage` | `false`     | `numeric` | Indica como vai ser exibido o progresso no componente: número ou porcentagem |
+| error       | `boolean`               | `false`     | `false`   | Se `true`, altera a cor do progresso para cor de erro da paleta de cores     |

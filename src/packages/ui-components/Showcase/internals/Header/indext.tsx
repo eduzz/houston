@@ -35,11 +35,11 @@ const useStyles = makeStyles(() =>
 );
 
 const Header = () => {
-  const { currentStep, title, stepCounter, steps, handleClose } = useShowcaseContext();
+  const { currentStep, title, stepCounter, steps, size, handleClose } = useShowcaseContext();
 
   const classes = useStyles();
   const theme = useTheme();
-  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs')) || size === 'small';
 
   return (
     <Typography className={classes.header}>
@@ -51,9 +51,9 @@ const Header = () => {
       )}
 
       {isMobile && (
-        <div className='close' id='modal-default-close' onClick={() => handleClose()}>
+        <span className='close' id='modal-default-close' onClick={() => handleClose()}>
           x
-        </div>
+        </span>
       )}
     </Typography>
   );
