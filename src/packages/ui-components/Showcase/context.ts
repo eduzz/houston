@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { IShowcaseStep, IShowcaseButtons } from './interfaces';
-import { IShowcaseTitleProps } from './ShowcaseTitle';
+import { IShowcaseTitleProps } from './Title';
 
 interface IShowcaseContext {
   title: IShowcaseTitleProps;

@@ -1,14 +1,14 @@
 import { CardProps } from '@material-ui/core/Card';
 
-import ShowcaseCloseButton, { IShowcaseCloseButtonProps } from './ShowcaseCloseButton';
-import ShowcaseButtons, { IShowcaseButtonsProps } from './ShowcaseGenericButtons';
-import ShowcaseImage, { IShowcaseImageProps } from './ShowcaseImage';
-import ShowcaseLastButton, { IShowcaseLastStepProps } from './ShowcaseLastButton';
-import ShowcaseNextButton, { IShowcaseNextStepProps } from './ShowcaseNextButton';
-import ShowcasePreviousButton, { IShowcasePreviousStepProps } from './ShowcasePreviousButton';
-import ShowcaseStep, { IShowcaseStepProps } from './ShowcaseStep';
-import ShowcaseText, { IShowcaseTextProps } from './ShowcaseText';
-import ShowcaseTitle from './ShowcaseTitle';
+import ShowcaseCloseButton, { IShowcaseCloseButtonProps } from './CloseButton';
+import ShowcaseButtons, { IShowcaseButtonsProps } from './GenericButtons';
+import ShowcaseImage, { IShowcaseImageProps } from './Image';
+import ShowcaseLastButton, { IShowcaseLastStepProps } from './LastButton';
+import ShowcaseNextButton, { IShowcaseNextStepProps } from './NextButton';
+import ShowcasePreviousButton, { IShowcasePreviousStepProps } from './PreviousButton';
+import ShowcaseStep, { IShowcaseStepProps } from './Step';
+import ShowcaseText, { IShowcaseTextProps } from './Text';
+import ShowcaseTitle from './Title';
 
 type ShowcasePropsExtends = 'id' | 'className' | 'children';
 

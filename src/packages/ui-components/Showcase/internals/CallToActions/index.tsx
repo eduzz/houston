@@ -5,11 +5,11 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Button from '../../../Button';
 import { useFirstChildrenProps } from '../../../hooks/useChildrenProps';
+import ShowcaseCloseButton from '../../CloseButton';
 import { useShowcaseContext } from '../../context';
-import ShowcaseCloseButton from '../../ShowcaseCloseButton';
-import ShowcaseLastStep, { IShowcaseLastStepProps } from '../../ShowcaseLastButton';
-import ShowcaseNextStep, { IShowcaseNextStepProps } from '../../ShowcaseNextButton';
-import ShowcasePreviousStep, { IShowcasePreviousStepProps } from '../../ShowcasePreviousButton';
+import ShowcaseLastStep, { IShowcaseLastStepProps } from '../../LastButton';
+import ShowcaseNextStep, { IShowcaseNextStepProps } from '../../NextButton';
+import ShowcasePreviousStep, { IShowcasePreviousStepProps } from '../../PreviousButton';
 
 const useStyles = makeStyles(() =>
   createStyles({
