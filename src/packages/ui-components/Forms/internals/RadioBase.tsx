@@ -48,13 +48,16 @@ const BaseRadioField = React.memo<IRadioBaseFieldProps>(
     const form = formProps ?? formContext;
 
     const isChecked = React.useMemo(
-      () => (form ? form.getFieldValue(name) === String(value) : checked),
+      () => (form ? String(form.getFieldValue(name)) === String(value) : checked),
       [checked, form, name, value]
     );
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-        form?.setFieldValue(name, e.target.value);
+        const isBooleanValue = ['true', 'false'].includes(e.target.value);
+
+        form?.setFieldValue(name, isBooleanValue ? e.target.value === 'true' : e.target.value);
+
         onChange && onChange(e, checked);
       },
       [form, name, onChange]
