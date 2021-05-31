@@ -23,9 +23,5 @@
     "prepare": "yarn build",
     "lint": "yarn eslint \"./**/*.tsx\"",
     "pre-commit": "tsc -p . --noEmit"
-  },
-  "devDependencies": {
-    "plop": "^2.7.4",
-    "svg-to-jsx": "^1.0.3"
   }
 }

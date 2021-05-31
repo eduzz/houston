@@ -4,10 +4,10 @@ import { IconWebBase } from '../interfaces';
 import IconBase from '../utils/wrapperWeb';
 import Icon from './svg';
 
-const IconWhatsAppOutline = React.memo<IconWebBase>(({ ...rest }) => (
+const IconWhatsappOutline = React.memo<IconWebBase>(({ ...rest }) => (
   <IconBase {...rest}>
     <Icon />
   </IconBase>
 ));
 
-export default IconWhatsAppOutline;
+export default IconWhatsappOutline;

@@ -6,33 +6,7 @@ menu: eduzz/houston-icons
 
 import { Playground } from 'docz';
 
-import IconAdd from './Add';
-import IconAlertOutline from './AlertOutline';
-import IconAlertSolid from './AlertSolid';
-import IconAnticipation from './Anticipation';
-import IconApps from './Apps';
-import IconArrowDown from './ArrowDown';
-import IconArrowLeft from './ArrowLeft';
-import IconArrowRight from './ArrowRight';
-import IconArrowUp from './ArrowUp';
-import IconAvatarOutline from './AvatarOutline';
-import IconAvatarSolid from './AvatarSolid';
-import IconBanksplip from './Bankslip';
-import IconBetaTester from './BetaTester';
-import IconBoxOutline from './BoxOutline';
-import IconBoxSolid from './BoxSolid';
-import IconBullet from './Bullet';
-import IconCalendar from './Calendar';
-import IconCameraFrontOutline from './CameraFrontOutline';
-import IconCameraFrontSolid from './CameraFrontSolid';
-import IconCameraOutline from './CameraOutline';
-import IconCameraSolid from './CameraSolid';
-import IconCancel from './Cancel';
-import IconCardOutline from './CardOutline';
-import IconCardSolid from './CardSolid';
-import IconWhatsApp from './WhatsApp';
-import IconWhatsAppOutline from './WhatsAppOutline';
-import IconWhatsAppSolid from './WhatsAppSolid';
+import * as Icon from './';
 
 # Ícones
 
@@ -45,114 +19,11 @@ Coleção de ícones do Houston.
     const size = 'large';
     const icons = [
       {
-        icon: <IconAdd size={size} />,
+        icon: <Icon.Add size={size} />,
         name: 'Add'
-      },
-      {
-        icon: <IconAlertOutline size={size} />,
-        name: 'AlertOutline'
-      },
-      {
-        icon: <IconAlertSolid size={size} />,
-        name: 'AlertSolid'
-      },
-      {
-        icon: <IconAnticipation size={size} />,
-        name: 'Anticipation'
-      },
-      {
-        icon: <IconApps size={size} />,
-        name: 'Apps'
-      },
-      {
-        icon: <IconArrowDown size={size} />,
-        name: 'ArrowDown'
-      },
-      {
-        icon: <IconArrowLeft size={size} />,
-        name: 'ArrowLeft'
-      },
-      {
-        icon: <IconArrowRight size={size} />,
-        name: 'ArrowRight'
-      },
-      {
-        icon: <IconArrowUp size={size} />,
-        name: 'ArrowUp'
-      },
-      {
-        icon: <IconAvatarOutline size={size} />,
-        name: 'AvatarOutline'
-      },
-      {
-        icon: <IconAvatarSolid size={size} />,
-        name: 'AvatarSolid'
-      },
-      {
-        icon: <IconBanksplip size={size} />,
-        name: 'Banksplip'
-      },
-      {
-        icon: <IconBetaTester size={size} />,
-        name: 'BetaTester'
-      },
-      {
-        icon: <IconBoxOutline size={size} />,
-        name: 'BoxOutline'
-      },
-      {
-        icon: <IconBoxSolid size={size} />,
-        name: 'BoxSolid'
-      },
-      {
-        icon: <IconBullet size={size} />,
-        name: 'Bullet'
-      },
-      {
-        icon: <IconCalendar size={size} />,
-        name: 'Calendar'
-      },
-      {
-        icon: <IconCameraOutline size={size} />,
-        name: 'CameraOutline'
-      },
-      {
-        icon: <IconCameraSolid size={size} />,
-        name: 'CameraSolid'
-      },
-      {
-        icon: <IconCameraFrontOutline size={size} />,
-        name: 'CameraFrontOutline'
-      },
-      {
-        icon: <IconCameraFrontSolid size={size} />,
-        name: 'CameraFrontSolid'
-      },
-      {
-        icon: <IconCancel size={size} />,
-        name: 'Cancel'
-      },
-      {
-        icon: <IconCardOutline size={size} />,
-        name: 'CardOutline'
-      },
-      {
-        icon: <IconCardSolid size={size} />,
-        name: 'CardSolid'
-      },
-      {
-        icon: <IconWhatsApp size={size} />,
-        name: 'WhatsApp'
-      },
-      {
-        icon: <IconWhatsAppSolid size={size} />,
-        name: 'WhatsAppSolid'
-      },
-      {
-        icon: <IconWhatsAppOutline size={size} />,
-        name: 'WhatsAppOutline'
       }
     ];
+    console.log(Icon.Module);
     return (
       <div className='list-icons'>
         {icons
