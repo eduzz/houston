@@ -76,7 +76,7 @@ const useStyles = makeStyles(() =>
 );
 
 const StepButtons = (buttons: React.ReactNode[] = []) => {
-  const { steps, currentStep, size, onNextStep, onPreviousStep, handleClose } = useShowcaseContext();
+  const { steps, currentStep, size, onNextStep, onPreviousStep, handleClose, handleFinish } = useShowcaseContext();
   const classes = useStyles();
 
   const lastButton = useFirstChildrenProps<IShowcaseLastStepProps>(buttons, ShowcaseLastStep);
@@ -89,13 +89,21 @@ const StepButtons = (buttons: React.ReactNode[] = []) => {
   if (isMobile) {
     return (
       <div className={classes.ctas}>
-        <div className='mobile-buttons'>
-          <div>{currentStep !== 1 && <div className='arrow-left' onClick={() => onPreviousStep()} />}</div>
-          <span>
-            {currentStep}/{steps.length}
-          </span>
-          <div>{currentStep !== steps.length && <div className='arrow-right' onClick={() => onNextStep()} />}</div>
-        </div>
+        {steps.length === 1 ? (
+          <div className='standard-buttons'>
+            <Button variant='contained' onClick={() => handleFinish()}>
+              {lastButton?.label ? lastButton.label : 'Ok, entendi!'}
+            </Button>
+          </div>
+        ) : (
+          <div className='mobile-buttons'>
+            <div>{currentStep !== 1 && <div className='arrow-left' onClick={() => onPreviousStep()} />}</div>
+            <span>
+              {currentStep}/{steps.length}
+            </span>
+            <div>{currentStep !== steps.length && <div className='arrow-right' onClick={() => onNextStep()} />}</div>
+          </div>
+        )}
       </div>
     );
   }
@@ -104,7 +112,7 @@ const StepButtons = (buttons: React.ReactNode[] = []) => {
     <div className={classes.ctas}>
       {steps.length === 1 && (
         <div className='standard-buttons'>
-          <Button variant='contained' onClick={() => handleClose()}>
+          <Button variant='contained' onClick={() => handleFinish()}>
             {lastButton?.label ? lastButton.label : 'Ok, entendi!'}
           </Button>
         </div>
@@ -136,7 +144,7 @@ const StepButtons = (buttons: React.ReactNode[] = []) => {
               {previousButton?.label ? previousButton.label : 'Anterior'}
             </Button>
           )}
-          <Button variant='contained' onClick={() => handleClose()}>
+          <Button variant='contained' onClick={() => handleFinish()}>
             {lastButton?.label ? lastButton.label : 'Ok, entendi!'}
           </Button>
         </div>

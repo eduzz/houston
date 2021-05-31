@@ -26,6 +26,7 @@ import ShowcaseStep from './Step';
 import ShowcaseStepButtons from './StepButtons';
 import ShowcaseText, { IShowcaseTextProps } from './Text';
 import ShowcaseTitle, { IShowcaseTitleProps } from './Title';
+import useBreakpoint from './useBreakpoint';
 import useStepHandler from './useStepHandler';
 
 const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
@@ -34,23 +35,16 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
 
   const widthSizes = {
     small: 296,
-    medium: 468
+    medium: 468,
+    large: 530
   };
 
-  const useStyles = makeStyles(theme =>
+  const breakpoint = useBreakpoint(size);
+
+  const useStyles = makeStyles(() =>
     createStyles({
       modal: {
-        [theme.breakpoints.up('xs')]: {
-          width: 296
-        },
-
-        [theme.breakpoints.up('sm')]: {
-          width: size === 'small' ? widthSizes[size] : 468
-        },
-
-        [theme.breakpoints.up('md')]: {
-          width: size === 'small' || size === 'medium' ? widthSizes[size] : 530
-        },
+        width: widthSizes[breakpoint],
 
         position: 'fixed',
         top: '50%',
@@ -70,18 +64,8 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
           boxShadow: 'none',
 
           '& .card-content-mui': {
-            [theme.breakpoints.up('xs')]: {
-              width: 296
-            },
-
-            [theme.breakpoints.up('sm')]: {
-              width: size === 'small' ? widthSizes[size] : 468
-            },
-
-            [theme.breakpoints.up('md')]: {
-              width: size === 'small' || size === 'medium' ? widthSizes[size] : 530
-            },
-
+            boxSizing: 'border-box',
+            width: widthSizes[breakpoint],
             padding: '16px 24px 0'
           },
 
@@ -101,7 +85,13 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
 
   const { currentStep, setCurrentStep, nextStep, previousStep } = useStepHandler(initialStep);
 
-  const [modalState, setModalState] = React.useState<boolean>(open ? open : true);
+  const [modalState, setModalState] = React.useState<boolean>(true);
+
+  const setModalOpen = React.useCallback((modalState: boolean) => {
+    setModalState(modalState);
+
+    return;
+  }, []);
 
   const title = useFirstChildrenProps<IShowcaseTitleProps>(children, ShowcaseTitle);
   const genericButtons: IShowcaseButtons = React.useMemo(() => {
@@ -148,17 +138,21 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
     previousStep();
   }, [previousStep, onPrevious, currentStep]);
 
-  const handleClose = React.useCallback(() => {
-    if (currentStep < steps.length && onClose) {
-      onClose(currentStep);
-    }
-
-    if (currentStep === steps.length && onFinish) {
+  const handleFinish = React.useCallback(() => {
+    if (onFinish) {
       onFinish();
     }
 
     setModalState(false);
-  }, [setModalState, onClose, onFinish, currentStep, steps]);
+  }, [onFinish, setModalState]);
+
+  const handleClose = React.useCallback(() => {
+    if (onClose) {
+      onClose(currentStep);
+    }
+
+    setModalState(false);
+  }, [setModalState, onClose, currentStep]);
 
   const contextValue = React.useMemo(
     () => ({
@@ -171,7 +165,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
       setCurrentStep,
       onNextStep,
       onPreviousStep,
-      onFinish,
+      handleFinish,
       handleClose
     }),
     [
@@ -184,10 +178,19 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
       setCurrentStep,
       onNextStep,
       onPreviousStep,
-      onFinish,
+      handleFinish,
       handleClose
     ]
   );
+
+  React.useEffect(() => {
+    if (open === undefined) {
+      setModalOpen(true);
+      return;
+    }
+
+    setModalOpen(open);
+  }, [open, setModalOpen]);
 
   return (
     <WrapperTheme>

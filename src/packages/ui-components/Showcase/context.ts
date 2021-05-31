@@ -13,6 +13,7 @@ interface IShowcaseContext {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   onNextStep: () => void;
   onPreviousStep: () => void;
+  handleFinish: () => void;
   handleClose: () => void;
 }
 
