@@ -53,7 +53,8 @@ interface IProps extends Pick<TableProps, 'id' | 'children'> {
   /**
    * Function called when clicking in icon action in row
    */
-  onActionsClick?: (data: unknown) => void;
+  onActionsClick?: (event: React.MouseEvent<HTMLElement>, data: unknown) => void;
+
   /**
    * Default `false`
    */
@@ -181,8 +182,8 @@ const Table = React.memo<IProps>(props => {
   );
 
   const handleClickActions = React.useCallback(
-    (data: unknown) => {
-      onActionsClick && onActionsClick(data);
+    (event: React.MouseEvent<HTMLElement>, data: unknown) => {
+      onActionsClick && onActionsClick(event, data);
     },
     [onActionsClick]
   );
