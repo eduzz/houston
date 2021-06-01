@@ -55,7 +55,7 @@ const Collapse = React.memo(() => {
   const { collapse, row, handleSetCurrentRow, anchorEl, handleCloseActions, options, currentRow } = useCollapse();
   const { loading = false, columns = [], actions = null, type = 'table', rows, onActionsClick } = row?.collapse;
 
-  const columnAction = React.useMemo(() => columns.filter(c => c.type === 'action'), [columns])[0];
+  const columnAction = React.useMemo(() => columns.find(c => c.type === 'action'), [columns]);
 
   const numberColumnsCollapse = React.useMemo(() => columns?.length + 1 + Number(!!actions) || 1, [columns, actions]);
 
