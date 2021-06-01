@@ -53,11 +53,15 @@ const Collapse = React.memo(() => {
   const { numberColumns } = useTableContext();
 
   const { collapse, row, handleSetCurrentRow, anchorEl, handleCloseActions, options, currentRow } = useCollapse();
-  const { loading = false, columns = [], actions = null, type = 'table', rows } = row?.collapse;
+  const { loading = false, columns = [], actions = null, type = 'table', rows, onActionsClick } = row?.collapse;
+
+  const columnAction = React.useMemo(() => columns.filter(c => c.type === 'action'), [columns])[0];
 
   const numberColumnsCollapse = React.useMemo(() => columns?.length + 1 + Number(!!actions) || 1, [columns, actions]);
 
   const lazyRows = useLazyArray(rows);
+
+  const rowData = row.data;
 
   return (
     <>
@@ -68,18 +72,27 @@ const Collapse = React.memo(() => {
               {!loading && type === 'table' && (
                 <TableHead>
                   <TableRow>
-                    {columns.map(column => {
-                      const columnProps = { ...column };
-                      delete columnProps.sortable;
+                    {columns
+                      .filter(c => c.type !== 'action')
+                      .map(column => {
+                        const columnProps = { ...column };
+                        delete columnProps.sortable;
 
-                      return (
-                        <TableCell key={`collapse-column-${column.field}`} {...columnProps}>
-                          {column.label}
-                        </TableCell>
-                      );
-                    })}
+                        return (
+                          <TableCell key={`collapse-column-${column.field}`} {...columnProps}>
+                            {column.label}
+                          </TableCell>
+                        );
+                      })}
 
-                    {actions && (
+                    {!!columnAction && (
+                      <TableCell align={columnAction?.align}>
+                        {columnAction?.label === false && <>&nbsp;</>}
+                        {!columnAction?.label && columnAction.label !== false ? 'Ações' : columnAction.label}
+                      </TableCell>
+                    )}
+
+                    {!columnAction && actions && (
                       <TableCell align={actions?.align}>
                         {actions?.label === false && <>&nbsp;</>}
                         {!actions?.label && actions.label !== false ? 'Ações' : actions.label}
@@ -99,7 +112,15 @@ const Collapse = React.memo(() => {
                         <Cell key={`collapse-row-${index}-cell-${i}`} list={type === 'list'} {...cell} />
                       ))}
 
-                      {actions && (
+                      {!!columnAction && (
+                        <TableCell align='right' classes={{ root: type === 'list' && classes.list }}>
+                          <div className={classes.wrapperButtonActions} onClick={() => onActionsClick(rowData)}>
+                            <MoreHorizIcon />
+                          </div>
+                        </TableCell>
+                      )}
+
+                      {!columnAction && actions && (
                         <TableCell align='right' classes={{ root: type === 'list' && classes.list }}>
                           <div className={classes.wrapperButtonActions} onClick={e => handleSetCurrentRow(e, row)}>
                             <MoreHorizIcon />

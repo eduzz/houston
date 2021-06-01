@@ -16,6 +16,10 @@ export interface ITableCollapseProps extends Pick<TableProps, ITableCollapse> {
    * If `list` will not render the bottom columns and borders
    */
   type?: ITableCollapseType;
+  /**
+   * Function called when clicking in icon action in row
+   */
+  onActionsClick?: (data: unknown) => void;
 }
 
 export default React.memo<ITableCollapseProps>(() => null);
