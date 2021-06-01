@@ -19,7 +19,7 @@ export interface ITableCollapseProps extends Pick<TableProps, ITableCollapse> {
   /**
    * Function called when clicking in icon action in row
    */
-  onActionsClick?: (data: unknown) => void;
+  onActionsClick?: (event: React.MouseEvent<HTMLElement>, data: unknown) => void;
 }
 
 export default React.memo<ITableCollapseProps>(() => null);

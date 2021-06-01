@@ -114,7 +114,7 @@ const Collapse = React.memo(() => {
 
                       {!!columnAction && (
                         <TableCell align='right' classes={{ root: type === 'list' && classes.list }}>
-                          <div className={classes.wrapperButtonActions} onClick={() => onActionsClick(rowData)}>
+                          <div className={classes.wrapperButtonActions} onClick={e => onActionsClick(e, rowData)}>
                             <MoreHorizIcon />
                           </div>
                         </TableCell>
