@@ -129,7 +129,7 @@ const RowsMobile = React.memo<IRowProps>(
                       )}
 
                       {hasColumnAction && (
-                        <ButtonIcon size='small' onClick={() => handleClickActions(data)}>
+                        <ButtonIcon size='small' onClick={e => handleClickActions(e, data)}>
                           <MoreHorizIcon />
                         </ButtonIcon>
                       )}
