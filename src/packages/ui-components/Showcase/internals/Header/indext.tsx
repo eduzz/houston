@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { makeStyles, createStyles, Theme, useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
@@ -35,11 +34,9 @@ const useStyles = makeStyles(() =>
 );
 
 const Header = () => {
-  const { currentStep, title, stepCounter, steps, size, handleClose } = useShowcaseContext();
+  const { currentStep, title, stepCounter, steps, isMobile, handleClose } = useShowcaseContext();
 
   const classes = useStyles();
-  const theme = useTheme();
-  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs')) || size === 'small';
 
   return (
     <Typography className={classes.header}>

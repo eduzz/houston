@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { makeStyles, createStyles, Theme, useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import Button from '../../../Button';
 import { useFirstChildrenProps } from '../../../hooks/useChildrenProps';
@@ -76,20 +75,21 @@ const useStyles = makeStyles(() =>
 );
 
 const StepButtons = (buttons: React.ReactNode[] = []) => {
-  const { steps, currentStep, size, onNextStep, onPreviousStep, handleClose, handleFinish } = useShowcaseContext();
+  const { steps, currentStep, isMobile, onNextStep, onPreviousStep, handleClose, handleFinish } = useShowcaseContext();
   const classes = useStyles();
 
   const lastButton = useFirstChildrenProps<IShowcaseLastStepProps>(buttons, ShowcaseLastStep);
   const nextButton = useFirstChildrenProps<IShowcaseNextStepProps>(buttons, ShowcaseNextStep);
   const previousButton = useFirstChildrenProps<IShowcasePreviousStepProps>(buttons, ShowcasePreviousStep);
   const closeButton = useFirstChildrenProps<IShowcasePreviousStepProps>(buttons, ShowcaseCloseButton);
-  const theme = useTheme();
-  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs')) || size === 'small';
+  const isFirstStep = currentStep === 1;
+  const isLastStep = currentStep === steps.length;
+  const isSingleStep = steps.length === 1;
 
   if (isMobile) {
     return (
       <div className={classes.ctas}>
-        {steps.length === 1 ? (
+        {isSingleStep ? (
           <div className='standard-buttons'>
             <Button variant='contained' onClick={() => handleFinish()}>
               {lastButton?.label ? lastButton.label : 'Ok, entendi!'}
@@ -97,11 +97,11 @@ const StepButtons = (buttons: React.ReactNode[] = []) => {
           </div>
         ) : (
           <div className='mobile-buttons'>
-            <div>{currentStep !== 1 && <div className='arrow-left' onClick={() => onPreviousStep()} />}</div>
+            <div>{!isFirstStep && <div className='arrow-left' onClick={() => onPreviousStep()} />}</div>
             <span>
               {currentStep}/{steps.length}
             </span>
-            <div>{currentStep !== steps.length && <div className='arrow-right' onClick={() => onNextStep()} />}</div>
+            <div>{!isLastStep && <div className='arrow-right' onClick={() => onNextStep()} />}</div>
           </div>
         )}
       </div>
@@ -110,7 +110,7 @@ const StepButtons = (buttons: React.ReactNode[] = []) => {
 
   return (
     <div className={classes.ctas}>
-      {steps.length === 1 && (
+      {isSingleStep && (
         <div className='standard-buttons'>
           <Button variant='contained' onClick={() => handleFinish()}>
             {lastButton?.label ? lastButton.label : 'Ok, entendi!'}
@@ -126,7 +126,7 @@ const StepButtons = (buttons: React.ReactNode[] = []) => {
             </Button>
           </div>,
           <div key='standard-buttons' className='standard-buttons'>
-            {currentStep !== 1 && (
+            {!isFirstStep && (
               <Button className='--secondary-color' variant='text' onClick={() => onPreviousStep()}>
                 {previousButton?.label ? previousButton.label : 'Anterior'}
               </Button>
@@ -137,9 +137,9 @@ const StepButtons = (buttons: React.ReactNode[] = []) => {
           </div>
         ]}
 
-      {steps.length > 1 && currentStep === steps.length && (
+      {steps.length > 1 && isLastStep && (
         <div className='standard-buttons'>
-          {currentStep !== 1 && (
+          {!isFirstStep && (
             <Button className='--secondary-color' variant='text' onClick={() => onPreviousStep()}>
               {previousButton?.label ? previousButton.label : 'Anterior'}
             </Button>

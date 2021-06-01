@@ -10,6 +10,7 @@ interface IShowcaseContext {
   genericButtons: IShowcaseButtons;
   size: 'small' | 'medium' | 'large';
   currentStep: number;
+  isMobile: boolean;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   onNextStep: () => void;
   onPreviousStep: () => void;

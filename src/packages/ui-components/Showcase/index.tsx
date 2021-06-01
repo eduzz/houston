@@ -4,7 +4,8 @@ import CardMUI, { CardProps } from '@material-ui/core/Card';
 import CardActionsMUI from '@material-ui/core/CardActions';
 import CardContentMUI from '@material-ui/core/CardContent';
 import ModalMUI from '@material-ui/core/Modal';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import clsx from 'clsx';
 
@@ -43,9 +44,8 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
 
   const useStyles = makeStyles(() =>
     createStyles({
-      modal: {
+      modalContent: {
         width: widthSizes[breakpoint],
-
         position: 'fixed',
         top: '50%',
         left: '50%',
@@ -89,8 +89,6 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
 
   const setModalOpen = React.useCallback((modalState: boolean) => {
     setModalState(modalState);
-
-    return;
   }, []);
 
   const title = useFirstChildrenProps<IShowcaseTitleProps>(children, ShowcaseTitle);
@@ -154,6 +152,9 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
     setModalState(false);
   }, [setModalState, onClose, currentStep]);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs')) || size === 'small';
+
   const contextValue = React.useMemo(
     () => ({
       title,
@@ -162,6 +163,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
       genericButtons,
       size,
       currentStep,
+      isMobile,
       setCurrentStep,
       onNextStep,
       onPreviousStep,
@@ -175,6 +177,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
       genericButtons,
       size,
       currentStep,
+      isMobile,
       setCurrentStep,
       onNextStep,
       onPreviousStep,
@@ -194,16 +197,9 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
 
   return (
     <WrapperTheme>
-      <ModalMUI
-        open={modalState}
-        onClose={handleClose}
-        aria-labelledby='showcase-modal-title'
-        aria-describedby='showcase-modal-description'
-        id={id}
-        ref={ref}
-      >
+      <ModalMUI open={modalState} onClose={handleClose} id={id} ref={ref}>
         <ShowcaseContextProvider value={contextValue}>
-          <div className={clsx(className, classes.modal)}>
+          <div className={clsx(className, classes.modalContent)}>
             <CardMUI className='card-mui'>
               <Header />
 
