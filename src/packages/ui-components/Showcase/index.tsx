@@ -4,12 +4,12 @@ import CardMUI, { CardProps } from '@material-ui/core/Card';
 import CardActionsMUI from '@material-ui/core/CardActions';
 import CardContentMUI from '@material-ui/core/CardContent';
 import ModalMUI from '@material-ui/core/Modal';
-import { makeStyles, createStyles, Theme, useTheme } from '@material-ui/core/styles';
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import clsx from 'clsx';
 
-import { getReactFirstChildrenProps, isReactComponent } from '../Helpers/functions';
+import { getReactChildrenComponent, getReactFirstChildrenProps } from '../Helpers/functions';
 import { useFirstChildrenProps } from '../hooks/useChildrenProps';
 import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 import ShowcaseCloseButton from './CloseButton';
@@ -27,133 +27,121 @@ import ShowcaseStep from './Step';
 import ShowcaseStepButtons from './StepButtons';
 import ShowcaseText, { IShowcaseTextProps } from './Text';
 import ShowcaseTitle, { IShowcaseTitleProps } from './Title';
-import useBreakpoint from './useBreakpoint';
 import useStepHandler from './useStepHandler';
 
-const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
-  const { id, className, children, stepCounter, open, initialStep, size, onNext, onPrevious, onFinish, onClose } =
-    props;
+const useStyles = makeStyles(theme => ({
+  modalContent: {
+    width: 530,
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    maxWidth: '100%',
+    background: 'white',
+    borderRadius: 4,
+    transform: 'translate(-50%, -50%)',
+    maxHeight: '85vh',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
 
-  const widthSizes = {
-    small: 296,
-    medium: 468,
-    large: 530
-  };
+    [theme.breakpoints.down('sm')]: {
+      width: 468
+    },
 
-  const breakpoint = useBreakpoint(size);
+    [theme.breakpoints.down('xs')]: {
+      width: 296
+    },
 
-  const useStyles = makeStyles(() =>
-    createStyles({
-      modalContent: {
-        width: widthSizes[breakpoint],
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        maxWidth: 'calc(100% - 24px)',
-        background: 'white',
-        borderRadius: 4,
-        transform: 'translate(-50%, -50%)',
-        maxHeight: '85vh',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+    '& .card-mui': {
+      width: '100%',
+      boxShadow: 'none',
 
-        '& .card-mui': {
-          width: '100%',
-          boxShadow: 'none',
+      '& .card-content-mui': {
+        boxSizing: 'border-box',
+        width: '100%',
+        padding: '16px 24px 0',
 
-          '& .card-content-mui': {
-            boxSizing: 'border-box',
-            width: widthSizes[breakpoint],
-            padding: '16px 24px 0'
-          },
-
-          '& .card-actions-mui': {
-            width: '100%',
-            padding: 0,
-            position: 'fixed',
-            bottom: 0,
-            background: '#fff'
-          }
+        [theme.breakpoints.down('xs')]: {
+          padding: '12px 16px 0'
         }
-      }
-    })
-  );
+      },
 
-  const classes = useStyles();
+      '& .card-actions-mui': {
+        width: '100%',
+        padding: 0,
+        position: 'fixed',
+        bottom: 0,
+        background: '#fff'
+      }
+    }
+  },
+
+  small: {
+    width: 296
+  }
+}));
+
+const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
+  const { className, children, stepCounter, open, initialStep, size, onNext, onPrevious, onFinish, onClose, ...rest } =
+    props;
 
   const { currentStep, setCurrentStep, nextStep, previousStep } = useStepHandler(initialStep);
 
+  const classes = useStyles();
+  const theme = useTheme();
+
   const [modalState, setModalState] = React.useState<boolean>(true);
 
-  const setModalOpen = React.useCallback((modalState: boolean) => {
-    setModalState(modalState);
-  }, []);
+  const setModalOpen = React.useCallback((modalState: boolean) => setModalState(modalState), []);
 
   const title = useFirstChildrenProps<IShowcaseTitleProps>(children, ShowcaseTitle);
-  const genericButtons: IShowcaseButtons = React.useMemo(() => {
-    return React.Children.map(children, (child: React.ReactElement) => {
-      if (!isReactComponent(child, ShowcaseGenericButtons)) return;
 
-      const closeButton = getReactFirstChildrenProps<IShowcaseImageProps>(child?.props?.children, ShowcaseCloseButton);
-      const lastButton = getReactFirstChildrenProps<IShowcaseImageProps>(child?.props?.children, ShowcaseLastButton);
-      const nextButton = getReactFirstChildrenProps<IShowcaseTextProps>(child?.props?.children, ShowcaseNextButton);
-      const previousButton = getReactFirstChildrenProps<IShowcaseTextProps>(
-        child?.props?.children,
-        ShowcasePreviousButton
-      );
+  const genericButtons = getReactChildrenComponent(children, ShowcaseGenericButtons).map(child => ({
+    ...child.props,
+    lastButton: getReactFirstChildrenProps<IShowcaseImageProps>(child?.props?.children, ShowcaseLastButton),
+    nextButton: getReactFirstChildrenProps<IShowcaseTextProps>(child?.props?.children, ShowcaseNextButton),
+    previousButton: getReactFirstChildrenProps<IShowcaseTextProps>(child?.props?.children, ShowcasePreviousButton),
+    closeButton: getReactFirstChildrenProps<IShowcaseImageProps>(child?.props?.children, ShowcaseCloseButton)
+  }))?.[0] as IShowcaseButtons;
 
-      return { ...child.props, lastButton, nextButton, previousButton, closeButton };
-    });
-  }, [children])[0];
-
-  const steps: IShowcaseStep[] = React.useMemo(() => {
-    return React.Children.map(children, (step: React.ReactElement) => {
-      if (!isReactComponent(step, ShowcaseStep)) return;
-
-      const images = getReactFirstChildrenProps<IShowcaseImageProps>(step?.props?.children, ShowcaseImage);
-      const text = getReactFirstChildrenProps<IShowcaseTextProps>(step?.props?.children, ShowcaseText);
-      const stepButtons = getReactFirstChildrenProps<IShowcaseButtons>(step?.props?.children, ShowcaseStepButtons);
-
-      return { ...step.props, images, text, stepButtons };
-    });
-  }, [children]);
+  const steps = getReactChildrenComponent(children, ShowcaseStep).map(child => ({
+    ...child?.props,
+    images: getReactFirstChildrenProps<IShowcaseImageProps>(child?.props?.children, ShowcaseImage),
+    text: getReactFirstChildrenProps<IShowcaseTextProps>(child?.props?.children, ShowcaseText),
+    stepButtons: getReactFirstChildrenProps<IShowcaseButtons>(child?.props?.children, ShowcaseStepButtons)
+  })) as IShowcaseStep[];
 
   const onNextStep = React.useCallback(() => {
-    if (onNext) {
-      onNext(currentStep);
-    }
-
+    onNext && onNext(currentStep);
     nextStep();
   }, [nextStep, onNext, currentStep]);
 
   const onPreviousStep = React.useCallback(() => {
-    if (onPrevious) {
-      onPrevious(currentStep);
-    }
-
+    onPrevious && onPrevious(currentStep);
     previousStep();
   }, [previousStep, onPrevious, currentStep]);
 
   const handleFinish = React.useCallback(() => {
-    if (onFinish) {
-      onFinish();
-    }
-
+    onFinish && onFinish();
     setModalState(false);
   }, [onFinish, setModalState]);
 
   const handleClose = React.useCallback(() => {
-    if (onClose) {
-      onClose(currentStep);
-    }
-
+    onClose && onClose(currentStep);
     setModalState(false);
   }, [setModalState, onClose, currentStep]);
 
-  const theme = useTheme();
   const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs')) || size === 'small';
+
+  React.useEffect(() => {
+    if (open === undefined) {
+      setModalOpen(true);
+      return;
+    }
+
+    setModalOpen(open);
+  }, [open, setModalOpen]);
 
   const contextValue = React.useMemo(
     () => ({
@@ -186,20 +174,11 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
     ]
   );
 
-  React.useEffect(() => {
-    if (open === undefined) {
-      setModalOpen(true);
-      return;
-    }
-
-    setModalOpen(open);
-  }, [open, setModalOpen]);
-
   return (
     <WrapperTheme>
-      <ModalMUI open={modalState} onClose={handleClose} id={id} ref={ref}>
+      <ModalMUI {...rest} open={modalState} onClose={handleClose} ref={ref}>
         <ShowcaseContextProvider value={contextValue}>
-          <div className={clsx(className, classes.modalContent)}>
+          <div className={clsx(className, size === 'small' && classes.small, classes.modalContent)}>
             <CardMUI className='card-mui'>
               <Header />
 
