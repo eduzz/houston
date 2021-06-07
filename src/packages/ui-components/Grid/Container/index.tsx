@@ -57,25 +57,26 @@ export interface IContainerProps extends Pick<ContainerProps, ContainerPropsExte
   layout?: IContainterLayout;
 }
 
-const Container = React.forwardRef<HTMLDivElement, IContainerProps>((props, ref) => {
-  const { children, spacing, layout = 'solid', ...containerProps } = props;
-  const classes = useStyles();
+const Container = React.forwardRef<HTMLDivElement, IContainerProps>(
+  ({ children, className, spacing = 'cozy', layout = 'solid', ...rest }, ref) => {
+    const classes = useStyles();
 
-  const contextValue = React.useMemo(() => ({ spacing }), [spacing]);
+    const contextValue = React.useMemo(() => ({ spacing }), [spacing]);
 
-  return (
-    <WrapperTheme>
-      <GridContextProvider value={contextValue}>
-        <MUIContainer
-          {...containerProps}
-          ref={ref}
-          className={clsx(classes.root, classes[spacing ?? 'cozy'], layout === 'fluid' && classes.fluid)}
-        >
-          {children}
-        </MUIContainer>
-      </GridContextProvider>
-    </WrapperTheme>
-  );
-});
+    return (
+      <WrapperTheme>
+        <GridContextProvider value={contextValue}>
+          <MUIContainer
+            {...rest}
+            ref={ref}
+            className={clsx(classes.root, classes[spacing], layout === 'fluid' && classes.fluid, className)}
+          >
+            {children}
+          </MUIContainer>
+        </GridContextProvider>
+      </WrapperTheme>
+    );
+  }
+);
 
 export default React.memo(Container);
