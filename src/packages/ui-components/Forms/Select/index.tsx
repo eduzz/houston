@@ -15,16 +15,7 @@ import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
-type FieldSelectPropsExtends =
-  | 'id'
-  | 'label'
-  | 'name'
-  | 'disabled'
-  | 'type'
-  | 'fullWidth'
-  | 'multiple'
-  | 'className'
-  | 'classes';
+type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple' | 'className';
 
 export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExtends> {
   loading?: boolean;
@@ -37,6 +28,7 @@ export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExt
   value?: any;
   onChange?: (value: any, event: React.ChangeEvent<{ name?: string; value: any }>) => any;
   margin?: 'none' | 'dense' | 'normal';
+  size?: 'normal' | 'small';
 }
 
 export interface ISelectFieldOption {
@@ -61,6 +53,7 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
       emptyOption,
       helperText,
       margin,
+      size,
       ...props
     },
     ref
@@ -117,6 +110,8 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
     const errorMessage = errorMessageProp ?? form?.getFieldError(name);
     const hasError = !!errorMessage;
 
+    const classes = React.useMemo(() => ({ select: size === 'small' ? 'input-size-small' : '' }), [size]);
+
     return (
       <WrapperTheme>
         <FormControl
@@ -129,6 +124,7 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
           <Select
             error={hasError}
             {...props}
+            classes={classes}
             inputRef={ref}
             disabled={form?.isSubmitting || props.disabled}
             name={name}

@@ -130,7 +130,7 @@ const Rows = React.memo<IRowProps>(
                   })}
 
                   {hasColumnAction && (
-                    <TableCell align='right' className={hasEndAdornment && classes.hasEndAdornment}>
+                    <TableCell align='right' className={hasEndAdornment ? classes.hasEndAdornment : null}>
                       <div className={classes.wrapperIconActions}>
                         <ButtonIcon size='small' onClick={e => handleClickActions(e, data)}>
                           <MoreHorizIcon />
@@ -140,7 +140,7 @@ const Rows = React.memo<IRowProps>(
                   )}
 
                   {!hasColumnAction && actions && (
-                    <TableCell align='right' className={actions?.fixed && classes.fixed}>
+                    <TableCell align='right' className={actions?.fixed ? classes.fixed : null}>
                       <div className={classes.wrapperIconActions}>
                         <ButtonIcon size='small' onClick={e => handleSetCurrentRow(e, row)}>
                           <MoreHorizIcon />

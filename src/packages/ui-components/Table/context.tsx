@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ITableSort } from './interface';
 
-interface ITableContext {
+export interface ITableContext {
   loading: boolean;
   // initialOrdenation?: ITableSortable;
   onSort: (params: ITableSort) => void;
@@ -11,7 +11,7 @@ interface ITableContext {
 
   // columns: ITableColumnProps[];
   sort?: ITableSort;
-  columns: Set<string>;
+  columns: string[];
   // actions: ITableActions | undefined;
 
   // currentRow: ITableRow;
@@ -30,14 +30,15 @@ interface ITableContext {
   // numberColumns: number;
 
   // isMobile: boolean;
-  // stripedRows: boolean;
+  stripedRows: boolean;
 }
 
 const TableContext = React.createContext<ITableContext>({
   loading: false,
   onSort: () => null,
   registerColumn: () => () => null,
-  columns: new Set()
+  columns: [],
+  stripedRows: false
 });
 
 export default TableContext;

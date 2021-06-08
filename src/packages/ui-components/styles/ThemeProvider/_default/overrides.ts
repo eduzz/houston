@@ -103,6 +103,15 @@ export default function overrides(palette: Palette): ICustomOverrides {
       }
     },
 
+    MuiTextField: {
+      root: {
+        '&.input-size-small input': {
+          height: 35,
+          padding: '4px 12px'
+        }
+      }
+    },
+
     MuiInputBase: {
       root: {
         fontFamily: themeVariable.fontFamily,
@@ -117,17 +126,18 @@ export default function overrides(palette: Palette): ICustomOverrides {
       select: {
         '&:focus': {
           backgroundColor: 'transparent'
+        },
+        '&.input-size-small': {
+          height: 35,
+          padding: '8px 12px'
         }
       },
-
       selectMenu: {
         height: 45
       },
-
       iconOutlined: {
         right: 4
       },
-
       icon: {
         top: 'calc(50% - 14px)'
       }

@@ -3,8 +3,6 @@ import * as React from 'react';
 import TableCell, { TableCellProps } from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
-import clsx from 'clsx';
-
 import TableContext from '../context';
 import { ITableAlign } from '../interface';
 
@@ -57,7 +55,7 @@ const TableColumn = React.memo<ITableColumnProps>(({ id, align, width, sortableF
     <TableCell
       id={id}
       align={align}
-      className={clsx(className)}
+      className={className}
       sortDirection={isSorted ? context.sort?.direction : false}
       width={width}
     >

@@ -3,7 +3,9 @@ import * as React from 'react';
 import Body from './Body';
 import Cell from './Cell';
 import Column from './Column';
+import Empty from './Empty';
 import Header from './Header';
+import Pagination from './Pagination';
 import Row from './Row';
 import { ITableProps } from './Table';
 
@@ -31,4 +33,6 @@ export type TableComponent = React.NamedExoticComponent<ITableProps> & {
   Body?: typeof Body;
   Column?: typeof Column;
   Row?: typeof Row;
+  Empty?: typeof Empty;
+  Pagination?: typeof Pagination;
 };

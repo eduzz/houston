@@ -5,15 +5,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 
 import createUseStyles, { IUseStyleParam } from '../styles/createUseStyles';
 import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import TableContext, { ITableContext } from './context';
 import { ITableSort, TableComponent } from './interface';
+
+let columnsKeyIncrementer = 0;
 
 export interface ITableProps extends Pick<TableProps, 'id' | 'children'> {
   loading?: boolean;
-  initialFieldOrder?: string;
-  /**
-   * Default `desc`
-   */
-  initialDirectionOrder?: 'asc' | 'desc';
+  sort?: ITableSort;
   /**
    * Function called when clicking on an ordered column
    */
@@ -31,7 +30,6 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children'> {
    * Max Height table container
    */
   maxHeight?: number;
-  emptyNessage?: string;
   stripedRows?: boolean;
 }
 
@@ -42,16 +40,39 @@ const useStyles = createUseStyles({
 });
 
 const Table: TableComponent = React.memo<ITableProps>(props => {
-  const { stickyHeader, size, id, children } = props;
+  const { stickyHeader, size, id, children, loading, sort, onSort, stripedRows } = props;
   const classes = useStyles(props);
+
+  const [columns, setColumns] = React.useState<string[]>(() => []);
+
+  const registerColumn = React.useCallback(() => {
+    const key = `column-${++columnsKeyIncrementer}`;
+
+    setColumns(columns => [...columns.filter(k => k != key), key]);
+    return () => setColumns(columns => columns.filter(k => k != key));
+  }, []);
+
+  const contextValue = React.useMemo<ITableContext>(
+    () => ({
+      loading: loading ?? false,
+      sort,
+      onSort,
+      registerColumn,
+      columns,
+      stripedRows
+    }),
+    [columns, loading, onSort, registerColumn, sort, stripedRows]
+  );
 
   return (
     <WrapperTheme>
-      <TableContainer className={classes.tableContainer}>
-        <TableMUI stickyHeader={stickyHeader} size={size} id={id}>
-          {children}
-        </TableMUI>
-      </TableContainer>
+      <TableContext.Provider value={contextValue}>
+        <TableContainer className={classes.tableContainer}>
+          <TableMUI stickyHeader={stickyHeader} size={size} id={id}>
+            {children}
+          </TableMUI>
+        </TableContainer>
+      </TableContext.Provider>
     </WrapperTheme>
   );
 });
