@@ -5,4 +5,88 @@ menu: eduzz/houston-hooks
 submenu: Hooks
 ---
 
+import { useState, useCallback } from 'react';
+
+import { interval, of } from 'rxjs';
+import { delay, take } from 'rxjs/operators';
+
+import Button from '@eduzz/houston-ui/Button';
+import Typography from '@eduzz/houston-ui/Typography';
+
+import { Playground } from 'docz';
+
+import useObservable from '.';
+
 # useObservable
+
+Dá Subscribe e retorna o resultado de um Observable e quando o componente desmonta (unmount) também dá unsubscribe,
+diminuindo assim o risco de Memory Leak.
+
+# Como usar
+
+```tsx
+const [value, error, completed, loading] = useObservable(() => userService.get(), []);
+
+return (
+  <div>
+    {loading ? 'Carregnado' : ''}
+    {value}
+  </div>
+);
+```
+
+<Playground>
+  {() => {
+    const [reset, setReset] = useState();
+    const [value, error, completed] = useObservable(() => interval(1000).pipe(take(10)), [reset]);
+    const onReset = useCallback(() => setReset(Date.now()), []);
+    return (
+      <div>
+        <Typography>Value: {value}</Typography>
+        <Typography>Completed: {completed.toString()}</Typography>
+        <Button onClick={onReset} variant='text'>
+          Reset
+        </Button>
+      </div>
+    );
+  }}
+</Playground>
+
+## Cuidados
+
+- **Erros** ocorridos serão automaticamentes logados (não tratados) se as o **onUnhandledError** for setado, mas se utilizar o
+  operador catchError esse erro não será logado pois foi previamente tratado, nesse caso o log deve ser feito manualmente.
+- O valor inicial será **undefined**, lembre-se de tratar isso quando estiver usando:
+
+<Playground>
+  {() => {
+    const [reset, setReset] = useState();
+    const [user, error, completed, loading] = useObservable(() => of({ name: 'Eduzz' }).pipe(delay(2000)), [reset]);
+    const onReset = useCallback(() => setReset(Date.now()), []);
+    return (
+      <div>
+        <Typography>Value: {user && user.name}</Typography>
+        <Typography>Loading: {loading.toString()}</Typography>
+        <Button onClick={onReset} variant='text'>
+          Reset
+        </Button>
+      </div>
+    );
+  }}
+</Playground>
+
+## Parâmetros e Retorno
+
+```ts
+/**
+ * @param observableGenerator Função que retorna um Observable
+ * @param deps Lista de dependências
+ * @returns [
+ *    value: valor de retorno do Observable,
+ *    error: se ocorrer um erro, ele será passado aqui,
+ *    complete: boolean se o observable foi completado ou não,
+ *    loading: boolean se esta carregando ou nào
+ * ]
+ */
+export default useObservable<T>(observableGenerator: observerFunction<T>, deps: React.DependencyList): [T, any, boolean, boolean, undefined];
+```

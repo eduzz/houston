@@ -132,7 +132,7 @@ const Rows = React.memo<IRowProps>(
                   {hasColumnAction && (
                     <TableCell align='right' className={hasEndAdornment && classes.hasEndAdornment}>
                       <div className={classes.wrapperIconActions}>
-                        <ButtonIcon size='small' onClick={() => handleClickActions(data)}>
+                        <ButtonIcon size='small' onClick={e => handleClickActions(e, data)}>
                           <MoreHorizIcon />
                         </ButtonIcon>
                       </div>

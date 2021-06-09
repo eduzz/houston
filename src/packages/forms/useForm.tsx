@@ -99,6 +99,7 @@ export default function useForm<Values = Record<string, never>>({
     handleSubmit,
     handleChange,
     handleReset: () => formik.resetForm({ values: initialValues }),
+    setValues: formik.setValues,
     getFieldValue: name => formik.getFieldMeta(name).value,
     setFieldValue: (name: string, value: any) => {
       formik.setFieldTouched(name, true, false);
@@ -107,6 +108,7 @@ export default function useForm<Values = Record<string, never>>({
     getFieldError: (name: string) =>
       formik.touched[name] || formik.submitCount > 0 ? formik.getFieldMeta(name).error : '',
     reset: values => formik.resetForm({ values: values === undefined ? initialValues : values }),
+    initialValues: formik.initialValues,
     values: formik.values,
     isSubmitting: formik.isSubmitting,
     isValid: formik.isValid
