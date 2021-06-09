@@ -27,11 +27,25 @@ import ShowcaseStep from './Step';
 import ShowcaseStepButtons from './StepButtons';
 import ShowcaseText, { IShowcaseTextProps } from './Text';
 import ShowcaseTitle, { IShowcaseTitleProps } from './Title';
-import useStepHandler from './useStepHandler';
+import useShowcase from './useShowcase';
+
+type Breakpoint = 'small' | 'medium' | 'large';
+
+const modalSizes = {
+  small: 296,
+  medium: 468,
+  large: 530
+};
+
+const imageSizes = {
+  small: 264,
+  medium: 420,
+  large: 482
+};
 
 const useStyles = makeStyles(theme => ({
   modalContent: {
-    width: 530,
+    width: modalSizes.large,
     position: 'fixed',
     top: '50%',
     left: '50%',
@@ -45,12 +59,12 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
 
-    [theme.breakpoints.down('sm')]: {
-      width: 468
+    [theme.breakpoints.down('md')]: {
+      width: modalSizes.medium
     },
 
     [theme.breakpoints.down('xs')]: {
-      width: 296
+      width: modalSizes.small
     },
 
     '& .card-mui': {
@@ -60,11 +74,7 @@ const useStyles = makeStyles(theme => ({
       '& .card-content-mui': {
         boxSizing: 'border-box',
         width: '100%',
-        padding: '16px 24px 0',
-
-        [theme.breakpoints.down('xs')]: {
-          padding: '12px 16px 0'
-        }
+        padding: 0
       },
 
       '& .card-actions-mui': {
@@ -77,8 +87,12 @@ const useStyles = makeStyles(theme => ({
     }
   },
 
+  medium: {
+    width: modalSizes.medium
+  },
+
   small: {
-    width: 296
+    width: modalSizes.small
   }
 }));
 
@@ -86,7 +100,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
   const { className, children, stepCounter, open, initialStep, size, onNext, onPrevious, onFinish, onClose, ...rest } =
     props;
 
-  const { currentStep, setCurrentStep, nextStep, previousStep } = useStepHandler(initialStep);
+  const { currentStep, setCurrentStep, nextStep, previousStep } = useShowcase(initialStep);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -132,7 +146,10 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
     setModalState(false);
   }, [setModalState, onClose, currentStep]);
 
-  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs')) || size === 'small';
+  const small = useMediaQuery<Theme>(theme.breakpoints.down('xs')) || size === 'small';
+  const medium = (useMediaQuery<Theme>(theme.breakpoints.down('md')) && !small) || size === 'medium';
+
+  const breakpoint: Breakpoint = small ? 'small' : medium ? 'medium' : 'large';
 
   React.useEffect(() => {
     if (open === undefined) {
@@ -151,7 +168,9 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
       genericButtons,
       size,
       currentStep,
-      isMobile,
+      breakpoint,
+      modalSizes,
+      imageSizes,
       setCurrentStep,
       onNextStep,
       onPreviousStep,
@@ -165,7 +184,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
       genericButtons,
       size,
       currentStep,
-      isMobile,
+      breakpoint,
       setCurrentStep,
       onNextStep,
       onPreviousStep,
@@ -178,7 +197,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
     <WrapperTheme>
       <ModalMUI {...rest} open={modalState} onClose={handleClose} ref={ref}>
         <ShowcaseContextProvider value={contextValue}>
-          <div className={clsx(className, size === 'small' && classes.small, classes.modalContent)}>
+          <div className={clsx(className, { [classes[breakpoint]]: breakpoint !== 'large' }, classes.modalContent)}>
             <CardMUI className='card-mui'>
               <Header />
 

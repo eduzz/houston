@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { makeStyles, createStyles, Theme, useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+
+import clsx from 'clsx';
 
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
@@ -9,22 +10,7 @@ import { useShowcaseContext } from '../../context';
 const Steps = () => {
   const [margin, setMargin] = React.useState(0);
 
-  const { steps, currentStep, size } = useShowcaseContext();
-
-  const widthSizes = {
-    small: 248,
-    medium: 420
-  };
-
-  const heightSizes = {
-    small: 222,
-    medium: 346
-  };
-
-  const lineClamps = {
-    small: 6,
-    medium: 4
-  };
+  const { steps, currentStep, breakpoint, modalSizes, imageSizes } = useShowcaseContext();
 
   const useStyles = makeStyles(theme =>
     createStyles({
@@ -34,84 +20,73 @@ const Steps = () => {
         '& .steps': {
           display: 'flex',
           marginLeft: margin,
-          transition: 'ease margin 1s',
-
-          '& .step-content': {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            margin: '0 20px 96px 0',
-
-            '& .content-image': {
-              [theme.breakpoints.up('xs')]: {
-                width: 248,
-                height: 222
-              },
-
-              [theme.breakpoints.up('sm')]: {
-                width: size === 'small' ? widthSizes[size] : 420,
-                height: size === 'small' ? heightSizes[size] : 346
-              },
-
-              [theme.breakpoints.up('md')]: {
-                width: size === 'small' || size === 'medium' ? widthSizes[size] : 482,
-                height: size === 'small' || size === 'medium' ? heightSizes[size] : 370
-              },
-              width: 482,
-              borderRadius: 4,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              marginBottom: 24
-            },
-
-            '& .content-text': {
-              [theme.breakpoints.up('xs')]: {
-                WebkitLineClamp: 6
-              },
-
-              [theme.breakpoints.up('sm')]: {
-                WebkitLineClamp: size === 'small' ? lineClamps[size] : 4
-              },
-
-              [theme.breakpoints.up('md')]: {
-                WebkitLineClamp: size === 'small' || size === 'medium' ? lineClamps[size] : 3
-              },
-              alignSelf: 'baseline',
-              fontWeight: 400,
-              fontSize: 16,
-              textAlign: 'left',
-              margin: 0,
-              lineHeight: '24px',
-              letterSpacing: '0.3px',
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden'
-            }
-          }
+          transition: 'ease margin 1s'
         }
+      },
+
+      stepContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        margin: '0 0 96px 0',
+        padding: '16px 24px',
+
+        [theme.breakpoints.down('xs')]: {
+          padding: '12px 16px'
+        },
+
+        '& .content-text': {
+          alignSelf: 'baseline',
+          fontWeight: 400,
+          fontSize: 16,
+          textAlign: 'left',
+          margin: 0,
+          lineHeight: '24px',
+          letterSpacing: '0.3px',
+          maxHeight: '29vh',
+          overflow: 'auto'
+        }
+      },
+
+      contentImage: {
+        width: imageSizes.large,
+        marginBottom: 24,
+        display: 'flex',
+        justifyContent: 'center',
+
+        [theme.breakpoints.down('md')]: {
+          width: imageSizes.medium
+        },
+
+        [theme.breakpoints.down('xs')]: {
+          width: imageSizes.small
+        },
+
+        '& img': {
+          maxWidth: '100%',
+          borderRadius: 4
+        }
+      },
+
+      mobilePadding: {
+        padding: '12px 16px'
+      },
+
+      small: {
+        width: imageSizes.small
+      },
+
+      medium: {
+        width: imageSizes.medium
       }
     })
   );
 
   const classes = useStyles();
-  const theme = useTheme();
-  const sm = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
-  const md = useMediaQuery<Theme>(theme.breakpoints.down('sm'));
 
   React.useEffect(() => {
-    if (sm || size === 'small') {
-      setMargin((currentStep - 1) * -268);
-      return;
-    }
-
-    if (md || size === 'medium') {
-      setMargin((currentStep - 1) * -440);
-      return;
-    }
-
-    setMargin((currentStep - 1) * -502);
-  }, [currentStep, setMargin, sm, md, size]);
+    setMargin((currentStep - 1) * -modalSizes[breakpoint]);
+  }, [currentStep, setMargin, breakpoint, modalSizes]);
 
   return (
     <div className={classes.root}>
@@ -120,8 +95,15 @@ const Steps = () => {
           const { images, text } = step || { images: null, text: null };
 
           return (
-            <div key={key} className='step-content'>
-              <div className='content-image' style={{ backgroundImage: `url(${images?.src})` }} />
+            <div key={key} className={clsx({ [classes.mobilePadding]: breakpoint === 'small' }, classes.stepContent)}>
+              <div
+                className={clsx(
+                  { [classes.small]: breakpoint === 'small', [classes.medium]: breakpoint === 'medium' },
+                  classes.contentImage
+                )}
+              >
+                <img src={images?.src} alt={images.alt} />
+              </div>
               <Typography className='content-text'>{text?.children}</Typography>
             </div>
           );

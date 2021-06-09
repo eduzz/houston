@@ -36,20 +36,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Header = () => {
-  const { currentStep, title, stepCounter, steps, isMobile, handleClose } = useShowcaseContext();
+  const { currentStep, title, stepCounter, steps, breakpoint, handleClose } = useShowcaseContext();
 
   const classes = useStyles();
 
   return (
     <Typography className={classes.header}>
       <span className='header-title'>{title.children} </span>
-      {!isMobile && stepCounter && (
+      {breakpoint !== 'small' && stepCounter && (
         <span>
           {currentStep}/{steps.length}
         </span>
       )}
 
-      {isMobile && (
+      {breakpoint === 'small' && (
         <span className='close' id='modal-default-close' onClick={() => handleClose()}>
           x
         </span>

@@ -75,7 +75,8 @@ const useStyles = makeStyles(() =>
 );
 
 const StepButtons = (buttons: React.ReactNode[] = []) => {
-  const { steps, currentStep, isMobile, onNextStep, onPreviousStep, handleClose, handleFinish } = useShowcaseContext();
+  const { steps, currentStep, breakpoint, onNextStep, onPreviousStep, handleClose, handleFinish } =
+    useShowcaseContext();
   const classes = useStyles();
 
   const lastButton = useFirstChildrenProps<IShowcaseLastStepProps>(buttons, ShowcaseLastStep);
@@ -86,7 +87,7 @@ const StepButtons = (buttons: React.ReactNode[] = []) => {
   const isLastStep = currentStep === steps.length;
   const isSingleStep = steps.length === 1;
 
-  if (isMobile) {
+  if (breakpoint === 'small') {
     return (
       <div className={classes.ctas}>
         {isSingleStep ? (

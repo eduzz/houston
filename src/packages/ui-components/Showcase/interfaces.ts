@@ -25,6 +25,12 @@ type IShowcaseSubcomponentes = {
   CloseButton: typeof ShowcaseCloseButton;
 };
 
+export interface IWidthSizes {
+  small: number;
+  medium: number;
+  large: number;
+}
+
 export interface IShowcaseButtons extends IShowcaseButtonsProps {
   lastButton?: IShowcaseLastStepProps;
   nextButton?: IShowcaseNextStepProps;
