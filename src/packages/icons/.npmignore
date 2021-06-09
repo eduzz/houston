@@ -14,4 +14,6 @@ README.md
 extra.d.ts
 .git
 .ultra.cache.json
-plopfile.ts
+template
+index.mdx
+_dump
