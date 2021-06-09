@@ -3,4 +3,4 @@ set -e
 
 BASEDIR="$( cd "$(dirname "$0")" ; pwd -P )"
 
-node $BASEDIR/create-icon.js
+node $BASEDIR/create-icons.js

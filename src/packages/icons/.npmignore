@@ -16,4 +16,5 @@ extra.d.ts
 .ultra.cache.json
 template
 index.mdx
+README.mdx
 _dump
