@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import Actions from './Actions';
+import ActionOption from './Actions/Options';
 import Body from './Body';
 import Cell from './Cell';
 import Column from './Column';
@@ -25,6 +27,11 @@ export interface ITableSort {
   direction: 'asc' | 'desc';
 }
 
+export interface ITableActionCallback<T> {
+  data: T;
+  index?: number;
+}
+
 export type ITableAlign = 'inherit' | 'left' | 'center' | 'right' | 'justify';
 
 export type TableComponent = React.NamedExoticComponent<ITableProps> & {
@@ -35,4 +42,6 @@ export type TableComponent = React.NamedExoticComponent<ITableProps> & {
   Row?: typeof Row;
   Empty?: typeof Empty;
   Pagination?: typeof Pagination;
+  Actions?: typeof Actions;
+  ActionOption?: typeof ActionOption;
 };

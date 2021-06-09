@@ -69,7 +69,13 @@
     },
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
-    }
+    },
+    "editor.rulers": [
+      {
+        "column": 120,
+        "color": "#fd3e3e78"
+      }
+    ]
   },
   "extensions": {
     "recommendations": [

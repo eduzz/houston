@@ -1,33 +1,25 @@
 import * as React from 'react';
 
+import { ITableActionOption } from './Actions/context';
 import { ITableSort } from './interface';
+
+export interface ITableActionShow {
+  anchorEl: HTMLElement;
+  rowData: unknown;
+  rowIndex?: number;
+  options: ITableActionOption[];
+}
 
 export interface ITableContext {
   loading: boolean;
-  // initialOrdenation?: ITableSortable;
-  onSort: (params: ITableSort) => void;
-  registerColumn: () => () => void;
-  // messages?: ITableMessages;
 
-  // columns: ITableColumnProps[];
   sort?: ITableSort;
+  onSort: (param: ITableSort) => void;
+
   columns: string[];
-  // actions: ITableActions | undefined;
+  registerColumn: () => () => void;
 
-  // currentRow: ITableRow;
-  // setCurrentRow: React.Dispatch<React.SetStateAction<ITableRow>>;
-
-  // anchorEl: HTMLElement | null;
-  // setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement>>;
-
-  // options: ITableOptionProps[];
-  // setOptions: React.Dispatch<React.SetStateAction<ITableOptionProps[]>>;
-
-  // pagination: ITablePagination | undefined;
-
-  // hasCollapseData: boolean;
-  // hasColumnAction: boolean;
-  // numberColumns: number;
+  onShowAction: (param: ITableActionShow) => void;
 
   // isMobile: boolean;
   stripedRows: boolean;
@@ -37,6 +29,7 @@ const TableContext = React.createContext<ITableContext>({
   loading: false,
   onSort: () => null,
   registerColumn: () => () => null,
+  onShowAction: () => null,
   columns: [],
   stripedRows: false
 });

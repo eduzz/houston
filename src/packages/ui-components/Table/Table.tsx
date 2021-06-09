@@ -5,7 +5,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 
 import createUseStyles, { IUseStyleParam } from '../styles/createUseStyles';
 import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
-import TableContext, { ITableContext } from './context';
+import TableContext, { ITableActionShow, ITableContext } from './context';
 import { ITableSort, TableComponent } from './interface';
 
 let columnsKeyIncrementer = 0;
@@ -43,6 +43,7 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
   const { stickyHeader, size, id, children, loading, sort, onSort, stripedRows } = props;
   const classes = useStyles(props);
 
+  const [menuAction, setMenuAction] = React.useState<ITableActionShow>();
   const [columns, setColumns] = React.useState<string[]>(() => []);
 
   const registerColumn = React.useCallback(() => {
@@ -57,12 +58,15 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
       loading: loading ?? false,
       sort,
       onSort,
+      onShowAction: setMenuAction,
       registerColumn,
       columns,
       stripedRows
     }),
     [columns, loading, onSort, registerColumn, sort, stripedRows]
   );
+
+  console.log({ menuAction });
 
   return (
     <WrapperTheme>
