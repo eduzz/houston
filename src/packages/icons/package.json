@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-icons",
   "description": "Eduzz Houston Icons",
-  "version": "0.12.10",
+  "version": "0.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -16,7 +16,6 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "scripts": {
-    "create-icon": "plop",
     "start": "yarn tsc -w --preserveWatchOutput",
     "clean": "git add . && git clean -f -x",
     "build": "yarn clean && tsc -p .",
