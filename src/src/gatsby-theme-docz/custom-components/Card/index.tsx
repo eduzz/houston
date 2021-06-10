@@ -1,7 +1,8 @@
+import './styles.css';
+
 import React from 'react';
 
 import { useDocs, Link } from 'docz';
-import './styles.css';
 
 interface IProps {
   title: string;

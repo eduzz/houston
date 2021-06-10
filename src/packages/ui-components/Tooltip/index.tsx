@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import TooltipMUI, { TooltipProps } from '@material-ui/core/Tooltip';
 
+import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+
 type ITooltipPlacement =
   | 'bottom-end'
   | 'bottom-start'
@@ -27,16 +29,18 @@ export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
 
 const Tooltip = React.memo<ITooltipProps>(({ placement = 'top', children, disabled = false, ...rest }) => {
   return (
-    <TooltipMUI
-      {...rest}
-      disableTouchListener={disabled}
-      disableHoverListener={disabled}
-      disableFocusListener={disabled}
-      placement={placement}
-      arrow
-    >
-      {children as React.ReactElement}
-    </TooltipMUI>
+    <WrapperTheme>
+      <TooltipMUI
+        {...rest}
+        disableTouchListener={disabled}
+        disableHoverListener={disabled}
+        disableFocusListener={disabled}
+        placement={placement}
+        arrow
+      >
+        {children as React.ReactElement}
+      </TooltipMUI>
+    </WrapperTheme>
   );
 });
 
