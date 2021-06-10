@@ -16,11 +16,8 @@ yarn-error.log*
 .DS_Store
 
 *.js
-**/*.js
 *.jsx
-**/*.jsx
 *.d.ts
-**/*.d.ts
 *.map
 
 !extra.d.ts
