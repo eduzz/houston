@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import TableBodyMUI from '@material-ui/core/TableBody';
 
+import { useContextSelector } from 'use-context-selector';
+
 import createUseStyles, { IUseStyleParam } from '../../styles/createUseStyles';
 import TableContext, { ITableContext } from '../context';
 
@@ -22,8 +24,10 @@ const useStyle = createUseStyles({
 });
 
 const TableBody = React.memo<ITableHeadProps>(({ children }) => {
-  const context = React.useContext(TableContext);
-  const classes = useStyle(context);
+  const stripedRows = useContextSelector(TableContext, context => context.stripedRows);
+
+  const classesProp = React.useMemo(() => ({ stripedRows }), [stripedRows]);
+  const classes = useStyle(classesProp);
 
   return <TableBodyMUI className={classes.body}>{children}</TableBodyMUI>;
 });

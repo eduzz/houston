@@ -4,7 +4,7 @@ import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { ITableActionOption } from './context';
+import { ITableActionOption } from '../interface';
 
 const useStyles = makeStyles(() => ({
   option: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-interface IProps extends Omit<MenuProps, 'open'> {
+interface IProps extends MenuProps {
   anchorEl: HTMLElement;
   onClose: () => void;
   options: ITableActionOption[];
@@ -26,11 +26,11 @@ interface IProps extends Omit<MenuProps, 'open'> {
   rowIndex: number;
 }
 
-const MenuActions = React.memo<IProps>(({ onClose, options: optionsProp, anchorEl, rowData, rowIndex }) => {
+const MenuActions = React.memo<IProps>(({ open, onClose, options: optionsProp, anchorEl, rowData, rowIndex }) => {
   const classes = useStyles();
 
   const options = React.useMemo(() => {
-    return optionsProp.map(option => ({
+    return (optionsProp || []).map(option => ({
       ...option,
       onClick: () => {
         option.onClick(rowData, rowIndex);
@@ -41,8 +41,8 @@ const MenuActions = React.memo<IProps>(({ onClose, options: optionsProp, anchorE
 
   const menuOptions = React.useMemo<Partial<MenuProps>>(
     () => ({
-      anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
-      transformOrigin: { vertical: 'top', horizontal: 'center' }
+      anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
+      transformOrigin: { vertical: 'top', horizontal: 'right' }
     }),
     []
   );
@@ -50,14 +50,15 @@ const MenuActions = React.memo<IProps>(({ onClose, options: optionsProp, anchorE
   return (
     <Menu
       anchorEl={anchorEl}
-      open={!!anchorEl}
+      open={open}
       onClose={onClose}
       getContentAnchorEl={null}
       disableAutoFocusItem
       disableAutoFocus
+      keepMounted
       anchorOrigin={menuOptions.anchorOrigin}
       transformOrigin={menuOptions.transformOrigin}
-      elevation={1}
+      elevation={3}
     >
       {options?.map(option => {
         return (

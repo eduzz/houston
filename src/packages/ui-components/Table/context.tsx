@@ -1,7 +1,6 @@
-import * as React from 'react';
+import { createContext } from 'use-context-selector';
 
-import { ITableActionOption } from './Actions/context';
-import { ITableSort } from './interface';
+import { ITableSort, ITableActionOption } from './interface';
 
 export interface ITableActionShow {
   anchorEl: HTMLElement;
@@ -19,18 +18,24 @@ export interface ITableContext {
   columns: string[];
   registerColumn: () => () => void;
 
+  actions: string[];
+  registerActions: () => () => void;
+
   onShowAction: (param: ITableActionShow) => void;
 
   // isMobile: boolean;
   stripedRows: boolean;
+  columnActionTitle?: string;
 }
 
-const TableContext = React.createContext<ITableContext>({
+const TableContext = createContext<ITableContext>({
   loading: false,
   onSort: () => null,
+  columns: [],
   registerColumn: () => () => null,
   onShowAction: () => null,
-  columns: [],
+  actions: [],
+  registerActions: () => () => null,
   stripedRows: false
 });
 

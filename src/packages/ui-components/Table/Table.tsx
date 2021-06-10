@@ -3,14 +3,18 @@ import * as React from 'react';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 
+import useBoolean from '@eduzz/houston-hooks/useBoolean';
+
 import createUseStyles, { IUseStyleParam } from '../styles/createUseStyles';
 import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import MenuActions from './Actions/Menu';
 import TableContext, { ITableActionShow, ITableContext } from './context';
 import { ITableSort, TableComponent } from './interface';
 
-let columnsKeyIncrementer = 0;
+let columnsKeyIncrementer = 0,
+  actionsKeyIncremeter = 0;
 
-export interface ITableProps extends Pick<TableProps, 'id' | 'children'> {
+export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'> {
   loading?: boolean;
   sort?: ITableSort;
   /**
@@ -31,6 +35,7 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children'> {
    */
   maxHeight?: number;
   stripedRows?: boolean;
+  columnActionTitle?: string;
 }
 
 const useStyles = createUseStyles({
@@ -40,11 +45,22 @@ const useStyles = createUseStyles({
 });
 
 const Table: TableComponent = React.memo<ITableProps>(props => {
-  const { stickyHeader, size, id, children, loading, sort, onSort, stripedRows } = props;
+  const { stickyHeader, size, id, children, loading, sort, onSort, stripedRows, columnActionTitle, className } = props;
   const classes = useStyles(props);
 
-  const [menuAction, setMenuAction] = React.useState<ITableActionShow>();
+  const [openedMenuActions, , openMenuActions, closeMenuActions] = useBoolean(false);
+  const [menuActionOptions, setMenuActionOptions] = React.useState<ITableActionShow>();
+
   const [columns, setColumns] = React.useState<string[]>(() => []);
+  const [actions, setActions] = React.useState<string[]>([]);
+
+  const onShowAction = React.useCallback(
+    (data: ITableActionShow) => {
+      setMenuActionOptions(data);
+      openMenuActions();
+    },
+    [openMenuActions]
+  );
 
   const registerColumn = React.useCallback(() => {
     const key = `column-${++columnsKeyIncrementer}`;
@@ -53,27 +69,55 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
     return () => setColumns(columns => columns.filter(k => k != key));
   }, []);
 
+  const registerActions = React.useCallback(() => {
+    const key = `table-action-option-${++actionsKeyIncremeter}`;
+
+    setActions(options => [...options, key]);
+    return () => setActions(options => options.filter(o => o !== key));
+  }, []);
+
   const contextValue = React.useMemo<ITableContext>(
     () => ({
       loading: loading ?? false,
       sort,
       onSort,
-      onShowAction: setMenuAction,
+      onShowAction,
       registerColumn,
       columns,
-      stripedRows
+      actions,
+      registerActions,
+      stripedRows,
+      columnActionTitle
     }),
-    [columns, loading, onSort, registerColumn, sort, stripedRows]
+    [
+      loading,
+      sort,
+      onSort,
+      onShowAction,
+      registerColumn,
+      columns,
+      actions,
+      registerActions,
+      stripedRows,
+      columnActionTitle
+    ]
   );
-
-  console.log({ menuAction });
 
   return (
     <WrapperTheme>
       <TableContext.Provider value={contextValue}>
         <TableContainer className={classes.tableContainer}>
-          <TableMUI stickyHeader={stickyHeader} size={size} id={id}>
+          <TableMUI stickyHeader={stickyHeader} size={size} id={id} className={className}>
             {children}
+
+            <MenuActions
+              open={openedMenuActions}
+              anchorEl={menuActionOptions?.anchorEl}
+              options={menuActionOptions?.options}
+              rowData={menuActionOptions?.rowData}
+              rowIndex={menuActionOptions?.rowIndex}
+              onClose={closeMenuActions}
+            />
           </TableMUI>
         </TableContainer>
       </TableContext.Provider>

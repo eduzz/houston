@@ -5,6 +5,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import PaginationMUI from '@material-ui/lab/Pagination';
 
+import { useContextSelector } from 'use-context-selector';
+
 import SelectField from '../../Forms/Select';
 import TextField from '../../Forms/Text';
 import Column from '../../Grid/Column';
@@ -64,8 +66,10 @@ const Pagination = React.memo<ITablePagination>(
     labelGoToPage,
     labelItensPerPage
   }) => {
-    const context = React.useContext(TableContext);
     const classes = useStyles();
+
+    const columns = useContextSelector(TableContext, context => context.columns);
+    const loading = useContextSelector(TableContext, context => context.loading);
 
     const optionsPerPage = React.useMemo(() => {
       if (optionsPerPageProp === false) {
@@ -119,7 +123,7 @@ const Pagination = React.memo<ITablePagination>(
 
     return (
       <TableRow>
-        <TableCell colSpan={context.columns.length} className={classes.td}>
+        <TableCell colSpan={columns.length} className={classes.td}>
           <Row>
             <Column xs={12} sm='auto'>
               <Row justify='center'>
@@ -129,7 +133,7 @@ const Pagination = React.memo<ITablePagination>(
                   </Typography>
 
                   <SelectField
-                    disabled={context.loading}
+                    disabled={loading}
                     size='small'
                     margin='none'
                     options={optionsPerPage}

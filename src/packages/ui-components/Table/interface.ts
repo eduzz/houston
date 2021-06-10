@@ -11,6 +11,15 @@ import Pagination from './Pagination';
 import Row from './Row';
 import { ITableProps } from './Table';
 
+export interface ITableActionOption {
+  key: string;
+  onClick: (data: unknown, index?: number) => void;
+  content: React.ReactNode;
+  icon?: React.ReactNode;
+  disabled?: boolean;
+  order?: number;
+}
+
 export interface ITableItem<T> {
   data: T;
   index: number;

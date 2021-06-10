@@ -1,21 +1,12 @@
-import * as React from 'react';
+import { createContext } from 'use-context-selector';
 
-export interface ITableActionOption {
-  key: string;
-  onClick: (data: unknown, index?: number) => void;
-  content: React.ReactNode;
-  icon?: React.ReactNode;
-  disabled?: boolean;
-  order?: number;
-}
+import { ITableActionOption } from '../interface';
 
 export interface ITableActionContext {
-  options: ITableActionOption[];
   registerOption: (option: Omit<ITableActionOption, 'key'>) => () => void;
 }
 
-const TableActionContext = React.createContext<ITableActionContext>({
-  options: [],
+const TableActionContext = createContext<ITableActionContext>({
   registerOption: () => () => null
 });
 

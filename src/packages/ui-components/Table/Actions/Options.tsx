@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import TableActionContext from './context';
 
 export interface ITableActionOptionProp {
@@ -11,14 +13,13 @@ export interface ITableActionOptionProp {
 }
 
 const TableActionOption = React.memo<ITableActionOptionProp>(({ children, disabled, onClick, order, icon }) => {
-  const context = React.useContext(TableActionContext);
+  const registerOption = useContextSelector(TableActionContext, context => context.registerOption);
 
   React.useEffect(() => {
     console.log('register 2');
-    const unregister = context.registerOption({ disabled, onClick, icon, content: children });
+    const unregister = registerOption({ disabled, onClick, icon, content: children });
     return () => unregister();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [children, disabled, onClick, icon, order]);
+  }, [children, disabled, onClick, icon, order, registerOption]);
 
   return null;
 });

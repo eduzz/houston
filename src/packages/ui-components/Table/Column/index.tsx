@@ -3,6 +3,8 @@ import * as React from 'react';
 import TableCell, { TableCellProps } from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
+import { useContextSelector } from 'use-context-selector';
+
 import TableContext from '../context';
 import { ITableAlign } from '../interface';
 
@@ -34,36 +36,38 @@ export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExte
 }
 
 const TableColumn = React.memo<ITableColumnProps>(({ id, align, width, sortableField, children, className }) => {
-  const context = React.useContext(TableContext);
+  const registerColumn = useContextSelector(TableContext, context => context.registerColumn);
+  const onSort = useContextSelector(TableContext, context => context.onSort);
+  const sort = useContextSelector(TableContext, context => context.sort);
+  const loading = useContextSelector(TableContext, context => context.loading);
 
-  const isSorted = context.sort?.field === sortableField;
+  const isSorted = sort?.field === sortableField;
 
   const handleSort = React.useCallback(() => {
-    context.onSort({
+    onSort({
       field: sortableField,
-      direction: !isSorted || context.sort?.direction === 'desc' ? 'asc' : 'desc'
+      direction: !isSorted || sort?.direction === 'desc' ? 'asc' : 'desc'
     });
-  }, [context, sortableField, isSorted]);
+  }, [onSort, sortableField, isSorted, sort?.direction]);
 
   React.useEffect(() => {
-    const unregister = context.registerColumn();
+    const unregister = registerColumn();
     return () => unregister();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [registerColumn]);
 
   return (
     <TableCell
       id={id}
       align={align}
       className={className}
-      sortDirection={isSorted ? context.sort?.direction : false}
+      sortDirection={isSorted ? sort?.direction : false}
       width={width}
     >
       {!!sortableField ? (
         <TableSortLabel
           active={isSorted}
-          disabled={context.loading}
-          direction={isSorted ? context.sort?.direction : 'asc'}
+          disabled={loading}
+          direction={isSorted ? sort?.direction : 'asc'}
           onClick={handleSort}
         >
           {children}

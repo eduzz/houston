@@ -3,6 +3,8 @@ import * as React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
+import { useContextSelector } from 'use-context-selector';
+
 import createUseStyles from '../../styles/createUseStyles';
 import Typography from '../../Typography';
 import TableContext from '../context';
@@ -20,7 +22,7 @@ const useStyle = createUseStyles({
 });
 
 const TableEmpty = React.memo<ITableEmptyProps>(({ children, count }) => {
-  const context = React.useContext(TableContext);
+  const columns = useContextSelector(TableContext, context => context.columns);
   const classes = useStyle();
 
   if (count) return null;
@@ -29,7 +31,7 @@ const TableEmpty = React.memo<ITableEmptyProps>(({ children, count }) => {
 
   return (
     <TableRow>
-      <TableCell align='center' colSpan={context.columns.length}>
+      <TableCell align='center' colSpan={columns.length}>
         {typeof children === 'string' ? (
           <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
             {children}

@@ -2,23 +2,21 @@ import * as React from 'react';
 
 import TableRowMUI, { TableRowProps } from '@material-ui/core/TableRow';
 
+import { useContextSelector } from 'use-context-selector';
+
 import TableContext from '../context';
 
 type ITableRowExtends = 'id' | 'className' | 'tabIndex' | 'onClick' | 'onDoubleClick';
 
 export interface ITableRowProps extends Pick<TableRowProps, ITableRowExtends> {
-  /**
-   * Row values, used only when there are actions (Table.Actions) in the table
-   */
-  data?: unknown;
   children?: React.ReactNode;
 }
 
 const TableRow = React.memo<ITableRowProps>(({ children, ...props }) => {
-  const context = React.useContext(TableContext);
+  const stripedRows = useContextSelector(TableContext, context => context.stripedRows);
 
   return (
-    <TableRowMUI hover={!context.stripedRows} {...props}>
+    <TableRowMUI hover={!stripedRows} {...props}>
       {children}
     </TableRowMUI>
   );
