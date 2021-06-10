@@ -1,0 +1,68 @@
+---
+name: Ícones
+route: /icons/list
+menu: eduzz/houston-icons
+---
+
+import { Playground } from 'docz';
+
+import TextField from '../ui-components/Forms/Text';
+import Tooltip from '../ui-components/Tooltip';
+import Typography from '../ui-components/Typography';
+import * as Icon from './';
+
+# Ícones
+
+Coleção de ícones do Houston.
+
+### Lista de ícones
+
+<Playground>
+  {() => {
+    const initialIcons = Object.entries(Icon).map(([name, CurrentIcon]) => ({
+      icon: <CurrentIcon size={'large'} />,
+      name
+    }));
+    const [currentIcons, setCurrentIcons] = React.useState([]);
+    const [search, setSearch] = React.useState('');
+    const handleChangeSearch = React.useCallback(
+      value => {
+        setSearch(value);
+        if (!value) {
+          setSearch('');
+          setCurrentIcons([]);
+          return;
+        }
+        const currentValue = value.toLowerCase();
+        const searched = initialIcons.filter(
+          i => i.name.toLowerCase().startsWith(currentValue) || i.name.toLowerCase() === currentValue
+        );
+        setCurrentIcons(searched);
+      },
+      [initialIcons]
+    );
+    const icons = search ? currentIcons : initialIcons;
+    return (
+      <div className='list-icons'>
+        <TextField
+          value={search}
+          onChange={handleChangeSearch}
+          placeholder='Busque por ícones'
+          endAdornment={<Icon.SearchOutline />}
+        />
+        {icons.length > 0 &&
+          icons
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((icon, index) => (
+              <div key={`icon-${index}`} className='icon-preview'>
+                {icon.icon}
+                <Tooltip title={icon.name} placement='bottom'>
+                  <div className='name'>{icon.name}</div>
+                </Tooltip>
+              </div>
+            ))}
+        {icons.length === 0 && <Typography>Nenhum ícone encontrado...</Typography>}
+      </div>
+    );
+  }}
+</Playground>
