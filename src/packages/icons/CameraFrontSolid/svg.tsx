@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { sizeMap } from '../utils/getIconSize';
 
-export default ({ width = sizeMap.medium }) => (
+export default ({ width = sizeMap.small }) => (
   <svg width={width} viewBox='0 0 192 192' fill='#546E7A' xmlns='http://www.w3.org/2000/svg'>
     <path d='M121.84 79.7727C121.84 94.0066 110.235 105.545 95.9198 105.545C81.6046 105.545 69.9998 94.0066 69.9998 79.7727C69.9998 65.5388 81.6046 54 95.9198 54C110.235 54 121.84 65.5388 121.84 79.7727Z' />
     <path
