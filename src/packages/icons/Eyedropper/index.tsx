@@ -4,10 +4,10 @@ import { IconWebBase } from '../interfaces';
 import IconBase from '../utils/wrapperWeb';
 import Icon from './svg';
 
-const IconEyedropper = React.memo<IconWebBase>(({ ...rest }) => (
+const IconEyeDropper = React.memo<IconWebBase>(({ ...rest }) => (
   <IconBase {...rest}>
     <Icon />
   </IconBase>
 ));
 
-export default IconEyedropper;
+export default IconEyeDropper;
