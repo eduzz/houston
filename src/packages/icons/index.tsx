@@ -54,7 +54,7 @@ import Eraser from './Eraser';
 import Exit from './Exit';
 import Expand from './Expand';
 import ExternalLink from './ExternalLink';
-import EyeDropper from './EyeDropper1';
+import EyeDropper from './EyeDropper';
 import EyeOffOutline from './EyeOffOutline';
 import EyeOffSolid from './EyeOffSolid';
 import EyeOnOutline from './EyeOnOutline';
@@ -167,7 +167,7 @@ import VolumeOnOutline from './VolumeOnOutline';
 import VolumeOnSolid from './VolumeOnSolid';
 import WayOutline from './WayOutline';
 import WaySolid from './WaySolid';
-import WhatsApp from './WhatsApp1';
+import WhatsApp from './WhatsApp';
 import WhatsAppOutline from './WhatsAppOutline';
 import WhatsAppSolid from './WhatsAppSolid';
 
