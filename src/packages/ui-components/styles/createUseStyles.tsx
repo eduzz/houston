@@ -18,7 +18,7 @@ export interface IUseStyleParam<Props> {
 export default function createUseStyles<Props extends Record<string, unknown>, ClassName extends string = string>(
   style: NamedStyles<ClassName, Props>
 ): (props?: Partial<Props>) => Record<ClassName, string> {
-  const useStyle = createUseStylesJSS(style);
+  const useStyle = createUseStylesJSS(style, { classNamePrefix: 'fernando-' });
 
   return props => {
     const theme = useHoustonTheme();
