@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
+import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
 import PaginationMUI from '@material-ui/lab/Pagination';
 
@@ -122,57 +123,59 @@ const Pagination = React.memo<ITablePagination>(
     );
 
     return (
-      <TableRow>
-        <TableCell colSpan={columnsLen} className={classes.td}>
-          <Row>
-            <Column xs={12} sm='auto'>
-              <Row justify='center'>
-                <Column xs='auto' className={classes.labels}>
-                  <Typography size='small' fontWeight='semibold'>
-                    {labelItensPerPage ?? 'Itens por página:'}
-                  </Typography>
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan={columnsLen} className={classes.td}>
+            <Row>
+              <Column xs={12} sm='auto'>
+                <Row justify='center'>
+                  <Column xs='auto' className={classes.labels}>
+                    <Typography size='small' fontWeight='semibold'>
+                      {labelItensPerPage ?? 'Itens por página:'}
+                    </Typography>
 
-                  <SelectField
-                    disabled={loading}
-                    size='small'
-                    margin='none'
-                    options={optionsPerPage}
-                    value={perPage}
-                    onChange={handleChangePerPage}
+                    <SelectField
+                      disabled={loading}
+                      size='small'
+                      margin='none'
+                      options={optionsPerPage}
+                      value={perPage}
+                      onChange={handleChangePerPage}
+                    />
+                  </Column>
+
+                  <Column xs='auto' className={classes.labels}>
+                    <Typography size='small' fontWeight='semibold'>
+                      {labelGoToPage ?? 'Ir para:'}
+                    </Typography>
+
+                    <TextField
+                      margin='none'
+                      size='small'
+                      value={page}
+                      className={classes.input}
+                      onChange={handleChangeGoToPage}
+                      onBlur={handleBlurGoToPage}
+                    />
+                  </Column>
+                </Row>
+              </Column>
+
+              <Column xs={12} sm={true}>
+                <div className={classes.pages}>
+                  <PaginationMUI
+                    count={Math.ceil(total / perPage)}
+                    page={page ?? 1}
+                    shape='rounded'
+                    size='medium'
+                    onChange={handleChangePage}
                   />
-                </Column>
-
-                <Column xs='auto' className={classes.labels}>
-                  <Typography size='small' fontWeight='semibold'>
-                    {labelGoToPage ?? 'Ir para:'}
-                  </Typography>
-
-                  <TextField
-                    margin='none'
-                    size='small'
-                    value={page}
-                    className={classes.input}
-                    onChange={handleChangeGoToPage}
-                    onBlur={handleBlurGoToPage}
-                  />
-                </Column>
-              </Row>
-            </Column>
-
-            <Column xs={12} sm={true}>
-              <div className={classes.pages}>
-                <PaginationMUI
-                  count={Math.ceil(total / perPage)}
-                  page={page ?? 1}
-                  shape='rounded'
-                  size='medium'
-                  onChange={handleChangePage}
-                />
-              </div>
-            </Column>
-          </Row>
-        </TableCell>
-      </TableRow>
+                </div>
+              </Column>
+            </Row>
+          </TableCell>
+        </TableRow>
+      </TableFooter>
     );
   }
 );

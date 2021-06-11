@@ -37,7 +37,7 @@ const TableCell = React.memo<ITableCellProps>(({ children, className, mobileSize
 
   return (
     <TableCellMUI {...props} className={clsx(className, `cell-size-${mobileSize ?? 'auto'}`)} ref={cellRef}>
-      <Typography size='x-small' fontWeight='regular' lineHeight='compact' lighter>
+      <Typography size='x-small' fontWeight='regular' lineHeight='compact' lighter className='table-label-mobile'>
         {label}
       </Typography>
       {typeof children === 'string' ? <Typography>{children}</Typography> : children}
