@@ -22,17 +22,6 @@ export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExte
    * Default `false`
    */
   sortableField?: string;
-  /**
-   * Only the first and last columns can be fixed.
-   * If there are actions in the table, the last fixed column will be disregarded.
-   * If there is at least one fixed column, the table takes on a `white-space: no-wrap` style.
-   * Default `false`
-   */
-  fixed?: boolean;
-  /**
-   * Create an action column (* priority * when use Table.Actions)
-   */
-  type?: 'action';
 }
 
 const TableColumn = React.memo<ITableColumnProps>(({ id, align, width, sortableField, children, className }) => {
@@ -40,6 +29,8 @@ const TableColumn = React.memo<ITableColumnProps>(({ id, align, width, sortableF
   const onSort = useContextSelector(TableContext, context => context.onSort);
   const sort = useContextSelector(TableContext, context => context.sort);
   const loading = useContextSelector(TableContext, context => context.loading);
+
+  const cellRef = React.useRef<HTMLTableHeaderCellElement>();
 
   const isSorted = sort?.field === sortableField;
 
@@ -60,6 +51,7 @@ const TableColumn = React.memo<ITableColumnProps>(({ id, align, width, sortableF
       id={id}
       align={align}
       className={className}
+      ref={cellRef}
       sortDirection={isSorted ? sort?.direction : false}
       width={width}
     >

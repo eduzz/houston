@@ -3,6 +3,7 @@ import * as React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
+import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import ButtonIcon from '../../ButtonIcon';
@@ -15,10 +16,11 @@ let tableOptionIncremeter = 0;
 export interface ITableActionsProp {
   data: unknown;
   index?: number;
+  className?: string;
   children?: React.ReactNode;
 }
 
-const TableActions = React.memo<ITableActionsProp>(({ children, data, index }) => {
+const TableActions = React.memo<ITableActionsProp>(({ children, data, index, className }) => {
   const onShowAction = useContextSelector(TableContext, context => context.onShowAction);
   const registerActions = useContextSelector(TableContext, context => context.registerActions);
 
@@ -49,7 +51,7 @@ const TableActions = React.memo<ITableActionsProp>(({ children, data, index }) =
 
   return (
     <TableActionContext.Provider value={contextValue}>
-      <TableCell align='right'>
+      <TableCell align='right' className={clsx('table-action-cell', className)}>
         <ButtonIcon size='small' onClick={onClick} disabled={!options.length}>
           <MoreHorizIcon color='action' />
         </ButtonIcon>

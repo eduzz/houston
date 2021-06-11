@@ -22,7 +22,7 @@ const useStyle = createUseStyles({
 });
 
 const TableEmpty = React.memo<ITableEmptyProps>(({ children, count }) => {
-  const columns = useContextSelector(TableContext, context => context.columns);
+  const columnsLen = useContextSelector(TableContext, context => context.columns.length);
   const classes = useStyle();
 
   if (count) return null;
@@ -31,7 +31,7 @@ const TableEmpty = React.memo<ITableEmptyProps>(({ children, count }) => {
 
   return (
     <TableRow>
-      <TableCell align='center' colSpan={columns.length}>
+      <TableCell align='center' colSpan={columnsLen}>
         {typeof children === 'string' ? (
           <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
             {children}

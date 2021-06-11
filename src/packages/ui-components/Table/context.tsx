@@ -21,6 +21,8 @@ export interface ITableContext {
   actions: string[];
   registerActions: () => () => void;
 
+  rowMapLabel: { [rowKey: string]: string };
+
   onShowAction: (param: ITableActionShow) => void;
 
   // isMobile: boolean;
@@ -34,6 +36,7 @@ const TableContext = createContext<ITableContext>({
   columns: [],
   registerColumn: () => () => null,
   onShowAction: () => null,
+  rowMapLabel: {},
   actions: [],
   registerActions: () => () => null,
   stripedRows: false
