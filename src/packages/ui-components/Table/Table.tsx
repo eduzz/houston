@@ -5,6 +5,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
+import clsx from 'clsx';
+
 import createUseStyles, { IUseStyleParam } from '../styles/createUseStyles';
 import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
 import MenuActions from './Actions/Menu';
@@ -41,7 +43,25 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'class
 const useStyles = createUseStyles({
   tableContainer: ({ props }: IUseStyleParam<ITableProps>) => ({
     maxHeight: props.maxHeight
-  })
+  }),
+  tableResponsive: {
+    display: 'block',
+    '& > tbody': {
+      display: 'block'
+    },
+    '& > tbody > tr': {
+      display: 'flex',
+      width: '100%',
+      flexWrap: 'wrap',
+      position: 'relative',
+      borderBottom: '1px solid rgba(224, 224, 224, 1)'
+    },
+    '& > tbody > tr > td': {
+      flex: 1,
+      border: 'none',
+      flexBasis: '100%'
+    }
+  }
 });
 
 const Table: TableComponent = React.memo<ITableProps>(props => {
@@ -107,7 +127,12 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
     <WrapperTheme>
       <TableContext.Provider value={contextValue}>
         <TableContainer className={classes.tableContainer}>
-          <TableMUI stickyHeader={stickyHeader} size={size} id={id} className={className}>
+          <TableMUI
+            stickyHeader={stickyHeader}
+            size={size}
+            id={id}
+            className={clsx(classes.tableResponsive, className)}
+          >
             {children}
 
             <MenuActions

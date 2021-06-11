@@ -16,7 +16,6 @@ const TableActionOption = React.memo<ITableActionOptionProp>(({ children, disabl
   const registerOption = useContextSelector(TableActionContext, context => context.registerOption);
 
   React.useEffect(() => {
-    console.log('register 2');
     const unregister = registerOption({ disabled, onClick, icon, content: children });
     return () => unregister();
   }, [children, disabled, onClick, icon, order, registerOption]);
