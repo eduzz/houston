@@ -12,7 +12,7 @@ type NamedStyles<ClassName extends string, Props> = Record<
 
 let jssIndex = 9999;
 
-export interface IUseStyleParam<Props> {
+export interface IUseStyleParam<Props = unknown> {
   props: Partial<Props>;
   theme: HoustonTheme;
 }

@@ -6,6 +6,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles, { IUseStyleParam } from '../../styles/createUseStyles';
 import TableContext, { ITableContext } from '../context';
+import TableLoading from '../Loading';
 
 export interface ITableHeadProps {
   children: React.ReactNode;
@@ -25,11 +26,12 @@ const useStyle = createUseStyles({
 
 const TableBody = React.memo<ITableHeadProps>(({ children }) => {
   const stripedRows = useContextSelector(TableContext, context => context.stripedRows);
+  const loading = useContextSelector(TableContext, context => context.loading);
 
   const classesProp = React.useMemo(() => ({ stripedRows }), [stripedRows]);
   const classes = useStyle(classesProp);
 
-  return <TableBodyMUI className={classes.body}>{children}</TableBodyMUI>;
+  return <TableBodyMUI className={classes.body}>{loading ? <TableLoading /> : children}</TableBodyMUI>;
 });
 
 export default TableBody;

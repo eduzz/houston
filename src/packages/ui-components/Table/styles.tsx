@@ -65,8 +65,24 @@ const useStyles = createUseStyles({
         flex: 1,
         border: 'none',
         flexGrow: 0,
-        maxWidth: 'none',
-        flexBasis: 'auto'
+        flexBasis: '100%',
+        maxWidth: '100%'
+      },
+      '& > tbody > tr.table-loader': {
+        padding: 0,
+        paddingRight: 0,
+        '&:before': {
+          display: 'none'
+        }
+      },
+      '& > tbody > tr.table-empty-message': {
+        paddingRight: 0,
+        '&:before': {
+          display: 'none'
+        }
+      },
+      '& > tbody > tr.table-loader > td': {
+        marginBottom: 0
       },
       '& > tbody > tr > td.cell-size-true': {
         flexGrow: 1,

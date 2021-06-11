@@ -20,6 +20,8 @@ export function bindMutationObserver(table: HTMLTableElement, callback: ICallbac
         return acc;
       }, []);
 
+      if (!columns.length) return;
+
       const result = rows.reduce((acc, row) => {
         Array.from(row.cells).forEach((cell, index) => {
           const key = cell.getAttribute('cell-key');
@@ -31,9 +33,10 @@ export function bindMutationObserver(table: HTMLTableElement, callback: ICallbac
         return acc;
       }, {} as { [rowKey: string]: string });
 
-      console.log(result);
+      if (!Object.keys(result).length) return;
+
       callback(result);
-    }, 500);
+    }, 300);
   });
 
   observer.observe(table, { childList: true, subtree: true });

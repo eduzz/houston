@@ -30,7 +30,7 @@ const TableEmpty = React.memo<ITableEmptyProps>(({ children, count }) => {
   children = children ?? 'Nenhum dado encontrado';
 
   return (
-    <TableRow>
+    <TableRow className='table-empty-message'>
       <TableCell align='center' colSpan={columnsLen}>
         {typeof children === 'string' ? (
           <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>

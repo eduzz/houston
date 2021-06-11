@@ -152,6 +152,7 @@ const Pagination = React.memo<ITablePagination>(
                     <TextField
                       margin='none'
                       size='small'
+                      disabled={loading}
                       value={page}
                       className={classes.input}
                       onChange={handleChangeGoToPage}
@@ -166,6 +167,7 @@ const Pagination = React.memo<ITablePagination>(
                   <PaginationMUI
                     count={Math.ceil(total / perPage)}
                     page={page ?? 1}
+                    disabled={loading}
                     shape='rounded'
                     size='medium'
                     onChange={handleChangePage}
