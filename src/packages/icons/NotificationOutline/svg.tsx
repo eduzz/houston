@@ -3,14 +3,19 @@ import * as React from 'react';
 import { sizeMap } from '../utils/getIconSize';
 
 export default ({ width = sizeMap.small }) => (
-  <svg width={width} viewBox='0 0 192 192' fill='#546E7A' xmlns='http://www.w3.org/2000/svg'>
+  <svg width={width} viewBox='0 0 192 192' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
     <path
       fillRule='evenodd'
       clipRule='evenodd'
       d='M129.485 87.5526V77.6147C129.485 58.9536 114.263 43.8259 95.4854 43.8259C76.7077 43.8259 61.4854 58.9536 61.4854 77.6147V87.5526H49.4854V77.6147C49.4854 52.3674 70.0803 31.9004 95.4854 31.9004C120.89 31.9004 141.485 52.3674 141.485 77.6147V87.5526H129.485Z'
     />
     <path fillRule='evenodd' clipRule='evenodd' d='M61.4854 86.5589L61.4854 130.286H49.4854L49.4854 86.5589H61.4854Z' />
-    <path fillRule='evenodd' clipRule='evenodd' d='M141.485 85.5653V129.292H129.485V85.5653H141.485Z' fill='#546E7A' />
+    <path
+      fillRule='evenodd'
+      clipRule='evenodd'
+      d='M141.485 85.5653V129.292H129.485V85.5653H141.485Z'
+      fill='currentColor'
+    />
     <path
       fillRule='evenodd'
       clipRule='evenodd'
@@ -27,8 +32,8 @@ export default ({ width = sizeMap.small }) => (
       d='M23.4854 135.255C23.4854 131.962 26.1716 129.292 29.4854 129.292L159.485 129.292C162.799 129.292 165.485 131.962 165.485 135.255C165.485 138.548 162.799 141.217 159.485 141.217L29.4854 141.217C26.1716 141.217 23.4854 138.548 23.4854 135.255Z'
     />
     <path d='M86.4854 24.4472C86.4854 19.7819 90.2909 16 94.9854 16C99.6798 16 103.485 19.7819 103.485 24.4472V31.4037C103.485 36.069 99.6798 39.8509 94.9854 39.8509C90.2909 39.8509 86.4854 36.069 86.4854 31.4037V24.4472Z' />
-    <path d='M141 123.329H150V135.255H141V123.329Z' fill='#546E7A' />
-    <path d='M41 122.335H50V134.261H41V122.335Z' fill='#546E7A' />
+    <path d='M141 123.329H150V135.255H141V123.329Z' fill='currentColor' />
+    <path d='M41 122.335H50V134.261H41V122.335Z' fill='currentColor' />
     <path
       fillRule='evenodd'
       clipRule='evenodd'

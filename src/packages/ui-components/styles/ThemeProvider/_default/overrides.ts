@@ -45,7 +45,9 @@ export default function overrides(palette: Palette): ICustomOverrides {
       },
 
       iconSizeMedium: {
-        fontSize: 15
+        '& > *:first-child': {
+          fontSize: 15
+        }
       },
 
       label: {

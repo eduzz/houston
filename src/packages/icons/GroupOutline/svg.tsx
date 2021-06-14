@@ -3,7 +3,7 @@ import * as React from 'react';
 import { sizeMap } from '../utils/getIconSize';
 
 export default ({ width = sizeMap.small }) => (
-  <svg width={width} viewBox='0 0 192 192' fill='#546E7A' xmlns='http://www.w3.org/2000/svg'>
+  <svg width={width} viewBox='0 0 192 192' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
     <path d='M168.217 71C168.217 81.4934 159.662 90 149.109 90C138.555 90 130 81.4934 130 71C130 60.5066 138.555 52 149.109 52C159.662 52 168.217 60.5066 168.217 71Z' />
     <path
       fillRule='evenodd'
@@ -36,8 +36,8 @@ export default ({ width = sizeMap.small }) => (
       clipRule='evenodd'
       d='M115 61.6364C115 72.0984 106.456 80.6727 95.8 80.6727C85.1445 80.6727 76.6 72.0984 76.6 61.6364C76.6 51.1744 85.1445 42.6 95.8 42.6C106.456 42.6 115 51.1744 115 61.6364ZM124.6 61.6364C124.6 77.4518 111.706 90.2727 95.8 90.2727C79.8942 90.2727 67 77.4518 67 61.6364C67 45.8209 79.8942 33 95.8 33C111.706 33 124.6 45.8209 124.6 61.6364Z'
     />
-    <rect x='45' y='147' width={width} rx='6' fill='#546E7A' />
-    <rect x='135' y='147' width={width} rx='6' fill='#546E7A' />
+    <rect x='45' y='147' width={width} rx='6' fill='currentColor' />
+    <rect x='135' y='147' width={width} rx='6' fill='currentColor' />
     <path
       fillRule='evenodd'
       clipRule='evenodd'

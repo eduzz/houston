@@ -32,6 +32,7 @@ table {
   flex-direction: column;
   justify-content: center;
   padding: 8px;
+  color: #546E7A;
 }
 
 .icon-preview .name {

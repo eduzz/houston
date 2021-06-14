@@ -6,7 +6,7 @@ export const sizeMap = {
   large: 48
 };
 
-export default (size: IIconSize = 'medium') => {
+export default (size: IIconSize = 'small') => {
   if (typeof size === 'number') {
     return size;
   }
