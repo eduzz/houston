@@ -79,7 +79,7 @@ const CellMobile = React.memo<IProps>(props => {
   const currentColumn = React.useMemo(() => currentColumns[props.index].label, [currentColumns, props.index]);
   const currentAlign = React.useMemo(() => props?.xs?.align ?? props?.align, [props?.align, props?.xs?.align]);
 
-  if (!props?.xs?.size) {
+  if (props?.xs?.size === 0) {
     return null;
   }
 

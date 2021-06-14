@@ -33,18 +33,18 @@ export interface IRowProps extends Pick<GridProps, RowPropsExtends> {
   spacing?: IContainerType;
 }
 
-const Row = React.forwardRef<HTMLDivElement, IRowProps>((props, ref) => {
+const Row = React.forwardRef<HTMLDivElement, IRowProps>(({ className, spacing: spacingProps, ...rest }, ref) => {
   const classes = useStyles();
   const { spacing } = useGrid();
 
   const config = React.useMemo(() => {
-    const sizes = props?.spacing ?? { comfortable: 10, cozy: 4, compact: 2 };
+    const sizes = spacingProps ?? { comfortable: 10, cozy: 4, compact: 2 };
     return sizes[spacing ?? 'cozy'] as GridSpacing;
-  }, [spacing, props.spacing]);
+  }, [spacing, spacingProps]);
 
   return (
     <WrapperTheme>
-      <Grid {...props} container ref={ref} className={clsx(classes.root, props?.className)} spacing={config} />
+      <Grid {...rest} container ref={ref} className={clsx(classes.root, className)} spacing={config} />
     </WrapperTheme>
   );
 });

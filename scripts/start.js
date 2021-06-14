@@ -11,10 +11,23 @@ const devPath = `${__dirname}/../src/dev/src/components/index.tsx`;
 const devFolderPath = `${__dirname}/../src/dev/src/components`;
 const templatePath = `${__dirname}/../src/dev/src/components.template`;
 
-async function init(mode) {
-  if (!['dev', 'docs', 'both'].includes(mode)) {
-    mode = null;
-  }
+const args = process.argv.filter(arg => arg.match(/^-{1,2}[^\-]/gmi)).reduce((acc, arg) => {
+  if (arg.startsWith('--')) return [...acc, arg.replace('--', '')];
+  return [...acc, ...arg.replace('-', '').split('')];
+}, []);
+
+async function init() {
+  let mode = null, skipClean = false;
+
+  args.forEach(arg => {
+    if (['dev', 'docs', 'both'].includes(arg)) {
+      mode = arg;
+    }
+
+    if (arg === 'skip-clean') {
+      skipClean = true;
+    }
+  })
 
   if (!mode) {
     const answers = await inquirer.prompt([{
@@ -32,7 +45,9 @@ async function init(mode) {
     mode = answers.mode;
   }
 
-  await spawn('yarn', ['clean'], { stdio: 'inherit' });
+  if (!skipClean) {
+    await spawn('yarn', ['clean'], { stdio: 'inherit' });
+  }
 
   if (['dev', 'both'].includes(mode)) {
     await spawn('yarn', ['build'], { stdio: 'inherit' });
@@ -63,9 +78,7 @@ async function createDevFile() {
   await fs.promises.copyFile(templatePath, devPath);
 }
 
-const mode = process.argv.slice(2)[0]?.replace('--', '');
-
-init(mode).catch(err => {
+init().catch(err => {
   console.error(err);
   process.exit(-1);
 });

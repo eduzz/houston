@@ -89,10 +89,14 @@ const RowsMobile = React.memo<IRowProps>(
         {!loading &&
           lazyRows.map((row, index) => {
             const hasCollapse = hasCollapseData && row?.collapse;
-            const { data = null, cells = [], collapse = null, className, ...rest } = row;
+            const { data = null, cells = [], collapse = null, className } = row;
 
-            const rowProps = { ...rest };
-            delete rowProps.options;
+            const rowProps = {
+              id: row?.id,
+              tabIndex: row?.tabIndex,
+              onClick: row?.onClick,
+              onDoubleClick: row?.onDoubleClick
+            };
 
             return (
               <React.Fragment key={`table-row-mobile-${index}`}>
@@ -103,7 +107,7 @@ const RowsMobile = React.memo<IRowProps>(
                       classes.rowContent,
                       hasActions && '--hasActions',
                       hasCollapse && '--hasCollapse',
-                      className && className
+                      className
                     )}
                     {...rowProps}
                   >
@@ -125,7 +129,7 @@ const RowsMobile = React.memo<IRowProps>(
                       )}
 
                       {hasColumnAction && (
-                        <ButtonIcon size='small' onClick={() => handleClickActions(data)}>
+                        <ButtonIcon size='small' onClick={e => handleClickActions(e, data)}>
                           <MoreHorizIcon />
                         </ButtonIcon>
                       )}

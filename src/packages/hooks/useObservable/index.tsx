@@ -2,46 +2,53 @@ import * as React from 'react';
 
 import { Observable } from 'rxjs';
 
+import { getConfig } from '../config';
+
 export type observerFunction<T> = () => Observable<T>;
 
 /**
- * Create a memoized observable and unsubscribe automatically if component unmount
- * @returns [observableValue, error, isCompleted]
+ * Create a memoized observable and unsubscribe automatically if component unmount, first value will be undefined
+ * @param observableGenerator Function to return a observable
+ * @param deps List of deps
+ * @returns [observableValue, error, complete, loading]
  */
 export default function useObservable<T>(
   observableGenerator: observerFunction<T>,
-  deps: React.DependencyList,
-  defaultValue: T | null = null
-): [T | null, any, boolean, undefined] {
-  const [value, setValue] = React.useState<T | null>(null);
+  deps: React.DependencyList
+): [T, any, boolean, boolean, undefined] {
+  const [value, setValue] = React.useState<T>(undefined);
   const [error, setError] = React.useState();
+  const [loading, setLoading] = React.useState(true);
   const [complete, setComplete] = React.useState<boolean>(false);
-
-  const defaultValueRef = React.useRef(defaultValue);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const cb = React.useCallback(observableGenerator, deps);
 
   React.useEffect(() => {
-    setValue(defaultValueRef.current || null);
+    setValue(undefined);
     setError(undefined);
     setComplete(false);
+    setLoading(true);
 
-    defaultValueRef.current = null;
-
-    const sub = cb().subscribe(
-      (data: T) => {
+    const sub = cb().subscribe({
+      next: (data: T) => {
         setValue(data);
         setError(undefined);
+        setLoading(false);
       },
-      (err: any) => {
+      error: err => {
+        getConfig().onUnhandledError(err, 'hooks');
         setValue(null);
         setError(err);
+        setLoading(false);
       },
-      () => setComplete(true)
-    );
+      complete: () => {
+        setComplete(true);
+        setLoading(false);
+      }
+    });
     return () => sub.unsubscribe();
-  }, [cb, defaultValue]);
+  }, [cb]);
 
-  return [value, error, complete, undefined];
+  return [value, error, complete, loading, undefined];
 }

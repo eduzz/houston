@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { getConfig } from '../config';
+
 export default function usePromise<T>(promiseGenerator: () => Promise<T>, deps: React.DependencyList): [T, any] {
   const [result, setResult] = React.useState<T>();
   const [error, setError] = React.useState<any>();
@@ -13,6 +15,8 @@ export default function usePromise<T>(promiseGenerator: () => Promise<T>, deps: 
         setResult(result);
       })
       .catch(err => {
+        getConfig().onUnhandledError(err, 'hooks');
+
         if (!isSubscribed) return;
         setError(err);
       });

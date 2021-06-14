@@ -11,16 +11,18 @@ export default {
   menuDisplayName: {
     'eduzz/houston-ui': '@eduzz/houston-ui',
     'eduzz/houston-forms': '@eduzz/houston-forms',
-    'eduzz/houston-hooks': '@eduzz/houston-hooks'
+    'eduzz/houston-hooks': '@eduzz/houston-hooks',
+    'eduzz/houston-icons': '@eduzz/houston-icons'
   },
   menu: [
     { name: 'eduzz/houston-ui', menu: ['Início', 'Tema e Estilos'] },
     { name: 'eduzz/houston-forms', menu: ['Início'] },
-    { name: 'eduzz/houston-hooks', menu: ['Início'] }
+    { name: 'eduzz/houston-hooks', menu: ['Início'] },
+    { name: 'eduzz/houston-icons', menu: ['Início', 'Ícones'] }
   ],
   groups: {
     'Geral': ['Início', 'Instalação', 'Como Contribuir', 'Roadmap', 'ESLint'],
-    'Packages': ['eduzz/houston-ui', 'eduzz/houston-forms', 'eduzz/houston-hooks']
+    'Packages': ['eduzz/houston-ui', 'eduzz/houston-icons', 'eduzz/houston-forms', 'eduzz/houston-hooks']
   },
   themeConfig: {
     search: true,

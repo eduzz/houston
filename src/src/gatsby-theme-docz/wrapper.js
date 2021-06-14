@@ -12,6 +12,9 @@ function fixLayout() {
   const isSSR = typeof window === "undefined" || !window.document;
   if (isSSR) return;
 
+  const isDev = window.location.href.includes('localhost');  
+  if (isDev) return;
+  
   const aButton = window.document.querySelector('.sidebar a');
   if (!aButton) return;
 
