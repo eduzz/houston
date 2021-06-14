@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import TableActionContext from './context';
+import TableRowContext from '../Row/context';
 
 export interface ITableActionOptionProp {
   children: React.ReactNode;
@@ -13,12 +13,12 @@ export interface ITableActionOptionProp {
 }
 
 const TableActionOption = React.memo<ITableActionOptionProp>(({ children, disabled, onClick, order, icon }) => {
-  const registerOption = useContextSelector(TableActionContext, context => context.registerOption);
+  const registerAction = useContextSelector(TableRowContext, context => context.registerAction);
 
   React.useEffect(() => {
-    const unregister = registerOption({ disabled, onClick, icon, content: children });
+    const unregister = registerAction({ disabled, onClick, icon, content: children });
     return () => unregister();
-  }, [children, disabled, onClick, icon, order, registerOption]);
+  }, [children, disabled, onClick, icon, order, registerAction]);
 
   return null;
 });

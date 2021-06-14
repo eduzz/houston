@@ -4,7 +4,7 @@ import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { ITableActionOption } from '../interface';
+import { ITableAction } from '../interface';
 
 const useStyles = makeStyles(() => ({
   option: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
 interface IProps extends MenuProps {
   anchorEl: HTMLElement;
   onClose: () => void;
-  options: ITableActionOption[];
+  options: ITableAction[];
   rowData: unknown;
   rowIndex: number;
 }

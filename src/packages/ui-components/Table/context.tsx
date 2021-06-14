@@ -1,12 +1,18 @@
 import { createContext } from 'use-context-selector';
 
-import { ITableSort, ITableActionOption } from './interface';
+import { ITableSort, ITableAction } from './interface';
+
+export interface ITableRow {
+  key: string;
+  hasActions: boolean;
+  hasCollapse: boolean;
+}
 
 export interface ITableActionShow {
   anchorEl: HTMLElement;
   rowData: unknown;
   rowIndex?: number;
-  options: ITableActionOption[];
+  actions: ITableAction[];
 }
 
 export interface ITableContext {
@@ -18,8 +24,8 @@ export interface ITableContext {
   columns: string[];
   registerColumn: () => () => void;
 
-  actions: string[];
-  registerActions: () => () => void;
+  rows: ITableRow[];
+  registerRow: (param: Omit<ITableRow, 'key'>) => () => void;
 
   rowMapLabel: { [rowKey: string]: string };
 
@@ -37,8 +43,8 @@ const TableContext = createContext<ITableContext>({
   registerColumn: () => () => null,
   onShowAction: () => null,
   rowMapLabel: {},
-  actions: [],
-  registerActions: () => () => null,
+  rows: [],
+  registerRow: () => () => null,
   stripedRows: false
 });
 

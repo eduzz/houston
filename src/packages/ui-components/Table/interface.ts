@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import Actions from './Actions';
-import ActionOption from './Actions/Options';
+import Action from './Action';
 import Body from './Body';
 import Cell from './Cell';
+import Collapse from './Collapse';
 import Column from './Column';
 import Empty from './Empty';
 import Header from './Header';
@@ -11,7 +11,16 @@ import Pagination from './Pagination';
 import Row from './Row';
 import { ITableProps } from './Table';
 
-export interface ITableActionOption {
+export interface ITableCollapse {
+  onOpen: (data: unknown, index?: number) => void;
+  onClose: (data: unknown, index?: number) => void;
+  content: React.ReactNode;
+  disabled?: boolean;
+  disabledPadding?: boolean;
+  disableBackground?: boolean;
+}
+
+export interface ITableAction {
   key: string;
   onClick: (data: unknown, index?: number) => void;
   content: React.ReactNode;
@@ -24,11 +33,6 @@ export interface ITableItem<T> {
   data: T;
   index: number;
   striped: boolean;
-}
-
-export interface ITableAction {
-  display: React.ReactNode;
-  onClick: () => void;
 }
 
 export interface ITableSort {
@@ -48,9 +52,9 @@ export type TableComponent = React.NamedExoticComponent<ITableProps> & {
   Header?: typeof Header;
   Body?: typeof Body;
   Column?: typeof Column;
+  Collapse?: typeof Collapse;
   Row?: typeof Row;
   Empty?: typeof Empty;
   Pagination?: typeof Pagination;
-  Actions?: typeof Actions;
-  ActionOption?: typeof ActionOption;
+  Action?: typeof Action;
 };

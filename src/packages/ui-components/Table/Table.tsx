@@ -2,20 +2,21 @@ import * as React from 'react';
 
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import clsx from 'clsx';
 
 import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
-import MenuActions from './Actions/Menu';
-import TableContext, { ITableActionShow, ITableContext } from './context';
+import MenuActions from './Action/Menu';
+import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';
 import { ITableSort, TableComponent } from './interface';
 import { bindMutationObserver } from './observer';
 import useStyles, { IStyleParams } from './styles';
 
 let columnsKeyIncrementer = 0,
-  actionsKeyIncremeter = 0;
+  rowKeyIncremeter = 0;
 
 export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'> {
   loading?: boolean;
@@ -59,19 +60,16 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
   } = props;
 
   const tableRef = React.useRef<HTMLTableElement>();
+  const responsive = useMediaQuery(`(max-width: ${props.mobileWidth ?? 600}px)`);
 
   const [openedMenuActions, , openMenuActions, closeMenuActions] = useBoolean(false);
   const [menuActionOptions, setMenuActionOptions] = React.useState<ITableActionShow>();
 
   const [rowMapLabel, setRowMapLabel] = React.useState<{ [rowKey: string]: string }>({});
   const [columns, setColumns] = React.useState<string[]>(() => []);
-  const [actions, setActions] = React.useState<string[]>([]);
+  const [rows, setRows] = React.useState<ITableRow[]>([]);
 
-  const hasActions = actions.length > 0;
-  const propsStyle = React.useMemo<IStyleParams>(
-    () => ({ maxHeight, hasActions, mobileWidth }),
-    [hasActions, maxHeight, mobileWidth]
-  );
+  const propsStyle = React.useMemo<IStyleParams>(() => ({ maxHeight, mobileWidth }), [maxHeight, mobileWidth]);
   const classes = useStyles(propsStyle);
 
   const onShowAction = React.useCallback(
@@ -89,11 +87,11 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
     return () => setColumns(columns => columns.filter(c => c != key));
   }, []);
 
-  const registerActions = React.useCallback(() => {
-    const key = `table-action-option-${++actionsKeyIncremeter}`;
+  const registerRow = React.useCallback((row: Omit<ITableRow, 'key'>) => {
+    const key = `table-row-${++rowKeyIncremeter}`;
 
-    setActions(options => [...options, key]);
-    return () => setActions(options => options.filter(o => o !== key));
+    setRows(rows => [...rows, { key, ...row }]);
+    return () => setRows(rows => rows.filter(r => r.key !== key));
   }, []);
 
   React.useEffect(() => {
@@ -110,8 +108,8 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
       registerColumn,
       rowMapLabel,
       columns,
-      actions,
-      registerActions,
+      rows,
+      registerRow,
       stripedRows,
       columnActionTitle
     }),
@@ -120,11 +118,11 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
       sort,
       onSort,
       onShowAction,
-      rowMapLabel,
       registerColumn,
+      rowMapLabel,
       columns,
-      actions,
-      registerActions,
+      rows,
+      registerRow,
       stripedRows,
       columnActionTitle
     ]
@@ -139,14 +137,14 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
             size={size}
             id={id}
             ref={tableRef}
-            className={clsx(classes.table, className)}
+            className={clsx(classes.table, responsive && classes.tableResponsive, className)}
           >
             {children}
 
             <MenuActions
               open={openedMenuActions}
               anchorEl={menuActionOptions?.anchorEl}
-              options={menuActionOptions?.options}
+              options={menuActionOptions?.actions}
               rowData={menuActionOptions?.rowData}
               rowIndex={menuActionOptions?.rowIndex}
               onClose={closeMenuActions}
