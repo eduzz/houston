@@ -53,8 +53,7 @@ export default function overrides(palette: Palette): ICustomOverrides {
       label: {
         fontFamily: themeVariable.fontFamily,
         lineHeight: themeVariable.lineHeight('compact'),
-        fontSize: themeVariable.textSize('small'),
-        color: 'white'
+        fontSize: themeVariable.textSize('small')
       },
 
       sizeSmall: {
