@@ -98,7 +98,8 @@ const Steps = () => {
             <div key={key} className={clsx({ [classes.mobilePadding]: breakpoint === 'small' }, classes.stepContent)}>
               <div
                 className={clsx(
-                  { [classes.small]: breakpoint === 'small', [classes.medium]: breakpoint === 'medium' },
+                  breakpoint === 'small' && classes.small,
+                  breakpoint === 'medium' && classes.medium,
                   classes.contentImage
                 )}
               >

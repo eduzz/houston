@@ -97,8 +97,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
-  const { className, children, stepCounter, open, initialStep, size, onNext, onPrevious, onFinish, onClose, ...rest } =
-    props;
+  const {
+    open,
+    size,
+    children,
+    className,
+    initialStep,
+    stepCounter = true,
+    disableBackdropClick = true,
+    onNext,
+    onPrevious,
+    onFinish,
+    onClose,
+    ...rest
+  } = props;
 
   const { currentStep, setCurrentStep, nextStep, previousStep } = useShowcase(initialStep);
 
@@ -195,7 +207,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
 
   return (
     <WrapperTheme>
-      <ModalMUI {...rest} open={modalState} onClose={handleClose} ref={ref}>
+      <ModalMUI {...rest} disableBackdropClick={disableBackdropClick} open={modalState} onClose={handleClose} ref={ref}>
         <ShowcaseContextProvider value={contextValue}>
           <div className={clsx(className, { [classes[breakpoint]]: breakpoint !== 'large' }, classes.modalContent)}>
             <CardMUI className='card-mui'>

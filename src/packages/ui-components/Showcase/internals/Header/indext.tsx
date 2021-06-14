@@ -42,7 +42,8 @@ const Header = () => {
 
   return (
     <Typography className={classes.header}>
-      <span className='header-title'>{title.children} </span>
+      <span className='header-title'>{title.children}</span>
+
       {breakpoint !== 'small' && stepCounter && (
         <span>
           {currentStep}/{steps.length}
