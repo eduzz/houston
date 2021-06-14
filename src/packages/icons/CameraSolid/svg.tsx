@@ -3,7 +3,7 @@ import * as React from 'react';
 import { sizeMap } from '../utils/getIconSize';
 
 export default ({ width = sizeMap.small }) => (
-  <svg width={width} viewBox='0 0 192 192' fill='#546E7A' xmlns='http://www.w3.org/2000/svg'>
+  <svg width={width} viewBox='0 0 192 192' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
     <path
       fillRule='evenodd'
       clipRule='evenodd'
@@ -14,7 +14,10 @@ export default ({ width = sizeMap.small }) => (
       clipRule='evenodd'
       d='M42.9583 60.1091L26.9592 60L27.041 48.0002L43.0402 48.1094L42.9583 60.1091Z'
     />
-    <path d='M59.5 50.5L65.5 42.5H127.5L140.5 54.5L154.5 60.5L168.5 63V153H24V60.5H29H44.5L59.5 50.5Z' fill='#546E7A' />
+    <path
+      d='M59.5 50.5L65.5 42.5H127.5L140.5 54.5L154.5 60.5L168.5 63V153H24V60.5H29H44.5L59.5 50.5Z'
+      fill='currentColor'
+    />
     <path
       fillRule='evenodd'
       clipRule='evenodd'
