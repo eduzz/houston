@@ -45,13 +45,16 @@ export default function overrides(palette: Palette): ICustomOverrides {
       },
 
       iconSizeMedium: {
-        fontSize: 15
+        '& > *:first-child': {
+          fontSize: 15
+        }
       },
 
       label: {
         fontFamily: themeVariable.fontFamily,
         lineHeight: themeVariable.lineHeight('compact'),
-        fontSize: themeVariable.textSize('small')
+        fontSize: themeVariable.textSize('small'),
+        color: 'white'
       },
 
       sizeSmall: {

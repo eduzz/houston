@@ -3,7 +3,7 @@ import * as React from 'react';
 import { sizeMap } from '../utils/getIconSize';
 
 export default ({ width = sizeMap.small }) => (
-  <svg width={width} viewBox='0 0 192 192' fill='#546E7A' xmlns='http://www.w3.org/2000/svg'>
+  <svg width={width} viewBox='0 0 192 192' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
     <path
       fillRule='evenodd'
       clipRule='evenodd'
@@ -34,10 +34,10 @@ export default ({ width = sizeMap.small }) => (
       clipRule='evenodd'
       d='M107.5 57.4854C107.5 54.1716 110.186 51.4854 113.5 51.4854H169.5C172.814 51.4854 175.5 54.1716 175.5 57.4854C175.5 60.7991 172.814 63.4854 169.5 63.4854H113.5C110.186 63.4854 107.5 60.7991 107.5 57.4854Z'
     />
-    <path fillRule='evenodd' clipRule='evenodd' d='M112 81H128V93H112V81Z' fill='#546E7A' />
-    <path fillRule='evenodd' clipRule='evenodd' d='M128 92H144V104H128V92Z' fill='#546E7A' />
-    <path fillRule='evenodd' clipRule='evenodd' d='M112 102H128V114H112V102Z' fill='#546E7A' />
-    <path fillRule='evenodd' clipRule='evenodd' d='M128 113H144V125H128V113Z' fill='#546E7A' />
-    <path fillRule='evenodd' clipRule='evenodd' d='M112 125H128V137H112V125Z' fill='#546E7A' />
+    <path fillRule='evenodd' clipRule='evenodd' d='M112 81H128V93H112V81Z' fill='currentColor' />
+    <path fillRule='evenodd' clipRule='evenodd' d='M128 92H144V104H128V92Z' fill='currentColor' />
+    <path fillRule='evenodd' clipRule='evenodd' d='M112 102H128V114H112V102Z' fill='currentColor' />
+    <path fillRule='evenodd' clipRule='evenodd' d='M128 113H144V125H128V113Z' fill='currentColor' />
+    <path fillRule='evenodd' clipRule='evenodd' d='M112 125H128V137H112V125Z' fill='currentColor' />
   </svg>
 );

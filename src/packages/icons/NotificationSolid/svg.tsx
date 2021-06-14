@@ -3,14 +3,19 @@ import * as React from 'react';
 import { sizeMap } from '../utils/getIconSize';
 
 export default ({ width = sizeMap.small }) => (
-  <svg width={width} viewBox='0 0 192 192' fill='#546E7A' xmlns='http://www.w3.org/2000/svg'>
+  <svg width={width} viewBox='0 0 192 192' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
     <path
       fillRule='evenodd'
       clipRule='evenodd'
       d='M130.485 87.5526V77.6147C130.485 58.9536 115.263 43.8259 96.4854 43.8259C77.7077 43.8259 62.4854 58.9536 62.4854 77.6147V87.5526H50.4854V77.6147C50.4854 52.3674 71.0803 31.9004 96.4854 31.9004C121.89 31.9004 142.485 52.3674 142.485 77.6147V87.5526H130.485Z'
     />
     <path fillRule='evenodd' clipRule='evenodd' d='M62.4854 86.5589L62.4854 130.286H50.4854L50.4854 86.5589H62.4854Z' />
-    <path fillRule='evenodd' clipRule='evenodd' d='M142.485 85.5653V129.292H130.485V85.5653H142.485Z' fill='#546E7A' />
+    <path
+      fillRule='evenodd'
+      clipRule='evenodd'
+      d='M142.485 85.5653V129.292H130.485V85.5653H142.485Z'
+      fill='currentColor'
+    />
     <path
       fillRule='evenodd'
       clipRule='evenodd'
@@ -27,8 +32,8 @@ export default ({ width = sizeMap.small }) => (
       d='M24.4854 135.255C24.4854 131.962 27.1716 129.292 30.4854 129.292L160.485 129.292C163.799 129.292 166.485 131.962 166.485 135.255C166.485 138.548 163.799 141.217 160.485 141.217L30.4854 141.217C27.1716 141.217 24.4854 138.548 24.4854 135.255Z'
     />
     <path d='M87.4854 24.4472C87.4854 19.7819 91.2909 16 95.9854 16C100.68 16 104.485 19.7819 104.485 24.4472V31.4037C104.485 36.069 100.68 39.8509 95.9854 39.8509C91.2909 39.8509 87.4854 36.069 87.4854 31.4037V24.4472Z' />
-    <path d='M142 123.329H151V135.255H142V123.329Z' fill='#546E7A' />
-    <path d='M42 122.335H51V134.261H42V122.335Z' fill='#546E7A' />
+    <path d='M142 123.329H151V135.255H142V123.329Z' fill='currentColor' />
+    <path d='M42 122.335H51V134.261H42V122.335Z' fill='currentColor' />
     <path
       fillRule='evenodd'
       clipRule='evenodd'
