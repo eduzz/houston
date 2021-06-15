@@ -22,10 +22,11 @@ type ITableCellExtends =
   | 'onDoubleClick';
 
 export interface ITableCellProps extends Pick<ITableCellPropsMUI, ITableCellExtends> {
+  columnLabel?: string;
   mobileSize?: GridSize | true | false;
 }
 
-const TableCell = React.memo<ITableCellProps>(({ children, className, mobileSize, ...props }) => {
+const TableCell = React.memo<ITableCellProps>(({ children, className, mobileSize, columnLabel, ...props }) => {
   const [cellKey] = React.useState(() => `cell-${++cellKeyIncremeter}`);
   const cellRef = React.useRef<HTMLTableCellElement>();
 
@@ -38,7 +39,7 @@ const TableCell = React.memo<ITableCellProps>(({ children, className, mobileSize
   return (
     <TableCellMUI {...props} className={clsx(className, `cell-size-${mobileSize ?? 'auto'}`)} ref={cellRef}>
       <Typography size='x-small' fontWeight='regular' lineHeight='compact' lighter className='table-label-mobile'>
-        {label}
+        {columnLabel ?? label}
       </Typography>
       {typeof children === 'string' ? <Typography>{children}</Typography> : children}
     </TableCellMUI>

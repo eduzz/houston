@@ -61,6 +61,16 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     return () => setActions(actions => actions.filter(o => o.key !== key));
   }, []);
 
+  const onCollapseEnter = React.useCallback(
+    () => collapse.onOpen && collapse.onOpen(data, index),
+    [collapse, data, index]
+  );
+
+  const onCollapseClose = React.useCallback(
+    () => collapse.onClose && collapse.onClose(data, index),
+    [collapse, data, index]
+  );
+
   React.useEffect(() => {
     const unregister = registerRow({ hasActions, hasCollapse });
     return () => unregister();
@@ -116,7 +126,13 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
           )}
         >
           <TableCell colSpan={columnSpan}>
-            <CollapseMUI in={showCollapse && !collapse.disabled} timeout={350} unmountOnExit>
+            <CollapseMUI
+              in={showCollapse && !collapse.disabled}
+              timeout={350}
+              onEntered={onCollapseEnter}
+              onExited={onCollapseClose}
+              unmountOnExit
+            >
               <div className='table-collapse-content'>{collapse.content}</div>
             </CollapseMUI>
           </TableCell>

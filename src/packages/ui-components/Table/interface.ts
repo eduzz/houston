@@ -6,6 +6,7 @@ import Cell from './Cell';
 import Collapse from './Collapse';
 import Column from './Column';
 import Empty from './Empty';
+import Error from './Error';
 import Header from './Header';
 import Pagination from './Pagination';
 import Row from './Row';
@@ -53,6 +54,7 @@ export type TableComponent = React.NamedExoticComponent<ITableProps> & {
   Body?: typeof Body;
   Column?: typeof Column;
   Collapse?: typeof Collapse;
+  Error?: typeof Error;
   Row?: typeof Row;
   Empty?: typeof Empty;
   Pagination?: typeof Pagination;

@@ -48,6 +48,7 @@ export interface IUsePaginatedObservable<P, R> {
   hasMore: boolean;
   error: any;
   retry: () => void;
+  updateInitialParams: React.Dispatch<React.SetStateAction<P>>;
   mergeParams: (params: PaginationMergeParams<P>) => void;
   /** Sintax sugar for `mergeParams` to change page  */
   handleChangePage: (page: number) => void;
@@ -59,21 +60,23 @@ export interface IUsePaginatedObservable<P, R> {
 
 /**
  * Hooks to simplify the use of an observable paginated
- * @param params Function that return a observable, receive the params as args
+ * @param options `IUsePaginatedOptions`
  * @param deps React deps
  * @returns `IUsePaginatedObservable`
  */
-export default function usePaginatedObservable<P extends IPaginationParams, T>(
-  options: IUsePaginatedOptions<P, T>,
+export default function usePaginatedObservable<P extends IPaginationParams, R>(
+  options: IUsePaginatedOptions<P, R>,
   deps: React.DependencyList
-): IUsePaginatedObservable<P, T> {
+): IUsePaginatedObservable<P, R> {
   const { infintyScroll, initialParams: initialParamsOption, onChangeParams } = options;
 
-  const [data, setData] = React.useState<IDataState<T>>({ total: 0, result: [], hasMore: true });
+  const [data, setData] = React.useState<IDataState<R>>({ total: 0, result: [], hasMore: true });
   const [isLoading, setIsLoading] = React.useState(true);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 
-  const [initialParams] = React.useState<P>(() => ({ page: 1, perPage: 25, ...(initialParamsOption ?? {}) } as P));
+  const [initialParams, updateInitialParams] = React.useState<P>(
+    () => ({ page: 1, perPage: 25, ...(initialParamsOption ?? {}) } as P)
+  );
   const [params, setParams] = React.useState<P>(() => ({ ...initialParams }));
 
   const mergeParams = React.useCallback(
@@ -157,6 +160,7 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
     error,
     retry,
     mergeParams,
+    updateInitialParams,
     handleSort,
     handleChangePage,
     handleChangePerPage

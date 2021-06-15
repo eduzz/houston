@@ -4,6 +4,7 @@ import Cell from './Cell';
 import Collapse from './Collapse';
 import Column from './Column';
 import Empty from './Empty';
+import Error from './Error';
 import Header from './Header';
 import Pagination from './Pagination';
 import Row from './Row';
@@ -16,6 +17,7 @@ Table.Collapse = Collapse;
 Table.Empty = Empty;
 Table.Header = Header;
 Table.Row = Row;
+Table.Error = Error;
 Table.Pagination = Pagination;
 Table.Action = Action;
 

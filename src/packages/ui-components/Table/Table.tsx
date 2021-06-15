@@ -20,16 +20,12 @@ let columnsKeyIncrementer = 0,
 
 export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'> {
   loading?: boolean;
+  stickyHeader?: boolean;
   sort?: ITableSort;
   /**
    * Function called when clicking on an ordered column
    */
   onSort?: (ordernation: ITableSort) => void;
-  /**
-   * Function called when clicking in icon action in row
-   */
-  onActionsClick?: (event: React.MouseEvent<HTMLElement>, data: unknown) => void;
-  stickyHeader?: boolean;
   /**
    * Default `medium`
    */
@@ -40,7 +36,7 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'class
   maxHeight?: number;
   stripedRows?: boolean;
   columnActionTitle?: string;
-  mobileWidth?: number;
+  mobileWidth?: number | false;
 }
 
 const Table: TableComponent = React.memo<ITableProps>(props => {
@@ -60,7 +56,8 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
   } = props;
 
   const tableRef = React.useRef<HTMLTableElement>();
-  const responsive = useMediaQuery(`(max-width: ${props.mobileWidth ?? 600}px)`);
+  const mediaQueryMobile = useMediaQuery(`(max-width: ${props.mobileWidth ?? 600}px)`);
+  const responsive = props.mobileWidth === false ? false : mediaQueryMobile;
 
   const [openedMenuActions, , openMenuActions, closeMenuActions] = useBoolean(false);
   const [menuActionOptions, setMenuActionOptions] = React.useState<ITableActionShow>();

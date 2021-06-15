@@ -5,8 +5,8 @@ import { useContextSelector } from 'use-context-selector';
 import TableRowContext from '../Row/context';
 
 export interface ITableCollapseProps {
-  onOpen?: (data?: unknown, index?: number) => void;
-  onClose?: (data?: unknown, index?: number) => void;
+  onOpen?: (data: unknown, index: number) => void;
+  onClose?: (data: unknown, index: number) => void;
   disabled?: boolean;
   children?: React.ReactNode;
   disabledPadding?: boolean;
