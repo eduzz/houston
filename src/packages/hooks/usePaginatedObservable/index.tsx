@@ -11,6 +11,10 @@ const isEqual = require('lodash/isEqual');
 export interface IPaginationParams {
   page: number;
   perPage: number;
+  sort?: {
+    field: string;
+    direction: 'asc' | 'desc';
+  };
   [key: string]: any;
 }
 
@@ -23,19 +27,62 @@ interface IDataState<T> extends IPaginationResponse<T> {
   hasMore: boolean;
 }
 
+export type PaginationMergeParams<P> =
+  | Partial<P & { _retry?: number }>
+  | ((currenteParams: Partial<P & { _retry?: number }>) => Partial<P & { _retry?: number }>);
+
+export interface IUsePaginatedOptions<P, T> {
+  initialParams?: P;
+  /** set if the date will be cumulative or not */
+  infintyScroll?: boolean;
+  onChangeParams: (params: P) => Observable<IPaginationResponse<T>>;
+}
+
+export interface IUsePaginatedObservable<P, R> {
+  params: P;
+  initialParams: Partial<P>;
+  isLoading: boolean;
+  isLoadingMore: boolean;
+  total: number;
+  result: R[];
+  hasMore: boolean;
+  error: any;
+  retry: () => void;
+  mergeParams: (params: PaginationMergeParams<P>) => void;
+  /** Sintax sugar for `mergeParams` to change page  */
+  handleChangePage: (page: number) => void;
+  /** Sintax sugar for `mergeParams` to change perPage  */
+  handleChangePerPage: (perPage: number) => void;
+  /** Sintax sugar for `mergeParams` to change the sort  */
+  handleSort: (sort: IPaginationParams['sort']) => void;
+}
+
+/**
+ * Hooks to simplify the use of an observable paginated
+ * @param params Function that return a observable, receive the params as args
+ * @param deps React deps
+ * @returns `IUsePaginatedObservable`
+ */
 export default function usePaginatedObservable<P extends IPaginationParams, T>(
-  observableGenerator: (params: P) => Observable<IPaginationResponse<T>>,
-  initialParams: Partial<P>,
+  options: IUsePaginatedOptions<P, T>,
   deps: React.DependencyList
-) {
+): IUsePaginatedObservable<P, T> {
+  const { infintyScroll, initialParams: initialParamsOption, onChangeParams } = options;
+
   const [data, setData] = React.useState<IDataState<T>>({ total: 0, result: [], hasMore: true });
   const [isLoading, setIsLoading] = React.useState(true);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 
-  const [params, setParams] = React.useState<P>({ page: 0, perPage: 30, ...initialParams } as P);
+  const [initialParams] = React.useState<P>(() => ({ page: 1, perPage: 25, ...(initialParamsOption ?? {}) } as P));
+  const [params, setParams] = React.useState<P>(() => ({ ...initialParams }));
+
   const mergeParams = React.useCallback(
-    (newParams: Partial<P & { _retry?: number }>, reset = false) => {
+    (newParams: PaginationMergeParams<P>, reset?: boolean) => {
       setParams(params => {
+        if (typeof newParams === 'function') {
+          newParams = newParams(params);
+        }
+
         if (newParams.page > params.page && (!data.hasMore || isLoading || isLoadingMore)) {
           newParams.page = params.page;
         }
@@ -48,18 +95,20 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
         return { ...newState, _retry: null };
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data.hasMore, isLoading, isLoadingMore]
+    [data.hasMore, initialParams, isLoading, isLoadingMore]
   );
 
   const [, error] = useObservable(() => {
     return of(true).pipe(
-      tap(() => (params.page === 0 ? setIsLoading(true) : setIsLoadingMore(true))),
-      delay(1000),
+      tap(() => {
+        setIsLoading(!infintyScroll || params.page === initialParams.page);
+        setIsLoadingMore(params.page !== initialParams.page);
+      }),
+      delay(300),
       switchMap(() => {
         const sendParams = { ...params } as P & { _retry?: number };
         delete sendParams._retry;
-        return observableGenerator(sendParams);
+        return onChangeParams(sendParams);
       }),
       tap({
         next: response => {
@@ -68,7 +117,10 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
 
           setData(data => {
             const total = response.total ?? data.total;
-            const result = (params.page === 0 ? response.result : [...data.result, ...response.result]) ?? [];
+            const result =
+              (params.page === initialParams.page || !infintyScroll
+                ? response.result
+                : [...data.result, ...response.result]) ?? [];
 
             return { total, result, hasMore: result.length < total };
           });
@@ -87,9 +139,15 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
     mergeParams({ page: 0, _retry: Date.now() } as any);
   }, [mergeParams]);
 
+  const handleChangePage = React.useCallback((page: number) => mergeParams({ page } as P), [mergeParams]);
+  const handleChangePerPage = React.useCallback((perPage: number) => mergeParams({ perPage } as P), [mergeParams]);
+  const handleSort = React.useCallback(
+    (sort: IPaginationParams['sort']) => mergeParams({ sort, page: initialParams.page } as P),
+    [initialParams.page, mergeParams]
+  );
+
   return {
     params,
-    mergeParams,
     initialParams,
     isLoading,
     isLoadingMore,
@@ -97,6 +155,10 @@ export default function usePaginatedObservable<P extends IPaginationParams, T>(
     result: data.result,
     hasMore: data.hasMore,
     error,
-    retry
+    retry,
+    mergeParams,
+    handleSort,
+    handleChangePage,
+    handleChangePerPage
   };
 }

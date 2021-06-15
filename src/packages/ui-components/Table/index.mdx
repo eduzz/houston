@@ -7,10 +7,44 @@ submenu: Componentes
 
 import { useState, useCallback } from 'react';
 
+import { of } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
+
+import usePaginatedObservable from '@eduzz/houston-hooks/usePaginatedObservable';
+
 import { Playground } from 'docz';
 import faker from 'faker/locale/pt_BR';
 
 import Table from './index.tsx';
+
+export const salesService = (() => {
+  const data = new Array(100).fill('a').map((_, index) => ({
+    id: index + 1,
+    name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+    email: faker.internet.email().toLowerCase(),
+    price: faker.commerce.price()
+  }));
+  return {
+    list: params => {
+      return of(data).pipe(
+        map(data => {
+          let result = data;
+          if (params.sort) {
+            result = result.sort((a, b) => {
+              if (a[params.sort.field] > b[params.sort.field]) return params.sort.direction === 'asc' ? 1 : -1;
+              if (a[params.sort.field] == b[params.sort.field]) return 0;
+              return params.sort.direction === 'asc' ? -1 : 1;
+            });
+          }
+          const start = (params.page - 1) * params.perPage;
+          return result.slice(start, start + params.perPage);
+        }),
+        delay(500),
+        map(result => ({ total: data.length, result }))
+      );
+    }
+  };
+})();
 
 # Tabela
 
@@ -99,4 +133,52 @@ Mensagens customizadas para eventos internos.
       <Table.Empty count={0}>Realmente isso está vazio</Table.Empty>
     </Table.Body>
   </Table>
+</Playground>
+
+### Usando um Observable
+
+<Playground>
+  {() => {
+    const { params, mergeParams, error, handleChangePage, handleChangePerPage, handleSort, result, total, isLoading } =
+      usePaginatedObservable(
+        {
+          initialParams: { perPage: 5 },
+          onChangeParams: params => salesService.list(params)
+        },
+        []
+      );
+    if (error) console.error(error);
+    return (
+      <Table stripedRows sort={params.sort} onSort={handleSort} loading={isLoading}>
+        <Table.Header>
+          <Table.Column width={50} sortableField='id'>
+            #
+          </Table.Column>
+          <Table.Column sortableField='name'>Nome</Table.Column>
+          <Table.Column sortableField='email'>Email</Table.Column>
+          <Table.Column align='right'>Valor</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          <Table.Empty count={result.length} />
+          {result.map((row, index) => (
+            <Table.Row data={row} index={index} key={row.id}>
+              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
+              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
+              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
+              <Table.Cell mobileSize={6} align='right'>
+                {row.price}
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+        <Table.Pagination
+          page={params.page}
+          perPage={params.perPage}
+          total={total}
+          onChangePage={handleChangePage}
+          onChangePerPage={handleChangePerPage}
+        />
+      </Table>
+    );
+  }}
 </Playground>
