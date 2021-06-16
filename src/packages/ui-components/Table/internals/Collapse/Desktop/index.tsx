@@ -102,7 +102,7 @@ const Collapse = React.memo(() => {
                 {loading && <LoaderCollapse columns={numberColumnsCollapse} />}
 
                 {!loading &&
-                  row?.map((row, index) => (
+                  rows?.map((row, index) => (
                     <TableRow key={`collapse-row-${index}`}>
                       {row?.cells?.map((cell, i) => (
                         <Cell key={`collapse-row-${index}-cell-${i}`} list={type === 'list'} {...cell} />
