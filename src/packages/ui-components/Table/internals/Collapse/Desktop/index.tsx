@@ -9,8 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import useLazyArray from '@eduzz/houston-hooks/useLazyArray';
-
 // @ts-ignore
 import isEqual from 'lodash/isEqual';
 
@@ -59,8 +57,6 @@ const Collapse = React.memo(() => {
 
   const numberColumnsCollapse = React.useMemo(() => columns?.length + 1 + Number(!!actions) || 1, [columns, actions]);
 
-  const lazyRows = useLazyArray(rows);
-
   const rowData = row.data;
 
   return (
@@ -106,7 +102,7 @@ const Collapse = React.memo(() => {
                 {loading && <LoaderCollapse columns={numberColumnsCollapse} />}
 
                 {!loading &&
-                  lazyRows?.map((row, index) => (
+                  row?.map((row, index) => (
                     <TableRow key={`collapse-row-${index}`}>
                       {row?.cells?.map((cell, i) => (
                         <Cell key={`collapse-row-${index}-cell-${i}`} list={type === 'list'} {...cell} />
