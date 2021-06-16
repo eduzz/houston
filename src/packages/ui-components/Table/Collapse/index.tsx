@@ -1,25 +1,36 @@
 import * as React from 'react';
 
-import { TableProps } from '@material-ui/core/Table';
+import { useContextSelector } from 'use-context-selector';
 
-import { ITableCollapseType } from '../interfaces';
+import TableRowContext from '../Row/context';
 
-type ITableCollapse = 'id' | 'className' | 'tabIndex' | 'children';
-
-export interface ITableCollapseProps extends Pick<TableProps, ITableCollapse> {
-  loading?: boolean;
-  /**
-   * Default `false`
-   */
-  onCollapse?: (data?: unknown) => void;
-  /**
-   * If `list` will not render the bottom columns and borders
-   */
-  type?: ITableCollapseType;
-  /**
-   * Function called when clicking in icon action in row
-   */
-  onActionsClick?: (event: React.MouseEvent<HTMLElement>, data: unknown) => void;
+export interface ITableCollapseProps {
+  onOpen?: (data: unknown, index: number) => void;
+  onClose?: (data: unknown, index: number) => void;
+  disabled?: boolean;
+  children?: React.ReactNode;
+  disabledPadding?: boolean;
+  disableBackground?: boolean;
 }
 
-export default React.memo<ITableCollapseProps>(() => null);
+const TableCollapse = React.memo<ITableCollapseProps>(
+  ({ onOpen, onClose, disabled, disableBackground, disabledPadding, children }) => {
+    const registerCollapse = useContextSelector(TableRowContext, context => context.registerCollapse);
+
+    React.useEffect(() => {
+      const unregister = registerCollapse({
+        disabled,
+        onOpen,
+        onClose,
+        disableBackground,
+        disabledPadding,
+        content: children
+      });
+      return () => unregister();
+    }, [children, disabled, registerCollapse, onOpen, onClose, disableBackground, disabledPadding]);
+
+    return null;
+  }
+);
+
+export default TableCollapse;

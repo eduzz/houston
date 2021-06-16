@@ -151,7 +151,7 @@ const Pagination = React.memo(() => {
 
                 <div>
                   <SelectField
-                    classes={{ select: classes.selectPerPage }}
+                    size='small'
                     margin='none'
                     options={defaultOptionsPerPage.map(value => ({ label: String(value), value }))}
                     value={pagination?.perPage ?? 15}
@@ -168,7 +168,7 @@ const Pagination = React.memo(() => {
                 </Typography>
 
                 <TextField
-                  className={classes.inputGoTo}
+                  size='small'
                   margin='none'
                   value={currentPage ?? ''}
                   onChange={handleChangeGoToPage}

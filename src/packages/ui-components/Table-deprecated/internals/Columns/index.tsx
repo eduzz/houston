@@ -112,7 +112,7 @@ const Columns = React.memo(() => {
             );
           })}
         {hasColumnAction && (
-          <TableCell align={columnAction[0]?.align} width={50} className={stripedRows && classes.striped}>
+          <TableCell align={columnAction[0]?.align} width={50} className={stripedRows ? classes.striped : null}>
             {columnAction[0]?.label === false && <>&nbsp;</>}
             {!columnAction[0]?.label && columnAction[0].label !== false ? 'Ações' : columnAction[0].label}
           </TableCell>

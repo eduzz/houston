@@ -9,6 +9,8 @@ import TextFieldMUI, { TextFieldProps } from '@material-ui/core/TextField';
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import IFormMask from '@eduzz/houston-core/maskAdapter';
 
+import clsx from 'clsx';
+
 import useMask from '../../hooks/useMask';
 import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
@@ -43,6 +45,7 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
   startAdornment?: React.ReactNode;
   onPressEnter?: (value: any) => any;
   maxLength?: number;
+  size?: 'normal' | 'small';
 }
 
 const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
@@ -62,6 +65,8 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       startAdornment,
       maxLength,
       onPressEnter,
+      className,
+      size,
       ...props
     },
     ref
@@ -151,7 +156,8 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
           error={hasError}
           {...props}
           disabled={form?.isSubmitting || props.disabled || loading}
-          helperText={errorMessage || props.helperText}
+          helperText={errorMessage ?? props.helperText}
+          className={clsx(className, size === 'small' ? 'input-size-small' : null)}
           name={name}
           margin={margin ?? 'normal'}
           variant='outlined'
