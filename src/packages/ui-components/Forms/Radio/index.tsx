@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import Radio from '@material-ui/core/Radio';
 
-import CheckboxRadioField, { ICheckboxRadioFieldProps } from '../internals/CheckRadioBase';
+import BaseRadioField, { IRadioBaseFieldProps } from '../internals/RadioBase';
 
-export interface IRadioFieldProps extends Omit<ICheckboxRadioFieldProps, 'Control' | 'isMultiple'> {}
+export interface IRadioFieldProps extends Omit<IRadioBaseFieldProps, 'Control' | 'isMultiple'> {}
 
 const RadioField = React.memo<IRadioFieldProps>(props => {
-  return <CheckboxRadioField {...props} Control={Radio} isMultiple={false} />;
+  return <BaseRadioField {...props} Control={Radio} />;
 });
 
 export default RadioField;

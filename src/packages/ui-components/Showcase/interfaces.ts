@@ -53,6 +53,7 @@ export interface IShowcaseProps extends Pick<CardProps, ShowcasePropsExtends> {
   onNext?: (currentStep: number) => void;
   onPrevious?: (currentStep: number) => void;
   onClose?: (currentStep: number) => void;
+  disableBackdropClick?: boolean;
 }
 
 export interface IShowcaseComponent

@@ -30,8 +30,17 @@ const useStyles = makeStyles(theme =>
     },
 
     stripedRow: {
-      '&:nth-of-type(even)': {
-        background: theme.palette.grey[100]
+      background: theme.palette.grey[100]
+    },
+
+    hasEndAdornment: {
+      borderBottom: 0
+    },
+
+    cellEndAdornment: {
+      paddingTop: 0,
+      '&:empty': {
+        padding: 0
       }
     },
 
@@ -86,29 +95,44 @@ const Rows = React.memo<IRowProps>(
 
         {!loading &&
           lazyRows.map((row, index) => {
-            const { data = null, cells = [], collapse = null, className, ...rest } = row;
+            const { data = null, cells = [], collapse = null, className } = row;
+            const isOdd = index % 2 === 1;
 
-            const rowProps = { ...rest };
-            delete rowProps.options;
+            const rowProps = {
+              id: row?.id,
+              tabIndex: row?.tabIndex,
+              onClick: row?.onClick,
+              onDoubleClick: row?.onDoubleClick
+            };
+
+            const hasEndAdornment = !!row?.endAdornment;
 
             return (
               <React.Fragment key={`table-row-${index}`}>
                 <TableRow
                   hover
                   selected={currentRow && isEqual(currentRow?.data, data)}
-                  className={clsx(classes.root, stripedRows && classes.stripedRow, className && className)}
+                  className={clsx(classes.root, stripedRows && isOdd && classes.stripedRow, className)}
                   {...rowProps}
                 >
                   {cells?.map((cell, i) => {
                     const currentIndex = i + 1;
                     const isFixed = columns[i]?.fixed && (currentIndex === 1 || currentIndex === numberColumns);
-                    return <Cell key={`row-${index}-cell-${i}`} fixed={isFixed} {...cell} />;
+
+                    return (
+                      <Cell
+                        key={`row-${index}-cell-${i}`}
+                        fixed={isFixed}
+                        hasEndAdornment={hasEndAdornment}
+                        {...cell}
+                      />
+                    );
                   })}
 
                   {hasColumnAction && (
-                    <TableCell align='right'>
+                    <TableCell align='right' className={hasEndAdornment && classes.hasEndAdornment}>
                       <div className={classes.wrapperIconActions}>
-                        <ButtonIcon size='small' onClick={() => handleClickActions(data)}>
+                        <ButtonIcon size='small' onClick={e => handleClickActions(e, data)}>
                           <MoreHorizIcon />
                         </ButtonIcon>
                       </div>
@@ -143,6 +167,14 @@ const Rows = React.memo<IRowProps>(
                     </>
                   )}
                 </TableRow>
+
+                {row?.endAdornment && (
+                  <TableRow className={clsx(classes.root, stripedRows && isOdd && classes.stripedRow)}>
+                    <TableCell className={classes.cellEndAdornment} colSpan={numberColumns}>
+                      {row.endAdornment}
+                    </TableCell>
+                  </TableRow>
+                )}
 
                 {collapse && <Collapse collapse={currentItemCollapse} row={row} />}
               </React.Fragment>

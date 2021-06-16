@@ -255,15 +255,16 @@ de 10 em 10, para mais informações veja o hook **useLazyArray**
 
 ### Table props
 
-| prop         | tipo             | obrigatório | padrão   | descrição                                                                               |
-| ------------ | ---------------- | ----------- | -------- | --------------------------------------------------------------------------------------- |
-| loading      | `boolean`        | `false`     | `false`  | -                                                                                       |
-| onSortable   | `function`       | `false`     | -        | Função chamada ao clicar em uma coluna `sortable`.                                      |
-| stickyHeader | `boolean`        | `false`     | `false`  | Header fixo, é necessário inserir um valor na prop `maxHeight` para melhor experiência. |
-| size         | `Size`           | `false`     | `medium` | -                                                                                       |
-| maxHeight    | `number`         | `false`     | -        | -                                                                                       |
-| messages     | `ITableMessages` | `false`     | `false`  | Mensagens para eventos internos.                                                        |
-| stripedRows  | `boolean`        | `false`     | `false`  | -                                                                                       |
+| prop           | tipo             | obrigatório | padrão   | descrição                                                                               |
+| -------------- | ---------------- | ----------- | -------- | --------------------------------------------------------------------------------------- |
+| loading        | `boolean`        | `false`     | `false`  | -                                                                                       |
+| onSortable     | `function`       | `false`     | -        | Função chamada ao clicar em uma coluna `sortable`.                                      |
+| onActionsClick | `function`       | `false`     | -        | Função chamada ao clicar em uma coluna do tipo `action`.                                |
+| stickyHeader   | `boolean`        | `false`     | `false`  | Header fixo, é necessário inserir um valor na prop `maxHeight` para melhor experiência. |
+| size           | `Size`           | `false`     | `medium` | -                                                                                       |
+| maxHeight      | `number`         | `false`     | -        | -                                                                                       |
+| messages       | `ITableMessages` | `false`     | `false`  | Mensagens para eventos internos.                                                        |
+| stripedRows    | `boolean`        | `false`     | `false`  | -                                                                                       |
 
 ### Table.Column props
 
@@ -278,9 +279,10 @@ de 10 em 10, para mais informações veja o hook **useLazyArray**
 
 ### Table.Row props
 
-| prop | tipo      | obrigatório | padrão | descrição                                                                     |
-| ---- | --------- | ----------- | ------ | ----------------------------------------------------------------------------- |
-| data | `unknown` | `true`      | -      | Valores da linha, é necessário apenas quando há o componente `Table.Actions`. |
+| prop         | tipo              | obrigatório | padrão | descrição                                                                     |
+| ------------ | ----------------- | ----------- | ------ | ----------------------------------------------------------------------------- |
+| data         | `unknown`         | `false`     | -      | Valores da linha, é necessário apenas quando há o componente `Table.Actions`. |
+| endAdornment | `React.ReactNode` | `false`     | -      | Conteúdo adicionado no final (em baixo) da linha.                             |
 
 ### Table.Cell props
 
@@ -316,14 +318,16 @@ de 10 em 10, para mais informações veja o hook **useLazyArray**
 | totalPages          | `number`          | `true`      | -                       | -                                                         |
 | optionsPerPage      | `number[]`        | `false`     | `[15, 25, 35, 50, 100]` | -                                                         |
 | labelItensPerPage   | `React.ReactNode` | `false`     | `Itens por página:`     | -                                                         |
+| labelGoToPage       | `React.ReactNode` | `false`     | `Ir para:`              | -                                                         |
 | onChangeRowsPerPage | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
 | onChangeGoToPage    | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
 | onChangePage        | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
 
 ### Table.Collapse props
 
-| prop       | tipo            | obrigatório | padrão  | descrição                                                      |
-| ---------- | --------------- | ----------- | ------- | -------------------------------------------------------------- |
-| loading    | `boolean`       | `false`     | -       | -                                                              |
-| onCollapse | `function`      | `false`     | -       | Função chamada ao clicar para abrir / fechar o item recolhido. |
-| type       | `list`, `table` | `false`     | `table` | Se `list` não renderizará as colunas e bordas inferiores.      |
+| prop           | tipo            | obrigatório | padrão  | descrição                                                      |
+| -------------- | --------------- | ----------- | ------- | -------------------------------------------------------------- |
+| loading        | `boolean`       | `false`     | -       | -                                                              |
+| onCollapse     | `function`      | `false`     | -       | Função chamada ao clicar para abrir / fechar o item recolhido. |
+| type           | `list`, `table` | `false`     | `table` | Se `list` não renderizará as colunas e bordas inferiores.      |
+| onActionsClick | `function`      | `false`     | -       | Função chamada ao clicar em uma coluna do tipo `action`.       |

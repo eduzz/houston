@@ -51,5 +51,5 @@ export interface IRowProps {
 
   handleSetCurrentRow: (event: React.MouseEvent<HTMLElement>, row?: ITableRow) => void;
   handleClickCollapse: (row: ITableRow) => void;
-  handleClickActions: (data: unknown) => void;
+  handleClickActions: (event: React.MouseEvent<HTMLElement>, data: unknown) => void;
 }
