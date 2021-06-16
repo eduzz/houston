@@ -48,7 +48,6 @@ export interface IUsePaginatedObservable<P, R> {
   hasMore: boolean;
   error: any;
   retry: () => void;
-  updateInitialParams: React.Dispatch<React.SetStateAction<P>>;
   mergeParams: (params: PaginationMergeParams<P>, reset?: boolean) => void;
   /** Sintax sugar for `mergeParams` to change page  */
   handleChangePage: (page: number) => void;
@@ -74,9 +73,7 @@ export default function usePaginatedObservable<P extends IPaginationParams, R>(
   const [isLoading, setIsLoading] = React.useState(true);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 
-  const [initialParams, updateInitialParams] = React.useState<P>(
-    () => ({ page: 1, perPage: 25, ...(initialParamsOption ?? {}) } as P)
-  );
+  const [initialParams] = React.useState<P>(() => ({ page: 1, perPage: 25, ...(initialParamsOption ?? {}) } as P));
   const [params, setParams] = React.useState<P>(() => ({ ...initialParams }));
 
   const mergeParams = React.useCallback(
@@ -160,7 +157,6 @@ export default function usePaginatedObservable<P extends IPaginationParams, R>(
     error,
     retry,
     mergeParams,
-    updateInitialParams,
     handleSort,
     handleChangePage,
     handleChangePerPage
