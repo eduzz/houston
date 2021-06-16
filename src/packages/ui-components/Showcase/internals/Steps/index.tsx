@@ -7,102 +7,126 @@ import clsx from 'clsx';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
-const Steps = () => {
-  const [margin, setMargin] = React.useState(0);
+interface IWidthSizes {
+  large: number;
+  medium: number;
+  small: number;
+}
 
-  const { steps, currentStep, breakpoint, modalSizes, imageSizes } = useShowcaseContext();
+interface IStyleProps {
+  margin: number;
 
-  const useStyles = makeStyles(theme =>
-    createStyles({
-      root: {
-        overflow: 'hidden',
+  imageSizes: IWidthSizes;
 
-        '& .steps': {
-          display: 'flex',
-          marginLeft: margin,
-          transition: 'ease margin 1s'
-        }
-      },
+  modalSizes: IWidthSizes;
 
-      stepContent: {
+  size: 'small' | 'medium' | 'large';
+}
+
+const useStyles = makeStyles(theme =>
+  createStyles({
+    root: ({ margin, modalSizes, size }: IStyleProps) => ({
+      overflow: 'hidden',
+
+      '& .steps': {
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: '0 0 96px 0',
-        padding: '16px 24px',
-
-        [theme.breakpoints.down('xs')]: {
-          padding: '12px 16px'
-        },
-
-        '& .content-text': {
-          alignSelf: 'baseline',
-          fontWeight: 400,
-          fontSize: 16,
-          textAlign: 'left',
-          margin: 0,
-          lineHeight: '24px',
-          letterSpacing: '0.3px',
-          maxHeight: '29vh',
-          overflow: 'auto'
-        }
-      },
-
-      contentImage: {
-        width: imageSizes.large,
-        marginBottom: 24,
-        display: 'flex',
-        justifyContent: 'center',
+        marginLeft: margin * -modalSizes[size ?? 'large'],
+        transition: 'ease margin 1s',
 
         [theme.breakpoints.down('md')]: {
-          width: imageSizes.medium
+          marginLeft: margin * -modalSizes[size ?? 'medium']
         },
 
         [theme.breakpoints.down('xs')]: {
-          width: imageSizes.small
-        },
-
-        '& img': {
-          maxWidth: '100%',
-          borderRadius: 4
+          marginLeft: margin * -modalSizes[size ?? 'small']
         }
-      },
+      }
+    }),
 
-      mobilePadding: {
+    stepContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: '16px 24px',
+
+      [theme.breakpoints.down('xs')]: {
         padding: '12px 16px'
       },
 
-      small: {
-        width: imageSizes.small
+      '& .content-text': {
+        alignSelf: 'baseline',
+        fontWeight: 400,
+        fontSize: 16,
+        textAlign: 'left',
+        margin: 0,
+        lineHeight: '24px',
+        letterSpacing: '0.3px',
+        maxHeight: '29vh',
+        overflow: 'auto'
+      }
+    },
+
+    contentImage: (props: IStyleProps) => ({
+      width: props.imageSizes.large,
+      marginBottom: 24,
+      display: 'flex',
+      justifyContent: 'center',
+
+      [theme.breakpoints.down('md')]: {
+        width: props.imageSizes.medium
       },
 
-      medium: {
-        width: imageSizes.medium
-      }
-    })
-  );
+      [theme.breakpoints.down('xs')]: {
+        width: props.imageSizes.small
+      },
 
-  const classes = useStyles();
+      '& img': {
+        maxWidth: '100%',
+        borderRadius: 4
+      }
+    }),
+
+    mobilePadding: {
+      padding: '12px 16px'
+    },
+
+    small: (props: IStyleProps) => ({
+      width: props.imageSizes.small
+    }),
+
+    medium: (props: IStyleProps) => ({
+      width: props.imageSizes.medium
+    })
+  })
+);
+
+const Steps = () => {
+  const [margin, setMargin] = React.useState(0);
+
+  const { steps, currentStep, size, modalSizes, imageSizes } = useShowcaseContext();
+
+  const classes = useStyles({ margin, imageSizes, modalSizes, size });
 
   React.useEffect(() => {
-    setMargin((currentStep - 1) * -modalSizes[breakpoint]);
-  }, [currentStep, setMargin, breakpoint, modalSizes]);
+    setMargin(currentStep - 1);
+  }, [currentStep, setMargin, size, modalSizes]);
 
   return (
     <div className={classes.root}>
       <div className='steps'>
         {steps.map((step, key) => {
-          const { images, text } = step || { images: null, text: null };
+          const { image, text } = step || { images: null, text: null };
 
           return (
-            <div key={key} className={clsx({ [classes.mobilePadding]: breakpoint === 'small' }, classes.stepContent)}>
+            <div key={key} className={clsx(size === 'small' && classes.mobilePadding, classes.stepContent)}>
               <div
                 className={clsx(
-                  { [classes.small]: breakpoint === 'small', [classes.medium]: breakpoint === 'medium' },
+                  size === 'small' && classes.small,
+                  size === 'medium' && classes.medium,
                   classes.contentImage
                 )}
               >
-                <img src={images?.src} alt={images.alt} />
+                <img src={image?.src} alt={image.alt} />
               </div>
               <Typography className='content-text'>{text?.children}</Typography>
             </div>

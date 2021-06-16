@@ -8,10 +8,10 @@ interface IShowcaseContext {
   stepCounter: boolean;
   steps: IShowcaseStep[];
   genericButtons: IShowcaseButtons;
-  breakpoint: 'small' | 'medium' | 'large';
   modalSizes: IWidthSizes;
   imageSizes: IWidthSizes;
   currentStep: number;
+  size: 'small' | 'medium' | 'large';
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   onNextStep: () => void;
   onPreviousStep: () => void;

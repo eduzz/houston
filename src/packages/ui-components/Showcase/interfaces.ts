@@ -39,7 +39,7 @@ export interface IShowcaseButtons extends IShowcaseButtonsProps {
 }
 
 export interface IShowcaseStep extends IShowcaseStepProps {
-  images?: IShowcaseImageProps;
+  image?: IShowcaseImageProps;
   text?: IShowcaseTextProps;
   stepButtons?: IShowcaseButtons;
 }

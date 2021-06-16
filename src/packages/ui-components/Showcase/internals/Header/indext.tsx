@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { Theme, makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
@@ -36,20 +37,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Header = () => {
-  const { currentStep, title, stepCounter, steps, breakpoint, handleClose } = useShowcaseContext();
+  const { currentStep, title, stepCounter, steps, size, handleClose } = useShowcaseContext();
 
   const classes = useStyles();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
+
+  if (!title) return null;
 
   return (
     <Typography className={classes.header}>
       <span className='header-title'>{title.children} </span>
-      {breakpoint !== 'small' && stepCounter && (
+      {size !== 'small' && !isMobile && stepCounter && (
         <span>
           {currentStep}/{steps.length}
         </span>
       )}
 
-      {breakpoint === 'small' && (
+      {(size === 'small' || isMobile) && (
         <span className='close' id='modal-default-close' onClick={() => handleClose()}>
           x
         </span>
