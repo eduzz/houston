@@ -49,7 +49,7 @@ export interface IUsePaginatedObservable<P, R> {
   error: any;
   retry: () => void;
   updateInitialParams: React.Dispatch<React.SetStateAction<P>>;
-  mergeParams: (params: PaginationMergeParams<P>) => void;
+  mergeParams: (params: PaginationMergeParams<P>, reset?: boolean) => void;
   /** Sintax sugar for `mergeParams` to change page  */
   handleChangePage: (page: number) => void;
   /** Sintax sugar for `mergeParams` to change perPage  */
