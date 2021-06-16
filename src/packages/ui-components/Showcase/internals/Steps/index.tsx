@@ -100,7 +100,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const Steps = () => {
+const Steps = React.memo(() => {
   const [margin, setMargin] = React.useState(0);
 
   const { steps, currentStep, size, modalSizes, imageSizes } = useShowcaseContext();
@@ -135,6 +135,6 @@ const Steps = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Steps;

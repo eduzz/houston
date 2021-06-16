@@ -45,15 +45,15 @@ export interface IShowcaseStep extends IShowcaseStepProps {
 }
 
 export interface IShowcaseProps extends Pick<CardProps, ShowcasePropsExtends> {
-  size?: 'small' | 'medium' | 'large';
-  open?: boolean;
+  disableBackdropClick?: boolean;
   initialStep?: number;
+  open?: boolean;
+  size?: 'small' | 'medium' | 'large';
   stepCounter?: boolean;
+  onClose?: (currentStep: number) => void;
   onFinish?: () => void;
   onNext?: (currentStep: number) => void;
   onPrevious?: (currentStep: number) => void;
-  onClose?: (currentStep: number) => void;
-  disableBackdropClick?: boolean;
 }
 
 export interface IShowcaseComponent

@@ -157,7 +157,7 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
   );
 };
 
-const CallToActions = () => {
+const CallToActions = React.memo(() => {
   const { steps, currentStep, genericButtons } = useShowcaseContext();
 
   const specificButtons =
@@ -179,6 +179,6 @@ const CallToActions = () => {
   }
 
   return StepButtons();
-};
+});
 
 export default CallToActions;

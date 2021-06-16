@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Header = () => {
+const Header = React.memo(() => {
   const { currentStep, title, stepCounter, steps, size, handleClose } = useShowcaseContext();
 
   const classes = useStyles();
@@ -62,6 +62,6 @@ const Header = () => {
       )}
     </Typography>
   );
-};
+});
 
 export default Header;
