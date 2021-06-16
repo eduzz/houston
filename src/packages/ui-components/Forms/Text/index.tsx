@@ -156,7 +156,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
           error={hasError}
           {...props}
           disabled={form?.isSubmitting || props.disabled || loading}
-          helperText={errorMessage ?? props.helperText}
+          helperText={errorMessage || props.helperText}
           className={clsx(className, size === 'small' ? 'input-size-small' : null)}
           name={name}
           margin={margin ?? 'normal'}
