@@ -151,7 +151,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
           error={hasError}
           {...props}
           disabled={form?.isSubmitting || props.disabled || loading}
-          helperText={errorMessage ?? props.helperText}
+          helperText={errorMessage || props.helperText}
           name={name}
           margin={margin ?? 'normal'}
           variant='outlined'
