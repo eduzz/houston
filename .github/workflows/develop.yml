@@ -70,7 +70,7 @@ jobs:
           tag_name: v${{ needs.check-version.outputs.VERSION }}
           release_name: Release v${{ needs.check-version.outputs.VERSION }}
           body: No comments
-          draft: false
+          draft: true
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
