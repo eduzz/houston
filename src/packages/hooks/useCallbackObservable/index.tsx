@@ -6,18 +6,22 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
 import { getConfig } from '../config';
 import useObservable from '../useObservable';
 
+type ExtractObservableResult<P> = P extends Observable<infer T> ? T : never;
+
 /**
  * Create a memoized callback that uses an observable and unsubscribe automatically if component unmount
- * @returns a memoized version of the callback that only changes if one of the inputs has changed
+ * @param observableGenerator Function to return a observable
+ * @param deps List of deps
+ * @returns [callbackFunction, observableValue, error, complete, loading]
  */
-export default function useCallbackObservable<T>(
-  observableGenerator: (...args: any[]) => Observable<T>,
+export default function useCallbackObservable<T, F extends (...args: any[]) => Observable<T>>(
+  observableGenerator: F,
   deps: React.DependencyList
-): [() => void, T | undefined, any, boolean, undefined] {
+): [(...a: Parameters<F>) => void, ExtractObservableResult<ReturnType<F>>, any, boolean, boolean, undefined] {
   const [error, setError] = React.useState();
   const submitted$ = React.useRef(new Subject<any>()).current;
 
-  const [data, , completed] = useObservable(() => {
+  const [data, , completed, loading] = useObservable<any>(() => {
     return submitted$.pipe(
       tap(() => setError(undefined)),
       switchMap(args =>
@@ -33,7 +37,7 @@ export default function useCallbackObservable<T>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  const callback = React.useCallback((...args: any[]) => submitted$.next(args), [submitted$]);
+  const callback: any = React.useCallback((...args: any[]) => submitted$.next(args), [submitted$]);
 
-  return [callback, data, error, completed, undefined];
+  return [callback, data, error, completed, loading, undefined];
 }

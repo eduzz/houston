@@ -36,7 +36,7 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'class
   maxHeight?: number;
   stripedRows?: boolean;
   columnActionTitle?: string;
-  mobileWidth?: number | false;
+  mobileWidth?: number | boolean;
 }
 
 const Table: TableComponent = React.memo<ITableProps>(props => {
@@ -57,7 +57,7 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
 
   const tableRef = React.useRef<HTMLTableElement>();
   const mediaQueryMobile = useMediaQuery(`(max-width: ${props.mobileWidth ?? 600}px)`);
-  const responsive = props.mobileWidth === false ? false : mediaQueryMobile;
+  const responsive = typeof props.mobileWidth === 'boolean' ? props.mobileWidth : mediaQueryMobile;
 
   const [openedMenuActions, , openMenuActions, closeMenuActions] = useBoolean(false);
   const [menuActionOptions, setMenuActionOptions] = React.useState<ITableActionShow>();

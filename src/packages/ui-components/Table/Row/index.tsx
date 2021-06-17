@@ -97,13 +97,15 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 
         {(hasActions || hasCollapse) && (
           <TableCell align='right' className={clsx('table-action-cell', className)}>
-            {hasActions && (
+            {hasActions ? (
               <ButtonIcon size='small' onClick={onClickAction} disabled={!actions.length}>
                 <MoreHorizIcon color='action' />
               </ButtonIcon>
+            ) : (
+              <span />
             )}
 
-            {hasCollapse && (
+            {hasCollapse ? (
               <ButtonIcon
                 size='small'
                 onClick={toogleShowCollapse}
@@ -112,6 +114,8 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
               >
                 <KeyboardArrowDownIcon color='action' />
               </ButtonIcon>
+            ) : (
+              <span />
             )}
           </TableCell>
         )}

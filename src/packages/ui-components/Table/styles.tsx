@@ -18,6 +18,9 @@ const useStyles = createUseStyles({
     '& .table-collapse-button-opened': {
       transform: 'rotate(-180deg)'
     },
+    '& > tbody > tr > td': {
+      boxSizing: 'border-box'
+    },
     '& > tbody > tr.table-row-even > td': {
       backgroundColor: theme.colors.grey[100]
     },
@@ -97,7 +100,7 @@ const useStyles = createUseStyles({
     '& > tbody > tr.table-row-even + tr.table-collapse td': {
       backgroundColor: 'transparent'
     },
-    '& > tbody > tr.table-row-has-action': {
+    '& > tbody > tr.table-row-has-action, & > tbody > tr.table-row-has-collapse': {
       paddingRight: 50,
       '&:before': {
         content: '" "',

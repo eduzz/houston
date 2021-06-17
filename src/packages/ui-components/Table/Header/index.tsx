@@ -23,7 +23,7 @@ const TableHeader = React.memo<ITableHeadProps>(({ children, disabledActionsColu
       <TableRow>
         {children}
         {(hasActions || hasCollapse) && !disabledActionsColumn && (
-          <TableColumn width={hasCollapse && hasActions ? 70 : 50} align='right'>
+          <TableColumn width={hasCollapse && hasActions ? 100 : 80} align='right'>
             {columnActionTitle ?? 'Ações'}
           </TableColumn>
         )}
