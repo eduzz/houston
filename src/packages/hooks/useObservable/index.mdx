@@ -86,8 +86,8 @@ return (
  *    value: valor de retorno do Observable,
  *    error: se ocorrer um erro, ele será passado aqui,
  *    complete: boolean se o observable foi completado ou não,
- *    loading: boolean se esta carregando ou nào
+ *    loading: boolean se esta carregando ou não
  * ]
  */
-export default useObservable<T>(observableGenerator: observerFunction<T>, deps: React.DependencyList): [T, any, boolean, boolean, undefined];
+export default useObservable<T>(observableGenerator: () => Observable<T>, deps: React.DependencyList): [T, any, boolean, boolean];
 ```

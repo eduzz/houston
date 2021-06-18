@@ -2,12 +2,23 @@ import * as React from 'react';
 
 import { getConfig } from '../config';
 
-export default function usePromise<T>(promiseGenerator: () => Promise<T>, deps: React.DependencyList): [T, any] {
+/**
+ * Return the promise value and unsubscribed if component unmount
+ * @param promiseGenerator
+ * @param deps
+ * @returns [value, error, loading]
+ */
+export default function usePromise<T>(
+  promiseGenerator: () => Promise<T>,
+  deps: React.DependencyList
+): [T, any, boolean, undefined] {
+  const [loading, setLoading] = React.useState<boolean>(true);
   const [result, setResult] = React.useState<T>();
   const [error, setError] = React.useState<any>();
 
   React.useEffect(() => {
     let isSubscribed = true;
+    setLoading(true);
 
     promiseGenerator()
       .then(result => {
@@ -19,7 +30,8 @@ export default function usePromise<T>(promiseGenerator: () => Promise<T>, deps: 
 
         if (!isSubscribed) return;
         setError(err);
-      });
+      })
+      .finally(() => setLoading(false));
 
     return () => {
       isSubscribed = false;
@@ -27,5 +39,5 @@ export default function usePromise<T>(promiseGenerator: () => Promise<T>, deps: 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deps]);
 
-  return [result, error];
+  return [result, error, loading, undefined];
 }
