@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { BehaviorSubject, NEVER } from 'rxjs';
+import { BehaviorSubject, NEVER, Observable } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
 import { getConfig } from '../config';
-import useObservable, { observerFunction } from '../useObservable';
+import useObservable from '../useObservable';
 
 /**
  * Create a memoized observable and unsubscribe automatically if component unmount and a
@@ -12,7 +12,7 @@ import useObservable, { observerFunction } from '../useObservable';
  * @returns [observableValue, error, completed, retryFunction, loading]
  */
 export default function useRetryableObservable<T>(
-  observableGenerator: observerFunction<T>,
+  observableGenerator: () => Observable<T>,
   deps: React.DependencyList
 ): [T | undefined, any, boolean, () => void, boolean, undefined] {
   const [data, setData] = React.useState<T | undefined>();
