@@ -1,64 +1,31 @@
-/* eslint-disable max-lines */
 import * as React from 'react';
 
-import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import useBoolean from '@eduzz/houston-hooks/useBoolean';
+
 import clsx from 'clsx';
-// @ts-ignore
-import isEqual from 'lodash/isEqual';
 
-import { getReactChildrenComponent, getReactChildrenProps, isReactComponent } from '../Helpers/functions';
-import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
 import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
-import TableActions from './Actions';
-import TableCell, { ITableCellProps } from './Cell';
-import TableCollapse from './Collapse';
-import TableColumn, { ITableColumnProps } from './Column';
-import TableContextProvider from './context';
-import {
-  ITableActions,
-  ITableCollapse,
-  ITableMessages,
-  ITableRow,
-  ITableSortable,
-  ITableSubComponents
-} from './interfaces';
-import Actions from './internals/Actions';
-import Columns from './internals/Columns';
-import Pagination from './internals/Pagination';
-import RowsDesktop from './internals/Rows/Desktop';
-import RowsMobile from './internals/Rows/Mobile';
-import TableOption, { ITableOptionProps } from './Option';
-import TablePagination, { ITablePagination } from './Pagination';
-import TableRow from './Row';
+import MenuActions from './Action/Menu';
+import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';
+import { ITableSort, TableComponent } from './interface';
+import { bindMutationObserver } from './observer';
+import useStyles, { IStyleParams } from './styles';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    fixed: {
-      whiteSpace: 'nowrap'
-    }
-  })
-);
+let columnsKeyIncrementer = 0,
+  rowKeyIncremeter = 0;
 
-interface IProps extends Pick<TableProps, 'id' | 'children'> {
+export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'> {
   loading?: boolean;
-  initialOrdenation?: ITableSortable;
+  stickyHeader?: boolean;
+  sort?: ITableSort;
   /**
    * Function called when clicking on an ordered column
    */
-  onSortable?: (ordernation: ITableSortable) => void;
-  /**
-   * Function called when clicking in icon action in row
-   */
-  onActionsClick?: (event: React.MouseEvent<HTMLElement>, data: unknown) => void;
-
-  /**
-   * Default `false`
-   */
-  stickyHeader?: boolean;
+  onSort?: (ordernation: ITableSort) => void;
   /**
    * Default `medium`
    */
@@ -67,238 +34,123 @@ interface IProps extends Pick<TableProps, 'id' | 'children'> {
    * Max Height table container
    */
   maxHeight?: number;
-  /**
-   * Messages for some situations, example: `when there is no date`
-   */
-  messages?: ITableMessages;
   stripedRows?: boolean;
+  columnActionTitle?: string;
+  mobileWidth?: number | boolean;
 }
 
-interface ITableProps
-  extends ITableSubComponents,
-    React.ForwardRefExoticComponent<IProps & React.RefAttributes<HTMLTableElement>> {}
-
-const getActions = (content: React.ReactChildren | React.ReactNode): ITableActions => {
-  return getReactChildrenComponent(content, TableActions).map(child => {
-    return { ...child.props, options: getReactChildrenProps<ITableOptionProps>(child?.props?.children, TableOption) };
-  })?.[0];
-};
-
-const getCollapseData = (content: React.ReactNode): ITableCollapse => {
-  const columns = getReactChildrenProps<ITableColumnProps>(content, TableColumn);
-  const actions = getActions(content);
-
-  const rows = getReactChildrenComponent(content, TableRow).map(row => {
-    const options = getReactChildrenComponent(row?.props?.children, TableActions).reduce((acc, child) => {
-      return [...acc, ...getReactChildrenProps<ITableOptionProps>(child.props?.children, TableOption)];
-    }, []);
-
-    const cells = getReactChildrenComponent(row?.props?.children, TableCell).reduce((acc, child) => {
-      return [...acc, child.props];
-    }, [] as ITableCellProps[]);
-
-    return { ...row.props, options, cells };
-  });
-
-  return { columns, rows, actions };
-};
-
-const Table = React.memo<IProps>(props => {
-  const classes = useStyles();
-  const theme = useTheme();
-  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
-
+const Table: TableComponent = React.memo<ITableProps>(props => {
   const {
-    children,
-    loading,
-    onSortable,
-    onActionsClick,
     stickyHeader,
     size,
+    id,
+    children,
+    loading,
+    sort,
+    onSort,
     maxHeight,
-    messages,
     stripedRows,
-    initialOrdenation,
-    ...rest
+    columnActionTitle,
+    className,
+    mobileWidth
   } = props;
 
-  const [options, setOptions] = React.useState<ITableOptionProps[]>([]);
-  const [currentRow, setCurrentRow] = React.useState<ITableRow>(null);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [currentItemCollapse, setCurrentItemCollapse] = React.useState<unknown | null>(null);
+  const tableRef = React.useRef<HTMLTableElement>();
+  const mediaQueryMobile = useMediaQuery(`(max-width: ${props.mobileWidth ?? 600}px)`);
+  const responsive = typeof props.mobileWidth === 'boolean' ? props.mobileWidth : mediaQueryMobile;
 
-  const columns = useChildrenProps<ITableColumnProps>(children, TableColumn);
-  const pagination = useFirstChildrenProps<ITablePagination>(children, TablePagination);
-  const actions = React.useMemo(() => getActions(children), [children]);
+  const [openedMenuActions, , openMenuActions, closeMenuActions] = useBoolean(false);
+  const [menuActionOptions, setMenuActionOptions] = React.useState<ITableActionShow>();
 
-  const rows: ITableRow[] = React.useMemo(() => {
-    return React.Children.map(children, (child: React.ReactElement) => {
-      if (!isReactComponent(child, TableRow)) return;
+  const [rowMapLabel, setRowMapLabel] = React.useState<{ [rowKey: string]: string }>({});
+  const [columns, setColumns] = React.useState<string[]>(() => []);
+  const [rows, setRows] = React.useState<ITableRow[]>([]);
 
-      const cells = getReactChildrenComponent(child?.props?.children, TableCell).reduce((acc, child) => {
-        return [...acc, child.props];
-      }, [] as ITableCellProps[]);
+  const propsStyle = React.useMemo<IStyleParams>(() => ({ maxHeight, mobileWidth }), [maxHeight, mobileWidth]);
+  const classes = useStyles(propsStyle);
 
-      const options = getReactChildrenComponent(child?.props?.children, TableActions).reduce((acc, child) => {
-        return [...acc, ...getReactChildrenProps<ITableOptionProps>(child.props?.children, TableOption)];
-      }, []);
-
-      const collapse = getReactChildrenComponent(child?.props?.children, TableCollapse).map(child => {
-        return { ...child.props, ...getCollapseData(child?.props?.children) };
-      })?.[0];
-
-      return { ...child.props, cells, options, collapse };
-    });
-  }, [children]);
-
-  const handleSetCurrentRow = React.useCallback(
-    (event: React.MouseEvent<HTMLElement>, row: ITableRow = null) => {
-      if (!row.data) {
-        console.error('@eduzz/houston-ui: when the share component is used, the line must offer the property `data`');
-      }
-
-      setCurrentRow(row);
-      setAnchorEl(event.currentTarget);
-      setOptions(row?.options);
+  const onShowAction = React.useCallback(
+    (data: ITableActionShow) => {
+      setMenuActionOptions(data);
+      openMenuActions();
     },
-    [setAnchorEl, setOptions, setCurrentRow]
+    [openMenuActions]
   );
 
-  const handleClickCollapse = React.useCallback(
-    (row: ITableRow) => {
-      const callback = row?.collapse?.onCollapse;
-      const data = row?.data ?? {};
+  const registerColumn = React.useCallback(() => {
+    const key = `column-${++columnsKeyIncrementer}`;
 
-      if (currentItemCollapse && isEqual(currentItemCollapse, data)) {
-        callback && callback(null);
-        setCurrentItemCollapse(null);
-        return;
-      }
+    setColumns(columns => [...columns, key]);
+    return () => setColumns(columns => columns.filter(c => c != key));
+  }, []);
 
-      callback && callback(data);
-      setCurrentItemCollapse(data);
-    },
-    [currentItemCollapse]
-  );
+  const registerRow = React.useCallback((row: Omit<ITableRow, 'key'>) => {
+    const key = `table-row-${++rowKeyIncremeter}`;
 
-  const handleClickActions = React.useCallback(
-    (event: React.MouseEvent<HTMLElement>, data: unknown) => {
-      onActionsClick && onActionsClick(event, data);
-    },
-    [onActionsClick]
-  );
+    setRows(rows => [...rows, { key, ...row }]);
+    return () => setRows(rows => rows.filter(r => r.key !== key));
+  }, []);
 
-  const hasCollapseData = React.useMemo(() => rows.some(v => v.collapse), [rows]);
+  React.useEffect(() => {
+    const unbind = bindMutationObserver(tableRef.current, rowMap => setRowMapLabel(rowMap));
+    return () => unbind();
+  }, []);
 
-  const numberColumns = React.useMemo(
-    () => columns?.length + Number(!!actions) + Number(hasCollapseData) || 0,
-    [columns, actions, hasCollapseData]
-  );
-
-  const hasColumnFixed = React.useMemo(
-    () => !!(actions?.fixed || (columns?.length && columns.filter(c => c.fixed).length)),
-    [actions, columns]
-  );
-
-  const hasColumnAction = React.useMemo(() => columns?.some(c => c?.type === 'action'), [columns]);
-
-  const tableMessages: ITableMessages = React.useMemo(
+  const contextValue = React.useMemo<ITableContext>(
     () => ({
-      empty: messages?.empty ? messages.empty : 'Nenhum registro encontrado.'
-    }),
-    [messages]
-  );
-
-  const contextValue = React.useMemo(
-    () => ({
-      loading,
-      onSortable,
-      messages: tableMessages,
-      currentRow,
-      setCurrentRow,
+      loading: loading ?? false,
+      sort,
+      onSort,
+      onShowAction,
+      registerColumn,
+      rowMapLabel,
       columns,
       rows,
-      actions,
-      anchorEl,
-      setAnchorEl,
-      options,
-      setOptions,
-      pagination,
-      hasCollapseData,
-      hasColumnAction,
-      numberColumns,
-      isMobile,
+      registerRow,
       stripedRows,
-      initialOrdenation
+      columnActionTitle
     }),
     [
-      actions,
-      anchorEl,
-      columns,
-      currentRow,
-      hasCollapseData,
-      hasColumnAction,
       loading,
-      numberColumns,
-      onSortable,
-      options,
-      pagination,
+      sort,
+      onSort,
+      onShowAction,
+      registerColumn,
+      rowMapLabel,
+      columns,
       rows,
-      isMobile,
-      tableMessages,
+      registerRow,
       stripedRows,
-      initialOrdenation
+      columnActionTitle
     ]
   );
 
   return (
     <WrapperTheme>
-      <TableContextProvider value={contextValue}>
-        {isMobile && (
-          <div {...rest}>
-            <RowsMobile
-              currentItemCollapse={currentItemCollapse}
-              setCurrentItemCollapse={setCurrentItemCollapse}
-              handleSetCurrentRow={handleSetCurrentRow}
-              handleClickCollapse={handleClickCollapse}
-              handleClickActions={handleClickActions}
+      <TableContext.Provider value={contextValue}>
+        <TableContainer className={classes.tableContainer}>
+          <TableMUI
+            stickyHeader={stickyHeader}
+            size={size}
+            id={id}
+            ref={tableRef}
+            className={clsx(classes.table, responsive && classes.tableResponsive, className)}
+          >
+            {children}
+
+            <MenuActions
+              open={openedMenuActions}
+              anchorEl={menuActionOptions?.anchorEl}
+              options={menuActionOptions?.actions}
+              rowData={menuActionOptions?.rowData}
+              rowIndex={menuActionOptions?.rowIndex}
+              onClose={closeMenuActions}
             />
-          </div>
-        )}
-
-        {!isMobile && (
-          <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
-            <TableMUI
-              stickyHeader={stickyHeader}
-              size={size}
-              className={clsx(hasColumnFixed && classes.fixed)}
-              {...rest}
-            >
-              <Columns />
-              <RowsDesktop
-                currentItemCollapse={currentItemCollapse}
-                setCurrentItemCollapse={setCurrentItemCollapse}
-                handleSetCurrentRow={handleSetCurrentRow}
-                handleClickCollapse={handleClickCollapse}
-                handleClickActions={handleClickActions}
-              />
-            </TableMUI>
-          </TableContainer>
-        )}
-
-        <Pagination />
-        <Actions />
-      </TableContextProvider>
+          </TableMUI>
+        </TableContainer>
+      </TableContext.Provider>
     </WrapperTheme>
   );
-}) as ITableProps;
-
-Table.Column = TableColumn;
-Table.Row = TableRow;
-Table.Cell = TableCell;
-Table.Actions = TableActions;
-Table.Option = TableOption;
-Table.Pagination = TablePagination;
-Table.Collapse = TableCollapse;
+});
 
 export default Table;

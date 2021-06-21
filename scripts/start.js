@@ -17,7 +17,7 @@ const args = process.argv.filter(arg => arg.match(/^-{1,2}[^\-]/gmi)).reduce((ac
 }, []);
 
 async function init() {
-  let mode = null, skipClean = false;
+  let mode = null, skipClean = false, skipBuild;
 
   args.forEach(arg => {
     if (['dev', 'docs', 'both'].includes(arg)) {
@@ -25,6 +25,15 @@ async function init() {
     }
 
     if (arg === 'skip-clean') {
+      skipClean = true;
+    }
+
+    if (arg === 'skip-build') {
+      skipBuild = true;
+    }
+
+    if (arg === 'go') {
+      skipBuild = true;
       skipClean = true;
     }
   })
@@ -49,9 +58,11 @@ async function init() {
     await spawn('yarn', ['clean'], { stdio: 'inherit' });
   }
 
-  if (['dev', 'both'].includes(mode)) {
-    await spawn('yarn', ['build'], { stdio: 'inherit' });
-    await createDevFile();
+  if (!skipBuild) {
+    if (['dev', 'both'].includes(mode)) {
+      await spawn('yarn', ['build'], { stdio: 'inherit' });
+      await createDevFile();
+    }
   }
 
   await spawn('yarn', [`start:${mode}`], { stdio: 'inherit' });

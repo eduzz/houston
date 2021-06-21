@@ -20,16 +20,16 @@ import useObservable from '.';
 # useObservable
 
 Dá Subscribe e retorna o resultado de um Observable e quando o componente desmonta (unmount) também dá unsubscribe,
-diminuindo assim o risco de Memory Leak.
+diminuindo assim o risco de Memory Leak. **Como useEffect que retorna o valor do Observable**
 
-# Como usar
+## Como usar
 
 ```tsx
 const [value, error, completed, loading] = useObservable(() => userService.get(), []);
 
 return (
   <div>
-    {loading ? 'Carregnado' : ''}
+    {loading ? 'Carregando' : ''}
     {value}
   </div>
 );
@@ -54,8 +54,9 @@ return (
 
 ## Cuidados
 
-- **Erros** ocorridos serão automaticamentes logados (não tratados) se as o **onUnhandledError** for setado, mas se utilizar o
-  operador catchError esse erro não será logado pois foi previamente tratado, nesse caso o log deve ser feito manualmente.
+- **Erros** ocorridos serão automaticamentes logados (não tratados) se as o **onUnhandledError** no **setHoustonHooksConfig**
+  for setado, mas se utilizar o operador catchError esse erro não será logado pois foi previamente tratado,
+  nesse caso o log deve ser feito manualmente.
 - O valor inicial será **undefined**, lembre-se de tratar isso quando estiver usando:
 
 <Playground>
@@ -85,8 +86,8 @@ return (
  *    value: valor de retorno do Observable,
  *    error: se ocorrer um erro, ele será passado aqui,
  *    complete: boolean se o observable foi completado ou não,
- *    loading: boolean se esta carregando ou nào
+ *    loading: boolean se esta carregando ou não
  * ]
  */
-export default useObservable<T>(observableGenerator: observerFunction<T>, deps: React.DependencyList): [T, any, boolean, boolean, undefined];
+export default useObservable<T>(observableGenerator: () => Observable<T>, deps: React.DependencyList): [T, any, boolean, boolean];
 ```

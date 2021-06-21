@@ -1,12 +1,14 @@
 import React from 'react';
 
+import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
+
 import ComponentDev from './components';
 
 function App() {
   return (
-    <div className='App'>
+    <ThemeProvider>
       <ComponentDev />
-    </div>
+    </ThemeProvider>
   );
 }
 

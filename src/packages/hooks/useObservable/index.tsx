@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 
 import { getConfig } from '../config';
 
-export type observerFunction<T> = () => Observable<T>;
-
 /**
  * Create a memoized observable and unsubscribe automatically if component unmount, first value will be undefined
  * @param observableGenerator Function to return a observable
@@ -13,7 +11,7 @@ export type observerFunction<T> = () => Observable<T>;
  * @returns [observableValue, error, complete, loading]
  */
 export default function useObservable<T>(
-  observableGenerator: observerFunction<T>,
+  observableGenerator: () => Observable<T>,
   deps: React.DependencyList
 ): [T, any, boolean, boolean, undefined] {
   const [value, setValue] = React.useState<T>(undefined);
