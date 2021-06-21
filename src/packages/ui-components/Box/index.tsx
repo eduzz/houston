@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import BoxMUI, { BoxProps } from '@material-ui/core/Box';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
@@ -23,49 +23,47 @@ export interface IBoxProps extends Pick<BoxProps, BoxPropsExtends> {
   paper?: boolean;
 }
 
-const Box = React.memo<IBoxProps>(({ id, children, xs, sm, md, lg, xl, className, paper }) => {
-  const useStyles = makeStyles(theme =>
-    createStyles({
-      box: {
-        [theme.breakpoints.up('xs')]: {
-          padding: xs && xs?.padding,
-          margin: xs && xs?.margin ? xs?.margin : '16px 0'
-        },
-
-        [theme.breakpoints.up('sm')]: {
-          padding: sm && sm?.padding,
-          margin: sm && sm?.margin ? sm?.margin : '16px 0'
-        },
-
-        [theme.breakpoints.up('md')]: {
-          padding: md && md?.padding,
-          margin: md && md?.margin ? md?.margin : '16px 0'
-        },
-
-        [theme.breakpoints.up('lg')]: {
-          padding: lg && lg?.padding,
-          margin: lg && lg?.margin ? lg?.margin : '16px 0'
-        },
-
-        [theme.breakpoints.up('xl')]: {
-          padding: xl && xl?.padding,
-          margin: xl && xl?.margin ? xl?.margin : '16px 0'
-        }
+const Box = React.memo<IBoxProps>(({ children, xs, sm, md, lg, xl, className, paper, ...rest }) => {
+  const useStyles = makeStyles(theme => ({
+    box: {
+      [theme.breakpoints.up('xs')]: {
+        padding: xs && xs?.padding,
+        margin: xs && xs?.margin
       },
 
-      paper: {
-        background: '#fff',
-        boxShadow: theme.shadows[1],
-        borderRadius: 4
+      [theme.breakpoints.up('sm')]: {
+        padding: sm && sm?.padding,
+        margin: sm && sm?.margin
+      },
+
+      [theme.breakpoints.up('md')]: {
+        padding: md && md?.padding,
+        margin: md && md?.margin
+      },
+
+      [theme.breakpoints.up('lg')]: {
+        padding: lg && lg?.padding,
+        margin: lg && lg?.margin
+      },
+
+      [theme.breakpoints.up('xl')]: {
+        padding: xl && xl?.padding,
+        margin: xl && xl?.margin
       }
-    })
-  );
+    },
+
+    paper: {
+      background: '#fff',
+      boxShadow: theme.shadows[1],
+      borderRadius: 4
+    }
+  }));
 
   const classes = useStyles();
 
   return (
     <WrapperTheme>
-      <BoxMUI id={id} className={clsx(className, classes.box, paper && classes.paper)}>
+      <BoxMUI {...rest} className={clsx(className, classes.box, paper && classes.paper)}>
         {children}
       </BoxMUI>
     </WrapperTheme>
