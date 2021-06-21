@@ -5,10 +5,11 @@ import { firstValueFrom, Observable } from 'rxjs';
 import usePaginatedPromise, {
   IUsePaginatedPromise,
   IPaginationResponse as IPaginationResponsePromise,
-  IPaginationParams,
+  IPaginationParams as IPaginationParamsPromise,
   IUsePaginatedOptions as IUsePaginatedOptionsPromise
 } from '../usePaginatedPromise';
 
+export interface IPaginationParams extends IPaginationParamsPromise {}
 export interface IPaginationResponse<T> extends IPaginationResponsePromise<T> {}
 export interface IUsePaginatedObservable<P, R> extends IUsePaginatedPromise<P, R> {}
 
