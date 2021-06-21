@@ -5,8 +5,6 @@ menu: eduzz/houston-hooks
 submenu: Hooks
 ---
 
-import { useState, useCallback } from 'react';
-
 import Button from '@eduzz/houston-ui/Button';
 import Typography from '@eduzz/houston-ui/Typography';
 
@@ -22,7 +20,7 @@ diminuindo assim o risco de Memory Leak. **Como useEffect que retorna o valor da
 ## Como usar
 
 ```tsx
-const [value, error, completed, loading] = usePromise(() => userService.get(), []);
+const [value, error, loading] = usePromise(() => userService.get(), []);
 
 return (
   <div>
@@ -34,17 +32,15 @@ return (
 
 <Playground>
   {() => {
-    const [reset, setReset] = useState();
-    const [value, error, loading] = usePromise(
+    const [value, error, loading, retry] = usePromise(
       () => new Promise(resolve => setTimeout(() => resolve('olá'), 2000)),
       [reset]
     );
-    const onReset = useCallback(() => setReset(Date.now()), []);
     return (
       <div>
         <Typography>Value: {value}</Typography>
         <Typography>Loading: {loading.toString()}</Typography>
-        <Button onClick={onReset} variant='text'>
+        <Button onClick={retry} variant='text'>
           Reset
         </Button>
       </div>
@@ -67,7 +63,8 @@ return (
  * @returns [
  *    value: valor de retorno do Promise,
  *    error: se ocorrer um erro, ele será passado aqui,
- *    loading: boolean se esta carregando ou não
+ *    loading: boolean se esta carregando ou não,
+ *    retry: function to try again
  * ]
  */
 export default usePromise<T>(promiseGenerator: () => Promise<any>, deps: React.DependencyList): [T, any, boolean];

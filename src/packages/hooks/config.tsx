@@ -15,7 +15,7 @@ let _config: IHoustonHooksConfig = {
 };
 
 export default function setHoustonHooksConfig(config: IHoustonHooksConfig) {
-  if (!rxjsConfig.onUnhandledError) {
+  if (!rxjsConfig?.onUnhandledError) {
     rxjsConfig.onUnhandledError = err => config.onUnhandledError(err, 'rxjs');
   }
 
