@@ -1,11 +1,11 @@
 ---
-name: usePaginatedObservable
-route: /hooks/usePaginatedObservable
+name: useObservablePaginated
+route: /hooks/useObservablePaginated
 menu: eduzz/houston-hooks
 submenu: Hooks
 ---
 
-# usePaginatedObservable
+# useObservablePaginated
 
 Hook para facilitar o uso de um observable paginado, dá Subscribe e retorna
 o resultado junto com funções de manipulação dos parametros.
@@ -13,7 +13,7 @@ o resultado junto com funções de manipulação dos parametros.
 ## Como usar
 
 ```tsx
-const { params, handleChangePage, handleChangePerPage, handleSort, result, total, isLoading } = usePaginatedObservable(
+const { params, handleChangePage, handleChangePerPage, handleSort, result, total, isLoading } = useObservablePaginated(
   {
     initialParams: { page: 1, perPage: 5 }, // optional
     infinityScroll: false, // optional
@@ -56,5 +56,5 @@ const { params, handleChangePage, handleChangePerPage, handleSort, result, total
  *  handleSort: (sort: IPaginationParams['sort']) => void; / Função de atalho para o mergeParams({ sort: { field: 'name', direction: 'asc' }  })
  * }
  */
-export default function usePaginatedObservable<P extends IPaginationParams, R>(options: IUsePaginatedOptions<P, R>, , deps: React.DependencyList): IUsePaginatedObservable<P, R>
+export default function useObservablePaginated<P extends IPaginationParams, R>(options: IUsePaginatedOptions<P, R>, , deps: React.DependencyList): IUsePaginatedObservable<P, R>
 ```

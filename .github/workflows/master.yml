@@ -60,20 +60,20 @@ jobs:
         run: npm run publish -- --ci
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: Create Tag
-        id: release
-        uses: actions/create-release@v1
+      - name: Create tag
+        uses: actions/github-script@v3
         with:
-          tag_name: v${{ needs.check-version.outputs.VERSION }}
-          release_name: Release v${{ needs.check-version.outputs.VERSION }}
-          body: No comments
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/v${{ needs.check-version.outputs.VERSION }}",
+              sha: context.sha
+            })
       - name: Discord
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_RELEASE_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_RELEASE_WEBHOOK_TOKEN }}
-          args: "Nova versão criada: v${{ needs.check-version.outputs.VERSION }}\n${{ steps.release.outputs.html_url }}"
+          args: "Nova versão criada: v${{ needs.check-version.outputs.VERSION }}"

@@ -20,7 +20,7 @@ import useObservable from '.';
 # useObservable
 
 Dá Subscribe e retorna o resultado de um Observable e quando o componente desmonta (unmount) também dá unsubscribe,
-diminuindo assim o risco de Memory Leak.
+diminuindo assim o risco de Memory Leak. **Como useEffect que retorna o valor do Observable**
 
 ## Como usar
 
@@ -86,8 +86,8 @@ return (
  *    value: valor de retorno do Observable,
  *    error: se ocorrer um erro, ele será passado aqui,
  *    complete: boolean se o observable foi completado ou não,
- *    loading: boolean se esta carregando ou nào
+ *    loading: boolean se esta carregando ou não
  * ]
  */
-export default useObservable<T>(observableGenerator: observerFunction<T>, deps: React.DependencyList): [T, any, boolean, boolean, undefined];
+export default useObservable<T>(observableGenerator: () => Observable<T>, deps: React.DependencyList): [T, any, boolean, boolean];
 ```
