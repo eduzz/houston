@@ -3,8 +3,6 @@ import * as React from 'react';
 import ListItemMUI from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core/styles';
 
-import useLazyArray from '@eduzz/houston-hooks/useLazyArray';
-
 import clsx from 'clsx';
 
 import { IListItem } from '../../interfaces';
@@ -48,11 +46,9 @@ const Items = ({ items, stripedRows }: IProps) => {
     [stripedRows]
   );
 
-  const lazyItems = useLazyArray(items);
-
   return (
     <React.Fragment>
-      {lazyItems.map(({ left, title, subtitle, right }, index) => (
+      {items.map(({ left, title, subtitle, right }, index) => (
         <ListItemMUI
           key={`list-item-${index}`}
           className={clsx([classes.root, shouldDisplayStriped(index) && classes.striped])}
