@@ -10,7 +10,7 @@ import { useState, useCallback } from 'react';
 import { of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 
-import usePaginatedObservable from '@eduzz/houston-hooks/usePaginatedObservable';
+import useObservablePaginated from '@eduzz/houston-hooks/useObservablePaginated';
 
 import { Playground } from 'docz';
 import faker from 'faker/locale/pt_BR';
@@ -269,12 +269,12 @@ Mensagens customizadas para eventos internos.
 
 ### Usando um Observable
 
-Você pode de uma maneira fácil utizar o hook **usePaginatedObservable** do **@eduzz/houston-hooks**:
+Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@eduzz/houston-hooks**:
 
 <Playground>
   {() => {
     const { params, handleChangePage, handleChangePerPage, handleSort, result, total, isLoading } =
-      usePaginatedObservable(
+      useObservablePaginated(
         {
           initialParams: { perPage: 5 },
           onChangeParams: params => salesService.list(params)
@@ -322,7 +322,7 @@ Você pode de uma maneira fácil utizar o hook **usePaginatedObservable** do **@
 
 <Playground>
   {() => {
-    const { error, isLoading, result, retry } = usePaginatedObservable(
+    const { error, isLoading, result, retry } = useObservablePaginated(
       { onChangeParams: () => salesService.listWithError() },
       []
     );
