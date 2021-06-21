@@ -35,7 +35,7 @@ export interface IUsePaginatedOptions<P, T> {
   onChangeParams: (params: P) => Promise<IPaginationResponse<T>>;
 }
 
-export interface IUsePaginatedPromise<P, R> {
+export interface IUsePromisePaginated<P, R> {
   params: P;
   initialParams: Partial<P>;
   isLoading: boolean;
@@ -60,10 +60,10 @@ export interface IUsePaginatedPromise<P, R> {
  * @param deps React deps
  * @returns `IUsePaginatedPromise`
  */
-export default function usePaginatedPromise<P extends IPaginationParams, R>(
+export default function usePromisePaginated<P extends IPaginationParams, R>(
   options: IUsePaginatedOptions<P, R>,
   deps: React.DependencyList
-): IUsePaginatedPromise<P, R> {
+): IUsePromisePaginated<P, R> {
   const { infintyScroll, initialParams: initialParamsOption, onChangeParams } = options;
 
   const [data, setData] = React.useState<IDataState<R>>({ total: 0, result: [], hasMore: true });

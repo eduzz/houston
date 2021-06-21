@@ -1,5 +1,3 @@
-import { config as rxjsConfig } from 'rxjs';
-
 export interface IHoustonHooksConfig {
   /**
    * Set a function to be called when a unhandled error ocurrs,
@@ -15,11 +13,17 @@ let _config: IHoustonHooksConfig = {
 };
 
 export default function setHoustonHooksConfig(config: IHoustonHooksConfig) {
-  if (!rxjsConfig?.onUnhandledError) {
-    rxjsConfig.onUnhandledError = err => config.onUnhandledError(err, 'rxjs');
-  }
-
   _config = config;
+
+  import('rxjs')
+    .then(rxjs => {
+      if (rxjs.config && !rxjs.config.onUnhandledError) {
+        rxjs.config.onUnhandledError = err => config.onUnhandledError(err, 'rxjs');
+      }
+    })
+    .catch(() => {
+      /* Sem problemas, o projeto não tem rxjs */
+    });
 }
 
 export function getConfig() {

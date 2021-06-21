@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useCallback } from 'react';
 
 import { getConfig } from '../config';
 
@@ -12,11 +11,10 @@ import { getConfig } from '../config';
 export default function usePromise<T>(
   promiseGenerator: () => Promise<T>,
   deps: React.DependencyList
-): [T, any, boolean, () => void, undefined] {
+): [T, any, boolean, undefined] {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [result, setResult] = React.useState<T>();
   const [error, setError] = React.useState<any>();
-  const [retry, setRetry] = React.useState<number>();
 
   React.useEffect(() => {
     let isSubscribed = true;
@@ -39,9 +37,7 @@ export default function usePromise<T>(
       isSubscribed = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [retry, deps]);
+  }, deps);
 
-  const onRetry = useCallback(() => setRetry(Date.now()), []);
-
-  return [result, error, loading, onRetry, undefined];
+  return [result, error, loading, undefined];
 }

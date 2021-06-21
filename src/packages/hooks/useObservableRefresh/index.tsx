@@ -8,10 +8,10 @@ import useObservable from '../useObservable';
 
 /**
  * Create a memoized observable and unsubscribe automatically if component unmount and a
- * retry function
- * @returns [observableValue, error, completed, retryFunction, loading]
+ * refresh function
+ * @returns [observableValue, error, completed, refreshFunction, loading]
  */
-export default function useRetryableObservable<T>(
+export default function useObservableRefresh<T>(
   observableGenerator: () => Observable<T>,
   deps: React.DependencyList
 ): [T | undefined, any, boolean, () => void, boolean, undefined] {
@@ -39,7 +39,7 @@ export default function useRetryableObservable<T>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  const retry = React.useCallback(() => doRetry$.next(true), [doRetry$]);
+  const refresh = React.useCallback(() => doRetry$.next(true), [doRetry$]);
 
-  return [data, error, completed, retry, loading, undefined];
+  return [data, error, completed, refresh, loading, undefined];
 }

@@ -38,7 +38,7 @@ export interface IUsePaginatedOptions<P, T> {
   onChangeParams: (params: P) => Observable<IPaginationResponse<T>>;
 }
 
-export interface IUsePaginatedObservable<P, R> {
+export interface IUseObservablePaginated<P, R> {
   params: P;
   initialParams: Partial<P>;
   isLoading: boolean;
@@ -63,10 +63,10 @@ export interface IUsePaginatedObservable<P, R> {
  * @param deps React deps
  * @returns `IUsePaginatedObservable`
  */
-export default function usePaginatedObservable<P extends IPaginationParams, R>(
+export default function useObservablePaginated<P extends IPaginationParams, R>(
   options: IUsePaginatedOptions<P, R>,
   deps: React.DependencyList
-): IUsePaginatedObservable<P, R> {
+): IUseObservablePaginated<P, R> {
   const { infintyScroll, initialParams: initialParamsOption, onChangeParams } = options;
 
   const [data, setData] = React.useState<IDataState<R>>({ total: 0, result: [], hasMore: true });

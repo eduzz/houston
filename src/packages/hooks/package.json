@@ -25,8 +25,9 @@
   },
   "dependencies": {
     "@eduzz/houston-core": "0.18.4",
-    "lodash": "^4",
-    "rxjs": ">=6"
+    "lodash": "^4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "rxjs": "^7"
+  }
 }
