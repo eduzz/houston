@@ -10,8 +10,8 @@
     "package.json"
   ],
   "scripts": {
-    "start": "docz dev",
-    "build": "docz build"
+    "start": "GATSBY_TELEMETRY_DISABLED=1 docz dev",
+    "build": "GATSBY_TELEMETRY_DISABLED=1 docz build"
   },
   "dependencies": {
     "@emotion/react": "11.4.0",

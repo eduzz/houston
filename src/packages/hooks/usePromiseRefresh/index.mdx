@@ -1,50 +1,48 @@
 ---
-name: usePromise
-route: /hooks/usePromise
+name: usePromiseRefresh
+route: /hooks/usePromiseRefresh
 menu: eduzz/houston-hooks
 submenu: Hooks
 ---
-
-import { useState, useCallback } from 'react';
 
 import Button from '@eduzz/houston-ui/Button';
 import Typography from '@eduzz/houston-ui/Typography';
 
 import { Playground } from 'docz';
 
-import usePromise from '.';
+import usePromiseRefresh from '.';
 
-# usePromise
+# usePromiseRefresh
 
-Dá Subscribe e retorna o resultado de uma promise e quando o componente desmonta (unmount) também dá unsubscribe,
-diminuindo assim o risco de Memory Leak. **Como useEffect que retorna o valor da Promise**
+Um **usePromise** que retorna uma função de refresh para recarregar a promisse, útil na trativa de erros ou refresh.
 
 ## Como usar
 
 ```tsx
-const [value, error, loading] = usePromise(() => userService.get(), []);
+const [value, error, loading, refresh] = usePromiseRefresh(() => userService.get(), []);
 
 return (
   <div>
     {loading ? 'Carregando' : ''}
     {value}
+    <Button onClick={refresh} variant='text'>
+      Reset
+    </Button>
   </div>
 );
 ```
 
 <Playground>
   {() => {
-    const [reset, setReset] = useState();
-    const [value, error, loading] = usePromise(
+    const [value, error, loading, refresh] = usePromiseRefresh(
       () => new Promise(resolve => setTimeout(() => resolve('olá'), 2000)),
-      [reset]
+      []
     );
-    const onReset = useCallback(() => setReset(Date.now()), []);
     return (
       <div>
         <Typography>Value: {value}</Typography>
         <Typography>Loading: {loading.toString()}</Typography>
-        <Button onClick={onReset} variant='text'>
+        <Button onClick={refresh} variant='text'>
           Reset
         </Button>
       </div>
@@ -67,8 +65,9 @@ return (
  * @returns [
  *    value: valor de retorno do Promise,
  *    error: se ocorrer um erro, ele será passado aqui,
- *    loading: boolean se esta carregando ou não
+ *    loading: boolean se esta carregando ou não,
+ *    refresh: function to refresh the data
  * ]
  */
-export default usePromise<T>(promiseGenerator: () => Promise<any>, deps: React.DependencyList): [T, any, boolean];
+export default usePromiseRefresh<T>(promiseGenerator: () => Promise<any>, deps: React.DependencyList): [T, any, boolean];
 ```

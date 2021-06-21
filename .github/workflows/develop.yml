@@ -63,17 +63,17 @@ jobs:
       - name: Check Skip Release
         id: skip-release
         run: echo '::set-output name=SKIP::'$(cat .skip-release)
-      - name: Create Tag
-        if: steps.skip-release.outputs.SKIP != 'true'
-        uses: actions/create-release@v1
+      - name: Create tag
+        uses: actions/github-script@v3
         with:
-          tag_name: v${{ needs.check-version.outputs.VERSION }}
-          release_name: Release v${{ needs.check-version.outputs.VERSION }}
-          body: No comments
-          draft: false
-          prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/v${{ needs.check-version.outputs.VERSION }}",
+              sha: context.sha
+            })
       - name: Discord
         uses: appleboy/discord-action@master
         with:

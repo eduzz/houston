@@ -1,10 +1,12 @@
 // Adicione aqui os Hooks para verificação do eslint, apenas hooks cuso o segundo parametro é o deps
 const houstonHooks = [
-  'useObservable',
-  'useRetryableObservable',
+  'useCallbackGenerator',
   'useCallbackObservable',
+  'useObservable',
+  'usePaginatedObservable',
+  'usePaginatedPromise',
   'usePromise',
-  'usePaginatedObservable'
+  'useRetryableObservable'
 ];
 
 module.exports = {

@@ -1,9 +1,6 @@
 import * as React from 'react';
 
-import { Observable, of } from 'rxjs';
-import { delay, switchMap, tap } from 'rxjs/operators';
-
-import useObservable from '../useObservable';
+import usePromise from '../usePromise';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const isEqual = require('lodash/isEqual');
@@ -35,10 +32,10 @@ export interface IUsePaginatedOptions<P, T> {
   initialParams?: P;
   /** set if the date will be cumulative or not */
   infintyScroll?: boolean;
-  onChangeParams: (params: P) => Observable<IPaginationResponse<T>>;
+  onChangeParams: (params: P) => Promise<IPaginationResponse<T>>;
 }
 
-export interface IUsePaginatedObservable<P, R> {
+export interface IUsePromisePaginated<P, R> {
   params: P;
   initialParams: Partial<P>;
   isLoading: boolean;
@@ -61,12 +58,12 @@ export interface IUsePaginatedObservable<P, R> {
  * Hooks to simplify the use of an observable paginated
  * @param options `IUsePaginatedOptions`
  * @param deps React deps
- * @returns `IUsePaginatedObservable`
+ * @returns `IUsePaginatedPromise`
  */
-export default function usePaginatedObservable<P extends IPaginationParams, R>(
+export default function usePromisePaginated<P extends IPaginationParams, R>(
   options: IUsePaginatedOptions<P, R>,
   deps: React.DependencyList
-): IUsePaginatedObservable<P, R> {
+): IUsePromisePaginated<P, R> {
   const { infintyScroll, initialParams: initialParamsOption, onChangeParams } = options;
 
   const [data, setData] = React.useState<IDataState<R>>({ total: 0, result: [], hasMore: true });
@@ -98,39 +95,32 @@ export default function usePaginatedObservable<P extends IPaginationParams, R>(
     [data.hasMore, initialParams, isLoading, isLoadingMore]
   );
 
-  const [, error] = useObservable(() => {
-    return of(true).pipe(
-      tap(() => {
-        setIsLoading(!infintyScroll || params.page === initialParams.page);
-        setIsLoadingMore(params.page !== initialParams.page);
-      }),
-      delay(300),
-      switchMap(() => {
-        const sendParams = { ...params } as P & { _retry?: number };
-        delete sendParams._retry;
-        return onChangeParams(sendParams);
-      }),
-      tap({
-        next: response => {
-          setIsLoading(false);
-          setIsLoadingMore(false);
+  const [, error] = usePromise(async () => {
+    try {
+      setIsLoading(!infintyScroll || params.page === initialParams.page);
+      setIsLoadingMore(params.page !== initialParams.page);
 
-          setData(data => {
-            const total = response.total ?? data.total;
-            const result =
-              (params.page === initialParams.page || !infintyScroll
-                ? response.result
-                : [...data.result, ...response.result]) ?? [];
+      const sendParams = { ...params } as P & { _retry?: number };
+      delete sendParams._retry;
+      const response = await onChangeParams(sendParams);
 
-            return { total, result, hasMore: result.length < total };
-          });
-        },
-        error: () => {
-          setIsLoading(false);
-          setIsLoadingMore(false);
-        }
-      })
-    );
+      setIsLoading(false);
+      setIsLoadingMore(false);
+
+      setData(data => {
+        const total = response.total ?? data.total;
+        const result =
+          (params.page === initialParams.page || !infintyScroll
+            ? response.result
+            : [...data.result, ...response.result]) ?? [];
+
+        return { total, result, hasMore: result.length < total };
+      });
+    } catch (err) {
+      setIsLoading(false);
+      setIsLoadingMore(false);
+      throw err;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, ...deps]);
 
