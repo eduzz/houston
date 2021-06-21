@@ -13,7 +13,7 @@ module.exports = {
     return [
       warnOrError,
       {
-        additionalHooks: `(${[...customHooks, ...(useHoustonHooks ? houstonHooks : [])].join('|')})`
+        additionalHooks: `^(${[...customHooks, ...(useHoustonHooks ? houstonHooks : [])].join('|')})$`
       }
     ];
   }
