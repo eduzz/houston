@@ -9,7 +9,7 @@ export interface IMaskFunction {
 
 export default function useMask(mask: IFormMaskAdapter, value: any) {
   const { apply: maskApply, clean: maskClean } = React.useMemo(() => {
-    return mask ?? { apply: (v: string) => v, clean: (v: string) => v };
+    return mask ?? { apply: (v: string, locale?: string) => ({ v, locale }), clean: (v: string) => v };
   }, [mask]);
 
   const maskedValue = React.useMemo(() => (maskApply ? maskApply(value) : value), [value, maskApply]);
