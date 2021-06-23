@@ -11,6 +11,8 @@ import {
   View
 } from 'react-native';
 
+import ActionItem from './ActionItem';
+
 interface IProps {
   visible: boolean;
   textColor?: string;
@@ -108,4 +110,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ActionSheet;
+export { ActionSheet, ActionItem };

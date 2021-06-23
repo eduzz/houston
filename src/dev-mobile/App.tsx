@@ -1,18 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import ActionSheet from '@eduzz/houston-mobile/ActionSheet';
+import { ActionSheet, ActionItem } from '@eduzz/houston-mobile/ActionSheet';
 
 export default function App() {
+  const [actionSheetVisible, setActionSheetVisible] = useState(false);
+
+  const openActionSheet = () => {
+    setActionSheetVisible(true);
+  };
+
+  const closeActionSheet = () => {
+    setActionSheetVisible(false);
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={openActionSheet}>
         <View style={styles.button}>
           <Text style={styles.text}>ActionSheet</Text>
         </View>
       </TouchableOpacity>
 
-      <ActionSheet />
+      <ActionSheet
+        backgroundColor='#212121'
+        textColor='#fff'
+        visible={actionSheetVisible}
+        onRequestClose={closeActionSheet}
+      >
+        <ActionItem title='test' color='#fff' />
+      </ActionSheet>
     </View>
   );
 }
