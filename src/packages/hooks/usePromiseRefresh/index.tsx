@@ -12,7 +12,7 @@ import usePromise from '../usePromise';
 export default function usePromiseRefresh<T>(
   promiseGenerator: () => Promise<T>,
   deps: React.DependencyList
-): [T, any, boolean, () => void, undefined] {
+): [T, any, boolean, () => void] {
   const [refresh, setRefresh] = React.useState<number>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -20,5 +20,5 @@ export default function usePromiseRefresh<T>(
 
   const onRetry = useCallback(() => setRefresh(Date.now()), []);
 
-  return [data, error, loading, onRetry, undefined];
+  return [data, error, loading, onRetry];
 }

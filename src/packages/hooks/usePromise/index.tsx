@@ -11,7 +11,7 @@ import { getConfig } from '../config';
 export default function usePromise<T>(
   promiseGenerator: () => Promise<T>,
   deps: React.DependencyList
-): [T, any, boolean, undefined] {
+): [T, any, boolean] {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [result, setResult] = React.useState<T>();
   const [error, setError] = React.useState<any>();
@@ -39,5 +39,5 @@ export default function usePromise<T>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  return [result, error, loading, undefined];
+  return [result, error, loading];
 }
