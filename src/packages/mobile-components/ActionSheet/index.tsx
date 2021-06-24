@@ -28,6 +28,7 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
   const [localVisible, setLocalVisible] = useState(visible);
   const [initialOffset, setInitialOffset] = useState({ x: 0, y: 0 });
   const [normalizedOffsetY, setNormalizedOffsetY] = useState(0);
+  const [fixedCloseBar, setFixedCloseBar] = useState(false);
 
   const scrollViewRef = useRef(null);
 
@@ -57,6 +58,8 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
     const normalizedOffsetY = event.nativeEvent.contentOffset.y / fixedSheetHeight;
 
     setNormalizedOffsetY(normalizedOffsetY > 1 ? 1 : normalizedOffsetY);
+
+    setFixedCloseBar(event.nativeEvent.contentOffset.y - Dimensions.get('window').height > 0);
   };
 
   const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -101,9 +104,16 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
           onScrollEndDrag={onScrollEndDrag}
           showsVerticalScrollIndicator={false}
           onLayout={onScrollViewLayout}
+          stickyHeaderIndices={[1]}
         >
           <View style={{ height: Dimensions.get('window').height }} />
-          <View style={[styles.closeBar, { backgroundColor }]}>
+          <View
+            style={[
+              styles.closeBar,
+              { backgroundColor },
+              fixedCloseBar && { borderTopEndRadius: 0, borderTopStartRadius: 0 }
+            ]}
+          >
             <View style={styles.closeBarIndicator} />
           </View>
           <View style={{ backgroundColor }}>
