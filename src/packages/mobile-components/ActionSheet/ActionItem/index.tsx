@@ -3,6 +3,7 @@ import { GestureResponderEvent, Image, StyleSheet, Text, TouchableOpacity, View 
 
 interface IProps {
   title: string;
+  description?: string;
   iconElement?: any;
   iconImage?: any;
   color?: string;
@@ -11,7 +12,16 @@ interface IProps {
   onPress?: ((event: GestureResponderEvent) => void) | (() => void);
 }
 
-const OptionItem = ({ title, iconImage, iconElement, color, backgroundColor, avoidClosing, onPress }: IProps) => {
+const OptionItem = ({
+  title,
+  description,
+  iconImage,
+  iconElement,
+  color,
+  backgroundColor,
+  avoidClosing,
+  onPress
+}: IProps) => {
   const onTouchEnd = (event: GestureResponderEvent) => {
     if (avoidClosing) {
       event.stopPropagation();
@@ -29,9 +39,14 @@ const OptionItem = ({ title, iconImage, iconElement, color, backgroundColor, avo
       <View style={[styles.container, !!backgroundColor && { backgroundColor }]} onTouchEnd={onTouchEnd}>
         {!!iconElement && <View style={styles.icon}>{iconElement}</View>}
         {!iconElement && <Image style={[styles.icon, { tintColor: color }]} source={iconImage || null} />}
-        <Text style={[styles.title, { color }]} numberOfLines={1}>
-          {title}
-        </Text>
+        <View style={styles.info}>
+          <Text style={[styles.title, { color }]} numberOfLines={1}>
+            {title}
+          </Text>
+          <Text style={[styles.description, { color }]} numberOfLines={1}>
+            {description}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -43,18 +58,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 18
+    paddingVertical: 8,
+    paddingHorizontal: 20
   },
   icon: {
     flex: 0,
-    width: 25,
-    height: 25,
-    marginRight: 32
+    width: 30,
+    height: 30,
+    marginRight: 16
+  },
+  info: {
+    flex: 1
   },
   title: {
-    flex: 1,
     color: '#000',
-    fontSize: 16
+    fontSize: 18
+  },
+  description: {
+    color: '#000',
+    fontSize: 14
   }
 });
 

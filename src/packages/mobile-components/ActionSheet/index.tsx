@@ -1,82 +1,118 @@
 import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   Animated,
   Dimensions,
   LayoutChangeEvent,
   Modal,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   View
 } from 'react-native';
 
 import ActionItem from './ActionItem';
 
-interface IProps {
+interface IActionSheetProps {
   visible: boolean;
-  textColor?: string;
   backgroundColor?: string;
   onRequestClose?: () => void;
   onFinishClosing?: () => void;
   children?: any;
 }
 
-export const ANIMATION_DURATION = 200;
-const ANIMATION_INTERVAL = {
-  initial: 0,
-  final: 1
-};
 const TARGET_OPACITY = 0.7;
 
-const ActionSheet = ({ visible, backgroundColor, textColor, onRequestClose, onFinishClosing, children }: IProps) => {
-  const slideAnim = useRef(new Animated.Value(ANIMATION_INTERVAL.initial)).current;
-  const [controlsPercenageOfScreen, setControlsPercenageOfScreen] = useState(100);
-  const [animationValue, setAnimationValue] = useState(ANIMATION_INTERVAL.initial);
+const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing, children }: IActionSheetProps) => {
   const [localVisible, setLocalVisible] = useState(visible);
+  const [initialOffset, setInitialOffset] = useState({ x: 0, y: 0 });
+  const [sheetLayout, setSheetLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const [normalizedOffsetY, setNormalizedOffsetY] = useState(0);
 
-  useEffect(() => {
-    slideAnim.addListener(anim => setAnimationValue(anim.value));
-
-    return () => slideAnim.removeAllListeners();
-  }, []);
+  const scrollViewRef = useRef(null);
 
   useEffect(() => {
     if (visible) {
-      setLocalVisible(visible);
-    }
-
-    Animated.timing(slideAnim, {
-      toValue: visible ? ANIMATION_INTERVAL.initial : ANIMATION_INTERVAL.final,
-      duration: ANIMATION_DURATION,
-      useNativeDriver: true
-    }).start(() => {
-      if (!visible) {
-        setLocalVisible(visible);
-        onFinishClosing && onFinishClosing();
+      setLocalVisible(true);
+    } else {
+      if (scrollViewRef.current) {
+        scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
       }
-    });
+    }
   }, [visible]);
 
-  const onLayout = (event: LayoutChangeEvent) => {
-    const { height } = event.nativeEvent.layout;
-
-    setControlsPercenageOfScreen(height / Dimensions.get('window').height);
+  const onScrollBeginDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    setInitialOffset(event.nativeEvent.contentOffset);
   };
 
-  const opacity = (TARGET_OPACITY / ANIMATION_INTERVAL.final) * (1 - animationValue);
-  const bottom = (controlsPercenageOfScreen / ANIMATION_INTERVAL.final) * animationValue * -100 + '%';
+  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (event.nativeEvent.contentOffset.y <= 0) {
+      setLocalVisible(false);
+      onFinishClosing && onFinishClosing();
+    }
+
+    const fixedSheetHeight =
+      sheetLayout.height < Dimensions.get('window').height / 2
+        ? sheetLayout.height
+        : Dimensions.get('window').height / 2;
+    const normalizedOffsetY = event.nativeEvent.contentOffset.y / fixedSheetHeight;
+
+    setNormalizedOffsetY(normalizedOffsetY > 1 ? 1 : normalizedOffsetY);
+  };
+
+  const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (event.nativeEvent.velocity.y > 1) {
+      onRequestClose();
+      return;
+    }
+
+    if (initialOffset.y > event.nativeEvent.contentOffset.y) {
+      if (event.nativeEvent.contentOffset.y < Dimensions.get('window').height / 2) {
+        onRequestClose();
+      } else {
+        scrollViewRef.current.scrollTo({ x: 0, y: Dimensions.get('window').height / 2, animated: true });
+      }
+    }
+  };
+
+  const onScrollViewLayout = () => {
+    scrollViewRef.current.scrollTo({ x: 0, y: Dimensions.get('window').height / 2, animated: true });
+  };
+
+  const onSheetLayout = (event: LayoutChangeEvent) => {
+    setSheetLayout(event.nativeEvent.layout);
+  };
+
+  const opacity = TARGET_OPACITY * normalizedOffsetY;
 
   return (
     <Modal animationType='none' visible={localVisible} transparent supportedOrientations={['portrait', 'landscape']}>
       <SafeAreaView style={styles.container} onTouchEnd={onRequestClose}>
         <Animated.View style={[styles.backdrop, { opacity }]} />
-        <View style={styles.content}>
-          <Animated.View style={[styles.options, { backgroundColor, bottom }]} onLayout={onLayout}>
-            <ScrollView style={{ maxHeight: Dimensions.get('window').height - 86 }}>{children}</ScrollView>
-            <View style={[styles.divider, { backgroundColor: textColor }]} />
-          </Animated.View>
-        </View>
+        <Animated.ScrollView
+          ref={scrollViewRef}
+          style={styles.content}
+          overScrollMode='never'
+          onScrollBeginDrag={onScrollBeginDrag}
+          onScroll={onScroll}
+          onScrollEndDrag={onScrollEndDrag}
+          decelerationRate={0.5}
+          showsVerticalScrollIndicator={false}
+          onLayout={onScrollViewLayout}
+        >
+          <View style={{ height: Dimensions.get('window').height }} />
+          <View onLayout={onSheetLayout}>
+            <View style={[styles.closeBar, { backgroundColor }]}>
+              <View style={styles.closeBarIndicator} />
+            </View>
+            <View style={{ backgroundColor }}>
+              {children}
+              <View style={{ height: 100 }} />
+            </View>
+          </View>
+        </Animated.ScrollView>
       </SafeAreaView>
     </Modal>
   );
@@ -87,14 +123,15 @@ const styles = StyleSheet.create({
     flex: 1
   },
   content: {
-    flex: 1,
-    justifyContent: 'flex-end'
+    flex: 1
   },
   options: {
     position: 'absolute',
     width: '100%',
-    flex: 0,
-    backgroundColor: '#fff'
+    flex: 0
+  },
+  items: {
+    minHeight: 200
   },
   backdrop: {
     position: 'absolute',
@@ -102,11 +139,19 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#000'
   },
-  divider: {
-    width: '100%',
-    height: 1,
-    backgroundColor: '#000',
-    opacity: 0.3
+  closeBar: {
+    height: 30,
+    borderTopEndRadius: 28,
+    borderTopStartRadius: 28,
+    alignItems: 'center',
+    paddingTop: 12,
+    marginBottom: -1
+  },
+  closeBarIndicator: {
+    width: 50,
+    height: 5,
+    borderRadius: 5,
+    backgroundColor: '#C4C4C4'
   }
 });
 
