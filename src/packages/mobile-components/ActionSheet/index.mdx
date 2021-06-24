@@ -1,0 +1,49 @@
+---
+name: ActionSheet
+route: /mobile-components/action-sheet
+menu: eduzz/houston-mobile
+submenu: Components
+---
+
+# ActionSheet
+
+O ActionSheet apresenta opções ao usuário de maneira intuitiva.
+
+### Importação
+
+```js
+import ActionSheet from '@eduzz/houston-mobile/ActionSheet';
+```
+
+### Exemplo
+
+```jsx
+<ActionSheet backgroundColor='#212121' visible={true}>
+  <ActionItem title='Excluir' avoidClosing description='Excluir esta notificação' color='#fff' />
+  <ActionItem title='Desativar' description='Pare de receber notificações deste curso' color='#fff' />
+</ActionSheet>
+```
+
+### Propriedades
+
+### ActionSheet props
+
+| prop            | type         | required | default       |
+| --------------- | ------------ | -------- | ------------- |
+| visible         | `boolean`    | `true`   | -             |
+| backgroundColor | `string`     | `false`  | `transparent` |
+| onRequestClose  | `() => void` | `false`  | -             |
+| onFinishClosing | `() => void` | `false`  | -             |
+
+### ActionItem props
+
+| prop            | type                                      | required | default       |
+| --------------- | ----------------------------------------- | -------- | ------------- |
+| title           | `string`                                  | `true`   | -             |
+| description     | `string`                                  | `false`  | -             |
+| iconElement     | `ReactNode`                               | `false`  | -             |
+| iconImage       | `png`                                     | `false`  | -             |
+| color           | `string`                                  | `false`  | `#000`        |
+| backgroundColor | `string`                                  | `false`  | `transparent` |
+| avoidClosing    | `boolean`                                 | `false`  | `false`       |
+| onPress         | `(event: GestureResponderEvent) => void)` | `false`  | -             |
