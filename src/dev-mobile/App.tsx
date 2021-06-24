@@ -26,7 +26,13 @@ export default function App() {
       </TouchableOpacity>
 
       <ActionSheet backgroundColor='#212121' visible={actionSheetVisible} onRequestClose={closeActionSheet}>
-        <ActionItem title='Excluir' description='Excluir esta notificação' color='#fff' iconImage={deleteImage} />
+        <ActionItem
+          title='Excluir'
+          avoidClosing
+          description='Excluir esta notificação'
+          color='#fff'
+          iconImage={deleteImage}
+        />
         <ActionItem
           title='Desativar'
           description='Pare de receber notificações deste curso'

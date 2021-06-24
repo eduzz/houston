@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import {
   Animated,
   Dimensions,
-  LayoutChangeEvent,
   Modal,
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -28,7 +27,6 @@ const TARGET_OPACITY = 0.7;
 const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing, children }: IActionSheetProps) => {
   const [localVisible, setLocalVisible] = useState(visible);
   const [initialOffset, setInitialOffset] = useState({ x: 0, y: 0 });
-  const [sheetLayout, setSheetLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [normalizedOffsetY, setNormalizedOffsetY] = useState(0);
 
   const scrollViewRef = useRef(null);
@@ -53,10 +51,9 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
       onFinishClosing && onFinishClosing();
     }
 
-    const fixedSheetHeight =
-      sheetLayout.height < Dimensions.get('window').height / 2
-        ? sheetLayout.height
-        : Dimensions.get('window').height / 2;
+    const sheetHeight = getSheetHeight();
+    const halfScreen = Dimensions.get('window').height / 2;
+    const fixedSheetHeight = sheetHeight < halfScreen ? sheetHeight : halfScreen;
     const normalizedOffsetY = event.nativeEvent.contentOffset.y / fixedSheetHeight;
 
     setNormalizedOffsetY(normalizedOffsetY > 1 ? 1 : normalizedOffsetY);
@@ -68,21 +65,25 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
       return;
     }
 
+    const halfScreen = Dimensions.get('window').height / 2;
+    const sheetHeight = getSheetHeight();
+    const fixedSheetHeight = sheetHeight < halfScreen ? sheetHeight : halfScreen;
+
     if (initialOffset.y > event.nativeEvent.contentOffset.y) {
-      if (event.nativeEvent.contentOffset.y < Dimensions.get('window').height / 2) {
+      if (event.nativeEvent.contentOffset.y < fixedSheetHeight / 2) {
         onRequestClose();
       } else {
-        scrollViewRef.current.scrollTo({ x: 0, y: Dimensions.get('window').height / 2, animated: true });
+        scrollViewRef.current.scrollTo({ x: 0, y: halfScreen, animated: true });
       }
     }
   };
 
-  const onScrollViewLayout = () => {
-    scrollViewRef.current.scrollTo({ x: 0, y: Dimensions.get('window').height / 2, animated: true });
+  const getSheetHeight = () => {
+    return 58.7 * React.Children.count(children) + 130; // 58.7 = ActionItem height; 130 = closeBar (30) + footer (100);
   };
 
-  const onSheetLayout = (event: LayoutChangeEvent) => {
-    setSheetLayout(event.nativeEvent.layout);
+  const onScrollViewLayout = () => {
+    scrollViewRef.current.scrollTo({ x: 0, y: Dimensions.get('window').height / 2, animated: true });
   };
 
   const opacity = TARGET_OPACITY * normalizedOffsetY;
@@ -98,19 +99,16 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
           onScrollBeginDrag={onScrollBeginDrag}
           onScroll={onScroll}
           onScrollEndDrag={onScrollEndDrag}
-          decelerationRate={0.5}
           showsVerticalScrollIndicator={false}
           onLayout={onScrollViewLayout}
         >
           <View style={{ height: Dimensions.get('window').height }} />
-          <View onLayout={onSheetLayout}>
-            <View style={[styles.closeBar, { backgroundColor }]}>
-              <View style={styles.closeBarIndicator} />
-            </View>
-            <View style={{ backgroundColor }}>
-              {children}
-              <View style={{ height: 100 }} />
-            </View>
+          <View style={[styles.closeBar, { backgroundColor }]}>
+            <View style={styles.closeBarIndicator} />
+          </View>
+          <View style={{ backgroundColor }}>
+            {children}
+            <View style={{ height: 100 }} />
           </View>
         </Animated.ScrollView>
       </SafeAreaView>
