@@ -43,7 +43,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@^7.0.0", "@babel/core@^7.12.10":
+"@babel/core@^7.0.0":
   version "7.14.6"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.14.6.tgz#e0814ec1a950032ff16c13a2721de39a8416fcab"
   integrity sha512-gJnOEWSqTk96qG5BoIrl5bVtc23DCycmIePPYnamY9RboYdI4nFy5vAQMSl81O5K/W0sLDWfGysnOECC+KUUCA==
@@ -1133,12 +1133,7 @@
     minimist "^1.2.0"
 
 "@eduzz/houston-mobile@file:../packages/mobile-components":
-  version "0.0.1"
-  dependencies:
-    react "16.13.1"
-    react-dom "16.13.1"
-    react-native "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz"
-    react-native-web "~0.13.12"
+  version "0.21.2"
 
 "@expo/config-plugins@1.0.33", "@expo/config-plugins@^1.0.18":
   version "1.0.33"
