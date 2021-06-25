@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 import { ActionSheet, ActionItem } from '@eduzz/houston-mobile/ActionSheet';
 
@@ -31,13 +31,13 @@ export default function App() {
           avoidClosing
           description='Excluir esta notificação'
           color='#fff'
-          iconImage={deleteImage}
+          iconElement={<Image style={styles.icon} source={deleteImage} />}
         />
         <ActionItem
           title='Desativar'
           description='Pare de receber notificações deste curso'
           color='#fff'
-          iconImage={notificationsOff}
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
         />
       </ActionSheet>
     </View>
@@ -57,5 +57,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff'
+  },
+  icon: {
+    tintColor: '#fff',
+    width: '100%',
+    height: '100%'
   }
 });

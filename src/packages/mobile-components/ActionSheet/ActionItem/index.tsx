@@ -1,27 +1,17 @@
 import * as React from 'react';
-import { GestureResponderEvent, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface IProps {
   title: string;
   description?: string;
   iconElement?: any;
-  iconImage?: any;
   color?: string;
   backgroundColor?: string;
   avoidClosing?: boolean;
-  onPress?: ((event: GestureResponderEvent) => void) | (() => void);
+  onPress?: (event: GestureResponderEvent) => void;
 }
 
-const OptionItem = ({
-  title,
-  description,
-  iconImage,
-  iconElement,
-  color,
-  backgroundColor,
-  avoidClosing,
-  onPress
-}: IProps) => {
+const OptionItem = ({ title, description, iconElement, color, backgroundColor, avoidClosing, onPress }: IProps) => {
   const onTouchEnd = (event: GestureResponderEvent) => {
     if (avoidClosing) {
       event.stopPropagation();
@@ -38,7 +28,6 @@ const OptionItem = ({
     <TouchableOpacity>
       <View style={[styles.container, !!backgroundColor && { backgroundColor }]} onTouchEnd={onTouchEnd}>
         {!!iconElement && <View style={styles.icon}>{iconElement}</View>}
-        {!iconElement && <Image style={[styles.icon, { tintColor: color }]} source={iconImage || null} />}
         <View style={styles.info}>
           <Text style={[styles.title, { color }]} numberOfLines={1}>
             {title}
