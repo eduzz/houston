@@ -9,12 +9,20 @@
       "path": "./src/dev"
     },
     {
+      "name": "dev-mobile",
+      "path": "./src/dev-mobile"
+    },
+    {
       "name": "@eduzz/core",
       "path": "./src/packages/core"
     },
     {
       "name": "@eduzz/houston-ui",
       "path": "./src/packages/ui-components"
+    },
+    {
+      "name": "@eduzz/houston-mobile",
+      "path": "./src/packages/mobile-components"
     },
     {
       "name": "@eduzz/houston-icons",

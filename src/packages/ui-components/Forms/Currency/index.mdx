@@ -1,0 +1,55 @@
+---
+name: CurrencyField
+route: /componentes/currency
+menu: eduzz/houston-ui
+submenu: Componentes
+---
+
+import { Playground } from 'docz';
+
+import CurrencyField from './';
+
+# Text
+
+O componente é responsável por exibir um campo de texto para ser preenchido em formulários, campos de pesquisa, entre outros.
+
+### Importação
+
+```js
+import CurrencyField from '@eduzz/houston-ui/Forms/Currency';
+```
+
+### Exemplos
+
+<Playground>
+  {() => {
+    const [money, setMoney] = React.useState('');
+    return (
+      <>
+        <CurrencyField label='Valor' value={money} onChange={setMoney} />
+      </>
+    );
+  }}
+</Playground>
+
+### Propriedades
+
+| prop           | tipo                        | obrigatório | padrão  | descrição                                                                           |
+| -------------- | --------------------------- | ----------- | ------- | ----------------------------------------------------------------------------------- |
+| label          | `React.ReactNode`           | `false`     | -       | -                                                                                   |
+| type           | `React.InputHTMLAttributes` | `false`     | `text`  | -                                                                                   |
+| placeholder    | `string`                    | `false`     | -       | -                                                                                   |
+| disabled       | `boolean`                   | `false`     | `false` | -                                                                                   |
+| fullWidth      | `boolean`                   | `false`     | `true`  | -                                                                                   |
+| className      | `string`                    | `false`     | -       | -                                                                                   |
+| loading        | `boolean`                   | `false`     | -       | Exibe ícone de carregamento no componente de texto.                                 |
+| helperText     | `string`                    | `false`     | -       | Exibe texto de ajuda abaixo do componente de texto.                                 |
+| errorMessage   | `string`                    | `false`     | -       | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |
+| form           | `IFormAdapter`              | `false`     | -       | -                                                                                   |
+| value          | `any`                       | `false`     | -       | -                                                                                   |
+| margin         | `none`, `dense`, `normal`   | `normal`    | -       | -                                                                                   |
+| onChange       | `function`                  | `false`     | -       | Função disparada ao alterar o valor do campo de texto.                              |
+| onPressEnter   | `function`                  | `false`     | -       | Função disparada ao apertar Enter dentro do campo de texto.                         |
+| endAdornment   | `React.ReactNode`           | `false`     | -       | Ícone ou botão com ícone que será exibido no final do campo.                        |
+| startAdornment | `React.ReactNode`           | `false`     | -       | Ícone ou botão com ícone que será exibido no início do campo.                       |
+| required       | `boolean`                   | `false`     | -       | -                                                                                   |
