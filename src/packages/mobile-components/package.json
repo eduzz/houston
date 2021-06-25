@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-mobile",
   "description": "Eduzz Houston Mobile Components",
-  "version": "0.21.1",
+  "version": "0.21.2",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-web": "0.13.12",
+    "@types/react-native": "0.64.10",
     "@babel/core": "7.9.0"
   }
 }
