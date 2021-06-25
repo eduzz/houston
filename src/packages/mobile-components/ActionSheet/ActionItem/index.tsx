@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-interface IProps {
+export interface IActionItemProps {
   title: string;
   description?: string;
   iconElement?: any;
@@ -11,7 +11,15 @@ interface IProps {
   onPress?: (event: GestureResponderEvent) => void;
 }
 
-const OptionItem = ({ title, description, iconElement, color, backgroundColor, avoidClosing, onPress }: IProps) => {
+const ActionItem = ({
+  title,
+  description,
+  iconElement,
+  color,
+  backgroundColor,
+  avoidClosing,
+  onPress
+}: IActionItemProps) => {
   const onTouchEnd = (event: GestureResponderEvent) => {
     if (avoidClosing) {
       event.stopPropagation();
@@ -69,4 +77,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default OptionItem;
+export default ActionItem;

@@ -14,7 +14,7 @@ import {
 
 import ActionItem from './ActionItem';
 
-interface IActionSheetProps {
+export interface IActionSheetProps {
   visible: boolean;
   backgroundColor?: string;
   onRequestClose?: () => void;
@@ -163,4 +163,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export { ActionSheet, ActionItem };
+ActionSheet.Item = ActionItem;
+
+export default ActionSheet;
