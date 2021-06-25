@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
-import { ActionSheet, ActionItem } from '@eduzz/houston-mobile/ActionSheet';
+import ActionSheet from '@eduzz/houston-mobile/ActionSheet';
 
 import deleteImage from './assets/delete.png';
 import notificationsOff from './assets/notificationoff.png';
@@ -26,14 +26,14 @@ export default function App() {
       </TouchableOpacity>
 
       <ActionSheet backgroundColor='#212121' visible={actionSheetVisible} onRequestClose={closeActionSheet}>
-        <ActionItem
+        <ActionSheet.Item
           title='Excluir'
           avoidClosing
           description='Excluir esta notificação'
           color='#fff'
           iconElement={<Image style={styles.icon} source={deleteImage} />}
         />
-        <ActionItem
+        <ActionSheet.Item
           title='Desativar'
           description='Pare de receber notificações deste curso'
           color='#fff'
