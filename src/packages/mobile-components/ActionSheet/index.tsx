@@ -9,8 +9,7 @@ import {
   NativeSyntheticEvent,
   SafeAreaView,
   StyleSheet,
-  View,
-  ScrollView
+  View
 } from 'react-native';
 
 import ActionItem from './ActionItem';
@@ -24,12 +23,13 @@ export interface IActionSheetProps {
 }
 
 const TARGET_OPACITY = 0.7;
+const SCREEN_TARGET_OCCUPATION = 0.7;
+const CLOSE_BAR_BORDER_RADIUS = 28;
 
 const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing, children }: IActionSheetProps) => {
   const [localVisible, setLocalVisible] = useState(visible);
-  const [initialOffset, setInitialOffset] = useState({ x: 0, y: 0 });
   const [normalizedOffsetY, setNormalizedOffsetY] = useState(0);
-  const [fixedCloseBar, setFixedCloseBar] = useState(false);
+  const [distanceToTop, setDistanceToTop] = useState(CLOSE_BAR_BORDER_RADIUS);
 
   const scrollViewRef = useRef(null);
 
@@ -43,10 +43,6 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
     }
   }, [visible]);
 
-  const onScrollBeginDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    setInitialOffset(event.nativeEvent.contentOffset);
-  };
-
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (event.nativeEvent.contentOffset.y <= 0) {
       setLocalVisible(false);
@@ -54,13 +50,12 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
     }
 
     const sheetHeight = getSheetHeight();
-    const halfScreen = Dimensions.get('window').height / 2;
-    const fixedSheetHeight = sheetHeight < halfScreen ? sheetHeight : halfScreen;
+    const screenTargetOcupation = getScreenTargetOcupation();
+    const fixedSheetHeight = sheetHeight < screenTargetOcupation ? sheetHeight : screenTargetOcupation;
     const normalizedOffsetY = event.nativeEvent.contentOffset.y / fixedSheetHeight;
 
     setNormalizedOffsetY(normalizedOffsetY > 1 ? 1 : normalizedOffsetY);
-
-    setFixedCloseBar(event.nativeEvent.contentOffset.y - Dimensions.get('window').height > 0);
+    setDistanceToTop(getScreenHeight() - event.nativeEvent.contentOffset.y);
   };
 
   const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -69,15 +64,20 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
       return;
     }
 
-    const halfScreen = Dimensions.get('window').height / 2;
+    const screenHeight = getScreenHeight();
+    const screenTargetOcupation = getScreenTargetOcupation();
     const sheetHeight = getSheetHeight();
-    const fixedSheetHeight = sheetHeight < halfScreen ? sheetHeight : halfScreen;
+    const fixedSheetHeight = sheetHeight < screenTargetOcupation ? sheetHeight : screenTargetOcupation;
 
-    if (initialOffset.y > event.nativeEvent.contentOffset.y) {
-      if (event.nativeEvent.contentOffset.y < fixedSheetHeight / 2) {
-        onRequestClose();
-      } else {
-        scrollViewRef.current.scrollTo({ x: 0, y: halfScreen, animated: true });
+    if (event.nativeEvent.contentOffset.y < fixedSheetHeight / 2) {
+      onRequestClose();
+    } else {
+      if (event.nativeEvent.contentOffset.y < screenHeight) {
+        if (screenHeight - event.nativeEvent.contentOffset.y < (screenHeight - screenTargetOcupation) / 2) {
+          scrollViewRef.current.scrollTo({ x: 0, y: screenHeight, animated: true });
+        } else {
+          scrollViewRef.current.scrollTo({ x: 0, y: screenTargetOcupation, animated: true });
+        }
       }
     }
   };
@@ -86,33 +86,41 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
     return 58.7 * React.Children.count(children) + 130; // 58.7 = ActionItem height; 130 = closeBar (30) + footer (100);
   };
 
+  const getScreenHeight = () => {
+    return Dimensions.get('window').height;
+  };
+
+  const getScreenTargetOcupation = () => {
+    return getScreenHeight() * SCREEN_TARGET_OCCUPATION;
+  };
+
   const onScrollViewLayout = () => {
-    scrollViewRef.current.scrollTo({ x: 0, y: Dimensions.get('window').height / 2, animated: true });
+    scrollViewRef.current.scrollTo({ x: 0, y: getScreenTargetOcupation(), animated: true });
   };
 
   const opacity = TARGET_OPACITY * normalizedOffsetY;
+  const closeBarBorderRadius =
+    (distanceToTop / (getScreenHeight() - getScreenTargetOcupation())) * CLOSE_BAR_BORDER_RADIUS;
 
   return (
     <Modal animationType='none' visible={localVisible} transparent supportedOrientations={['portrait', 'landscape']}>
       <SafeAreaView style={styles.container} onTouchEnd={onRequestClose}>
         <Animated.View style={[styles.backdrop, { opacity }]} />
-        <ScrollView
+        <Animated.ScrollView
           ref={scrollViewRef}
           style={styles.content}
           overScrollMode='never'
-          onScrollBeginDrag={onScrollBeginDrag}
           onScroll={onScroll}
           onScrollEndDrag={onScrollEndDrag}
           showsVerticalScrollIndicator={false}
           onLayout={onScrollViewLayout}
           stickyHeaderIndices={[1]}
         >
-          <View style={{ height: Dimensions.get('window').height }} />
+          <View style={{ height: getScreenHeight() }} />
           <View
             style={[
               styles.closeBar,
-              { backgroundColor },
-              fixedCloseBar && { borderTopEndRadius: 0, borderTopStartRadius: 0 }
+              { backgroundColor, borderTopEndRadius: closeBarBorderRadius, borderTopStartRadius: closeBarBorderRadius }
             ]}
           >
             <View style={styles.closeBarIndicator} />
@@ -121,7 +129,7 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
             {children}
             <View style={{ height: 100 }} />
           </View>
-        </ScrollView>
+        </Animated.ScrollView>
       </SafeAreaView>
     </Modal>
   );
@@ -150,8 +158,8 @@ const styles = StyleSheet.create({
   },
   closeBar: {
     height: 30,
-    borderTopEndRadius: 28,
-    borderTopStartRadius: 28,
+    borderTopEndRadius: CLOSE_BAR_BORDER_RADIUS,
+    borderTopStartRadius: CLOSE_BAR_BORDER_RADIUS,
     alignItems: 'center',
     paddingTop: 12,
     marginBottom: -1

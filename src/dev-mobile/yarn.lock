@@ -1133,7 +1133,7 @@
     minimist "^1.2.0"
 
 "@eduzz/houston-mobile@file:../packages/mobile-components":
-  version "0.21.2"
+  version "0.22.0"
 
 "@expo/config-plugins@1.0.33", "@expo/config-plugins@^1.0.18":
   version "1.0.33"

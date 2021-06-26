@@ -39,6 +39,66 @@ export default function App() {
           color='#fff'
           iconElement={<Image style={styles.icon} source={notificationsOff} />}
         />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
+        <ActionSheet.Item
+          title='Desativar'
+          description='Pare de receber notificações deste curso'
+          color='#fff'
+          iconElement={<Image style={styles.icon} source={notificationsOff} />}
+        />
       </ActionSheet>
     </View>
   );
