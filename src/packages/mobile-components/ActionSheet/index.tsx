@@ -9,7 +9,8 @@ import {
   NativeSyntheticEvent,
   SafeAreaView,
   StyleSheet,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 
 import ActionItem from './ActionItem';
@@ -106,7 +107,7 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
     <Modal animationType='none' visible={localVisible} transparent supportedOrientations={['portrait', 'landscape']}>
       <SafeAreaView style={styles.container} onTouchEnd={onRequestClose}>
         <Animated.View style={[styles.backdrop, { opacity }]} />
-        <Animated.ScrollView
+        <ScrollView
           ref={scrollViewRef}
           style={styles.content}
           overScrollMode='never'
@@ -129,7 +130,7 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
             {children}
             <View style={{ height: 100 }} />
           </View>
-        </Animated.ScrollView>
+        </ScrollView>
       </SafeAreaView>
     </Modal>
   );
