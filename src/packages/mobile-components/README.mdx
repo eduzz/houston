@@ -1,0 +1,31 @@
+---
+name: Início
+route: /mobile-components/start
+menu: eduzz/houston-mobile
+---
+
+# Houston Mobile Components
+
+[![version](https://img.shields.io/npm/v/@eduzz/houston-mobile)](https://www.npmjs.com/package/@eduzz/houston-mobile)
+[![size](https://img.shields.io/bundlephobia/min/@eduzz/houston-mobile)](https://www.npmjs.com/package/@eduzz/houston-mobile)
+
+## Instalação
+
+```bash
+yarn add @eduzz/houston-mobile
+```
+
+## Como usar
+
+```tsx
+import ActionSheet from '@eduzz/houston-mobile/ActionSheet';
+
+const MyComponent = () => {
+  return (
+    <ActionSheet backgroundColor='#212121' visible={true}>
+      <ActionItem title='Excluir' avoidClosing description='Excluir esta notificação' color='#fff' />
+      <ActionItem title='Desativar' description='Pare de receber notificações deste curso' color='#fff' />
+    </ActionSheet>
+  );
+};
+```

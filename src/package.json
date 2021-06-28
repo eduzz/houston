@@ -18,7 +18,8 @@
     "@emotion/styled": "11.3.0",
     "docz": "latest",
     "react": "^16",
-    "react-dom": "^16"
+    "react-dom": "^16",
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@types/react": "^16",

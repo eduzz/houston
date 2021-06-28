@@ -1,0 +1,30 @@
+{
+  "name": "@eduzz/houston-mobile",
+  "description": "Eduzz Houston Mobile Components",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "author": "Eduzz Team",
+  "license": "MIT",
+  "private": false,
+  "homepage": "https://github.com/eduzz/houston",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eduzz/houston"
+  },
+  "bugs": {
+    "url": "https://github.com/eduzz/houston/issues"
+  },
+  "dependencies": {
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-web": "~0.13.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@types/react": "~16.9.35",
+    "@types/react-native": "~0.63.2",
+    "typescript": "~4.0.0"
+  }
+}
