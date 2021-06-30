@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
@@ -69,6 +70,8 @@ const Pagination = React.memo<ITablePagination>(
   }) => {
     const classes = useStyles();
 
+    const [goToPage, setGoToPage] = useState(page);
+
     const columnsLen = useContextSelector(TableContext, context => context.columns.length);
     const loading = useContextSelector(TableContext, context => context.loading);
 
@@ -91,8 +94,6 @@ const Pagination = React.memo<ITablePagination>(
       [onChangePerPage]
     );
 
-    const handleChangeGoToPage = React.useCallback(() => null, []);
-
     const handleBlurGoToPage = React.useCallback(
       (_: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let currentPage = Number(event.target.value);
@@ -111,6 +112,7 @@ const Pagination = React.memo<ITablePagination>(
         }
 
         onChangePage(currentPage);
+        setGoToPage(currentPage);
       },
       [onChangePage, page, perPage, total]
     );
@@ -153,9 +155,9 @@ const Pagination = React.memo<ITablePagination>(
                       margin='none'
                       size='small'
                       disabled={loading}
-                      value={page}
+                      value={goToPage}
                       className={classes.input}
-                      onChange={handleChangeGoToPage}
+                      onChange={setGoToPage}
                       onBlur={handleBlurGoToPage}
                     />
                   </Column>
