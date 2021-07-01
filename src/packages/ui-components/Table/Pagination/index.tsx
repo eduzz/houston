@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
@@ -70,10 +69,10 @@ const Pagination = React.memo<ITablePagination>(
   }) => {
     const classes = useStyles();
 
-    const [goToPage, setGoToPage] = useState(page);
-
     const columnsLen = useContextSelector(TableContext, context => context.columns.length);
     const loading = useContextSelector(TableContext, context => context.loading);
+
+    const [pageInput, setPageInput] = React.useState<string>(page?.toString());
 
     const optionsPerPage = React.useMemo(() => {
       if (optionsPerPageProp === false) {
@@ -87,21 +86,33 @@ const Pagination = React.memo<ITablePagination>(
       return (optionsPerPageProp ?? [5, 10, 25, 50]).map(value => ({ label: String(value), value }));
     }, [optionsPerPageProp]);
 
-    const handleChangePerPage = React.useCallback(
-      (_: any, event: React.ChangeEvent<{ name?: string; value: any }>) => {
-        onChangePerPage(event.target.value);
-      },
-      [onChangePerPage]
-    );
+    const handlePageInputChange = React.useCallback(
+      (
+        valueOrEvent: string | React.KeyboardEvent<HTMLDivElement>,
+        event?:
+          | React.KeyboardEvent<HTMLDivElement>
+          | React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+          | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      ) => {
+        let enterPressed = false;
+        let value = '';
 
-    const handleBlurGoToPage = React.useCallback(
-      (_: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        let currentPage = Number(event.target.value);
-        const maxPage = Math.ceil(total / perPage);
+        if (typeof valueOrEvent === 'object') {
+          event = valueOrEvent;
+          enterPressed = valueOrEvent.key?.toLowerCase() === 'enter';
+          value = (valueOrEvent.target as any).value;
+        } else {
+          value = valueOrEvent;
+        }
 
-        if (currentPage === page) {
+        setPageInput(value);
+
+        if (event.type === 'change' || (event.type === 'keyup' && !enterPressed)) {
           return;
         }
+
+        let currentPage = Math.floor(Number(value));
+        const maxPage = Math.ceil(total / perPage);
 
         if (!currentPage) {
           currentPage = 1;
@@ -111,10 +122,24 @@ const Pagination = React.memo<ITablePagination>(
           currentPage = maxPage;
         }
 
+        if (currentPage != Number(value)) {
+          setPageInput(currentPage.toString());
+        }
+
+        if (currentPage === page) {
+          return;
+        }
+
         onChangePage(currentPage);
-        setGoToPage(currentPage);
       },
       [onChangePage, page, perPage, total]
+    );
+
+    const handleChangePerPage = React.useCallback(
+      (_: any, event: React.ChangeEvent<{ name?: string; value: any }>) => {
+        onChangePerPage(event.target.value);
+      },
+      [onChangePerPage]
     );
 
     const handleChangePage = React.useCallback(
@@ -123,6 +148,11 @@ const Pagination = React.memo<ITablePagination>(
       },
       [onChangePage]
     );
+
+    React.useEffect(() => {
+      const timeout = setTimeout(() => setPageInput(page?.toString()), 500);
+      return () => clearTimeout(timeout);
+    }, [page]);
 
     return (
       <TableFooter>
@@ -155,10 +185,11 @@ const Pagination = React.memo<ITablePagination>(
                       margin='none'
                       size='small'
                       disabled={loading}
-                      value={goToPage}
+                      value={pageInput}
                       className={classes.input}
-                      onChange={setGoToPage}
-                      onBlur={handleBlurGoToPage}
+                      onChange={handlePageInputChange}
+                      onKeyUp={handlePageInputChange}
+                      onBlur={handlePageInputChange}
                     />
                   </Column>
                 </Row>
