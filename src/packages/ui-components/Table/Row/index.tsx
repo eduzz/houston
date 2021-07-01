@@ -37,15 +37,20 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   const [collapse, setCollapse] = React.useState<ITableCollapse>(null);
   const [actions, setActions] = React.useState<ITableAction[]>([]);
 
-  const hasOnlyOneAction = actions.length === 1;
+  const oneAction = actions.length === 1 ? actions[0] : null;
   const hasActions = actions.length > 0;
   const hasCollapse = collapse != null;
 
   const onClickAction = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (oneAction) {
+        oneAction.onClick(data, index);
+        return;
+      }
+
       onShowAction({ anchorEl: e.currentTarget, rowData: data, rowIndex: index, actions });
     },
-    [onShowAction, data, index, actions]
+    [oneAction, onShowAction, data, index, actions]
   );
 
   const registerCollapse = React.useCallback((content: ITableCollapse) => {
@@ -71,15 +76,6 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     () => collapse.onClose && collapse.onClose(data, index),
     [collapse, data, index]
   );
-
-  const RenderFirstAction = React.memo(() => {
-    const { onClick, disabled, icon } = actions[0];
-    return (
-      <ButtonIcon size='small' onClick={onClick && onClick} disabled={disabled}>
-        {icon ? icon : <MoreHorizIcon color='action' />}
-      </ButtonIcon>
-    );
-  });
 
   React.useEffect(() => {
     const unregister = registerRow({ hasActions, hasCollapse });
@@ -107,10 +103,9 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 
         {(hasActions || hasCollapse) && (
           <TableCell align='right' className={clsx('table-action-cell', className)}>
-            {hasOnlyOneAction && <RenderFirstAction />}
-            {!hasOnlyOneAction && hasActions && (
+            {hasActions && (
               <ButtonIcon size='small' onClick={onClickAction} disabled={!actions.length}>
-                <MoreHorizIcon color='action' />
+                {oneAction?.icon ?? <MoreHorizIcon color='action' />}
               </ButtonIcon>
             )}
             {!hasActions && <span />}
