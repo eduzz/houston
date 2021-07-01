@@ -17,7 +17,7 @@ type ExtractObservableResult<P> = P extends Observable<infer T> ? T : never;
 export default function useObservableCallback<T, F extends (...args: any[]) => Observable<T>>(
   observableGenerator: F,
   deps: React.DependencyList
-): [(...a: Parameters<F>) => void, ExtractObservableResult<ReturnType<F>>, any, boolean, boolean, undefined] {
+): [(...a: Parameters<F>) => void, ExtractObservableResult<ReturnType<F>>, any, boolean, boolean] {
   const [error, setError] = React.useState();
   const submitted$ = React.useRef(new Subject<any>()).current;
 
@@ -39,5 +39,5 @@ export default function useObservableCallback<T, F extends (...args: any[]) => O
 
   const callback = React.useCallback((...args: Parameters<F>) => submitted$.next(args), [submitted$]);
 
-  return [callback, data, error, completed, loading, undefined];
+  return [callback, data, error, completed, loading];
 }

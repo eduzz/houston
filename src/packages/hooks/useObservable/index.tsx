@@ -13,7 +13,7 @@ import { getConfig } from '../config';
 export default function useObservable<T>(
   observableGenerator: () => Observable<T>,
   deps: React.DependencyList
-): [T, any, boolean, boolean, undefined] {
+): [T, any, boolean, boolean] {
   const [value, setValue] = React.useState<T>(undefined);
   const [error, setError] = React.useState();
   const [loading, setLoading] = React.useState(true);
@@ -48,5 +48,5 @@ export default function useObservable<T>(
     return () => sub.unsubscribe();
   }, [cb]);
 
-  return [value, error, complete, loading, undefined];
+  return [value, error, complete, loading];
 }

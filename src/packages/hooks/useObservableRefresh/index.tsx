@@ -14,7 +14,7 @@ import useObservable from '../useObservable';
 export default function useObservableRefresh<T>(
   observableGenerator: () => Observable<T>,
   deps: React.DependencyList
-): [T | undefined, any, boolean, () => void, boolean, undefined] {
+): [T | undefined, any, boolean, () => void, boolean] {
   const [data, setData] = React.useState<T | undefined>();
   const [error, setError] = React.useState();
   const doRetry$ = React.useRef(new BehaviorSubject<boolean>(true)).current;
@@ -41,5 +41,5 @@ export default function useObservableRefresh<T>(
 
   const refresh = React.useCallback(() => doRetry$.next(true), [doRetry$]);
 
-  return [data, error, completed, refresh, loading, undefined];
+  return [data, error, completed, refresh, loading];
 }
