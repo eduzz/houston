@@ -37,6 +37,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   const [collapse, setCollapse] = React.useState<ITableCollapse>(null);
   const [actions, setActions] = React.useState<ITableAction[]>([]);
 
+  const hasOnlyOneAction = actions.length === 1;
   const hasActions = actions.length > 0;
   const hasCollapse = collapse != null;
 
@@ -71,6 +72,15 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     [collapse, data, index]
   );
 
+  const RenderFirstAction = React.memo(() => {
+    const { onClick, disabled, icon } = actions[0];
+    return (
+      <ButtonIcon size='small' onClick={onClick && onClick} disabled={disabled}>
+        {icon ? icon : <MoreHorizIcon color='action' />}
+      </ButtonIcon>
+    );
+  });
+
   React.useEffect(() => {
     const unregister = registerRow({ hasActions, hasCollapse });
     return () => unregister();
@@ -97,13 +107,13 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 
         {(hasActions || hasCollapse) && (
           <TableCell align='right' className={clsx('table-action-cell', className)}>
-            {hasActions ? (
+            {hasOnlyOneAction && <RenderFirstAction />}
+            {!hasOnlyOneAction && hasActions && (
               <ButtonIcon size='small' onClick={onClickAction} disabled={!actions.length}>
                 <MoreHorizIcon color='action' />
               </ButtonIcon>
-            ) : (
-              <span />
             )}
+            {!hasActions && <span />}
 
             {hasCollapse ? (
               <ButtonIcon
