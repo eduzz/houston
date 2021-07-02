@@ -4,7 +4,7 @@ import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
+import { useContextSelector } from 'use-context-selector';
 
 import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
@@ -26,7 +26,6 @@ export interface ICheckboxBaseFieldProps extends Pick<CheckboxProps, FieldCheckb
   description?: string;
   name: string;
   errorMessage?: string;
-  form?: IFormAdapter<any>;
   isMultiple?: boolean;
   margin?: 'none' | 'normal';
 }
@@ -38,7 +37,6 @@ const CheckboxRadioField = React.memo<ICheckboxBaseFieldProps>(
     name,
     description,
     checked,
-    form: formProps,
     value,
     errorMessage: errorMessageProp,
     isMultiple,
@@ -46,26 +44,32 @@ const CheckboxRadioField = React.memo<ICheckboxBaseFieldProps>(
     margin
   }) => {
     const classes = useStyles();
-    const formContext = React.useContext(FormFieldsContext);
-    const form = formProps ?? formContext;
+
+    const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
+    const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
+    const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
+
+    if (!name && setFieldValue) {
+      throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
+    }
 
     const isChecked = React.useMemo(() => {
       if (isMultiple) {
-        return (form?.getFieldValue(name) ?? []).includes(value);
+        return (formValue ?? []).includes(value);
       }
 
-      return form ? form.getFieldValue(name) === true : checked;
-    }, [checked, form, isMultiple, name, value]);
+      return formValue === true || checked;
+    }, [checked, formValue, isMultiple, value]);
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
         if (!isMultiple) {
-          form?.setFieldValue(name, checked);
+          setFieldValue && setFieldValue(name, checked);
           onChange && onChange(e, checked);
           return;
         }
 
-        const setValue = new Set(form.getFieldValue(name) ?? []);
+        const setValue = new Set(formValue ?? []);
 
         if (checked) {
           setValue.add(value);
@@ -73,17 +77,13 @@ const CheckboxRadioField = React.memo<ICheckboxBaseFieldProps>(
           setValue.delete(value);
         }
 
-        form.setFieldValue(name, Array.from(setValue));
+        setFieldValue && setFieldValue(name, Array.from(setValue));
       },
-      [form, isMultiple, name, onChange, value]
+      [formValue, isMultiple, name, onChange, setFieldValue, value]
     );
 
-    const errorMessage = errorMessageProp ?? form?.getFieldError(name);
+    const errorMessage = errorMessageProp ?? formError;
     const hasError = !!errorMessage;
-
-    if (isMultiple && !form) {
-      throw new Error(`CheckboxField ${name}: form is required for isMultiple`);
-    }
 
     return (
       <WrapperTheme>

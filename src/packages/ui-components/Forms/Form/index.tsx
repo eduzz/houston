@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
+import { createContext } from 'use-context-selector';
+
 export interface IFormProps {
   context: IFormAdapter<any>;
   children?: React.ReactNode;
@@ -15,7 +17,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const FormFieldsContext = React.createContext<IFormAdapter<any>>(null);
+export const FormFieldsContext = createContext<IFormAdapter<any>>(null);
 
 const Form = React.memo<IFormProps>(({ children, context }) => {
   const classes = useStyles();

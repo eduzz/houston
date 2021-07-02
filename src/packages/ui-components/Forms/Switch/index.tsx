@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import SwitchMUI, { SwitchProps } from '@material-ui/core/Switch';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
+import { useContextSelector } from 'use-context-selector';
 
 import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
@@ -11,35 +11,35 @@ type FieldSwitchPropsExtends = 'id' | 'className' | 'checked' | 'defaultChecked'
 
 export interface ISwitchFieldProps extends Pick<SwitchProps, FieldSwitchPropsExtends> {
   name: string;
-  form?: IFormAdapter<any>;
 }
 
 const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldProps>(
-  ({ form: formProps, name, onChange, ...props }, ref) => {
-    const formContext = React.useContext(FormFieldsContext);
-    const form = formProps ?? formContext;
+  ({ name, onChange, ...props }, ref) => {
+    const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
+    const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
+    const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
 
-    if (!name && form) {
+    if (!name && setFieldValue) {
       throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
     }
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-        form && form.setFieldValue(name, checked);
+        setFieldValue && setFieldValue(name, checked);
       },
-      [form, name]
+      [setFieldValue, name]
     );
 
     return (
       <WrapperTheme>
         <SwitchMUI
-          disabled={form?.isSubmitting || props.disabled}
+          disabled={isSubmitting || props.disabled}
           name={name}
           inputRef={ref}
           onChange={onChange || handleChange}
           className={props.className}
           color='primary'
-          checked={form?.values[name] ?? props.checked}
+          checked={formValue ?? props.checked}
           {...props}
         />
       </WrapperTheme>

@@ -4,7 +4,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio, { RadioProps } from '@material-ui/core/Radio';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
+import { useContextSelector } from 'use-context-selector';
 
 import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
@@ -26,44 +26,34 @@ export interface IRadioBaseFieldProps extends Pick<RadioProps, FieldRadioPropsEx
   description?: string;
   name: string;
   errorMessage?: string;
-  form?: IFormAdapter<any>;
   margin?: 'none' | 'normal';
 }
 
 const BaseRadioField = React.memo<IRadioBaseFieldProps>(
-  ({
-    Control,
-    label,
-    name,
-    description,
-    checked,
-    form: formProps,
-    errorMessage: errorMessageProp,
-    onChange,
-    margin,
-    value
-  }) => {
+  ({ Control, label, name, description, checked, errorMessage: errorMessageProp, onChange, margin, value }) => {
     const classes = useStyles();
-    const formContext = React.useContext(FormFieldsContext);
-    const form = formProps ?? formContext;
+
+    const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
+    const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
+    const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
 
     const isChecked = React.useMemo(
-      () => (form ? String(form.getFieldValue(name)) === String(value) : checked),
-      [checked, form, name, value]
+      () => (formValue ? String(formValue) === String(value) : checked),
+      [checked, formValue, value]
     );
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
         const isBooleanValue = ['true', 'false'].includes(e.target.value);
 
-        form?.setFieldValue(name, isBooleanValue ? e.target.value === 'true' : e.target.value);
+        setFieldValue && setFieldValue(name, isBooleanValue ? e.target.value === 'true' : e.target.value);
 
         onChange && onChange(e, checked);
       },
-      [form, name, onChange]
+      [setFieldValue, name, onChange]
     );
 
-    const errorMessage = errorMessageProp ?? form?.getFieldError(name);
+    const errorMessage = errorMessageProp ?? formError;
     const hasError = !!errorMessage;
 
     return (
