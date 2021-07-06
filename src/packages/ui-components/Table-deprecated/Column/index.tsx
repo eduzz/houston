@@ -35,4 +35,4 @@ export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExte
   type?: 'action';
 }
 
-export default React.memo<ITableColumnProps>(() => null);
+export default (() => null) as React.FC<ITableColumnProps>;

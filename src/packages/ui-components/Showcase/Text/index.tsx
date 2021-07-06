@@ -5,4 +5,4 @@ export interface IShowcaseTextProps {
   children?: React.ReactNode;
 }
 
-export default React.memo<IShowcaseTextProps>(() => null);
+export default (() => null) as React.FC<IShowcaseTextProps>;

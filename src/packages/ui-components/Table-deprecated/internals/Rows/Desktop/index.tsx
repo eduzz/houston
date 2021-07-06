@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -14,6 +13,7 @@ import clsx from 'clsx';
 import isEqual from 'lodash/isEqual';
 
 import ButtonIcon from '../../../../ButtonIcon';
+import createUseStyles from '../../../../styles/createUseStyles';
 import { useTableContext } from '../../../context';
 import { IRowProps } from '../../../interfaces';
 import Cell from '../../Cell/Desktop';
@@ -21,49 +21,47 @@ import Collapse from '../../Collapse';
 import RowsEmpty from './Empty';
 import RowLoader from './Loader';
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    root: {
-      background: '#fff'
-    },
+const useStyles = createUseStyles(theme => ({
+  root: {
+    background: '#fff'
+  },
 
-    stripedRow: {
-      background: theme.palette.grey[100]
-    },
+  stripedRow: {
+    background: theme.colors.grey[100]
+  },
 
-    hasEndAdornment: {
-      borderBottom: 0
-    },
+  hasEndAdornment: {
+    borderBottom: 0
+  },
 
-    cellEndAdornment: {
-      paddingTop: 0,
-      '&:empty': {
-        padding: 0
-      }
-    },
-
-    wrapperIconActions: {
-      cursor: 'pointer',
-      marginRight: -8,
-
-      '& svg': {
-        color: theme.palette.grey[600]
-      }
-    },
-
-    fixed: {
-      position: 'sticky',
-      top: 0,
-      right: 0,
-      left: 0,
-      background: theme.palette.grey[100]
-    },
-
-    rowCellCollapse: {
-      padding: '10px 0'
+  cellEndAdornment: {
+    paddingTop: 0,
+    '&:empty': {
+      padding: 0
     }
-  })
-);
+  },
+
+  wrapperIconActions: {
+    cursor: 'pointer',
+    marginRight: -8,
+
+    '& svg': {
+      color: theme.colors.grey[600]
+    }
+  },
+
+  fixed: {
+    position: 'sticky',
+    top: 0,
+    right: 0,
+    left: 0,
+    background: theme.colors.grey[100]
+  },
+
+  rowCellCollapse: {
+    padding: '10px 0'
+  }
+}));
 
 const Rows = React.memo<IRowProps>(
   ({ currentItemCollapse, handleSetCurrentRow, handleClickCollapse, handleClickActions }) => {

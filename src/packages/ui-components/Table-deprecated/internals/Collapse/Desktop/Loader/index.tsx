@@ -1,17 +1,14 @@
 import * as React from 'react';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    loader: {
-      padding: 16
-    }
-  })
-);
+import createUseStyles from '../../../../../styles/createUseStyles';
+
+const useStyles = createUseStyles({
+  loader: { padding: 16 }
+});
 
 interface IProps {
   columns: number;

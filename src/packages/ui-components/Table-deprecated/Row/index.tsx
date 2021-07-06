@@ -12,4 +12,4 @@ export interface ITableRowProps extends Pick<TableRowProps, ITableRowExtends> {
   endAdornment?: React.ReactNode;
 }
 
-export default React.memo<ITableRowProps>(() => null);
+export default (() => null) as React.FC<ITableRowProps>;

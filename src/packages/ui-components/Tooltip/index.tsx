@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import TooltipMUI, { TooltipProps } from '@material-ui/core/Tooltip';
 
-import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 
 type ITooltipPlacement =
   | 'bottom-end'
@@ -27,21 +27,19 @@ export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
   children: React.ReactNode;
 }
 
-const Tooltip = React.memo<ITooltipProps>(({ placement = 'top', children, disabled = false, ...rest }) => {
+const Tooltip: React.FC<ITooltipProps> = ({ placement = 'top', children, disabled = false, ...rest }) => {
   return (
-    <WrapperTheme>
-      <TooltipMUI
-        {...rest}
-        disableTouchListener={disabled}
-        disableHoverListener={disabled}
-        disableFocusListener={disabled}
-        placement={placement}
-        arrow
-      >
-        {children as React.ReactElement}
-      </TooltipMUI>
-    </WrapperTheme>
+    <TooltipMUI
+      {...rest}
+      disableTouchListener={disabled}
+      disableHoverListener={disabled}
+      disableFocusListener={disabled}
+      placement={placement}
+      arrow
+    >
+      {children as React.ReactElement}
+    </TooltipMUI>
   );
-});
+};
 
-export default Tooltip;
+export default withHoustonTheme(Tooltip);

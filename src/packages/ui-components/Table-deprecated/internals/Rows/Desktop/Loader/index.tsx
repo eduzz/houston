@@ -1,19 +1,17 @@
 import * as React from 'react';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
+import createUseStyles from '../../../../../styles/createUseStyles';
 import { useTableContext } from '../../../../context';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    loader: {
-      padding: 16
-    }
-  })
-);
+const useStyles = createUseStyles({
+  loader: {
+    padding: 16
+  }
+});
 
 const RowLoader = React.memo(() => {
   const classes = useStyles();

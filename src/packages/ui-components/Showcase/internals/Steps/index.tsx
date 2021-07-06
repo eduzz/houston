@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-
 import clsx from 'clsx';
 
+import createUseStyles from '../../../styles/createUseStyles';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
@@ -15,96 +14,90 @@ interface IWidthSizes {
 
 interface IStyleProps {
   margin: number;
-
   imageSizes: IWidthSizes;
-
   modalSizes: IWidthSizes;
-
   size: 'small' | 'medium' | 'large';
 }
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    root: ({ margin, modalSizes, size }: IStyleProps) => ({
-      overflow: 'hidden',
+const useStyles = createUseStyles(theme => ({
+  root: ({ margin, modalSizes, size }: IStyleProps) => ({
+    overflow: 'hidden',
 
-      '& .steps': {
-        display: 'flex',
-        marginLeft: margin * -modalSizes[size ?? 'large'],
-        transition: 'ease margin 1s',
-
-        [theme.breakpoints.down('md')]: {
-          marginLeft: margin * -modalSizes[size ?? 'medium']
-        },
-
-        [theme.breakpoints.down('xs')]: {
-          marginLeft: margin * -modalSizes[size ?? 'small']
-        }
-      }
-    }),
-
-    stepContent: {
+    '& .steps': {
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: '16px 24px',
-
-      [theme.breakpoints.down('xs')]: {
-        padding: '12px 16px'
-      },
-
-      '& .content-text': {
-        alignSelf: 'baseline',
-        fontWeight: 400,
-        fontSize: 16,
-        textAlign: 'left',
-        margin: 0,
-        lineHeight: '24px',
-        letterSpacing: '0.3px',
-        maxHeight: '29vh',
-        overflow: 'auto'
-      }
-    },
-
-    contentImage: (props: IStyleProps) => ({
-      width: props.imageSizes.large,
-      marginBottom: 24,
-      display: 'flex',
-      justifyContent: 'center',
+      marginLeft: margin * -modalSizes[size ?? 'large'],
+      transition: 'ease margin 1s',
 
       [theme.breakpoints.down('md')]: {
-        width: props.imageSizes.medium
+        marginLeft: margin * -modalSizes[size ?? 'medium']
       },
 
       [theme.breakpoints.down('xs')]: {
-        width: props.imageSizes.small
-      },
-
-      '& img': {
-        maxWidth: '100%',
-        borderRadius: 4
+        marginLeft: margin * -modalSizes[size ?? 'small']
       }
-    }),
+    }
+  }),
 
-    mobilePadding: {
+  stepContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '16px 24px',
+
+    [theme.breakpoints.down('xs')]: {
       padding: '12px 16px'
     },
 
-    small: (props: IStyleProps) => ({
-      width: props.imageSizes.small
-    }),
+    '& .content-text': {
+      alignSelf: 'baseline',
+      fontWeight: 400,
+      fontSize: 16,
+      textAlign: 'left',
+      margin: 0,
+      lineHeight: '24px',
+      letterSpacing: '0.3px',
+      maxHeight: '29vh',
+      overflow: 'auto'
+    }
+  },
 
-    medium: (props: IStyleProps) => ({
+  contentImage: (props: IStyleProps) => ({
+    width: props.imageSizes.large,
+    marginBottom: 24,
+    display: 'flex',
+    justifyContent: 'center',
+
+    [theme.breakpoints.down('md')]: {
       width: props.imageSizes.medium
-    })
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      width: props.imageSizes.small
+    },
+
+    '& img': {
+      maxWidth: '100%',
+      borderRadius: 4
+    }
+  }),
+
+  mobilePadding: {
+    padding: '12px 16px'
+  },
+
+  small: (props: IStyleProps) => ({
+    width: props.imageSizes.small
+  }),
+
+  medium: (props: IStyleProps) => ({
+    width: props.imageSizes.medium
   })
-);
+}));
 
 const Steps = React.memo(() => {
   const [margin, setMargin] = React.useState(0);
 
   const { steps, currentStep, size, modalSizes, imageSizes } = useShowcaseContext();
-
   const classes = useStyles({ margin, imageSizes, modalSizes, size });
 
   React.useEffect(() => {

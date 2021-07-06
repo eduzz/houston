@@ -1,17 +1,5 @@
 import * as React from 'react';
 
-import Action from './Action';
-import Body from './Body';
-import Cell from './Cell';
-import Collapse from './Collapse';
-import Column from './Column';
-import Empty from './Empty';
-import Error from './Error';
-import Header from './Header';
-import Pagination from './Pagination';
-import Row from './Row';
-import { ITableProps } from './Table';
-
 export interface ITableCollapse {
   onOpen: (data: unknown, index?: number) => void;
   onClose: (data: unknown, index?: number) => void;
@@ -47,16 +35,3 @@ export interface ITableActionCallback<T> {
 }
 
 export type ITableAlign = 'inherit' | 'left' | 'center' | 'right' | 'justify';
-
-export type TableComponent = React.NamedExoticComponent<ITableProps> & {
-  Cell?: typeof Cell;
-  Header?: typeof Header;
-  Body?: typeof Body;
-  Column?: typeof Column;
-  Collapse?: typeof Collapse;
-  Error?: typeof Error;
-  Row?: typeof Row;
-  Empty?: typeof Empty;
-  Pagination?: typeof Pagination;
-  Action?: typeof Action;
-};

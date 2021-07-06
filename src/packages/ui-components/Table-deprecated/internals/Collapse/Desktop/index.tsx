@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import CollapseMUI from '@material-ui/core/Collapse';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,39 +11,38 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';
 
+import createUseStyles from '../../../../styles/createUseStyles';
 import { useTableContext } from '../../../context';
 import Cell from '../../Cell/Desktop';
 import MenuActions from '../../MenuActions';
 import { useCollapse } from '../context';
 import LoaderCollapse from './Loader';
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    rowCollapse: {
-      '& > *': {
-        borderBottom: 'unset'
-      }
-    },
-
-    cellCollapse: {
-      paddingTop: 0,
-      paddingBottom: 0,
-      background: theme.palette.grey[200]
-    },
-
-    wrapperButtonActions: {
-      display: 'inline-flex',
-      cursor: 'pointer',
-      lineHeight: 0,
-      position: 'relative',
-      top: 2
-    },
-
-    list: {
-      borderBottom: 0
+const useStyles = createUseStyles(theme => ({
+  rowCollapse: {
+    '& > *': {
+      borderBottom: 'unset'
     }
-  })
-);
+  },
+
+  cellCollapse: {
+    paddingTop: 0,
+    paddingBottom: 0,
+    background: theme.colors.grey[200]
+  },
+
+  wrapperButtonActions: {
+    display: 'inline-flex',
+    cursor: 'pointer',
+    lineHeight: 0,
+    position: 'relative',
+    top: 2
+  },
+
+  list: {
+    borderBottom: 0
+  }
+}));
 
 const Collapse = React.memo(() => {
   const classes = useStyles();

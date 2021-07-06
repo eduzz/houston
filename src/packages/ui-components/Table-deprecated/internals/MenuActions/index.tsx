@@ -2,24 +2,22 @@ import * as React from 'react';
 
 import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 
+import createUseStyles from '../../../styles/createUseStyles';
 import { ITableRow } from '../../interfaces';
 import { ITableOptionProps } from '../../Option';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    option: {
-      display: 'flex',
-      alignItems: 'center',
+const useStyles = createUseStyles(() => ({
+  option: {
+    display: 'flex',
+    alignItems: 'center',
 
-      '& svg, span': {
-        marginRight: 8,
-        fontSize: 24
-      }
+    '& svg, span': {
+      marginRight: 8,
+      fontSize: 24
     }
-  })
-);
+  }
+}));
 
 interface IProps extends Omit<MenuProps, 'open'> {
   anchorEl: HTMLElement;

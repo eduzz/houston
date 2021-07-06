@@ -4,4 +4,4 @@ export interface IShowcaseLastStepProps {
   label?: string;
 }
 
-export default React.memo<IShowcaseLastStepProps>(() => null);
+export default (() => null) as React.FC<IShowcaseLastStepProps>;

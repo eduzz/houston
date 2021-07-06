@@ -1,17 +1,18 @@
 import * as React from 'react';
 
-import { Theme, makeStyles, useTheme } from '@material-ui/core/styles';
+import { Theme, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Button from '../../../Button';
 import { useFirstChildrenProps } from '../../../hooks/useChildrenProps';
+import createUseStyles from '../../../styles/createUseStyles';
 import ShowcaseCloseButton from '../../CloseButton';
 import { useShowcaseContext } from '../../context';
 import ShowcaseLastStep, { IShowcaseLastStepProps } from '../../LastButton';
 import ShowcaseNextStep, { IShowcaseNextStepProps } from '../../NextButton';
 import ShowcasePreviousStep, { IShowcasePreviousStepProps } from '../../PreviousButton';
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles({
   ctas: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -71,7 +72,7 @@ const useStyles = makeStyles(() => ({
       }
     }
   }
-}));
+});
 
 const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean) => {
   const { steps, currentStep, size, onNextStep, onPreviousStep, handleClose, handleFinish } = useShowcaseContext();

@@ -1,29 +1,15 @@
 import { CardProps } from '@material-ui/core/Card';
 
-import ShowcaseCloseButton, { IShowcaseCloseButtonProps } from './CloseButton';
-import ShowcaseButtons, { IShowcaseButtonsProps } from './GenericButtons';
-import ShowcaseImage, { IShowcaseImageProps } from './Image';
-import ShowcaseLastButton, { IShowcaseLastStepProps } from './LastButton';
-import ShowcaseNextButton, { IShowcaseNextStepProps } from './NextButton';
-import ShowcasePreviousButton, { IShowcasePreviousStepProps } from './PreviousButton';
-import ShowcaseStep, { IShowcaseStepProps } from './Step';
-import ShowcaseText, { IShowcaseTextProps } from './Text';
-import ShowcaseTitle from './Title';
+import { IShowcaseCloseButtonProps } from './CloseButton';
+import { IShowcaseButtonsProps } from './GenericButtons';
+import { IShowcaseImageProps } from './Image';
+import { IShowcaseLastStepProps } from './LastButton';
+import { IShowcaseNextStepProps } from './NextButton';
+import { IShowcasePreviousStepProps } from './PreviousButton';
+import { IShowcaseStepProps } from './Step';
+import { IShowcaseTextProps } from './Text';
 
 type ShowcasePropsExtends = 'id' | 'className' | 'children';
-
-type IShowcaseSubcomponentes = {
-  Title: typeof ShowcaseTitle;
-  Step: typeof ShowcaseStep;
-  Image: typeof ShowcaseImage;
-  Text: typeof ShowcaseText;
-  GenericButtons: typeof ShowcaseButtons;
-  StepButtons: typeof ShowcaseButtons;
-  LastButton: typeof ShowcaseLastButton;
-  NextButton: typeof ShowcaseNextButton;
-  PreviousButton: typeof ShowcasePreviousButton;
-  CloseButton: typeof ShowcaseCloseButton;
-};
 
 export interface IWidthSizes {
   small: number;
@@ -55,7 +41,3 @@ export interface IShowcaseProps extends Pick<CardProps, ShowcasePropsExtends> {
   onNext?: (currentStep: number) => void;
   onPrevious?: (currentStep: number) => void;
 }
-
-export interface IShowcaseComponent
-  extends IShowcaseSubcomponentes,
-    React.ForwardRefExoticComponent<IShowcaseProps & React.RefAttributes<CardProps>> {}

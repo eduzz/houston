@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -8,25 +7,24 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 import clsx from 'clsx';
 
+import createUseStyles from '../../../styles/createUseStyles';
 import { useTableContext } from '../../context';
 import { ITableSortable } from '../../interfaces';
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    fixed: {
-      position: 'sticky',
-      top: 0,
-      left: 0,
-      right: 0,
-      background: theme.palette.grey[100],
-      zIndex: 2
-    },
+const useStyles = createUseStyles(theme => ({
+  fixed: {
+    position: 'sticky',
+    top: 0,
+    left: 0,
+    right: 0,
+    background: theme.colors.grey[100],
+    zIndex: 2
+  },
 
-    striped: {
-      background: 'transparent'
-    }
-  })
-);
+  striped: {
+    background: 'transparent'
+  }
+}));
 
 const Columns = React.memo(() => {
   const classes = useStyles();

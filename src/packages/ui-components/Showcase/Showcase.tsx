@@ -4,18 +4,19 @@ import CardMUI, { CardProps } from '@material-ui/core/Card';
 import CardActionsMUI from '@material-ui/core/CardActions';
 import CardContentMUI from '@material-ui/core/CardContent';
 import ModalMUI from '@material-ui/core/Modal';
-import { makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
 import { getReactChildrenComponent, getReactFirstChildrenProps } from '../Helpers/functions';
+import nestedComponent from '../Helpers/nestedComponent';
 import { useFirstChildrenProps } from '../hooks/useChildrenProps';
-import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import createUseStyles from '../styles/createUseStyles';
+import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import ShowcaseCloseButton from './CloseButton';
 import ShowcaseContextProvider from './context';
 import ShowcaseGenericButtons from './GenericButtons';
 import ShowcaseImage, { IShowcaseImageProps } from './Image';
-import { IShowcaseComponent, IShowcaseProps, IShowcaseStep, IShowcaseButtons } from './interfaces';
+import { IShowcaseProps, IShowcaseStep, IShowcaseButtons } from './interfaces';
 import CallToActions from './internals/CallToActions';
 import Header from './internals/Header/indext';
 import Steps from './internals/Steps';
@@ -40,7 +41,7 @@ const imageSizes = {
   large: 482
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = createUseStyles(theme => ({
   modalContent: {
     width: modalSizes.large,
     position: 'fixed',
@@ -83,11 +84,9 @@ const useStyles = makeStyles(theme => ({
       }
     }
   },
-
   medium: {
     width: modalSizes.medium
   },
-
   small: {
     width: modalSizes.small
   }
@@ -109,13 +108,10 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
     ...rest
   } = props;
 
-  const { currentStep, setCurrentStep, nextStep, previousStep } = useShowcase(initialStep);
-
   const classes = useStyles();
 
+  const { currentStep, setCurrentStep, nextStep, previousStep } = useShowcase(initialStep);
   const [modalState, setModalState] = React.useState<boolean>(true);
-
-  const setModalOpen = React.useCallback((modalState: boolean) => setModalState(modalState), []);
 
   const title = useFirstChildrenProps<IShowcaseTitleProps>(children, ShowcaseTitle);
 
@@ -156,12 +152,12 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
 
   React.useEffect(() => {
     if (open === undefined) {
-      setModalOpen(true);
+      setModalState(true);
       return;
     }
 
-    setModalOpen(open);
-  }, [open, setModalOpen]);
+    setModalState(open);
+  }, [open]);
 
   const contextValue = React.useMemo(
     () => ({
@@ -195,37 +191,35 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
   );
 
   return (
-    <WrapperTheme>
-      <ModalMUI {...rest} disableBackdropClick={disableBackdropClick} open={modalState} onClose={handleClose} ref={ref}>
-        <ShowcaseContextProvider value={contextValue}>
-          <div className={clsx(className, size && classes[size], classes.modalContent)}>
-            <CardMUI className='card-mui'>
-              <Header />
+    <ModalMUI {...rest} disableBackdropClick={disableBackdropClick} open={modalState} onClose={handleClose} ref={ref}>
+      <ShowcaseContextProvider value={contextValue}>
+        <div className={clsx(className, size && classes[size], classes.modalContent)}>
+          <CardMUI className='card-mui'>
+            <Header />
 
-              <CardContentMUI className='card-content-mui'>
-                <Steps />
-              </CardContentMUI>
+            <CardContentMUI className='card-content-mui'>
+              <Steps />
+            </CardContentMUI>
 
-              <CardActionsMUI disableSpacing className='card-actions-mui'>
-                <CallToActions />
-              </CardActionsMUI>
-            </CardMUI>
-          </div>
-        </ShowcaseContextProvider>
-      </ModalMUI>
-    </WrapperTheme>
+            <CardActionsMUI disableSpacing className='card-actions-mui'>
+              <CallToActions />
+            </CardActionsMUI>
+          </CardMUI>
+        </div>
+      </ShowcaseContextProvider>
+    </ModalMUI>
   );
-}) as IShowcaseComponent;
+});
 
-Showcase.Title = ShowcaseTitle;
-Showcase.Step = ShowcaseStep;
-Showcase.Image = ShowcaseImage;
-Showcase.Text = ShowcaseText;
-Showcase.GenericButtons = ShowcaseGenericButtons;
-Showcase.StepButtons = ShowcaseStepButtons;
-Showcase.LastButton = ShowcaseLastButton;
-Showcase.NextButton = ShowcaseNextButton;
-Showcase.PreviousButton = ShowcasePreviousButton;
-Showcase.CloseButton = ShowcaseCloseButton;
-
-export default Showcase;
+export default nestedComponent(withHoustonTheme(React.memo(Showcase)), {
+  Title: ShowcaseTitle,
+  Step: ShowcaseStep,
+  Image: ShowcaseImage,
+  Text: ShowcaseText,
+  GenericButtons: ShowcaseGenericButtons,
+  StepButtons: ShowcaseStepButtons,
+  LastButton: ShowcaseLastButton,
+  NextButton: ShowcaseNextButton,
+  PreviousButton: ShowcasePreviousButton,
+  CloseButton: ShowcaseCloseButton
+});

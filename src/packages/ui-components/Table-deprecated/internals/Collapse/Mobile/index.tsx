@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import CollapseMUI from '@material-ui/core/Collapse';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import clsx from 'clsx';
@@ -10,60 +9,59 @@ import isEqual from 'lodash/isEqual';
 
 import ButtonIcon from '../../../../ButtonIcon';
 import Row from '../../../../Grid/Row';
+import createUseStyles from '../../../../styles/createUseStyles';
 import CellMobile from '../../Cell/Mobile';
 import MenuActions from '../../MenuActions';
 import { useCollapse } from '../context';
 import LoaderCollapse from './Loader';
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    collapse: {
-      background: theme.palette.grey[200],
-      borderRadius: 4,
-      width: '100%',
-      transition: '0.15s linear',
-      margin: '0 4px 0 4px',
+const useStyles = createUseStyles(theme => ({
+  collapse: {
+    background: theme.colors.grey[200],
+    borderRadius: 4,
+    width: '100%',
+    transition: '0.15s linear',
+    margin: '0 4px 0 4px',
 
-      '&.--visibled': {
-        margin: 4,
-        padding: 4
-      }
-    },
-
-    collapseRow: {},
-
-    row: {
-      display: 'flex',
-      marginBottom: 4,
-      flexDirection: 'row'
-    },
-
-    rowContent: {
-      padding: 4,
-      width: '100%',
-
-      '&.--hasActions': {
-        width: 'calc(100% - 40px)'
-      }
-    },
-
-    rowExtra: {
-      width: 40,
-      display: 'flex',
-      height: 'auto',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: '4px 0',
-
-      '& button': {
-        color: theme.palette.grey[500],
-        padding: 2,
-        width: 32
-      }
+    '&.--visibled': {
+      margin: 4,
+      padding: 4
     }
-  })
-);
+  },
+
+  collapseRow: {},
+
+  row: {
+    display: 'flex',
+    marginBottom: 4,
+    flexDirection: 'row'
+  },
+
+  rowContent: {
+    padding: 4,
+    width: '100%',
+
+    '&.--hasActions': {
+      width: 'calc(100% - 40px)'
+    }
+  },
+
+  rowExtra: {
+    width: 40,
+    display: 'flex',
+    height: 'auto',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '4px 0',
+
+    '& button': {
+      color: theme.colors.grey[500],
+      padding: 2,
+      width: 32
+    }
+  }
+}));
 
 const CollapseMobile = React.memo(() => {
   const classes = useStyles();

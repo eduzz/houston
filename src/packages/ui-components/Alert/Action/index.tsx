@@ -6,4 +6,4 @@ export interface IAlertActionProps extends Omit<IButtonProps, 'children'> {
   label: React.ReactNode;
 }
 
-export default React.memo<IAlertActionProps>(() => null);
+export default (() => null) as React.FC<IAlertActionProps>;

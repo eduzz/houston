@@ -3,7 +3,8 @@ import * as React from 'react';
 import ListMUI, { ListProps as ListPropsMUI } from '@material-ui/core/List';
 
 import { getReactFirstChildrenProps, isReactComponent } from '../Helpers/functions';
-import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import nestedComponent from '../Helpers/nestedComponent';
+import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import { IListItem } from './interfaces';
 import Items from './internals/Items';
 import Item from './Item';
@@ -18,15 +19,7 @@ export interface IListProps extends Pick<ListPropsMUI, ListProps> {
   stripedRows?: boolean;
 }
 
-type ListComponent = React.NamedExoticComponent<IListProps> & {
-  Item?: typeof Item;
-  Title?: typeof Title;
-  Subtitle?: typeof Subtitle;
-  Left?: typeof Left;
-  Right?: typeof Right;
-};
-
-const List: ListComponent = React.memo<IListProps>(({ children, stripedRows = false, ...props }) => {
+const List: React.FC<IListProps> = ({ children, stripedRows = false, ...props }) => {
   const items: IListItem[] = React.useMemo(() => {
     return React.Children.map(children, (child: React.ReactElement) => {
       if (!isReactComponent(child, Item)) return null;
@@ -41,18 +34,10 @@ const List: ListComponent = React.memo<IListProps>(({ children, stripedRows = fa
   }, [children]);
 
   return (
-    <WrapperTheme>
-      <ListMUI component='ul' {...props}>
-        <Items items={items} stripedRows={stripedRows} />
-      </ListMUI>
-    </WrapperTheme>
+    <ListMUI component='ul' {...props}>
+      <Items items={items} stripedRows={stripedRows} />
+    </ListMUI>
   );
-});
+};
 
-List.Item = Item;
-List.Title = Title;
-List.Subtitle = Subtitle;
-List.Left = Left;
-List.Right = Right;
-
-export default List;
+export default nestedComponent(withHoustonTheme(React.memo(List)), { Item, Title, Subtitle, Left, Right });

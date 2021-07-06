@@ -13,4 +13,14 @@ const WrapperTheme = React.memo<IProps>(({ children }) => {
   return <ThemeProvider theme={context}>{children}</ThemeProvider>;
 });
 
-export default WrapperTheme;
+const withHoustonTheme =
+  <P extends unknown>(Component: React.ComponentType<P>): React.FC<P> =>
+  (props: P) => {
+    return (
+      <WrapperTheme>
+        <Component {...props} />
+      </WrapperTheme>
+    );
+  };
+
+export default withHoustonTheme;

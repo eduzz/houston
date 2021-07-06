@@ -12,7 +12,7 @@ import Select, { SelectProps } from '@material-ui/core/Select';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
-import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
+import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
 type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple' | 'className';
@@ -37,7 +37,7 @@ export interface ISelectFieldOption {
   disabled?: boolean;
 }
 
-const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelectFieldProps>(
+const SelectField = React.forwardRef<HTMLSelectElement, ISelectFieldProps>(
   (
     {
       label,
@@ -113,45 +113,38 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
     const classes = React.useMemo(() => ({ select: size === 'small' ? 'input-size-small' : '' }), [size]);
 
     return (
-      <WrapperTheme>
-        <FormControl
-          margin={margin ?? 'normal'}
+      <FormControl margin={margin ?? 'normal'} fullWidth={fullWidth ?? true} error={!!errorMessage} variant='outlined'>
+        {!!label && <InputLabel error={!!errorMessage}>{label}</InputLabel>}
+        <Select
+          error={hasError}
+          {...props}
+          classes={classes}
+          inputRef={ref}
+          disabled={form?.isSubmitting || props.disabled}
+          name={name}
+          value={value ?? (props.multiple ? [] : '')}
+          onChange={handleChange}
           fullWidth={fullWidth ?? true}
-          error={!!errorMessage}
-          variant='outlined'
+          label={label}
+          endAdornment={endAdornment}
+          renderValue={renderValue}
         >
-          {!!label && <InputLabel error={!!errorMessage}>{label}</InputLabel>}
-          <Select
-            error={hasError}
-            {...props}
-            classes={classes}
-            inputRef={ref}
-            disabled={form?.isSubmitting || props.disabled}
-            name={name}
-            value={value ?? (props.multiple ? [] : '')}
-            onChange={handleChange}
-            fullWidth={fullWidth ?? true}
-            label={label}
-            endAdornment={endAdornment}
-            renderValue={renderValue}
-          >
-            {emptyOption && <MenuItem value={''}>{emptyOption}</MenuItem>}
-            {(options || []).map(option => (
-              <MenuItem disabled={option.disabled} key={option.value} value={option.value}>
-                {props.multiple && <Checkbox checked={value?.includes(option.value)} />}
-                <ListItemText primary={option.label} />
-              </MenuItem>
-            ))}
-          </Select>
-          {!!(errorMessage || helperText) && (
-            <FormHelperText error={!!errorMessage} variant='outlined'>
-              {errorMessage || helperText}
-            </FormHelperText>
-          )}
-        </FormControl>
-      </WrapperTheme>
+          {emptyOption && <MenuItem value={''}>{emptyOption}</MenuItem>}
+          {(options || []).map(option => (
+            <MenuItem disabled={option.disabled} key={option.value} value={option.value}>
+              {props.multiple && <Checkbox checked={value?.includes(option.value)} />}
+              <ListItemText primary={option.label} />
+            </MenuItem>
+          ))}
+        </Select>
+        {!!(errorMessage || helperText) && (
+          <FormHelperText error={!!errorMessage} variant='outlined'>
+            {errorMessage || helperText}
+          </FormHelperText>
+        )}
+      </FormControl>
     );
   }
 );
 
-export default React.memo(SelectField);
+export default withHoustonTheme(React.memo(SelectField));

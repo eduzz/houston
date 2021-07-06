@@ -5,4 +5,4 @@ export interface IShowcaseImageProps {
   alt: string;
 }
 
-export default React.memo<IShowcaseImageProps>(() => null);
+export default (() => null) as React.FC<IShowcaseImageProps>;
