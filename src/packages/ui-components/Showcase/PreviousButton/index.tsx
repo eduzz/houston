@@ -4,4 +4,4 @@ export interface IShowcasePreviousStepProps {
   label?: string;
 }
 
-export default React.memo<IShowcasePreviousStepProps>(() => null);
+export default (() => null) as React.FC<IShowcasePreviousStepProps>;

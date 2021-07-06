@@ -8,4 +8,4 @@ export interface IListTitleProps extends Pick<TypographyProps, ListTitleProps> {
   children: React.ReactNode;
 }
 
-export default React.memo<IListTitleProps>(() => null);
+export default (() => null) as React.FC<IListTitleProps>;

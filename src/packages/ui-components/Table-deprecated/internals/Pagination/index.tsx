@@ -1,83 +1,81 @@
 import * as React from 'react';
 
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import MUIPagination from '@material-ui/lab/Pagination';
 
 import SelectField from '../../../Forms/Select';
 import TextField from '../../../Forms/Text';
 import Column from '../../../Grid/Column';
 import Row from '../../../Grid/Row';
+import createUseStyles from '../../../styles/createUseStyles';
 import Typography from '../../../Typography';
 import { useTableContext } from '../../context';
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    pagination: {
-      marginTop: 12,
-      display: 'flex',
-      alignItems: 'center',
-      width: '100%'
+const useStyles = createUseStyles(theme => ({
+  pagination: {
+    marginTop: 12,
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%'
+  },
+
+  perPage: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    marginRight: 24,
+
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center',
+      margin: '0 0 12px 0',
+      display: 'flex'
     },
 
-    perPage: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      marginRight: 24,
-
-      [theme.breakpoints.down('xs')]: {
-        justifyContent: 'center',
-        margin: '0 0 12px 0',
-        display: 'flex'
-      },
-
-      '& p': {
-        whiteSpace: 'nowrap',
-        marginRight: 12,
-        color: theme.palette.grey[600]
-      }
-    },
-
-    selectPerPage: {
-      height: 35,
-      padding: '8px 12px'
-    },
-
-    goTo: {
-      maxWidth: 120,
-      display: 'inline-flex',
-      alignItems: 'center',
-
-      [theme.breakpoints.down('xs')]: {
-        margin: '0 auto 12px auto',
-        display: 'flex'
-      },
-
-      '& p': {
-        whiteSpace: 'nowrap',
-        marginRight: 12,
-        color: theme.palette.grey[600]
-      }
-    },
-
-    inputGoTo: {
-      '& input': {
-        height: 35,
-        padding: '4px 12px'
-      }
-    },
-
-    pages: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      height: '100%',
-      alignItems: 'center',
-
-      [theme.breakpoints.down('xs')]: {
-        justifyContent: 'center'
-      }
+    '& p': {
+      whiteSpace: 'nowrap',
+      marginRight: 12,
+      color: theme.colors.grey[600]
     }
-  })
-);
+  },
+
+  selectPerPage: {
+    height: 35,
+    padding: '8px 12px'
+  },
+
+  goTo: {
+    maxWidth: 120,
+    display: 'inline-flex',
+    alignItems: 'center',
+
+    [theme.breakpoints.down('xs')]: {
+      margin: '0 auto 12px auto',
+      display: 'flex'
+    },
+
+    '& p': {
+      whiteSpace: 'nowrap',
+      marginRight: 12,
+      color: theme.colors.grey[600]
+    }
+  },
+
+  inputGoTo: {
+    '& input': {
+      height: 35,
+      padding: '4px 12px'
+    }
+  },
+
+  pages: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    height: '100%',
+    alignItems: 'center',
+
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center'
+    }
+  }
+}));
 
 const Pagination = React.memo(() => {
   const { loading, pagination } = useTableContext();

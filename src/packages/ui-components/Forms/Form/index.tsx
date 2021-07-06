@@ -1,23 +1,21 @@
 import * as React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
+
+import createUseStyles from '../../styles/createUseStyles';
 
 export interface IFormProps {
   context: IFormAdapter<any>;
   children?: React.ReactNode;
 }
 
-const useStyles = makeStyles(() => ({
-  form: {
-    width: '100%'
-  }
-}));
+const useStyles = createUseStyles({
+  form: { width: '100%' }
+});
 
 export const FormFieldsContext = React.createContext<IFormAdapter<any>>(null);
 
-const Form = React.memo<IFormProps>(({ children, context }) => {
+const Form: React.FC<IFormProps> = ({ children, context }) => {
   const classes = useStyles();
 
   return (
@@ -27,6 +25,6 @@ const Form = React.memo<IFormProps>(({ children, context }) => {
       </form>
     </FormFieldsContext.Provider>
   );
-});
+};
 
-export default Form;
+export default React.memo(Form);

@@ -20,4 +20,4 @@ export interface ITablePagination extends Pick<React.HTMLAttributes<HTMLTableRow
   onChangePage?: (page: number) => void;
 }
 
-export default React.memo<ITablePagination>(() => null);
+export default (() => null) as React.FC<ITablePagination>;

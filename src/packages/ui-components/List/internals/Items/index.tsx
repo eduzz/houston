@@ -1,23 +1,23 @@
 import * as React from 'react';
 
 import ListItemMUI from '@material-ui/core/ListItem';
-import { makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
+import createUseStyles from '../../../styles/createUseStyles';
 import { IListItem } from '../../interfaces';
 import Left from '../Left';
 import Right from '../Right';
 import Subtitle from '../Subtitle';
 import Title from '../Title';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = createUseStyles(theme => ({
   root: {
     padding: '12px 16px',
     borderRadius: 4
   },
   striped: {
-    backgroundColor: theme.palette.grey[200]
+    backgroundColor: theme.colors.grey[200]
   },
   textContainer: {
     display: 'flex',
@@ -36,18 +36,16 @@ interface IProps {
   stripedRows?: boolean;
 }
 
-const Items = ({ items, stripedRows }: IProps) => {
+const Items: React.FC<IProps> = ({ items, stripedRows }) => {
   const classes = useStyles();
 
   const shouldDisplayStriped = React.useCallback(
-    (position: number) => {
-      return position % 2 !== 0 && stripedRows;
-    },
+    (position: number) => position % 2 !== 0 && stripedRows,
     [stripedRows]
   );
 
   return (
-    <React.Fragment>
+    <>
       {items.map(({ left, title, subtitle, right }, index) => (
         <ListItemMUI
           key={`list-item-${index}`}
@@ -65,7 +63,7 @@ const Items = ({ items, stripedRows }: IProps) => {
           {right && <Right icon={right.icon} text={right.text} onClick={right.onClick} />}
         </ListItemMUI>
       ))}
-    </React.Fragment>
+    </>
   );
 };
 

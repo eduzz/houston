@@ -5,4 +5,4 @@ export interface IShowcaseButtonsProps {
   children?: React.ReactNode;
 }
 
-export default React.memo<IShowcaseButtonsProps>(() => null);
+export default (() => null) as React.FC<IShowcaseButtonsProps>;

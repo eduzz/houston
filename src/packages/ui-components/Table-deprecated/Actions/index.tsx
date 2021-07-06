@@ -20,4 +20,4 @@ export interface ITableActionsProps extends Pick<React.HTMLAttributes<HTMLDivEle
   fixed?: boolean;
 }
 
-export default React.memo<ITableActionsProps>(() => null);
+export default (() => null) as React.FC<ITableActionsProps>;

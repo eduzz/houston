@@ -8,15 +8,17 @@ import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import clsx from 'clsx';
 
-import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import MenuActions from './Action/Menu';
 import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';
-import { ITableSort, TableComponent } from './interface';
+import { ITableSort } from './interface';
 import { bindMutationObserver } from './observer';
 import useStyles, { IStyleParams } from './styles';
 
 let columnsKeyIncrementer = 0,
   rowKeyIncremeter = 0;
+
+let renderCount = 0;
 
 export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'> {
   loading?: boolean;
@@ -39,7 +41,7 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'class
   mobileWidth?: number | boolean;
 }
 
-const Table: TableComponent = React.memo<ITableProps>(props => {
+const Table: React.FC<ITableProps> = props => {
   const {
     stickyHeader,
     size,
@@ -125,32 +127,32 @@ const Table: TableComponent = React.memo<ITableProps>(props => {
     ]
   );
 
+  console.log({ renderCount: ++renderCount });
+
   return (
-    <WrapperTheme>
-      <TableContext.Provider value={contextValue}>
-        <TableContainer className={classes.tableContainer}>
-          <TableMUI
-            stickyHeader={stickyHeader}
-            size={size}
-            id={id}
-            ref={tableRef}
-            className={clsx(classes.table, responsive && classes.tableResponsive, className)}
-          >
-            {children}
+    <TableContext.Provider value={contextValue}>
+      <TableContainer className={classes.tableContainer}>
+        <TableMUI
+          stickyHeader={stickyHeader}
+          size={size}
+          id={id}
+          ref={tableRef}
+          className={clsx(classes.table, responsive && classes.tableResponsive, className)}
+        >
+          {children}
 
-            <MenuActions
-              open={openedMenuActions}
-              anchorEl={menuActionOptions?.anchorEl}
-              options={menuActionOptions?.actions}
-              rowData={menuActionOptions?.rowData}
-              rowIndex={menuActionOptions?.rowIndex}
-              onClose={closeMenuActions}
-            />
-          </TableMUI>
-        </TableContainer>
-      </TableContext.Provider>
-    </WrapperTheme>
+          <MenuActions
+            open={openedMenuActions}
+            anchorEl={menuActionOptions?.anchorEl}
+            options={menuActionOptions?.actions}
+            rowData={menuActionOptions?.rowData}
+            rowIndex={menuActionOptions?.rowIndex}
+            onClose={closeMenuActions}
+          />
+        </TableMUI>
+      </TableContainer>
+    </TableContext.Provider>
   );
-});
+};
 
-export default Table;
+export default withHoustonTheme(React.memo(Table));

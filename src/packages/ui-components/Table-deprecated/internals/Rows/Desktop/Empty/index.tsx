@@ -1,20 +1,18 @@
 import * as React from 'react';
 
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
+import createUseStyles from '../../../../../styles/createUseStyles';
 import Typography from '../../../../../Typography';
 import { useTableContext } from '../../../../context';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    empty: {
-      padding: 16
-    }
-  })
-);
+const useStyles = createUseStyles({
+  empty: {
+    padding: 16
+  }
+});
 
 const RowsEmpty = React.memo(() => {
   const classes = useStyles();

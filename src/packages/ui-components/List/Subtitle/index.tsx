@@ -8,4 +8,4 @@ export interface IListSubtitleProps extends Pick<TypographyProps, ListSubtitlePr
   children: React.ReactNode;
 }
 
-export default React.memo<IListSubtitleProps>(() => null);
+export default (() => null) as React.FC<IListSubtitleProps>;

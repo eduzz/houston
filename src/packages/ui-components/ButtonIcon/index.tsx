@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import IconButtonMUI, { IconButtonProps } from '@material-ui/core/IconButton';
 
-import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 
 type ButtonPropsExtends = 'disabled' | 'children' | 'onClick' | 'className' | 'size';
 
@@ -12,12 +12,10 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =>
   const { children, disabled = false, ...otherProps } = props;
 
   return (
-    <WrapperTheme>
-      <IconButtonMUI {...otherProps} color='primary' disabled={disabled} disableTouchRipple ref={ref}>
-        {children}
-      </IconButtonMUI>
-    </WrapperTheme>
+    <IconButtonMUI {...otherProps} color='primary' disabled={disabled} disableTouchRipple ref={ref}>
+      {children}
+    </IconButtonMUI>
   );
 });
 
-export default React.memo(Button);
+export default withHoustonTheme(React.memo(Button));

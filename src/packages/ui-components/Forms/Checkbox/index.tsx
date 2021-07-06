@@ -6,8 +6,8 @@ import CheckboxRadioField, { ICheckboxBaseFieldProps } from '../internals/CheckB
 
 export interface ICheckboxFieldProps extends Omit<ICheckboxBaseFieldProps, 'Control'> {}
 
-const CheckboxField = React.memo<ICheckboxFieldProps>(props => {
+const CheckboxField: React.FC<ICheckboxFieldProps> = props => {
   return <CheckboxRadioField {...props} Control={Checkbox} />;
-});
+};
 
 export default CheckboxField;

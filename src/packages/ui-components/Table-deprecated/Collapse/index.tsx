@@ -22,4 +22,4 @@ export interface ITableCollapseProps extends Pick<TableProps, ITableCollapse> {
   onActionsClick?: (event: React.MouseEvent<HTMLElement>, data: unknown) => void;
 }
 
-export default React.memo<ITableCollapseProps>(() => null);
+export default (() => null) as React.FC<ITableCollapseProps>;
