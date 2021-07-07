@@ -1,20 +1,9 @@
-import Actions, { ITableActionsProps } from './Actions';
-import Cell, { ITableCellProps } from './Cell';
-import Collapse, { ITableCollapseProps } from './Collapse';
-import Column, { ITableColumnProps } from './Column';
-import Option, { ITableOptionProps } from './Option';
-import Pagination from './Pagination';
-import Row, { ITableRowProps } from './Row';
-
-export interface ITableSubComponents {
-  Column: typeof Column;
-  Row: typeof Row;
-  Cell: typeof Cell;
-  Actions: typeof Actions;
-  Option: typeof Option;
-  Pagination: typeof Pagination;
-  Collapse: typeof Collapse;
-}
+import { ITableActionsProps } from './Actions';
+import { ITableCellProps } from './Cell';
+import { ITableCollapseProps } from './Collapse';
+import { ITableColumnProps } from './Column';
+import { ITableOptionProps } from './Option';
+import { ITableRowProps } from './Row';
 
 type ITableCell = { cells?: ITableCellProps[] };
 

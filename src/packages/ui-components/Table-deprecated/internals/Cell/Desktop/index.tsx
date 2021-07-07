@@ -1,32 +1,30 @@
 import * as React from 'react';
 
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 
 import clsx from 'clsx';
 
 import { truncateText } from '../../../../Helpers/functions';
+import createUseStyles from '../../../../styles/createUseStyles';
 import { ITableCellProps } from '../../../Cell';
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    list: {
-      borderBottom: 0
-    },
+const useStyles = createUseStyles(theme => ({
+  list: {
+    borderBottom: 0
+  },
 
-    hasEndAdornment: {
-      borderBottom: 0
-    },
+  hasEndAdornment: {
+    borderBottom: 0
+  },
 
-    fixed: {
-      position: 'sticky',
-      top: 0,
-      right: 0,
-      left: 0,
-      background: theme.palette.grey[100]
-    }
-  })
-);
+  fixed: {
+    position: 'sticky',
+    top: 0,
+    right: 0,
+    left: 0,
+    background: theme.colors.grey[100]
+  }
+}));
 
 interface IProps extends ITableCellProps {
   fixed?: boolean;

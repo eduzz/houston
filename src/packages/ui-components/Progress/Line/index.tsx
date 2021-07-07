@@ -3,22 +3,22 @@ import * as React from 'react';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper, { StepperProps } from '@material-ui/core/Stepper';
-import { makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
-import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
+import createUseStyles from '../../styles/createUseStyles';
+import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import ProgressBar from './ProgressBar';
 import StepIcon from './StepIcon';
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles({
   root: {
     padding: '21px 20px 16px',
     borderTopRightRadius: 4,
     borderTopLeftRadius: 4,
     justifyContent: 'space-between'
   }
-}));
+});
 
 interface IStep {
   label?: string;
@@ -33,12 +33,12 @@ export interface IProgressLineProps extends Pick<StepperProps, ProgressLineProps
   currentStep?: number;
 }
 
-const ProgressLine = ({ steps, currentStep = 0, ...props }: IProgressLineProps) => {
+const ProgressLine: React.FC<IProgressLineProps> = ({ steps, currentStep = 0, ...props }) => {
   const classes = useStyles();
   const progress = ((currentStep + 1) / steps.length) * 100;
 
   return (
-    <WrapperTheme>
+    <>
       <Stepper
         className={clsx([classes.root, props.className && props.className])}
         activeStep={currentStep}
@@ -53,8 +53,8 @@ const ProgressLine = ({ steps, currentStep = 0, ...props }: IProgressLineProps) 
         ))}
       </Stepper>
       <ProgressBar progress={progress} />
-    </WrapperTheme>
+    </>
   );
 };
 
-export default ProgressLine;
+export default withHoustonTheme(React.memo(ProgressLine));

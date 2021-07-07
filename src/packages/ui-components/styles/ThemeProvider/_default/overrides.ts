@@ -252,7 +252,8 @@ export default function overrides(palette: Palette): ICustomOverrides {
     MuiFormHelperText: {
       root: {
         fontFamily: themeVariable.fontFamily,
-        fontSize: themeVariable.textSize('x-small')
+        fontSize: themeVariable.textSize('x-small'),
+        lineHeight: themeVariable.lineHeight('compact')
       },
       contained: {
         marginLeft: 2,

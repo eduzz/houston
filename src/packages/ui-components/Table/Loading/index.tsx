@@ -6,19 +6,19 @@ import TableRow from '@material-ui/core/TableRow';
 
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles, { IUseStyleParam } from '../../styles/createUseStyles';
+import createUseStyles from '../../styles/createUseStyles';
 import Typography from '../../Typography';
 import TableContext from '../context';
 
 export interface ITableLoadingProps {}
 
-const useStyle = createUseStyles({
-  text: ({ theme }: IUseStyleParam) => ({
+const useStyle = createUseStyles(theme => ({
+  text: {
     opacity: 0.8,
     fontStyle: 'italic',
     padding: theme.spacing(4)
-  })
-});
+  }
+}));
 
 const TableLoading = React.memo<ITableLoadingProps>(() => {
   const columnsLen = useContextSelector(TableContext, context => context.columns.length);

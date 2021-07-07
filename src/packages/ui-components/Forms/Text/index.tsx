@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import useMask from '../../hooks/useMask';
-import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
+import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
 type FieldTextPropsExtends =
@@ -153,28 +153,26 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
     const hasError = !!errorMessage;
 
     return (
-      <WrapperTheme>
-        <TextFieldMUI
-          error={hasError}
-          {...props}
-          disabled={isSubmitting || props.disabled || loading}
-          helperText={errorMessage || props.helperText}
-          className={clsx(className, size === 'small' ? 'input-size-small' : null)}
-          name={name}
-          margin={margin ?? 'normal'}
-          variant='outlined'
-          value={maskedValue ?? ''}
-          inputRef={ref}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          fullWidth={fullWidth ?? true}
-          InputLabelProps={inputLabelProps}
-          InputProps={inputProps}
-          onKeyPress={onPressEnter ? handlePressEnter : props.onKeyPress}
-        />
-      </WrapperTheme>
+      <TextFieldMUI
+        error={hasError}
+        {...props}
+        disabled={isSubmitting || props.disabled || loading}
+        helperText={errorMessage || props.helperText}
+        className={clsx(className, size === 'small' ? 'input-size-small' : null)}
+        name={name}
+        margin={margin ?? 'normal'}
+        variant='outlined'
+        value={maskedValue ?? ''}
+        inputRef={ref}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        fullWidth={fullWidth ?? true}
+        InputLabelProps={inputLabelProps}
+        InputProps={inputProps}
+        onKeyPress={onPressEnter ? handlePressEnter : props.onKeyPress}
+      />
     );
   }
 );
 
-export default React.memo(TextField);
+export default withHoustonTheme(React.memo(TextField));

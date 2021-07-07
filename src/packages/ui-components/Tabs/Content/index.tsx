@@ -8,4 +8,4 @@ export interface ITabsContentProps {
   disablePadding?: boolean;
 }
 
-export default React.memo<ITabsContentProps>(() => null);
+export default (() => null) as React.FC<ITabsContentProps>;

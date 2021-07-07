@@ -11,4 +11,4 @@ const Subtitle = ({ children, ...props }: IProps) => (
   </Typography>
 );
 
-export default React.memo(Subtitle);
+export default Subtitle;

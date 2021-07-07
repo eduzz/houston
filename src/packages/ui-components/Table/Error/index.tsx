@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { useContextSelector } from 'use-context-selector';
 
 import Button from '../../Button';
-import createUseStyles, { IUseStyleParam } from '../../styles/createUseStyles';
+import createUseStyles from '../../styles/createUseStyles';
 import Typography from '../../Typography';
 import TableContext from '../context';
 
@@ -17,13 +17,13 @@ export interface ITableEErrorProps {
   children?: React.ReactNode;
 }
 
-const useStyle = createUseStyles({
-  text: ({ theme }: IUseStyleParam) => ({
+const useStyle = createUseStyles(theme => ({
+  text: {
     opacity: 0.8,
     fontStyle: 'italic',
     '& + button': { marginTop: theme.spacing(3) }
-  })
-});
+  }
+}));
 
 const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, formater }) => {
   const columnsLen = useContextSelector(TableContext, context => context.columns.length);

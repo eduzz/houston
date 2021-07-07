@@ -4,7 +4,7 @@ import SwitchMUI, { SwitchProps } from '@material-ui/core/Switch';
 
 import { useContextSelector } from 'use-context-selector';
 
-import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
+import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
 type FieldSwitchPropsExtends = 'id' | 'className' | 'checked' | 'defaultChecked' | 'disabled' | 'size' | 'onChange';
@@ -31,20 +31,18 @@ const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldP
     );
 
     return (
-      <WrapperTheme>
-        <SwitchMUI
-          disabled={isSubmitting || props.disabled}
-          name={name}
-          inputRef={ref}
-          onChange={onChange || handleChange}
-          className={props.className}
-          color='primary'
-          checked={formValue ?? props.checked}
-          {...props}
-        />
-      </WrapperTheme>
+      <SwitchMUI
+        disabled={isSubmitting || props.disabled}
+        name={name}
+        inputRef={ref}
+        onChange={onChange || handleChange}
+        className={props.className}
+        color='primary'
+        checked={formValue ?? props.checked}
+        {...props}
+      />
     );
   }
 );
 
-export default React.memo(Switch);
+export default withHoustonTheme(React.memo(Switch));

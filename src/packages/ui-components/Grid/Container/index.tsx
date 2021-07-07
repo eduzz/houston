@@ -1,35 +1,33 @@
 import * as React from 'react';
 
 import MUIContainer, { ContainerProps } from '@material-ui/core/Container';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
-import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
+import createUseStyles from '../../styles/createUseStyles';
+import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import GridContextProvider from '../context';
 import { IContainerType } from '../interfaces';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      width: '100%',
-      maxWidth: 1062,
-      margin: '0 auto'
-    },
-    comfortable: {
-      padding: '0 18px'
-    },
-    cozy: {
-      padding: '0 28px'
-    },
-    compact: {
-      padding: '0 20px'
-    },
-    fluid: {
-      maxWidth: '100%'
-    }
-  })
-);
+const useStyles = createUseStyles({
+  root: {
+    width: '100%',
+    maxWidth: 1062,
+    margin: '0 auto'
+  },
+  comfortable: {
+    padding: '0 18px'
+  },
+  cozy: {
+    padding: '0 28px'
+  },
+  compact: {
+    padding: '0 20px'
+  },
+  fluid: {
+    maxWidth: '100%'
+  }
+});
 
 type ContainerPropsExtends = 'id' | 'className' | 'children' | 'style' | 'tabIndex';
 
@@ -64,19 +62,17 @@ const Container = React.forwardRef<HTMLDivElement, IContainerProps>(
     const contextValue = React.useMemo(() => ({ spacing }), [spacing]);
 
     return (
-      <WrapperTheme>
-        <GridContextProvider value={contextValue}>
-          <MUIContainer
-            {...rest}
-            ref={ref}
-            className={clsx(classes.root, classes[spacing], layout === 'fluid' && classes.fluid, className)}
-          >
-            {children}
-          </MUIContainer>
-        </GridContextProvider>
-      </WrapperTheme>
+      <GridContextProvider value={contextValue}>
+        <MUIContainer
+          {...rest}
+          ref={ref}
+          className={clsx(classes.root, classes[spacing], layout === 'fluid' && classes.fluid, className)}
+        >
+          {children}
+        </MUIContainer>
+      </GridContextProvider>
     );
   }
 );
 
-export default React.memo(Container);
+export default withHoustonTheme(React.memo(Container));

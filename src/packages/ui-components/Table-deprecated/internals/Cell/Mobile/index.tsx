@@ -1,51 +1,49 @@
 import * as React from 'react';
 
 import { GridSize } from '@material-ui/core/Grid';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
 import Column from '../../../../Grid/Column';
+import createUseStyles from '../../../../styles/createUseStyles';
 import themeVariable from '../../../../styles/ThemeProvider/_default/variables';
 import Typography from '../../../../Typography';
 import { ITableCellProps } from '../../../Cell';
 import { ITableColumnProps } from '../../../Column';
 import { useTableContext } from '../../../context';
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    column: {
-      color: theme.palette.grey[500]
+const useStyles = createUseStyles(theme => ({
+  column: {
+    color: theme.colors.grey[500]
+  },
+
+  root: {
+    lineHeight: 1.3,
+
+    '&:last-child': {
+      marginBottom: 0
     },
 
-    root: {
-      lineHeight: 1.3,
-
-      '&:last-child': {
-        marginBottom: 0
-      },
-
-      '& .content-cell-truncate': {
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        fontSize: themeVariable.textSize('normal')
-      }
-    },
-
-    alignLeft: {
-      textAlign: 'left'
-    },
-
-    alignCenter: {
-      textAlign: 'center'
-    },
-
-    alignRight: {
-      textAlign: 'right'
+    '& .content-cell-truncate': {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      fontSize: themeVariable.textSize('normal')
     }
-  })
-);
+  },
+
+  alignLeft: {
+    textAlign: 'left'
+  },
+
+  alignCenter: {
+    textAlign: 'center'
+  },
+
+  alignRight: {
+    textAlign: 'right'
+  }
+}));
 
 interface IProps extends ITableCellProps {
   index: number;

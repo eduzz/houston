@@ -1,20 +1,15 @@
 import * as React from 'react';
 
-import { Variant } from '@material-ui/core/styles/createTypography';
 import TypographyMUI from '@material-ui/core/Typography';
 import { TypographyProps } from '@material-ui/core/Typography';
 
-import createUseStyles, { IUseStyleParam } from '../styles/createUseStyles';
+import createUseStyles from '../styles/createUseStyles';
 import { FontSizes, FontWeight, LineHeights } from '../styles/ThemeProvider/_default/variables';
-import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 
 type TypographyPropsExtends = 'className' | 'style' | 'children' | 'onClick';
 
 export type ITypographyVariant = 'secondary';
-
-type VariantMap = {
-  [key: string]: Variant;
-};
 
 export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsExtends> {
   size?: FontSizes;
@@ -25,33 +20,30 @@ export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsE
   lighter?: boolean;
 }
 
-const useStyles = createUseStyles({
-  text: ({ props, theme }: IUseStyleParam<ITypographyProps>) => ({
+const useStyles = createUseStyles(theme => ({
+  text: (props: ITypographyProps) => ({
     fontSize: theme.textSize(props.size ?? 'normal'),
     lineHeight: theme.lineHeight(props.lineHeight ?? 'normal'),
     fontWeight: theme.fontWeight(props.fontWeight ?? 'regular'),
     marginBottom: props.marginBottom ? theme.spacing(2) : null,
     color: props.lighter ? theme.colors.grey[500] : null
   })
-});
+}));
 
+const variantMap = { secondary: 'body2' as const };
 const Typography = React.forwardRef<HTMLParagraphElement, ITypographyProps>((props, ref) => {
   const classes = useStyles(props);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { className, variant, size, lineHeight, fontWeight, marginBottom, lighter, ...typographyProps } = props;
 
-  const variantMap: VariantMap = React.useMemo(() => ({ secondary: 'body2' }), []);
-
   return (
-    <WrapperTheme>
-      <TypographyMUI
-        ref={ref}
-        className={`${classes.text} ${className ?? ''}`}
-        {...typographyProps}
-        variant={variantMap[variant]}
-      />
-    </WrapperTheme>
+    <TypographyMUI
+      ref={ref}
+      className={`${classes.text} ${className ?? ''}`}
+      {...typographyProps}
+      variant={variantMap[variant]}
+    />
   );
 });
 
-export default React.memo(Typography);
+export default withHoustonTheme(Typography);

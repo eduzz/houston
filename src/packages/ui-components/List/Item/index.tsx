@@ -4,4 +4,4 @@ export interface IListItemProps {
   children: React.ReactNode;
 }
 
-export default React.memo<IListItemProps>(() => null);
+export default (() => null) as React.FC<IListItemProps>;

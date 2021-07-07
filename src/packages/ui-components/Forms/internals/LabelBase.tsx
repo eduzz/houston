@@ -11,7 +11,7 @@ interface ILabelBaseProps {
   errorMessage?: string;
 }
 
-const LabelBase = React.memo<ILabelBaseProps>(({ hasError, label, description, errorMessage }) => {
+const LabelBase: React.FC<ILabelBaseProps> = ({ hasError, label, description, errorMessage }) => {
   if (label && typeof label !== 'string') {
     return <>{label}</>;
   }
@@ -29,6 +29,6 @@ const LabelBase = React.memo<ILabelBaseProps>(({ hasError, label, description, e
       {hasError && <FormHelperText error={true}>{errorMessage}</FormHelperText>}
     </>
   );
-});
+};
 
-export default LabelBase;
+export default React.memo(LabelBase);
