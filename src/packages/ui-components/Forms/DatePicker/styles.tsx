@@ -191,6 +191,14 @@ const useStyles = makeStyles(theme => ({
   // icon in input
   icon: {
     color: 'currentcolor'
+  },
+
+  // input mobile
+  inputMobile: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 1
   }
 }));
 

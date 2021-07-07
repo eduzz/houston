@@ -9,6 +9,8 @@ import TextFieldMUI from '@material-ui/core/TextField';
 import clsx from 'clsx';
 import dateFormat from 'date-fns/format';
 import { enUS, ptBR } from 'date-fns/locale';
+import parseISO from 'date-fns/parseISO';
+import isMobile from 'is-mobile';
 import { useContextSelector } from 'use-context-selector';
 
 import ButtonIcon from '../../ButtonIcon';
@@ -54,160 +56,200 @@ export interface IDatePickerFieldProps extends Omit<ITextFieldProps, IOmitTextFi
   onCalendarOpen?: () => void;
 }
 
-const DatePickerField = React.memo<IDatePickerFieldProps>(
-  ({
-    name,
-    placeholder,
-    errorMessage: errorMessageProp,
-    value,
-    className,
-    loading,
-    startAdornment,
-    onChange,
-    defaultView = 'month',
-    locale = 'pt-BR',
-    maxDate,
-    minDate,
-    onCalendarClose,
-    onCalendarOpen,
-    displayFormat = 'dd/MM/yyyy',
-    size,
-    width,
-    disabled,
-    margin,
-    helperText,
-    fullWidth,
-    ...rest
-  }) => {
-    const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
-    const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
-    const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
-    const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
+const DatePickerField: React.VoidFunctionComponent<IDatePickerFieldProps> = ({
+  name,
+  placeholder,
+  errorMessage: errorMessageProp,
+  value,
+  className,
+  loading,
+  startAdornment,
+  onChange,
+  defaultView = 'month',
+  locale = 'pt-BR',
+  maxDate,
+  minDate,
+  onCalendarClose,
+  onCalendarOpen,
+  displayFormat = 'dd/MM/yyyy',
+  size,
+  width,
+  disabled,
+  margin,
+  helperText,
+  fullWidth,
+  ...rest
+}) => {
+  const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
+  const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
+  const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
+  const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
 
-    const classes = useStyles({ width, size });
+  const classesProps = React.useMemo(() => ({ width, size, isMobile }), [width, size]);
 
-    const [open, setOpen] = React.useState<boolean>(false);
+  const classes = useStyles(classesProps);
 
-    value = formValue ?? value;
+  const [openCalendar, setOpenCalendar] = React.useState<boolean>(false);
 
-    const handleChange = React.useCallback<IDatePickerChange>(
-      (value, event) => {
-        setFieldValue && setFieldValue(name, value);
-        onChange && onChange(value, event);
-      },
-      [onChange, setFieldValue, name]
+  value = formValue ?? value;
+
+  const handleChange = React.useCallback<IDatePickerChange>(
+    (value, event) => {
+      setFieldValue && setFieldValue(name, value);
+      onChange && onChange(value, event);
+    },
+    [onChange, setFieldValue, name]
+  );
+
+  const handleChangeMobile = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
+
+      if (!value) {
+        return;
+      }
+
+      const newValue = parseISO(value);
+
+      setFieldValue && setFieldValue(name, new Date(newValue));
+      onChange && onChange(new Date(newValue), event);
+    },
+    [name, onChange, setFieldValue]
+  );
+
+  const handleClickInput = React.useCallback(() => {
+    if (!isMobile()) {
+      !disabled && !loading && !openCalendar && setOpenCalendar(true);
+      return;
+    }
+
+    const input = document.createElement('input');
+    input.setAttribute('type', `date`);
+    input.value = value ? value.toJSON().slice(0, 10) : '';
+    input.setAttribute('style', `width:0; height:0; opacity:0;`);
+
+    input.addEventListener('change', (e: Event) =>
+      handleChangeMobile(e as unknown as React.ChangeEvent<HTMLInputElement>)
     );
 
-    const handleClickInput = React.useCallback(() => {
-      !disabled && !loading && !open && setOpen(true);
-    }, [disabled, loading, open]);
-
-    const handleCalendarClose = React.useCallback(() => {
+    input.addEventListener('blur', () => {
+      document.body.removeChild(input);
       onCalendarClose && onCalendarClose();
-      setOpen(false);
-    }, [onCalendarClose]);
+    });
 
-    const calendarProps: Partial<DatePickerProps> = React.useMemo(
-      () => ({
-        defaultView,
-        locale,
-        maxDate,
-        minDate,
-        onCalendarOpen,
-        onCalendarClose
-      }),
-      [defaultView, locale, maxDate, minDate, onCalendarOpen, onCalendarClose]
+    document.body.appendChild(input);
+
+    setTimeout(() => {
+      input.click();
+      input.focus();
+    }, 0);
+  }, [disabled, loading, openCalendar, value, handleChangeMobile, onCalendarClose]);
+
+  const handleCalendarClose = React.useCallback(() => {
+    onCalendarClose && onCalendarClose();
+    setOpenCalendar(false);
+  }, [onCalendarClose]);
+
+  const calendarProps: Partial<DatePickerProps> = React.useMemo(
+    () => ({
+      defaultView,
+      locale,
+      maxDate,
+      minDate,
+      onCalendarOpen,
+      onCalendarClose
+    }),
+    [defaultView, locale, maxDate, minDate, onCalendarOpen, onCalendarClose]
+  );
+
+  const inputLabelProps = React.useMemo<InputLabelProps>(
+    () => ({
+      ...(placeholder ? { shrink: true } : {})
+    }),
+    [placeholder]
+  );
+
+  const inputProps = React.useMemo(() => {
+    let end = (
+      <InputAdornment position='end'>
+        <ButtonIcon className={classes.icon} size='small'>
+          {Icons.calendar}
+        </ButtonIcon>
+      </InputAdornment>
     );
 
-    const inputLabelProps = React.useMemo<InputLabelProps>(
-      () => ({
-        ...(placeholder ? { shrink: true } : {})
-      }),
-      [placeholder]
-    );
+    let start = null;
 
-    const inputProps = React.useMemo(() => {
-      let end = (
+    if (startAdornment) {
+      start = <InputAdornment position='start'>{startAdornment}</InputAdornment>;
+    }
+
+    if (loading) {
+      end = (
         <InputAdornment position='end'>
-          <ButtonIcon className={classes.icon} size='small'>
-            {Icons.calendar}
-          </ButtonIcon>
+          <CircularProgress color='secondary' size={20} />
         </InputAdornment>
       );
+    }
 
-      let start = null;
+    return {
+      endAdornment: end,
+      startAdornment: start
+    };
+  }, [loading, startAdornment, classes.icon]);
 
-      if (startAdornment) {
-        start = <InputAdornment position='start'>{startAdornment}</InputAdornment>;
-      }
+  const localeNavigator = React.useMemo(() => {
+    if (locale === 'pt-BR') {
+      return ptBR;
+    }
 
-      if (loading) {
-        end = (
-          <InputAdornment position='end'>
-            <CircularProgress color='secondary' size={20} />
-          </InputAdornment>
-        );
-      }
+    return enUS;
+  }, [locale]);
 
-      return {
-        endAdornment: end,
-        startAdornment: start
-      };
-    }, [loading, startAdornment, classes.icon]);
+  const errorMessage = errorMessageProp ?? formError;
+  const hasError = !!errorMessage;
 
-    const localeNavigator = React.useMemo(() => {
-      if (locale === 'pt-BR') {
-        return ptBR;
-      }
+  return (
+    <WrapperTheme>
+      <div className={classes.root}>
+        <TextFieldMUI
+          error={hasError}
+          {...rest}
+          disabled={isSubmitting || disabled || loading}
+          helperText={errorMessage || helperText}
+          className={clsx(classes.input, className, size === 'small' && 'input-size-small')}
+          name={name}
+          margin={margin ?? 'normal'}
+          variant='outlined'
+          onClick={handleClickInput}
+          value={value ? dateFormat(value, displayFormat) : ''}
+          fullWidth={fullWidth ?? true}
+          InputLabelProps={inputLabelProps}
+          InputProps={inputProps}
+        />
 
-      return enUS;
-    }, [locale]);
+        <ReactDatePicker
+          {...calendarProps}
+          prev2Label={null}
+          next2Label={null}
+          navigationLabel={props => (
+            <>
+              {(props.view === 'decade' || props.view === 'century') && '~'}
+              {props.view === 'year' && dateFormat(props.date, 'yyy', { locale: localeNavigator })}
+              {props.view === 'month' && dateFormat(props.date, 'LLL yyy', { locale: localeNavigator })}
+            </>
+          )}
+          prevLabel={Icons.prev}
+          nextLabel={Icons.next}
+          isOpen={openCalendar}
+          value={value}
+          showLeadingZeros
+          onChange={handleChange}
+          onCalendarClose={handleCalendarClose}
+        />
+      </div>
+    </WrapperTheme>
+  );
+};
 
-    const errorMessage = errorMessageProp ?? formError;
-    const hasError = !!errorMessage;
-
-    return (
-      <WrapperTheme>
-        <div className={classes.root}>
-          <TextFieldMUI
-            error={hasError}
-            {...rest}
-            disabled={isSubmitting || disabled || loading}
-            helperText={errorMessage || helperText}
-            className={clsx(classes.input, className, size === 'small' && 'input-size-small')}
-            name={name}
-            margin={margin ?? 'normal'}
-            variant='outlined'
-            onClick={handleClickInput}
-            value={value ? dateFormat(value, displayFormat) : ''}
-            fullWidth={fullWidth ?? true}
-            InputLabelProps={inputLabelProps}
-            InputProps={inputProps}
-          />
-
-          <ReactDatePicker
-            {...calendarProps}
-            prev2Label={null}
-            next2Label={null}
-            navigationLabel={props => (
-              <>
-                {(props.view === 'decade' || props.view === 'century') && '~'}
-                {props.view === 'year' && dateFormat(props.date, 'yyy', { locale: localeNavigator })}
-                {props.view === 'month' && dateFormat(props.date, 'LLL yyy', { locale: localeNavigator })}
-              </>
-            )}
-            prevLabel={Icons.prev}
-            nextLabel={Icons.next}
-            isOpen={open}
-            value={value}
-            showLeadingZeros
-            onChange={handleChange}
-            onCalendarClose={handleCalendarClose}
-          />
-        </div>
-      </WrapperTheme>
-    );
-  }
-);
-
-export default DatePickerField;
+export default React.memo(DatePickerField);

@@ -29,6 +29,7 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "clsx": "^1.1.1",
     "date-fns": "^2.22.1",
+    "is-mobile": "^3.0.0",
     "lodash": "^4",
     "react-date-picker": "^8.2.0",
     "react-jss": "^10.6.0",
