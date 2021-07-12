@@ -252,7 +252,8 @@ export default function overrides(palette: Palette): ICustomOverrides {
     MuiFormHelperText: {
       root: {
         fontFamily: themeVariable.fontFamily,
-        fontSize: themeVariable.textSize('x-small')
+        fontSize: themeVariable.textSize('x-small'),
+        lineHeight: themeVariable.lineHeight('compact')
       },
       contained: {
         marginLeft: 2,
@@ -284,10 +285,10 @@ export default function overrides(palette: Palette): ICustomOverrides {
     MuiInputLabel: {
       root: {
         fontFamily: themeVariable.fontFamily,
-        fontSize: themeVariable.textSize() + 1
+        fontSize: themeVariable.textSize()
       },
       outlined: {
-        transform: `translate(${themeVariable.spacing(4)}px, ${themeVariable.spacing(4) - 2}px) scale(1)`
+        transform: `translate(${themeVariable.spacing(4)}px, ${themeVariable.spacing(4) - 1}px) scale(1)`
       },
       shrink: {
         transform: `translate(${themeVariable.spacing(4)}px, -6px) scale(0.70) !important`
