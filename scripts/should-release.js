@@ -26,8 +26,13 @@ async function init() {
     }));
 
   await Promise.all(packages.map(async package => {
-    const remoteVersion = await exec(`npm view ${package.name} version`)
-    package.remoteVersion = remoteVersion;
+    try {
+      const remoteVersion = await exec(`npm view ${package.name} version`)
+      package.remoteVersion = remoteVersion;
+    } catch (err) {
+      if (!err.message.includes('E404')) throw err;
+      package.remoteVersion = '0.0.0'
+    }
   }));
 
   ora('REMOTE VERSIONS:').info()

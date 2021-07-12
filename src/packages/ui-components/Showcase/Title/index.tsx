@@ -4,4 +4,4 @@ export interface IShowcaseTitleProps {
   children: React.ReactNode;
 }
 
-export default React.memo<IShowcaseTitleProps>(() => null);
+export default (() => null) as React.FC<IShowcaseTitleProps>;

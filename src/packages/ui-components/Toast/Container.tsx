@@ -4,7 +4,7 @@ import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } 
 import themeVariable from '../styles/ThemeProvider/_default/variables';
 import toastStyles from './styles';
 
-const ToastContainer: React.FC<ToastContainerProps> = React.memo((props: ToastContainerProps) => {
+const ToastContainer: React.FC<ToastContainerProps> = props => {
   const styleContent = React.useMemo(
     () => ({
       __html: `
@@ -51,6 +51,6 @@ const ToastContainer: React.FC<ToastContainerProps> = React.memo((props: ToastCo
       />
     </>
   );
-});
+};
 
 export default ToastContainer;

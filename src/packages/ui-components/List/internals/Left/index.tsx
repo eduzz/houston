@@ -2,15 +2,15 @@ import * as React from 'react';
 
 import AvatarMUI from '@material-ui/core/Avatar';
 import ListItemIconMUI from '@material-ui/core/ListItemIcon';
-import { makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
+import createUseStyles from '../../../styles/createUseStyles';
 import { IListLeftProps } from '../../Left';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = createUseStyles(theme => ({
   iconRoot: {
-    color: theme.palette.grey[500],
+    color: theme.colors.grey[500],
     minWidth: 20,
     lineHeight: 1.5,
     marginRight: 8,
@@ -20,8 +20,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   imageRoot: {
-    color: theme.palette.grey[600],
-    backgroundColor: theme.palette.grey[200],
+    color: theme.colors.grey[600],
+    backgroundColor: theme.colors.grey[200],
     marginRight: 8,
     '& > svg': {
       width: 20,

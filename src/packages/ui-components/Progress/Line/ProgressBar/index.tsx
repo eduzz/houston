@@ -12,11 +12,11 @@ const Bar = withStyles(theme => ({
     height: 8
   },
   colorPrimary: {
-    backgroundColor: theme.palette.grey[200]
+    backgroundColor: theme.houston.colors.grey[200]
   },
   bar: {
     height: 80,
-    backgroundColor: theme.palette.success.main
+    backgroundColor: theme.houston.colors.success.main
   }
 }))(LinearProgress);
 

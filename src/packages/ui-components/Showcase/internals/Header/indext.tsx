@@ -1,12 +1,13 @@
 import * as React from 'react';
 
-import { Theme, makeStyles, useTheme } from '@material-ui/core/styles';
+import { Theme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import createUseStyles from '../../../styles/createUseStyles';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = createUseStyles(theme => ({
   header: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -40,9 +41,7 @@ const Header = React.memo(() => {
   const { currentStep, title, stepCounter, steps, size, handleClose } = useShowcaseContext();
 
   const classes = useStyles();
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
+  const isMobile = useMediaQuery<Theme>(theme => theme.breakpoints.down('xs'));
 
   if (!title) return null;
 

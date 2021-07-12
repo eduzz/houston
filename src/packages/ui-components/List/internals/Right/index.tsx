@@ -1,15 +1,15 @@
 import * as React from 'react';
 
 import ListItemIconMUI from '@material-ui/core/ListItemIcon';
-import { makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
 import IconButton from '../../../ButtonIcon';
+import createUseStyles from '../../../styles/createUseStyles';
 import Typography from '../../../Typography';
 import { IListRightProps } from '../../Right';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = createUseStyles(theme => ({
   iconRootRight: {
     minWidth: 20,
     marginRight: 0,
@@ -21,11 +21,11 @@ const useStyles = makeStyles(theme => ({
     }
   },
   rightRoot: {
-    color: theme.palette.grey[500],
+    color: theme.colors.grey[500],
     marginLeft: 'auto'
   },
   rightText: {
-    color: theme.palette.grey[600]
+    color: theme.colors.grey[600]
   },
   clickable: {
     cursor: 'pointer'

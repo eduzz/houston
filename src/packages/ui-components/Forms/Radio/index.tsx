@@ -6,8 +6,8 @@ import BaseRadioField, { IRadioBaseFieldProps } from '../internals/RadioBase';
 
 export interface IRadioFieldProps extends Omit<IRadioBaseFieldProps, 'Control' | 'isMultiple'> {}
 
-const RadioField = React.memo<IRadioFieldProps>(props => {
+const RadioField: React.FC<IRadioFieldProps> = props => {
   return <BaseRadioField {...props} Control={Radio} />;
-});
+};
 
 export default RadioField;

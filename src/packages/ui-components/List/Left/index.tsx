@@ -8,4 +8,4 @@ export interface IListLeftProps {
   striped?: boolean;
 }
 
-export default React.memo<IListLeftProps>(() => null);
+export default (() => null) as React.FC<IListLeftProps>;

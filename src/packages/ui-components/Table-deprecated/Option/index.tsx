@@ -11,4 +11,4 @@ export interface ITableOptionProps extends Pick<React.HTMLAttributes<HTMLDivElem
   icon?: React.ReactNode;
 }
 
-export default React.memo<ITableOptionProps>(() => null);
+export default (() => null) as React.FC<ITableOptionProps>;

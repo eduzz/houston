@@ -12,4 +12,5 @@ README.md
 /**/**/*.ts
 !/**/**/*.d.ts
 .git
+*.mdx
 .ultra.cache.json

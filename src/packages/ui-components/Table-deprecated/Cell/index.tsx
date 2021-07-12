@@ -36,4 +36,4 @@ export interface ITableCellProps extends Pick<TableCellProps, ITableCellExtends>
   xs?: ITableCellXs;
 }
 
-export default React.memo<ITableCellProps>(() => null);
+export default (() => null) as React.FC<ITableCellProps>;

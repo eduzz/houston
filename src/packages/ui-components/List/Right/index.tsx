@@ -8,4 +8,4 @@ export interface IListRightProps {
   text?: string;
 }
 
-export default React.memo<IListRightProps>(() => null);
+export default (() => null) as React.FC<IListRightProps>;

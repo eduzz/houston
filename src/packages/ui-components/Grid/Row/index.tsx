@@ -2,22 +2,20 @@ import * as React from 'react';
 
 import Grid, { GridProps } from '@material-ui/core/Grid';
 import { GridSpacing } from '@material-ui/core/Grid';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
-import WrapperTheme from '../../styles/ThemeProvider/WrapperTheme';
+import createUseStyles from '../../styles/createUseStyles';
+import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { useGrid } from '../context';
 import { IContainerType } from '../interfaces';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      margin: 0,
-      width: '100%'
-    }
-  })
-);
+const useStyles = createUseStyles({
+  root: {
+    margin: 0,
+    width: '100%'
+  }
+});
 
 type RowPropsExtends =
   | 'id'
@@ -42,11 +40,7 @@ const Row = React.forwardRef<HTMLDivElement, IRowProps>(({ className, spacing: s
     return sizes[spacing ?? 'cozy'] as GridSpacing;
   }, [spacing, spacingProps]);
 
-  return (
-    <WrapperTheme>
-      <Grid {...rest} container ref={ref} className={clsx(classes.root, className)} spacing={config} />
-    </WrapperTheme>
-  );
+  return <Grid {...rest} container ref={ref} className={clsx(classes.root, className)} spacing={config} />;
 });
 
-export default React.memo(Row);
+export default withHoustonTheme(React.memo(Row));

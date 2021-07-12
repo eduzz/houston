@@ -1,37 +1,36 @@
 import * as React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Check from '@material-ui/icons/Check';
 import Warning from '@material-ui/icons/Warning';
 
 import clsx from 'clsx';
 
-import defaultThemeVariables from '../../../styles/ThemeProvider/_default/variables';
+import createUseStyles from '../../../styles/createUseStyles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = createUseStyles(theme => ({
   root: {
     width: 40,
     height: 40,
-    color: theme.palette.grey[300],
-    backgroundColor: theme.palette.grey[200],
+    color: theme.colors.grey[300],
+    backgroundColor: theme.colors.grey[200],
     borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     pointerEvents: 'none',
-    fontSize: defaultThemeVariables.textSize('default'),
-    fontWeight: defaultThemeVariables.fontWeight('semibold')
+    fontSize: theme.textSize('default'),
+    fontWeight: theme.fontWeight('semibold')
   },
   finished: {
-    backgroundColor: theme.palette.success.main,
-    fontWeight: defaultThemeVariables.fontWeight('semibold'),
+    backgroundColor: theme.colors.success.main,
+    fontWeight: theme.fontWeight('semibold'),
     color: '#fff'
   },
   check: {
-    fontSize: defaultThemeVariables.textSize('default')
+    fontSize: theme.textSize('default')
   },
   warning: {
-    color: theme.palette.error.main
+    color: theme.colors.error.main
   }
 }));
 
@@ -42,7 +41,7 @@ interface IStepIconProps {
   error: boolean;
 }
 
-const StepIcon = ({ icon, active, completed, error }: IStepIconProps) => {
+const StepIcon: React.FC<IStepIconProps> = ({ icon, active, completed, error }) => {
   const classes = useStyles();
 
   return (

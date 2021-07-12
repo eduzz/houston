@@ -5,4 +5,4 @@ export interface IShowcaseStepProps {
   children?: React.ReactNode;
 }
 
-export default React.memo<IShowcaseStepProps>(() => null);
+export default (() => null) as React.FC<IShowcaseStepProps>;

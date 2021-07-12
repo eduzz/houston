@@ -4,4 +4,4 @@ export interface IAlertTitleProps {
   children?: React.ReactNode;
 }
 
-export default React.memo<IAlertTitleProps>(() => null);
+export default (() => null) as React.FC<IAlertTitleProps>;

@@ -107,25 +107,25 @@ que recebe o theme e as props do componente que irá utilizá-lo.
 
 _Por causa de uma limitação do Typescript não é possível passar o IProps como generic sem peder a inferência do retorno,_
 _perdendo assim o autocomplete dos nomes das classes criadas, por isso sugerimos tipar a função os parametros da função com_
-_a interface IUseStyleParam conforme o exemplo abaixo_
+_o seu IProps conforme o exemplo abaixo_
 
 ```tsx
-import createUseStyle, { IUseStyleParam } from '@eduzz/houston-ui/styles/createUseStyles';
+import createUseStyle from '@eduzz/houston-ui/styles/createUseStyles';
 
 interface IProps {
   success: boolean;
 }
 
-const useStyle = createUseStyle({
+const useStyle = createUseStyle(theme => ({
   simple: {
     color: 'red'
   },
-  content: ({ props, theme }: IUseStyleParam<IProps>) => {
+  content: (props: IProps) => {
     return {
       backgroundColor: props.success ? theme.colors.success.main : theme.colors.error.main
     };
   }
-});
+}));
 
 const ComponentsDev = memo<IProps>(props => {
   const styles = useStyle(props);
@@ -162,6 +162,7 @@ type HoustonTheme = {
   textSize: (size: FontSizes = 'normal') => fontSizes[size],
   lineHeight: (size: LineHeights = 'normal') => lineHeights[size],
   fontWeight: (size: FontWeight = 'regular') => fontWeight[size],
+  breakpoints: 'same as MaterialUI',
   colors: {
     background: {
       paper: '#fff',

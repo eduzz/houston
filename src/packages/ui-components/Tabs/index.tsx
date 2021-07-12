@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import makeStyles from '@material-ui/core/styles/makeStyles';
 import MUITab from '@material-ui/core/Tab';
 import MUITabs from '@material-ui/core/Tabs';
 
 import { getReactChildrenProps } from '../Helpers/functions';
-import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import nestedComponent from '../Helpers/nestedComponent';
+import createUseStyles from '../styles/createUseStyles';
+import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import Content, { ITabsContentProps } from './Content';
 
 export interface ITabsProps {
@@ -14,19 +15,15 @@ export interface ITabsProps {
   children?: any;
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = createUseStyles(theme => ({
   containerPadding: {
     padding: theme.spacing(2)
   }
 }));
 
-type TabsComponent = React.NamedExoticComponent<ITabsProps> & {
-  Content?: typeof Content;
-};
-
 let incremeter = 0;
 
-const Tabs: TabsComponent = React.memo<ITabsProps>(props => {
+const Tabs: React.FC<ITabsProps> = props => {
   const { value, onChange, children } = props;
 
   const classes = useStyles(props);
@@ -55,43 +52,39 @@ const Tabs: TabsComponent = React.memo<ITabsProps>(props => {
   }, [children]);
 
   return (
-    <WrapperTheme>
-      <div>
-        <MUITabs
-          scrollButtons='auto'
-          variant='scrollable'
-          textColor='primary'
-          indicatorColor='primary'
-          value={currentValue}
-          onChange={handleChange}
-        >
-          {tabs?.map(tab => (
-            <MUITab
-              disableRipple
-              key={tab.id}
-              icon={tab.icon as any}
-              label={tab.label}
-              disabled={tab.disabled}
-              id={tab.id}
-            />
-          ))}
-        </MUITabs>
-
-        {tabs?.map((tab, index) => (
-          <div
-            id={`content-tab-${tab.id}`}
-            className={!tab.disablePadding ? classes.containerPadding : null}
-            hidden={index !== currentValue}
+    <div>
+      <MUITabs
+        scrollButtons='auto'
+        variant='scrollable'
+        textColor='primary'
+        indicatorColor='primary'
+        value={currentValue}
+        onChange={handleChange}
+      >
+        {tabs?.map(tab => (
+          <MUITab
+            disableRipple
             key={tab.id}
-          >
-            {tab.children}
-          </div>
+            icon={tab.icon as any}
+            label={tab.label}
+            disabled={tab.disabled}
+            id={tab.id}
+          />
         ))}
-      </div>
-    </WrapperTheme>
+      </MUITabs>
+
+      {tabs?.map((tab, index) => (
+        <div
+          id={`content-tab-${tab.id}`}
+          className={!tab.disablePadding ? classes.containerPadding : null}
+          hidden={index !== currentValue}
+          key={tab.id}
+        >
+          {tab.children}
+        </div>
+      ))}
+    </div>
   );
-});
+};
 
-Tabs.Content = Content;
-
-export default Tabs;
+export default nestedComponent(withHoustonTheme(React.memo(Tabs)), { Content });

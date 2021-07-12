@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-icons",
   "description": "Eduzz Houston Icons",
-  "version": "0.21.0",
+  "version": "0.24.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",

@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import BoxMUI, { BoxProps } from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
 
 import clsx from 'clsx';
 
-import WrapperTheme from '../styles/ThemeProvider/WrapperTheme';
+import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
+import useStyles from './styles';
 
 type IBoxSpacement = {
   margin?: number | string;
@@ -23,51 +23,15 @@ export interface IBoxProps extends Pick<BoxProps, BoxPropsExtends> {
   paper?: boolean;
 }
 
-const Box = React.memo<IBoxProps>(({ children, xs, sm, md, lg, xl, className, paper, ...rest }) => {
-  const useStyles = makeStyles(theme => ({
-    box: {
-      [theme.breakpoints.up('xs')]: {
-        padding: xs && xs?.padding,
-        margin: xs && xs?.margin
-      },
-
-      [theme.breakpoints.up('sm')]: {
-        padding: sm && sm?.padding,
-        margin: sm && sm?.margin
-      },
-
-      [theme.breakpoints.up('md')]: {
-        padding: md && md?.padding,
-        margin: md && md?.margin
-      },
-
-      [theme.breakpoints.up('lg')]: {
-        padding: lg && lg?.padding,
-        margin: lg && lg?.margin
-      },
-
-      [theme.breakpoints.up('xl')]: {
-        padding: xl && xl?.padding,
-        margin: xl && xl?.margin
-      }
-    },
-
-    paper: {
-      background: '#fff',
-      boxShadow: theme.shadows[1],
-      borderRadius: 4
-    }
-  }));
-
-  const classes = useStyles();
+const Box: React.FC<IBoxProps> = props => {
+  const { children, className, paper, ...rest } = props;
+  const classes = useStyles(props);
 
   return (
-    <WrapperTheme>
-      <BoxMUI {...rest} className={clsx(className, classes.box, paper && classes.paper)}>
-        {children}
-      </BoxMUI>
-    </WrapperTheme>
+    <BoxMUI {...rest} className={clsx(className, classes.box, paper && classes.paper)}>
+      {children}
+    </BoxMUI>
   );
-});
+};
 
-export default Box;
+export default withHoustonTheme(React.memo(Box));
