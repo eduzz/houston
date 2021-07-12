@@ -6,10 +6,10 @@ import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
 import { InputLabelProps } from '@material-ui/core/InputLabel';
 import TextFieldMUI, { TextFieldProps } from '@material-ui/core/TextField';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import IFormMask from '@eduzz/houston-core/maskAdapter';
 
 import clsx from 'clsx';
+import { useContextSelector } from 'use-context-selector';
 
 import useMask from '../../hooks/useMask';
 import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
@@ -31,13 +31,13 @@ type FieldTextPropsExtends =
   | 'onKeyPress'
   | 'onKeyUp'
   | 'onKeyDown'
+  | 'onClick'
   | 'value';
 
 export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExtends> {
   loading?: boolean;
   errorMessage?: string;
   mask?: IFormMask;
-  form?: IFormAdapter<any>;
   onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
   onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
   margin?: 'none' | 'dense' | 'normal';
@@ -51,7 +51,6 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
 const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
   (
     {
-      form: formProps,
       mask,
       value,
       name,
@@ -71,14 +70,17 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
     },
     ref
   ) => {
-    const formContext = React.useContext(FormFieldsContext);
-    const form = formProps ?? formContext;
+    const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
+    const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
+    const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
+    const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
 
-    if (!name && form) {
+    if (!name && setFieldValue) {
       throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
     }
 
-    value = form && name ? form.getFieldValue(name) : value;
+    value = formValue ?? value;
+
     const { maskClean, maskedValue } = useMask(mask, value);
 
     const handleChange = React.useCallback(
@@ -90,9 +92,9 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
         }
 
         onChange && onChange(cleanValue, e);
-        form && form.setFieldValue(name, cleanValue);
+        setFieldValue && setFieldValue(name, cleanValue);
       },
-      [onChange, maskClean, form, name, maxLength]
+      [onChange, maskClean, setFieldValue, name, maxLength]
     );
 
     const handleBlur = React.useCallback(
@@ -141,20 +143,20 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
 
         if (e.key === 'Enter') {
           e.preventDefault();
-          onPressEnter(!form || !form?.getFieldValue ? maskClean(target.value) : form.getFieldValue(name));
+          onPressEnter(maskClean(target.value));
         }
       },
-      [form, name, onPressEnter, maskClean]
+      [onPressEnter, maskClean]
     );
 
-    const errorMessage = errorMessageProp ?? form?.getFieldError(name);
+    const errorMessage = errorMessageProp ?? formError;
     const hasError = !!errorMessage;
 
     return (
       <TextFieldMUI
         error={hasError}
         {...props}
-        disabled={form?.isSubmitting || props.disabled || loading}
+        disabled={isSubmitting || props.disabled || loading}
         helperText={errorMessage || props.helperText}
         className={clsx(className, size === 'small' ? 'input-size-small' : null)}
         name={name}

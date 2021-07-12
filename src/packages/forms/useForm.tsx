@@ -95,18 +95,27 @@ export default function useForm<Values = Record<string, never>>({
 
   const handleSubmit = useCallback(e => formik.handleSubmit(e), [formik]);
 
+  const getFieldValue = useCallback((name: string) => formik.getFieldMeta(name).value, [formik]);
+
+  const setFieldValue = useCallback((name: string, value: any) => {
+    formik.setFieldTouched(name, true, false);
+    formik.setFieldValue(name, value, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getFieldError = useCallback(
+    (name: string) => (formik.touched[name] || formik.submitCount > 0 ? formik.getFieldMeta(name).error : ''),
+    [formik]
+  );
+
   return {
     handleSubmit,
     handleChange,
     handleReset: () => formik.resetForm({ values: initialValues }),
     setValues: formik.setValues,
-    getFieldValue: name => formik.getFieldMeta(name).value,
-    setFieldValue: (name: string, value: any) => {
-      formik.setFieldTouched(name, true, false);
-      formik.setFieldValue(name, value, true);
-    },
-    getFieldError: (name: string) =>
-      formik.touched[name] || formik.submitCount > 0 ? formik.getFieldMeta(name).error : '',
+    getFieldValue: getFieldValue,
+    setFieldValue: setFieldValue,
+    getFieldError: getFieldError,
     reset: values => formik.resetForm({ values: values === undefined ? initialValues : values }),
     initialValues: formik.initialValues,
     values: formik.values,

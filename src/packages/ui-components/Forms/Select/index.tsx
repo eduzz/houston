@@ -9,8 +9,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select, { SelectProps } from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
+import { useContextSelector } from 'use-context-selector';
 
 import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
@@ -21,7 +22,6 @@ export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExt
   loading?: boolean;
   helperText?: string;
   errorMessage?: string;
-  form?: IFormAdapter<any>;
   options?: ISelectFieldOption[];
   emptyOption?: string;
   maxLabelItems?: number;
@@ -37,11 +37,19 @@ export interface ISelectFieldOption {
   disabled?: boolean;
 }
 
-const SelectField = React.forwardRef<HTMLSelectElement, ISelectFieldProps>(
+const useStyles = makeStyles(() => ({
+  endAdornment: {
+    background: 'white',
+    position: 'relative',
+    zIndex: 1,
+    right: -2
+  }
+}));
+
+const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelectFieldProps>(
   (
     {
       label,
-      form: formProps,
       value,
       name,
       loading,
@@ -58,10 +66,14 @@ const SelectField = React.forwardRef<HTMLSelectElement, ISelectFieldProps>(
     },
     ref
   ) => {
-    const formContext = React.useContext(FormFieldsContext);
-    const form = formProps ?? formContext;
+    const classes = useStyles();
 
-    if (!name && form) {
+    const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
+    const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
+    const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
+    const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
+
+    if (!name && setFieldValue) {
       throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
     }
 
@@ -69,12 +81,12 @@ const SelectField = React.forwardRef<HTMLSelectElement, ISelectFieldProps>(
       () =>
         !loading ? null : (
           <InputAdornment position='end'>
-            <div style={{ backgroundColor: 'white', zIndex: 1, position: 'relative' }}>
+            <div className={classes.endAdornment}>
               <CircularProgress color='secondary' size={20} />
             </div>
           </InputAdornment>
         ),
-      [loading]
+      [loading, classes.endAdornment]
     );
 
     const renderValue = React.useCallback(
@@ -100,27 +112,33 @@ const SelectField = React.forwardRef<HTMLSelectElement, ISelectFieldProps>(
         }
 
         onChange && onChange(value, e);
-        form && form.setFieldValue(name, value);
+        setFieldValue && setFieldValue(name, value);
       },
-      [onChange, form, name]
+      [onChange, setFieldValue, name]
     );
 
-    value = form && name ? form.getFieldValue(name) : value;
+    value = formValue ?? value;
 
-    const errorMessage = errorMessageProp ?? form?.getFieldError(name);
+    const errorMessage = errorMessageProp ?? formError;
     const hasError = !!errorMessage;
 
-    const classes = React.useMemo(() => ({ select: size === 'small' ? 'input-size-small' : '' }), [size]);
+    const styles = React.useMemo(() => ({ select: size === 'small' ? 'input-size-small' : '' }), [size]);
 
     return (
       <FormControl margin={margin ?? 'normal'} fullWidth={fullWidth ?? true} error={!!errorMessage} variant='outlined'>
         {!!label && <InputLabel error={!!errorMessage}>{label}</InputLabel>}
+        {!!label && (
+          <InputLabel disabled={props.disabled || loading} error={!!errorMessage}>
+            {label}
+          </InputLabel>
+        )}
+
         <Select
           error={hasError}
           {...props}
-          classes={classes}
+          classes={{ ...styles }}
           inputRef={ref}
-          disabled={form?.isSubmitting || props.disabled}
+          disabled={isSubmitting || props.disabled || loading}
           name={name}
           value={value ?? (props.multiple ? [] : '')}
           onChange={handleChange}
@@ -129,14 +147,20 @@ const SelectField = React.forwardRef<HTMLSelectElement, ISelectFieldProps>(
           endAdornment={endAdornment}
           renderValue={renderValue}
         >
-          {emptyOption && <MenuItem value={''}>{emptyOption}</MenuItem>}
+          {emptyOption && (
+            <MenuItem disabled value={''}>
+              {emptyOption}
+            </MenuItem>
+          )}
+
           {(options || []).map(option => (
-            <MenuItem disabled={option.disabled} key={option.value} value={option.value}>
+            <MenuItem disabled={option.disabled} key={`option-value-${option.value}`} value={option.value}>
               {props.multiple && <Checkbox checked={value?.includes(option.value)} />}
               <ListItemText primary={option.label} />
             </MenuItem>
           ))}
         </Select>
+
         {!!(errorMessage || helperText) && (
           <FormHelperText error={!!errorMessage} variant='outlined'>
             {errorMessage || helperText}

@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
+import { createContext } from 'use-context-selector';
+
 import createUseStyles from '../../styles/createUseStyles';
 
 export interface IFormProps {
@@ -13,7 +15,7 @@ const useStyles = createUseStyles({
   form: { width: '100%' }
 });
 
-export const FormFieldsContext = React.createContext<IFormAdapter<any>>(null);
+export const FormFieldsContext = createContext<IFormAdapter<any>>(null);
 
 const Form: React.FC<IFormProps> = ({ children, context }) => {
   const classes = useStyles();
