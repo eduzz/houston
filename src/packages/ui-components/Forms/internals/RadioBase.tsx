@@ -29,6 +29,7 @@ const BaseRadioField = React.memo<IRadioBaseFieldProps>(
   ({ Control, label, name, description, checked, errorMessage: errorMessageProp, onChange, margin, value }) => {
     const classes = useStyles();
 
+    const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
     const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
     const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
     const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
@@ -54,6 +55,7 @@ const BaseRadioField = React.memo<IRadioBaseFieldProps>(
       <FormControlLabel
         control={
           <Control
+            disabled={isSubmitting}
             classes={{ root: margin === 'none' && classes.marginDense }}
             checked={isChecked ?? false}
             onChange={handleChange}

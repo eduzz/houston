@@ -9,7 +9,7 @@ import TextFieldMUI from '@material-ui/core/TextField';
 import clsx from 'clsx';
 import dateFormat from 'date-fns/format';
 import { enUS, ptBR } from 'date-fns/locale';
-// import parseISO from 'date-fns/parseISO';
+import parseISO from 'date-fns/parseISO';
 import isMobile from 'is-mobile';
 import { useContextSelector } from 'use-context-selector';
 
@@ -17,6 +17,7 @@ import ButtonIcon from '../../../ButtonIcon';
 import withHoustonTheme from '../../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../../Form';
 import { ITextFieldProps } from '../../Text';
+import useCreateInputDateTemp from './hooks';
 import Icons from './icons';
 import useStyles from './styles';
 
@@ -56,7 +57,7 @@ export interface IDatePickerFieldProps extends Omit<ITextFieldProps, IOmitTextFi
   onCalendarOpen?: () => void;
 }
 
-const DatePickerField: React.VoidFunctionComponent<IDatePickerFieldProps> = ({
+const DatePickerField: React.FC<IDatePickerFieldProps> = ({
   name,
   placeholder,
   errorMessage: errorMessageProp,
@@ -80,12 +81,15 @@ const DatePickerField: React.VoidFunctionComponent<IDatePickerFieldProps> = ({
   fullWidth,
   ...rest
 }) => {
+  const [createTempInputDate] = useCreateInputDateTemp();
+
   const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
   const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
   const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
   const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
 
-  const classes = useStyles({ width, size });
+  const classesProps = React.useMemo(() => ({ width, size }), [size, width]);
+  const classes = useStyles(classesProps);
 
   const [openCalendar, setOpenCalendar] = React.useState<boolean>(false);
 
@@ -99,19 +103,18 @@ const DatePickerField: React.VoidFunctionComponent<IDatePickerFieldProps> = ({
     [onChange, setFieldValue, name]
   );
 
-  // const handleChangeMobile = React.useCallback(
-  //   (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     const value = event.target.value;
+  const handleChangeMobile = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
 
-  //     if (!value) return;
+      if (!value) return;
 
-  //     const newValue = parseISO(value);
-
-  //     setFieldValue && setFieldValue(name, new Date(newValue));
-  //     onChange && onChange(new Date(newValue), event);
-  //   },
-  //   [name, onChange, setFieldValue]
-  // );
+      const newValue = parseISO(value);
+      setFieldValue && setFieldValue(name, new Date(newValue));
+      onChange && onChange(new Date(newValue), event);
+    },
+    [name, onChange, setFieldValue]
+  );
 
   const handleClickInput = React.useCallback(async () => {
     if (disabled || loading) return;
@@ -120,7 +123,10 @@ const DatePickerField: React.VoidFunctionComponent<IDatePickerFieldProps> = ({
       !openCalendar && setOpenCalendar(true);
       return;
     }
-  }, [disabled, loading, openCalendar]);
+
+    const valueDate = await createTempInputDate({ initialValue: value, onClose: onCalendarClose });
+    handleChangeMobile(valueDate);
+  }, [createTempInputDate, disabled, handleChangeMobile, loading, onCalendarClose, openCalendar, value]);
 
   const handleCalendarClose = React.useCallback(() => {
     onCalendarClose && onCalendarClose();

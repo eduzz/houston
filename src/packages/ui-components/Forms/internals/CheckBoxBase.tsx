@@ -40,6 +40,7 @@ const CheckboxRadioField: React.FC<ICheckboxBaseFieldProps> = ({
 }) => {
   const classes = useStyles();
 
+  const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
   const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
   const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
   const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
@@ -84,6 +85,7 @@ const CheckboxRadioField: React.FC<ICheckboxBaseFieldProps> = ({
     <FormControlLabel
       control={
         <Control
+          disabled={isSubmitting}
           classes={{ root: margin === 'none' && classes.marginDense }}
           checked={isChecked ?? false}
           defaultValue=''
