@@ -17,7 +17,7 @@ import ButtonIcon from '../../../ButtonIcon';
 import withHoustonTheme from '../../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../../Form';
 import { ITextFieldProps } from '../../Text';
-import useCreateInputDateTemp from './hooks';
+import { useCreateTempInputDate } from './hooks';
 import Icons from './icons';
 import useStyles from './styles';
 
@@ -81,7 +81,7 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
   fullWidth,
   ...rest
 }) => {
-  const [createTempInputDate] = useCreateInputDateTemp();
+  const [createTempInputDate] = useCreateTempInputDate();
 
   const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
   const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));

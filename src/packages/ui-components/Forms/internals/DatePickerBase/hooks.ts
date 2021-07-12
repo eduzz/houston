@@ -5,7 +5,7 @@ interface IUseCreateTempInputDate {
   onClose?: () => void;
 }
 
-export default function useCreateTempInputDate() {
+export function useCreateTempInputDate() {
   const create = React.useCallback(async (options?: IUseCreateTempInputDate): Promise<
     React.ChangeEvent<HTMLInputElement>
   > => {
