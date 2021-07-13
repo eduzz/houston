@@ -19,7 +19,7 @@ import { FormFieldsContext } from '../../Form';
 import { ITextFieldProps } from '../../Text';
 import { useCreateTempInputDate } from './hooks';
 import Icons from './icons';
-import useStyles from './styles';
+import useStyles, { baseStyles } from './styles';
 
 type IOmitTextFieldProps = 'mask' | 'startAdornment' | 'endAdornment' | 'maxLength' | 'onChange' | 'value' | 'onBlur';
 
@@ -88,8 +88,7 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
   const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
   const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
 
-  const classesProps = React.useMemo(() => ({ width, size }), [size, width]);
-  const classes = useStyles(classesProps);
+  const classes = useStyles({ width, size });
 
   const [openCalendar, setOpenCalendar] = React.useState<boolean>(false);
 
@@ -189,11 +188,15 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
     return enUS;
   }, [locale]);
 
+  const styles = React.useMemo(() => ({ __html: baseStyles({ width, size }) }), [size, width]);
+
   const errorMessage = errorMessageProp ?? formError;
   const hasError = !!errorMessage;
 
   return (
     <div className={classes.root}>
+      <style dangerouslySetInnerHTML={styles} />
+
       <TextFieldMUI
         error={hasError}
         {...rest}
@@ -212,6 +215,9 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
 
       <ReactDatePicker
         {...calendarProps}
+        tileClassName={classes.days}
+        className={classes.fieldPicker}
+        calendarClassName={classes.calendar}
         prev2Label={null}
         next2Label={null}
         navigationLabel={props => (
