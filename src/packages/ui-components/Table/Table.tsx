@@ -18,8 +18,6 @@ import useStyles, { IStyleParams } from './styles';
 let columnsKeyIncrementer = 0,
   rowKeyIncremeter = 0;
 
-let renderCount = 0;
-
 export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'> {
   loading?: boolean;
   stickyHeader?: boolean;
@@ -126,8 +124,6 @@ const Table: React.FC<ITableProps> = props => {
       columnActionTitle
     ]
   );
-
-  console.log({ renderCount: ++renderCount });
 
   return (
     <TableContext.Provider value={contextValue}>

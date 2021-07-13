@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import { ThemeProvider } from '@material-ui/core/styles';
 
 import HoustonThemeContext from './context';
 

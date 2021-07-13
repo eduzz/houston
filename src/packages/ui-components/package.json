@@ -26,22 +26,21 @@
     "@eduzz/houston-hooks": "0.24.0",
     "@material-ui/core": "^4",
     "@material-ui/icons": "^4",
-    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "clsx": "^1.1.1",
     "date-fns": "^2.22.1",
     "is-mobile": "^3.0.0",
     "lodash": "^4",
     "react-date-picker": "^8.2.0",
-    "react-jss": "^10.6.0",
     "react-toastify": "^7.0.4",
-    "tslib": "^2.2.0",
+    "tslib": "^2",
     "use-context-selector": "^1.3.7"
   },
   "peerDependencies": {
     "@eduzz/houston-core": "0.24.0",
     "@material-ui/core": "^4",
-    "@material-ui/lab": "^4",
-    "@material-ui/styles": "^4"
+    "@material-ui/icons": "^4",
+    "@material-ui/lab": "^4"
   },
   "devDependencies": {
     "@types/react-toastify": "4.1.0"
