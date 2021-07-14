@@ -82,8 +82,6 @@ jobs:
 
   check-lint:
     runs-on: ubuntu-latest
-    needs: [should-release]
-    if: needs.should-release.outputs.SKIP == 'true'
     steps:
       - name: Clone
         uses: actions/checkout@v2
