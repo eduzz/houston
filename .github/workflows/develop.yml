@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - feature*
 
 jobs:
   check-version:
