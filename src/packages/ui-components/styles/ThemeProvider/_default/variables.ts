@@ -1,3 +1,5 @@
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
+
 const fontSizes = {
   'xx-small': 10,
   'x-small': 12,
@@ -34,6 +36,7 @@ const defaultThemeVariables = {
   textSize: (size: FontSizes = 'normal') => fontSizes[size],
   lineHeight: (size: LineHeights = 'normal') => lineHeights[size],
   fontWeight: (size: FontWeight = 'regular') => fontWeight[size],
+  breakpoints: createBreakpoints({}),
   colors: {
     background: {
       paper: '#fff',

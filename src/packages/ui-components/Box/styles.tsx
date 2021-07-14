@@ -2,32 +2,32 @@ import { IBoxProps } from '.';
 import createUseStyles from '../styles/createUseStyles';
 
 const useStyles = createUseStyles(theme => ({
-  box: {
-    [theme.breakpoints.up('xs')]: ({ xs }: IBoxProps) => ({
-      padding: xs && xs?.padding,
-      margin: xs && xs?.margin
-    }),
+  box: ({ xs, sm, md, lg, xl }: IBoxProps) => ({
+    [theme.breakpoints.up('xs')]: {
+      padding: xs?.padding,
+      margin: xs?.margin
+    },
 
-    [theme.breakpoints.up('sm')]: ({ sm }: IBoxProps) => ({
-      padding: sm && sm?.padding,
-      margin: sm && sm?.margin
-    }),
+    [theme.breakpoints.up('sm')]: {
+      padding: sm?.padding,
+      margin: sm?.margin
+    },
 
-    [theme.breakpoints.up('md')]: ({ md }: IBoxProps) => ({
-      padding: md && md?.padding,
-      margin: md && md?.margin
-    }),
+    [theme.breakpoints.up('md')]: {
+      padding: md?.padding,
+      margin: md?.margin
+    },
 
-    [theme.breakpoints.up('lg')]: ({ lg }: IBoxProps) => ({
-      padding: lg && lg?.padding,
-      margin: lg && lg?.margin
-    }),
+    [theme.breakpoints.up('lg')]: {
+      padding: lg?.padding,
+      margin: lg?.margin
+    },
 
-    [theme.breakpoints.up('xl')]: ({ xl }: IBoxProps) => ({
-      padding: xl && xl?.padding,
-      margin: xl && xl?.margin
-    })
-  },
+    [theme.breakpoints.up('xl')]: {
+      padding: xl?.padding,
+      margin: xl?.margin
+    }
+  }),
   paper: {
     background: '#fff',
     borderRadius: 4
