@@ -30,7 +30,9 @@ module.exports = {
       2,
       {
         ignorePattern: '^(import|export)',
-        ignoreUrls: true
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true
       }
     ],
     'no-multiple-empty-lines': [
