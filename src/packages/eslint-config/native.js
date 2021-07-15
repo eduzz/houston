@@ -1,5 +1,6 @@
 module.exports = {
-  extends: ['./index', 'react-native'],
+  extends: ['./index'],
+  plugins: ['react-native'],
   env: {
     'react-native/react-native': true
   },
