@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
 import {
   Animated,
   Dimensions,

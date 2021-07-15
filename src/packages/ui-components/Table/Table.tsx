@@ -3,10 +3,9 @@ import * as React from 'react';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import clsx from 'clsx';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-
-import clsx from 'clsx';
 
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import MenuActions from './Action/Menu';

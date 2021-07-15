@@ -6,7 +6,7 @@ module.exports = {
     react: {
       version: 'detect'
     },
-    'import/internal-regex': '^@eduzz'
+    'import/internal-regex': '(^@eduzz|react)'
   },
   plugins: ['react', 'react-hooks', 'prettier', 'eslint-plugin-unused-imports'],
   extends: [
@@ -83,6 +83,7 @@ module.exports = {
         groups: ['builtin', ['external', 'internal'], ['parent', 'sibling', 'index'], 'type', 'object'],
         'newlines-between': 'always',
         pathGroups: [
+          { pattern: 'react', group: 'external', position: 'before' },
           { pattern: '@eduzz/**', group: 'internal', position: 'after' },
           { pattern: '~/**', group: 'internal', position: 'after' }
         ]

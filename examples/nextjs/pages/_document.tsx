@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ServerStyleSheets } from '@material-ui/core/styles';
-
 import Document, { Html, Main, NextScript, Head } from 'next/document';
 
 export default class CustomDocument extends Document {

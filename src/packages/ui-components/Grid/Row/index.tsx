@@ -1,8 +1,6 @@
 import * as React from 'react';
 
-import Grid, { GridProps } from '@material-ui/core/Grid';
-import { GridSpacing } from '@material-ui/core/Grid';
-
+import Grid, { GridProps, GridSpacing } from '@material-ui/core/Grid';
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';

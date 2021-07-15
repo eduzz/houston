@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import TableBodyMUI from '@material-ui/core/TableBody';
-
 import { useContextSelector } from 'use-context-selector';
 
 import TableContext from '../context';

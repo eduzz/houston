@@ -6,7 +6,6 @@ import overrides from './overrides';
 import props from './props';
 import typography from './typography';
 import defaultThemeVariables from './variables';
-import themeVariable from './variables';
 
 declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
@@ -18,8 +17,8 @@ declare module '@material-ui/core/styles/createTheme' {
   }
 }
 
-export default function generateTheme(customPalette?: Partial<typeof themeVariable.colors>) {
-  const palette = createPalette({ ...themeVariable.colors, ...customPalette });
+export default function generateTheme(customPalette?: Partial<typeof defaultThemeVariables.colors>) {
+  const palette = createPalette({ ...defaultThemeVariables.colors, ...customPalette });
 
   return createTheme({
     palette,
@@ -31,7 +30,7 @@ export default function generateTheme(customPalette?: Partial<typeof themeVariab
     },
     typography,
     spacing: (factor: number) => {
-      return themeVariable.spacing(factor);
+      return defaultThemeVariables.spacing(factor);
     }
   });
 }

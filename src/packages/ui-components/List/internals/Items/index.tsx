@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import ListItemMUI from '@material-ui/core/ListItem';
-
 import clsx from 'clsx';
 
 import createUseStyles from '../../../styles/createUseStyles';
