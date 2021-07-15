@@ -32,7 +32,7 @@ module.exports = {
         ignorePattern: '^(import|export)',
         ignoreUrls: true,
         ignoreStrings: true,
-        ignoreTemplateLiteralsgit: true
+        ignoreTemplateLiterals: true
       }
     ],
     'no-multiple-empty-lines': [
