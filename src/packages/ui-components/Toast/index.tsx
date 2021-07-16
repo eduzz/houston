@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { toast, ToastOptions } from 'react-toastify';
 
 import { Theme } from '@material-ui/core/styles';
+import { toast, ToastOptions } from 'react-toastify';
 
 type IToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 interface IToastOptions extends Pick<ToastOptions, IToastPropsExtends> {}

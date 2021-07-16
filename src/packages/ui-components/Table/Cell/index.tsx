@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { GridSize } from '@material-ui/core/Grid';
 import TableCellMUI, { TableCellProps as ITableCellPropsMUI } from '@material-ui/core/TableCell';
-
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 

@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import Check from '@material-ui/icons/Check';
 import Warning from '@material-ui/icons/Warning';
-
 import clsx from 'clsx';
 
 import createUseStyles from '../../../styles/createUseStyles';

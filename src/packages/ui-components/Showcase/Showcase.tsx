@@ -4,7 +4,6 @@ import CardMUI, { CardProps } from '@material-ui/core/Card';
 import CardActionsMUI from '@material-ui/core/CardActions';
 import CardContentMUI from '@material-ui/core/CardContent';
 import ModalMUI from '@material-ui/core/Modal';
-
 import clsx from 'clsx';
 
 import { getReactChildrenComponent, getReactFirstChildrenProps } from '../Helpers/functions';

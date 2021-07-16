@@ -7,13 +7,12 @@ submenu: Componentes
 
 import { useState, useCallback } from 'react';
 
+import { Playground } from 'docz';
+import faker from 'faker/locale/pt_BR';
 import { of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 
 import useObservablePaginated from '@eduzz/houston-hooks/useObservablePaginated';
-
-import { Playground } from 'docz';
-import faker from 'faker/locale/pt_BR';
 
 import Table from './index.tsx';
 

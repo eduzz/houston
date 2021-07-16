@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 
+import { NextPage } from 'next';
+import Image from 'next/image';
+
 import Column from '@eduzz/houston-ui/Grid/Column';
 import Container from '@eduzz/houston-ui/Grid/Container';
 import Row from '@eduzz/houston-ui/Grid/Row';
 import Typography from '@eduzz/houston-ui/Typography';
-
-import { NextPage } from 'next';
-import Image from 'next/image';
 
 const IndexPage: NextPage = memo(() => {
   return (

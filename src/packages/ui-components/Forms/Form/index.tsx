@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
-
 import { createContext } from 'use-context-selector';
+
+import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
 import createUseStyles from '../../styles/createUseStyles';
 

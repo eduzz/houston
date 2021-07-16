@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import TypographyMUI from '@material-ui/core/Typography';
-import { TypographyProps } from '@material-ui/core/Typography';
+import TypographyMUI, { TypographyProps } from '@material-ui/core/Typography';
 
 import createUseStyles from '../styles/createUseStyles';
 import { FontSizes, FontWeight, LineHeights } from '../styles/ThemeProvider/_default/variables';

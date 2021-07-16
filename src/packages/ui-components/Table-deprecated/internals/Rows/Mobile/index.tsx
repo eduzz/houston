@@ -3,7 +3,6 @@ import * as React from 'react';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-
 import clsx from 'clsx';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';

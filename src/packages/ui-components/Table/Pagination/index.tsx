@@ -5,7 +5,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
 import PaginationMUI from '@material-ui/lab/Pagination';
-
 import { useContextSelector } from 'use-context-selector';
 
 import SelectField from '../../Forms/Select';

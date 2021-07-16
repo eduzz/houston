@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import MUIContainer, { ContainerProps } from '@material-ui/core/Container';
-
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';

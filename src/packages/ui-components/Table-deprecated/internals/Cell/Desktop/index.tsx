@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import TableCell from '@material-ui/core/TableCell';
-
 import clsx from 'clsx';
 
 import { truncateText } from '../../../../Helpers/functions';

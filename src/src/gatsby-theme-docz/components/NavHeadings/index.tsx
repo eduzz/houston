@@ -1,5 +1,4 @@
 import React from 'react';
-import Scrollspy from 'react-scrollspy';
 
 import {
   Container,
@@ -9,6 +8,7 @@ import {
   Toc
 } from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/NavHeadings/custom-styles';
 import { useConfig, useCurrentDoc } from 'docz';
+import Scrollspy from 'react-scrollspy';
 
 const NavHeadings = () => {
   const {
