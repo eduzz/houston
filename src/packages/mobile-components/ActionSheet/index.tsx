@@ -11,7 +11,8 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Platform
 } from 'react-native';
 
 import ActionItem from './ActionItem';
@@ -62,7 +63,7 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
   };
 
   const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    if (event.nativeEvent.velocity.y < -1) {
+    if (event.nativeEvent.velocity.y < (Platform.OS === 'ios' ? -1 : 1)) {
       onRequestClose();
       return;
     }
