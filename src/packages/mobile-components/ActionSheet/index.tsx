@@ -127,7 +127,9 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
           onLayout={onScrollViewLayout}
           stickyHeaderIndices={[1]}
         >
-          <TouchableWithoutFeedback style={{ height: getScreenHeight() }} onPress={onRequestClose} />
+          <TouchableWithoutFeedback onPress={onRequestClose}>
+            <View style={{ height: getScreenHeight() }} />
+          </TouchableWithoutFeedback>
           <View
             style={[
               styles.closeBar,
