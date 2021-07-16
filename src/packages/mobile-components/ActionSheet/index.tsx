@@ -63,7 +63,7 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
   };
 
   const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    if (event.nativeEvent.velocity.y < (Platform.OS === 'ios' ? -1 : 1)) {
+    if (Platform.OS === 'ios' ? event.nativeEvent.velocity.y < -1 : event.nativeEvent.velocity.y > 1) {
       onRequestClose();
       return;
     }
