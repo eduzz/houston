@@ -10,7 +10,8 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
-  ScrollView
+  ScrollView,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import ActionItem from './ActionItem';
@@ -26,11 +27,13 @@ export interface IActionSheetProps {
 const TARGET_OPACITY = 0.7;
 const SCREEN_TARGET_OCCUPATION = 0.7;
 const CLOSE_BAR_BORDER_RADIUS = 28;
+const SCROLL_ANIMATION_TIME = 300;
 
 const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing, children }: IActionSheetProps) => {
   const [localVisible, setLocalVisible] = useState(visible);
   const [normalizedOffsetY, setNormalizedOffsetY] = useState(0);
   const [distanceToTop, setDistanceToTop] = useState(CLOSE_BAR_BORDER_RADIUS);
+  const [isScrollingTo, setIsScrollingTo] = useState(false);
 
   const scrollViewRef = useRef(null);
 
@@ -39,17 +42,16 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
       setLocalVisible(true);
     } else {
       if (scrollViewRef.current) {
-        scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
+        scrollToY(0);
+        setTimeout(() => {
+          setLocalVisible(false);
+          onFinishClosing && onFinishClosing();
+        }, SCROLL_ANIMATION_TIME);
       }
     }
-  }, [visible]);
+  }, [visible, onFinishClosing]);
 
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    if (event.nativeEvent.contentOffset.y <= 0) {
-      setLocalVisible(false);
-      onFinishClosing && onFinishClosing();
-    }
-
     const sheetHeight = getSheetHeight();
     const screenTargetOcupation = getScreenTargetOcupation();
     const fixedSheetHeight = sheetHeight < screenTargetOcupation ? sheetHeight : screenTargetOcupation;
@@ -60,7 +62,7 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
   };
 
   const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    if (event.nativeEvent.velocity.y > 1) {
+    if (event.nativeEvent.velocity.y < -1) {
       onRequestClose();
       return;
     }
@@ -75,9 +77,9 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
     } else {
       if (event.nativeEvent.contentOffset.y < screenHeight) {
         if (screenHeight - event.nativeEvent.contentOffset.y < (screenHeight - screenTargetOcupation) / 2) {
-          scrollViewRef.current.scrollTo({ x: 0, y: screenHeight, animated: true });
+          scrollToY(screenHeight);
         } else {
-          scrollViewRef.current.scrollTo({ x: 0, y: screenTargetOcupation, animated: true });
+          scrollToY(screenTargetOcupation);
         }
       }
     }
@@ -96,7 +98,14 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
   };
 
   const onScrollViewLayout = () => {
-    scrollViewRef.current.scrollTo({ x: 0, y: getScreenTargetOcupation(), animated: true });
+    setIsScrollingTo(true);
+    scrollToY(getScreenTargetOcupation());
+  };
+
+  const scrollToY = (y: number) => {
+    setIsScrollingTo(true);
+    scrollViewRef.current.scrollTo({ x: 0, y, animated: true });
+    setTimeout(() => setIsScrollingTo(false), SCROLL_ANIMATION_TIME);
   };
 
   const opacity = TARGET_OPACITY * normalizedOffsetY;
@@ -105,19 +114,20 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
 
   return (
     <Modal animationType='none' visible={localVisible} transparent supportedOrientations={['portrait', 'landscape']}>
-      <SafeAreaView style={styles.container} onTouchEnd={onRequestClose}>
+      <SafeAreaView style={styles.container} pointerEvents={isScrollingTo ? 'none' : 'auto'}>
         <Animated.View style={[styles.backdrop, { opacity }]} />
         <ScrollView
           ref={scrollViewRef}
           style={styles.content}
           overScrollMode='never'
+          bounces={false}
           onScroll={onScroll}
           onScrollEndDrag={onScrollEndDrag}
           showsVerticalScrollIndicator={false}
           onLayout={onScrollViewLayout}
           stickyHeaderIndices={[1]}
         >
-          <View style={{ height: getScreenHeight() }} />
+          <TouchableWithoutFeedback style={{ height: getScreenHeight() }} onPress={onRequestClose} />
           <View
             style={[
               styles.closeBar,
@@ -126,9 +136,8 @@ const ActionSheet = ({ visible, backgroundColor, onRequestClose, onFinishClosing
           >
             <View style={styles.closeBarIndicator} />
           </View>
-          <View style={{ backgroundColor }}>
-            {children}
-            <View style={{ height: 100 }} />
+          <View style={{ backgroundColor, minHeight: 200 }}>
+            <View onTouchEnd={onRequestClose}>{children}</View>
           </View>
         </ScrollView>
       </SafeAreaView>
