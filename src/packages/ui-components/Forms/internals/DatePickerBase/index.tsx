@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import dateFormat from 'date-fns/format';
 import { enUS, ptBR } from 'date-fns/locale';
 import parseISO from 'date-fns/parseISO';
-import isMobile from 'is-mobile';
+import isMobileFunc from 'is-mobile';
 import { useContextSelector } from 'use-context-selector';
 
 import ButtonIcon from '../../../ButtonIcon';
@@ -19,7 +19,7 @@ import { FormFieldsContext } from '../../Form';
 import { ITextFieldProps } from '../../Text';
 import { useCreateTempInputDate } from './hooks';
 import Icons from './icons';
-import useStyles, { baseStyles } from './styles';
+import useStyles, { BaseStyles } from './styles';
 
 type IOmitTextFieldProps = 'mask' | 'startAdornment' | 'endAdornment' | 'maxLength' | 'onChange' | 'value' | 'onBlur';
 
@@ -29,7 +29,7 @@ export type IDateFormat = 'dd/MM/yyyy' | 'MM/dd/yyyy' | 'yyyy-MM-dd' | 'dd-MM-yy
 
 export type IDatePickerChange = (value: Date, event: React.ChangeEvent<HTMLInputElement>) => void;
 
-export interface IDatePickerFieldProps extends Omit<ITextFieldProps, IOmitTextFieldProps> {
+export interface IDatePickerBaseProps extends Omit<ITextFieldProps, IOmitTextFieldProps> {
   loading?: boolean;
   errorMessage?: string;
   margin?: 'none' | 'dense' | 'normal';
@@ -57,7 +57,7 @@ export interface IDatePickerFieldProps extends Omit<ITextFieldProps, IOmitTextFi
   onCalendarOpen?: () => void;
 }
 
-const DatePickerField: React.FC<IDatePickerFieldProps> = ({
+const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
   name,
   placeholder,
   errorMessage: errorMessageProp,
@@ -82,13 +82,15 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
   ...rest
 }) => {
   const [createTempInputDate] = useCreateTempInputDate();
+  const isMobile = isMobileFunc();
 
   const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
   const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
   const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
   const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
 
-  const classes = useStyles({ width, size });
+  const classesProps = React.useMemo(() => ({ width, size }), [width, size]);
+  const classes = useStyles(classesProps);
 
   const [openCalendar, setOpenCalendar] = React.useState<boolean>(false);
 
@@ -96,6 +98,7 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
 
   const handleChange = React.useCallback<IDatePickerChange>(
     (value, event) => {
+      if (!value) return;
       setFieldValue && setFieldValue(name, value);
       onChange && onChange(value, event);
     },
@@ -105,9 +108,7 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
   const handleChangeMobile = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value;
-
       if (!value) return;
-
       const newValue = parseISO(value);
       setFieldValue && setFieldValue(name, new Date(newValue));
       onChange && onChange(new Date(newValue), event);
@@ -115,17 +116,23 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
     [name, onChange, setFieldValue]
   );
 
-  const handleClickInput = React.useCallback(async () => {
+  const handleCalendarOpen = React.useCallback(async () => {
     if (disabled || loading) return;
 
-    if (!isMobile()) {
-      !openCalendar && setOpenCalendar(true);
+    if (!isMobile) {
+      setOpenCalendar(true);
+      onCalendarOpen && onCalendarOpen();
       return;
     }
 
-    const valueDate = await createTempInputDate({ initialValue: value, onClose: onCalendarClose });
-    handleChangeMobile(valueDate);
-  }, [createTempInputDate, disabled, handleChangeMobile, loading, onCalendarClose, openCalendar, value]);
+    const event = await createTempInputDate({
+      initialValue: value,
+      onClose: onCalendarClose
+    });
+
+    handleChangeMobile(event);
+    onCalendarOpen && onCalendarOpen();
+  }, [createTempInputDate, disabled, handleChangeMobile, isMobile, loading, onCalendarClose, onCalendarOpen, value]);
 
   const handleCalendarClose = React.useCallback(() => {
     onCalendarClose && onCalendarClose();
@@ -146,9 +153,9 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
 
   const inputLabelProps = React.useMemo<InputLabelProps>(
     () => ({
-      ...(placeholder ? { shrink: true } : {})
+      ...(placeholder || openCalendar ? { shrink: true } : {})
     }),
-    [placeholder]
+    [openCalendar, placeholder]
   );
 
   const inputProps = React.useMemo(() => {
@@ -188,25 +195,22 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
     return enUS;
   }, [locale]);
 
-  const styles = React.useMemo(() => ({ __html: baseStyles({ width, size }) }), [size, width]);
-
   const errorMessage = errorMessageProp ?? formError;
   const hasError = !!errorMessage;
 
   return (
     <div className={classes.root}>
-      <style dangerouslySetInnerHTML={styles} />
+      <BaseStyles />
 
       <TextFieldMUI
         error={hasError}
         {...rest}
         disabled={isSubmitting || disabled || loading}
         helperText={errorMessage || helperText}
-        className={clsx(classes.input, className, size === 'small' && 'input-size-small')}
+        className={clsx(classes.input, className, openCalendar && '--opened', size === 'small' && 'input-size-small')}
         name={name}
         margin={margin ?? 'normal'}
         variant='outlined'
-        onClick={handleClickInput}
         value={value ? dateFormat(value, displayFormat) : ''}
         fullWidth={fullWidth ?? true}
         InputLabelProps={inputLabelProps}
@@ -230,13 +234,16 @@ const DatePickerField: React.FC<IDatePickerFieldProps> = ({
         prevLabel={Icons.prev}
         nextLabel={Icons.next}
         isOpen={openCalendar}
+        disabled={disabled || loading || isMobile}
         value={value}
         showLeadingZeros
+        clearIcon={null}
         onChange={handleChange}
+        onCalendarOpen={handleCalendarOpen}
         onCalendarClose={handleCalendarClose}
       />
     </div>
   );
 };
 
-export default withHoustonTheme(React.memo(DatePickerField));
+export default withHoustonTheme(React.memo(DatePickerBase));
