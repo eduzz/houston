@@ -25,7 +25,7 @@
   "dependencies": {
     "@eduzz/houston-core": "0.24.0",
     "@eduzz/houston-hooks": "0.24.0",
-    "@types/yup": "^0.29.11",
+    "@types/yup": "^0.29.13",
     "formik": "^2.2.9",
     "rxjs": "^7",
     "yup": "^0.32.9"

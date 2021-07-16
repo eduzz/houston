@@ -22,6 +22,7 @@ type RowPropsExtends =
   | 'className'
   | 'children'
   | 'justify'
+  | 'justifyContent'
   | 'alignItems'
   | 'style'
   | 'onClick'

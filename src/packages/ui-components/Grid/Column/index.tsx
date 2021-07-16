@@ -17,6 +17,7 @@ type IOmitProps =
   | 'container'
   | 'item'
   | 'justify'
+  | 'justifyContent'
   | 'spacing'
   | 'zeroMinWidth'
   | 'alignContent'
