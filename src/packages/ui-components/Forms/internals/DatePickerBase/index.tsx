@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useCallback } from 'react';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -18,9 +19,18 @@ import { FormFieldsContext } from '../../Form';
 import { ITextFieldProps } from '../../Text';
 import { useCreateTempInputDate } from './hooks';
 import Icons from './icons';
-import useStyles, { BaseStyles } from './styles';
+import useStyles from './styles';
 
-type IOmitTextFieldProps = 'mask' | 'startAdornment' | 'endAdornment' | 'maxLength' | 'onChange' | 'value' | 'onBlur';
+type IOmitTextFieldProps =
+  | 'mask'
+  | 'endAdornment'
+  | 'maxLength'
+  | 'onChange'
+  | 'value'
+  | 'onBlur'
+  | 'rows'
+  | 'type'
+  | 'multiline';
 
 export type IDatePickerView = 'month' | 'year' | 'decade' | 'century';
 
@@ -32,7 +42,6 @@ export interface IDatePickerBaseProps extends Omit<ITextFieldProps, IOmitTextFie
   loading?: boolean;
   errorMessage?: string;
   margin?: 'none' | 'dense' | 'normal';
-  startAdornment?: React.ReactNode;
   size?: 'normal' | 'small';
   value?: Date;
   /*
@@ -47,8 +56,8 @@ export interface IDatePickerBaseProps extends Omit<ITextFieldProps, IOmitTextFie
     IETF language tag.
     Default: pt-BR
   */
-  defaultView?: IDatePickerView;
   locale?: string;
+  defaultView?: IDatePickerView;
   maxDate?: Date;
   minDate?: Date;
   onChange?: IDatePickerChange;
@@ -77,9 +86,11 @@ const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
   disabled,
   margin,
   helperText,
-  fullWidth,
+  fullWidth = true,
   ...rest
 }) => {
+  const inputRef = React.useRef<HTMLInputElement>();
+
   const [createTempInputDate] = useCreateTempInputDate();
   const isMobile = isMobileFunc();
 
@@ -87,6 +98,10 @@ const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
   const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
   const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
   const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
+
+  if (!name && setFieldValue) {
+    throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
+  }
 
   const classesProps = React.useMemo(() => ({ width, size }), [width, size]);
   const classes = useStyles(classesProps);
@@ -115,7 +130,9 @@ const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
     [name, onChange, setFieldValue]
   );
 
-  const handleCalendarOpen = React.useCallback(async () => {
+  const handleClickIcon = useCallback(() => inputRef?.current?.focus(), []);
+
+  const handleClickInput = useCallback(async () => {
     if (disabled || loading) return;
 
     if (!isMobile) {
@@ -124,14 +141,14 @@ const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
       return;
     }
 
-    const event = await createTempInputDate({
-      initialValue: value,
-      onClose: onCalendarClose
-    });
-
+    const event = await createTempInputDate({ initialValue: value, onClose: onCalendarClose });
     handleChangeMobile(event);
     onCalendarOpen && onCalendarOpen();
   }, [createTempInputDate, disabled, handleChangeMobile, isMobile, loading, onCalendarClose, onCalendarOpen, value]);
+
+  const handleCalendarOpen = React.useCallback(async () => {
+    onCalendarOpen && onCalendarOpen();
+  }, [onCalendarOpen]);
 
   const handleCalendarClose = React.useCallback(() => {
     onCalendarClose && onCalendarClose();
@@ -152,15 +169,15 @@ const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
 
   const inputLabelProps = React.useMemo<InputLabelProps>(
     () => ({
-      ...(placeholder || openCalendar ? { shrink: true } : {})
+      ...(placeholder ? { shrink: true } : {})
     }),
-    [openCalendar, placeholder]
+    [placeholder]
   );
 
   const inputProps = React.useMemo(() => {
     let end = (
       <InputAdornment position='end'>
-        <ButtonIcon className={classes.icon} size='small'>
+        <ButtonIcon className={classes.icon} size='small' onClick={handleClickIcon}>
           {Icons.calendar}
         </ButtonIcon>
       </InputAdornment>
@@ -184,7 +201,7 @@ const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
       endAdornment: end,
       startAdornment: start
     };
-  }, [loading, startAdornment, classes.icon]);
+  }, [classes.icon, handleClickIcon, startAdornment, loading]);
 
   const localeNavigator = React.useMemo(() => {
     if (locale === 'pt-BR') {
@@ -199,19 +216,20 @@ const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
 
   return (
     <div className={classes.root}>
-      <BaseStyles />
-
       <TextFieldMUI
         error={hasError}
         {...rest}
+        ref={inputRef}
+        placeholder={placeholder}
         disabled={isSubmitting || disabled || loading}
         helperText={errorMessage || helperText}
-        className={clsx(classes.input, className, openCalendar && '--opened', size === 'small' && 'input-size-small')}
+        className={clsx(classes.input, className, size === 'small' && 'input-size-small')}
         name={name}
         margin={margin ?? 'normal'}
         variant='outlined'
+        onClick={handleClickInput}
         value={value ? dateFormat(value, displayFormat) : ''}
-        fullWidth={fullWidth ?? true}
+        fullWidth={width ? false : fullWidth}
         InputLabelProps={inputLabelProps}
         InputProps={inputProps}
       />
