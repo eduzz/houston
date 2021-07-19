@@ -1,15 +1,15 @@
 /* eslint-disable no-restricted-imports */
+
 import * as React from 'react';
 
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
 import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
 import { InputLabelProps } from '@material-ui/core/InputLabel';
 import TextFieldMUI, { TextFieldProps } from '@material-ui/core/TextField';
-
-import IFormMask from '@eduzz/houston-core/maskAdapter';
-
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
+
+import IFormMask from '@eduzz/houston-core/maskAdapter';
 
 import useMask from '../../hooks/useMask';
 import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';

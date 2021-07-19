@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import CircularProgressMUI from '@material-ui/core/CircularProgress';
-
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';

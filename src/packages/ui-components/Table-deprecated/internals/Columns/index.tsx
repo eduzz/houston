@@ -4,7 +4,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-
 import clsx from 'clsx';
 
 import createUseStyles from '../../../styles/createUseStyles';

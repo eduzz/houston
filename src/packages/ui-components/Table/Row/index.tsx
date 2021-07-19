@@ -5,11 +5,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRowMUI, { TableRowProps } from '@material-ui/core/TableRow';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-
-import useBoolean from '@eduzz/houston-hooks/useBoolean';
-
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
+
+import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import ButtonIcon from '../../ButtonIcon';
 import TableContext from '../context';

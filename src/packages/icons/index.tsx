@@ -99,7 +99,6 @@ import LikeSolid from './LikeSolid';
 import List from './List';
 import Live from './Live';
 import LockedOpenOutline from './LockedOpenOutline';
-
 import LockedOpenSolid from './LockedOpenSolid';
 import LockedOutline from './LockedOutline';
 import LockedSolid from './LockedSolid';

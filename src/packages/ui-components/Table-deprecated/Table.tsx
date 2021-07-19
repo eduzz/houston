@@ -1,11 +1,11 @@
 /* eslint-disable max-lines */
+
 import * as React from 'react';
 
 import { Theme } from '@material-ui/core/styles';
 import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-
 import clsx from 'clsx';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';

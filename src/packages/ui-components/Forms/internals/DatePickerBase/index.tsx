@@ -1,16 +1,15 @@
 import * as React from 'react';
-import ReactDatePicker, { DatePickerProps } from 'react-date-picker';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputLabelProps } from '@material-ui/core/InputLabel';
 import TextFieldMUI from '@material-ui/core/TextField';
-
 import clsx from 'clsx';
 import dateFormat from 'date-fns/format';
 import { enUS, ptBR } from 'date-fns/locale';
 import parseISO from 'date-fns/parseISO';
 import isMobile from 'is-mobile';
+import ReactDatePicker, { DatePickerProps } from 'react-date-picker';
 import { useContextSelector } from 'use-context-selector';
 
 import ButtonIcon from '../../../ButtonIcon';

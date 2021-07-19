@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import BoxMUI, { BoxProps } from '@material-ui/core/Box';
-
 import clsx from 'clsx';
 
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';

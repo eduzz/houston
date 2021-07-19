@@ -1,4 +1,5 @@
 /** @jsx jsx */
+
 import { useState } from 'react';
 
 import {
@@ -7,8 +8,7 @@ import {
   InnerContainer
 } from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Header/custom-styles';
 import SearchDrawer from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Search';
-import { useConfig, useCurrentDoc } from 'docz';
-import { useDocs, Link } from 'docz';
+import { useConfig, useCurrentDoc, useDocs, Link } from 'docz';
 import * as styles from 'gatsby-theme-docz/src/components/Header/styles';
 import { Edit, Github, Menu, Search, Sun } from 'gatsby-theme-docz/src/components/Icons';
 import { Logo } from 'gatsby-theme-docz/src/components/Logo';

@@ -4,7 +4,7 @@ module.exports = {
     'max-lines': ['off'],
     'max-len': [
       'warn',
-      300,
+      500,
       2,
       {
         ignorePattern: '^(import|export|\\|)',

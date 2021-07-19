@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export interface IActionItemProps {

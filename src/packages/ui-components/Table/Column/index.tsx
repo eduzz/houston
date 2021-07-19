@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import TableCell, { TableCellProps } from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-
 import { useContextSelector } from 'use-context-selector';
 
 import TableContext from '../context';
