@@ -14,9 +14,8 @@
     "build": "GATSBY_TELEMETRY_DISABLED=1 docz build"
   },
   "dependencies": {
-    "@emotion/react": "11.4.0",
-    "@emotion/styled": "11.3.0",
     "docz": "latest",
+    "@nejcm/docz-theme-extended": "2.0.14",
     "react": "^16",
     "react-dom": "^16",
     "react-native-web": "~0.13.12"
