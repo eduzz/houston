@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 
 import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -21,7 +22,18 @@ const ActionItem = ({
   avoidClosing,
   onPress
 }: IActionItemProps) => {
+  const [touchStartLocationY, setTouchStartLocationY] = useState(0);
+
+  const onTouchStart = (event: GestureResponderEvent) => {
+    setTouchStartLocationY(event.nativeEvent.locationY);
+  };
+
   const onTouchEnd = (event: GestureResponderEvent) => {
+    if (event.nativeEvent.locationY !== touchStartLocationY) {
+      event.stopPropagation();
+      return;
+    }
+
     if (avoidClosing) {
       event.stopPropagation();
       onPress && onPress(event);
@@ -35,7 +47,11 @@ const ActionItem = ({
 
   return (
     <TouchableOpacity>
-      <View style={[styles.container, !!backgroundColor && { backgroundColor }]} onTouchEnd={onTouchEnd}>
+      <View
+        style={[styles.container, !!backgroundColor && { backgroundColor }]}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         {!!iconElement && <View style={styles.icon}>{iconElement}</View>}
         <View style={styles.info}>
           <Text style={[styles.title, { color }]} numberOfLines={1}>

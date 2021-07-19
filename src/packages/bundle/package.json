@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston",
   "private": false,
-  "version": "0.26.1",
+  "version": "0.27.3",
   "description": "Eduzz Houston Bundle",
   "author": "Eduzz Team",
   "license": "MIT",
@@ -15,8 +15,8 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "dependencies": {
-    "@eduzz/houston-forms": "0.26.1",
-    "@eduzz/houston-ui": "0.26.1",
-    "@eduzz/houston-hooks": "0.26.1"
+    "@eduzz/houston-forms": "0.27.3",
+    "@eduzz/houston-ui": "0.27.3",
+    "@eduzz/houston-hooks": "0.27.3"
   }
 }
