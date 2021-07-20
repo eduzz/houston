@@ -11,7 +11,6 @@ export interface ITypographyProps {
   lineHeight?: LineHeights;
   fontWeight?: FontWeight;
   marginBottom?: boolean;
-  lighter?: boolean;
   children?: React.ReactNode;
   onClick?: () => void;
 }
@@ -22,8 +21,7 @@ const useStyles = createUseStyles(theme => ({
     fontSize: theme.textSize(props.size ?? 'normal'),
     lineHeight: theme.lineHeight(props.lineHeight ?? 'normal'),
     fontWeight: theme.fontWeight(props.fontWeight ?? 'regular'),
-    marginBottom: props.marginBottom ? theme.spacing(2) : null,
-    color: props.lighter ? theme.colors.grey[500] : null
+    marginBottom: props.marginBottom ? theme.spacing(2) : null
   })
 }));
 
