@@ -360,17 +360,18 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 
 ### Table props
 
-| prop              | tipo             | obrigatório | padrão   | descrição                                                                                           |
-| ----------------- | ---------------- | ----------- | -------- | --------------------------------------------------------------------------------------------------- |
-| loading           | `boolean`        | `false`     | `false`  | -                                                                                                   |
-| sort              | `ITableSort`     | `false`     | -        | Valor atual do sort                                                                                 |
-| onSort            | `function`       | `false`     | -        | Função chamada ao clicar em uma coluna com `sortableField`.                                         |
-| stickyHeader      | `boolean`        | `false`     | `false`  | Header fixo, é necessário inserir um valor na prop `maxHeight` para melhor experiência.             |
-| size              | `Size`           | `false`     | `medium` | -                                                                                                   |
-| maxHeight         | `number`         | `false`     | -        | -                                                                                                   |
-| stripedRows       | `boolean`        | `false`     | `false`  | -                                                                                                   |
-| columnActionTitle | `string`         | `false`     | `Ações`  | Label da coluna de ações e collapse                                                                 |
-| mobileWidth       | `number/boolean` | `false`     | `600`    | Tamanho da tela que a tabela irá para o modo mobile, se false a tabela permanecerá sempre uma table |
+| prop              | tipo              | obrigatório | padrão          | descrição                                                                                           |
+| ----------------- | ----------------- | ----------- | --------------- | --------------------------------------------------------------------------------------------------- |
+| loading           | `boolean`         | `false`     | `false`         | -                                                                                                   |
+| loadingText       | `React.ReactNode` | `false`     | `Carregando...` | -                                                                                                   |
+| sort              | `ITableSort`      | `false`     | -               | Valor atual do sort                                                                                 |
+| onSort            | `function`        | `false`     | -               | Função chamada ao clicar em uma coluna com `sortableField`.                                         |
+| stickyHeader      | `boolean`         | `false`     | `false`         | Header fixo, é necessário inserir um valor na prop `maxHeight` para melhor experiência.             |
+| size              | `Size`            | `false`     | `medium`        | -                                                                                                   |
+| maxHeight         | `number`          | `false`     | -               | -                                                                                                   |
+| stripedRows       | `boolean`         | `false`     | `false`         | -                                                                                                   |
+| columnActionTitle | `string`          | `false`     | `Ações`         | Label da coluna de ações e collapse                                                                 |
+| mobileWidth       | `number/boolean`  | `false`     | `600`           | Tamanho da tela que a tabela irá para o modo mobile, se false a tabela permanecerá sempre uma table |
 
 ### Table.Column props
 

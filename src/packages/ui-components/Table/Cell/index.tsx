@@ -5,7 +5,6 @@ import TableCellMUI, { TableCellProps as ITableCellPropsMUI } from '@material-ui
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
-import Typography from '../../Typography';
 import TableContext from '../context';
 
 let cellKeyIncremeter = 0;
@@ -37,10 +36,8 @@ const TableCell = React.memo<ITableCellProps>(({ children, className, mobileSize
 
   return (
     <TableCellMUI {...props} className={clsx(className, `cell-size-${mobileSize ?? 'auto'}`)} ref={cellRef}>
-      <Typography size='x-small' fontWeight='regular' lineHeight='compact' lighter className='table-label-mobile'>
-        {columnLabel ?? label}
-      </Typography>
-      {typeof children === 'string' ? <Typography>{children}</Typography> : children}
+      <span className='table-label-mobile'>{columnLabel ?? label}</span>
+      {children}
     </TableCellMUI>
   );
 });

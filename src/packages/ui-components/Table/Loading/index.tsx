@@ -13,15 +13,14 @@ export interface ITableLoadingProps {}
 
 const useStyle = createUseStyles(theme => ({
   text: {
-    opacity: 0.8,
-    fontStyle: 'italic',
-    padding: theme.spacing(4)
+    padding: theme.spacing(5)
   }
 }));
 
 const TableLoading = React.memo<ITableLoadingProps>(() => {
   const columnsLen = useContextSelector(TableContext, context => context.columns.length);
   const loading = useContextSelector(TableContext, context => context.loading);
+  const loadingText = useContextSelector(TableContext, context => context.loadingText);
 
   const classes = useStyle();
 
@@ -32,7 +31,7 @@ const TableLoading = React.memo<ITableLoadingProps>(() => {
       <TableCell align='center' colSpan={columnsLen}>
         <LinearProgress />
         <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
-          Carregando...
+          {loadingText}
         </Typography>
       </TableCell>
     </TableRow>

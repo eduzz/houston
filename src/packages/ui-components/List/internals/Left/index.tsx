@@ -56,4 +56,4 @@ const Left = ({ icon, image, striped = false, ...rest }: IProps) => {
   );
 };
 
-export default Left;
+export default React.memo(Left);
