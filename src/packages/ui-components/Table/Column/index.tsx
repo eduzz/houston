@@ -34,6 +34,10 @@ const TableColumn = React.memo<ITableColumnProps>(({ id, align, width, sortableF
   const isSorted = sort?.field === sortableField;
 
   const handleSort = React.useCallback(() => {
+    if (!onSort) {
+      throw new Error('@eduzz/houston-ui: add the onSort prop to the Table to filter the fields');
+    }
+
     onSort({
       field: sortableField,
       direction: !isSorted || sort?.direction === 'desc' ? 'asc' : 'desc'

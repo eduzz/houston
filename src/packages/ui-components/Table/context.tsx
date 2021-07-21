@@ -17,6 +17,7 @@ export interface ITableActionShow {
 
 export interface ITableContext {
   loading: boolean;
+  loadingText?: React.ReactNode;
 
   sort?: ITableSort;
   onSort: (param: ITableSort) => void;

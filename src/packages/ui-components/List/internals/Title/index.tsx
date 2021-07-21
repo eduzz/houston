@@ -13,4 +13,4 @@ const Title = ({ children, ...props }: IProps) => {
   );
 };
 
-export default Title;
+export default React.memo(Title);

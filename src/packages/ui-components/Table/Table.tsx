@@ -19,6 +19,7 @@ let columnsKeyIncrementer = 0,
 
 export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'> {
   loading?: boolean;
+  loadingText?: React.ReactNode;
   stickyHeader?: boolean;
   sort?: ITableSort;
   /**
@@ -51,7 +52,8 @@ const Table: React.FC<ITableProps> = props => {
     stripedRows,
     columnActionTitle,
     className,
-    mobileWidth
+    mobileWidth,
+    loadingText
   } = props;
 
   const tableRef = React.useRef<HTMLTableElement>();
@@ -98,6 +100,7 @@ const Table: React.FC<ITableProps> = props => {
   const contextValue = React.useMemo<ITableContext>(
     () => ({
       loading: loading ?? false,
+      loadingText: loadingText ?? 'Carregando...',
       sort,
       onSort,
       onShowAction,
@@ -111,6 +114,7 @@ const Table: React.FC<ITableProps> = props => {
     }),
     [
       loading,
+      loadingText,
       sort,
       onSort,
       onShowAction,

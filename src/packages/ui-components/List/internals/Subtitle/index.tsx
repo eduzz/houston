@@ -6,9 +6,9 @@ import { IListTitleProps } from '../../Title';
 interface IProps extends IListTitleProps {}
 
 const Subtitle = ({ children, ...props }: IProps) => (
-  <Typography {...props} size='small' fontWeight='regular' lineHeight='compact' variant='secondary'>
+  <Typography {...props} size='small' fontWeight='regular' lineHeight='compact'>
     {children}
   </Typography>
 );
 
-export default Subtitle;
+export default React.memo(Subtitle);

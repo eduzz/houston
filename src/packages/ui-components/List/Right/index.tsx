@@ -4,7 +4,7 @@ export interface IListRightProps {
   id?: string;
   className?: string;
   icon?: React.ReactNode;
-  onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLDivElement | HTMLParagraphElement>;
+  onClick?: () => void;
   text?: string;
 }
 
