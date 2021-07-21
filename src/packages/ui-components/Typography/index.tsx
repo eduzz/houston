@@ -1,8 +1,14 @@
 import * as React from 'react';
 
+import clsx from 'clsx';
+
 import createUseStyles from '../styles/createUseStyles';
 import { FontSizes, FontWeight, LineHeights } from '../styles/ThemeProvider/_default/variables';
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
+
+export type ITypographyVariant = 'secondary';
+
+export type ITypographyComponent = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div';
 
 export interface ITypographyProps {
   id?: string;
@@ -13,6 +19,8 @@ export interface ITypographyProps {
   marginBottom?: boolean;
   children?: React.ReactNode;
   onClick?: () => void;
+  variant?: ITypographyVariant;
+  component?: ITypographyComponent;
 }
 
 const useStyles = createUseStyles(theme => ({
@@ -22,7 +30,12 @@ const useStyles = createUseStyles(theme => ({
     lineHeight: theme.lineHeight(props.lineHeight ?? 'normal'),
     fontWeight: theme.fontWeight(props.fontWeight ?? 'regular'),
     marginBottom: props.marginBottom ? theme.spacing(2) : null
-  })
+  }),
+
+  secondary: {
+    color: theme.colors.grey[500],
+    fontSize: theme.textSize('small')
+  }
 }));
 
 const Typography: React.FC<ITypographyProps> = props => {
@@ -33,7 +46,17 @@ const Typography: React.FC<ITypographyProps> = props => {
     [props?.children, props?.id]
   );
 
-  return <p {...typographyProps} className={`${classes.text} ${props?.className ?? ''}`} />;
+  const variantClasses = React.useMemo(
+    () => ({
+      secondary: classes.secondary
+    }),
+    [classes.secondary]
+  );
+
+  return React.createElement(props?.component ?? 'p', {
+    ...typographyProps,
+    className: clsx(classes.text, props?.className, variantClasses[props?.variant])
+  });
 };
 
 export default withHoustonTheme(React.memo(Typography));
