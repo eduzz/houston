@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import DatePickerBase, { IDatePickerFieldProps } from '../internals/DatePickerBase';
+import DatePickerBase, { IDatePickerBaseProps } from '../internals/DatePickerBase';
 
-const DatePickerField: React.VoidFunctionComponent<IDatePickerFieldProps> = props => {
+const DatePickerField: React.FC<IDatePickerBaseProps> = props => {
   return <DatePickerBase {...props} />;
 };
 

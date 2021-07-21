@@ -68,4 +68,4 @@ const Right = ({ icon, text, onClick, ...rest }: IProps) => {
   return null;
 };
 
-export default Right;
+export default React.memo(Right);

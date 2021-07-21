@@ -1,48 +1,39 @@
 import * as React from 'react';
 
-import TypographyMUI, { TypographyProps } from '@material-ui/core/Typography';
-
 import createUseStyles from '../styles/createUseStyles';
 import { FontSizes, FontWeight, LineHeights } from '../styles/ThemeProvider/_default/variables';
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 
-type TypographyPropsExtends = 'className' | 'style' | 'children' | 'onClick';
-
-export type ITypographyVariant = 'secondary';
-
-export interface ITypographyProps extends Pick<TypographyProps, TypographyPropsExtends> {
+export interface ITypographyProps {
+  id?: string;
+  className?: string;
   size?: FontSizes;
   lineHeight?: LineHeights;
   fontWeight?: FontWeight;
   marginBottom?: boolean;
-  variant?: ITypographyVariant;
-  lighter?: boolean;
+  children?: React.ReactNode;
+  onClick?: () => void;
 }
 
 const useStyles = createUseStyles(theme => ({
   text: (props: ITypographyProps) => ({
+    margin: 0,
     fontSize: theme.textSize(props.size ?? 'normal'),
     lineHeight: theme.lineHeight(props.lineHeight ?? 'normal'),
     fontWeight: theme.fontWeight(props.fontWeight ?? 'regular'),
-    marginBottom: props.marginBottom ? theme.spacing(2) : null,
-    color: props.lighter ? theme.colors.grey[500] : null
+    marginBottom: props.marginBottom ? theme.spacing(2) : null
   })
 }));
 
-const variantMap = { secondary: 'body2' as const };
-const Typography = React.forwardRef<HTMLParagraphElement, ITypographyProps>((props, ref) => {
+const Typography: React.FC<ITypographyProps> = props => {
   const classes = useStyles(props);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { className, variant, size, lineHeight, fontWeight, marginBottom, lighter, ...typographyProps } = props;
 
-  return (
-    <TypographyMUI
-      ref={ref}
-      className={`${classes.text} ${className ?? ''}`}
-      {...typographyProps}
-      variant={variantMap[variant]}
-    />
+  const typographyProps = React.useMemo(
+    () => ({ id: props?.id, children: props?.children }),
+    [props?.children, props?.id]
   );
-});
 
-export default withHoustonTheme(Typography);
+  return <p {...typographyProps} className={`${classes.text} ${props?.className ?? ''}`} />;
+};
+
+export default withHoustonTheme(React.memo(Typography));

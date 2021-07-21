@@ -47,6 +47,7 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
             <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
               {children}
             </Typography>
+
             {onRetry && (
               <Button variant='text' onClick={onRetry}>
                 Tentar Novamente
