@@ -97,8 +97,8 @@ const Avatar: React.FC<IAvatarProps> = ({
   src,
   ...rest
 }) => {
-  const hasIcon = React.useMemo(() => type === 'icon', [type]);
-  const sizeIsNumber = React.useMemo(() => typeof size === 'number', [size]);
+  const hasIcon = type === 'icon';
+  const sizeIsNumber = typeof size === 'number';
 
   const classes = useStyles({ size: sizeIsNumber ? size : null });
 
