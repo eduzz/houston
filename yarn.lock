@@ -1441,6 +1441,11 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@eduzz/houston-icons@^0.28.3":
+  version "0.28.3"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-icons/-/houston-icons-0.28.3.tgz#44debf82642cd1f8e481da81cccb762a113e1eda"
+  integrity sha512-LkW8o5SAIiUsDqSTxCXwh2sWVpYfMOR28byj+PLE13Wr+grtMIjFc+iCHYPFHMu0cTrsuWZEtzxQb4OvEqEsGg==
+
 "@emotion/babel-plugin-jsx-pragmatic@^0.1.5":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-0.1.5.tgz#27debfe9c27c4d83574d509787ae553bf8a34d7e"

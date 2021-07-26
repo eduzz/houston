@@ -1,0 +1,110 @@
+---
+name: Avatar
+route: /ui-components/avatar
+menu: eduzz/houston-ui
+submenu: Componentes
+---
+
+import { Playground } from 'docz';
+
+import Column from '../Grid/Column';
+import Row from '../Grid/Row';
+import Avatar from './';
+
+# Avatar
+
+Avatares podem ser usados ​​para representar pessoas ou objetos.
+
+### Importação
+
+```js
+import Avatar from '@eduzz/houston-ui/Avatar';
+```
+
+### Tamanhos
+
+Use `small`, `middle`, `large` ou algum número específico.
+
+<Playground>
+  <Row alignItems='center'>
+    <Column>
+      <Avatar size='small' />
+    </Column>
+    <Column>
+      <Avatar />
+    </Column>
+    <Column>
+      <Avatar size='large' />
+    </Column>
+  </Row>
+</Playground>
+
+### Ícone
+
+<Playground>
+  <Row alignItems='center'>
+    <Column>
+      <Avatar size='large' filled />
+    </Column>
+    <Column>
+      <Avatar size='large' />
+    </Column>
+  </Row>
+</Playground>
+
+### Texto
+
+Recomendamos até 2 caracteres.
+
+<Playground>
+  <Row alignItems='center'>
+    <Column>
+      <Avatar size='large' type='text' filled>
+        FM
+      </Avatar>
+    </Column>
+    <Column>
+      <Avatar size='large' type='text' filled>
+        F
+      </Avatar>
+    </Column>
+    <Column>
+      <Avatar size='large' type='text'>
+        FM
+      </Avatar>
+    </Column>
+    <Column>
+      <Avatar size='large' type='text'>
+        F
+      </Avatar>
+    </Column>
+  </Row>
+</Playground>
+
+### Imagem
+
+Use a prop `alt` para espeficiar o texto alternativo para imagem.
+
+<Playground>
+  <Row alignItems='center'>
+    <Column>
+      <Avatar size='small' src='https://www.fillmurray.com/100/100' />
+    </Column>
+    <Column>
+      <Avatar src='https://www.fillmurray.com/100/100' />
+    </Column>
+    <Column>
+      <Avatar size='large' src='https://www.fillmurray.com/100/100' />
+    </Column>
+  </Row>
+</Playground>
+
+### Propriedades
+
+| prop   | tipo          | obrigatório | padrão   | descrição                               |
+| ------ | ------------- | ----------- | -------- | --------------------------------------- |
+| src    | `string`      | `false`     | -        | Caminho da imagem.                      |
+| alt    | `string`      | `false`     | -        | Texto alternativo quando houver imagem. |
+| filled | `boolean`     | `false`     | `false`  | -                                       |
+| type   | `IAvatarType` | `false`     | `icon`   | -                                       |
+| size   | `IAvatarSize` | `false`     | `middle` | -                                       |
