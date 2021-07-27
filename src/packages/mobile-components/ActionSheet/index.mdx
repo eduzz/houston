@@ -18,31 +18,31 @@ import ActionSheet from '@eduzz/houston-mobile/ActionSheet';
 ### Exemplo
 
 ```jsx
-<ActionSheet backgroundColor='#212121' visible={true}>
+<ActionSheet backgroundColor='#212121' visible>
   <ActionItem title='Excluir' avoidClosing description='Excluir esta notificação' color='#fff' />
   <ActionItem title='Desativar' description='Pare de receber notificações deste curso' color='#fff' />
 </ActionSheet>
 ```
 
-### Propriedades
+## Propriedades
 
 ### ActionSheet props
 
-| prop            | type         | required | default       |
-| --------------- | ------------ | -------- | ------------- |
-| visible         | `boolean`    | `true`   | -             |
-| backgroundColor | `string`     | `false`  | `transparent` |
-| onRequestClose  | `() => void` | `false`  | -             |
-| onFinishClosing | `() => void` | `false`  | -             |
+| prop            | tipo         | obrigatório | padrão        |
+| --------------- | ------------ | ----------- | ------------- |
+| visible         | `boolean`    | `true`      | -             |
+| backgroundColor | `string`     | `false`     | `transparent` |
+| onRequestClose  | `() => void` | `false`     | -             |
+| onFinishClosing | `() => void` | `false`     | -             |
 
 ### ActionItem props
 
-| prop            | type                                      | required | default       |
-| --------------- | ----------------------------------------- | -------- | ------------- |
-| title           | `string`                                  | `true`   | -             |
-| description     | `string`                                  | `false`  | -             |
-| iconElement     | `ReactNode`                               | `false`  | -             |
-| color           | `string`                                  | `false`  | `#000`        |
-| backgroundColor | `string`                                  | `false`  | `transparent` |
-| avoidClosing    | `boolean`                                 | `false`  | `false`       |
-| onPress         | `(event: GestureResponderEvent) => void)` | `false`  | -             |
+| prop            | tipo                                      | obrigatório | padrão        |
+| --------------- | ----------------------------------------- | ----------- | ------------- |
+| title           | `string`                                  | `true`      | -             |
+| description     | `string`                                  | `false`     | -             |
+| iconElement     | `ReactNode`                               | `false`     | -             |
+| color           | `string`                                  | `false`     | `#000`        |
+| backgroundColor | `string`                                  | `false`     | `transparent` |
+| avoidClosing    | `boolean`                                 | `false`     | `false`       |
+| onPress         | `(event: GestureResponderEvent) => void)` | `false`     | -             |
