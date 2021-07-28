@@ -12,9 +12,7 @@ module.exports = {
   exhaustiveDeps: (warnOrError = 'warn', customHooks = [], useHoustonHooks = true) => {
     return [
       warnOrError,
-      {
-        additionalHooks: `^(${[...customHooks, ...(useHoustonHooks ? houstonHooks : [])].join('|')})$`
-      }
+      { additionalHooks: `^(${[...customHooks, ...(useHoustonHooks ? houstonHooks : [])].join('|')})$` }
     ];
   }
 };

@@ -1,3 +1,3 @@
 module.exports = {
-  ...require("@eduzz/eslint-config-houston/.prettierrc")
+  ...require("./src/packages/eslint-config/.prettierrc")
 }
