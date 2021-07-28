@@ -5,7 +5,7 @@ interface ICallback {
 export function bindMutationObserver(table: HTMLTableElement, callback: ICallback) {
   let timeout: any;
 
-  const observer = new MutationObserver(() => {
+  const handleMutation = () => {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       if (!table.rows.length) return;
@@ -37,8 +37,10 @@ export function bindMutationObserver(table: HTMLTableElement, callback: ICallbac
 
       callback(result);
     }, 300);
-  });
+  };
 
+  handleMutation();
+  const observer = new MutationObserver(handleMutation);
   observer.observe(table, { childList: true, subtree: true });
   return () => observer.disconnect();
 }
