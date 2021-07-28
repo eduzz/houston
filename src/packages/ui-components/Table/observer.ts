@@ -1,5 +1,9 @@
+interface IRowMap {
+  [rowKey: string]: string;
+}
+
 interface ICallback {
-  (rowMap: { [rowKey: string]: string }): void;
+  (rowMap: IRowMap): void;
 }
 
 export function bindMutationObserver(table: HTMLTableElement, callback: ICallback) {
@@ -7,40 +11,46 @@ export function bindMutationObserver(table: HTMLTableElement, callback: ICallbac
 
   const handleMutation = () => {
     clearTimeout(timeout);
+
     timeout = setTimeout(() => {
-      if (!table.rows.length) return;
+      const headerLabels = getTableHeaderLabels(table);
 
-      const rows = Array.from(table.rows);
-      const columns = Array.from(rows.shift().cells).reduce((acc, column) => {
-        if (column.tagName.toLowerCase() !== 'th') {
-          return acc;
-        }
+      const hasLabels = !!Object.keys(headerLabels).length;
+      if (!hasLabels) return;
 
-        acc.push(column.textContent);
-        return acc;
-      }, []);
-
-      if (!columns.length) return;
-
-      const result = rows.reduce((acc, row) => {
-        Array.from(row.cells).forEach((cell, index) => {
-          const key = cell.getAttribute('cell-key');
-
-          if (!key) return;
-          acc[key] = columns[index];
-        });
-
-        return acc;
-      }, {} as { [rowKey: string]: string });
-
-      if (!Object.keys(result).length) return;
-
-      callback(result);
+      callback(headerLabels);
     }, 300);
   };
 
   handleMutation();
   const observer = new MutationObserver(handleMutation);
   observer.observe(table, { childList: true, subtree: true });
+
   return () => observer.disconnect();
+}
+
+function getTableHeaderLabels(table: HTMLTableElement): IRowMap {
+  const rows = Array.from(table.rows);
+
+  const columns = Array.from(rows.shift()?.cells).reduce((acc, column) => {
+    if (column.tagName.toLowerCase() !== 'th') {
+      return acc;
+    }
+
+    acc.push(column.textContent);
+    return acc;
+  }, []);
+
+  const result = rows.reduce((acc, row) => {
+    Array.from(row.cells).forEach((cell, index) => {
+      const key = cell.getAttribute('cell-key');
+
+      if (!key) return;
+      acc[key] = columns[index];
+    });
+
+    return acc;
+  }, {} as IRowMap);
+
+  return result;
 }
