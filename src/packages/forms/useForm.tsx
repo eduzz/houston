@@ -119,6 +119,7 @@ export default function useForm<Values = Record<string, never>>({
     initialValues: formik.initialValues,
     values: formik.values,
     isSubmitting: formik.isSubmitting,
-    isValid: formik.isValid
+    isValid: formik.isValid,
+    errors: formik.errors
   };
 }

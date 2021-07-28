@@ -59,10 +59,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 
   const registerAction = React.useCallback((action: Omit<ITableAction, 'key'>) => {
     const key = `table-action-option-${++tableActionIncremeter}`;
-
-    setActions(actions =>
-      [...actions, { key, ...action }].sort((a, b) => (a.order > b.order ? 1 : a.order === b.order ? 0 : -1))
-    );
+    setActions(actions => [...actions, { key, ...action }]);
     return () => setActions(actions => actions.filter(o => o.key !== key));
   }, []);
 

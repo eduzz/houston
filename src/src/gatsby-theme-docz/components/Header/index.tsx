@@ -22,7 +22,7 @@ import './styles.css';
 export const Header = ({ onOpen }) => {
   const {
     repository,
-    themeConfig: { showDarkModeSwitch, showMarkdownEditButton, search, header: { fixed, icons } = {} }
+    themeConfig: { showDarkModeSwitch, showMarkdownEditButton, search, header: { fixed = false, icons = null } = {} }
   } = useConfig();
   const { edit = true, ...doc } = useCurrentDoc();
   const [colorMode, setColorMode] = useColorMode();
@@ -41,7 +41,7 @@ export const Header = ({ onOpen }) => {
   const ui = (
     <Container sx={styles.wrapper} data-testid='header'>
       <Box className='menu-icon' sx={styles.menuIcon}>
-        <button sx={styles.menuButton} onClick={onOpen}>
+        <button style={styles.menuButton} onClick={onOpen}>
           <Menu size={25} />
         </button>
       </Box>
@@ -68,7 +68,7 @@ export const Header = ({ onOpen }) => {
               <a
                 className={`${icons} icon`}
                 href={repository}
-                sx={styles.headerButton}
+                style={styles.headerButton}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -80,7 +80,7 @@ export const Header = ({ onOpen }) => {
             <Box sx={{ mr: 2 }}>
               <button
                 className={`${icons} icon`}
-                sx={styles.headerButton}
+                style={styles.headerButton}
                 onClick={toggleColorMode}
                 aria-label={`Switch to ${colorMode} mode`}
               >
@@ -90,7 +90,12 @@ export const Header = ({ onOpen }) => {
           )}
           {search && (
             <Box>
-              <button className={`${icons} icon`} sx={styles.headerButton} onClick={toggleSearch} aria-label={`Search`}>
+              <button
+                className={`${icons} icon`}
+                style={styles.headerButton}
+                onClick={toggleSearch}
+                aria-label={'Search'}
+              >
                 <Search size={15} />
               </button>
               <SearchDrawer open={drawerOpen} toggleOpen={toggleSearch} />
@@ -98,7 +103,7 @@ export const Header = ({ onOpen }) => {
           )}
         </Flex>
         {showMarkdownEditButton && edit && doc.link && (
-          <a className='h-o' sx={styles.editButton} href={doc.link} target='_blank' rel='noopener noreferrer'>
+          <a className='h-o' style={styles.editButton} href={doc.link} target='_blank' rel='noopener noreferrer'>
             <Edit width={14} />
             <Box sx={{ pl: 2 }}>Edit page</Box>
           </a>
