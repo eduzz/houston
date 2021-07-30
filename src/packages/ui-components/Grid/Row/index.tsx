@@ -30,16 +30,27 @@ export interface IRowProps extends Pick<GridProps, RowPropsExtends> {
   spacing?: IContainerType;
 }
 
-const Row = React.forwardRef<HTMLDivElement, IRowProps>(({ className, spacing: spacingProps, ...rest }, ref) => {
-  const classes = useStyles();
-  const { spacing } = useGrid();
+const Row = React.forwardRef<HTMLDivElement, IRowProps>(
+  ({ className, spacing: spacingProps, justifyContent = 'flex-start', ...rest }, ref) => {
+    const classes = useStyles();
+    const { spacing } = useGrid();
 
-  const config = React.useMemo(() => {
-    const sizes = spacingProps ?? { comfortable: 10, cozy: 4, compact: 2 };
-    return sizes[spacing ?? 'cozy'] as GridSpacing;
-  }, [spacing, spacingProps]);
+    const config = React.useMemo(() => {
+      const sizes = spacingProps ?? { comfortable: 10, cozy: 4, compact: 2 };
+      return sizes[spacing ?? 'cozy'] as GridSpacing;
+    }, [spacing, spacingProps]);
 
-  return <Grid {...rest} container ref={ref} className={clsx(classes.root, className)} spacing={config} />;
-});
+    return (
+      <Grid
+        {...rest}
+        container
+        justifyContent={justifyContent}
+        ref={ref}
+        className={clsx(classes.root, className)}
+        spacing={config}
+      />
+    );
+  }
+);
 
 export default withHoustonTheme(React.memo(Row));

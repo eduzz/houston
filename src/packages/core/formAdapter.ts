@@ -23,5 +23,5 @@ export default interface IFormAdapter<V extends { [key: string]: any }> {
   isSubmitting: boolean;
   isValid: boolean;
   reset: (values?: V) => void;
-  errors: IFormikErrors<Partial<V>>;
+  errors?: IFormikErrors<Partial<V>>;
 }
