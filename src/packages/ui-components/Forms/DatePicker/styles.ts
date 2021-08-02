@@ -1,4 +1,4 @@
-import createUseStyles from '../../../styles/createUseStyles';
+import createUseStyles from '../../styles/createUseStyles';
 
 interface IStyleProps {
   width?: number;
@@ -36,7 +36,8 @@ const useStyles = createUseStyles(theme => ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      margin: '0 4px'
+      margin: '0 4px',
+      color: theme.colors.grey[600]
     },
 
     '& .react-calendar__navigation__label': {
