@@ -68,7 +68,7 @@ export interface IDatePickerProps extends Omit<ITextFieldProps, IOmitTextFieldPr
   onCalendarOpen?: () => void;
 }
 
-const DatePicker: React.FC<IDatePickerProps> = ({
+const DatePickerField: React.FC<IDatePickerProps> = ({
   name,
   placeholder,
   errorMessage: errorMessageProp,
@@ -266,4 +266,4 @@ const DatePicker: React.FC<IDatePickerProps> = ({
   );
 };
 
-export default withHoustonTheme(React.memo(DatePicker));
+export default withHoustonTheme(React.memo(DatePickerField));
