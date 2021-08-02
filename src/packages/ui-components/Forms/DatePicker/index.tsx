@@ -41,7 +41,7 @@ export type IDateFormat = 'dd/MM/yyyy' | 'MM/dd/yyyy' | 'yyyy-MM-dd' | 'dd-MM-yy
 
 export type IDatePickerChange = (value: Date, event: React.ChangeEvent<HTMLInputElement>) => void;
 
-export interface IDatePickerBaseProps extends Omit<ITextFieldProps, IOmitTextFieldProps> {
+export interface IDatePickerProps extends Omit<ITextFieldProps, IOmitTextFieldProps> {
   loading?: boolean;
   errorMessage?: string;
   margin?: 'none' | 'dense' | 'normal';
@@ -68,7 +68,7 @@ export interface IDatePickerBaseProps extends Omit<ITextFieldProps, IOmitTextFie
   onCalendarOpen?: () => void;
 }
 
-const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
+const DatePicker: React.FC<IDatePickerProps> = ({
   name,
   placeholder,
   errorMessage: errorMessageProp,
@@ -266,4 +266,4 @@ const DatePickerBase: React.FC<IDatePickerBaseProps> = ({
   );
 };
 
-export default withHoustonTheme(React.memo(DatePickerBase));
+export default withHoustonTheme(React.memo(DatePicker));
