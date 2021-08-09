@@ -7,6 +7,7 @@
     "@eduzz/houston-hooks": "*",
     "@eduzz/houston-ui": "*",
     "@eduzz/houston-icons": "*",
+    "@eduzz/houston-experimental": "*",
     "react": "^16",
     "react-dom": "^16",
     "react-scripts": "4.0.3"
