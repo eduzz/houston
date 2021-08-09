@@ -39,6 +39,10 @@
     {
       "name": "@eduzz/eslint-config-houston",
       "path": "./src/packages/eslint-config"
+    },
+    {
+      "name": "@eduzz/houston-experimental",
+      "path": "./src/packages/experimental"
     }
   ],
   "settings": {
