@@ -11,7 +11,7 @@ module.exports = {
   },
   rules: {
     'sonarjs/cognitive-complexity': ['warn', 45],
-    'sonarjs/no-duplicate-string': ['off'],
+    'sonarjs/no-duplicate-string': 'off',
     'no-restricted-globals': ['error'],
     'no-restricted-imports': ['error', 'date-fns', 'mdi-react', 'lodash', '@material-ui/core', '@material-ui/styles'],
     'linebreak-style': ['error', 'unix'],
@@ -55,9 +55,9 @@ module.exports = {
   },
   overrides: [
     {
-      "files": ["*.mdx"],
-      "rules": {
-        "sonarjs/no-identical-functions": "off"
+      'files': '*.mdx',
+      'rules': {
+        'sonarjs/no-identical-functions': 'off'
       }
     }
   ]
