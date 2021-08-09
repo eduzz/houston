@@ -17,8 +17,7 @@ const CollapseContext = React.createContext<ITableCollapseContext>({} as ITableC
 const CollapseContextProvider = CollapseContext.Provider;
 
 export function useCollapse() {
-  const context = React.useContext(CollapseContext);
-  return context;
+  return React.useContext(CollapseContext);
 }
 
 export default CollapseContextProvider;

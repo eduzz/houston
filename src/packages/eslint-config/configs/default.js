@@ -2,14 +2,16 @@ module.exports = {
   settings: {
     'import/internal-regex': '(^@eduzz|react|^@nestjs|^~)'
   },
-  plugins: ['prettier', 'eslint-plugin-unused-imports'],
-  extends: ['plugin:prettier/recommended', 'plugin:import/recommended', 'plugin:import/typescript'],
+  plugins: ['prettier', 'eslint-plugin-unused-imports', 'sonarjs'],
+  extends: ['plugin:prettier/recommended', 'plugin:import/recommended', 'plugin:import/typescript', "plugin:sonarjs/recommended"],
   parserOptions: {
     ecmaVersion: 10,
     sourceType: 'module',
     ecmaFeatures: { modules: true, jsx: true }
   },
   rules: {
+    'sonarjs/cognitive-complexity': ['warn', 45],
+    'sonarjs/no-duplicate-string': ['off'],
     'no-restricted-globals': ['error'],
     'no-restricted-imports': ['error', 'date-fns', 'mdi-react', 'lodash', '@material-ui/core', '@material-ui/styles'],
     'linebreak-style': ['error', 'unix'],
@@ -50,5 +52,13 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  overrides: [
+    {
+      "files": ["*.mdx"],
+      "rules": {
+        "sonarjs/no-identical-functions": "off"
+      }
+    }
+  ]
 };

@@ -24,7 +24,7 @@ const Collapse: React.FC<ICollapseProps> = ({
       in={visibled}
       timeout={500}
       unmountOnExit={destroyOnClose}
-      onEnter={onEnter && onEnter}
+      onEnter={!!onEnter && onEnter}
       mountOnEnter={mountOnEnter}
     >
       {children}

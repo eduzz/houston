@@ -35,14 +35,14 @@ interface IProps extends IListRightProps {}
 
 const Right = ({ icon, text, onClick, ...rest }: IProps) => {
   const classes = useStyles();
+  const componentProps = {
+    className: clsx([classes.rightRoot, classes.iconRootRight, onClick && classes.clickable]),
+    onClick: !!onClick && onClick
+  };
 
   if (icon && onClick) {
     return (
-      <IconButton
-        className={clsx([classes.rightRoot, classes.iconRootRight, onClick && classes.clickable])}
-        onClick={onClick && onClick}
-        size='small'
-      >
+      <IconButton {...componentProps} size='small'>
         {icon}
       </IconButton>
     );
@@ -54,12 +54,7 @@ const Right = ({ icon, text, onClick, ...rest }: IProps) => {
 
   if (text) {
     return (
-      <Typography
-        {...rest}
-        className={clsx([classes.rightRoot, classes.rightText, onClick && classes.clickable])}
-        onClick={onClick && onClick}
-        size='xx-small'
-      >
+      <Typography {...rest} {...componentProps} size='xx-small'>
         {text}
       </Typography>
     );
