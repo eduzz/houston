@@ -405,12 +405,18 @@ export default function overrides(palette: Palette): ICustomOverrides {
       root: {
         margin: '0 1px',
         minWidth: 32,
-        minHeight: 30,
-        padding: '0 4px',
+        minHeight: 28,
+        padding: 0,
         fontWeight: themeVariable.fontWeight('semibold'),
 
         '&$selected': {
           color: palette.primary.main
+        },
+
+        '@media screen and (max-width: 599.95px)': {
+          width: 26,
+          minWidth: 26,
+          height: 24
         }
       }
     },
@@ -423,11 +429,11 @@ export default function overrides(palette: Palette): ICustomOverrides {
           },
 
           '&:first-child': {
-            marginRight: 4
+            marginRight: 2
           },
 
           '&:last-child': {
-            marginLeft: 4
+            marginLeft: 2
           }
         }
       }
