@@ -39,7 +39,7 @@ const ProgressLine: React.FC<IProgressLineProps> = ({ steps, currentStep = 0, ..
   return (
     <>
       <Stepper
-        className={clsx([classes.root, props.className && props.className])}
+        className={clsx([classes.root, !!props.className && props.className])}
         activeStep={currentStep}
         connector={null}
       >

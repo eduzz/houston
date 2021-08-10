@@ -79,7 +79,7 @@ const MenuActions = React.memo<IProps>(({ onClose, options, anchorEl, currentRow
             disabled={disabled}
           >
             <div className={classes.option}>
-              {option?.icon && option?.icon}
+              {!!option?.icon && option?.icon}
               {option?.children}
             </div>
           </MenuItem>
