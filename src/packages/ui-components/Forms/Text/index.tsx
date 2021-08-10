@@ -32,6 +32,7 @@ type FieldTextPropsExtends =
   | 'onKeyUp'
   | 'onKeyDown'
   | 'onClick'
+  | 'InputProps'
   | 'value';
 
 export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExtends> {
@@ -66,6 +67,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       onPressEnter,
       className,
       size,
+      InputProps,
       ...props
     },
     ref
@@ -132,10 +134,11 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
       }
 
       return {
+        ...InputProps,
         endAdornment: end,
         startAdornment: start
       };
-    }, [loading, endAdornment, startAdornment]);
+    }, [endAdornment, startAdornment, loading, InputProps]);
 
     const handlePressEnter = React.useCallback(
       (e: React.KeyboardEvent<HTMLInputElement>) => {
