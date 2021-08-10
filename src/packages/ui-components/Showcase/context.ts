@@ -23,8 +23,7 @@ export const ShowcaseContext = React.createContext<IShowcaseContext>({} as IShow
 export const ShowcaseContextProvider = ShowcaseContext.Provider;
 
 export const useShowcaseContext = () => {
-  const context = React.useContext(ShowcaseContext);
-  return context;
+  return React.useContext(ShowcaseContext);
 };
 
 export default ShowcaseContextProvider;

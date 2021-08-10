@@ -38,8 +38,7 @@ export const TableContext = React.createContext<ITableContext>({} as ITableConte
 export const TableContextProvider = TableContext.Provider;
 
 export function useTableContext() {
-  const context = React.useContext(TableContext);
-  return context;
+  return React.useContext(TableContext);
 }
 
 export default TableContextProvider;

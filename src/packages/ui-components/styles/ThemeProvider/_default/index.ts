@@ -20,7 +20,7 @@ declare module '@material-ui/core/styles/createTheme' {
 export default function generateTheme(customPalette?: Partial<typeof defaultThemeVariables.colors>) {
   const palette = createPalette({ ...defaultThemeVariables.colors, ...customPalette });
 
-  const theme = createTheme({
+  return createTheme({
     palette,
     overrides: overrides(palette),
     props,
@@ -33,6 +33,4 @@ export default function generateTheme(customPalette?: Partial<typeof defaultThem
       return defaultThemeVariables.spacing(factor);
     }
   });
-
-  return theme;
 }

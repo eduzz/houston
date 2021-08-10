@@ -41,7 +41,7 @@ function getTableHeaderLabels(table: HTMLTableElement): IRowMap {
     return acc;
   }, []);
 
-  const result = rows.reduce((acc, row) => {
+  return rows.reduce((acc, row) => {
     Array.from(row.cells).forEach((cell, index) => {
       const key = cell.getAttribute('cell-key');
 
@@ -51,6 +51,4 @@ function getTableHeaderLabels(table: HTMLTableElement): IRowMap {
 
     return acc;
   }, {} as IRowMap);
-
-  return result;
 }

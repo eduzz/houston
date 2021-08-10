@@ -25,6 +25,7 @@
     "pre-commit": "concurrently -r \"yarn lint\" \"yarn ultra -r pre-commit\""
   },
   "devDependencies": {
+    "@babel/core": "7.14",
     "@types/faker": "5.5.7",
     "@typescript-eslint/eslint-plugin": "4.28.3",
     "@typescript-eslint/parser": "4.28.3",
@@ -37,17 +38,17 @@
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "4.2.0",
+    "eslint-plugin-sonarjs": "0.9.1",
     "eslint-plugin-unused-imports": "1.1.2",
     "faker": "5.5.3",
     "husky": "7.0.1",
     "inquirer": "8.1.1",
     "ora": "5.4.1",
+    "patch-package": "*",
     "prettier": "2.3.2",
     "semver": "7.3.5",
     "typescript": "4.3",
-    "patch-package": "*",
-    "ultra-runner": "3.10.5",
-    "@babel/core": "7.14"
+    "ultra-runner": "3.10.5"
   },
   "resolutions": {
     "react": "^16"

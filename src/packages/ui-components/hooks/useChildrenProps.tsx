@@ -9,17 +9,13 @@ export function useChildrenProps<T = any>(
   children: ReactChildrenOrNode,
   componentType: React.ReactElement['type']
 ): T[] {
-  const result = React.useMemo(() => {
+  return React.useMemo(() => {
     return getReactChildrenProps<T>(children, componentType);
   }, [children, componentType]);
-
-  return result;
 }
 
 export function useFirstChildrenProps<T>(children: ReactChildrenOrNode, componentType: React.ReactElement['type']): T {
-  const result = React.useMemo(() => {
+  return React.useMemo(() => {
     return getReactFirstChildrenProps<T>(children, componentType);
   }, [children, componentType]);
-
-  return result;
 }

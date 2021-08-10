@@ -252,7 +252,7 @@ const Table: React.FC<ITableProps> = props => {
       )}
 
       {!isMobile && (
-        <TableContainer style={{ maxHeight: maxHeight && maxHeight }}>
+        <TableContainer style={{ maxHeight: !!maxHeight && maxHeight }}>
           <TableMUI stickyHeader={stickyHeader} size={size} className={clsx(hasColumnFixed && classes.fixed)} {...rest}>
             <Columns />
             <RowsDesktop

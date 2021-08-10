@@ -26,6 +26,15 @@ function ThemeProvider(props: IThemeProviderProps) {
   const { children, palette, disableCssBaseline, disabledFontBase } = props;
 
   const theme: Theme = React.useMemo(() => generateCustomTheme(palette), [palette]);
+  const fontBaseBody = React.useMemo(
+    () =>
+      !disabledFontBase &&
+      `body {
+        font-family: ${defaultThemeVariables.fontFamily};
+        font-size: ${defaultThemeVariables.textSize('default')}px;
+      }`,
+    [disabledFontBase]
+  );
 
   const styleContent = React.useMemo(
     () => ({
@@ -36,16 +45,10 @@ function ThemeProvider(props: IThemeProviderProps) {
           line-height: 0;
         }
 
-        ${
-          !disabledFontBase &&
-          `body {
-            font-family: ${defaultThemeVariables.fontFamily};
-            font-size: ${defaultThemeVariables.textSize('default')}px;
-          }`
-        }
+        ${fontBaseBody}
       `
     }),
-    [disabledFontBase]
+    [fontBaseBody]
   );
 
   React.useEffect(() => _setCurrentTheme(theme), [theme]);
