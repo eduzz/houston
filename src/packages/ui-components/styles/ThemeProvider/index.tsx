@@ -29,17 +29,23 @@ function ThemeProvider(props: IThemeProviderProps) {
   const fontBaseBody = React.useMemo(
     () =>
       !disabledFontBase &&
-      `body {
-        font-family: ${defaultThemeVariables.fontFamily};
-        font-size: ${defaultThemeVariables.textSize('default')}px;
-      }`,
+      `
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');
+
+        body {
+          font-family: ${defaultThemeVariables.fontFamily};
+          font-size: ${defaultThemeVariables.textSize('default')}px;
+        }
+      `,
     [disabledFontBase]
   );
 
   const styleContent = React.useMemo(
     () => ({
       __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');
+        form {
+          width: 100%;
+        }
 
         .houston-icon {
           line-height: 0;

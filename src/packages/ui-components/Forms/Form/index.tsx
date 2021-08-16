@@ -1,32 +1,28 @@
 import * as React from 'react';
 
-import { createContext } from 'use-context-selector';
+import { createContext, useContext } from 'use-context-selector';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
-import createUseStyles from '../../styles/createUseStyles';
-
 export interface IFormProps {
+  id?: string;
+  className?: string;
   context: IFormAdapter<any>;
   children?: React.ReactNode;
 }
 
-const useStyles = createUseStyles({
-  form: { width: '100%' }
-});
+export const FormFieldsContext = createContext(null);
 
-export const FormFieldsContext = createContext<IFormAdapter<any>>(null);
-
-const Form: React.FC<IFormProps> = ({ children, context }) => {
-  const classes = useStyles();
-
+const Form: React.FC<IFormProps> = ({ context, ...rest }) => {
   return (
     <FormFieldsContext.Provider value={context}>
-      <form className={classes.form} onSubmit={context.handleSubmit} onReset={context.handleReset}>
-        {children}
-      </form>
+      <form {...rest} onReset={context.handleReset} onSubmit={context.handleSubmit} />
     </FormFieldsContext.Provider>
   );
 };
+
+export function useFormContext<T = any>() {
+  return useContext<IFormAdapter<T>>(FormFieldsContext);
+}
 
 export default React.memo(Form);

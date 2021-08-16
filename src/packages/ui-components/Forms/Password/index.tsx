@@ -27,4 +27,4 @@ const PasswordField: React.FC<IPasswordFieldProps> = props => {
   );
 };
 
-export default PasswordField;
+export default React.memo(PasswordField);
