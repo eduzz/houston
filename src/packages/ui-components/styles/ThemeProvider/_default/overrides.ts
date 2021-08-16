@@ -111,9 +111,15 @@ export default function overrides(palette: Palette): ICustomOverrides {
 
     MuiTextField: {
       root: {
-        '&.input-size-small input': {
-          height: 35,
-          padding: '4px 12px'
+        '&.input-size-small': {
+          '& input': {
+            height: 35,
+            padding: '4px 12px'
+          },
+
+          '& label': {
+            transform: `translate(${themeVariable.spacing(4)}px, ${themeVariable.spacing(2) + 2}px) scale(1)`
+          }
         }
       }
     },
