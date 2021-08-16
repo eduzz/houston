@@ -32,6 +32,7 @@ type FieldTextPropsExtends =
   | 'onKeyUp'
   | 'onKeyDown'
   | 'onClick'
+  | 'inputRef'
   | 'InputProps'
   | 'value';
 
@@ -49,7 +50,7 @@ export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExte
   size?: 'normal' | 'small';
 }
 
-const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextFieldProps>(
+const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
   (
     {
       mask,
@@ -158,6 +159,7 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
     return (
       <TextFieldMUI
         error={hasError}
+        inputRef={ref}
         {...props}
         disabled={isSubmitting || props.disabled || loading}
         helperText={errorMessage || props.helperText}
@@ -166,7 +168,6 @@ const TextField = React.forwardRef<React.LegacyRef<HTMLInputElement>, ITextField
         margin={margin ?? 'normal'}
         variant='outlined'
         value={maskedValue ?? ''}
-        inputRef={ref}
         onChange={handleChange}
         onBlur={handleBlur}
         fullWidth={fullWidth ?? true}
