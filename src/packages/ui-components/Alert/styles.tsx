@@ -1,6 +1,12 @@
 import createUseStyles from '../styles/createUseStyles';
 
-const useStyles = createUseStyles({
+const useStyles = createUseStyles(theme => ({
+  root: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'block'
+    }
+  },
+
   message: {
     width: '100%'
   },
@@ -11,6 +17,25 @@ const useStyles = createUseStyles({
 
     '& button': {
       marginLeft: 4
+    }
+  },
+
+  action: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      paddingLeft: 0,
+      paddingBottom: 10,
+      paddingTop: 10,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+
+      '& button': {
+        marginRight: 4,
+        marginLeft: 0,
+        display: 'block',
+        width: '100%'
+      }
     }
   },
 
@@ -32,6 +57,6 @@ const useStyles = createUseStyles({
   multilineAction: {
     paddingLeft: 0
   }
-});
+}));
 
 export default useStyles;
