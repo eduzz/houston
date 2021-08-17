@@ -3,6 +3,7 @@ import * as React from 'react';
 import Collapse from '@material-ui/core/Collapse';
 import AlertMUI, { AlertProps, Color } from '@material-ui/lab/Alert';
 import MUIAlertTitle from '@material-ui/lab/AlertTitle';
+import clsx from 'clsx';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
@@ -67,8 +68,9 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
         onClose={closable ? setHide : onClose}
         action={renderActions}
         classes={{
+          root: classes.root,
           icon: multiline && classes.multilineIcon,
-          action: multiline && classes.multilineAction,
+          action: clsx(multiline && classes.multilineAction, !multiline && classes.action),
           message: classes.message
         }}
       >
