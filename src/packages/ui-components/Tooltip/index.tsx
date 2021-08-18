@@ -42,4 +42,4 @@ const Tooltip: React.FC<ITooltipProps> = ({ placement = 'top', children, disable
   );
 };
 
-export default withHoustonTheme(Tooltip);
+export default withHoustonTheme(React.memo(Tooltip));
