@@ -1,12 +1,11 @@
 import * as React from 'react';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '../../styles/createUseStyles';
-import Typography from '../../Typography';
+import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
+import Typography from '@eduzz/houston-ui/Typography';
+
 import TableContext from '../context';
 
 export interface ITableLoadingProps {}
@@ -27,14 +26,14 @@ const TableLoading = React.memo<ITableLoadingProps>(() => {
   if (!loading) return null;
 
   return (
-    <TableRow className='table-loader'>
-      <TableCell align='center' colSpan={columnsLen}>
+    <tr className='table-loader'>
+      <td align='center' colSpan={columnsLen}>
         <LinearProgress />
         <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
           {loadingText}
         </Typography>
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   );
 });
 

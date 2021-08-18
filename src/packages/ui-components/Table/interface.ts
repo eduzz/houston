@@ -34,4 +34,6 @@ export interface ITableActionCallback<T> {
   index?: number;
 }
 
+export type ITableSize = 'small' | 'medium';
+
 export type ITableAlign = 'inherit' | 'left' | 'center' | 'right' | 'justify';

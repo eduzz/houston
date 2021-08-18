@@ -1,21 +1,23 @@
 import * as React from 'react';
 
-import TableCell, { TableCellProps } from '@material-ui/core/TableCell';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
+import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
+import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
+
 import TableContext from '../context';
-import { ITableAlign } from '../interface';
+import { ITableSize } from '../interface';
+import SortLabel from './SortLabel';
 
-type ITableColumnExtends = 'id' | 'className';
-
-export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExtends> {
+export interface ITableColumnProps {
+  id?: string;
+  className?: string;
   children?: React.ReactNode;
   width?: number;
   /**
    * Default `left`
    */
-  align?: ITableAlign;
+  align?: React.TdHTMLAttributes<HTMLTableDataCellElement>['align'];
   /**
    * Control of ordered columns
    * Default `false`
@@ -23,11 +25,21 @@ export interface ITableColumnProps extends Pick<TableCellProps, ITableColumnExte
   sortableField?: string;
 }
 
-const TableColumn = React.memo<ITableColumnProps>(({ id, align, width, sortableField, children, className }) => {
+const useStyles = createUseStyles(theme => ({
+  root: ({ size }: { size: ITableSize }) => ({
+    padding: size === 'small' ? '8px 12px' : '8px 20px',
+    borderBottom: `1px solid ${theme.colors.grey[200]}`
+  })
+}));
+
+const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, className, align, ...rest }) => {
   const registerColumn = useContextSelector(TableContext, context => context.registerColumn);
   const onSort = useContextSelector(TableContext, context => context.onSort);
   const sort = useContextSelector(TableContext, context => context.sort);
   const loading = useContextSelector(TableContext, context => context.loading);
+  const tableSize = useContextSelector(TableContext, context => context.size);
+
+  const classes = useStyles({ size: tableSize });
 
   const cellRef = React.useRef<HTMLTableHeaderCellElement>();
 
@@ -50,27 +62,17 @@ const TableColumn = React.memo<ITableColumnProps>(({ id, align, width, sortableF
   }, [registerColumn]);
 
   return (
-    <TableCell
-      id={id}
-      align={align}
-      className={className}
-      ref={cellRef}
-      sortDirection={isSorted ? sort?.direction : false}
-      width={width}
-    >
-      {!!sortableField ? (
-        <TableSortLabel
-          active={isSorted}
-          disabled={loading}
-          direction={isSorted ? sort?.direction : 'asc'}
-          onClick={handleSort}
-        >
-          {children}
-        </TableSortLabel>
-      ) : (
-        children
-      )}
-    </TableCell>
+    <th className={clsx(classes.root, className, `column-align-${align ?? 'left'}`)} ref={cellRef} {...rest}>
+      <SortLabel
+        sortable={!!sortableField}
+        active={isSorted}
+        disabled={loading}
+        direction={isSorted ? sort?.direction : 'asc'}
+        onClick={handleSort}
+      >
+        {children}
+      </SortLabel>
+    </th>
   );
 });
 
