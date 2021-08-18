@@ -14,6 +14,10 @@ export interface ITabsProps {
   children?: any;
 }
 
+interface ITabsContentPropsAndKey extends ITabsContentProps {
+  key: string;
+}
+
 const useStyles = createUseStyles(theme => ({
   containerPadding: {
     padding: theme.spacing(2)
@@ -22,15 +26,11 @@ const useStyles = createUseStyles(theme => ({
 
 let tabsKeyIncrementer = 0;
 
-interface ITabContentAndKey extends ITabsContentProps {
-  key: string;
-}
-
 const Tabs: React.FC<ITabsProps> = ({ value, onChange, children }) => {
   const classes = useStyles();
 
   const [position, setPosition] = React.useState(0);
-  const [tabs, setTabs] = React.useState<ITabContentAndKey[]>(() => []);
+  const [tabs, setTabs] = React.useState<ITabsContentPropsAndKey[]>(() => []);
 
   const controlled = value !== undefined;
   const currentValue = controlled ? value : position;
