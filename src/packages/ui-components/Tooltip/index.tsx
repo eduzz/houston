@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import * as React from 'react';
 
 import TooltipMUI, { TooltipProps } from '@material-ui/core/Tooltip';
@@ -18,7 +19,7 @@ type ITooltipPlacement =
   | 'top-start'
   | 'top';
 
-type ITooltipExtends = 'open' | 'onOpen' | 'onClose' | 'interactive' | 'id';
+type ITooltipExtends = 'open' | 'onOpen' | 'onClose' | 'id';
 
 export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
   title: string;
@@ -37,9 +38,17 @@ const Tooltip: React.FC<ITooltipProps> = ({ placement = 'top', children, disable
       placement={placement}
       arrow
     >
-      {children as React.ReactElement}
+      <Content children={children} />
     </TooltipMUI>
   );
 };
+
+const Content = React.forwardRef<HTMLDivElement, { children: React.ReactNode }>(({ children, ...rest }, ref) => {
+  return (
+    <div {...rest} ref={ref} style={{ display: 'inline-flex' }}>
+      {children}
+    </div>
+  );
+});
 
 export default withHoustonTheme(React.memo(Tooltip));

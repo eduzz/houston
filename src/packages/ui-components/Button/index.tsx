@@ -25,20 +25,18 @@ export interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends>, Rea
   loadingText?: string;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
-  const {
-    children,
-    disabled = false,
-    variant = 'contained',
-    startIcon,
-    loading = false,
-    loadingText,
-    ...buttonProps
-  } = props;
-
+const Button: React.FC<IButtonProps> = ({
+  children,
+  disabled = false,
+  variant = 'contained',
+  startIcon,
+  loading = false,
+  loadingText,
+  ...rest
+}) => {
   return (
     <ButtonMUI
-      {...buttonProps}
+      {...rest}
       disabled={disabled || loading}
       startIcon={loading ? <CircularProgress size={18} color='inherit' /> : startIcon}
       disableRipple
@@ -47,12 +45,11 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =>
       disableTouchRipple
       variant={variant}
       color='primary'
-      ref={ref}
     >
       {!loading && children}
       {loading && (loadingText ?? children)}
     </ButtonMUI>
   );
-});
+};
 
 export default withHoustonTheme(React.memo(Button));
