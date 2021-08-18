@@ -4,7 +4,7 @@ import IconButtonMUI, { IconButtonProps } from '@material-ui/core/IconButton';
 
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 
-type ButtonPropsExtends = 'disabled' | 'children' | 'onClick' | 'className' | 'size';
+type ButtonPropsExtends = 'id' | 'disabled' | 'children' | 'onClick' | 'className' | 'size';
 
 export interface IButtonProps extends Pick<IconButtonProps, ButtonPropsExtends> {}
 
