@@ -4,10 +4,9 @@ import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import IconArrowUp from '@eduzz/houston-icons/ArrowUp';
-import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
 
+import createUseStyles from '../../../styles/createUseStyles';
 import TableContext from '../../context';
-import { ITableSize } from '../../interface';
 
 interface ISortLabelProps {
   sortable?: boolean;
@@ -19,10 +18,14 @@ interface ISortLabelProps {
 }
 
 const useStyles = createUseStyles(theme => ({
-  root: ({ size }: { size: ITableSize }) => ({
-    fontSize: theme.textSize(size === 'small' ? 'small' : 'normal'),
+  root: {
+    fontSize: theme.textSize('normal'),
     fontWeight: theme.fontWeight('semibold'),
     color: theme.colors.grey[600],
+
+    '&.--small': {
+      fontSize: theme.textSize('small')
+    },
 
     '&.--disabled': {
       color: theme.colors.grey[400],
@@ -43,20 +46,27 @@ const useStyles = createUseStyles(theme => ({
         transform: 'rotate(-180deg)'
       }
     }
-  })
+  }
 }));
 
 const SortLabel: React.FC<ISortLabelProps> = ({ children, sortable, active, direction, disabled, onClick }) => {
   const tableSize = useContextSelector(TableContext, context => context.size);
 
-  const classes = useStyles({ size: tableSize });
+  const classes = useStyles();
 
   if (!sortable) {
-    return <span className={clsx(classes.root)}>{children}</span>;
+    return (
+      <span className={clsx(classes.root, disabled && '--disabled', tableSize === 'small' && '--small')}>
+        {children}
+      </span>
+    );
   }
 
   return (
-    <div className={clsx(classes.root, disabled && '--disabled', '--sortable')} onClick={onClick}>
+    <div
+      className={clsx(classes.root, disabled && '--disabled', tableSize === 'small' && '--small', '--sortable')}
+      onClick={onClick}
+    >
       {children}
 
       {active && (

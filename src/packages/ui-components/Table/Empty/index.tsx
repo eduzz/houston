@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import Typography from '@eduzz/houston-ui/Typography';
-
+import Typography from '../../Typography';
 import TableContext from '../context';
 
 export interface ITableEmptyProps {

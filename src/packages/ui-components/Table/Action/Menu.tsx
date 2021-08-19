@@ -3,8 +3,7 @@ import * as React from 'react';
 import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
-
+import createUseStyles from '../../styles/createUseStyles';
 import { ITableAction } from '../interface';
 
 const useStyles = createUseStyles(() => ({

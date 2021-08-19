@@ -3,10 +3,8 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
-
+import createUseStyles from '../../styles/createUseStyles';
 import TableContext from '../context';
-import { ITableSize } from '../interface';
 import SortLabel from './SortLabel';
 
 export interface ITableColumnProps {
@@ -26,10 +24,14 @@ export interface ITableColumnProps {
 }
 
 const useStyles = createUseStyles(theme => ({
-  root: ({ size }: { size: ITableSize }) => ({
-    padding: size === 'small' ? '8px 12px' : '8px 20px',
+  root: {
+    padding: '8px 20px',
     borderBottom: `1px solid ${theme.colors.grey[200]}`
-  })
+  },
+
+  rootSmall: {
+    padding: '8px 12px'
+  }
 }));
 
 const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, className, align, ...rest }) => {
@@ -62,7 +64,16 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
   }, [registerColumn]);
 
   return (
-    <th className={clsx(classes.root, className, `column-align-${align ?? 'left'}`)} ref={cellRef} {...rest}>
+    <th
+      ref={cellRef}
+      className={clsx(
+        classes.root,
+        tableSize === 'small' && classes.rootSmall,
+        className,
+        `column-align-${align ?? 'left'}`
+      )}
+      {...rest}
+    >
       <SortLabel
         sortable={!!sortableField}
         active={isSorted}

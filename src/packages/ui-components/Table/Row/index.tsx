@@ -7,11 +7,11 @@ import { useContextSelector } from 'use-context-selector';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import IconDotsHorizontal from '@eduzz/houston-icons/DotsHorizontal';
-import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
 
 import TableContext from '../context';
-import { ITableAction, ITableCollapse, ITableSize } from '../interface';
+import { ITableAction, ITableCollapse } from '../interface';
 import TableRowContext, { ITableRowContext } from './context';
+import useStyles from './styles';
 
 let tableActionIncremeter = 0;
 
@@ -25,52 +25,15 @@ export interface ITableRowProps {
   onDoubleClick?: () => void;
 }
 
-const useStyles = createUseStyles(theme => ({
-  cellAction: ({ size }: { size: ITableSize }) => ({
-    padding: '6px 12px',
-    borderBottom: `1px solid ${theme.colors.grey[200]}`,
-    fontSize: theme.textSize(size === 'small' ? 'small' : 'normal')
-  }),
-
-  cellCollapse: ({ size }: { size: ITableSize }) => ({
-    paddingRight: 8,
-    borderBottom: `1px solid ${theme.colors.grey[200]}`,
-    fontSize: theme.textSize(size === 'small' ? 'small' : 'normal')
-  }),
-
-  iconAction: {
-    display: 'inline-flex',
-    padding: 4,
-    transition: 'background 0.2s linear',
-    borderRadius: '50%',
-    cursor: 'pointer',
-
-    '&:hover': {
-      background: theme.colors.grey[200]
-    },
-
-    '&:focus': {
-      background: theme.colors.grey[300]
-    },
-
-    '& .houston-icon': {
-      '& svg': {
-        fill: theme.colors.grey[600]
-      }
-    }
-  }
-}));
-
 const TableRow = React.memo<ITableRowProps>(({ data, index, children, className, ...props }) => {
   const stripedRows = useContextSelector(TableContext, context => context.stripedRows);
   const onShowAction = useContextSelector(TableContext, context => context.onShowAction);
   const registerRow = useContextSelector(TableContext, context => context.registerRow);
-  const columnSpan = useContextSelector(TableContext, context => context.columns.length);
   const tableSize = useContextSelector(TableContext, context => context.size);
   const hasCollapseInRows = useContextSelector(TableContext, context => context.hasCollapseInRows);
   const hasActionInRows = useContextSelector(TableContext, context => context.hasActionInRows);
 
-  const classes = useStyles({ size: tableSize });
+  const classes = useStyles();
 
   const [showCollapse, toogleShowCollapse] = useBoolean(false);
 
@@ -79,7 +42,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 
   const oneAction = actions.length === 1 ? actions[0] : null;
   const hasActions = actions.length > 0;
-  const hasCollapse = collapse != null;
+  const hasCollapse = collapse !== null;
 
   const onClickAction = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -124,6 +87,16 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     [registerAction, registerCollapse]
   );
 
+  const classesAction = React.useMemo(
+    () => clsx(classes.cellAction, tableSize === 'small' && '--small', 'table-action-cell', className),
+    [className, classes.cellAction, tableSize]
+  );
+
+  const classesCollapse = React.useMemo(
+    () => clsx(classes.cellCollapse, tableSize === 'small' && '--small', 'table-collapse-cell', className),
+    [className, classes.cellCollapse, tableSize]
+  );
+
   return (
     <TableRowContext.Provider value={contextValue}>
       <tr
@@ -131,14 +104,14 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
         className={clsx(
           hasActions && 'table-row-has-action',
           hasCollapse && 'table-row-has-collapse',
-          stripedRows ? (index % 2 == 0 ? 'table-row-even' : 'table-row-odd') : null,
+          stripedRows && (index % 2 == 0 ? 'table-row-even' : 'table-row-odd'),
           className
         )}
       >
         {children}
 
         {hasActions && (
-          <td align='right' className={clsx(classes.cellAction, 'table-action-cell', className)}>
+          <td align='right' className={classesAction}>
             {hasActions && (
               <div onClick={onClickAction} className={classes.iconAction}>
                 {oneAction?.icon ?? <IconDotsHorizontal size={24} />}
@@ -147,10 +120,10 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
           </td>
         )}
 
-        {!hasActions && hasActionInRows && <td className={clsx(classes.cellAction, 'table-action-cell', className)} />}
+        {!hasActions && hasActionInRows && <td className={clsx(classesAction)} />}
 
         {hasCollapse && (
-          <td align='right' className={clsx(classes.cellCollapse, 'table-collapse-cell', className)}>
+          <td align='right' className={classesCollapse}>
             <div
               onClick={toogleShowCollapse}
               className={clsx(
@@ -164,9 +137,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
           </td>
         )}
 
-        {!hasCollapse && hasCollapseInRows && (
-          <td className={clsx(classes.cellCollapse, 'table-collapse-cell', className)} />
-        )}
+        {!hasCollapse && hasCollapseInRows && <td className={classesCollapse} />}
       </tr>
 
       {hasCollapse && (
@@ -178,7 +149,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
             collapse.disabledPadding && 'table-collapse-no-padding'
           )}
         >
-          <td colSpan={columnSpan}>
+          <td colSpan={1000}>
             <CollapseMUI
               in={showCollapse && !collapse.disabled}
               timeout={350}
