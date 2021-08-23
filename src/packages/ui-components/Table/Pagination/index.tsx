@@ -1,17 +1,15 @@
 import * as React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
-import TableRow from '@material-ui/core/TableRow';
 import PaginationMUI from '@material-ui/lab/Pagination';
 import { useContextSelector } from 'use-context-selector';
 
-import SelectField from '../../Forms/Select';
-import TextField from '../../Forms/Text';
-import Column from '../../Grid/Column';
-import Row from '../../Grid/Row';
-import Typography from '../../Typography';
+import SelectField from '@eduzz/houston-ui/Forms/Select';
+import TextField from '@eduzz/houston-ui/Forms/Text';
+import Column from '@eduzz/houston-ui/Grid/Column';
+import Row from '@eduzz/houston-ui/Grid/Row';
+import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
+import Typography from '@eduzz/houston-ui/Typography';
+
 import TableContext from '../context';
 
 type ITablePaginationExtends = 'id' | 'className' | 'children';
@@ -27,27 +25,47 @@ export interface ITablePagination extends Pick<React.HTMLAttributes<HTMLTableRow
   onChangePerPage: (rowsPerPage: number) => void;
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = createUseStyles(theme => ({
   td: {
-    paddingLeft: 0,
-    paddingRight: 0
+    padding: '12px 0'
   },
+
+  perPage: {
+    display: 'inline-flex',
+    alignItems: 'center',
+
+    '& > p': {
+      whiteSpace: 'nowrap',
+      marginRight: theme.spacing(2),
+      color: theme.colors.grey[600]
+    }
+  },
+
   labels: {
     display: 'inline-flex',
     alignItems: 'center',
+
     '& > p': {
       whiteSpace: 'nowrap',
-      marginRight: theme.spacing(2)
+      marginRight: theme.spacing(2),
+      color: theme.colors.grey[600]
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
     }
   },
+
   input: {
     maxWidth: 50
   },
+
   pages: {
     display: 'flex',
     justifyContent: 'flex-end',
     height: '100%',
     alignItems: 'center',
+
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.spacing(2),
       justifyContent: 'center'
@@ -68,7 +86,6 @@ const Pagination = React.memo<ITablePagination>(
   }) => {
     const classes = useStyles();
 
-    const columnsLen = useContextSelector(TableContext, context => context.columns.length);
     const loading = useContextSelector(TableContext, context => context.loading);
 
     const [pageInput, setPageInput] = React.useState<string>(page?.toString());
@@ -154,13 +171,13 @@ const Pagination = React.memo<ITablePagination>(
     }, [page]);
 
     return (
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={columnsLen} className={classes.td}>
+      <tfoot>
+        <tr>
+          <td colSpan={1000} className={classes.td}>
             <Row>
               <Column xs={12} sm='auto'>
                 <Row justifyContent='center'>
-                  <Column xs='auto' className={classes.labels}>
+                  <Column xs='auto' className={classes.perPage}>
                     <Typography size='small' fontWeight='semibold'>
                       {labelItensPerPage ?? 'Itens por página:'}
                     </Typography>
@@ -207,9 +224,9 @@ const Pagination = React.memo<ITablePagination>(
                 </div>
               </Column>
             </Row>
-          </TableCell>
-        </TableRow>
-      </TableFooter>
+          </td>
+        </tr>
+      </tfoot>
     );
   }
 );

@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles from '../../styles/createUseStyles';
@@ -18,7 +16,6 @@ const useStyle = createUseStyles(theme => ({
 }));
 
 const TableLoading = React.memo<ITableLoadingProps>(() => {
-  const columnsLen = useContextSelector(TableContext, context => context.columns.length);
   const loading = useContextSelector(TableContext, context => context.loading);
   const loadingText = useContextSelector(TableContext, context => context.loadingText);
 
@@ -27,14 +24,15 @@ const TableLoading = React.memo<ITableLoadingProps>(() => {
   if (!loading) return null;
 
   return (
-    <TableRow className='table-loader'>
-      <TableCell align='center' colSpan={columnsLen}>
+    <tr className='table-loader'>
+      <td align='center' colSpan={1000}>
         <LinearProgress />
+
         <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
           {loadingText}
         </Typography>
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   );
 });
 

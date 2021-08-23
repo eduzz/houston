@@ -1,35 +1,39 @@
 import * as React from 'react';
 
 import CollapseMUI from '@material-ui/core/Collapse';
-import TableCell from '@material-ui/core/TableCell';
-import TableRowMUI, { TableRowProps } from '@material-ui/core/TableRow';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
+import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
+import IconDotsHorizontal from '@eduzz/houston-icons/DotsHorizontal';
 
-import ButtonIcon from '../../ButtonIcon';
 import TableContext from '../context';
 import { ITableAction, ITableCollapse } from '../interface';
 import TableRowContext, { ITableRowContext } from './context';
+import useStyles from './styles';
 
 let tableActionIncremeter = 0;
 
-type ITableRowExtends = 'id' | 'className' | 'tabIndex' | 'onClick' | 'onDoubleClick';
-
-export interface ITableRowProps extends Pick<TableRowProps, ITableRowExtends> {
+export interface ITableRowProps {
+  id?: string;
+  className?: string;
   data: unknown;
   index: number;
   children?: React.ReactNode;
+  onClick?: () => void;
+  onDoubleClick?: () => void;
 }
 
 const TableRow = React.memo<ITableRowProps>(({ data, index, children, className, ...props }) => {
   const stripedRows = useContextSelector(TableContext, context => context.stripedRows);
   const onShowAction = useContextSelector(TableContext, context => context.onShowAction);
   const registerRow = useContextSelector(TableContext, context => context.registerRow);
-  const columnSpan = useContextSelector(TableContext, context => context.columns.length);
+  const tableSize = useContextSelector(TableContext, context => context.size);
+  const hasCollapseInRows = useContextSelector(TableContext, context => context.hasCollapseInRows);
+  const hasActionInRows = useContextSelector(TableContext, context => context.hasActionInRows);
+
+  const classes = useStyles();
 
   const [showCollapse, toogleShowCollapse] = useBoolean(false);
 
@@ -38,10 +42,10 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 
   const oneAction = actions.length === 1 ? actions[0] : null;
   const hasActions = actions.length > 0;
-  const hasCollapse = collapse != null;
+  const hasCollapse = collapse !== null;
 
   const onClickAction = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       if (oneAction) {
         oneAction.onClick(data, index);
         return;
@@ -83,47 +87,61 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     [registerAction, registerCollapse]
   );
 
+  const classesAction = React.useMemo(
+    () => clsx(classes.cellAction, tableSize === 'small' && '--small', 'table-action-cell', className),
+    [className, classes.cellAction, tableSize]
+  );
+
+  const classesCollapse = React.useMemo(
+    () => clsx(classes.cellCollapse, tableSize === 'small' && '--small', 'table-collapse-cell', className),
+    [className, classes.cellCollapse, tableSize]
+  );
+
   return (
     <TableRowContext.Provider value={contextValue}>
-      <TableRowMUI
-        hover={!stripedRows}
+      <tr
         {...props}
         className={clsx(
           hasActions && 'table-row-has-action',
           hasCollapse && 'table-row-has-collapse',
-          stripedRows ? (index % 2 == 0 ? 'table-row-even' : 'table-row-odd') : null,
+          stripedRows && (index % 2 == 0 ? 'table-row-even' : 'table-row-odd'),
           className
         )}
       >
         {children}
 
-        {(hasActions || hasCollapse) && (
-          <TableCell align='right' className={clsx('table-action-cell', className)}>
+        {hasActions && (
+          <td align='right' className={classesAction}>
             {hasActions && (
-              <ButtonIcon size='small' onClick={onClickAction} disabled={!actions.length}>
-                {oneAction?.icon ?? <MoreHorizIcon color='action' />}
-              </ButtonIcon>
+              <div onClick={onClickAction} className={classes.iconAction}>
+                {oneAction?.icon ?? <IconDotsHorizontal size={24} />}
+              </div>
             )}
-            {!hasActions && <span />}
-
-            {hasCollapse ? (
-              <ButtonIcon
-                size='small'
-                onClick={toogleShowCollapse}
-                disabled={collapse.disabled}
-                className={clsx('table-collapse-button', showCollapse && 'table-collapse-button-opened')}
-              >
-                <KeyboardArrowDownIcon color='action' />
-              </ButtonIcon>
-            ) : (
-              <span />
-            )}
-          </TableCell>
+          </td>
         )}
-      </TableRowMUI>
+
+        {!hasActions && hasActionInRows && <td className={clsx(classesAction)} />}
+
+        {hasCollapse && (
+          <td align='right' className={classesCollapse}>
+            <div
+              onClick={toogleShowCollapse}
+              className={clsx(
+                classes.iconAction,
+                'table-collapse-button',
+                showCollapse && 'table-collapse-button-opened'
+              )}
+            >
+              <IconChevronDown size={24} />
+            </div>
+          </td>
+        )}
+
+        {!hasCollapse && hasCollapseInRows && <td className={classesCollapse} />}
+      </tr>
 
       {hasCollapse && (
-        <TableRowMUI
+        <tr
           className={clsx(
             'table-collapse',
             showCollapse && 'table-collapse-opened',
@@ -131,7 +149,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
             collapse.disabledPadding && 'table-collapse-no-padding'
           )}
         >
-          <TableCell colSpan={columnSpan}>
+          <td colSpan={1000}>
             <CollapseMUI
               in={showCollapse && !collapse.disabled}
               timeout={350}
@@ -141,8 +159,8 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
             >
               <div className='table-collapse-content'>{collapse.content}</div>
             </CollapseMUI>
-          </TableCell>
-        </TableRowMUI>
+          </td>
+        </tr>
       )}
     </TableRowContext.Provider>
   );

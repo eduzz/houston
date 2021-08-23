@@ -1,3 +1,4 @@
+import { Size } from '@material-ui/core/Table';
 import { createContext } from 'use-context-selector';
 
 import { ITableSort, ITableAction } from './interface';
@@ -18,6 +19,7 @@ export interface ITableActionShow {
 export interface ITableContext {
   loading: boolean;
   loadingText?: React.ReactNode;
+  size: Size;
 
   sort?: ITableSort;
   onSort: (param: ITableSort) => void;
@@ -32,9 +34,11 @@ export interface ITableContext {
 
   onShowAction: (param: ITableActionShow) => void;
 
-  // isMobile: boolean;
   stripedRows: boolean;
   columnActionTitle?: string;
+
+  hasCollapseInRows: boolean;
+  hasActionInRows: boolean;
 }
 
 const TableContext = createContext<ITableContext>({
@@ -46,7 +50,10 @@ const TableContext = createContext<ITableContext>({
   rowMapLabel: {},
   rows: [],
   registerRow: () => () => null,
-  stripedRows: false
+  stripedRows: false,
+  size: 'medium',
+  hasCollapseInRows: false,
+  hasActionInRows: false
 });
 
 export default TableContext;

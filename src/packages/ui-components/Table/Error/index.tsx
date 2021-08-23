@@ -1,13 +1,8 @@
 import * as React from 'react';
 
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import { useContextSelector } from 'use-context-selector';
-
 import Button from '../../Button';
 import createUseStyles from '../../styles/createUseStyles';
 import Typography from '../../Typography';
-import TableContext from '../context';
 
 export interface ITableEErrorProps {
   error?: any;
@@ -25,7 +20,6 @@ const useStyle = createUseStyles(theme => ({
 }));
 
 const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, formater }) => {
-  const columnsLen = useContextSelector(TableContext, context => context.columns.length);
   const classes = useStyle();
 
   const errorMessage = React.useMemo(() => {
@@ -40,8 +34,8 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
   children = children ?? errorMessage;
 
   return (
-    <TableRow className='table-error-message'>
-      <TableCell align='center' colSpan={columnsLen}>
+    <tr className='table-error-message'>
+      <td align='center' colSpan={1000}>
         {typeof children === 'string' ? (
           <>
             <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
@@ -57,8 +51,8 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
         ) : (
           children
         )}
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   );
 });
 
