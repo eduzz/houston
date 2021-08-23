@@ -5,10 +5,9 @@ export interface IStyleParams {
 }
 
 const useStyles = createUseStyles(theme => ({
-  tableContainer: (props: IStyleParams) => ({
-    maxHeight: props?.maxHeight,
+  tableContainer: {
     position: 'relative'
-  }),
+  },
 
   table: {
     width: '100%',

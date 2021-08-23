@@ -86,7 +86,6 @@ const Pagination = React.memo<ITablePagination>(
   }) => {
     const classes = useStyles();
 
-    const columnsLen = useContextSelector(TableContext, context => context.columns.length);
     const loading = useContextSelector(TableContext, context => context.loading);
 
     const [pageInput, setPageInput] = React.useState<string>(page?.toString());
@@ -174,7 +173,7 @@ const Pagination = React.memo<ITablePagination>(
     return (
       <tfoot>
         <tr>
-          <td colSpan={columnsLen} className={classes.td}>
+          <td colSpan={1000} className={classes.td}>
             <Row>
               <Column xs={12} sm='auto'>
                 <Row justifyContent='center'>

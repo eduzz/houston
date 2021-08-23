@@ -12,7 +12,7 @@ import MenuActions from './Action/Menu';
 import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';
 import { ITableSort } from './interface';
 import { bindMutationObserver } from './observer';
-import useStyles, { IStyleParams } from './styles';
+import useStyles from './styles';
 
 let columnsKeyIncrementer = 0,
   rowKeyIncremeter = 0;
@@ -50,7 +50,6 @@ const Table: React.FC<ITableProps> = props => {
     stripedRows,
     columnActionTitle,
     className,
-    mobileWidth,
     loadingText
   } = props;
 
@@ -65,8 +64,7 @@ const Table: React.FC<ITableProps> = props => {
   const [columns, setColumns] = React.useState<string[]>(() => []);
   const [rows, setRows] = React.useState<ITableRow[]>([]);
 
-  const propsStyle = React.useMemo<IStyleParams>(() => ({ maxHeight, mobileWidth }), [maxHeight, mobileWidth]);
-  const classes = useStyles(propsStyle);
+  const classes = useStyles();
 
   const onShowAction = React.useCallback(
     (data: ITableActionShow) => {
@@ -94,7 +92,7 @@ const Table: React.FC<ITableProps> = props => {
   const hasActionInRows = React.useMemo(() => rows?.some(r => r.hasActions), [rows]);
 
   React.useEffect(() => {
-    const unbind = bindMutationObserver(tableRef.current, rowMap => setRowMapLabel(rowMap));
+    const unbind = bindMutationObserver(tableRef?.current, rowMap => setRowMapLabel(rowMap));
     return () => unbind();
   }, []);
 
@@ -137,7 +135,7 @@ const Table: React.FC<ITableProps> = props => {
 
   return (
     <TableContext.Provider value={contextValue}>
-      <TableContainer className={classes.tableContainer}>
+      <TableContainer className={classes.tableContainer} style={{ maxHeight }}>
         <table id={id} ref={tableRef} className={clsx(classes.table, responsive && classes.tableResponsive, className)}>
           {children}
 
