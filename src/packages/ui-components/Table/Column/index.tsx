@@ -41,7 +41,7 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
   const loading = useContextSelector(TableContext, context => context.loading);
   const tableSize = useContextSelector(TableContext, context => context.size);
 
-  const classes = useStyles({ size: tableSize });
+  const classes = useStyles();
 
   const cellRef = React.useRef<HTMLTableHeaderCellElement>();
 
