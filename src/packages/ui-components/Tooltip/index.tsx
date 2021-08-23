@@ -26,9 +26,10 @@ export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
   placement?: ITooltipPlacement;
   disabled?: boolean;
   children: React.ReactNode;
+  className?: string;
 }
 
-const Tooltip: React.FC<ITooltipProps> = ({ placement = 'top', children, disabled = false, ...rest }) => {
+const Tooltip: React.FC<ITooltipProps> = ({ placement = 'top', children, disabled = false, className, ...rest }) => {
   return (
     <TooltipMUI
       {...rest}
@@ -38,17 +39,19 @@ const Tooltip: React.FC<ITooltipProps> = ({ placement = 'top', children, disable
       placement={placement}
       arrow
     >
-      <Content children={children} />
+      <Content children={children} className={className} />
     </TooltipMUI>
   );
 };
 
-const Content = React.forwardRef<HTMLDivElement, { children: React.ReactNode }>(({ children, ...rest }, ref) => {
-  return (
-    <div {...rest} ref={ref} style={{ display: 'inline-flex' }}>
-      {children}
-    </div>
-  );
-});
+const Content = React.forwardRef<HTMLDivElement, { children: React.ReactNode; className?: string }>(
+  ({ children, className, ...rest }, ref) => {
+    return (
+      <div className={className} {...rest} ref={ref} style={{ display: 'inline-flex' }}>
+        {children}
+      </div>
+    );
+  }
+);
 
 export default withHoustonTheme(React.memo(Tooltip));

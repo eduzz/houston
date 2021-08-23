@@ -69,7 +69,7 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
         action={renderActions}
         classes={{
           root: classes.root,
-          icon: multiline && classes.multilineIcon,
+          icon: clsx(multiline && classes.multilineIcon, !multiline && classes.icon),
           action: clsx(multiline && classes.multilineAction, !multiline && classes.action),
           message: classes.message
         }}

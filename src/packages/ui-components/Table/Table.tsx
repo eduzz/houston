@@ -1,18 +1,18 @@
 import * as React from 'react';
 
-import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
+import { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import clsx from 'clsx';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
+import withHoustonTheme from '@eduzz/houston-ui/styles/ThemeProvider/WrapperTheme';
 
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import MenuActions from './Action/Menu';
 import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';
 import { ITableSort } from './interface';
 import { bindMutationObserver } from './observer';
-import useStyles, { IStyleParams } from './styles';
+import useStyles from './styles';
 
 let columnsKeyIncrementer = 0,
   rowKeyIncremeter = 0;
@@ -20,7 +20,6 @@ let columnsKeyIncrementer = 0,
 export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'> {
   loading?: boolean;
   loadingText?: React.ReactNode;
-  stickyHeader?: boolean;
   sort?: ITableSort;
   /**
    * Function called when clicking on an ordered column
@@ -41,7 +40,6 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'class
 
 const Table: React.FC<ITableProps> = props => {
   const {
-    stickyHeader,
     size,
     id,
     children,
@@ -52,7 +50,6 @@ const Table: React.FC<ITableProps> = props => {
     stripedRows,
     columnActionTitle,
     className,
-    mobileWidth,
     loadingText
   } = props;
 
@@ -67,8 +64,7 @@ const Table: React.FC<ITableProps> = props => {
   const [columns, setColumns] = React.useState<string[]>(() => []);
   const [rows, setRows] = React.useState<ITableRow[]>([]);
 
-  const propsStyle = React.useMemo<IStyleParams>(() => ({ maxHeight, mobileWidth }), [maxHeight, mobileWidth]);
-  const classes = useStyles(propsStyle);
+  const classes = useStyles();
 
   const onShowAction = React.useCallback(
     (data: ITableActionShow) => {
@@ -92,8 +88,11 @@ const Table: React.FC<ITableProps> = props => {
     return () => setRows(rows => rows.filter(r => r.key !== key));
   }, []);
 
+  const hasCollapseInRows = React.useMemo(() => rows?.some(r => r.hasCollapse), [rows]);
+  const hasActionInRows = React.useMemo(() => rows?.some(r => r.hasActions), [rows]);
+
   React.useEffect(() => {
-    const unbind = bindMutationObserver(tableRef.current, rowMap => setRowMapLabel(rowMap));
+    const unbind = bindMutationObserver(tableRef?.current, rowMap => setRowMapLabel(rowMap));
     return () => unbind();
   }, []);
 
@@ -110,7 +109,10 @@ const Table: React.FC<ITableProps> = props => {
       rows,
       registerRow,
       stripedRows,
-      columnActionTitle
+      columnActionTitle,
+      size: size ?? 'medium',
+      hasCollapseInRows,
+      hasActionInRows
     }),
     [
       loading,
@@ -124,20 +126,17 @@ const Table: React.FC<ITableProps> = props => {
       rows,
       registerRow,
       stripedRows,
-      columnActionTitle
+      columnActionTitle,
+      size,
+      hasCollapseInRows,
+      hasActionInRows
     ]
   );
 
   return (
     <TableContext.Provider value={contextValue}>
-      <TableContainer className={classes.tableContainer}>
-        <TableMUI
-          stickyHeader={stickyHeader}
-          size={size}
-          id={id}
-          ref={tableRef}
-          className={clsx(classes.table, responsive && classes.tableResponsive, className)}
-        >
+      <TableContainer className={classes.tableContainer} style={{ maxHeight }}>
+        <table id={id} ref={tableRef} className={clsx(classes.table, responsive && classes.tableResponsive, className)}>
           {children}
 
           <MenuActions
@@ -148,7 +147,7 @@ const Table: React.FC<ITableProps> = props => {
             rowIndex={menuActionOptions?.rowIndex}
             onClose={closeMenuActions}
           />
-        </TableMUI>
+        </table>
       </TableContainer>
     </TableContext.Provider>
   );

@@ -6,6 +6,7 @@ submenu: Componentes
 ---
 
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { Hint } from '@nejcm/docz-theme-extended';
 import { Playground } from 'docz';
 
 import Tabs from './';
@@ -13,6 +14,10 @@ import Tabs from './';
 # Tabs
 
 As abas facilitam a exploração e alternam entre diferentes visualizações.
+
+<Hint type='warning' variant='outer'>
+  Para as Tabs funcionarem corretamente, insira uma div encapsulando o children dentro do Tab.Content.
+</Hint>
 
 ### Importação
 
@@ -26,8 +31,12 @@ Não há necessidade de controlar o estado da aba ativa.
 
 <Playground>
   <Tabs>
-    <Tabs.Content label='Título 1'>Conteúdo 1</Tabs.Content>
-    <Tabs.Content label='Título 2'>Conteúdo 2</Tabs.Content>
+    <Tabs.Content label='Título 1'>
+      <div>Conteúdo 1</div>
+    </Tabs.Content>
+    <Tabs.Content label='Título 2'>
+      <div>Conteúdo 2</div>
+    </Tabs.Content>
   </Tabs>
 </Playground>
 
@@ -38,8 +47,12 @@ Não há necessidade de controlar o estado da aba ativa.
     const [tab, setTab] = React.useState(0);
     return (
       <Tabs value={tab} onChange={value => setTab(value)}>
-        <Tabs.Content label='Título 1'>Conteúdo 1</Tabs.Content>
-        <Tabs.Content label='Título 2'>Conteúdo 2</Tabs.Content>
+        <Tabs.Content label='Título 1'>
+          <div>Conteúdo 1</div>
+        </Tabs.Content>
+        <Tabs.Content label='Título 2'>
+          <div>Conteúdo 2</div>
+        </Tabs.Content>
       </Tabs>
     );
   }}
@@ -49,9 +62,11 @@ Não há necessidade de controlar o estado da aba ativa.
 
 <Playground>
   <Tabs>
-    <Tabs.Content label='Título 1'>Conteúdo 1</Tabs.Content>
+    <Tabs.Content label='Título 1'>
+      <div>Conteúdo 1</div>
+    </Tabs.Content>
     <Tabs.Content label='Desabilitado 2' disabled>
-      Conteúdo 2
+      <div>Conteúdo 2</div>
     </Tabs.Content>
   </Tabs>
 </Playground>
@@ -61,24 +76,24 @@ Não há necessidade de controlar o estado da aba ativa.
 <Playground>
   <Tabs>
     <Tabs.Content label='Título 1' icon={<InsertEmoticonIcon />}>
-      Conteúdo 1
+      <div>Conteúdo 1</div>
     </Tabs.Content>
     <Tabs.Content label='Título 2' icon={<InsertEmoticonIcon />}>
-      Conteúdo 2
+      <div>Conteúdo 2</div>
     </Tabs.Content>
   </Tabs>
 </Playground>
 
 ### Propriedades
 
-### Tabs props
+#### Tabs props
 
 | prop     | type                      | required | default | description         |
 | -------- | ------------------------- | -------- | ------- | ------------------- |
 | value    | `number`                  | `false`  | -       | Índice da aba.      |
 | onChange | `(value: number) => void` | `false`  | -       | Recebe novo índice. |
 
-### Tabs.Content props
+#### Tabs.Content props
 
 | prop            | type        | required | default |
 | --------------- | ----------- | -------- | ------- |

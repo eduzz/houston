@@ -20,6 +20,12 @@ const useStyles = createUseStyles(theme => ({
     }
   },
 
+  icon: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
+  },
+
   action: {
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -51,7 +57,11 @@ const useStyles = createUseStyles(theme => ({
   },
 
   multilineIcon: {
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   },
 
   multilineAction: {

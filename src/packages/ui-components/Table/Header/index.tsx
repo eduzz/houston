@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import { useContextSelector } from 'use-context-selector';
 
 import TableColumn from '../Column';
@@ -18,16 +16,19 @@ const TableHeader = React.memo<ITableHeadProps>(({ children, disabledActionsColu
   const columnActionTitle = useContextSelector(TableContext, context => context.columnActionTitle);
 
   return (
-    <TableHead>
-      <TableRow>
+    <thead>
+      <tr>
         {children}
-        {(hasActions || hasCollapse) && !disabledActionsColumn && (
-          <TableColumn width={hasCollapse && hasActions ? 100 : 80} align='right'>
+
+        {hasActions && !disabledActionsColumn && (
+          <TableColumn width={30} align='right'>
             {columnActionTitle ?? 'Ações'}
           </TableColumn>
         )}
-      </TableRow>
-    </TableHead>
+
+        {hasCollapse && <TableColumn width={30} />}
+      </tr>
+    </thead>
   );
 });
 

@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
 
+import createUseStyles from '../../styles/createUseStyles';
 import { ITableAction } from '../interface';
 
-const useStyles = makeStyles(() => ({
+const useStyles = createUseStyles(() => ({
   option: {
     display: 'flex',
     alignItems: 'center',
@@ -59,6 +59,11 @@ const MenuActions = React.memo<IProps>(({ open, onClose, options: optionsProp, a
       anchorOrigin={menuOptions.anchorOrigin}
       transformOrigin={menuOptions.transformOrigin}
       elevation={3}
+      PaperProps={{
+        style: {
+          maxHeight: 350
+        }
+      }}
     >
       {options?.map(option => {
         return (

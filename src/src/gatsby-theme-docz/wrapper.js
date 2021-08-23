@@ -9,11 +9,11 @@ let fixedLayout = false;
 function fixLayout() {
   if(fixedLayout) return;
 
-  const isSSR = typeof window === "undefined" || !window.document;
-  if (isSSR) return;
-
   const isDev = window.location.href.includes('localhost');  
   if (isDev) return;
+
+  const isSSR = typeof window === "undefined" || !window.document;
+  if (isSSR) return;
   
   const aButton = window.document.querySelector('.sidebar a');
   if (!aButton) return;
