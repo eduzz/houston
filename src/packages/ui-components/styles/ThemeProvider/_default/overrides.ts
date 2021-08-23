@@ -542,7 +542,7 @@ export default function overrides(palette: Palette): ICustomOverrides {
 
     MuiTooltip: {
       tooltip: {
-        fontSize: themeVariable.textSize('xx-small'),
+        fontSize: themeVariable.textSize('x-small'),
         backgroundColor: palette.grey[600],
         letterSpacing: 0.5
       },
