@@ -22,7 +22,7 @@ type ITooltipPlacement =
 type ITooltipExtends = 'open' | 'onOpen' | 'onClose' | 'id';
 
 export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
-  title: string;
+  title: React.ReactNode;
   placement?: ITooltipPlacement;
   disabled?: boolean;
   children: React.ReactNode;
