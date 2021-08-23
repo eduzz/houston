@@ -24,7 +24,7 @@ const NavHeadings = () => {
   const ui = headings.map((heading, i) => {
     if (heading.depth > depth) return null;
     return (
-      <li key={i}>
+      <li key={i} className='nav-link'>
         <a href={`#${heading.slug}`} className={`${heading.depth > 2 ? 'inner' : ''}`}>
           {heading.value}
         </a>
