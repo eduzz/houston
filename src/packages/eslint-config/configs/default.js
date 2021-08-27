@@ -3,7 +3,12 @@ module.exports = {
     'import/internal-regex': '(^@eduzz|react|^@nestjs|^~)'
   },
   plugins: ['prettier', 'eslint-plugin-unused-imports', 'sonarjs'],
-  extends: ['plugin:prettier/recommended', 'plugin:import/recommended', 'plugin:import/typescript', "plugin:sonarjs/recommended"],
+  extends: [
+    'plugin:prettier/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:sonarjs/recommended'
+  ],
   parserOptions: {
     ecmaVersion: 10,
     sourceType: 'module',
@@ -42,7 +47,7 @@ module.exports = {
       'error',
       {
         alphabetize: { order: 'asc', caseInsensitive: true },
-        groups: ['builtin', ['external', 'internal'], ['parent', 'sibling', 'index'], 'type', 'object'],
+        groups: ['builtin', ['external', 'internal'], ['parent', 'sibling', 'index'], 'object'],
         'newlines-between': 'always',
         pathGroups: [
           { pattern: 'react', group: 'external', position: 'before' },
@@ -55,8 +60,8 @@ module.exports = {
   },
   overrides: [
     {
-      'files': '*.mdx',
-      'rules': {
+      files: '*.mdx',
+      rules: {
         'sonarjs/no-identical-functions': 'off'
       }
     }
