@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "@babel/core": "7.14",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@types/faker": "5.5.7",
     "@typescript-eslint/eslint-plugin": "4.28.3",
     "@typescript-eslint/parser": "4.28.3",
