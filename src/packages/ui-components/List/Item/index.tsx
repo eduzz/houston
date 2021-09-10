@@ -1,7 +1,17 @@
 import * as React from 'react';
 
+import ListItemMUI from '@material-ui/core/ListItem';
+
 export interface IListItemProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-export default (() => null) as React.FC<IListItemProps>;
+const ListItem: React.FC<IListItemProps> = ({ children }) => {
+  return (
+    <ListItemMUI>
+      <div>{children}</div>
+    </ListItemMUI>
+  );
+};
+
+export default React.memo(ListItem);

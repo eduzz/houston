@@ -26,8 +26,7 @@ import List from '@eduzz/houston-ui/List';
 <Playground>
   <List>
     <List.Item>
-      <List.Title>Lorem Ipsum Dolor</List.Title>
-      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
@@ -37,8 +36,7 @@ import List from '@eduzz/houston-ui/List';
       />
     </List.Item>
     <List.Item>
-      <List.Title>Lorem Ipsum Dolor</List.Title>
-      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
@@ -48,8 +46,7 @@ import List from '@eduzz/houston-ui/List';
       />
     </List.Item>
     <List.Item>
-      <List.Title>Lorem Ipsum Dolor</List.Title>
-      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
@@ -59,8 +56,7 @@ import List from '@eduzz/houston-ui/List';
       />
     </List.Item>
     <List.Item>
-      <List.Title>Lorem Ipsum Dolor</List.Title>
-      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
@@ -70,8 +66,7 @@ import List from '@eduzz/houston-ui/List';
       />
     </List.Item>
     <List.Item>
-      <List.Title>Lorem Ipsum Dolor</List.Title>
-      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
@@ -89,8 +84,7 @@ import List from '@eduzz/houston-ui/List';
   <List stripedRows>
     <List.Item>
       <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Title>Lorem Ipsum Dolor</List.Title>
-      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton size='small'>
@@ -101,7 +95,7 @@ import List from '@eduzz/houston-ui/List';
     </List.Item>
     <List.Item>
       <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Text title='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton size='small'>
@@ -112,13 +106,12 @@ import List from '@eduzz/houston-ui/List';
     </List.Item>
     <List.Item>
       <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Title>Lorem Ipsum Dolor</List.Title>
-      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
       <List.Right text='lorem ipsum' />
     </List.Item>
     <List.Item>
       <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Title>Lorem Ipsum Dolor</List.Title>
+      <List.Text title='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton size='small'>
@@ -129,8 +122,7 @@ import List from '@eduzz/houston-ui/List';
     </List.Item>
     <List.Item>
       <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Title>Lorem Ipsum Dolor</List.Title>
-      <List.Subtitle>lorem ipsum dolor sit amet</List.Subtitle>
+      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton size='small'>
@@ -163,17 +155,12 @@ import List from '@eduzz/houston-ui/List';
 | icon  | `React.ReactNode` | `false`     | -      | -                                                   |
 | image | `React.ReactNode` | `false`     | -      | Só será exibido se a prop `icon` não possuir valor. |
 
-### List.Title props
+### List.Text props
 
-| prop     | tipe              | obrigatório | padrão | descrição |
-| -------- | ----------------- | ----------- | ------ | --------- |
-| children | `React.ReactNode` | `true`      | -      | -         |
-
-### List.Subtitle props available
-
-| prop     | tipe              | obrigatório | padrão | descrição |
-| -------- | ----------------- | ----------- | ------ | --------- |
-| children | `React.ReactNode` | `true`      | -      | -         |
+| prop     | tipe                        | obrigatório | padrão | descrição |
+| -------- | --------------------------- | ----------- | ------ | --------- |
+| title    | `string or React.ReactNode` | `true`      | -      | -         |
+| subtitle | `string or React.ReactNode` | `fase`      | -      | -         |
 
 ### List.Right props
 
