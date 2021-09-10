@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import ListMUI, { ListProps as ListPropsMUI } from '@material-ui/core/List';
+import clsx from 'clsx';
 
 import nestedComponent from '../Helpers/nestedComponent';
 import createUseStyles from '../styles/createUseStyles';
@@ -16,7 +17,7 @@ export interface IListProps extends Pick<ListPropsMUI, ListProps> {
   stripedRows?: boolean;
 }
 
-const useStyles = createUseStyles(() => ({
+const useStyles = createUseStyles(theme => ({
   root: {
     '& > li': {
       padding: '12px 16px',
@@ -30,16 +31,22 @@ const useStyles = createUseStyles(() => ({
     '& > li > div > .list-item-text': {
       display: 'flex',
       flexDirection: 'column',
-      alignSelf: 'center'
+      alignSelf: 'center',
+      flex: 1
+    }
+  },
+  stripedRows: {
+    '& > li:nth-child(even)': {
+      backgroundColor: theme.colors.grey[100]
     }
   }
 }));
 
-const List: React.FC<IListProps> = ({ children, ...props }) => {
+const List: React.FC<IListProps> = ({ children, stripedRows, ...props }) => {
   const classes = useStyles();
 
   return (
-    <ListMUI component='ul' {...props} className={classes.root}>
+    <ListMUI component='ul' {...props} className={clsx([classes.root, stripedRows && classes.stripedRows])}>
       {children}
     </ListMUI>
   );
