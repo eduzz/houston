@@ -1,17 +1,15 @@
 import * as React from 'react';
 
 import ListMUI, { ListProps as ListPropsMUI } from '@material-ui/core/List';
+import clsx from 'clsx';
 
-import { getReactFirstChildrenProps, isReactComponent } from '../Helpers/functions';
 import nestedComponent from '../Helpers/nestedComponent';
+import createUseStyles from '../styles/createUseStyles';
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
-import { IListItem } from './interfaces';
-import Items from './internals/Items';
 import Item from './Item';
-import Left, { IListLeftProps } from './Left';
-import Right, { IListRightProps } from './Right';
-import Subtitle, { IListSubtitleProps } from './Subtitle';
-import Title, { IListTitleProps } from './Title';
+import Left from './Left';
+import Right from './Right';
+import Text from './Text';
 
 type ListProps = 'id' | 'className' | 'children';
 
@@ -19,25 +17,44 @@ export interface IListProps extends Pick<ListPropsMUI, ListProps> {
   stripedRows?: boolean;
 }
 
-const List: React.FC<IListProps> = ({ children, stripedRows = false, ...props }) => {
-  const items: IListItem[] = React.useMemo(() => {
-    return React.Children.map(children, (child: React.ReactElement) => {
-      if (!isReactComponent(child, Item)) return null;
+const useStyles = createUseStyles(theme => ({
+  root: {
+    '& > li': {
+      padding: '12px 16px',
+      borderRadius: 4
+    },
+    '& > li > div': {
+      display: 'flex',
+      alignItems: 'flex-start',
+      width: '100%'
+    },
+    '& > li > div > .list-item-text': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignSelf: 'center',
+      flex: 1
+    }
+  },
+  stripedRows: {
+    '& > li:nth-child(even)': {
+      backgroundColor: theme.colors.grey[100]
+    }
+  }
+}));
 
-      const left = getReactFirstChildrenProps<IListLeftProps>(child?.props?.children, Left);
-      const title = getReactFirstChildrenProps<IListTitleProps>(child.props?.children, Title);
-      const subtitle = getReactFirstChildrenProps<IListSubtitleProps>(child.props?.children, Subtitle);
-      const right = getReactFirstChildrenProps<IListRightProps>(child?.props?.children, Right);
-
-      return { left, title, subtitle, right };
-    }).filter(item => !!item);
-  }, [children]);
+const List: React.FC<IListProps> = ({ children, stripedRows, ...props }) => {
+  const classes = useStyles();
 
   return (
-    <ListMUI component='ul' {...props}>
-      <Items items={items} stripedRows={stripedRows} />
+    <ListMUI component='ul' {...props} className={clsx([classes.root, stripedRows && classes.stripedRows])}>
+      {children}
     </ListMUI>
   );
 };
 
-export default nestedComponent(withHoustonTheme(React.memo(List)), { Item, Title, Subtitle, Left, Right });
+export default nestedComponent(withHoustonTheme(React.memo(List)), {
+  Item,
+  Text,
+  Left,
+  Right
+});

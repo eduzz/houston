@@ -1,8 +1,9 @@
 import Item from './Item';
+import Left from './Left';
 import List from './List';
-import Subtitle from './Subtitle';
-import Title from './Title';
+import Right from './Right';
+import Text from './Text';
 
-export { Item, Title, Subtitle };
+export { Item, Text, Left, Right };
 
 export default List;
