@@ -45,11 +45,12 @@ export default function useForm<Values = Record<string, never>>({
   const handlers = useRef<{ [key: string]: (value: any) => void }>({}).current;
 
   const submitData = useRef(new Subject<{ model: Partial<Values>; formikHelpers: FormikHelpers<Values> }>()).current;
+  const onSubmitRef = useRef<typeof onSubmit>(onSubmit);
 
   useObservable(() => {
     return submitData.pipe(
       switchMap(({ model, formikHelpers }) => {
-        const result$ = onSubmit && onSubmit(model as Values, formikHelpers);
+        const result$ = onSubmitRef?.current?.(model as Values, formikHelpers);
 
         const result = of(true).pipe(
           switchMap(() => (!result$ ? of(null) : result$)),
@@ -70,6 +71,7 @@ export default function useForm<Values = Record<string, never>>({
     initialValues: initialValues ?? {},
     validationSchema: validationSchema ? () => validationSchema(yup) : null,
     onSubmit: (model, formikHelpers) => {
+      onSubmitRef.current = onSubmit;
       submitData.next({ model, formikHelpers });
       return new Promise(resolve => setTimeout(() => resolve(promiseRef.promise), 500));
     }

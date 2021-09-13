@@ -24,7 +24,7 @@ setLocale({
     lessThan: 'Deve ser menor que ${less}',
     moreThan: 'Deve ser maior que ${more}',
     // notEqual: 'Não pode ser igual à ${notEqual}',
-    positive: 'Deve ser um número posítivo',
+    positive: 'Deve ser um número positivo',
     negative: 'Deve ser um número negativo',
     integer: 'Deve ser um número inteiro'
   },

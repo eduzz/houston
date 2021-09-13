@@ -18,7 +18,7 @@ export interface ITypographyProps {
   fontWeight?: FontWeight;
   marginBottom?: boolean;
   children?: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   variant?: ITypographyVariant;
   component?: ITypographyComponent;
 }
@@ -42,8 +42,8 @@ const Typography: React.FC<ITypographyProps> = props => {
   const classes = useStyles(props);
 
   const typographyProps = React.useMemo(
-    () => ({ id: props?.id, children: props?.children }),
-    [props?.children, props?.id]
+    () => ({ id: props?.id, children: props?.children, onClick: props?.onClick }),
+    [props?.children, props?.id, props?.onClick]
   );
 
   const variantClasses = React.useMemo(
