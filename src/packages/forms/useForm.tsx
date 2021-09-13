@@ -109,14 +109,23 @@ export default function useForm<Values = Record<string, never>>({
     [formik]
   );
 
+  const setErrors = useCallback(
+    (errors: FormikErrors<Partial<Values>>) => {
+      formik.setErrors(errors);
+    },
+    [formik]
+  );
+
   return {
     handleSubmit,
     handleChange,
     handleReset: () => formik.resetForm({ values: initialValues }),
     setValues: formik.setValues,
+    setErrors: setErrors,
     getFieldValue: getFieldValue,
     setFieldValue: setFieldValue,
     getFieldError: getFieldError,
+    setFieldTouched: formik.setFieldTouched,
     reset: values => formik.resetForm({ values: values === undefined ? initialValues : values }),
     initialValues: formik.initialValues,
     values: formik.values,
