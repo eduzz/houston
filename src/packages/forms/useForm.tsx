@@ -87,7 +87,7 @@ export default function useForm<Values = Record<string, never>>({
     if (!handlers[field]) {
       handlers[field] = (value: any) => {
         formik.setFieldTouched(field, true, false);
-        formik.setFieldValue(field, value, true);
+        formik.setFieldValue(field, value, false);
       };
     }
 
@@ -105,16 +105,14 @@ export default function useForm<Values = Record<string, never>>({
   }, []);
 
   const getFieldError = useCallback(
-    (name: string) => (formik.touched[name] || formik.submitCount > 0 ? formik.getFieldMeta(name).error : ''),
-    [formik]
-  );
-
-  const setErrors = useCallback(
-    (errors: FormikErrors<Partial<Values>>) => {
-      formik.setErrors(errors);
+    (name: string) => {
+      const field = formik.getFieldMeta(name);
+      return field.touched || (formik.submitCount > 0 && !field.value) ? field.error : '';
     },
     [formik]
   );
+
+  const setErrors = useCallback((errors: FormikErrors<Partial<Values>>) => formik.setErrors(errors), [formik]);
 
   return {
     handleSubmit,
