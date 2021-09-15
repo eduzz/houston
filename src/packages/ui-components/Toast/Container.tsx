@@ -3,14 +3,13 @@ import * as React from 'react';
 import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } from 'react-toastify';
 
 import themeVariable from '../styles/ThemeProvider/_default/variables';
-import toastStyles from './styles';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const ToastContainer: React.FC<ToastContainerProps> = props => {
   const styleContent = React.useMemo(
     () => ({
       __html: `
-        ${toastStyles}
-
         .Toastify__toast {
           border-radius: 4px;
           margin-bottom: 16px;
@@ -40,15 +39,15 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
         {...props}
         transition={Slide}
         position='top-right'
-        autoClose={false}
-        hideProgressBar
+        autoClose={4000}
+        hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
         draggable={false}
+        pauseOnFocusLoss
         pauseOnHover
-        limit={2}
+        limit={4}
       />
     </>
   );
