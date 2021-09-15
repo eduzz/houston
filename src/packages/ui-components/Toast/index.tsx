@@ -13,15 +13,8 @@ export function _setCurrentTheme(theme: Theme) {
 }
 
 class Toast {
-  private static defaultOptions: ToastOptions = {
-    position: 'top-right',
-    autoClose: 3000,
-    hideProgressBar: false
-  };
-
   static success(content: React.ReactNode, options?: IToastOptions): void {
     toast.success(content, {
-      ...this.defaultOptions,
       ...options,
       style: { ...(currentTheme ? { background: currentTheme.palette.success.main } : {}) }
     });
@@ -29,7 +22,6 @@ class Toast {
 
   static error(content: React.ReactNode, options?: IToastOptions): void {
     toast.error(content, {
-      ...this.defaultOptions,
       ...options,
       style: { ...(currentTheme ? { background: currentTheme.palette.error.main } : {}) }
     });
@@ -37,9 +29,8 @@ class Toast {
 
   static info(content: React.ReactNode, options?: IToastOptions): void {
     toast.info(content, {
-      ...this.defaultOptions,
       ...options,
-      style: { ...(currentTheme ? { background: currentTheme.palette.grey[500] } : {}) }
+      style: { ...(currentTheme ? { background: currentTheme.palette.info.main } : {}) }
     });
   }
 }
