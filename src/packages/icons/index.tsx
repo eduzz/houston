@@ -1,344 +1,170 @@
-/* eslint-disable max-lines */
-import Add from './Add';
-import AlertOutline from './AlertOutline';
-import AlertSolid from './AlertSolid';
-import Anticipation from './Anticipation';
-import Apps from './Apps';
-import ArrowDown from './ArrowDown';
-import ArrowLeft from './ArrowLeft';
-import ArrowRight from './ArrowRight';
-import ArrowUp from './ArrowUp';
-import AvatarOutline from './AvatarOutline';
-import AvatarSolid from './AvatarSolid';
-import Banksplip from './Bankslip';
-import BetaTester from './BetaTester';
-import BoxOutline from './BoxOutline';
-import BoxSolid from './BoxSolid';
-import Bullet from './Bullet';
-import CadsSolid from './CadsSolid';
-import Calendar from './Calendar';
-import CameraFrontOutline from './CameraFrontOutline';
-import CameraFrontSolid from './CameraFrontSolid';
-import CameraOutline from './CameraOutline';
-import CameraSolid from './CameraSolid';
-import Cancel from './Cancel';
-import CardOutline from './CardOutline';
-import CardsOutline from './CardsOutline';
-import CartOutline from './CartOutline';
-import ChevronDown from './ChevronDown';
-import ChevronLeft from './ChevronLeft';
-import ChevronRight from './ChevronRight';
-import ChevronUp from './ChevronUp';
-import CopyOutline from './CopyOutline';
-import CopySolid from './CopySolid';
-import CrossSell from './CrossSell';
-import CursorOutline from './CursorOutline';
-import CursorSolid from './CursorSolid';
-import DashboardBar from './DashboardBar';
-import DashboardRoundOutline from './DashboardRoundOutline';
-import DashboardRoundSolid from './DashboardRoundSolid';
-import Desktop from './Desktop';
-import DeslikeOutline from './DeslikeOutline';
-import DeslikeSolid from './DeslikeSolid';
-import Done from './Done';
-import DotsHorizontal from './DotsHorizontal';
-import DotsVertical from './DotsVertical';
-import Download from './Download';
-import DragAndDrop from './DragAndDrop';
-import EditOutline from './EditOutline';
-import EditSolid from './EditSolid';
-import EmailOutline from './EmailOutline';
-import EmailSolid from './EmailSolid';
-import Enter from './Enter';
-import Eraser from './Eraser';
-import Exit from './Exit';
-import Expand from './Expand';
-import ExternalLink from './ExternalLink';
-import EyeDropper from './EyeDropper';
-import EyeOffOutline from './EyeOffOutline';
-import EyeOffSolid from './EyeOffSolid';
-import EyeOnOutline from './EyeOnOutline';
-import EyeOnSolid from './EyeOnSolid';
-import FacebookOutline from './FacebookOutline';
-import FacebookSolid from './FacebookSolid';
-import FaceHappyOutline from './FaceHappyOutline';
-import FaceHappySolid from './FaceHappySolid';
-import FaceSadOutline from './FaceSadOutline';
-import FaceSadSolid from './FaceSadSolid';
-import FileOutline from './FileOutline';
-import FileSolid from './FileSolid';
-import FilterOutline from './FilterOutline';
-import FilterSolid from './FilterSolid';
-import FolderOutline from './FolderOutline';
-import FolderSolid from './FolderSolid';
-import FolderZipOutline from './FolderZipOutline';
-import FolderZipSolid from './FolderZipSolid';
-import Gift from './Gift';
-import GroupOutline from './GroupOutline';
-import GroupSolid from './GroupSolid';
-import HeartOutline from './HeartOutline';
-import HeartSolid from './HeartSolid';
-import HelpCenter from './HelpCenter';
-import HelpChatOutline from './HelpChatOutline';
-import HelpChatSolid from './HelpChatSolid';
-import HelpOutline from './HelpOutline';
-import HelpSolid from './HelpSolid';
-import HomeOutline from './HomeOutline';
-import HomeSolid from './HomeSolid';
-import Image from './Image';
-import InfoChatOutline from './InfoChatOutline';
-import InfoChatSolid from './InfoChatSolid';
-import InfoOutline from './InfoOutline';
-import InfoSolid from './InfoSolid';
-import InstagramOutline from './InstagramOutline';
-import InstagramSolid from './InstagramSolid';
-import LampOutline from './LampOutline';
-import LampSolid from './LampSolid';
-import LikeOutline from './LikeOutline';
-import LikeSolid from './LikeSolid';
-import List from './List';
-import Live from './Live';
-import LockedOpenOutline from './LockedOpenOutline';
-import LockedOpenSolid from './LockedOpenSolid';
-import LockedOutline from './LockedOutline';
-import LockedSolid from './LockedSolid';
-import MagnifyingGlassMinusOutline from './MagnifyingGlassMinusOutline';
-import MagnifyingGlassMinusSolid from './MagnifyingGlassMinusSolid';
-import MagnifyingGlassPlusOutline from './MagnifyingGlassPlusOutline';
-import MagnifyingGlassPlusSolid from './MagnifyingGlassPlusSolid';
-import MenuLeft from './MenuLeft';
-import MenuRight from './MenuRight';
-import MessageOutline from './MessageOutline';
-import MessageRoundOutline from './MessageRoundOutline';
-import MessageRoundSolid from './MessageRoundSolid';
-import MicrophoneOutline from './MicrophoneOutline';
-import MicrophoneSolid from './MicrophoneSolid';
-import Mobile from './Mobile';
-import Money from './Money';
-import NotificationOffOutline from './NotificationOffOutline';
-import NotificationOffSolid from './NotificationOffSolid';
-import NotificationOutline from './NotificationOutline';
-import NotificationSolid from './NotificationSolid';
-import Online from './Online';
-import PaperAirplaneOutline from './PaperAirplaneOutline';
-import PaperAirplaneSolid from './PaperAirplaneSolid';
-import Parameters from './Parameters';
-import Paypal from './Paypal';
-import PaypalOutline from './PaypalOutline';
-import PaypalSolid from './PaypalSolid';
-import PinOutline from './PinOutline';
-import PinSolid from './PinSolid';
-import Pix from './Pix';
-import PrintOutline from './PrintOutline';
-import PrintSolid from './PrintSolid';
-import QRCode from './QRCode';
-import QuickSaleOutline from './QuickSaleOutline';
-import QuickSaleSolid from './QuickSaleSolid';
-import Reply from './Reply';
-import ResizeTextarea from './ResizeTextarea';
-import SaveOutline from './SaveOutline';
-import SaveSolid from './SaveSolid';
-import SearchOutline from './SearchOutline';
-import SearchSolid from './SearchSolid';
-import SettingsOutline from './SettingsOutline';
-import SettingsSolid from './SettingsSolid';
-import Share from './Share';
-import TagOutline from './TagOutline';
-import TagSolid from './TagSolid';
-import Telegram from './Telegram';
-import TelegramOutline from './TelegramOutline';
-import TelegramSolid from './TelegramSolid';
-import TicketOutline from './TicketOutline';
-import TicketSolid from './TicketSolid';
-import TimerOutline from './TimerOutline';
-import TimerSolid from './TimerSolid';
-import Transfer from './Transfer';
-import TrashOutline from './TrashOutline';
-import TrashSolid from './TrashSolid';
-import Update from './Update';
-import Upload from './Upload';
-import Upsell from './Upsell';
-import VideoOutline from './VideoOutline';
-import VideoSolid from './VideoSolid';
-import VolumeOffOutline from './VolumeOffOutline';
-import VolumeOffSolid from './VolumeOffSolid';
-import VolumeOnOutline from './VolumeOnOutline';
-import VolumeOnSolid from './VolumeOnSolid';
-import WayOutline from './WayOutline';
-import WaySolid from './WaySolid';
-import WhatsApp from './WhatsApp';
-import WhatsAppOutline from './WhatsAppOutline';
-import WhatsAppSolid from './WhatsAppSolid';
-
-export {
-  Add,
-  AlertOutline,
-  AlertSolid,
-  Anticipation,
-  Apps,
-  ArrowDown,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUp,
-  AvatarOutline,
-  AvatarSolid,
-  Banksplip,
-  BetaTester,
-  BoxOutline,
-  BoxSolid,
-  Bullet,
-  CadsSolid,
-  Calendar,
-  CameraFrontOutline,
-  CameraFrontSolid,
-  CameraOutline,
-  CameraSolid,
-  Cancel,
-  CardOutline,
-  CardsOutline,
-  CartOutline,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  ChevronUp,
-  CopyOutline,
-  CopySolid,
-  CrossSell,
-  CursorOutline,
-  CursorSolid,
-  DashboardBar,
-  DashboardRoundOutline,
-  DashboardRoundSolid,
-  Desktop,
-  DeslikeOutline,
-  DeslikeSolid,
-  Done,
-  DotsHorizontal,
-  DotsVertical,
-  Download,
-  DragAndDrop,
-  EditOutline,
-  EditSolid,
-  EmailOutline,
-  EmailSolid,
-  Enter,
-  Eraser,
-  Exit,
-  Expand,
-  ExternalLink,
-  EyeDropper,
-  EyeOffOutline,
-  EyeOffSolid,
-  EyeOnOutline,
-  EyeOnSolid,
-  FacebookOutline,
-  FacebookSolid,
-  FaceHappyOutline,
-  FaceHappySolid,
-  FaceSadOutline,
-  FaceSadSolid,
-  FileOutline,
-  FileSolid,
-  FilterSolid,
-  FilterOutline,
-  FolderOutline,
-  FolderSolid,
-  FolderZipOutline,
-  FolderZipSolid,
-  Gift,
-  GroupOutline,
-  GroupSolid,
-  HeartOutline,
-  HeartSolid,
-  HelpCenter,
-  HelpChatOutline,
-  HelpChatSolid,
-  HelpOutline,
-  HelpSolid,
-  HomeOutline,
-  HomeSolid,
-  Image,
-  InfoChatOutline,
-  InfoChatSolid,
-  InfoOutline,
-  InfoSolid,
-  InstagramOutline,
-  InstagramSolid,
-  LampOutline,
-  LampSolid,
-  LikeOutline,
-  LikeSolid,
-  List,
-  Live,
-  LockedOpenOutline,
-  LockedOpenSolid,
-  LockedOutline,
-  LockedSolid,
-  MagnifyingGlassMinusOutline,
-  MagnifyingGlassMinusSolid,
-  MagnifyingGlassPlusOutline,
-  MagnifyingGlassPlusSolid,
-  MenuLeft,
-  MenuRight,
-  MessageOutline,
-  MessageRoundOutline,
-  MessageRoundSolid,
-  MicrophoneOutline,
-  MicrophoneSolid,
-  Mobile,
-  Money,
-  NotificationOffOutline,
-  NotificationOffSolid,
-  NotificationOutline,
-  NotificationSolid,
-  Online,
-  PaperAirplaneOutline,
-  PaperAirplaneSolid,
-  Parameters,
-  Paypal,
-  PaypalOutline,
-  PaypalSolid,
-  PinOutline,
-  PinSolid,
-  Pix,
-  PrintOutline,
-  PrintSolid,
-  QRCode,
-  QuickSaleOutline,
-  QuickSaleSolid,
-  Reply,
-  ResizeTextarea,
-  SaveOutline,
-  SaveSolid,
-  SearchOutline,
-  SearchSolid,
-  SettingsOutline,
-  SettingsSolid,
-  Share,
-  TagOutline,
-  TagSolid,
-  Telegram,
-  TelegramOutline,
-  TelegramSolid,
-  TicketOutline,
-  TicketSolid,
-  TimerOutline,
-  TimerSolid,
-  Transfer,
-  TrashOutline,
-  TrashSolid,
-  Update,
-  Upload,
-  Upsell,
-  VideoOutline,
-  VideoSolid,
-  VolumeOffOutline,
-  VolumeOffSolid,
-  VolumeOnOutline,
-  VolumeOnSolid,
-  WayOutline,
-  WaySolid,
-  WhatsApp,
-  WhatsAppOutline,
-  WhatsAppSolid
-};
+export { default as Add } from './Add';
+export { default as AlertOutline } from './AlertOutline';
+export { default as AlertSolid } from './AlertSolid';
+export { default as Anticipation } from './Anticipation';
+export { default as Apps } from './Apps';
+export { default as ArrowDown } from './ArrowDown';
+export { default as ArrowLeft } from './ArrowLeft';
+export { default as ArrowRight } from './ArrowRight';
+export { default as ArrowUp } from './ArrowUp';
+export { default as AvatarOutline } from './AvatarOutline';
+export { default as AvatarSolid } from './AvatarSolid';
+export { default as Banksplip } from './Bankslip';
+export { default as BetaTester } from './BetaTester';
+export { default as BoxOutline } from './BoxOutline';
+export { default as BoxSolid } from './BoxSolid';
+export { default as Bullet } from './Bullet';
+export { default as CadsSolid } from './CadsSolid';
+export { default as Calendar } from './Calendar';
+export { default as CameraFrontOutline } from './CameraFrontOutline';
+export { default as CameraFrontSolid } from './CameraFrontSolid';
+export { default as CameraOutline } from './CameraOutline';
+export { default as CameraSolid } from './CameraSolid';
+export { default as Cancel } from './Cancel';
+export { default as CardOutline } from './CardOutline';
+export { default as CardsOutline } from './CardsOutline';
+export { default as CartOutline } from './CartOutline';
+export { default as ChevronDown } from './ChevronDown';
+export { default as ChevronLeft } from './ChevronLeft';
+export { default as ChevronRight } from './ChevronRight';
+export { default as ChevronUp } from './ChevronUp';
+export { default as CopyOutline } from './CopyOutline';
+export { default as CopySolid } from './CopySolid';
+export { default as CrossSell } from './CrossSell';
+export { default as CursorOutline } from './CursorOutline';
+export { default as CursorSolid } from './CursorSolid';
+export { default as DashboardBar } from './DashboardBar';
+export { default as DashboardRoundOutline } from './DashboardRoundOutline';
+export { default as DashboardRoundSolid } from './DashboardRoundSolid';
+export { default as Desktop } from './Desktop';
+export { default as DeslikeOutline } from './DeslikeOutline';
+export { default as DeslikeSolid } from './DeslikeSolid';
+export { default as Done } from './Done';
+export { default as DotsHorizontal } from './DotsHorizontal';
+export { default as DotsVertical } from './DotsVertical';
+export { default as Download } from './Download';
+export { default as DragAndDrop } from './DragAndDrop';
+export { default as EditOutline } from './EditOutline';
+export { default as EditSolid } from './EditSolid';
+export { default as EmailOutline } from './EmailOutline';
+export { default as EmailSolid } from './EmailSolid';
+export { default as Enter } from './Enter';
+export { default as Eraser } from './Eraser';
+export { default as Exit } from './Exit';
+export { default as Expand } from './Expand';
+export { default as ExternalLink } from './ExternalLink';
+export { default as EyeDropper } from './EyeDropper';
+export { default as EyeOffOutline } from './EyeOffOutline';
+export { default as EyeOffSolid } from './EyeOffSolid';
+export { default as EyeOnOutline } from './EyeOnOutline';
+export { default as EyeOnSolid } from './EyeOnSolid';
+export { default as FacebookOutline } from './FacebookOutline';
+export { default as FacebookSolid } from './FacebookSolid';
+export { default as FaceHappyOutline } from './FaceHappyOutline';
+export { default as FaceHappySolid } from './FaceHappySolid';
+export { default as FaceSadOutline } from './FaceSadOutline';
+export { default as FaceSadSolid } from './FaceSadSolid';
+export { default as FileOutline } from './FileOutline';
+export { default as FileSolid } from './FileSolid';
+export { default as FilterOutline } from './FilterOutline';
+export { default as FilterSolid } from './FilterSolid';
+export { default as FolderOutline } from './FolderOutline';
+export { default as FolderSolid } from './FolderSolid';
+export { default as FolderZipOutline } from './FolderZipOutline';
+export { default as FolderZipSolid } from './FolderZipSolid';
+export { default as Gift } from './Gift';
+export { default as GroupOutline } from './GroupOutline';
+export { default as GroupSolid } from './GroupSolid';
+export { default as HeartOutline } from './HeartOutline';
+export { default as HeartSolid } from './HeartSolid';
+export { default as HelpCenter } from './HelpCenter';
+export { default as HelpChatOutline } from './HelpChatOutline';
+export { default as HelpChatSolid } from './HelpChatSolid';
+export { default as HelpOutline } from './HelpOutline';
+export { default as HelpSolid } from './HelpSolid';
+export { default as HomeOutline } from './HomeOutline';
+export { default as HomeSolid } from './HomeSolid';
+export { default as Image } from './Image';
+export { default as InfoChatOutline } from './InfoChatOutline';
+export { default as InfoChatSolid } from './InfoChatSolid';
+export { default as InfoOutline } from './InfoOutline';
+export { default as InfoSolid } from './InfoSolid';
+export { default as InstagramOutline } from './InstagramOutline';
+export { default as InstagramSolid } from './InstagramSolid';
+export { default as LampOutline } from './LampOutline';
+export { default as LampSolid } from './LampSolid';
+export { default as LikeOutline } from './LikeOutline';
+export { default as LikeSolid } from './LikeSolid';
+export { default as List } from './List';
+export { default as Live } from './Live';
+export { default as LockedOpenOutline } from './LockedOpenOutline';
+export { default as LockedOpenSolid } from './LockedOpenSolid';
+export { default as LockedOutline } from './LockedOutline';
+export { default as LockedSolid } from './LockedSolid';
+export { default as MagnifyingGlassMinusOutline } from './MagnifyingGlassMinusOutline';
+export { default as MagnifyingGlassMinusSolid } from './MagnifyingGlassMinusSolid';
+export { default as MagnifyingGlassPlusOutline } from './MagnifyingGlassPlusOutline';
+export { default as MagnifyingGlassPlusSolid } from './MagnifyingGlassPlusSolid';
+export { default as MenuLeft } from './MenuLeft';
+export { default as MenuRight } from './MenuRight';
+export { default as MessageOutline } from './MessageOutline';
+export { default as MessageRoundOutline } from './MessageRoundOutline';
+export { default as MessageRoundSolid } from './MessageRoundSolid';
+export { default as MicrophoneOutline } from './MicrophoneOutline';
+export { default as MicrophoneSolid } from './MicrophoneSolid';
+export { default as Mobile } from './Mobile';
+export { default as Money } from './Money';
+export { default as NotificationOffOutline } from './NotificationOffOutline';
+export { default as NotificationOffSolid } from './NotificationOffSolid';
+export { default as NotificationOutline } from './NotificationOutline';
+export { default as NotificationSolid } from './NotificationSolid';
+export { default as Online } from './Online';
+export { default as PaperAirplaneOutline } from './PaperAirplaneOutline';
+export { default as PaperAirplaneSolid } from './PaperAirplaneSolid';
+export { default as Parameters } from './Parameters';
+export { default as Paypal } from './Paypal';
+export { default as PaypalOutline } from './PaypalOutline';
+export { default as PaypalSolid } from './PaypalSolid';
+export { default as PinOutline } from './PinOutline';
+export { default as PinSolid } from './PinSolid';
+export { default as Pix } from './Pix';
+export { default as PrintOutline } from './PrintOutline';
+export { default as PrintSolid } from './PrintSolid';
+export { default as QRCode } from './QRCode';
+export { default as QuickSaleOutline } from './QuickSaleOutline';
+export { default as QuickSaleSolid } from './QuickSaleSolid';
+export { default as Reply } from './Reply';
+export { default as ResizeTextarea } from './ResizeTextarea';
+export { default as SaveOutline } from './SaveOutline';
+export { default as SaveSolid } from './SaveSolid';
+export { default as SearchOutline } from './SearchOutline';
+export { default as SearchSolid } from './SearchSolid';
+export { default as SettingsOutline } from './SettingsOutline';
+export { default as SettingsSolid } from './SettingsSolid';
+export { default as Share } from './Share';
+export { default as TagOutline } from './TagOutline';
+export { default as TagSolid } from './TagSolid';
+export { default as Telegram } from './Telegram';
+export { default as TelegramOutline } from './TelegramOutline';
+export { default as TelegramSolid } from './TelegramSolid';
+export { default as TicketOutline } from './TicketOutline';
+export { default as TicketSolid } from './TicketSolid';
+export { default as TimerOutline } from './TimerOutline';
+export { default as TimerSolid } from './TimerSolid';
+export { default as Transfer } from './Transfer';
+export { default as TrashOutline } from './TrashOutline';
+export { default as TrashSolid } from './TrashSolid';
+export { default as Update } from './Update';
+export { default as Upload } from './Upload';
+export { default as Upsell } from './Upsell';
+export { default as VideoOutline } from './VideoOutline';
+export { default as VideoSolid } from './VideoSolid';
+export { default as VolumeOffOutline } from './VolumeOffOutline';
+export { default as VolumeOffSolid } from './VolumeOffSolid';
+export { default as VolumeOnOutline } from './VolumeOnOutline';
+export { default as VolumeOnSolid } from './VolumeOnSolid';
+export { default as WayOutline } from './WayOutline';
+export { default as WaySolid } from './WaySolid';
+export { default as WhatsApp } from './WhatsApp';
+export { default as WhatsAppOutline } from './WhatsAppOutline';
+export { default as WhatsAppSolid } from './WhatsAppSolid';
