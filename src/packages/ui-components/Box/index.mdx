@@ -48,13 +48,30 @@ Padding `20px`.
   </div>
 </Playground>
 
+### Com sombra
+
+Propriedade `boxShadow`.
+
+<Playground>
+  <div className='bg-grey'>
+    <Box xs={{ padding: 20 }} boxShadow={2} paper>
+      <div style={{ textAlign: 'center' }}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi iusto consequuntur molestias, eligendi
+        perspiciatis commodi error vero tempora voluptatum accusamus similique molestiae iste reiciendis animi, nisi
+        mollitia debitis repudiandae soluta.
+      </div>
+    </Box>
+  </div>
+</Playground>
+
 ### Propriedades
 
-| prop  | tipo            | obrigatório | padrão  | descrição                                                                                                       |
-| ----- | --------------- | ----------- | ------- | --------------------------------------------------------------------------------------------------------------- |
-| xs    | `IBoxSpacement` | `false`     | -       | Se for definido valor apenas para a propriedade `xs` todos os outros pontos de quebra vão ter os mesmos valores |
-| sm    | `IBoxSpacement` | `false`     | -       | -                                                                                                               |
-| md    | `IBoxSpacement` | `false`     | -       | -                                                                                                               |
-| lg    | `IBoxSpacement` | `false`     | -       | -                                                                                                               |
-| xl    | `IBoxSpacement` | `false`     | -       | -                                                                                                               |
-| paper | `boolean`       | `false`     | `false` | -                                                                                                               |
+| prop      | tipo            | obrigatório | padrão  | descrição                                                                                                       |
+| --------- | --------------- | ----------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| xs        | `IBoxSpacement` | `false`     | -       | Se for definido valor apenas para a propriedade `xs` todos os outros pontos de quebra vão ter os mesmos valores |
+| sm        | `IBoxSpacement` | `false`     | -       | -                                                                                                               |
+| md        | `IBoxSpacement` | `false`     | -       | -                                                                                                               |
+| lg        | `IBoxSpacement` | `false`     | -       | -                                                                                                               |
+| xl        | `IBoxSpacement` | `false`     | -       | -                                                                                                               |
+| paper     | `boolean`       | `false`     | `false` | -                                                                                                               |
+| boxShadow | `number`        | `false`     | -       | Aceita valores de 0 a 24                                                                                        |

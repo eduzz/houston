@@ -6,6 +6,9 @@ menu: eduzz/houston-icons
 
 import { Playground } from 'docz';
 
+import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
+import Toast from '@eduzz/houston-ui/Toast';
+
 import TextField from '../ui-components/Forms/Text';
 import Tooltip from '../ui-components/Tooltip';
 import Typography from '../ui-components/Typography';
@@ -41,28 +44,45 @@ Coleção de ícones do Houston.
       },
       [initialIcons]
     );
+    const handleIconClick = React.useCallback(iconName => {
+      const textArea = document.createElement('textarea');
+      const textToCopy = `import ${iconName} from '@eduzz/houston-icons/${iconName}';`;
+      textArea.innerText = textToCopy;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      textArea.remove();
+      Toast.success(`Copiado '${iconName}' para o clipboard.`);
+    }, []);
     const icons = search ? currentIcons : initialIcons;
     return (
-      <div className='list-icons'>
-        <TextField
-          value={search}
-          onChange={handleChangeSearch}
-          placeholder='Busque por ícones'
-          endAdornment={<Icon.SearchOutline />}
-        />
-        {icons.length > 0 &&
-          icons
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((icon, index) => (
-              <div key={`icon-${index}`} className='icon-preview'>
-                {icon.icon}
-                <Tooltip title={icon.name} placement='bottom'>
-                  <div className='name'>{icon.name}</div>
-                </Tooltip>
-              </div>
-            ))}
-        {icons.length === 0 && <Typography>Nenhum ícone encontrado...</Typography>}
-      </div>
+      <ThemeProvider palette={{}}>
+        <div className='list-icons'>
+          <TextField
+            value={search}
+            onChange={handleChangeSearch}
+            placeholder='Busque por ícones'
+            endAdornment={<Icon.SearchOutline />}
+          />
+          {icons.length > 0 &&
+            icons
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((icon, index) => (
+                <div
+                  key={`icon-${index}`}
+                  className='icon-preview'
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleIconClick(icon.name)}
+                >
+                  {icon.icon}
+                  <Tooltip title={icon.name} placement='bottom'>
+                    <div className='name'>{icon.name}</div>
+                  </Tooltip>
+                </div>
+              ))}
+          {icons.length === 0 && <Typography>Nenhum ícone encontrado...</Typography>}
+        </div>
+      </ThemeProvider>
     );
   }}
 </Playground>

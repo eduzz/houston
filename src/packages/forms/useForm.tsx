@@ -45,11 +45,12 @@ export default function useForm<Values = Record<string, never>>({
   const handlers = useRef<{ [key: string]: (value: any) => void }>({}).current;
 
   const submitData = useRef(new Subject<{ model: Partial<Values>; formikHelpers: FormikHelpers<Values> }>()).current;
+  const onSubmitRef = useRef<typeof onSubmit>(onSubmit);
 
   useObservable(() => {
     return submitData.pipe(
       switchMap(({ model, formikHelpers }) => {
-        const result$ = onSubmit && onSubmit(model as Values, formikHelpers);
+        const result$ = onSubmitRef?.current?.(model as Values, formikHelpers);
 
         const result = of(true).pipe(
           switchMap(() => (!result$ ? of(null) : result$)),
@@ -70,6 +71,7 @@ export default function useForm<Values = Record<string, never>>({
     initialValues: initialValues ?? {},
     validationSchema: validationSchema ? () => validationSchema(yup) : null,
     onSubmit: (model, formikHelpers) => {
+      onSubmitRef.current = onSubmit;
       submitData.next({ model, formikHelpers });
       return new Promise(resolve => setTimeout(() => resolve(promiseRef.promise), 500));
     }
@@ -85,7 +87,7 @@ export default function useForm<Values = Record<string, never>>({
     if (!handlers[field]) {
       handlers[field] = (value: any) => {
         formik.setFieldTouched(field, true, false);
-        formik.setFieldValue(field, value, true);
+        formik.setFieldValue(field, value, false);
       };
     }
 
@@ -103,18 +105,25 @@ export default function useForm<Values = Record<string, never>>({
   }, []);
 
   const getFieldError = useCallback(
-    (name: string) => (formik.touched[name] || formik.submitCount > 0 ? formik.getFieldMeta(name).error : ''),
+    (name: string) => {
+      const field = formik.getFieldMeta(name);
+      return field.touched || (formik.submitCount > 0 && !field.value) ? field.error : '';
+    },
     [formik]
   );
+
+  const setErrors = useCallback((errors: FormikErrors<Partial<Values>>) => formik.setErrors(errors), [formik]);
 
   return {
     handleSubmit,
     handleChange,
     handleReset: () => formik.resetForm({ values: initialValues }),
     setValues: formik.setValues,
+    setErrors: setErrors,
     getFieldValue: getFieldValue,
     setFieldValue: setFieldValue,
     getFieldError: getFieldError,
+    setFieldTouched: formik.setFieldTouched,
     reset: values => formik.resetForm({ values: values === undefined ? initialValues : values }),
     initialValues: formik.initialValues,
     values: formik.values,

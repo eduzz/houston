@@ -92,6 +92,65 @@ passando o formulário via propriedade:
   }}
 </Playground>
 
+### Campos dinâmicos
+
+<Playground>
+  {() => {
+    const form = useForm({
+      initialValues: {
+        users: [{ id: '', age: '', name: '' }]
+      },
+      validationSchema: yup => {
+        return yup.object().shape({
+          users: yup
+            .array()
+            .of(
+              yup.object().shape({
+                id: yup.number().required('Por favor, preencha o campo ID.'),
+                name: yup.string().required(),
+                age: yup.number().required()
+              })
+            )
+            .min(1)
+            .required()
+        });
+      },
+      onSubmitWithErrors: err => console.log('failed', err),
+      onSubmit: values => console.log('success', values)
+    });
+    const values = React.useMemo(() => form.getFieldValue('users'), [form]);
+    const handleClickAdd = React.useCallback(() => {
+      form.setFieldValue(`users[${values.length}]`, {});
+      setTimeout(() => form.setErrors({}), 50);
+    }, [form, values.length]);
+    const handleClickRemove = React.useCallback(
+      index => {
+        const newUsers = values.filter((_, i) => i !== index);
+        form.setFieldValue('users', newUsers);
+      },
+      [form, values]
+    );
+    return (
+      <Form context={form}>
+        {values.map((_, index) => (
+          <div style={{ borderBottom: '1px solid #ccc', paddingBottom: 10, marginBottom: 20 }} key={index}>
+            <TextField name={`users.${index}.id`} label='ID' />
+            <TextField name={`users.${index}.name`} label='Nome' />
+            <TextField name={`users.${index}.age`} label='Idade' />
+            <Button variant='text' onClick={() => handleClickRemove(index)}>
+              Remover linha
+            </Button>
+          </div>
+        ))}
+        <Button variant='text' onClick={handleClickAdd}>
+          Adicionar linha
+        </Button>
+        <Button type='submit'>Enviar</Button>
+      </Form>
+    );
+  }}
+</Playground>
+
 ### Hooks para validação de formulários e máscaras
 
 Veja os hooks do Houston para validar formulários e máscaras em [@eduzz/houston-forms](https://github.com/eduzz/houston/tree/master/src/packages/forms).

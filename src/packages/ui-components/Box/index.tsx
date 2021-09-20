@@ -20,6 +20,10 @@ export interface IBoxProps extends Pick<BoxProps, BoxPropsExtends> {
   lg?: IBoxSpacement;
   xl?: IBoxSpacement;
   paper?: boolean;
+  /**
+   * Shadow depth, corresponds to `dp` in the spec. It accepts values between 0 and 24 inclusive.
+   */
+  boxShadow?: number;
 }
 
 const Box: React.FC<IBoxProps> = props => {
