@@ -16,3 +16,19 @@ Hooks diversos para auxiliar no desenvolvimento.
 ```bash
 yarn add @eduzz/houston-hooks
 ```
+
+### Configuração
+
+Para facilitar, adicone o onUnhandledError, assim todo o erro ocorrido (não tratado) nos hooks
+**usePromise** e **useObservable** será enviados para esse função,
+**ELA É APENAS PARA LOGAR, NÃO TRATA NADA.**
+
+```ts
+import setHoustonHooksConfig from '@eduzz/houston-hooks/config';
+
+setHoustonHooksConfig({
+  onUnhandledError: (err, origin) => {
+    //adicione seu logger
+  }
+});
+```
