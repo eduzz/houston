@@ -25,7 +25,7 @@ export interface ITableContext {
   onSort: (param: ITableSort) => void;
 
   columns: string[];
-  registerColumn: () => () => void;
+  registerColumn: (isCollapse?: boolean) => () => void;
 
   rows: ITableRow[];
   registerRow: (param: Omit<ITableRow, 'key'>) => () => void;

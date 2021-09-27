@@ -15,7 +15,7 @@ export interface ITableColumnProps {
   /**
    * Default `left`
    */
-  align?: React.TdHTMLAttributes<HTMLTableDataCellElement>['align'];
+  align?: React.TdHTMLAttributes<HTMLTableCellElement>['align'];
   /**
    * Control of ordered columns
    * Default `false`
@@ -43,7 +43,7 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
 
   const classes = useStyles();
 
-  const cellRef = React.useRef<HTMLTableHeaderCellElement>();
+  const cellRef = React.useRef<HTMLTableCellElement>();
 
   const isSorted = sort?.field === sortableField;
 

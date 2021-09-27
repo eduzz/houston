@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles from '../../styles/createUseStyles';
 import Typography from '../../Typography';
-import TableContext from '../context';
 
-export interface ITableLoadingProps {}
+export interface ITableLoadingProps {
+  text: React.ReactNode;
+}
 
 const useStyle = createUseStyles(theme => ({
   text: {
@@ -15,13 +15,8 @@ const useStyle = createUseStyles(theme => ({
   }
 }));
 
-const TableLoading = React.memo<ITableLoadingProps>(() => {
-  const loading = useContextSelector(TableContext, context => context.loading);
-  const loadingText = useContextSelector(TableContext, context => context.loadingText);
-
+const TableLoading = React.memo<ITableLoadingProps>(({ text }) => {
   const classes = useStyle();
-
-  if (!loading) return null;
 
   return (
     <tr className='table-loader'>
@@ -29,7 +24,7 @@ const TableLoading = React.memo<ITableLoadingProps>(() => {
         <LinearProgress />
 
         <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
-          {loadingText}
+          {text}
         </Typography>
       </td>
     </tr>

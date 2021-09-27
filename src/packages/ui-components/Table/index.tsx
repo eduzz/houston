@@ -4,6 +4,11 @@ import Action from './Action';
 import Body from './Body';
 import Cell from './Cell';
 import Collapse from './Collapse';
+import CollapseBody from './CollapseBody';
+import CollapseColumn from './CollapseColumn';
+import CollapseHeader from './CollapseHeader';
+import CollapseRow from './CollapseRow';
+import CollapseTable from './CollapseTable';
 import Column from './Column';
 import Empty from './Empty';
 import Error from './Error';
@@ -22,5 +27,10 @@ export default nestedComponent(Table, {
   Row,
   Error,
   Pagination,
-  Action
+  Action,
+  CollapseColumn,
+  CollapseHeader,
+  CollapseRow,
+  CollapseTable,
+  CollapseBody
 });
