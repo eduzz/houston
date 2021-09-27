@@ -141,8 +141,6 @@ const Table: React.FC<ITableProps> = props => {
     ]
   );
 
-  console.log({ isCollapseContent });
-
   return (
     <TableContext.Provider value={contextValue}>
       <TableContainer className={classes.tableContainer} style={{ maxHeight }}>
