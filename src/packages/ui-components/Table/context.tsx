@@ -39,21 +39,10 @@ export interface ITableContext {
 
   hasCollapseInRows: boolean;
   hasActionInRows: boolean;
+
+  isCollapseContent: boolean;
 }
 
-const TableContext = createContext<ITableContext>({
-  loading: false,
-  onSort: () => null,
-  columns: [],
-  registerColumn: () => () => null,
-  onShowAction: () => null,
-  rowMapLabel: {},
-  rows: [],
-  registerRow: () => () => null,
-  stripedRows: false,
-  size: 'medium',
-  hasCollapseInRows: false,
-  hasActionInRows: false
-});
+const TableContext = createContext<ITableContext>({} as ITableContext);
 
 export default TableContext;

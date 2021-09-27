@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import CollapseMUI from '@material-ui/core/Collapse';
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
@@ -8,6 +7,7 @@ import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import IconDotsHorizontal from '@eduzz/houston-icons/DotsHorizontal';
 
+import CollapseContent from '../CollapseContent';
 import TableContext from '../context';
 import { ITableAction, ITableCollapse } from '../interface';
 import TableRowContext, { ITableRowContext } from './context';
@@ -32,6 +32,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   const tableSize = useContextSelector(TableContext, context => context.size);
   const hasCollapseInRows = useContextSelector(TableContext, context => context.hasCollapseInRows);
   const hasActionInRows = useContextSelector(TableContext, context => context.hasActionInRows);
+  const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
   const classes = useStyles();
 
@@ -67,32 +68,22 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     return () => setActions(actions => actions.filter(o => o.key !== key));
   }, []);
 
-  const onCollapseEnter = React.useCallback(
-    () => collapse.onOpen && collapse.onOpen(data, index),
-    [collapse, data, index]
-  );
-
-  const onCollapseClose = React.useCallback(
-    () => collapse.onClose && collapse.onClose(data, index),
-    [collapse, data, index]
-  );
-
   React.useEffect(() => {
     const unregister = registerRow({ hasActions, hasCollapse });
     return () => unregister();
   }, [hasActions, hasCollapse, registerRow]);
 
   const contextValue = React.useMemo<ITableRowContext>(
-    () => ({ registerAction, registerCollapse }),
-    [registerAction, registerCollapse]
+    () => ({ registerAction, registerCollapse, data, index, collapse }),
+    [collapse, data, index, registerAction, registerCollapse]
   );
 
-  const classesAction = React.useMemo(
+  const classesColumnAction = React.useMemo(
     () => clsx(classes.cellAction, tableSize === 'small' && '--small', 'table-action-cell', className),
     [className, classes.cellAction, tableSize]
   );
 
-  const classesCollapse = React.useMemo(
+  const classesColumnCollapse = React.useMemo(
     () => clsx(classes.cellCollapse, tableSize === 'small' && '--small', 'table-collapse-cell', className),
     [className, classes.cellCollapse, tableSize]
   );
@@ -103,15 +94,15 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
         {...props}
         className={clsx(
           hasActions && 'table-row-has-action',
-          hasCollapse && 'table-row-has-collapse',
-          stripedRows && (index % 2 == 0 ? 'table-row-even' : 'table-row-odd'),
+          !isCollapseContent && hasCollapse && 'table-row-has-collapse',
+          !isCollapseContent && stripedRows && (index % 2 == 0 ? 'table-row-even' : 'table-row-odd'),
           className
         )}
       >
         {children}
 
         {hasActions && (
-          <td align='right' className={classesAction}>
+          <td align='right' className={classesColumnAction}>
             {hasActions && (
               <div onClick={onClickAction} className={classes.iconAction}>
                 {oneAction?.icon ?? <IconDotsHorizontal size={24} />}
@@ -120,10 +111,10 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
           </td>
         )}
 
-        {!hasActions && hasActionInRows && <td className={clsx(classesAction)} />}
+        {!hasActions && hasActionInRows && <td className={classesColumnAction} />}
 
-        {hasCollapse && (
-          <td align='right' className={classesCollapse}>
+        {!isCollapseContent && hasCollapse && (
+          <td align='right' className={classesColumnCollapse}>
             <div
               onClick={toogleShowCollapse}
               className={clsx(
@@ -137,31 +128,10 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
           </td>
         )}
 
-        {!hasCollapse && hasCollapseInRows && <td className={classesCollapse} />}
+        {!hasCollapse && hasCollapseInRows && <td className={classesColumnCollapse} />}
       </tr>
 
-      {hasCollapse && (
-        <tr
-          className={clsx(
-            'table-collapse',
-            showCollapse && 'table-collapse-opened',
-            collapse.disableBackground && 'table-collapse-no-background',
-            collapse.disabledPadding && 'table-collapse-no-padding'
-          )}
-        >
-          <td colSpan={1000}>
-            <CollapseMUI
-              in={showCollapse && !collapse.disabled}
-              timeout={350}
-              onEntered={onCollapseEnter}
-              onExited={onCollapseClose}
-              unmountOnExit
-            >
-              <div className='table-collapse-content'>{collapse.content}</div>
-            </CollapseMUI>
-          </td>
-        </tr>
-      )}
+      {!isCollapseContent && hasCollapse && <CollapseContent visible={showCollapse} />}
     </TableRowContext.Provider>
   );
 });

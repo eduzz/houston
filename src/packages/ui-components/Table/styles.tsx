@@ -36,7 +36,7 @@ const useStyles = createUseStyles(theme => ({
     },
 
     '& > tbody > tr.table-row-even + tr.table-collapse td': {
-      backgroundColor: theme.colors.grey[100]
+      backgroundColor: 'transparent'
     },
 
     '& > tbody > tr.table-loader td': {
