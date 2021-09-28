@@ -100,7 +100,7 @@ const generator = require('@eduzz/eslint-config-houston/generator');
 module.exports = {
   extends: ['@eduzz/eslint-config-houston'],
   rules: {
-    'react-hooks/exhaustive-deps': generator.exhaustiveDeps('warn', ['useMyCustomHook', true])
+    'react-hooks/exhaustive-deps': generator.exhaustiveDeps('warn', ['useMyCustomHook'], true)
   }
 };
 ```
