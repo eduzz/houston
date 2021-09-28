@@ -4,11 +4,13 @@ import { Size, TableProps } from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import clsx from 'clsx';
+import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import withHoustonTheme from '@eduzz/houston-ui/styles/ThemeProvider/WrapperTheme';
 
 import MenuActions from './Action/Menu';
+import TableCollapseContext from './CollapseContent/context';
 import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';
 import { ITableSort } from './interface';
 import { bindMutationObserver } from './observer';
@@ -40,7 +42,7 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'class
 
 const Table: React.FC<ITableProps> = props => {
   const {
-    size,
+    size = 'medium',
     id,
     children,
     loading,
@@ -53,6 +55,10 @@ const Table: React.FC<ITableProps> = props => {
     loadingText
   } = props;
 
+  const classes = useStyles();
+
+  const isCollapseContent = useContextSelector(TableCollapseContext, context => context.isCollapseContent);
+
   const tableRef = React.useRef<HTMLTableElement>();
   const mediaQueryMobile = useMediaQuery(`(max-width: ${props.mobileWidth ?? 600}px)`);
   const responsive = typeof props.mobileWidth === 'boolean' ? props.mobileWidth : mediaQueryMobile;
@@ -64,8 +70,6 @@ const Table: React.FC<ITableProps> = props => {
   const [columns, setColumns] = React.useState<string[]>(() => []);
   const [rows, setRows] = React.useState<ITableRow[]>([]);
 
-  const classes = useStyles();
-
   const onShowAction = React.useCallback(
     (data: ITableActionShow) => {
       setMenuActionOptions(data);
@@ -76,19 +80,21 @@ const Table: React.FC<ITableProps> = props => {
 
   const registerColumn = React.useCallback(() => {
     const key = `column-${++columnsKeyIncrementer}`;
-
     setColumns(columns => [...columns, key]);
     return () => setColumns(columns => columns.filter(c => c != key));
   }, []);
 
   const registerRow = React.useCallback((row: Omit<ITableRow, 'key'>) => {
     const key = `table-row-${++rowKeyIncremeter}`;
-
     setRows(rows => [...rows, { key, ...row }]);
     return () => setRows(rows => rows.filter(r => r.key !== key));
   }, []);
 
-  const hasCollapseInRows = React.useMemo(() => rows?.some(r => r.hasCollapse), [rows]);
+  const hasCollapseInRows = React.useMemo(
+    () => !isCollapseContent && rows?.some(r => r.hasCollapse),
+    [isCollapseContent, rows]
+  );
+
   const hasActionInRows = React.useMemo(() => rows?.some(r => r.hasActions), [rows]);
 
   React.useEffect(() => {
@@ -110,9 +116,10 @@ const Table: React.FC<ITableProps> = props => {
       registerRow,
       stripedRows,
       columnActionTitle,
-      size: size ?? 'medium',
+      size: isCollapseContent ? 'small' : size,
       hasCollapseInRows,
-      hasActionInRows
+      hasActionInRows,
+      isCollapseContent
     }),
     [
       loading,
@@ -127,6 +134,7 @@ const Table: React.FC<ITableProps> = props => {
       registerRow,
       stripedRows,
       columnActionTitle,
+      isCollapseContent,
       size,
       hasCollapseInRows,
       hasActionInRows

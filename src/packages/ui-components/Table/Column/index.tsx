@@ -15,7 +15,7 @@ export interface ITableColumnProps {
   /**
    * Default `left`
    */
-  align?: React.TdHTMLAttributes<HTMLTableDataCellElement>['align'];
+  align?: React.TdHTMLAttributes<HTMLTableCellElement>['align'];
   /**
    * Control of ordered columns
    * Default `false`
@@ -26,7 +26,11 @@ export interface ITableColumnProps {
 const useStyles = createUseStyles(theme => ({
   root: {
     padding: '8px 20px',
-    borderBottom: `1px solid ${theme.colors.grey[200]}`
+    borderBottom: `1px solid ${theme.colors.grey[200]}`,
+
+    '&.--collapse': {
+      borderBottomColor: theme.colors.grey[300]
+    }
   },
 
   rootSmall: {
@@ -40,10 +44,11 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
   const sort = useContextSelector(TableContext, context => context.sort);
   const loading = useContextSelector(TableContext, context => context.loading);
   const tableSize = useContextSelector(TableContext, context => context.size);
+  const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
   const classes = useStyles();
 
-  const cellRef = React.useRef<HTMLTableHeaderCellElement>();
+  const cellRef = React.useRef<HTMLTableCellElement>();
 
   const isSorted = sort?.field === sortableField;
 
@@ -70,12 +75,13 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
         classes.root,
         tableSize === 'small' && classes.rootSmall,
         className,
-        `column-align-${align ?? 'left'}`
+        `column-align-${align ?? 'left'}`,
+        isCollapseContent && '--collapse'
       )}
       {...rest}
     >
       <SortLabel
-        sortable={!!sortableField}
+        sortable={!!sortableField && !isCollapseContent}
         active={isSorted}
         disabled={loading}
         direction={isSorted ? sort?.direction : 'asc'}

@@ -15,11 +15,11 @@ export interface ITableCellProps {
   colSpan?: number;
   columnLabel?: string;
   mobileSize?: GridSize | true | false | 0;
-  mobileAlign?: React.TdHTMLAttributes<HTMLTableDataCellElement>['align'];
+  mobileAlign?: React.TdHTMLAttributes<HTMLTableCellElement>['align'];
   onClick?: () => void;
   onDoubleClick?: () => void;
   children?: React.ReactNode;
-  align?: React.TdHTMLAttributes<HTMLTableDataCellElement>['align'];
+  align?: React.TdHTMLAttributes<HTMLTableCellElement>['align'];
 }
 
 const useStyles = createUseStyles(theme => ({
@@ -40,13 +40,13 @@ const useStyles = createUseStyles(theme => ({
 
 const TableCell = React.memo<ITableCellProps>(
   ({ children, className, mobileSize, mobileAlign, columnLabel, onClick, onDoubleClick, align, ...props }) => {
+    const classes = useStyles();
+
     const [cellKey] = React.useState(() => `cell-${++cellKeyIncremeter}`);
     const cellRef = React.useRef<HTMLTableCellElement>();
 
     const label = useContextSelector(TableContext, context => context.rowMapLabel[cellKey]);
     const tableSize = useContextSelector(TableContext, context => context.size);
-
-    const classes = useStyles();
 
     React.useEffect(() => {
       cellRef.current.setAttribute('cell-key', cellKey);
