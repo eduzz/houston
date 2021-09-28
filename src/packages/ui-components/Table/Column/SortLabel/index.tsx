@@ -27,6 +27,11 @@ const useStyles = createUseStyles(theme => ({
       fontSize: theme.textSize('small')
     },
 
+    '&.--collapse-content': {
+      fontSize: theme.textSize('small'),
+      color: theme.colors.grey[500]
+    },
+
     '&.--disabled': {
       color: theme.colors.grey[400],
       cursor: 'no-drop'
@@ -51,12 +56,20 @@ const useStyles = createUseStyles(theme => ({
 
 const SortLabel: React.FC<ISortLabelProps> = ({ children, sortable, active, direction, disabled, onClick }) => {
   const tableSize = useContextSelector(TableContext, context => context.size);
+  const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
   const classes = useStyles();
 
-  if (!sortable) {
+  if (!sortable || isCollapseContent) {
     return (
-      <span className={clsx(classes.root, disabled && '--disabled', tableSize === 'small' && '--small')}>
+      <span
+        className={clsx(
+          classes.root,
+          disabled && '--disabled',
+          tableSize === 'small' && '--small',
+          isCollapseContent && '--collapse-content'
+        )}
+      >
         {children}
       </span>
     );
