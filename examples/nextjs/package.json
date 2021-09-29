@@ -8,14 +8,14 @@
     "lint": "eslint './pages/**/*' --ext .tsx,.ts"
   },
   "dependencies": {
-    "@eduzz/houston-ui": "^0.15.11",
+    "@eduzz/houston-ui": "0.32.7",
     "next": "10.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "sass": "^1.32.8"
   },
   "devDependencies": {
-    "@eduzz/eslint-config-houston": "^0.15.11",
+    "@eduzz/eslint-config-houston": "0.32.7",
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
