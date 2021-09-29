@@ -13,7 +13,7 @@ const useStyles = createUseStyles({
   marginDense: { padding: '0 8px' }
 });
 
-type FieldCheckboxPropsExtends = 'checked' | 'value' | 'onChange';
+type FieldCheckboxPropsExtends = 'checked' | 'value' | 'onChange' | 'indeterminate' | 'disabled';
 
 export interface ICheckboxBaseFieldProps extends Pick<CheckboxProps, FieldCheckboxPropsExtends> {
   Control: typeof Checkbox;
@@ -23,7 +23,6 @@ export interface ICheckboxBaseFieldProps extends Pick<CheckboxProps, FieldCheckb
   errorMessage?: string;
   isMultiple?: boolean;
   margin?: 'none' | 'normal';
-  disabled?: boolean;
 }
 
 const CheckboxRadioField: React.FC<ICheckboxBaseFieldProps> = ({
@@ -37,7 +36,8 @@ const CheckboxRadioField: React.FC<ICheckboxBaseFieldProps> = ({
   isMultiple,
   onChange,
   margin,
-  disabled
+  disabled,
+  indeterminate
 }) => {
   const classes = useStyles();
 
@@ -86,6 +86,7 @@ const CheckboxRadioField: React.FC<ICheckboxBaseFieldProps> = ({
     <FormControlLabel
       control={
         <Control
+          indeterminate={indeterminate}
           disabled={isSubmitting || disabled}
           classes={{ root: margin === 'none' && classes.marginDense }}
           checked={isChecked ?? false}

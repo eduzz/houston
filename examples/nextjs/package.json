@@ -8,7 +8,7 @@
     "lint": "eslint './pages/**/*' --ext .tsx,.ts"
   },
   "dependencies": {
-    "@eduzz/houston-ui": "0.32.7",
+    "@eduzz/houston-ui": "0.32.8",
     "next": "10.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
