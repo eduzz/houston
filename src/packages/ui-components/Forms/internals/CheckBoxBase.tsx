@@ -23,6 +23,7 @@ export interface ICheckboxBaseFieldProps extends Pick<CheckboxProps, FieldCheckb
   errorMessage?: string;
   isMultiple?: boolean;
   margin?: 'none' | 'normal';
+  disabled?: boolean;
 }
 
 const CheckboxRadioField: React.FC<ICheckboxBaseFieldProps> = ({
@@ -35,7 +36,8 @@ const CheckboxRadioField: React.FC<ICheckboxBaseFieldProps> = ({
   errorMessage: errorMessageProp,
   isMultiple,
   onChange,
-  margin
+  margin,
+  disabled
 }) => {
   const classes = useStyles();
 
@@ -84,7 +86,7 @@ const CheckboxRadioField: React.FC<ICheckboxBaseFieldProps> = ({
     <FormControlLabel
       control={
         <Control
-          disabled={isSubmitting}
+          disabled={isSubmitting || disabled}
           classes={{ root: margin === 'none' && classes.marginDense }}
           checked={isChecked ?? false}
           defaultValue=''
