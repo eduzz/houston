@@ -80,37 +80,37 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@eduzz/eslint-config-houston@*":
+"@eduzz/eslint-config-houston@0.32.7":
   version "0.32.7"
   resolved "https://registry.yarnpkg.com/@eduzz/eslint-config-houston/-/eslint-config-houston-0.32.7.tgz#16224f1b433bc2ec939e81c1cc80eb47803f58da"
   integrity sha512-KkBpnJETAunUW76nXVCOud9pJFa2gMns7eckgtdl7ednaEZvl7wB85CUll6h5HVw6Ur3V4rc5Dl5X6E6XD6jIw==
 
-"@eduzz/houston-core@0.32.7":
-  version "0.32.7"
-  resolved "https://registry.yarnpkg.com/@eduzz/houston-core/-/houston-core-0.32.7.tgz#2e3ebb9539cf5b01fe3d4a1dfcbd696e50841f04"
-  integrity sha512-OvqRZnMywzQoiDxTEUtlkOd+w6M+GOiT67gahE6FG/L9sIDodPMq4R6nZSgoVSD70L1AjqA8z0cayBx17encfQ==
+"@eduzz/houston-core@0.32.8":
+  version "0.32.8"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-core/-/houston-core-0.32.8.tgz#84da712b0fe7fbac06d71d6b4bb472973a7c3ed9"
+  integrity sha512-gQf/ylk8ayqZPDjXgR5OfLwwn5sSfIplb9MIoP5eHQI/VhHeMlUz6Bx5wBvKdirTl83SLh0sjb7+ak7WA5no8A==
 
-"@eduzz/houston-hooks@0.32.7":
-  version "0.32.7"
-  resolved "https://registry.yarnpkg.com/@eduzz/houston-hooks/-/houston-hooks-0.32.7.tgz#ba1e812e9a20d51461ede28a1d4e48e6eb10cb98"
-  integrity sha512-brnfy6tbALuD852RjtcNz1f5Fj9kIDZEnZ9Jxm+9KjjmuY9a/gp3Q98bFgeGpGmeI02Yc2ZeTeIzLIyAT1NsYA==
+"@eduzz/houston-hooks@0.32.8":
+  version "0.32.8"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-hooks/-/houston-hooks-0.32.8.tgz#7164c78c733d09593f83993f401ce4b9878bd2af"
+  integrity sha512-c3cJxlLx9GaG35CPFpTRNHcLe2bjobuGCsM/VUsfJPsb+fjI/0kqMN/i8mOj2u0xmXaWGaJVO3di6Wow+MzNhg==
   dependencies:
-    "@eduzz/houston-core" "0.32.7"
+    "@eduzz/houston-core" "0.32.8"
     lodash "^4"
 
-"@eduzz/houston-icons@0.32.7":
-  version "0.32.7"
-  resolved "https://registry.yarnpkg.com/@eduzz/houston-icons/-/houston-icons-0.32.7.tgz#69fcf9c93a9f8cf435389309a5ce047a4c130b87"
-  integrity sha512-7Br3yPrn8DlcBJNR6A//XOoM70/RZvrz7ZH2b5JXyl+K4aXe0xGGTlktXSwKawbqrFRzYGqDJ0QY/uhnHydtZA==
+"@eduzz/houston-icons@0.32.8":
+  version "0.32.8"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-icons/-/houston-icons-0.32.8.tgz#2e126b4a77c815ab07c8d3a6cfdfacec21effd31"
+  integrity sha512-YaTRTeU1IkGyzi28TvOZZdmvd85AaRqBvY8AWR521gtgvdyCLbF7P4p0at72qoejnw+C4iKwrY7AH71eM+cM4w==
 
-"@eduzz/houston-ui@*":
-  version "0.32.7"
-  resolved "https://registry.yarnpkg.com/@eduzz/houston-ui/-/houston-ui-0.32.7.tgz#895246aad52473045eeff81d9144c855e883cdb4"
-  integrity sha512-lk8QIwDkVqd2BwECGzD27+460RA9CnpfHxIg5S4C+wSCpmpOjrBpeoAMuRYBAYVnGEWV8VUsSj17Uom7BkQWrg==
+"@eduzz/houston-ui@0.32.8":
+  version "0.32.8"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-ui/-/houston-ui-0.32.8.tgz#3aa2115209807f17802f47e930e72a5aa77af957"
+  integrity sha512-qYGyYFDDIY005zOfoNiwhz/oTB54zTAgI/1WUuuxqh4MWJjyFG0RK70ubpj2ObKx1IAlpj9ingKZQOWi3X1f/g==
   dependencies:
-    "@eduzz/houston-core" "0.32.7"
-    "@eduzz/houston-hooks" "0.32.7"
-    "@eduzz/houston-icons" "0.32.7"
+    "@eduzz/houston-core" "0.32.8"
+    "@eduzz/houston-hooks" "0.32.8"
+    "@eduzz/houston-icons" "0.32.8"
     "@emotion/css" "^11.1.3"
     "@material-ui/core" "^4"
     "@material-ui/icons" "^4"

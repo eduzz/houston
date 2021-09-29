@@ -26,7 +26,7 @@ const LabelBase: React.FC<ILabelBaseProps> = ({ hasError, label, description, er
         </Typography>
       )}
 
-      {hasError && <FormHelperText error={true}>{errorMessage}</FormHelperText>}
+      {hasError && <FormHelperText error>{errorMessage}</FormHelperText>}
     </>
   );
 };
