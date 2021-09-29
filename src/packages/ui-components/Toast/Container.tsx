@@ -3,13 +3,14 @@ import * as React from 'react';
 import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } from 'react-toastify';
 
 import themeVariable from '../styles/ThemeProvider/_default/variables';
-
-import 'react-toastify/dist/ReactToastify.css';
+import styles from './styles';
 
 const ToastContainer: React.FC<ToastContainerProps> = props => {
   const styleContent = React.useMemo(
     () => ({
       __html: `
+        ${styles}
+
         .Toastify__toast {
           border-radius: 4px;
           margin-bottom: 16px;
