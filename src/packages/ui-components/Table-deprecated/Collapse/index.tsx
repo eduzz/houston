@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TableProps } from '@material-ui/core/Table';
+import { TableProps } from '@mui/material/Table';
 
 import { ITableCollapseType } from '../interfaces';
 

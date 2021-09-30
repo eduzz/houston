@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import IconButton from '@material-ui/core/IconButton';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
@@ -19,7 +19,7 @@ const PasswordField: React.FC<IPasswordFieldProps> = props => {
       {...props}
       type={showPassword ? 'text' : 'password'}
       endAdornment={
-        <IconButton aria-label='toggle password visibility' onClick={toogleShowPassword}>
+        <IconButton aria-label='toggle password visibility' onClick={toogleShowPassword} size='large'>
           {showPassword ? <Visibility /> : <VisibilityOff />}
         </IconButton>
       }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Theme, useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Theme, useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import Button from '../../../Button';
 import { useFirstChildrenProps } from '../../../hooks/useChildrenProps';
@@ -79,7 +79,7 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
   const classes = useStyles();
 
   const theme = useTheme();
-  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
+  const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('sm'));
 
   const lastButton = useFirstChildrenProps<IShowcaseLastStepProps>(buttons, ShowcaseLastStep);
   const nextButton = useFirstChildrenProps<IShowcaseNextStepProps>(buttons, ShowcaseNextStep);

@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import CardMUI, { CardProps } from '@material-ui/core/Card';
-import CardActionsMUI from '@material-ui/core/CardActions';
-import CardContentMUI from '@material-ui/core/CardContent';
-import ModalMUI from '@material-ui/core/Modal';
+import CardMUI from '@mui/material/Card';
+import CardActionsMUI from '@mui/material/CardActions';
+import CardContentMUI from '@mui/material/CardContent';
+import ModalMUI from '@mui/material/Modal';
 import clsx from 'clsx';
 
 import { getReactChildrenComponent, getReactFirstChildrenProps } from '../Helpers/functions';
@@ -12,7 +12,7 @@ import { useFirstChildrenProps } from '../hooks/useChildrenProps';
 import createUseStyles from '../styles/createUseStyles';
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import ShowcaseCloseButton from './CloseButton';
-import ShowcaseContextProvider from './context';
+import ShowcaseContextProvider, { IShowcaseContext } from './context';
 import ShowcaseGenericButtons from './GenericButtons';
 import ShowcaseImage, { IShowcaseImageProps } from './Image';
 import { IShowcaseProps, IShowcaseStep, IShowcaseButtons } from './interfaces';
@@ -56,11 +56,11 @@ const useStyles = createUseStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
 
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       width: modalSizes.medium
     },
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       width: modalSizes.small
     },
 
@@ -91,7 +91,7 @@ const useStyles = createUseStyles(theme => ({
   }
 }));
 
-const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
+const Showcase: React.FC<IShowcaseProps> = props => {
   const {
     open,
     size,
@@ -144,10 +144,15 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
     setModalState(false);
   }, [onFinish, setModalState]);
 
-  const handleClose = React.useCallback(() => {
-    onClose && onClose(currentStep);
-    setModalState(false);
-  }, [setModalState, onClose, currentStep]);
+  const handleClose = React.useCallback(
+    (event?: React.SyntheticEvent, reason?: 'backdropClick' | 'escapeKeyDown') => {
+      if (reason === 'backdropClick' && disableBackdropClick) return;
+
+      onClose && onClose(currentStep);
+      setModalState(false);
+    },
+    [disableBackdropClick, onClose, currentStep]
+  );
 
   React.useEffect(() => {
     if (open === undefined) {
@@ -158,7 +163,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
     setModalState(open);
   }, [open]);
 
-  const contextValue = React.useMemo(
+  const contextValue = React.useMemo<IShowcaseContext>(
     () => ({
       title,
       stepCounter,
@@ -190,7 +195,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
   );
 
   return (
-    <ModalMUI {...rest} disableBackdropClick={disableBackdropClick} open={modalState} onClose={handleClose} ref={ref}>
+    <ModalMUI {...rest} open={modalState} onClose={handleClose}>
       <ShowcaseContextProvider value={contextValue}>
         <div className={clsx(className, size && classes[size], classes.modalContent)}>
           <CardMUI className='card-mui'>
@@ -208,7 +213,7 @@ const Showcase = React.forwardRef<CardProps, IShowcaseProps>((props, ref) => {
       </ShowcaseContextProvider>
     </ModalMUI>
   );
-});
+};
 
 export default nestedComponent(withHoustonTheme(React.memo(Showcase)), {
   Title: ShowcaseTitle,

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { GridSize } from '@material-ui/core/Grid';
+import { GridSize } from '@mui/material/Grid';
 import clsx from 'clsx';
 
 import Column from '../../../../Grid/Column';

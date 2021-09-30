@@ -1,29 +1,30 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import createPalette, { Palette } from '@material-ui/core/styles/createPalette';
-import createTheme from '@material-ui/core/styles/createTheme';
+import { createTheme, Theme } from '@mui/material/styles';
 
-import overrides from './overrides';
-import props from './props';
+import components from './components';
 import typography from './typography';
-import defaultThemeVariables from './variables';
+import defaultThemeVariables, { HoustonThemeColors } from './variables';
 
-declare module '@material-ui/core/styles/createTheme' {
+declare module '@mui/material/styles/createTheme' {
   interface Theme {
-    houston?: typeof defaultThemeVariables & { colors: Palette };
+    houston?: typeof defaultThemeVariables & { colors: HoustonThemeColors };
   }
 
   interface ThemeOptions {
-    houston?: typeof defaultThemeVariables & { colors: Palette };
+    houston?: typeof defaultThemeVariables & { colors: HoustonThemeColors };
   }
 }
 
-export default function generateTheme(customPalette?: Partial<typeof defaultThemeVariables.colors>) {
-  const palette = createPalette({ ...defaultThemeVariables.colors, ...customPalette });
+declare module '@mui/styles' {
+  interface DefaultTheme extends Theme {}
+}
+
+export default function generateTheme(customPalette?: Partial<HoustonThemeColors>) {
+  const palette = { ...defaultThemeVariables.colors, ...customPalette };
 
   return createTheme({
     palette,
-    overrides: overrides(palette),
-    props,
+    components: components(palette),
     houston: {
       ...defaultThemeVariables,
       colors: palette

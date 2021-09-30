@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Menu, { MenuProps } from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import Menu, { MenuProps } from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 import createUseStyles from '../../../styles/createUseStyles';
 import { ITableRow } from '../../interfaces';
@@ -42,17 +42,10 @@ const MenuActions = React.memo<IProps>(({ onClose, options, anchorEl, currentRow
       anchorEl={anchorEl}
       open={!!anchorEl}
       onClose={onClose}
-      getContentAnchorEl={null}
       disableAutoFocusItem
       disableAutoFocus
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center'
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center'
-      }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       elevation={1}
     >
       {options?.map((option, index) => {

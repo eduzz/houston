@@ -2,7 +2,7 @@ import createUseStyles from '../styles/createUseStyles';
 
 const useStyles = createUseStyles(theme => ({
   root: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'block'
     }
   },
@@ -21,13 +21,13 @@ const useStyles = createUseStyles(theme => ({
   },
 
   icon: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none'
     }
   },
 
   action: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '100%',
       paddingLeft: 0,
       paddingBottom: 10,
@@ -59,7 +59,7 @@ const useStyles = createUseStyles(theme => ({
   multilineIcon: {
     alignItems: 'flex-start',
 
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none'
     }
   },

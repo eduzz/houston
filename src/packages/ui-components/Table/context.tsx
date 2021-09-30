@@ -1,4 +1,3 @@
-import { Size } from '@material-ui/core/Table';
 import { createContext } from 'use-context-selector';
 
 import { ITableSort, ITableAction } from './interface';
@@ -19,7 +18,7 @@ export interface ITableActionShow {
 export interface ITableContext {
   loading: boolean;
   loadingText?: React.ReactNode;
-  size: Size;
+  size: 'small' | 'medium';
 
   sort?: ITableSort;
   onSort: (param: ITableSort) => void;

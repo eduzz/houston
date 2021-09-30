@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Grid, { GridProps, GridSpacing } from '@material-ui/core/Grid';
+import Grid, { GridProps, GridSpacing } from '@mui/material/Grid';
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
@@ -19,7 +19,6 @@ type RowPropsExtends =
   | 'id'
   | 'className'
   | 'children'
-  | 'justify'
   | 'justifyContent'
   | 'alignItems'
   | 'style'

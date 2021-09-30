@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import ButtonMUI, { ButtonProps } from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import ButtonMUI, { ButtonProps } from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 

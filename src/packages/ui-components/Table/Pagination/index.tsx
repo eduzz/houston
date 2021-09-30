@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import PaginationMUI from '@material-ui/lab/Pagination';
+import PaginationMUI from '@mui/material/Pagination';
 import { useContextSelector } from 'use-context-selector';
 
 import SelectField from '@eduzz/houston-ui/Forms/Select';
@@ -51,7 +51,7 @@ const useStyles = createUseStyles(theme => ({
       color: theme.colors.grey[600]
     },
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none'
     }
   },
@@ -66,7 +66,7 @@ const useStyles = createUseStyles(theme => ({
     height: '100%',
     alignItems: 'center',
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(2),
       justifyContent: 'center'
     }
@@ -151,17 +151,10 @@ const Pagination = React.memo<ITablePagination>(
       [onChangePage, page, perPage, total]
     );
 
-    const handleChangePerPage = React.useCallback(
-      (_: any, event: React.ChangeEvent<{ name?: string; value: any }>) => {
-        onChangePerPage(event.target.value);
-      },
-      [onChangePerPage]
-    );
+    const handleChangePerPage = React.useCallback((value: any) => onChangePerPage(Number(value)), [onChangePerPage]);
 
     const handleChangePage = React.useCallback(
-      (_: React.ChangeEvent<unknown>, page: number) => {
-        onChangePage(page);
-      },
+      (e: React.SyntheticEvent, page: number) => onChangePage(page),
       [onChangePage]
     );
 

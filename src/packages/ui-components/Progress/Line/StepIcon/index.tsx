@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Check from '@material-ui/icons/Check';
-import Warning from '@material-ui/icons/Warning';
+import Check from '@mui/icons-material/Check';
+import Warning from '@mui/icons-material/Warning';
 import clsx from 'clsx';
 
 import createUseStyles from '../../../styles/createUseStyles';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import SwitchMUI, { SwitchProps } from '@material-ui/core/Switch';
+import SwitchMUI, { SwitchProps } from '@mui/material/Switch';
 import { useContextSelector } from 'use-context-selector';
 
 import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';

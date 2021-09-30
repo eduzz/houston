@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import Collapse from '@material-ui/core/Collapse';
-import AlertMUI, { AlertProps, Color } from '@material-ui/lab/Alert';
-import MUIAlertTitle from '@material-ui/lab/AlertTitle';
+import AlertMUI, { AlertProps, AlertColor } from '@mui/material/Alert';
+import MUIAlertTitle from '@mui/material/AlertTitle';
+import Collapse from '@mui/material/Collapse';
 import clsx from 'clsx';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
@@ -18,14 +18,14 @@ import AlertTitle, { IAlertTitleProps } from './Title';
 type AlertPropsExtends = 'id' | 'className' | 'children' | 'severity' | 'onClose' | 'icon';
 
 interface IAlertProps extends Pick<AlertProps, AlertPropsExtends>, React.RefAttributes<AlertProps> {
-  type?: Color;
+  type?: AlertColor;
   closable?: boolean;
   multiline?: boolean;
 }
 
 let alertActionIncrementer = 0;
 
-const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
+const Alert: React.FC<IAlertProps> = props => {
   const { id, className, children, type = 'success', icon, onClose, closable, multiline } = props;
   const alertProps = { id, className, severity: type, icon, onClose };
 
@@ -64,7 +64,6 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
     <Collapse in={!hide} timeout={500}>
       <AlertMUI
         {...alertProps}
-        ref={ref}
         onClose={closable ? setHide : onClose}
         action={renderActions}
         classes={{
@@ -82,6 +81,6 @@ const Alert = React.forwardRef<AlertProps, IAlertProps>((props, ref) => {
       </AlertMUI>
     </Collapse>
   );
-});
+};
 
 export default nestedComponent(withHoustonTheme(React.memo(Alert)), { Title: AlertTitle, Action: AlertAction });

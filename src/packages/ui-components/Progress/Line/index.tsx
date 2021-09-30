@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Stepper, { StepperProps } from '@material-ui/core/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Stepper, { StepperProps } from '@mui/material/Stepper';
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
