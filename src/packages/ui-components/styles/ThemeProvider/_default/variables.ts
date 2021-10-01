@@ -1,3 +1,20 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+import { Theme } from '@mui/material/styles';
+
+declare module '@mui/material/styles/createTheme' {
+  interface Theme {
+    houston?: typeof defaultThemeVariables & { colors: HoustonThemeColors };
+  }
+
+  interface ThemeOptions {
+    houston?: typeof defaultThemeVariables & { colors: HoustonThemeColors };
+  }
+}
+
+declare module '@mui/styles' {
+  interface DefaultTheme extends Theme {}
+}
+
 const fontSizes = {
   'xx-small': 10,
   'x-small': 12,

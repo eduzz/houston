@@ -10,7 +10,6 @@ import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import Button from '../Button';
 import nestedComponent from '../Helpers/nestedComponent';
 import { useChildrenProps, useFirstChildrenProps } from '../hooks/useChildrenProps';
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import AlertAction, { IAlertActionProps } from './Action';
 import useStyles from './styles';
 import AlertTitle, { IAlertTitleProps } from './Title';
@@ -83,4 +82,4 @@ const Alert: React.FC<IAlertProps> = props => {
   );
 };
 
-export default nestedComponent(withHoustonTheme(React.memo(Alert)), { Title: AlertTitle, Action: AlertAction });
+export default nestedComponent(React.memo(Alert), { Title: AlertTitle, Action: AlertAction });

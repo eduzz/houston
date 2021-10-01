@@ -51,7 +51,12 @@
     "ultra-runner": "3.10.5"
   },
   "resolutions": {
-    "react": "^17"
+    "react": "^17",
+    "**/@emotion/css": "^11",
+    "**/@emotion/styled": "^11",
+    "**/@emotion/react": "^11",
+    "gatsby-plugin-emotion": "^6",
+    "theme-ui": "^0.6"
   },
   "ultra": {
     "concurrent": [
