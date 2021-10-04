@@ -9,7 +9,7 @@ import { FormFieldsContext } from '../Form';
 type FieldSwitchPropsExtends = 'id' | 'className' | 'checked' | 'defaultChecked' | 'disabled' | 'size' | 'onChange';
 
 export interface ISwitchFieldProps extends Pick<SwitchProps, FieldSwitchPropsExtends> {
-  name: string;
+  name?: string;
 }
 
 const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldProps>(

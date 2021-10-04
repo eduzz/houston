@@ -3,13 +3,12 @@ import * as React from 'react';
 import PaginationMUI from '@mui/material/Pagination';
 import { useContextSelector } from 'use-context-selector';
 
-import SelectField from '@eduzz/houston-ui/Forms/Select';
-import TextField from '@eduzz/houston-ui/Forms/Text';
-import Column from '@eduzz/houston-ui/Grid/Column';
-import Row from '@eduzz/houston-ui/Grid/Row';
-import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
-import Typography from '@eduzz/houston-ui/Typography';
-
+import SelectField from '../../Forms/Select';
+import TextField from '../../Forms/Text';
+import Column from '../../Grid/Column';
+import Row from '../../Grid/Row';
+import createUseStyles from '../../styles/createUseStyles';
+import Typography from '../../Typography';
 import TableContext from '../context';
 
 type ITablePaginationExtends = 'id' | 'className' | 'children';

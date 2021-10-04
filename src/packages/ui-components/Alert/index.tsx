@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import AlertMUI, { AlertProps, AlertColor } from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
-import clsx from 'clsx';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
@@ -56,26 +55,6 @@ const Alert: React.FC<IAlertProps> = props => {
     if (!!actions.length) return <div className={classes.controlButtons}>{buttonActions}</div>;
     return null;
   }, [multiline, actions, classes, buttonActions]);
-
-  const classesProp = React.useMemo(
-    () => ({
-      root: classes.root,
-      icon: clsx(multiline && classes.multilineIcon, !multiline && classes.icon),
-      action: clsx(multiline && classes.multilineAction, !multiline && classes.action),
-      message: classes.message
-    }),
-    [
-      classes.action,
-      classes.icon,
-      classes.message,
-      classes.multilineAction,
-      classes.multilineIcon,
-      classes.root,
-      multiline
-    ]
-  );
-
-  console.log({ classesProp });
 
   return (
     <Collapse in={!hide} timeout={500}>

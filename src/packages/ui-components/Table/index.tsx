@@ -1,5 +1,4 @@
-import nestedComponent from '@eduzz/houston-ui/Helpers/nestedComponent';
-
+import nestedComponent from '../Helpers/nestedComponent';
 import Action from './Action';
 import Body from './Body';
 import Cell from './Cell';

@@ -7,8 +7,8 @@ import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import withHoustonTheme from '@eduzz/houston-ui/styles/ThemeProvider/WrapperTheme';
 
+import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import MenuActions from './Action/Menu';
 import TableCollapseContext from './CollapseContent/context';
 import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';

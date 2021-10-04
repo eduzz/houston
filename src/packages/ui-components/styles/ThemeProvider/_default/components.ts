@@ -16,6 +16,9 @@ export default function components(palette: HoustonThemeColors): Components {
           height: 40,
           borderRadius: defaultThemeVariables.radius(),
           fontWeight: defaultThemeVariables.fontWeight('semibold'),
+          fontFamily: defaultThemeVariables.fontFamily,
+          lineHeight: defaultThemeVariables.lineHeight('compact'),
+          fontSize: defaultThemeVariables.textSize('small'),
 
           '&:before': {
             content: '" "',
@@ -40,12 +43,6 @@ export default function components(palette: HoustonThemeColors): Components {
           }
         },
 
-        // label: {
-        //   fontFamily: defaultThemeVariables.fontFamily,
-        //   lineHeight: defaultThemeVariables.lineHeight('compact'),
-        //   fontSize: defaultThemeVariables.textSize('small')
-        // },
-
         sizeSmall: {
           height: 30
         },
@@ -65,7 +62,7 @@ export default function components(palette: HoustonThemeColors): Components {
           '&:active': {
             backgroundColor: palette.primary.dark
           },
-          '&$disabled': {
+          '&.Mui-disabled': {
             color: palette.grey[500],
             backgroundColor: palette.grey[300]
           }
@@ -86,14 +83,14 @@ export default function components(palette: HoustonThemeColors): Components {
             borderColor: palette.primary.dark,
             color: palette.primary.dark
           },
-          '&$disabled': {
+          '&.Mui-disabled': {
             color: palette.grey[300],
             borderColor: palette.grey[300]
           }
         },
 
         text: {
-          '&$disabled': {
+          '&.Mui-disabled': {
             color: palette.grey[300]
           }
         }
@@ -124,7 +121,7 @@ export default function components(palette: HoustonThemeColors): Components {
         root: {
           fontFamily: defaultThemeVariables.fontFamily,
 
-          '&$disabled': {
+          '&.Mui-disabled': {
             backgroundColor: palette.grey['100']
           }
         }
@@ -161,41 +158,32 @@ export default function components(palette: HoustonThemeColors): Components {
           height: 40,
           padding: 0,
           alignItems: 'center',
-          overflow: 'unset',
-          '&$sizeSmall': {
-            '& > $switchBase': {
-              top: 2,
-              padding: 12,
-              '& + $track': {
-                width: 28,
-                height: SWITCH_SMALL_HEIGHT
-              },
-              '&$checked': {
-                transform: 'translateX(12px)'
-              },
-              '& span > $thumb': {
-                width: 12,
-                height: 12
-              }
-            }
-          }
+          overflow: 'unset'
         },
         switchBase: {
           left: -10,
           padding: 12,
           overflow: 'hidden',
-          '&$checked': {
+          '&.Mui-checked': {
             transform: 'translateX(16px)',
-            '& + $track': {
+            '& > .MuiSwitch-thumb': {
+              color: 'white'
+            },
+            '& + .MuiSwitch-track': {
               backgroundColor: palette.primary.main,
               borderColor: palette.primary.main,
-              opacity: 1
+              opacity: '1 !important'
             }
           },
-          '&$disabled': {
+          '&.Mui-disabled': {
             color: palette.grey[400],
-            '& + $track': {
-              opacity: 1
+            '& > .MuiSwitch-thumb': {
+              color: palette.grey[400]
+            },
+            '& + .MuiSwitch-track': {
+              backgroundColor: palette.grey[300],
+              opacity: '1 !important',
+              borderColor: palette.grey[300]
             }
           }
         },
@@ -208,38 +196,35 @@ export default function components(palette: HoustonThemeColors): Components {
             color: palette.primary.light
           }
         },
-        colorPrimary: {
-          '&:hover': {
-            color: palette.grey[200]
-          },
-          '&$checked': {
-            color: '#fff',
-            '&:hover': {
-              color: palette.primary.light
-            }
-          },
-          '&$disabled': {
-            '& + $track': {
-              backgroundColor: palette.grey[300],
-              opacity: 1,
-              borderColor: palette.grey[300]
-            }
-          }
-        },
         track: {
           backgroundColor: palette.grey[300],
           border: `2px solid ${palette.grey[300]}`,
           width: 36,
           height: SWITCH_MEDIUM_HEIGHT,
           borderRadius: SWITCH_MEDIUM_HEIGHT / 2,
-          opacity: 1
+          opacity: '1 !important'
         },
         sizeSmall: {
           width: 28,
           height: 40,
           padding: 0,
           alignItems: 'center',
-          overflow: 'unset'
+          overflow: 'unset',
+          '& > .MuiSwitch-switchBase': {
+            top: 2,
+            padding: 12,
+            '& + .MuiSwitch-track': {
+              width: 28,
+              height: SWITCH_SMALL_HEIGHT
+            },
+            '&.Mui-checked': {
+              transform: 'translateX(12px)'
+            },
+            '& > .MuiSwitch-thumb': {
+              width: 12,
+              height: 12
+            }
+          }
         }
       }
     },
@@ -306,12 +291,10 @@ export default function components(palette: HoustonThemeColors): Components {
           fontSize: defaultThemeVariables.textSize()
         },
         outlined: {
-          transform: `translate(${defaultThemeVariables.spacing(4)}px, ${
-            defaultThemeVariables.spacing(4) - 1
-          }px) scale(1)`
+          transform: 'translate(16px, 12px) scale(1)'
         },
         shrink: {
-          transform: `translate(${defaultThemeVariables.spacing(4)}px, -6px) scale(0.70) !important`
+          transform: 'translate(16px, -6px) scale(0.70) !important'
         }
       }
     },
@@ -331,15 +314,20 @@ export default function components(palette: HoustonThemeColors): Components {
         },
 
         icon: {
-          alignItems: 'center'
+          color: `${palette.grey[600]} !important`
         },
 
         action: {
-          marginRight: 0
+          marginRight: 0,
+          '&:empty': {
+            display: 'none'
+          }
         },
 
         message: {
-          fontWeight: defaultThemeVariables.fontWeight('regular')
+          fontWeight: defaultThemeVariables.fontWeight('regular'),
+          color: palette.grey[600],
+          width: '100%'
         },
 
         standardSuccess: {
@@ -496,22 +484,16 @@ export default function components(palette: HoustonThemeColors): Components {
           minHeight: 40,
           borderBottom: `1px solid ${palette.grey[200]}`
         },
-        scrollButtons: {}
+        scrollButtons: {
+          color: palette.primary['main'],
+          opacity: 1,
+          '&.Mui-disabled': {
+            opacity: 1,
+            color: palette.grey[300]
+          }
+        }
       }
     },
-
-    // MuiTabScrollButton: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: palette.primary['main'],
-    //       opacity: 1,
-    //       '&$disabled': {
-    //         opacity: 1,
-    //         color: palette.grey[300]
-    //       }
-    //     }
-    //   }
-    // },
 
     MuiTab: {
       styleOverrides: {
@@ -527,12 +509,9 @@ export default function components(palette: HoustonThemeColors): Components {
         },
         labelIcon: {
           minHeight: 40,
-          paddingTop: 0
-        },
-        wrapped: {
-          //wrapper
+          paddingTop: 0,
           flexDirection: 'row',
-          '& > *:first-child': {
+          '& > svg': {
             marginBottom: '0 !important',
             maxWidth: 20,
             maxHeight: 20,
@@ -570,7 +549,7 @@ export default function components(palette: HoustonThemeColors): Components {
               fill: palette.primary['main']
             }
           },
-          '&$disabled': {
+          '&.Mui-disabled': {
             color: palette.grey[300],
             '& svg': {
               fill: palette.grey[300]

@@ -14,15 +14,10 @@ const useStyles = createUseStyles(theme => ({
   controlButtons: {
     display: 'flex',
     alignItems: 'center',
+    alignSelf: 'center',
 
     '& button': {
       marginLeft: 4
-    }
-  },
-
-  icon: {
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
     }
   },
 
