@@ -3,7 +3,10 @@ import * as React from 'react';
 import { Theme, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import FinishIcon from '@eduzz/houston-icons/Done';
+
 import Button from '../../../Button';
+import ButtonIcon from '../../../ButtonIcon';
 import { useFirstChildrenProps } from '../../../hooks/useChildrenProps';
 import createUseStyles from '../../../styles/createUseStyles';
 import ShowcaseCloseButton from '../../CloseButton';
@@ -46,8 +49,8 @@ const useStyles = createUseStyles({
     },
 
     '& .mobile-buttons': {
+      position: 'relative',
       display: 'flex',
-      justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
 
@@ -68,7 +71,20 @@ const useStyles = createUseStyles({
         padding: 3,
         transform: 'rotate(-45deg)',
         height: '0.5px',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        marginLeft: 'auto'
+      },
+
+      '& .finish-button': {
+        cursor: 'pointer',
+        marginLeft: 'auto'
+      },
+
+      '& .step-counter': {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
       }
     }
   }
@@ -94,17 +110,23 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
       <div className={classes.ctas}>
         {isSingleStep ? (
           <div className='standard-buttons'>
-            <Button variant='contained' onClick={() => handleFinish()}>
+            <Button variant='contained' onClick={handleFinish}>
               {lastButton?.label ? lastButton.label : 'Ok, entendi!'}
             </Button>
           </div>
         ) : (
           <div className='mobile-buttons'>
-            <div>{!isFirstStep && <div className='arrow-left' onClick={() => onPreviousStep()} />}</div>
-            <span>
+            {!isFirstStep && <div className='arrow-left' onClick={onPreviousStep} />}
+            <span className='step-counter'>
               {currentStep}/{steps.length}
             </span>
-            <div>{!isLastStep && <div className='arrow-right' onClick={() => onNextStep()} />}</div>
+            {isLastStep ? (
+              <ButtonIcon className='finish-button' size='small' onClick={handleFinish}>
+                <FinishIcon size={24} />
+              </ButtonIcon>
+            ) : (
+              <div className='arrow-right' onClick={onNextStep} />
+            )}
           </div>
         )}
       </div>
@@ -115,8 +137,8 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
     <div className={classes.ctas}>
       {isSingleStep && (
         <div className='standard-buttons'>
-          <Button variant='contained' onClick={() => handleFinish()}>
-            {lastButton?.label ? lastButton.label : 'Ok, entendi!'}
+          <Button variant='contained' onClick={handleFinish}>
+            {lastButton?.label || 'Ok, entendi!'}
           </Button>
         </div>
       )}
@@ -125,19 +147,19 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
         currentStep < steps.length && [
           <div key='close-button' className='close-button'>
             {!hideCloseButton && (
-              <Button className='--secondary-color' variant='text' onClick={() => handleClose()}>
-                {closeButton?.label ? closeButton.label : 'Fechar'}
+              <Button className='--secondary-color' variant='text' onClick={handleClose}>
+                {closeButton?.label || 'Fechar'}
               </Button>
             )}
           </div>,
           <div key='standard-buttons' className='standard-buttons'>
             {!isFirstStep && (
-              <Button className='--secondary-color' variant='text' onClick={() => onPreviousStep()}>
-                {previousButton?.label ? previousButton.label : 'Anterior'}
+              <Button className='--secondary-color' variant='text' onClick={onPreviousStep}>
+                {previousButton?.label || 'Anterior'}
               </Button>
             )}
-            <Button variant='contained' onClick={() => onNextStep()}>
-              {nextButton?.label ? nextButton.label : 'Próximo'}
+            <Button variant='contained' onClick={onNextStep}>
+              {nextButton?.label || 'Próximo'}
             </Button>
           </div>
         ]}
@@ -145,12 +167,12 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
       {steps.length > 1 && isLastStep && (
         <div className='standard-buttons'>
           {!isFirstStep && (
-            <Button className='--secondary-color' variant='text' onClick={() => onPreviousStep()}>
-              {previousButton?.label ? previousButton.label : 'Anterior'}
+            <Button className='--secondary-color' variant='text' onClick={onPreviousStep}>
+              {previousButton?.label || 'Anterior'}
             </Button>
           )}
-          <Button variant='contained' onClick={() => handleFinish()}>
-            {lastButton?.label ? lastButton.label : 'Ok, entendi!'}
+          <Button variant='contained' onClick={handleFinish}>
+            {lastButton?.label || 'Ok, entendi!'}
           </Button>
         </div>
       )}
@@ -163,7 +185,7 @@ const CallToActions = React.memo(() => {
 
   const specificButtons =
     (steps[currentStep - 1]?.stepButtons?.children as React.ReactNode[]) || ([] as React.ReactNode[]);
-  const nonspecificButtons = (genericButtons?.children as React.ReactNode[]) || ([] as React.ReactNode[]);
+  const nonSpecificButtons = (genericButtons?.children as React.ReactNode[]) || ([] as React.ReactNode[]);
 
   const options = [genericButtons?.hideCloseButton, steps[currentStep - 1]?.stepButtons?.hideCloseButton];
 
@@ -175,8 +197,8 @@ const CallToActions = React.memo(() => {
     return StepButtons(specificButtons, hideCloseButton);
   }
 
-  if (!!nonspecificButtons?.length) {
-    return StepButtons(nonspecificButtons, hideCloseButton);
+  if (!!nonSpecificButtons?.length) {
+    return StepButtons(nonSpecificButtons, hideCloseButton);
   }
 
   return StepButtons();

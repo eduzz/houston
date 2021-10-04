@@ -3,6 +3,9 @@ import * as React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import CancelIcon from '@eduzz/houston-icons/Cancel';
+
+import ButtonIcon from '../../../ButtonIcon';
 import createUseStyles from '../../../styles/createUseStyles';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
@@ -28,9 +31,7 @@ const useStyles = createUseStyles(theme => ({
       textOverflow: 'ellipsis'
     },
 
-    '& .close': {
-      marginLeft: 12,
-      fontSize: 18,
+    '& .close-icon': {
       color: '#546E7A',
       cursor: 'pointer'
     }
@@ -47,7 +48,7 @@ const Header = React.memo(() => {
 
   return (
     <Typography className={classes.header}>
-      <span className='header-title'>{title.children} </span>
+      <span className='header-title'>{title.children}</span>
       {size !== 'small' && !isMobile && stepCounter && (
         <span>
           {currentStep}/{steps.length}
@@ -55,9 +56,9 @@ const Header = React.memo(() => {
       )}
 
       {(size === 'small' || isMobile) && (
-        <span className='close' id='modal-default-close' onClick={() => handleClose()}>
-          x
-        </span>
+        <ButtonIcon id='modal-default-close' onClick={handleClose} size='small'>
+          <CancelIcon className='close-icon' size={18} />
+        </ButtonIcon>
       )}
     </Typography>
   );
