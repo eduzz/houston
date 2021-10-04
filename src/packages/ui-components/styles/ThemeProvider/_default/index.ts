@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import createPalette, { Palette } from '@material-ui/core/styles/createPalette';
+import createPalette from '@material-ui/core/styles/createPalette';
 import createTheme from '@material-ui/core/styles/createTheme';
 
+import { IHoustonPalette } from '..';
+import { IHoustonCustomVariables, IHoustonTheme } from '../../useHoustonTheme';
 import overrides from './overrides';
 import props from './props';
 import typography from './typography';
@@ -9,15 +11,20 @@ import defaultThemeVariables from './variables';
 
 declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
-    houston?: typeof defaultThemeVariables & { colors: Palette };
+    houston?: IHoustonTheme;
+    variables?: IHoustonCustomVariables;
   }
 
   interface ThemeOptions {
-    houston?: typeof defaultThemeVariables & { colors: Palette };
+    houston?: IHoustonTheme;
+    variables?: IHoustonCustomVariables;
   }
 }
 
-export default function generateTheme(customPalette?: Partial<typeof defaultThemeVariables.colors>) {
+export default function generateTheme(customPalette?: IHoustonPalette) {
+  const variables = customPalette?.variables;
+  delete customPalette?.variables;
+
   const palette = createPalette({ ...defaultThemeVariables.colors, ...customPalette });
 
   return createTheme({
@@ -28,6 +35,7 @@ export default function generateTheme(customPalette?: Partial<typeof defaultThem
       ...defaultThemeVariables,
       colors: palette
     },
+    variables,
     typography,
     spacing: (factor: number) => {
       return defaultThemeVariables.spacing(factor);

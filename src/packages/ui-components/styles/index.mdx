@@ -96,6 +96,25 @@ const palette: IThemePalette = {}; // Opcional
 }
 ```
 
+## Variáveis customizadas
+
+```tsx
+import ThemeProvider, { IHoustonPalette } from '@eduzz/houston-ui/styles/ThemeProvider';
+
+const theme: Partial<IHoustonPalette> = {
+  // mode (light or dark)
+  type: 'dark',
+
+  // custom key and value
+  variables: {
+    foo: true,
+    bar: false
+  }
+};
+
+return <ThemeProvider palette={theme}>...</ThemeProvider>;
+```
+
 ## Criando Estilos Baseados no Houston
 
 Caso seja necessário é possível criar estilos usando o tema do houston como base, existem duas maneiras de fazer isso:

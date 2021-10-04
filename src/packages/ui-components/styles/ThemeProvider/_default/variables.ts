@@ -1,5 +1,7 @@
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 
+import { IHoustonTheme } from '../../useHoustonTheme';
+
 const fontSizes = {
   'xx-small': 10,
   'x-small': 12,
@@ -29,7 +31,7 @@ export type FontSizes = keyof typeof fontSizes;
 export type LineHeights = keyof typeof lineHeights;
 export type FontWeight = keyof typeof fontWeight;
 
-const defaultThemeVariables = {
+const defaultThemeVariables: IHoustonTheme = {
   fontFamily: 'Open Sans, "Helvetica Neue", Arial, sans-serif',
   radius: (unit = 1) => 4 * unit,
   spacing: (unit = 4) => 4 * unit,
@@ -62,7 +64,11 @@ const defaultThemeVariables = {
       600: '#37474F',
       700: '#373737',
       800: '#272727',
-      900: '#1E1E1E'
+      900: '#1E1E1E',
+      A100: '#1E1E1E',
+      A200: '#1E1E1E',
+      A400: '#1E1E1E',
+      A700: '#1E1E1E'
     },
     warning: {
       main: '#FFCA28',

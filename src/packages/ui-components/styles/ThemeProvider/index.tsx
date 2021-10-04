@@ -5,11 +5,12 @@ import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
 
 import { _setCurrentTheme } from '../../Toast';
 import ToastContainer from '../../Toast/Container';
+import { IHoustonCustomVariables, IHoustonTheme } from '../useHoustonTheme';
+import generateTheme from './_default';
 import defaultThemeVariables from './_default/variables';
 import ContextTheme from './context';
-import generateCustomTheme from './custom';
 
-export type IThemePalette = Parameters<typeof generateCustomTheme>[0];
+export type IHoustonPalette = IHoustonTheme['colors'] & { variables?: IHoustonCustomVariables };
 
 type IThemeExtends = 'children';
 
@@ -17,15 +18,14 @@ interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
   /**
    * Custom pallete colors (MUI)
    */
-  palette?: Partial<IThemePalette>;
+  palette?: Partial<IHoustonPalette>;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
 }
 
-function ThemeProvider(props: IThemeProviderProps) {
-  const { children, palette, disableCssBaseline, disabledFontBase } = props;
+function ThemeProvider({ children, palette, disableCssBaseline, disabledFontBase }: IThemeProviderProps) {
+  const theme: Theme = React.useMemo(() => generateTheme(palette), [palette]);
 
-  const theme: Theme = React.useMemo(() => generateCustomTheme(palette), [palette]);
   const fontBaseBody = React.useMemo(
     () =>
       !disabledFontBase &&
