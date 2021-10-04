@@ -3,7 +3,7 @@ import * as React from 'react';
 import { IShowcaseStep, IShowcaseButtons, IWidthSizes } from './interfaces';
 import { IShowcaseTitleProps } from './Title';
 
-interface IShowcaseContext {
+export interface IShowcaseContext {
   title: IShowcaseTitleProps;
   stepCounter: boolean;
   steps: IShowcaseStep[];

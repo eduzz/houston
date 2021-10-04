@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useMemo } from 'react';
 
-import { Global } from '@emotion/core';
+import { Global } from '@emotion/react';
 import Footer from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Footer';
 import {
   Content,

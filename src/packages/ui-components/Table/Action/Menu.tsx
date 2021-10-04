@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Menu, { MenuProps } from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import Menu, { MenuProps } from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 import createUseStyles from '../../styles/createUseStyles';
 import { ITableAction } from '../interface';
@@ -52,18 +52,13 @@ const MenuActions = React.memo<IProps>(({ open, onClose, options: optionsProp, a
       anchorEl={anchorEl}
       open={open}
       onClose={onClose}
-      getContentAnchorEl={null}
       disableAutoFocusItem
       disableAutoFocus
       keepMounted
       anchorOrigin={menuOptions.anchorOrigin}
       transformOrigin={menuOptions.transformOrigin}
       elevation={3}
-      PaperProps={{
-        style: {
-          maxHeight: 350
-        }
-      }}
+      PaperProps={{ style: { maxHeight: 350 } }}
     >
       {options?.map(option => {
         return (

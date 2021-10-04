@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Radio from '@material-ui/core/Radio';
+import Radio from '@mui/material/Radio';
 
 import BaseRadioField, { IRadioBaseFieldProps } from '../internals/RadioBase';
 

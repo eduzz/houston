@@ -1,15 +1,14 @@
 import * as React from 'react';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
+import { ThemeProviderProps } from '@emotion/react/types/theming';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Theme, ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import { _setCurrentTheme } from '../../Toast';
 import ToastContainer from '../../Toast/Container';
-import defaultThemeVariables from './_default/variables';
+import defaultThemeVariables, { HoustonThemeColors } from './_default/variables';
 import ContextTheme from './context';
 import generateCustomTheme from './custom';
-
-export type IThemePalette = Parameters<typeof generateCustomTheme>[0];
 
 type IThemeExtends = 'children';
 
@@ -17,7 +16,7 @@ interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
   /**
    * Custom pallete colors (MUI)
    */
-  palette?: Partial<IThemePalette>;
+  palette?: Partial<HoustonThemeColors>;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
 }
@@ -60,15 +59,17 @@ function ThemeProvider(props: IThemeProviderProps) {
   React.useEffect(() => _setCurrentTheme(theme), [theme]);
 
   return (
-    <React.Fragment>
-      <style dangerouslySetInnerHTML={styleContent} />
+    <StyledEngineProvider injectFirst>
+      <MUIThemeProvider theme={theme}>
+        <style dangerouslySetInnerHTML={styleContent} />
 
-      <ContextTheme.Provider value={theme}>
-        <ToastContainer />
-        {!disableCssBaseline && <CssBaseline />}
-        {children}
-      </ContextTheme.Provider>
-    </React.Fragment>
+        <ContextTheme.Provider value={theme}>
+          <ToastContainer />
+          {!disableCssBaseline && <CssBaseline />}
+          {children}
+        </ContextTheme.Provider>
+      </MUIThemeProvider>
+    </StyledEngineProvider>
   );
 }
 

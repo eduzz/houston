@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import CollapseMUI from '@material-ui/core/Collapse';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import CollapseMUI from '@mui/material/Collapse';
 import clsx from 'clsx';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';

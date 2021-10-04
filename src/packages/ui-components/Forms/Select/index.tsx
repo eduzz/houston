@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import Checkbox from '@material-ui/core/Checkbox';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import InputLabel from '@material-ui/core/InputLabel';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select, { SelectProps } from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
+import Checkbox from '@mui/material/Checkbox';
+import CircularProgress from '@mui/material/CircularProgress';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import ListItemText from '@mui/material/ListItemText';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent, SelectProps } from '@mui/material/Select';
+import { makeStyles } from '@mui/styles';
 import { useContextSelector } from 'use-context-selector';
 
 import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
@@ -25,7 +25,7 @@ export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExt
   emptyOption?: string;
   maxLabelItems?: number;
   value?: any;
-  onChange?: (value: any, event: React.ChangeEvent<{ name?: string; value: any }>) => any;
+  onChange?: (value: any, event: SelectChangeEvent<{ name?: string; value: any }>) => any;
   margin?: 'none' | 'dense' | 'normal';
   size?: 'normal' | 'small';
 }
@@ -103,8 +103,8 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
     );
 
     const handleChange = React.useCallback(
-      (e: React.ChangeEvent<{ name?: string; value: any }>) => {
-        let value = e.target.value;
+      (e: SelectChangeEvent<{ name?: string; value: any }>) => {
+        let value: any = e.target.value;
 
         if (Array.isArray(value) && value.includes('')) {
           value = [];

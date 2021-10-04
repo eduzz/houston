@@ -2,10 +2,10 @@
 
 import * as React from 'react';
 
-import { Theme } from '@material-ui/core/styles';
-import TableMUI, { Size, TableProps } from '@material-ui/core/Table';
-import TableContainer from '@material-ui/core/TableContainer';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Theme } from '@mui/material/styles';
+import TableMUI, { TableProps } from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import clsx from 'clsx';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';
@@ -53,7 +53,7 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children'> {
   /**
    * Default `medium`
    */
-  size?: Size;
+  size?: 'small' | 'medium';
   /**
    * Max Height table container
    */
@@ -92,7 +92,7 @@ const getCollapseData = (content: React.ReactNode): ITableCollapse => {
 
 const Table: React.FC<ITableProps> = props => {
   const classes = useStyles();
-  const isMobile = useMediaQuery<Theme>(theme => theme.breakpoints.down('xs'));
+  const isMobile = useMediaQuery<Theme>(theme => theme.breakpoints.down('sm'));
 
   const {
     children,

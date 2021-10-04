@@ -1,15 +1,14 @@
-import * as React from 'react';
+import { Breakpoints, useTheme } from '@mui/material';
 
 import defaultThemeVariables from './ThemeProvider/_default/variables';
-import HoustonThemeContext from './ThemeProvider/context';
 
-export type HoustonTheme = typeof defaultThemeVariables;
+export type HoustonTheme = typeof defaultThemeVariables & { breakpoints: Breakpoints };
 
-export default function useHoustonTheme() {
-  const context = React.useContext(HoustonThemeContext);
+export default function useHoustonTheme(): HoustonTheme {
+  const theme = useTheme();
 
   return {
-    ...defaultThemeVariables,
-    colors: context.palette
+    ...theme.houston,
+    breakpoints: theme.breakpoints
   };
 }

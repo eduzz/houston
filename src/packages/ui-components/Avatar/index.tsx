@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import AvatarMUI, { AvatarProps } from '@material-ui/core/Avatar';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import AvatarMUI, { AvatarProps } from '@mui/material/Avatar';
+import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
 
 import AvatarOutline from '@eduzz/houston-icons/AvatarOutline';
