@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import AlertMUI, { AlertProps, AlertColor } from '@mui/material/Alert';
-import MUIAlertTitle from '@mui/material/AlertTitle';
 import Collapse from '@mui/material/Collapse';
 import clsx from 'clsx';
 
@@ -9,10 +8,10 @@ import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import Button from '../Button';
 import nestedComponent from '../Helpers/nestedComponent';
-import { useChildrenProps, useFirstChildrenProps } from '../hooks/useChildrenProps';
+import { useChildrenProps } from '../hooks/useChildrenProps';
 import AlertAction, { IAlertActionProps } from './Action';
 import useStyles from './styles';
-import AlertTitle, { IAlertTitleProps } from './Title';
+import AlertTitle from './Title';
 
 type AlertPropsExtends = 'id' | 'className' | 'children' | 'severity' | 'onClose' | 'icon';
 
@@ -32,7 +31,6 @@ const Alert: React.FC<IAlertProps> = props => {
 
   const [hide, , , setHide] = useBoolean(false);
 
-  const title = useFirstChildrenProps<IAlertTitleProps>(children, AlertTitle);
   const actions = useChildrenProps<IAlertActionProps>(children, AlertAction).map(props => ({
     ...props,
     id: `action-${alertActionIncrementer++}`
@@ -59,20 +57,29 @@ const Alert: React.FC<IAlertProps> = props => {
     return null;
   }, [multiline, actions, classes, buttonActions]);
 
+  const classesProp = React.useMemo(
+    () => ({
+      root: classes.root,
+      icon: clsx(multiline && classes.multilineIcon, !multiline && classes.icon),
+      action: clsx(multiline && classes.multilineAction, !multiline && classes.action),
+      message: classes.message
+    }),
+    [
+      classes.action,
+      classes.icon,
+      classes.message,
+      classes.multilineAction,
+      classes.multilineIcon,
+      classes.root,
+      multiline
+    ]
+  );
+
+  console.log({ classesProp });
+
   return (
     <Collapse in={!hide} timeout={500}>
-      <AlertMUI
-        {...alertProps}
-        onClose={closable ? setHide : onClose}
-        action={renderActions}
-        classes={{
-          root: classes.root,
-          icon: clsx(multiline && classes.multilineIcon, !multiline && classes.icon),
-          action: clsx(multiline && classes.multilineAction, !multiline && classes.action),
-          message: classes.message
-        }}
-      >
-        {title && <MUIAlertTitle>{title?.children}</MUIAlertTitle>}
+      <AlertMUI {...alertProps} onClose={closable ? setHide : onClose} action={renderActions}>
         {children}
         {multiline && buttonActions.length > 0 && (
           <div className={classes.controlButtonsMultiline}>{buttonActions}</div>

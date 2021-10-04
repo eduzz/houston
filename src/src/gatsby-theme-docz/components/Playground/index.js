@@ -39,8 +39,7 @@ const getResizableProps = (width, setWidth) => ({
 })
 
 const transformCode = code => {
-  if (code.startsWith('()') || code.startsWith('class')) return code
-  return `<React.Fragment><ThemeProvider>${code}</ThemeProvider></React.Fragment>`
+  return `<ThemeProvider>${code.startsWith('()') ? `{React.createElement(${code})}` : code}</ThemeProvider>`
 }
 
 export const Playground = ({ code, scope, language, useScoping = false }) => {
@@ -48,10 +47,8 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
     themeConfig: { showPlaygroundEditor, showLiveError, showLivePreview },
   } = useConfig()
 
-  console.log('playgrpund')
-
   // Makes sure scope is only given on mount to avoid infinite re-render on hot reloads
-  const [scopeOnMount] = useState(scope)
+  const [scopeOnMount] = useState(() => ({...scope, ThemeProvider }))
   const theme = usePrismTheme()
   const [showingCode, setShowingCode] = useState(showPlaygroundEditor)
   const [width, setWidth] = useState('100%')
@@ -76,7 +73,7 @@ export const Playground = ({ code, scope, language, useScoping = false }) => {
             showingCode={showingCode}
           >
             {showLivePreview && (
-              <LivePreview sx={styles.preview} data-testid="live-preview" />
+                <LivePreview sx={styles.preview} data-testid="live-preview" />
             )}
           </Wrapper>
           <div sx={styles.buttons}>
