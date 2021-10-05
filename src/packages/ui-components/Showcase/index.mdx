@@ -45,6 +45,10 @@ import Showcase from '@eduzz/houston-ui/Showcase';
                 console.log(`Salvar no localstorage e enviar para o analytics o step ${currentStep}`);
                 setOpenSmall(false);
               }}
+              onFinish={() => {
+                console.log('Enviar para o analytics que o usuário finalizou todos os steps');
+                setOpenSmall(false);
+              }}
             >
               <Showcase.Title>Envie vídeos!</Showcase.Title>
               <Showcase.Step>
