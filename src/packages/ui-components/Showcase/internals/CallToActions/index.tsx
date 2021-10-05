@@ -6,7 +6,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import FinishIcon from '@eduzz/houston-icons/Done';
 
 import Button from '../../../Button';
-import ButtonIcon from '../../../ButtonIcon';
 import { useFirstChildrenProps } from '../../../hooks/useChildrenProps';
 import createUseStyles from '../../../styles/createUseStyles';
 import ShowcaseCloseButton from '../../CloseButton';
@@ -15,19 +14,27 @@ import ShowcaseLastStep, { IShowcaseLastStepProps } from '../../LastButton';
 import ShowcaseNextStep, { IShowcaseNextStepProps } from '../../NextButton';
 import ShowcasePreviousStep, { IShowcasePreviousStepProps } from '../../PreviousButton';
 
-const useStyles = createUseStyles({
-  ctas: {
+interface IStyleProps {
+  size?: 'small' | 'medium' | 'large';
+}
+
+const useStyles = createUseStyles(theme => ({
+  ctas: (props: IStyleProps) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    padding: '32px 24px 24px',
+    padding: props?.size === 'small' ? '32px 16px 16px' : '32px 24px 24px',
+
+    [theme.breakpoints.down('xs')]: {
+      padding: '12px 16px'
+    },
 
     '& button': {
       whiteSpace: 'nowrap',
 
       '&.--secondary-color': {
-        color: '#546E7A'
+        color: theme.colors.grey[500]
       }
     },
 
@@ -53,25 +60,24 @@ const useStyles = createUseStyles({
       display: 'flex',
       alignItems: 'center',
       width: '100%',
+      height: 24,
 
-      '& .arrow-left': {
-        border: 'solid #546E7A',
+      '& .arrow': {
+        borderStyle: 'solid',
+        borderColor: theme.colors.grey[500],
         borderWidth: '0 3px 3px 0',
         display: 'inline-block',
         padding: 3,
-        transform: 'rotate(135deg)',
         height: '0.5px',
         cursor: 'pointer'
       },
 
+      '& .arrow-left': {
+        transform: 'rotate(135deg)'
+      },
+
       '& .arrow-right': {
-        border: 'solid #546E7A',
-        borderWidth: '0 3px 3px 0',
-        display: 'inline-block',
-        padding: 3,
         transform: 'rotate(-45deg)',
-        height: '0.5px',
-        cursor: 'pointer',
         marginLeft: 'auto'
       },
 
@@ -87,12 +93,12 @@ const useStyles = createUseStyles({
         transform: 'translate(-50%, -50%)'
       }
     }
-  }
-});
+  })
+}));
 
 const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean) => {
   const { steps, currentStep, size, onNextStep, onPreviousStep, handleClose, handleFinish } = useShowcaseContext();
-  const classes = useStyles();
+  const classes = useStyles({ size });
 
   const theme = useTheme();
   const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('xs'));
@@ -116,16 +122,14 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
           </div>
         ) : (
           <div className='mobile-buttons'>
-            {!isFirstStep && <div className='arrow-left' onClick={onPreviousStep} />}
+            {!isFirstStep && <div className='arrow arrow-left' onClick={onPreviousStep} />}
             <span className='step-counter'>
               {currentStep}/{steps.length}
             </span>
             {isLastStep ? (
-              <ButtonIcon className='finish-button' size='small' onClick={handleFinish}>
-                <FinishIcon size={24} />
-              </ButtonIcon>
+              <FinishIcon className='finish-button' size={24} onClick={handleFinish} />
             ) : (
-              <div className='arrow-right' onClick={onNextStep} />
+              <div className='arrow arrow-right' onClick={onNextStep} />
             )}
           </div>
         )}

@@ -10,13 +10,16 @@ import createUseStyles from '../../../styles/createUseStyles';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
+interface IStyleProps {
+  size?: 'small' | 'medium' | 'large';
+}
+
 const useStyles = createUseStyles(theme => ({
-  header: {
+  header: (props: IStyleProps) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    padding: '24px 24px 0',
-    fontSize: 16,
+    padding: props?.size === 'small' ? '16px 16px 0' : '24px 24px 0',
 
     [theme.breakpoints.down('xs')]: {
       padding: '12px 16px 0'
@@ -35,19 +38,19 @@ const useStyles = createUseStyles(theme => ({
       color: '#546E7A',
       cursor: 'pointer'
     }
-  }
+  })
 }));
 
 const Header = React.memo(() => {
   const { currentStep, title, stepCounter, steps, size, handleClose } = useShowcaseContext();
 
-  const classes = useStyles();
+  const classes = useStyles({ size });
   const isMobile = useMediaQuery<Theme>(theme => theme.breakpoints.down('xs'));
 
   if (!title) return null;
 
   return (
-    <Typography className={classes.header}>
+    <Typography className={classes.header} size='normal'>
       <span className='header-title'>{title.children}</span>
       {size !== 'small' && !isMobile && stepCounter && (
         <span>
