@@ -15,7 +15,7 @@ export interface IHoustonTheme {
   textSize: (size?: FontSizes) => number;
   lineHeight: (size?: LineHeights) => number;
   fontWeight: (size?: FontWeight) => number;
-  breakpoints?: BreakpointsOptions;
+  breakpoints: BreakpointsOptions;
   colors: Partial<Palette>;
 }
 
