@@ -111,7 +111,7 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
         {isSingleStep ? (
           <div className='standard-buttons'>
             <Button variant='contained' onClick={handleFinish}>
-              {lastButton?.label ? lastButton.label : 'Ok, entendi!'}
+              {lastButton?.label || 'Ok, entendi!'}
             </Button>
           </div>
         ) : (
@@ -183,25 +183,26 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
 const CallToActions = React.memo(() => {
   const { steps, currentStep, genericButtons } = useShowcaseContext();
 
-  const specificButtons =
-    (steps[currentStep - 1]?.stepButtons?.children as React.ReactNode[]) || ([] as React.ReactNode[]);
-  const nonSpecificButtons = (genericButtons?.children as React.ReactNode[]) || ([] as React.ReactNode[]);
+  const formatChildrenToNodeArray = (children: React.ReactNode) => {
+    const isNodeArray = Array.isArray(children);
+    if (isNodeArray) return children;
+    if (!isNodeArray && children) return [children];
+    return [];
+  };
 
-  const options = [genericButtons?.hideCloseButton, steps[currentStep - 1]?.stepButtons?.hideCloseButton];
-
-  const strategyPattern = (accumulator: boolean, currentValue: boolean) => (currentValue ? currentValue : accumulator);
-
-  const hideCloseButton = options.reduce(strategyPattern, false);
+  const specificButtons = formatChildrenToNodeArray(steps[currentStep - 1]?.stepButtons?.children);
+  const nonSpecificButtons = formatChildrenToNodeArray(genericButtons?.children);
+  const hideCloseButton = genericButtons?.hideCloseButton || steps[currentStep - 1]?.stepButtons?.hideCloseButton;
+  let buttons: React.ReactNode[] = [];
 
   if (!!specificButtons?.length) {
-    return StepButtons(specificButtons, hideCloseButton);
+    buttons = specificButtons;
   }
-
   if (!!nonSpecificButtons?.length) {
-    return StepButtons(nonSpecificButtons, hideCloseButton);
+    buttons = nonSpecificButtons;
   }
 
-  return StepButtons();
+  return StepButtons(buttons, hideCloseButton);
 });
 
 export default CallToActions;
