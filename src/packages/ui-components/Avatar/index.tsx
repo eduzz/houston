@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import AvatarMUI, { AvatarProps } from '@mui/material/Avatar';
-import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
 
 import AvatarOutline from '@eduzz/houston-icons/AvatarOutline';
 import AvatarSolid from '@eduzz/houston-icons/AvatarSolid';
 
+import createUseStyles from '../styles/createUseStyles';
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 
 type AvatarPropsExtends = 'id' | 'className' | 'src' | 'alt' | 'onClick';
@@ -32,13 +32,13 @@ export interface IAvatarProps extends Pick<AvatarProps, AvatarPropsExtends> {
 
 const sizes = { small: 40, middle: 60, large: 80 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = createUseStyles(theme => ({
   root: ({ size }: { size: IAvatarSize }) => ({
     display: 'inline-flex',
     background: 'none',
-    border: `2px solid ${theme.palette.grey[500]}`,
-    color: theme.palette.grey[500],
-    fontWeight: theme.houston.fontWeight('semibold'),
+    border: `2px solid ${theme.colors.grey[500]}`,
+    color: theme.colors.grey[500],
+    fontWeight: theme.fontWeight('semibold'),
     width: size,
     height: size,
 
@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     '&.--filled': {
-      background: theme.palette.grey[500],
+      background: theme.colors.grey[500],
       color: 'white',
       borderWidth: 4,
 
@@ -71,20 +71,20 @@ const useStyles = makeStyles(theme => ({
   small: ({ size }: { size: IAvatarSize }) => ({
     width: size ?? sizes.small,
     height: size ?? sizes.small,
-    fontSize: theme.houston.textSize('small'),
+    fontSize: theme.textSize('small'),
     borderWidth: 2
   }),
 
   middle: ({ size }: { size: IAvatarSize }) => ({
     width: size ?? sizes.middle,
     height: size ?? sizes.middle,
-    fontSize: theme.houston.textSize('medium')
+    fontSize: theme.textSize('medium')
   }),
 
   large: ({ size }: { size: IAvatarSize }) => ({
     width: size ?? sizes.large,
     height: size ?? sizes.large,
-    fontSize: theme.houston.textSize('x-large')
+    fontSize: theme.textSize('x-large')
   })
 }));
 

@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import LinearProgress from '@mui/material/LinearProgress';
-import { withStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 
 interface IProgressBarProps {
   progress: number;
 }
 
-const Bar = withStyles(theme => ({
+const Bar = styled(LinearProgress)(({ theme }) => ({
   root: {
     height: 8
   },
@@ -18,7 +18,7 @@ const Bar = withStyles(theme => ({
     height: 80,
     backgroundColor: theme.houston.colors.success.main
   }
-}))(LinearProgress);
+}));
 
 const ProgressBar = ({ progress }: IProgressBarProps) => {
   return <Bar variant='determinate' value={progress > 100 ? 100 : progress} />;

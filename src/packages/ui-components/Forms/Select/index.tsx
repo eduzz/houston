@@ -9,7 +9,6 @@ import InputLabel from '@mui/material/InputLabel';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent, SelectProps } from '@mui/material/Select';
-import { makeStyles } from '@mui/styles';
 import { useContextSelector } from 'use-context-selector';
 
 import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';

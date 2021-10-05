@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Theme } from '@mui/material/styles';
 
 declare module '@mui/material/styles/createTheme' {
   interface Theme {
@@ -9,10 +8,6 @@ declare module '@mui/material/styles/createTheme' {
   interface ThemeOptions {
     houston?: typeof defaultThemeVariables & { colors: HoustonThemeColors };
   }
-}
-
-declare module '@mui/styles' {
-  interface DefaultTheme extends Theme {}
 }
 
 const fontSizes = {
