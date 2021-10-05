@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import createPalette from '@material-ui/core/styles/createPalette';
 import createTheme from '@material-ui/core/styles/createTheme';
 
@@ -33,7 +34,8 @@ export default function generateTheme(customPalette?: IHoustonPalette) {
     props,
     houston: {
       ...defaultThemeVariables,
-      colors: palette
+      colors: palette,
+      breakpoints: createBreakpoints({})
     },
     variables,
     typography,
