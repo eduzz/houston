@@ -38,7 +38,7 @@ const defaultThemeVariables: IHoustonTheme = {
   textSize: (size: FontSizes = 'normal') => fontSizes[size],
   lineHeight: (size: LineHeights = 'normal') => lineHeights[size],
   fontWeight: (size: FontWeight = 'regular') => fontWeight[size],
-  breakpoints: createBreakpoints(null),
+  breakpoints: createBreakpoints({}),
   colors: {
     background: {
       paper: '#fff',

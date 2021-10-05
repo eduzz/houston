@@ -6,7 +6,7 @@ import ComponentDev from './components';
 
 function App() {
   return (
-    <ThemeProvider>
+    <ThemeProvider palette={{}}>
       <ComponentDev />
     </ThemeProvider>
   );

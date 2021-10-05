@@ -19,7 +19,10 @@ export interface IHoustonTheme {
   colors: Partial<Palette>;
 }
 
-export default function useHoustonTheme(): IHoustonTheme & { variables?: IHoustonCustomVariables } {
+export default function useHoustonTheme(): Omit<IHoustonTheme, 'colors'> & {
+  colors: Palette;
+  variables?: IHoustonCustomVariables;
+} {
   const context = React.useContext(HoustonThemeContext);
 
   return {
