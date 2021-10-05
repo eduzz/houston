@@ -17,7 +17,7 @@ import ShowcaseGenericButtons from './GenericButtons';
 import ShowcaseImage, { IShowcaseImageProps } from './Image';
 import { IShowcaseProps, IShowcaseStep, IShowcaseButtons } from './interfaces';
 import CallToActions from './internals/CallToActions';
-import Header from './internals/Header/indext';
+import Header from './internals/Header';
 import Steps from './internals/Steps';
 import ShowcaseLastButton from './LastButton';
 import ShowcaseNextButton from './NextButton';
@@ -65,13 +65,16 @@ const useStyles = createUseStyles(theme => ({
     },
 
     '& .card-mui': {
+      display: 'flex',
+      flexDirection: 'column',
       width: '100%',
       boxShadow: 'none',
 
       '& .card-content-mui': {
         boxSizing: 'border-box',
         width: '100%',
-        padding: 0
+        padding: 0,
+        overflow: 'auto'
       },
 
       '& .card-actions-mui': {
