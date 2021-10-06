@@ -4,7 +4,7 @@ import createPalette from '@material-ui/core/styles/createPalette';
 import createTheme from '@material-ui/core/styles/createTheme';
 
 import { IHoustonPalette } from '..';
-import { IHoustonCustomVariables, IHoustonTheme } from '../../useHoustonTheme';
+import { IHoustonThemeCustomVariables, IHoustonTheme } from '../../useHoustonTheme';
 import overrides from './overrides';
 import props from './props';
 import typography from './typography';
@@ -13,12 +13,12 @@ import defaultThemeVariables from './variables';
 declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
     houston?: IHoustonTheme;
-    variables?: IHoustonCustomVariables;
+    variables?: IHoustonThemeCustomVariables;
   }
 
   interface ThemeOptions {
     houston?: IHoustonTheme;
-    variables?: IHoustonCustomVariables;
+    variables?: IHoustonThemeCustomVariables;
   }
 }
 

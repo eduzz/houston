@@ -6,7 +6,14 @@ import { Palette } from '@material-ui/core/styles/createPalette';
 import defaultThemeVariables, { FontSizes, FontWeight, LineHeights } from './ThemeProvider/_default/variables';
 import HoustonThemeContext from './ThemeProvider/context';
 
-export type IHoustonCustomVariables = { [key: string]: any };
+export type IHoustonThemeCustomVariables = {
+  [key: string]: unknown;
+};
+
+export interface IHoustonThemeResponse extends Omit<IHoustonTheme, 'colors'> {
+  colors: Palette;
+  variables?: IHoustonThemeCustomVariables;
+}
 
 export interface IHoustonTheme {
   fontFamily: string;
@@ -19,10 +26,7 @@ export interface IHoustonTheme {
   colors: Partial<Palette>;
 }
 
-export default function useHoustonTheme(): Omit<IHoustonTheme, 'colors'> & {
-  colors: Palette;
-  variables?: IHoustonCustomVariables;
-} {
+export default function useHoustonTheme(): IHoustonThemeResponse {
   const context = React.useContext(HoustonThemeContext);
 
   return {
