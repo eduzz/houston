@@ -5,12 +5,12 @@ import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
 
 import { _setCurrentTheme } from '../../Toast';
 import ToastContainer from '../../Toast/Container';
-import { IHoustonCustomVariables, IHoustonTheme } from '../useHoustonTheme';
+import { IHoustonThemeCustomVariables, IHoustonTheme } from '../useHoustonTheme';
 import generateTheme from './_default';
 import defaultThemeVariables from './_default/variables';
 import ContextTheme from './context';
 
-export type IHoustonPalette = IHoustonTheme['colors'] & { variables?: IHoustonCustomVariables };
+export type IHoustonPalette = IHoustonTheme['colors'] & { variables?: IHoustonThemeCustomVariables };
 
 type IThemeExtends = 'children';
 
