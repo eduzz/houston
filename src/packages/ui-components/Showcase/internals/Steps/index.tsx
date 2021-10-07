@@ -108,7 +108,7 @@ const Steps = React.memo(() => {
     <div className={classes.root}>
       <div className='steps'>
         {steps.map((step, key) => {
-          const { image, text } = step || { images: null, text: null };
+          const { image, text } = step;
 
           return (
             <div key={key} className={clsx(size === 'small' && classes.mobilePadding, classes.stepContent)}>
@@ -119,7 +119,7 @@ const Steps = React.memo(() => {
                   classes.contentImage
                 )}
               >
-                <img src={image?.src} alt={image.alt} />
+                {image && <img src={image.src} alt={image.alt} />}
               </div>
               <Typography className='content-text'>{text?.children}</Typography>
             </div>

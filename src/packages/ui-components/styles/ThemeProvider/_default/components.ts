@@ -1,12 +1,13 @@
 /* eslint-disable max-lines */
 import { Components } from '@mui/material/styles';
 
-import defaultThemeVariables, { HoustonThemeColors } from './variables';
+import { HoustonColors } from '../../types';
+import defaultThemeVariables from './variables';
 
 const SWITCH_MEDIUM_HEIGHT = 20;
 const SWITCH_SMALL_HEIGHT = 16;
 
-export default function components(palette: HoustonThemeColors): Components {
+export default function components(palette: HoustonColors): Components {
   return {
     MuiButton: {
       styleOverrides: {

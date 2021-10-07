@@ -3,17 +3,23 @@ import * as React from 'react';
 import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import CancelIcon from '@eduzz/houston-icons/Cancel';
+
+import ButtonIcon from '../../../ButtonIcon';
 import createUseStyles from '../../../styles/createUseStyles';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
+interface IStyleProps {
+  size?: 'small' | 'medium' | 'large';
+}
+
 const useStyles = createUseStyles(theme => ({
-  header: {
+  header: (props: IStyleProps) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    padding: '24px 24px 0',
-    fontSize: 16,
+    padding: props?.size === 'small' ? '16px 16px 0' : '24px 24px 0',
 
     [theme.breakpoints.down('sm')]: {
       padding: '12px 16px 0'
@@ -28,26 +34,24 @@ const useStyles = createUseStyles(theme => ({
       textOverflow: 'ellipsis'
     },
 
-    '& .close': {
-      marginLeft: 12,
-      fontSize: 18,
+    '& .close-icon': {
       color: '#546E7A',
       cursor: 'pointer'
     }
-  }
+  })
 }));
 
 const Header = React.memo(() => {
   const { currentStep, title, stepCounter, steps, size, handleClose } = useShowcaseContext();
 
-  const classes = useStyles();
-  const isMobile = useMediaQuery<Theme>(theme => theme.breakpoints.down('sm'));
+  const classes = useStyles({ size });
+  const isMobile = useMediaQuery<Theme>(theme => theme.breakpoints.down('xs'));
 
   if (!title) return null;
 
   return (
-    <Typography className={classes.header}>
-      <span className='header-title'>{title.children} </span>
+    <Typography className={classes.header} size='normal'>
+      <span className='header-title'>{title.children}</span>
       {size !== 'small' && !isMobile && stepCounter && (
         <span>
           {currentStep}/{steps.length}
@@ -55,9 +59,9 @@ const Header = React.memo(() => {
       )}
 
       {(size === 'small' || isMobile) && (
-        <span className='close' id='modal-default-close' onClick={() => handleClose()}>
-          x
-        </span>
+        <ButtonIcon id='modal-default-close' onClick={handleClose} size='small'>
+          <CancelIcon className='close-icon' size={18} />
+        </ButtonIcon>
       )}
     </Typography>
   );
