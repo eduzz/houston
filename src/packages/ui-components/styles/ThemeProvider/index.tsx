@@ -9,6 +9,7 @@ import ToastContainer from '../../Toast/Container';
 import defaultThemeVariables, { HoustonThemeColors } from './_default/variables';
 import ContextTheme from './context';
 import generateCustomTheme from './custom';
+import MuiV4Compat from './MuiV4Compat';
 
 type IThemeExtends = 'children';
 
@@ -19,10 +20,11 @@ interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
   palette?: Partial<HoustonThemeColors>;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
+  muiV4Compat?: boolean;
 }
 
 function ThemeProvider(props: IThemeProviderProps) {
-  const { children, palette, disableCssBaseline, disabledFontBase } = props;
+  const { children, palette, disableCssBaseline, disabledFontBase, muiV4Compat } = props;
 
   const theme: Theme = React.useMemo(() => generateCustomTheme(palette), [palette]);
   const fontBaseBody = React.useMemo(
@@ -61,13 +63,15 @@ function ThemeProvider(props: IThemeProviderProps) {
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={theme}>
-        <style dangerouslySetInnerHTML={styleContent} />
+        <MuiV4Compat enabled={muiV4Compat}>
+          <style dangerouslySetInnerHTML={styleContent} />
 
-        <ContextTheme.Provider value={theme}>
-          <ToastContainer />
-          {!disableCssBaseline && <CssBaseline />}
-          {children}
-        </ContextTheme.Provider>
+          <ContextTheme.Provider value={theme}>
+            <ToastContainer />
+            {!disableCssBaseline && <CssBaseline />}
+            {children}
+          </ContextTheme.Provider>
+        </MuiV4Compat>
       </MUIThemeProvider>
     </StyledEngineProvider>
   );

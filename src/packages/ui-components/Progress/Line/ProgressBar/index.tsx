@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import LinearProgress from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
 
