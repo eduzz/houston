@@ -46,18 +46,6 @@ const useStyles = createUseStyles(theme => ({
 
     [theme.breakpoints.down('xs')]: {
       padding: '12px 16px'
-    },
-
-    '& .content-text': {
-      alignSelf: 'baseline',
-      fontWeight: 400,
-      fontSize: 16,
-      textAlign: 'left',
-      margin: 0,
-      lineHeight: '24px',
-      letterSpacing: '0.3px',
-      maxHeight: '29vh',
-      overflow: 'auto'
     }
   },
 
@@ -78,6 +66,27 @@ const useStyles = createUseStyles(theme => ({
     '& img': {
       maxWidth: '100%',
       borderRadius: 4
+    }
+  }),
+
+  contentText: ({ imageSizes }: IStyleProps) => ({
+    width: imageSizes.large,
+    alignSelf: 'baseline',
+    fontWeight: 400,
+    fontSize: 16,
+    textAlign: 'left',
+    margin: 0,
+    lineHeight: '24px',
+    letterSpacing: '0.3px',
+    maxHeight: '29vh',
+    overflow: 'auto',
+
+    [theme.breakpoints.down('md')]: {
+      width: imageSizes.medium
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      width: imageSizes.small
     }
   }),
 
@@ -112,16 +121,20 @@ const Steps = React.memo(() => {
 
           return (
             <div key={key} className={clsx(size === 'small' && classes.mobilePadding, classes.stepContent)}>
-              <div
-                className={clsx(
-                  size === 'small' && classes.small,
-                  size === 'medium' && classes.medium,
-                  classes.contentImage
-                )}
-              >
-                {image && <img src={image.src} alt={image.alt} />}
-              </div>
-              <Typography className='content-text'>{text?.children}</Typography>
+              {image && (
+                <div
+                  className={clsx(
+                    size === 'small' && classes.small,
+                    size === 'medium' && classes.medium,
+                    classes.contentImage
+                  )}
+                >
+                  <img src={image.src} alt={image.alt} />
+                </div>
+              )}
+              <Typography className={clsx(size === 'small' && classes.small, classes.contentText)}>
+                {text?.children}
+              </Typography>
             </div>
           );
         })}
