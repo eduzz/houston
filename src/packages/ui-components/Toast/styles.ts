@@ -504,8 +504,6 @@ const styles = `
 .Toastify__slide-exit--bottom-center {
   animation-name: Toastify__slideOutDown;
 }
-
-/*# sourceMappingURL=ReactToastify.css.map */
 `;
 
 export default styles;
