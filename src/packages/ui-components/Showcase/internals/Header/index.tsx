@@ -36,7 +36,9 @@ const useStyles = createUseStyles(theme => ({
 
     '& .close-icon': {
       color: '#546E7A',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center'
     }
   })
 }));
