@@ -19,7 +19,7 @@ const PasswordField: React.FC<IPasswordFieldProps> = props => {
       {...props}
       type={showPassword ? 'text' : 'password'}
       endAdornment={
-        <IconButton aria-label='toggle password visibility' onClick={toogleShowPassword}>
+        <IconButton size='small' onClick={toogleShowPassword}>
           {showPassword ? <Visibility /> : <VisibilityOff />}
         </IconButton>
       }
