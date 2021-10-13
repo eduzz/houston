@@ -10,18 +10,16 @@ import { HoustonThemeBuilder } from '../types';
 import generateTheme from './_default';
 import defaultThemeVariables from './_default/variables';
 import ContextTheme from './context';
-import MuiV4Compat from './MuiV4Compat';
 
 type IThemeExtends = 'children';
 
-interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
+export interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
   theme?: HoustonThemeBuilder;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
-  muiV4Compat?: boolean;
 }
 
-function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase, muiV4Compat }: IThemeProviderProps) {
+function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase }: IThemeProviderProps) {
   const muiTheme = React.useMemo(() => generateTheme(theme), [theme]);
 
   const fontBaseBody = React.useMemo(
@@ -60,15 +58,13 @@ function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase, 
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
-        <MuiV4Compat enabled={muiV4Compat}>
-          <style dangerouslySetInnerHTML={styleContent} />
+        <style dangerouslySetInnerHTML={styleContent} />
 
-          <ContextTheme.Provider value={muiTheme}>
-            <ToastContainer />
-            {!disableCssBaseline && <CssBaseline />}
-            {children}
-          </ContextTheme.Provider>
-        </MuiV4Compat>
+        <ContextTheme.Provider value={muiTheme}>
+          <ToastContainer />
+          {!disableCssBaseline && <CssBaseline />}
+          {children}
+        </ContextTheme.Provider>
       </MUIThemeProvider>
     </StyledEngineProvider>
   );

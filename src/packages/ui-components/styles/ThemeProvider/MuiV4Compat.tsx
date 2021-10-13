@@ -1,33 +1,19 @@
 import * as React from 'react';
 
-import usePromise from '@eduzz/houston-hooks/usePromise';
+import createGenerateClassName from '@material-ui/styles/createGenerateClassName';
+import StylesProvider from '@material-ui/styles/StylesProvider';
 
-const StylesProvider = React.lazy(() => {
-  // @ts-ignore
-  return import('@material-ui/styles/StylesProvider');
-});
+import ThemeProvider, { IThemeProviderProps } from '.';
 
-interface IProps {
-  children: React.ReactNode;
-  enabled: boolean;
-}
+const generateClassName = createGenerateClassName({ disableGlobal: true });
 
-const MuiV4Compat: React.FC<IProps> = React.memo(({ children, enabled }) => {
-  const [generateClassName] = usePromise(async () => {
-    if (!enabled) return null;
-    // @ts-ignore
-    const createGenerateClassName = await import('@material-ui/styles/createGenerateClassName');
-    return createGenerateClassName.default({ disableGlobal: true });
-  }, [enabled]);
+interface IProps extends IThemeProviderProps {}
 
-  if (!enabled) return <>{children}</>;
-
-  if (!generateClassName) return null;
-
+const MuiV4Compat: React.FC<IProps> = React.memo(({ children, ...props }) => {
   return (
-    <React.Suspense fallback={<></>}>
-      <StylesProvider generateClassName={generateClassName} />
-    </React.Suspense>
+    <ThemeProvider {...props}>
+      <StylesProvider generateClassName={generateClassName}>{children}</StylesProvider>
+    </ThemeProvider>
   );
 });
 
