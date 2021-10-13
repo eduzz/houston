@@ -1,4 +1,4 @@
-import { TypographyOptions } from '@material-ui/core/styles/createTypography';
+import { TypographyOptions } from '@mui/material/styles/createTypography';
 
 import themeVariable from './variables';
 

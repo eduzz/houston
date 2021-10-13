@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import MUITabs from '@material-ui/core/Tabs';
+import MUITabs from '@mui/material/Tabs';
 import clsx from 'clsx';
 
 import createUseStyles from '../styles/createUseStyles';

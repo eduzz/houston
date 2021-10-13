@@ -28,11 +28,11 @@ const useStyles = createUseStyles(theme => ({
       marginLeft: margin * -modalSizes[size ?? 'large'],
       transition: 'ease margin 1s',
 
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('lg')]: {
         marginLeft: margin * -modalSizes[size ?? 'medium']
       },
 
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         marginLeft: margin * -modalSizes[size ?? 'small']
       }
     }
@@ -44,7 +44,7 @@ const useStyles = createUseStyles(theme => ({
     alignItems: 'center',
     padding: '16px 24px',
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       padding: '12px 16px'
     }
   },
@@ -55,11 +55,11 @@ const useStyles = createUseStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
 
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       width: props.imageSizes.medium
     },
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       width: props.imageSizes.small
     },
 

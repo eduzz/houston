@@ -6,7 +6,7 @@ module.exports = {
   "useTabs": false,
   "tabWidth": 2,
   "bracketSpacing": true,
-  "jsxBracketSameLine": false,
+  "bracketSameLine": false,
   "arrowParens": "avoid",
   "endOfLine": "lf",
   "printWidth": 120,

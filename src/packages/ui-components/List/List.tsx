@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import ListMUI, { ListProps as ListPropsMUI } from '@material-ui/core/List';
+import ListMUI, { ListProps as ListPropsMUI } from '@mui/material/List';
 import clsx from 'clsx';
 
 import nestedComponent from '../Helpers/nestedComponent';

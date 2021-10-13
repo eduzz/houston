@@ -30,7 +30,7 @@ export default function useObservable<T>(
 
     const sub = cb().subscribe({
       next: (data: T) => {
-        setValue(data);
+        setValue(() => data);
         setError(undefined);
         setLoading(false);
       },

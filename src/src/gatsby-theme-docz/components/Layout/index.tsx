@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useMemo } from 'react';
 
-import { Global } from '@emotion/core';
+import { Global } from '@emotion/react';
 import Footer from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/components/Footer';
 import {
   Content,
@@ -15,7 +15,7 @@ import { MainContainer } from 'gatsby-theme-docz/src/components/MainContainer';
 import { Sidebar } from 'gatsby-theme-docz/src/components/Sidebar';
 import { breakpoints } from 'gatsby-theme-docz/src/theme/breakpoints';
 import PropTypes from 'prop-types';
-import { Box, Flex, jsx } from 'theme-ui';
+import { Box, Flex } from 'theme-ui';
 
 import { Header } from '../Header';
 import NavHeadings from '../NavHeadings';

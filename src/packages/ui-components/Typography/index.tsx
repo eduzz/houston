@@ -3,8 +3,8 @@ import * as React from 'react';
 import clsx from 'clsx';
 
 import createUseStyles from '../styles/createUseStyles';
-import { FontSizes, FontWeight, LineHeights } from '../styles/ThemeProvider/_default/variables';
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
+import { HoustonFontSizes, HoustonFontWeight, HoustonLineHeights } from '../styles/types';
 
 export type ITypographyVariant = 'secondary';
 
@@ -13,9 +13,9 @@ export type ITypographyComponent = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
 export interface ITypographyProps {
   id?: string;
   className?: string;
-  size?: FontSizes;
-  lineHeight?: LineHeights;
-  fontWeight?: FontWeight;
+  size?: HoustonFontSizes;
+  lineHeight?: HoustonLineHeights;
+  fontWeight?: HoustonFontWeight;
   marginBottom?: boolean;
   children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;

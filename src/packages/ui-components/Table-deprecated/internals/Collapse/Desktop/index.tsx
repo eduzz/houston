@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import CollapseMUI from '@material-ui/core/Collapse';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import CollapseMUI from '@mui/material/Collapse';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';
 

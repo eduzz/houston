@@ -2,10 +2,10 @@
 
 import * as React from 'react';
 
-import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
-import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
-import { InputLabelProps } from '@material-ui/core/InputLabel';
-import TextFieldMUI, { TextFieldProps } from '@material-ui/core/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
+import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
+import { InputLabelProps } from '@mui/material/InputLabel';
+import TextFieldMUI, { TextFieldProps } from '@mui/material/TextField';
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import AvatarMUI from '@material-ui/core/Avatar';
-import ListItemIconMUI from '@material-ui/core/ListItemIcon';
+import AvatarMUI from '@mui/material/Avatar';
+import ListItemIconMUI from '@mui/material/ListItemIcon';
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';

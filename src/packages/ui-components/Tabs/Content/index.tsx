@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import MUITab from '@material-ui/core/Tab';
+import MUITab from '@mui/material/Tab';
 import { useContextSelector } from 'use-context-selector';
 
 import TabsContext from '../context';

@@ -13,7 +13,7 @@ import * as styles from 'gatsby-theme-docz/src/components/Header/styles';
 import { Edit, Github, Menu, Search, Sun } from 'gatsby-theme-docz/src/components/Icons';
 import { Logo } from 'gatsby-theme-docz/src/components/Logo';
 import PropTypes from 'prop-types';
-import { Box, Flex, jsx, useColorMode } from 'theme-ui';
+import { Box, Flex, useColorMode } from 'theme-ui';
 
 import links from './links';
 

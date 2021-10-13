@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import * as React from 'react';
 
-import TooltipMUI, { TooltipProps } from '@material-ui/core/Tooltip';
+import TooltipMUI, { TooltipProps } from '@mui/material/Tooltip';
 
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 

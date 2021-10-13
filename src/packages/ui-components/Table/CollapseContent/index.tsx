@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import CollapseMUI from '@material-ui/core/Collapse';
+import CollapseMUI from '@mui/material/Collapse';
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 

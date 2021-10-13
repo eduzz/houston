@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { InputLabelProps } from '@material-ui/core/InputLabel';
-import TextFieldMUI from '@material-ui/core/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
+import InputAdornment from '@mui/material/InputAdornment';
+import { InputLabelProps } from '@mui/material/InputLabel';
+import TextFieldMUI from '@mui/material/TextField';
 import clsx from 'clsx';
 import dateFormat from 'date-fns/format';
 import { enUS, ptBR } from 'date-fns/locale';

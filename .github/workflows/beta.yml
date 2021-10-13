@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - develop
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - develop
 
 jobs:
   check-version:

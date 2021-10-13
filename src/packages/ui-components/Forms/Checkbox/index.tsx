@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from '@mui/material/Checkbox';
 
 import CheckboxRadioField, { ICheckboxBaseFieldProps } from '../internals/CheckBoxBase';
 

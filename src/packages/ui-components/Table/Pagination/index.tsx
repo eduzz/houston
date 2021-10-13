@@ -1,15 +1,14 @@
 import * as React from 'react';
 
-import PaginationMUI from '@material-ui/lab/Pagination';
+import PaginationMUI from '@mui/material/Pagination';
 import { useContextSelector } from 'use-context-selector';
 
-import SelectField from '@eduzz/houston-ui/Forms/Select';
-import TextField from '@eduzz/houston-ui/Forms/Text';
-import Column from '@eduzz/houston-ui/Grid/Column';
-import Row from '@eduzz/houston-ui/Grid/Row';
-import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
-import Typography from '@eduzz/houston-ui/Typography';
-
+import SelectField from '../../Forms/Select';
+import TextField from '../../Forms/Text';
+import Column from '../../Grid/Column';
+import Row from '../../Grid/Row';
+import createUseStyles from '../../styles/createUseStyles';
+import Typography from '../../Typography';
 import TableContext from '../context';
 
 type ITablePaginationExtends = 'id' | 'className' | 'children';
@@ -51,7 +50,7 @@ const useStyles = createUseStyles(theme => ({
       color: theme.colors.grey[600]
     },
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none'
     }
   },
@@ -66,7 +65,7 @@ const useStyles = createUseStyles(theme => ({
     height: '100%',
     alignItems: 'center',
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(2),
       justifyContent: 'center'
     }
@@ -151,17 +150,10 @@ const Pagination = React.memo<ITablePagination>(
       [onChangePage, page, perPage, total]
     );
 
-    const handleChangePerPage = React.useCallback(
-      (_: any, event: React.ChangeEvent<{ name?: string; value: any }>) => {
-        onChangePerPage(event.target.value);
-      },
-      [onChangePerPage]
-    );
+    const handleChangePerPage = React.useCallback((value: any) => onChangePerPage(Number(value)), [onChangePerPage]);
 
     const handleChangePage = React.useCallback(
-      (_: React.ChangeEvent<unknown>, page: number) => {
-        onChangePage(page);
-      },
+      (e: React.SyntheticEvent, page: number) => onChangePage(page),
       [onChangePage]
     );
 

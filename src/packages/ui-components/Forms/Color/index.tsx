@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { InputLabelProps } from '@material-ui/core/InputLabel';
-import TextFieldMUI from '@material-ui/core/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
+import InputAdornment from '@mui/material/InputAdornment';
+import { InputLabelProps } from '@mui/material/InputLabel';
+import TextFieldMUI from '@mui/material/TextField';
 import clsx from 'clsx';
 import { HexColorPicker } from 'react-colorful';
 import { useContextSelector } from 'use-context-selector';

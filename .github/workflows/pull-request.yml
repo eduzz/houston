@@ -5,81 +5,6 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  check-version:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 15
-      - name: Set Version
-        id: current-version
-        run: echo '::set-output name=VERSION::'$(node -p -e "require('./package.json').version") && echo '::set-output name=BETA::'$(node -p -e "require('./package.json').version.includes('beta')")
-    outputs:
-      VERSION: ${{ steps.current-version.outputs.VERSION }}
-      BETA: ${{ steps.current-version.outputs.BETA }}
-
-  should-release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 15
-      - name: Deps
-        run: npm i -g semver ora@5.4.1
-      - name: Run should-release
-        run: sh ./scripts/should-release.sh
-      - name: Check Skip Release
-        id: skip-release
-        run: echo '::set-output name=SKIP::'$(cat .skip-release)
-    outputs:
-      SKIP: ${{ steps.skip-release.outputs.SKIP }}
-
-  publish-beta:
-    needs: [check-version, should-release]
-    runs-on: ubuntu-latest
-    if: needs.check-version.outputs.BETA == 'true' && needs.should-release.outputs.SKIP != 'true'
-    steps:
-      - name: Clone
-        uses: actions/checkout@v2
-      - name: Prepare Env
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install
-      - name: Setup NPM Registry
-        run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > ~/.npmrc && npm config get registry && npm whoami
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: Publish
-        run: npm run publish -- --ci
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: Check Skip Release
-        id: skip-release
-        run: echo '::set-output name=SKIP::'$(cat .skip-release)
-      - name: Create tag
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/v${{ needs.check-version.outputs.VERSION }}",
-              sha: context.sha
-            })
-      - name: Discord
-        uses: appleboy/discord-action@master
-        with:
-          webhook_id: ${{ secrets.DISCORD_RELEASE_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_RELEASE_WEBHOOK_TOKEN }}
-          args: "Nova versão beta criada: v${{ needs.check-version.outputs.VERSION }}\n${{ steps.release.outputs.html_url }}"
-
   check-lint:
     runs-on: ubuntu-latest
     steps:
@@ -103,3 +28,17 @@ jobs:
         run: yarn lint
       - name: Build
         run: yarn build
+
+  check-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Prepare Env
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
+      - name: Build
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: build-docs

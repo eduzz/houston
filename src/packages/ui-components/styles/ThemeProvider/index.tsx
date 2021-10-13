@@ -1,30 +1,26 @@
 import * as React from 'react';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { Theme, ThemeProviderProps } from '@material-ui/core/styles';
+import { ThemeProviderProps } from '@emotion/react/types/theming';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import { _setCurrentTheme } from '../../Toast';
 import ToastContainer from '../../Toast/Container';
-import { IHoustonThemeCustomVariables, IHoustonTheme } from '../useHoustonTheme';
+import { HoustonThemeBuilder } from '../types';
 import generateTheme from './_default';
 import defaultThemeVariables from './_default/variables';
 import ContextTheme from './context';
 
-export type IHoustonPalette = IHoustonTheme['colors'] & { variables?: IHoustonThemeCustomVariables };
-
 type IThemeExtends = 'children';
 
-interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
-  /**
-   * Custom pallete colors (MUI)
-   */
-  palette?: Partial<IHoustonPalette>;
+export interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
+  theme?: HoustonThemeBuilder;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
 }
 
-function ThemeProvider({ children, palette, disableCssBaseline, disabledFontBase }: IThemeProviderProps) {
-  const theme: Theme = React.useMemo(() => generateTheme(palette), [palette]);
+function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase }: IThemeProviderProps) {
+  const muiTheme = React.useMemo(() => generateTheme(theme), [theme]);
 
   const fontBaseBody = React.useMemo(
     () =>
@@ -57,18 +53,20 @@ function ThemeProvider({ children, palette, disableCssBaseline, disabledFontBase
     [fontBaseBody]
   );
 
-  React.useEffect(() => _setCurrentTheme(theme), [theme]);
+  React.useEffect(() => _setCurrentTheme(muiTheme), [muiTheme]);
 
   return (
-    <React.Fragment>
-      <style dangerouslySetInnerHTML={styleContent} />
+    <StyledEngineProvider injectFirst>
+      <MUIThemeProvider theme={muiTheme}>
+        <style dangerouslySetInnerHTML={styleContent} />
 
-      <ContextTheme.Provider value={theme}>
-        <ToastContainer />
-        {!disableCssBaseline && <CssBaseline />}
-        {children}
-      </ContextTheme.Provider>
-    </React.Fragment>
+        <ContextTheme.Provider value={muiTheme}>
+          <ToastContainer />
+          {!disableCssBaseline && <CssBaseline />}
+          {children}
+        </ContextTheme.Provider>
+      </MUIThemeProvider>
+    </StyledEngineProvider>
   );
 }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Theme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Theme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import CancelIcon from '@eduzz/houston-icons/Cancel';
 
@@ -21,7 +21,7 @@ const useStyles = createUseStyles(theme => ({
     alignItems: 'flex-end',
     padding: props?.size === 'small' ? '16px 16px 0' : '24px 24px 0',
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       padding: '12px 16px 0'
     },
 
