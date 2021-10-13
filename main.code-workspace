@@ -50,7 +50,8 @@
       "mdx"
     ],
     "files.exclude": {
-      "node_modules": true,
+      "**/node_modules": true,
+      "**/.docusaurus": true,
       ".ultra.cache.json": true,
       "**/*.css": {
         "when": "$(basename).scss"
