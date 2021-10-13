@@ -15,7 +15,7 @@ import { MainContainer } from 'gatsby-theme-docz/src/components/MainContainer';
 import { Sidebar } from 'gatsby-theme-docz/src/components/Sidebar';
 import { breakpoints } from 'gatsby-theme-docz/src/theme/breakpoints';
 import PropTypes from 'prop-types';
-import { Box, Flex, jsx } from 'theme-ui';
+import { Box, Flex } from 'theme-ui';
 
 import { Header } from '../Header';
 import NavHeadings from '../NavHeadings';

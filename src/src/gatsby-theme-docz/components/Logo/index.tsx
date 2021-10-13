@@ -3,7 +3,7 @@ import { Image } from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/componen
 import { getPublicUrl } from '@nejcm/docz-theme-extended/src/gatsby-theme-docz/helpers';
 import { Link, useConfig } from 'docz';
 import * as styles from 'gatsby-theme-docz/src/components/Logo/styles';
-import { Flex, jsx, useColorMode } from 'theme-ui';
+import { Flex, useColorMode } from 'theme-ui';
 
 export const Logo = () => {
   const config = useConfig();
