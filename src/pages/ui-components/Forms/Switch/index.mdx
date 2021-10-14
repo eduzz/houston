@@ -1,0 +1,105 @@
+---
+name: Switch Field
+route: /componentes/switch
+menu: eduzz/houston-ui
+submenu: Componentes
+---
+
+import { Playground } from 'dokz';
+
+import useForm from '@eduzz/houston-forms/useForm';
+
+import Column from '../../Grid/Column';
+import Row from '../../Grid/Row';
+import Typography from '../../Typography';
+import Form from '../Form';
+import Switch from './';
+
+# Switch Field
+
+Switches alternam o estado de uma única configuração, sendo ligado ou desligado.
+
+### Importação
+
+```js
+import Switch from '@eduzz/houston-ui/Forms/Switch';
+```
+
+### Exemplos
+
+<Playground>
+  {() => {
+    const [checked, setChecked] = React.useState(false);
+    const onChange = React.useCallback(() => setChecked(prev => !prev), []);
+    return (
+      <>
+        <Typography>Padrão</Typography>
+        <Row>
+          <Column>
+            <Switch checked={checked} onChange={onChange} />
+          </Column>
+          <Column>
+            <Switch size='small' checked={checked} onChange={onChange} />
+          </Column>
+        </Row>
+        <Typography>Desabilitado</Typography>
+        <Row>
+          <Column>
+            <Switch defaultChecked disabled />
+          </Column>
+          <Column>
+            <Switch size='small' defaultChecked disabled />
+          </Column>
+        </Row>
+        <Row>
+          <Column>
+            <Switch disabled />
+          </Column>
+          <Column>
+            <Switch size='small' disabled />
+          </Column>
+        </Row>
+      </>
+    );
+  }}
+</Playground>
+
+### Utilizando com Form
+
+```js
+import useForm from '@eduzz/houston-forms/useForm';
+```
+
+<Playground>
+  {() => {
+    const form = useForm({
+      initialValues: { darkTheme: true }, //estado inicial, não precisa passar todas as propriedades
+      onSubmit: () => {
+        // onSubmit pode retornar uma promise ou um observable de rxjs, desse jeito ele irá
+        // setar corretamente o isSubmitting
+        return new Promise(resolve => {
+          setTimeout(() => resolve(null), 3000);
+        });
+      }
+    });
+    return (
+      <Form context={form}>
+        <Typography>Valor atual do switch: {String(form.values.darkTheme)}</Typography>
+        <Switch name='darkTheme' />
+      </Form>
+    );
+  }}
+</Playground>
+
+### Propriedades
+
+| prop           | tipo                | obrigatório | padrão     | descrição |
+| -------------- | ------------------- | ----------- | ---------- | --------- |
+| id             | `string`            | `false`     | -          | -         |
+| name           | `string`            | `true`      | -          | -         |
+| className      | `string`            | `false`     | -          | -         |
+| checked        | `boolean`           | `false`     | `false`    | -         |
+| defaultChecked | `boolean`           | `false`     | `false`    | -         |
+| size           | `'small ou medium'` | `false`     | `'medium'` | -         |
+| onChange       | `function`          | `false`     | -          | -         |
+| disabled       | `boolean`           | `false`     | `false`    | -         |

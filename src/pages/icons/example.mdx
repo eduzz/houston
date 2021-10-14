@@ -1,0 +1,83 @@
+---
+name: Ícones
+route: /icons/list
+menu: eduzz/houston-icons
+---
+
+import TextField from '@eduzz/houston-ui/Forms/Text';
+import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
+import Toast from '@eduzz/houston-ui/Toast';
+import Tooltip from '@eduzz/houston-ui/Tooltip';
+import Typography from '@eduzz/houston-ui/Typography';
+
+import * as Icon from './';
+
+export const Example = () => {
+  const initialIcons = Object.entries(Icon).map(([name, CurrentIcon]) => ({
+    icon: <CurrentIcon size={'large'} />,
+    name
+  }));
+  const [currentIcons, setCurrentIcons] = React.useState([]);
+  const [search, setSearch] = React.useState('');
+  const handleChangeSearch = React.useCallback(
+    value => {
+      setSearch(value);
+      if (!value) {
+        setSearch('');
+        setCurrentIcons([]);
+        return;
+      }
+      const currentValue = value.toLowerCase();
+      const searched = initialIcons.filter(
+        i => i.name.toLowerCase().startsWith(currentValue) || i.name.toLowerCase() === currentValue
+      );
+      setCurrentIcons(searched);
+    },
+    [initialIcons]
+  );
+  const handleIconClick = React.useCallback(iconName => {
+    const textArea = document.createElement('textarea');
+    const textToCopy = `import ${iconName} from '@eduzz/houston-icons/${iconName}';`;
+    textArea.innerText = textToCopy;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    textArea.remove();
+    Toast.success(`Copiado '${iconName}' para o clipboard.`);
+  }, []);
+  const icons = search ? currentIcons : initialIcons;
+  return (
+    <div className='list-icons'>
+      <TextField value={search} onChange={handleChangeSearch} placeholder='Busque por ícones' />
+      {icons.length > 0 &&
+        icons
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((icon, index) => (
+            <div
+              key={`icon-${index}`}
+              className='icon-preview'
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleIconClick(icon.name)}
+            >
+              {icon.icon}
+              <Tooltip title={icon.name} placement='bottom'>
+                <div className='name'>{icon.name}</div>
+              </Tooltip>
+            </div>
+          ))}
+      {icons.length === 0 && <Typography>Nenhum ícone encontrado...</Typography>}
+    </div>
+  );
+};
+
+# Ícones
+
+Coleção de ícones do Houston.
+
+### Lista de ícones
+
+<Example />
+
+```jsx
+
+```

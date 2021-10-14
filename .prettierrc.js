@@ -1,3 +1,3 @@
 module.exports = {
-  ...require("./src/packages/eslint-config/.prettierrc")
+  ...require("./src/pages/eslint-config/.prettierrc")
 }

@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const childProccess = require('child_process');
 
-const packagePath = `${__dirname}/../src/packages/icons`;
+const packagePath = `${__dirname}/../src/pages/icons`;
 const trashFolderPath = `${packagePath}/_dump`;
 
 const mapperNameIcon = {

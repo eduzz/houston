@@ -60,7 +60,7 @@ async function init() {
   }
 
   const foldersBlackList = ['pages'];
-  let packages = await fs.promises.readdir(`${__dirname}/../src/packages`, { withFileTypes: true });
+  let packages = await fs.promises.readdir(`${__dirname}/../src/pages`, { withFileTypes: true });
 
   packages = [
     {
@@ -68,8 +68,8 @@ async function init() {
       folder: `${__dirname}/../`
     },
     ...packages.filter(file => file.isDirectory() && !foldersBlackList.includes(file.name)).map(file => ({
-      name: require(`${__dirname}/../src/packages/${file.name}/package.json`).name,
-      folder: `${__dirname}/../src/packages/${file.name}`
+      name: require(`${__dirname}/../src/pages/${file.name}/package.json`).name,
+      folder: `${__dirname}/../src/pages/${file.name}`
     }))
   ];
 

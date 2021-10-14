@@ -1,0 +1,97 @@
+---
+name: Alert
+route: /ui-components/alert
+menu: eduzz/houston-ui
+submenu: Componentes
+---
+
+import { Playground } from 'dokz';
+
+import Box from '../Box';
+import Alert from './';
+
+# Alert
+
+Um alerta exibe uma mensagem curta e importante de uma forma que atrai a atenção do usuário sem interromper o que ele estiver fazendo.
+
+### Importação
+
+```js
+import Alert from '@eduzz/houston-ui/Alert';
+```
+
+### Simples
+
+<Playground>
+  <Alert>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Alert>
+</Playground>
+
+### Variações
+
+<Playground>
+  <Box xs={{ margin: '0 0 10px 0' }}>
+    <Alert type='error'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Alert>
+  </Box>
+  <Box xs={{ margin: '0 0 10px 0' }}>
+    <Alert type='info'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Alert>
+  </Box>
+  <Box xs={{ margin: '0 0 10px 0' }}>
+    <Alert type='warning'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Alert>
+  </Box>
+  <Box xs={{ margin: '0 0 10px 0' }}>
+    <Alert>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Alert>
+  </Box>
+</Playground>
+
+### Auto gerenciável
+
+Não há necessidade de controlar o estado para exibir/esconder.
+
+<Playground>
+  <Alert closable>Lorem ipsum dolor sit amet, consectetur adipiscing elit</Alert>
+</Playground>
+
+### Ações customizadas
+
+<Playground>
+  <Alert>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    <Alert.Action variant='text' label='Cancelar' />
+    <Alert.Action label='Ação' />
+  </Alert>
+</Playground>
+
+### Multilinha
+
+<Playground>
+  <Alert multiline>
+    <Alert.Title>Lorem ipsum</Alert.Title>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    <Alert.Action label='Cancelar' variant='text' />
+    <Alert.Action label='Ação' />
+  </Alert>
+</Playground>
+
+### Propriedades
+
+### Alert props
+
+| prop      | tipo                       | obrigatório | padrão      | descrição                                                                                        |
+| --------- | -------------------------- | ----------- | ----------- | ------------------------------------------------------------------------------------------------ |
+| type      | `Color`                    | `false`     | `success`   | -                                                                                                |
+| onClose   | `function`                 | `false`     | -           | Se houver um valor, ele adiciona automaticamente o "X".                                          |
+| icon      | `React.ReactNode`, `false` | `false`     | `type` icon | Se `false`, o ícone ficará oculto.                                                               |
+| closable  | `boolean`                  | `false`     | `false`     | Se `true`, o componente controla o próprio estado e não há necessidade de usar a prop `onClose`. |
+| multiline | `boolean`                  | `false`     | `false`     | Se `true`, as ações cairão na linha abaixo do texto.                                             |
+
+### Alert.Title props
+
+O componente recebe apenas o `children`.
+
+### Alert.Action props
+
+| prop  | tipo              | obrigatório | padrão | descrição |
+| ----- | ----------------- | ----------- | ------ | --------- |
+| label | `React.ReactNode` | `true`      | -      | -         |
+
+E todos as `props` disponíveis no _Componente de botão_.

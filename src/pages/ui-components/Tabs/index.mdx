@@ -1,0 +1,100 @@
+---
+name: Tabs
+route: /ui-components/tabs
+menu: eduzz/houston-ui
+submenu: Componentes
+---
+
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import { Playground, Hi } from 'dokz';
+
+import Tabs from './';
+
+# Tabs
+
+As abas facilitam a exploração e alternam entre diferentes visualizações.
+
+> Para as Tabs funcionarem corretamente, insira uma div encapsulando o children dentro do Tab.Content.
+
+### Importação
+
+```js
+import Tabs from '@eduzz/houston-ui/Tabs';
+```
+
+### Auto gerenciável
+
+Não há necessidade de controlar o estado da aba ativa.
+
+<Playground>
+  <Tabs>
+    <Tabs.Content label='Título 1'>
+      <div>Conteúdo 1</div>
+    </Tabs.Content>
+    <Tabs.Content label='Título 2'>
+      <div>Conteúdo 2</div>
+    </Tabs.Content>
+  </Tabs>
+</Playground>
+
+### Valor controlado
+
+<Playground>
+  {() => {
+    const [tab, setTab] = React.useState(0);
+    return (
+      <Tabs value={tab} onChange={value => setTab(value)}>
+        <Tabs.Content label='Título 1'>
+          <div>Conteúdo 1</div>
+        </Tabs.Content>
+        <Tabs.Content label='Título 2'>
+          <div>Conteúdo 2</div>
+        </Tabs.Content>
+      </Tabs>
+    );
+  }}
+</Playground>
+
+### Estado
+
+<Playground>
+  <Tabs>
+    <Tabs.Content label='Título 1'>
+      <div>Conteúdo 1</div>
+    </Tabs.Content>
+    <Tabs.Content label='Desabilitado 2' disabled>
+      <div>Conteúdo 2</div>
+    </Tabs.Content>
+  </Tabs>
+</Playground>
+
+### Com ícone
+
+<Playground>
+  <Tabs>
+    <Tabs.Content label='Título 1' icon={<InsertEmoticonIcon />}>
+      <div>Conteúdo 1</div>
+    </Tabs.Content>
+    <Tabs.Content label='Título 2' icon={<InsertEmoticonIcon />}>
+      <div>Conteúdo 2</div>
+    </Tabs.Content>
+  </Tabs>
+</Playground>
+
+### Propriedades
+
+#### Tabs props
+
+| prop     | type                      | required | default | description         |
+| -------- | ------------------------- | -------- | ------- | ------------------- |
+| value    | `number`                  | `false`  | -       | Índice da aba.      |
+| onChange | `(value: number) => void` | `false`  | -       | Recebe novo índice. |
+
+#### Tabs.Content props
+
+| prop            | type        | required | default |
+| --------------- | ----------- | -------- | ------- |
+| label           | `string`    | `true`   | -       |
+| icon            | `ReactNode` | `false`  | -       |
+| disabled        | `boolean`   | `false`  | `false` |
+| disabledPadding | `boolean`   | `false`  | `false` |

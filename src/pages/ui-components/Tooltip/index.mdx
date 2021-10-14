@@ -1,0 +1,78 @@
+---
+name: Tooltip
+route: /ui-components/tooltip
+menu: eduzz/houston-ui
+submenu: Componentes
+---
+
+import { Playground } from 'dokz';
+
+import Button from '../Button';
+import Column from '../Grid/Column';
+import Row from '../Grid/Row';
+import Tooltip from './';
+
+# Tooltip
+
+Usado para identificar elementos e descrever funcionalidades.
+
+### Importação
+
+```js
+import Tooltip from '@eduzz/houston-ui/Tooltip';
+```
+
+### Exemplo
+
+<Playground>
+  <Row>
+    <Column>
+      <Tooltip title='Lorem ipsum dolor'>
+        <Button>John Doe</Button>
+      </Tooltip>
+    </Column>
+    <Column>
+      <Tooltip title='Lorem ipsum dolor' disabled>
+        <Button>Tooltip desabilitado</Button>
+      </Tooltip>
+    </Column>
+  </Row>
+</Playground>
+
+### Direção
+
+<Playground>
+  <Row>
+    <Column>
+      <Tooltip title='Lorem ipsum dolor'>
+        <Button>Top</Button>
+      </Tooltip>
+    </Column>
+    <Column>
+      <Tooltip title='Lorem ipsum dolor' placement='bottom'>
+        <Button>Bottom</Button>
+      </Tooltip>
+    </Column>
+    <Column>
+      <Tooltip title='Lorem ipsum dolor' placement='left'>
+        <Button>Left</Button>
+      </Tooltip>
+    </Column>
+    <Column>
+      <Tooltip title='Lorem ipsum dolor' placement='right'>
+        <Button>Right</Button>
+      </Tooltip>
+    </Column>
+  </Row>
+</Playground>
+
+### Propriedades
+
+| prop      | tipo                | obrigatório | padrão  | descrição                                |
+| --------- | ------------------- | ----------- | ------- | ---------------------------------------- |
+| title     | `string`            | `true`      | -       | -                                        |
+| disabled  | `boolean`           | `false`     | `false` | -                                        |
+| placement | `ITooltipPlacement` | `false`     | `top`   | -                                        |
+| open      | `boolean`           | `false`     | `false` | Se verdadeiro, sempre exibirá o `title`. |
+| onOpen    | `function`          | `false`     | -       | -                                        |
+| onClose   | `function`          | `false`     | -       | -                                        |
