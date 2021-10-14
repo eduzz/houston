@@ -12,6 +12,7 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
   favicon: 'img/favicon.ico',
   organizationName: 'eduzz',
   projectName: 'houston',
+  themes: ['@docusaurus/theme-live-codeblock'],
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -21,13 +22,8 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
           sidebarPath: require.resolve('./sidebars.js'),
           path: 'packages',
           exclude: [
-            'bundle',
-            'core',
-            'eslint-config',
             'experimental',
-            'forms',
             'hooks',
-            'icons',
             'ui-components'
           ],
           // Please change this to your repo.
