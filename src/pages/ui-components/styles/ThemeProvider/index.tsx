@@ -17,9 +17,10 @@ export interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExte
   theme?: HoustonThemeBuilder;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
+  disableToast?: boolean;
 }
 
-function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase }: IThemeProviderProps) {
+function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase, disableToast }: IThemeProviderProps) {
   const muiTheme = React.useMemo(() => generateTheme(theme), [theme]);
 
   const fontBaseBody = React.useMemo(
@@ -61,7 +62,7 @@ function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase }
         <style dangerouslySetInnerHTML={styleContent} />
 
         <ContextTheme.Provider value={muiTheme}>
-          <ToastContainer />
+          {!disableToast && <ToastContainer />}
           {!disableCssBaseline && <CssBaseline />}
           {children}
         </ContextTheme.Provider>

@@ -6,6 +6,9 @@ const withTM = require('next-transpile-modules')([
 
 module.exports = withPlugins([withTM, withDokz], {
     debug: true,
-    pageExtensions: ['page.js', 'page.jsx', 'md', 'mdx', 'page.ts', 'page.tsx']
+    pageExtensions: ['page.js', 'page.jsx', 'md', 'mdx', 'page.ts', 'page.tsx'],
+    eslint: {
+        ignoreDuringBuilds: true,
+    }
 })
 

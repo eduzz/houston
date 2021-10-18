@@ -12,7 +12,7 @@
     "build": "yarn ultra -r -b --filter \"src/*\" build",
     "build-docs": "(cd src && yarn build)",
     "start": "sh ./scripts/start.sh",
-    "start:docs": "yarn ultra -r --concurrency 10 --filter \"@eduzz/docs\" start",
+    "start:docs": "yarn ultra -r --concurrency 10 --filter \"+@eduzz/docs\" start",
     "start:dev": "yarn ultra -r --concurrency 10 --filter \"+@eduzz/dev\" start",
     "start:both": "yarn ultra -r --concurrency 10 start",
     "prepare": "yarn husky install &&  yarn patch-package",

@@ -1,0 +1,29 @@
+.list-icons {
+  display: flex;
+  align-items: center;
+  margin: 0 -8px;
+  flex-wrap: wrap;
+}
+
+.icon-preview {
+  width: 100px;
+  background: rgb(246, 248, 250);
+  border-radius: 4px;
+  margin: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px;
+  color: #546E7A;
+}
+
+.icon-preview div {
+  font-size: 13px;
+  font-weight: 600;
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}

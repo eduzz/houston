@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
+import 'react-calendar/dist/Calendar.css';
+import 'react-date-picker/dist/DatePicker.css';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
 import { InputLabelProps } from '@mui/material/InputLabel';
@@ -10,7 +12,8 @@ import dateFormat from 'date-fns/format';
 import { enUS, ptBR } from 'date-fns/locale';
 import parseISO from 'date-fns/parseISO';
 import isMobileFunc from 'is-mobile';
-import ReactDatePicker, { DatePickerProps } from 'react-date-picker';
+import { DatePickerProps } from 'react-date-picker';
+import ReactDatePicker from 'react-date-picker/dist/DatePicker.js';
 import { useContextSelector } from 'use-context-selector';
 
 import IconArrowLeft from '@eduzz/houston-icons/ArrowLeft';

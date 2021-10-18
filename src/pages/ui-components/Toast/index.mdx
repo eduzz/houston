@@ -1,8 +1,5 @@
 ---
 name: Toast
-route: /componentes/toast
-menu: eduzz/houston-ui
-submenu: Componentes
 ---
 
 import { Playground } from 'dokz';
@@ -10,7 +7,6 @@ import { Playground } from 'dokz';
 import Button from '../Button';
 import Column from '../Grid/Column';
 import Row from '../Grid/Row';
-import ThemeProvider from '../styles/ThemeProvider';
 import Toast from './';
 
 # Toast
@@ -34,11 +30,7 @@ import Toast from '@eduzz/houston-ui/Toast';
       Toast.success('Exemplo de mensagem Toast');
     };
     const palette = {};
-    return (
-      <ThemeProvider palette={palette}>
-        <Button onClick={handleShowToast}>Exibir Toast</Button>
-      </ThemeProvider>
-    );
+    return <Button onClick={handleShowToast}>Exibir Toast</Button>;
   }}
 </Playground>
 
@@ -75,25 +67,23 @@ import Toast from '@eduzz/houston-ui/Toast';
     }, []);
     const palette = {};
     return (
-      <ThemeProvider palette={palette}>
-        <Row>
-          <Column>
-            <Button variant='outlined' onClick={() => handleShowToast('success')}>
-              Toast de Sucesso
-            </Button>
-          </Column>
-          <Column>
-            <Button variant='outlined' onClick={() => handleShowToast('error')}>
-              Toast de Erro
-            </Button>
-          </Column>
-          <Column>
-            <Button variant='outlined' onClick={() => handleShowToast('info')}>
-              Toast Informativo
-            </Button>
-          </Column>
-        </Row>
-      </ThemeProvider>
+      <Row>
+        <Column>
+          <Button variant='outlined' onClick={() => handleShowToast('success')}>
+            Toast de Sucesso
+          </Button>
+        </Column>
+        <Column>
+          <Button variant='outlined' onClick={() => handleShowToast('error')}>
+            Toast de Erro
+          </Button>
+        </Column>
+        <Column>
+          <Button variant='outlined' onClick={() => handleShowToast('info')}>
+            Toast Informativo
+          </Button>
+        </Column>
+      </Row>
     );
   }}
 </Playground>
