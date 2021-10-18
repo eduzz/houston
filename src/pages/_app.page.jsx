@@ -21,7 +21,8 @@ export default function App(props) {
       </Head>
       <ToastContainer />
       <DokzProvider
-        headerLogo={<img src='/img/logo.svg' height='60px' />}
+        animate
+        headerLogo={<img src='/houston/img/logo.svg' height='60px' />}
         headerItems={[<GithubLink key='0' url='https://github.com/remorses/dokz' />]}
         sidebarOrdering={sidebarOrdering}
       >
