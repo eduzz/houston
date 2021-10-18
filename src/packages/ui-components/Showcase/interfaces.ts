@@ -1,4 +1,4 @@
-import { CardProps } from '@material-ui/core/Card';
+import { CardProps } from '@mui/material/Card';
 
 import { IShowcaseCloseButtonProps } from './CloseButton';
 import { IShowcaseButtonsProps } from './GenericButtons';

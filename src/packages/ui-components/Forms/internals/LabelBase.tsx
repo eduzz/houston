@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormHelperText from '@mui/material/FormHelperText';
 
 import Typography from '../../Typography';
 

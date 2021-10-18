@@ -1,7 +1,11 @@
 import * as React from 'react';
 
+import MUIAlertTitle from '@mui/material/AlertTitle';
+
 export interface IAlertTitleProps {
   children?: React.ReactNode;
 }
 
-export default (() => null) as React.FC<IAlertTitleProps>;
+const AlertTitle: React.FC<IAlertTitleProps> = ({ children }) => <MUIAlertTitle>{children}</MUIAlertTitle>;
+
+export default AlertTitle;

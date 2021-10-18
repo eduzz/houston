@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio, { RadioProps } from '@material-ui/core/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio, { RadioProps } from '@mui/material/Radio';
 import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles from '../../styles/createUseStyles';

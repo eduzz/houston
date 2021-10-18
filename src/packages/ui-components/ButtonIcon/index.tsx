@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import IconButtonMUI, { IconButtonProps } from '@material-ui/core/IconButton';
+import IconButtonMUI, { IconButtonProps } from '@mui/material/IconButton';
 
 import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 

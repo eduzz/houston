@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { Size, TableProps } from '@material-ui/core/Table';
-import TableContainer from '@material-ui/core/TableContainer';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { TableProps } from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import clsx from 'clsx';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
@@ -29,7 +29,7 @@ export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'class
   /**
    * Default `medium`
    */
-  size?: Size;
+  size?: 'small' | 'medium';
   /**
    * Max Height table container
    */

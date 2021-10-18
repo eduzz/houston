@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import ListItemMUI from '@material-ui/core/ListItem';
+import ListItemMUI from '@mui/material/ListItem';
 
 export interface IListItemProps {
   children?: React.ReactNode;

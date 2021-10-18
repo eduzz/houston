@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import SwitchMUI, { SwitchProps } from '@material-ui/core/Switch';
+import SwitchMUI, { SwitchProps } from '@mui/material/Switch';
 import { useContextSelector } from 'use-context-selector';
 
 import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
@@ -9,7 +9,7 @@ import { FormFieldsContext } from '../Form';
 type FieldSwitchPropsExtends = 'id' | 'className' | 'checked' | 'defaultChecked' | 'disabled' | 'size' | 'onChange';
 
 export interface ISwitchFieldProps extends Pick<SwitchProps, FieldSwitchPropsExtends> {
-  name: string;
+  name?: string;
 }
 
 const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldProps>(

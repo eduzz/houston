@@ -23,7 +23,7 @@ export default function usePromise<T>(
     promiseGenerator()
       .then(result => {
         if (!isSubscribed) return;
-        setResult(result);
+        setResult(() => result);
       })
       .catch(err => {
         getConfig().onUnhandledError(err, 'hooks');

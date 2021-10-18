@@ -8,15 +8,15 @@
     "@eduzz/houston-ui": "*",
     "@eduzz/houston-icons": "*",
     "@eduzz/houston-experimental": "*",
-    "react": "^16",
-    "react-dom": "^16",
+    "react": "^17",
+    "react-dom": "^17",
     "react-scripts": "4.0.3"
   },
   "devDependencies": {
     "@types/jest": "27.0.1",
     "@types/node": "16.9.1",
-    "@types/react": "^16",
-    "@types/react-dom": "^16"
+    "@types/react": "^17",
+    "@types/react-dom": "^17"
   },
   "scripts": {
     "start": "react-scripts start"

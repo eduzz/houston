@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
+import CircularProgress from '@mui/material/CircularProgress';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
 import createUseStyles from '../../../../../styles/createUseStyles';
 import { useTableContext } from '../../../../context';

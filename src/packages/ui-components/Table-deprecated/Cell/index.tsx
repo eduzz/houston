@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { GridSize } from '@material-ui/core/Grid';
-import { TableCellProps } from '@material-ui/core/TableCell';
+import { GridSize } from '@mui/material/Grid';
+import { TableCellProps } from '@mui/material/TableCell';
 
 type ITableCellExtends =
   | 'id'

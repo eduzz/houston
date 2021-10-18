@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Grid, { GridProps } from '@material-ui/core/Grid';
+import Grid, { GridProps } from '@mui/material/Grid';
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';

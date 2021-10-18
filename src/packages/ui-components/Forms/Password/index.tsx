@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import IconButton from '@material-ui/core/IconButton';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
