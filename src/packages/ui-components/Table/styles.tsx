@@ -1,4 +1,4 @@
-import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
+import createUseStyles from '../styles/createUseStyles';
 
 export interface IStyleParams {
   maxHeight: number;

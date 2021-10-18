@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TableCellProps } from '@material-ui/core/TableCell';
+import { TableCellProps } from '@mui/material/TableCell';
 
 import { ITableAlign } from '../interfaces';
 

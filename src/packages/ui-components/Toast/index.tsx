@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Theme } from '@material-ui/core/styles';
+import { Theme } from '@mui/material/styles';
 import { toast, ToastOptions } from 'react-toastify';
 
 type IToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';

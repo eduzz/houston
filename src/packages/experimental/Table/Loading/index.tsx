@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';

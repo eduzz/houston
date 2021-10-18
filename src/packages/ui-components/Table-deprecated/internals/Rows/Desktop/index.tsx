@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import IconButton from '@material-ui/core/IconButton';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import IconButton from '@mui/material/IconButton';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 import clsx from 'clsx';
 // @ts-ignore
 import isEqual from 'lodash/isEqual';

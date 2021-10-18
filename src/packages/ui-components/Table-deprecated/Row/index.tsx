@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TableRowProps } from '@material-ui/core/TableRow';
+import { TableRowProps } from '@mui/material/TableRow';
 
 type ITableRowExtends = 'id' | 'className' | 'tabIndex' | 'children' | 'onClick' | 'onDoubleClick';
 

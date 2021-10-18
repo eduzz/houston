@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import MUIPagination from '@material-ui/lab/Pagination';
+import MUIPagination from '@mui/material/Pagination';
 
 import SelectField from '../../../Forms/Select';
 import TextField from '../../../Forms/Text';
@@ -23,7 +23,7 @@ const useStyles = createUseStyles(theme => ({
     alignItems: 'center',
     marginRight: 24,
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       justifyContent: 'center',
       margin: '0 0 12px 0',
       display: 'flex'
@@ -46,7 +46,7 @@ const useStyles = createUseStyles(theme => ({
     display: 'inline-flex',
     alignItems: 'center',
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       margin: '0 auto 12px auto',
       display: 'flex'
     },
@@ -71,7 +71,7 @@ const useStyles = createUseStyles(theme => ({
     height: '100%',
     alignItems: 'center',
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       justifyContent: 'center'
     }
   }
@@ -86,20 +86,19 @@ const Pagination = React.memo(() => {
   const defaultOptionsPerPage = React.useMemo(() => pagination?.optionsPerPage ?? [5, 10, 25, 50, 100], [pagination]);
 
   const handleChangePerPage = React.useCallback(
-    (_: any, event: React.ChangeEvent<{ name?: string; value: any }>) => {
-      pagination?.onChangeRowsPerPage && pagination?.onChangeRowsPerPage(event.target.value);
+    (value: any) => {
+      pagination?.onChangeRowsPerPage && pagination?.onChangeRowsPerPage(Number(value));
     },
     [pagination]
   );
 
-  const handleChangeGoToPage = React.useCallback((_: any, event: React.ChangeEvent<HTMLInputElement>) => {
-    const page = Number(event.target.value);
-    setCurrentPage(page);
+  const handleChangeGoToPage = React.useCallback((value: any) => {
+    setCurrentPage(Number(value));
   }, []);
 
   const handleBlurGoToPage = React.useCallback(
-    (_: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      let currentPage = Number(event.target.value);
+    (value: any) => {
+      let currentPage = Number(value);
       const maxPage = Math.ceil(pagination?.total / pagination?.perPage);
 
       if (currentPage === pagination?.page) {
@@ -121,7 +120,7 @@ const Pagination = React.memo(() => {
   );
 
   const handleChangePage = React.useCallback(
-    (_: React.ChangeEvent<unknown>, page: number) => {
+    (e: React.SyntheticEvent, page: number) => {
       pagination?.onChangePage && pagination?.onChangePage(page);
     },
     [pagination]

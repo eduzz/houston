@@ -13,6 +13,8 @@ module.exports = {
     'react/no-unescaped-entities': ['off'],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': generator.exhaustiveDeps(),
-    'react/style-prop-object': 'off'
+    'react/style-prop-object': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off'
   }
 };

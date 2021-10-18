@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "skipLibCheck": false,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "allowJs": false,
     "rootDir": "./",
     "listFiles": false
