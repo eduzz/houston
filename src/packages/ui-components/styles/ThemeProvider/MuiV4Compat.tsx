@@ -1,6 +1,8 @@
 import * as React from 'react';
 
+// @ts-ignore
 import createGenerateClassName from '@material-ui/styles/createGenerateClassName';
+// @ts-ignore
 import StylesProvider from '@material-ui/styles/StylesProvider';
 
 import ThemeProvider, { IThemeProviderProps } from '.';
