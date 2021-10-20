@@ -50,21 +50,22 @@
       "mdx"
     ],
     "files.exclude": {
-      "**/node_modules": false,
-      "**/.docusaurus": false,
-      ".ultra.cache.json": false,
-      "**/*.css": false,
-      "**/*.js": false,
-      "**/*.jsx": false,
-      "**/*.d.ts": false,
-      "**/*?.js": false,
-      "**/*.lock.json": false,
-      "**/.DS_Store": false,
-      "**/.git": false,
-      "**/.svn": false,
-      "**/.tmp": false,
-      "**/bin/**": false,
-      "**/obj/**": false
+      "**/node_modules": true,
+      "**/.docusaurus": true,
+      ".ultra.cache.json": true,
+      "**/*.css": true,
+      "**/*.js": true,
+      "**/*.jsx": true,
+      "**/*.d.ts": true,
+      "**/*?.js": true,
+      "**/*.lock.json": true,
+      "**/.DS_Store": true,
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.tmp": true,
+      "**/bin/**": true,
+      "**/obj/**": true,
+      "tsconfig.tsbuildinfo": true
     },
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
