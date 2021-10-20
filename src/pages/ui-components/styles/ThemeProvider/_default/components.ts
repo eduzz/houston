@@ -2,6 +2,7 @@
 import { Components } from '@mui/material/styles';
 
 import { HoustonColors } from '../../types';
+import DefaultDialogTransition from './DefaultDialogTransition';
 import defaultThemeVariables from './variables';
 
 const SWITCH_MEDIUM_HEIGHT = 20;
@@ -9,6 +10,11 @@ const SWITCH_SMALL_HEIGHT = 16;
 
 export default function components(palette: HoustonColors): Components {
   return {
+    MuiDialog: {
+      defaultProps: {
+        TransitionComponent: DefaultDialogTransition
+      }
+    },
     MuiButton: {
       styleOverrides: {
         root: {
