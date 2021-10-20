@@ -7,3 +7,4 @@ node_modules
 .skip-release
 .npmrc
 *.tsbuildinfo
+src/packages

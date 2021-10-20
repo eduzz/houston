@@ -116,7 +116,7 @@ async function publish(package) {
 }
 
 async function build(package) {
-  const promise = exec(`(cd ${package.folder} && npm build)`);
+  const promise = exec(`(cd ${package.folder} && npm run build)`);
   ora.promise(promise, `BUILDING: ${package.name}`)
   await promise;
 }
