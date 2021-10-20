@@ -69,15 +69,12 @@ async function init() {
   const cleanPromise = exec('yarn clean');
   ora.promise(cleanPromise, 'CLEANING PROJECT');
   await cleanPromise;
-
-  for (let package of packages) {
-    await changePackageVersion(package, packages);
-    await build(package);
-  }
   
+  await exec(`npm run build`)
   ora('ALL PACKAGES BUILT SUCCESSFULLY').succeed();
   
   for (let package of packages) {
+    await changePackageVersion(package, packages);
     await publish(package);
   }
 
@@ -112,12 +109,6 @@ async function generateVersion() {
 async function publish(package) {
   const promise = exec(`(cd ${package.folder} && npm publish --access=public)`);
   ora.promise(promise, `PUBLISHING: ${package.name}`)
-  await promise;
-}
-
-async function build(package) {
-  const promise = exec(`(cd ${package.folder} && npm run build)`);
-  ora.promise(promise, `BUILDING: ${package.name}`)
   await promise;
 }
 
