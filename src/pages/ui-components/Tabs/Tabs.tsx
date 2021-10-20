@@ -4,7 +4,6 @@ import MUITabs from '@mui/material/Tabs';
 import clsx from 'clsx';
 
 import createUseStyles from '../styles/createUseStyles';
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import { ITabsContentProps } from './Content';
 import TabsContext, { ITabsContext } from './context';
 
@@ -87,4 +86,4 @@ const Tabs: React.FC<ITabsProps> = ({ value, onChange, children }) => {
   );
 };
 
-export default withHoustonTheme(React.memo(Tabs));
+export default React.memo(Tabs);

@@ -4,7 +4,6 @@ import MUIContainer, { ContainerProps } from '@mui/material/Container';
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import GridContextProvider from '../context';
 import { IContainerType } from '../interfaces';
 
@@ -74,4 +73,4 @@ const Container = React.forwardRef<HTMLDivElement, IContainerProps>(
   }
 );
 
-export default withHoustonTheme(React.memo(Container));
+export default React.memo(Container);

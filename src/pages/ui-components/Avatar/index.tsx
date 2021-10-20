@@ -7,7 +7,6 @@ import AvatarOutline from '@eduzz/houston-icons/AvatarOutline';
 import AvatarSolid from '@eduzz/houston-icons/AvatarSolid';
 
 import createUseStyles from '../styles/createUseStyles';
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 
 type AvatarPropsExtends = 'id' | 'className' | 'src' | 'alt' | 'onClick';
 
@@ -138,4 +137,4 @@ const Avatar: React.FC<IAvatarProps> = ({
   );
 };
 
-export default withHoustonTheme(React.memo(Avatar));
+export default React.memo(Avatar);

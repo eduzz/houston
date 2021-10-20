@@ -12,7 +12,6 @@ import { useContextSelector } from 'use-context-selector';
 import IFormMask from '@eduzz/houston-core/maskAdapter';
 
 import useMask from '../../hooks/useMask';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
 type FieldTextPropsExtends =
@@ -179,4 +178,4 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
   }
 );
 
-export default withHoustonTheme(React.memo(TextField));
+export default React.memo(TextField);

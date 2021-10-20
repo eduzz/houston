@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-hooks",
   "description": "Eduzz Houston Hooks",
-  "version": "0.35.3-beta.0",
+  "version": "0.36.2",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -19,12 +19,11 @@
     "start": "yarn tsc -w --preserveWatchOutput --isolatedModules --incremental",
     "clean": "git add . && git clean -f -x",
     "build": "yarn clean && tsc -p .",
-    "prepare": "yarn build",
     "lint": "yarn eslint \"./**/*.tsx\"",
     "pre-commit": "tsc -p . --noEmit"
   },
   "dependencies": {
-    "@eduzz/houston-core": "0.35.3-beta.0",
+    "@eduzz/houston-core": "0.36.2",
     "lodash": "^4"
   },
   "devDependencies": {

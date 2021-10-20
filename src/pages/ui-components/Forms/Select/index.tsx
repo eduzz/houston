@@ -12,7 +12,6 @@ import Select, { SelectChangeEvent, SelectProps } from '@mui/material/Select';
 import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles from '../../styles/createUseStyles';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
 type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple' | 'className';
@@ -170,4 +169,4 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
   }
 );
 
-export default withHoustonTheme(React.memo(SelectField));
+export default React.memo(SelectField);

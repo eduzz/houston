@@ -8,7 +8,6 @@ import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import MenuActions from './Action/Menu';
 import TableCollapseContext from './CollapseContent/context';
 import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';
@@ -161,4 +160,4 @@ const Table: React.FC<ITableProps> = props => {
   );
 };
 
-export default withHoustonTheme(React.memo(Table));
+export default React.memo(Table);

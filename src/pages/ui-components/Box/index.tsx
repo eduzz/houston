@@ -3,7 +3,6 @@ import * as React from 'react';
 import BoxMUI, { BoxProps } from '@mui/material/Box';
 import clsx from 'clsx';
 
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import useStyles from './styles';
 
 type IBoxSpacement = {
@@ -37,4 +36,4 @@ const Box: React.FC<IBoxProps> = props => {
   );
 };
 
-export default withHoustonTheme(React.memo(Box));
+export default React.memo(Box);
