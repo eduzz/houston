@@ -1,0 +1,45 @@
+---
+name: Collapse
+---
+
+import { Playground } from 'dokz';
+
+import Box from '../Box';
+import Button from '../Button';
+import Collapse from './';
+
+# Collapse
+
+Expande verticalmente a partir do topo do elemento filho.
+
+### Importação
+
+```js
+import Collapse from '@eduzz/houston-ui/Collapse';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const [show, toggle] = React.useState(true);
+    return (
+      <>
+        <Box xs={{ margin: '10px 0' }}>
+          <Button onClick={() => toggle(!show)}>Exibir/esconder</Button>
+        </Box>
+        <Collapse visibled={show}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae error voluptates repellat blanditiis.
+          Temporibus, ipsa. A nemo, molestias quae nam perspiciatis nisi aut delectus ex, amet ut numquam commodi quo.
+        </Collapse>
+      </>
+    );
+  }}
+</Playground>
+
+| prop           | tipo       | obrigatório | padrão  |
+| -------------- | ---------- | ----------- | ------- |
+| visibled       | `boolean`  | `true`      | -       |
+| onEnter        | `function` | `false`     | -       |
+| destroyOnClose | `boolean`  | `false`     | `false` |
+| mountOnEnter   | `boolean`  | `false`     | `false` |

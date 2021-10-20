@@ -20,7 +20,7 @@ async function init() {
   let mode = null, skipClean = false, skipBuild;
 
   args.forEach(arg => {
-    if (['dev', 'docs', 'both'].includes(arg)) {
+    if (['dev', 'docs'].includes(arg)) {
       mode = arg;
     }
 
@@ -42,11 +42,10 @@ async function init() {
     const answers = await inquirer.prompt([{
       name: 'mode',
       type: 'list',
-      default: 'both',
+      default: 'dev',
       choices: [
         { name: 'Apenas o Dev, não tenho tempo para escrever documentação 🦖', value: 'dev' },
-        { name: 'Apenas a Documentação, sou um escritor frustado 🤓', value: 'docs' },
-        { name: 'Os dois, quero fritar um ovo 🍳', value: 'both' }
+        { name: 'Apenas a Documentação, sou um escritor frustado 🤓', value: 'docs' }
       ],
       message: 'Qual projeto deseja iniciar?'
     }]);
@@ -59,10 +58,11 @@ async function init() {
   }
 
   if (!skipBuild) {
-    if (['dev', 'both'].includes(mode)) {
-      await spawn('yarn', ['build'], { stdio: 'inherit' });
-      await createDevFile();
-    }
+    await spawn('yarn', ['build'], { stdio: 'inherit' });
+  }
+
+  if (mode === 'dev') {
+    await createDevFile();
   }
 
   await spawn('yarn', [`start:${mode}`], { stdio: 'inherit' });

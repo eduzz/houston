@@ -1,0 +1,326 @@
+---
+name: Table (deprecated)
+---
+
+import { useState } from 'react';
+
+import { Playground } from 'dokz';
+
+import Button from '../Button';
+import Table from './index.tsx';
+
+# Tabela
+
+Tabelas apresentam informações de uma forma fácil de visualizar, de modo que os usuários podem
+procurar por padrões e percepções.
+
+### Importação
+
+```js
+import Table from '@eduzz/houston-ui/Table';
+```
+
+### Tabela simples
+
+<Playground>
+  <Table id='tabela-test-houston' onActionsClick={row => console.log(row)} stripedRows>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' />
+    <Table.Column field='owner' label='Produtor' />
+    <Table.Column field='value' label='Valor' align='right' />
+    <Table.Column field='action' label='*' align='right' type='action' />
+    <Table.Row data={{ id: 1 }} id='row-test-houston'>
+      <Table.Cell id='cell-test-houston' className='test-classname' xs={{ size: 0 }}>
+        1
+      </Table.Cell>
+      <Table.Cell xs={{ size: 12, margin: '0 0 8px 0', order: 1 }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
+      <Table.Cell xs={{ size: 6, order: 3, align: 'right' }}>John Doe</Table.Cell>
+      <Table.Cell align='right' xs={{ size: 6, order: 2, align: 'left' }}>
+        R$ 120,00
+      </Table.Cell>
+    </Table.Row>
+    <Table.Row data={{ id: 2 }}>
+      <Table.Cell xs={{ size: 0 }}>2</Table.Cell>
+      <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
+      <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
+      <Table.Cell align='right' xs={{ size: 6 }}>
+        R$ 100,00
+      </Table.Cell>
+    </Table.Row>
+    <Table.Row data={{ id: 3 }}>
+      <Table.Cell xs={{ size: 0 }}>3</Table.Cell>
+      <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
+      <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
+      <Table.Cell align='right' xs={{ size: 6 }}>
+        R$ 100,00
+      </Table.Cell>
+    </Table.Row>
+    <Table.Row data={{ id: 4 }}>
+      <Table.Cell xs={{ size: 0 }}>4</Table.Cell>
+      <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
+      <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
+      <Table.Cell align='right' xs={{ size: 6 }}>
+        R$ 100,00
+      </Table.Cell>
+    </Table.Row>
+    <Table.Pagination
+      page={1}
+      perPage={5}
+      total={20}
+      onChangePage={() => null}
+      onChangeRowsPerPage={() => null}
+      onChangeGoToPage={() => null}
+    />
+  </Table>
+</Playground>
+
+### Sem dados
+
+Mensagens customizadas para eventos internos.
+
+<Playground>
+  <Table messages={{ empty: 'Minha mensagem customizada.' }}>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' />
+    <Table.Column field='owner' label='Produtor' />
+    <Table.Column field='value' label='Valor' align='right' />
+  </Table>
+</Playground>
+
+### Ações personalizadas
+
+Ações genéricas ou individuais.
+
+<Playground>
+  <Table>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' />
+    <Table.Column field='owner' label='Produtor' />
+    <Table.Column field='value' label='Valor' align='right' />
+    <Table.Row data={{ id: 1, title: 'Lorem ipsum', producer: 'John Doe', value: 120 }}>
+      <Table.Cell xs={{ size: 0 }}>1</Table.Cell>
+      <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
+      <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
+      <Table.Cell align='right' xs={{ size: 6 }}>
+        R$ 120,00
+      </Table.Cell>
+    </Table.Row>
+    <Table.Row data={{ id: 1, title: 'Lorem ipsum', producer: 'John Doe', value: 120 }}>
+      <Table.Cell xs={{ size: 0 }}>2</Table.Cell>
+      <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
+      <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
+      <Table.Cell align='right' xs={{ size: 6 }}>
+        R$ 100,00
+      </Table.Cell>
+      <Table.Actions align='right' label='*'>
+        <Table.Option onClick={row => console.log(row)}>Editar</Table.Option>
+        <Table.Option>Opção especial</Table.Option>
+        <Table.Option>Remover</Table.Option>
+      </Table.Actions>
+    </Table.Row>
+    <Table.Actions align='right' label='*'>
+      <Table.Option onClick={row => console.log(row)}>Editar</Table.Option>
+      <Table.Option>Remover</Table.Option>
+    </Table.Actions>
+  </Table>
+</Playground>
+
+### Ordenação de colunas
+
+Colunas com ordenações. É necessário a função `onSortable`. (Clique nas colunas)
+
+<Playground>
+  <Table onSortable={ordenation => console.log(ordenation)} initialOrdenation={{ field: 'owner', order: 'desc' }}>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' sortable />
+    <Table.Column field='owner' label='Produtor' sortable />
+    <Table.Column field='value' label='Valor' align='right' />
+    <Table.Row>
+      <Table.Cell>1</Table.Cell>
+      <Table.Cell>Produto teste 1</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 120,00</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>2</Table.Cell>
+      <Table.Cell>Produto teste 2</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 100,00</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>3</Table.Cell>
+      <Table.Cell>Produto teste 3</Table.Cell>
+      <Table.Cell>John Doe</Table.Cell>
+      <Table.Cell align='right'>R$ 200,20</Table.Cell>
+    </Table.Row>
+  </Table>
+</Playground>
+
+### Tabela com collapse
+
+<Playground>
+  <Table>
+    <Table.Column field='id' label='ID' />
+    <Table.Column field='product' label='Produto' />
+    <Table.Column field='owner' label='Produtor' />
+    <Table.Column field='value' label='Valor' align='right' />
+    <Table.Row data={{ id: 1, title: 'Lorem ipsum', producer: 'John Doe', value: 120 }}>
+      <Table.Cell xs={{ size: 0 }}>1</Table.Cell>
+      <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Lorem ipsum dolor sit amet, consectetur</Table.Cell>
+      <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
+      <Table.Cell align='right' xs={{ size: 6 }}>
+        R$ 120,00
+      </Table.Cell>
+    </Table.Row>
+    <Table.Row data={{ id: 1, title: 'Lorem ipsum', producer: 'John Doe', value: 120 }}>
+      <Table.Cell xs={{ size: 0 }}>2</Table.Cell>
+      <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Produto teste</Table.Cell>
+      <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
+      <Table.Cell align='right' xs={{ size: 6 }}>
+        R$ 100,00
+      </Table.Cell>
+      <Table.Collapse>
+        <Table.Column field='date' label='Data' />
+        <Table.Column field='sales' label='Vendas' />
+        <Table.Row>
+          <Table.Cell xs={{ size: 6 }}>29/03</Table.Cell>
+          <Table.Cell xs={{ size: 6 }}>20 vendas</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell xs={{ size: 6 }}>28/03</Table.Cell>
+          <Table.Cell xs={{ size: 6 }}>170 vendas</Table.Cell>
+        </Table.Row>
+        <Table.Actions align='right' label='*'>
+          <Table.Option>Ver mais</Table.Option>
+        </Table.Actions>
+      </Table.Collapse>
+    </Table.Row>
+    <Table.Row data={{ id: 1, title: 'Lorem ipsum', producer: 'John Doe', value: 120 }}>
+      <Table.Cell xs={{ size: 0 }}>3</Table.Cell>
+      <Table.Cell xs={{ size: 12, margin: '0 0 8px 0' }}>Produto teste</Table.Cell>
+      <Table.Cell xs={{ size: 6 }}>John Doe</Table.Cell>
+      <Table.Cell align='right' xs={{ size: 6 }}>
+        R$ 200,20
+      </Table.Cell>
+    </Table.Row>
+    <Table.Actions align='right' label='*'>
+      <Table.Option onClick={row => console.log(row)}>Editar</Table.Option>
+      <Table.Option>Remover</Table.Option>
+    </Table.Actions>
+  </Table>
+</Playground>
+
+### Performance
+
+Otimizamos para que o processo de render não trave a execução do navegador, assim a linhas vão sendo adicionadas
+de 10 em 10, para mais informações veja o hook **useLazyArray**
+
+<Playground>
+  {() => {
+    const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const addOneHundred = () => {
+      setLoading(true);
+      setTimeout(() => {
+        setRows(new Array(1000).fill('a').map((_, index) => `Produto teste ${index + 1}`));
+        setLoading(false);
+      }, 1000);
+    };
+    return (
+      <>
+        <Button onClick={addOneHundred}>Adicionar 1000</Button>
+        <Table loading={loading} onSortable={ordenation => console.log(ordenation)}>
+          <Table.Column field='id' label='ID' />
+          <Table.Column field='product' label='Produto' sortable />
+          <Table.Column field='owner' label='Produtor' sortable />
+          <Table.Column field='value' label='Valor' align='right' />
+          {rows.map((title, index) => (
+            <Table.Row key={`row-${title}`}>
+              <Table.Cell>{index + 1}</Table.Cell>
+              <Table.Cell>{title}</Table.Cell>
+              <Table.Cell>John Doe</Table.Cell>
+              <Table.Cell align='right'>R$ 120,00</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table>
+      </>
+    );
+  }}
+</Playground>
+
+### Table props
+
+| prop         | tipo             | obrigatório | padrão   | descrição                                                                               |
+| ------------ | ---------------- | ----------- | -------- | --------------------------------------------------------------------------------------- |
+| loading      | `boolean`        | `false`     | `false`  | -                                                                                       |
+| onSortable   | `function`       | `false`     | -        | Função chamada ao clicar em uma coluna `sortable`.                                      |
+| stickyHeader | `boolean`        | `false`     | `false`  | Header fixo, é necessário inserir um valor na prop `maxHeight` para melhor experiência. |
+| size         | `Size`           | `false`     | `medium` | -                                                                                       |
+| maxHeight    | `number`         | `false`     | -        | -                                                                                       |
+| messages     | `ITableMessages` | `false`     | `false`  | Mensagens para eventos internos.                                                        |
+| stripedRows  | `boolean`        | `false`     | `false`  | -                                                                                       |
+
+### Table.Column props
+
+| prop     | tipo              | obrigatório | padrão  | descrição                                                                                                                                   |
+| -------- | ----------------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| field    | `string`, `false` | `true`      | -       | Chave única.                                                                                                                                |
+| label    | `React.ReactNode` | `true`      | -       | -                                                                                                                                           |
+| width    | `number`          | `false`     | -       | -                                                                                                                                           |
+| align    | `ITableAlign`     | `false`     | `left`  | -                                                                                                                                           |
+| sortable | `boolean`         | `false`     | `false` | Se `true`, ao clicar na coluna, chama a função `onSortable` passando a prop `field` e a ordenação.                                          |
+| type     | `action`          | `false`     | -       | Se `action`, inserimos no final de todas linhas um ícone de ação. Ao ser clicado chama a função `onActionsClick` passando o valor da linha. |
+
+### Table.Row props
+
+| prop         | tipo              | obrigatório | padrão | descrição                                                                     |
+| ------------ | ----------------- | ----------- | ------ | ----------------------------------------------------------------------------- |
+| data         | `unknown`         | `false`     | -      | Valores da linha, é necessário apenas quando há o componente `Table.Actions`. |
+| endAdornment | `React.ReactNode` | `false`     | -      | Conteúdo adicionado no final (em baixo) da linha.                             |
+
+### Table.Cell props
+
+| prop     | tipo           | obrigatório | padrão         | descrição                                                   |
+| -------- | -------------- | ----------- | -------------- | ----------------------------------------------------------- |
+| align    | `ITableAlign`  | `false`     | `left`         | -                                                           |
+| truncate | `number`       | `false`     | -              | Quando preenchido, limita o valor do texto (se for string). |
+| colSpan  | `number`       | `false`     | -              | -                                                           |
+| xs       | `ITableCellXs` | `false`     | `{ size: 12 }` | Controle de tamanho no mobile.                              |
+
+### Table.Actions props
+
+| prop  | tipo                       | obrigatório | padrão  | descrição |
+| ----- | -------------------------- | ----------- | ------- | --------- |
+| label | `React.ReactNode`, `false` | `false`     | `Ações` | -         |
+| align | `ITableAlign`              | `false`     | `left`  |           |
+
+### Table.Options props
+
+| prop     | tipo                  | obrigatório | padrão  | descrição                           |
+| -------- | --------------------- | ----------- | ------- | ----------------------------------- |
+| onClick  | `function`            | `false`     | -       | -                                   |
+| disabled | `function`, `boolean` | `false`     | `false` | -                                   |
+| hide     | `function`, `boolean` | `false`     | `false` | Controla a rederização do elemento. |
+| icon     | `React.ReactNode`     | `false`     | -       | -                                   |
+
+### Table.Pagination props
+
+| prop                | tipo              | obrigatório | padrão                  | descrição                                                 |
+| ------------------- | ----------------- | ----------- | ----------------------- | --------------------------------------------------------- |
+| page                | `number`          | `true`      | -                       | -                                                         |
+| perPage             | `number`          | `true`      | -                       | -                                                         |
+| totalPages          | `number`          | `true`      | -                       | -                                                         |
+| optionsPerPage      | `number[]`        | `false`     | `[15, 25, 35, 50, 100]` | -                                                         |
+| labelItensPerPage   | `React.ReactNode` | `false`     | `Itens por página:`     | -                                                         |
+| labelGoToPage       | `React.ReactNode` | `false`     | `Ir para:`              | -                                                         |
+| onChangeRowsPerPage | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
+| onChangeGoToPage    | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
+| onChangePage        | `function`        | `false`     | -                       | Se a prop não existir, o componente não será renderizado. |
+
+### Table.Collapse props
+
+| prop       | tipo            | obrigatório | padrão  | descrição                                                      |
+| ---------- | --------------- | ----------- | ------- | -------------------------------------------------------------- |
+| loading    | `boolean`       | `false`     | -       | -                                                              |
+| onCollapse | `function`      | `false`     | -       | Função chamada ao clicar para abrir / fechar o item recolhido. |
+| type       | `list`, `table` | `false`     | `table` | Se `list` não renderizará as colunas e bordas inferiores.      |

@@ -1,0 +1,95 @@
+---
+name: Toast
+---
+
+import { Playground } from 'dokz';
+
+import Button from '../Button';
+import Column from '../Grid/Column';
+import Row from '../Grid/Row';
+import Toast from './';
+
+# Toast
+
+Utilize o componente de Toast para fornecer um feedback de alguma ação feita pelo usuário,
+que aparece sobreposto na página e desaparece depois de determinado tempo.
+
+### Importação
+
+```js
+import Toast from '@eduzz/houston-ui/Toast';
+```
+
+> Para o Toast funcionar, é necessário que ele esteja dentro de um ThemeProvider
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const handleShowToast = () => {
+      Toast.success('Exemplo de mensagem Toast');
+    };
+    const palette = {};
+    return <Button onClick={handleShowToast}>Exibir Toast</Button>;
+  }}
+</Playground>
+
+### Variações
+
+<Playground>
+  {() => {
+    const handleShowToast = React.useCallback(type => {
+      const options = {
+        onOpen: () => {
+          console.log('Função onOpen');
+        },
+        onClose: () => {
+          console.log('Função onClose');
+        },
+        onClick: () => {
+          console.log('Função onClick');
+        }
+      };
+      switch (type) {
+        case 'success':
+          Toast.success('Exemplo de Toast de sucesso', options);
+          break;
+        case 'error':
+          Toast.error('Exemplo de Toast de erro', options);
+          break;
+        default:
+          Toast.info('Exemplo de Toast informativo', options);
+          Toast.info(
+            'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci voluptatibus autem mollitia vero?'
+          );
+          break;
+      }
+    }, []);
+    const palette = {};
+    return (
+      <Row>
+        <Column>
+          <Button variant='outlined' onClick={() => handleShowToast('success')}>
+            Toast de Sucesso
+          </Button>
+        </Column>
+        <Column>
+          <Button variant='outlined' onClick={() => handleShowToast('error')}>
+            Toast de Erro
+          </Button>
+        </Column>
+        <Column>
+          <Button variant='outlined' onClick={() => handleShowToast('info')}>
+            Toast Informativo
+          </Button>
+        </Column>
+      </Row>
+    );
+  }}
+</Playground>
+
+| prop    | tipo       | obrigatório | padrão | descrição                                            |
+| ------- | ---------- | ----------- | ------ | ---------------------------------------------------- |
+| onOpen  | `function` | `false`     | -      | Função chamada quando a notificação aparece          |
+| onClose | `function` | `false`     | -      | Função chamada quando a notificação desaparece       |
+| onClick | `function` | `false`     | -      | Função chamada ao clicar dentro da notificação Toast |

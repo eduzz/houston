@@ -16,13 +16,13 @@ async function init() {
   ora('NEW VERSION:' + currentVersion).succeed()
 
   const foldersBlackList = ['pages'];
-  let packages = await fs.promises.readdir(`${__dirname}/../src/packages`, { withFileTypes: true });
+  let packages = await fs.promises.readdir(`${__dirname}/../src/pages`, { withFileTypes: true });
 
   packages = packages
     .filter(file => file.isDirectory() && !foldersBlackList.includes(file.name))
     .map(file => ({
-      name: require(`${__dirname}/../src/packages/${file.name}/package.json`).name,
-      folder: `${__dirname}/../src/packages/${file.name}`
+      name: require(`${__dirname}/../src/pages/${file.name}/package.json`).name,
+      folder: `${__dirname}/../src/pages/${file.name}`
     }));
 
   await Promise.all(packages.map(async package => {

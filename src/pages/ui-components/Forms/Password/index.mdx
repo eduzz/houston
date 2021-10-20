@@ -1,0 +1,57 @@
+---
+name: Password Field
+---
+
+import { Playground } from 'dokz';
+
+import PasswordField from './';
+
+# Password Field
+
+O componente é responsável por exibir um campo de senha com a opção de esconder ou mostrar a senha digitada ao clicar no ícone
+presente ao lado direito do campo.
+
+### Importação
+
+```js
+import PasswordField from '@eduzz/houston-ui/Forms/Password';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const [password, setPassword] = React.useState('');
+    return (
+      <>
+        <PasswordField label='Senha' value={password} onChange={setPassword} />
+        <PasswordField label='Senha' placeholder='Digite sua senha' value={password} onChange={setPassword} />
+        <PasswordField label='Senha (Desabilitado)' disabled value='123123' />
+        <PasswordField
+          label='Senha'
+          helperText='Um exemplo de texto de ajuda'
+          value={password}
+          onChange={setPassword}
+        />
+        <PasswordField label='Senha' errorMessage='Campo obrigatório' value={password} onChange={setPassword} />
+      </>
+    );
+  }}
+</Playground>
+
+| prop         | tipo                      | obrigatório | padrão  | descrição                                                                          |
+| ------------ | ------------------------- | ----------- | ------- | ---------------------------------------------------------------------------------- |
+| id           | `string`                  | `false`     | -       |                                                                                    |
+| name         | `string`                  | `true`      | -       |                                                                                    |
+| label        | `React.ReactNode`         | `false`     | -       |                                                                                    |
+| placeholder  | `string`                  | `false`     | -       |                                                                                    |
+| disabled     | `boolean`                 | `false`     | `false` |                                                                                    |
+| fullWidth    | `boolean`                 | `false`     | `false` |                                                                                    |
+| className    | `string`                  | `false`     | -       |                                                                                    |
+| helperText   | `string`                  | `false`     | -       | Exibe texto de ajuda abaixo do componente de senha                                 |
+| errorMessage | `string`                  | `false`     | -       | Exibe uma mensagem de erro no componente de senha, assim como indica erro no campo |
+| form         | `IFormAdapter`            | `false`     | -       |                                                                                    |
+| value        | `any`                     | `false`     | -       |                                                                                    |
+| margin       | `none`, `dense`, `normal` | `normal`    | -       |                                                                                    |
+| onChange     | `function`                | `false`     | -       | Função disparada ao alterar o valor do campo de senha                              |
+| onBlur       | `function`                | `false`     | -       | Função disparada ao tirar o foco do componente                                     |

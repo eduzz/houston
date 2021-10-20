@@ -1,19 +1,30 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es2017",
-    "module": "es2015",
-    "lib": ["es2017", "dom"],
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "skipLibCheck": false,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "allowJs": false,
-    "rootDir": "./",
-    "listFiles": false
+    "isolatedModules": true,
+    "jsx": "preserve"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", ".docz"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dev"
+  ]
 }

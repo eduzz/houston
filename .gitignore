@@ -6,3 +6,4 @@ node_modules
 !.prettierrc.js
 .skip-release
 .npmrc
+*.tsbuildinfo

@@ -1,0 +1,51 @@
+---
+name: useBoolean
+---
+
+import { Playground } from 'dokz';
+
+import Button from '@eduzz/houston-ui/Button';
+import Typography from '@eduzz/houston-ui/Typography';
+
+import useBoolean from '.';
+
+# useBoolean
+
+Esse é um hooks apenas para facilitar o uso de booleanos, útil quando deseja passar como callback de uma função
+
+## Como usar
+
+```tsx
+const [value, toggleValue, toTrue, toFalse] = useBoolean();
+```
+
+<Playground>
+  {() => {
+    const [value, toggleValue, toTrue, toFalse] = useBoolean();
+    return (
+      <div>
+        <Typography>Value: {value.toString()}</Typography>
+        <Button onClick={toggleValue}>Click to toggle</Button>
+        <span style={{ marginLeft: 10 }} />
+        <Button onClick={toTrue} disabled={value}>
+          Click to set true
+        </Button>
+        <span style={{ marginLeft: 10 }} />
+        <Button onClick={toFalse} disabled={!value}>
+          Click to set false
+        </Button>
+      </div>
+    );
+  }}
+</Playground>
+
+## Parâmetros e Retorno
+
+```tsx
+/**
+ * Simplify the way to use a boolean state
+ * @param initial A boolen of a function that return a  boolean
+ * @returns [value, toogleValue, toTrue, toFalse]
+ */
+export default function useBoolean(initial?: boolean | (() => boolean)): [boolean, () => void, () => void, () => void];
+```

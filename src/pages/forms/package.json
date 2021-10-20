@@ -1,0 +1,36 @@
+{
+  "name": "@eduzz/houston-forms",
+  "version": "0.36.3",
+  "description": "Houston Forms",
+  "main": "index.js",
+  "types": "./index.d.ts",
+  "author": "Eduzz Team",
+  "license": "MIT",
+  "private": false,
+  "homepage": "https://github.com/eduzz/houston",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eduzz/houston"
+  },
+  "bugs": {
+    "url": "https://github.com/eduzz/houston/issues"
+  },
+  "scripts": {
+    "start": "yarn tsc -w --preserveWatchOutput --isolatedModules --incremental",
+    "clean": "git add . && git clean -f -x",
+    "build": "yarn clean && tsc -p .",
+    "pre-commit": "tsc -p . --noEmit"
+  },
+  "dependencies": {
+    "@eduzz/houston-core": "0.36.3",
+    "@eduzz/houston-hooks": "0.36.3",
+    "@types/yup": "^0.29.13",
+    "formik": "^2.2.9",
+    "rxjs": "^7",
+    "yup": "^0.32.9"
+  },
+  "peerDependencies": {
+    "@eduzz/houston-core": "0.36.3"
+  },
+  "devDependencies": {}
+}

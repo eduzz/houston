@@ -1,28 +1,28 @@
 {
-  "private": true,
-  "name": "@eduzz/houston-docs",
-  "version": "0.0.1",
-  "license": "MIT",
-  "files": [
-    "src/",
-    "doczrc.js",
-    "tsconfig.json",
-    "package.json"
-  ],
-  "scripts": {
-    "start": "GATSBY_TELEMETRY_DISABLED=1 docz dev",
-    "build": "GATSBY_TELEMETRY_DISABLED=1 docz build"
-  },
-  "dependencies": {
-    "docz": "latest",
-    "@nejcm/docz-theme-extended": "2.0.14",
-    "react": "^17",
-    "react-dom": "^17",
-    "react-native-web": "~0.13.12",
-    "@emotion/react": "^11"
-  },
-  "devDependencies": {
-    "@types/react": "^17",
-    "@types/react-dom": "^17"
-  }
+    "name": "@eduzz/docs",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "start": "next dev",
+        "build": "next build && next export"
+    },
+    "dependencies": {
+        "@chakra-ui/react": "latest",
+        "@emotion/react": "latest",
+        "@emotion/styled": "latest",
+        "framer-motion": "latest",
+        "@eduzz/houston-hooks": "*",
+        "@eduzz/houston-ui": "*",
+        "@eduzz/houston-icons": "*",
+        "@eduzz/houston-forms": "*",
+        "@eduzz/houston-experimental": "*",
+        "dokz": "latest",
+        "next": "^11.1.2",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2"
+    },
+    "devDependencies": {
+        "next-transpile-modules": "^8.0.0",
+        "next-compose-plugins": "2.2.1"
+    }
 }
