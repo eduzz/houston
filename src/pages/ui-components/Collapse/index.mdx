@@ -25,7 +25,7 @@ import Collapse from '@eduzz/houston-ui/Collapse';
     const [show, toggle] = React.useState(true);
     return (
       <>
-        <Box>
+        <Box xs={{ margin: '10px 0' }}>
           <Button onClick={() => toggle(!show)}>Exibir/esconder</Button>
         </Box>
         <Collapse visibled={show}>
@@ -36,8 +36,6 @@ import Collapse from '@eduzz/houston-ui/Collapse';
     );
   }}
 </Playground>
-
-### Propriedades
 
 | prop           | tipo       | obrigatório | padrão  |
 | -------------- | ---------- | ----------- | ------- |

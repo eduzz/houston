@@ -77,6 +77,8 @@ import List from '@eduzz/houston-ui/List';
 
 ### Listrado
 
+Prop `stripedRows`.
+
 <Playground>
   <List stripedRows>
     <List.Item>
@@ -131,37 +133,35 @@ import List from '@eduzz/houston-ui/List';
   </List>
 </Playground>
 
-### Propriedades
-
 ### List props
 
-| prop        | tipe      | obrigatório | padrão  | descrição |
+| prop        | tipo      | obrigatório | padrão  | descrição |
 | ----------- | --------- | ----------- | ------- | --------- |
 | stripedRows | `boolean` | `false`     | `false` | -         |
 
 ### List.Item props
 
-| prop     | tipe              | obrigatório | padrão | descrição |
+| prop     | tipo              | obrigatório | padrão | descrição |
 | -------- | ----------------- | ----------- | ------ | --------- |
 | children | `React.ReactNode` | `true`      | -      | -         |
 
 ### List.Left props
 
-| prop  | tipe              | obrigatório | padrão | descrição                                           |
+| prop  | tipo              | obrigatório | padrão | descrição                                           |
 | ----- | ----------------- | ----------- | ------ | --------------------------------------------------- |
 | icon  | `React.ReactNode` | `false`     | -      | -                                                   |
 | image | `React.ReactNode` | `false`     | -      | Só será exibido se a prop `icon` não possuir valor. |
 
 ### List.Text props
 
-| prop     | tipe                        | obrigatório | padrão | descrição |
+| prop     | tipo                        | obrigatório | padrão | descrição |
 | -------- | --------------------------- | ----------- | ------ | --------- |
 | title    | `string or React.ReactNode` | `true`      | -      | -         |
 | subtitle | `string or React.ReactNode` | `fase`      | -      | -         |
 
 ### List.Right props
 
-| prop    | tipe              | obrigatório | padrão | descrição                                           |
+| prop    | tipo              | obrigatório | padrão | descrição                                           |
 | ------- | ----------------- | ----------- | ------ | --------------------------------------------------- |
 | icon    | `React.ReactNode` | false       | -      | -                                                   |
 | onClick | `function`        | false       | -      | -                                                   |

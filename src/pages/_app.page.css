@@ -1,3 +1,31 @@
+/* general */
+pre {
+  margin-top: 8px !important;
+}
+
+table {
+  margin-top: 0 !important;
+}
+
+ul li {
+  margin-bottom: 0 !important;
+}
+
+.bg-grey {
+  background: #ccc;
+}
+
+/* footer */
+footer.houston-footer {
+  text-align: center;
+  padding: 24px 0;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #999;
+  font-style: italic;
+}
+
+/* icons */
 .list-icons {
   display: flex;
   align-items: center;

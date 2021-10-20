@@ -8,8 +8,7 @@ import Box from './';
 
 # Box
 
-O componente de caixa (Box) funciona como um encapsulador de outros componentes,
-auxiliando na estilização e padronização dos espaçamentos (`margin` e `padding`).
+O componente de caixa (Box) funciona como um encapsulador de outros componentes, auxiliando na estilização e padronização dos espaçamentos (`margin` e `padding`).
 
 ### Importação
 
@@ -19,10 +18,10 @@ import Box from '@eduzz/houston-ui/Box';
 
 ### Exemplo
 
-Padding `20px`.
+Padding e margin `20px`.
 
 <Playground>
-  <Box xs={{ padding: 20 }}>
+  <Box xs={{ padding: 20, margin: 20 }}>
     <div style={{ textAlign: 'center' }}>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi iusto consequuntur molestias, eligendi
       perspiciatis commodi error vero tempora voluptatum accusamus similique molestiae iste reiciendis animi, nisi
@@ -31,7 +30,9 @@ Padding `20px`.
   </Box>
 </Playground>
 
-### Paper
+### Background
+
+Adiciona `background` no elemento. Prop `paper`.
 
 <Playground>
   <div className='bg-grey'>
@@ -47,7 +48,7 @@ Padding `20px`.
 
 ### Com sombra
 
-Propriedade `boxShadow`.
+Adiciona sombra externa no elemento. Prop `boxShadow`.
 
 <Playground>
   <div className='bg-grey'>
@@ -60,8 +61,6 @@ Propriedade `boxShadow`.
     </Box>
   </div>
 </Playground>
-
-### Propriedades
 
 | prop      | tipo            | obrigatório | padrão  | descrição                                                                                                       |
 | --------- | --------------- | ----------- | ------- | --------------------------------------------------------------------------------------------------------------- |
