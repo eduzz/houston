@@ -30,7 +30,7 @@ export default function App(props) {
         headTitlePrefix='Houston | '
         fontFamily='Open Sans'
         headerLogo={<img src='/houston/img/logo.svg' height='60px' />}
-        headerItems={[<GithubLink key='0' url='https://github.com/remorses/dokz' />]}
+        headerItems={[<GithubLink key='0' url='https://github.com/eduzz/houston' />]}
         sidebarOrdering={sidebarOrdering}
       >
         <Component {...pageProps} />
