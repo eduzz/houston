@@ -14,7 +14,6 @@ import { getReactChildrenComponent, getReactChildrenProps, isReactComponent } fr
 import nestedComponent from '../Helpers/nestedComponent';
 import { useFirstChildrenProps, useChildrenProps } from '../hooks/useChildrenProps';
 import createUseStyles from '../styles/createUseStyles';
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import TableActions from './Actions';
 import TableCell, { ITableCellProps } from './Cell';
 import TableCollapse from './Collapse';
@@ -272,7 +271,7 @@ const Table: React.FC<ITableProps> = props => {
   );
 };
 
-export default nestedComponent(withHoustonTheme(React.memo(Table)), {
+export default nestedComponent(React.memo(Table), {
   Column: TableColumn,
   Row: TableRow,
   Cell: TableCell,

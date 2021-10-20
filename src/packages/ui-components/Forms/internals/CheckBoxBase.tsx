@@ -5,7 +5,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles from '../../styles/createUseStyles';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 import LabelBase from './LabelBase';
 
@@ -101,4 +100,4 @@ const CheckboxRadioField: React.FC<ICheckboxBaseFieldProps> = ({
   );
 };
 
-export default withHoustonTheme(React.memo(CheckboxRadioField));
+export default React.memo(CheckboxRadioField);

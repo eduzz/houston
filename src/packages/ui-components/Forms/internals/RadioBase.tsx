@@ -5,7 +5,6 @@ import Radio, { RadioProps } from '@mui/material/Radio';
 import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles from '../../styles/createUseStyles';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 import LabelBase from './LabelBase';
 
@@ -69,4 +68,4 @@ const BaseRadioField = React.memo<IRadioBaseFieldProps>(
   }
 );
 
-export default withHoustonTheme(React.memo(BaseRadioField));
+export default React.memo(BaseRadioField);

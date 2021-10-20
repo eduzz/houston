@@ -3,8 +3,6 @@ import * as React from 'react';
 
 import TooltipMUI, { TooltipProps } from '@mui/material/Tooltip';
 
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
-
 type ITooltipPlacement =
   | 'bottom-end'
   | 'bottom-start'
@@ -54,4 +52,4 @@ const Content = React.forwardRef<HTMLDivElement, { children: React.ReactNode; cl
   }
 );
 
-export default withHoustonTheme(React.memo(Tooltip));
+export default React.memo(Tooltip);

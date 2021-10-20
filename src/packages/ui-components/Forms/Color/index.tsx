@@ -9,7 +9,6 @@ import { HexColorPicker } from 'react-colorful';
 import { useContextSelector } from 'use-context-selector';
 
 import useOnClickOutside from '../../hooks/useClickOutside';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 import { ITextFieldProps } from '../Text';
 import useStyles from './styles';
@@ -144,4 +143,4 @@ const ColorField: React.FC<IColorFieldProps> = ({
   );
 };
 
-export default withHoustonTheme(React.memo(ColorField));
+export default React.memo(ColorField);

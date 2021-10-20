@@ -3,7 +3,6 @@ import * as React from 'react';
 import clsx from 'clsx';
 
 import createUseStyles from '../styles/createUseStyles';
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import { HoustonFontSizes, HoustonFontWeight, HoustonLineHeights } from '../styles/types';
 
 export type ITypographyVariant = 'secondary';
@@ -59,4 +58,4 @@ const Typography: React.FC<ITypographyProps> = props => {
   });
 };
 
-export default withHoustonTheme(React.memo(Typography));
+export default React.memo(Typography);

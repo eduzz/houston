@@ -18,7 +18,6 @@ import IconArrowRight from '@eduzz/houston-icons/ArrowRight';
 import IconCalendar from '@eduzz/houston-icons/Calendar';
 
 import ButtonIcon from '../../ButtonIcon';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 import { useCreateTempInputDate } from '../internals/DatePickerBase/hooks';
 import { ITextFieldProps } from '../Text';
@@ -266,4 +265,4 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
   );
 };
 
-export default withHoustonTheme(React.memo(DatePickerField));
+export default React.memo(DatePickerField);

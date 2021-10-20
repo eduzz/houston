@@ -6,7 +6,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import clsx from 'clsx';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import withHoustonTheme from '@eduzz/houston-ui/styles/ThemeProvider/WrapperTheme';
 
 import MenuActions from './Action/Menu';
 import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';
@@ -162,4 +161,4 @@ const Table: React.FC<ITableProps> = props => {
   );
 };
 
-export default withHoustonTheme(React.memo(Table));
+export default React.memo(Table);

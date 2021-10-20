@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { createTheme } from '@mui/material/styles';
 
-import { HoustonThemeBuilder, IHoustonTheme } from '../../types';
+import { HoustonThemeBuilder } from '../../types';
 import components from './components';
 import typography from './typography';
 import defaultThemeVariables from './variables';
@@ -12,15 +12,8 @@ export default function generateTheme(customTheme?: HoustonThemeBuilder) {
   return createTheme({
     palette,
     components: components(palette),
-    houston: {
-      ...defaultThemeVariables,
-      variables: customTheme?.variables,
-      breakpoints: null,
-      colors: palette
-    } as IHoustonTheme,
     typography,
-    spacing: (factor: number) => {
-      return defaultThemeVariables.spacing(factor);
-    }
+    ...(defaultThemeVariables as any),
+    colors: palette
   });
 }

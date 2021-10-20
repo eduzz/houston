@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import CollapseMUI from '@mui/material/Collapse';
 
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
-
 interface ICollapseProps {
   visibled: boolean;
   children?: any;
@@ -31,4 +29,4 @@ const Collapse: React.FC<ICollapseProps> = ({
     </CollapseMUI>
   );
 };
-export default withHoustonTheme(React.memo(Collapse));
+export default React.memo(Collapse);

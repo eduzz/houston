@@ -5,7 +5,6 @@ import clsx from 'clsx';
 
 import nestedComponent from '../Helpers/nestedComponent';
 import createUseStyles from '../styles/createUseStyles';
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import Item from './Item';
 import Left from './Left';
 import Right from './Right';
@@ -52,7 +51,7 @@ const List: React.FC<IListProps> = ({ children, stripedRows, ...props }) => {
   );
 };
 
-export default nestedComponent(withHoustonTheme(React.memo(List)), {
+export default nestedComponent(React.memo(List), {
   Item,
   Text,
   Left,

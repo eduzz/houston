@@ -4,7 +4,6 @@ import Grid, { GridProps, GridSpacing } from '@mui/material/Grid';
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { useGrid } from '../context';
 import { IContainerType } from '../interfaces';
 
@@ -41,4 +40,4 @@ const Row = React.forwardRef<HTMLDivElement, IRowProps>(({ className, spacing: s
   return <Grid {...rest} container ref={ref} className={clsx(classes.root, className)} spacing={config} />;
 });
 
-export default withHoustonTheme(React.memo(Row));
+export default React.memo(Row);

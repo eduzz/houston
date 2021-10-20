@@ -10,7 +10,6 @@ import { getReactChildrenComponent, getReactFirstChildrenProps } from '../Helper
 import nestedComponent from '../Helpers/nestedComponent';
 import { useFirstChildrenProps } from '../hooks/useChildrenProps';
 import createUseStyles from '../styles/createUseStyles';
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
 import ShowcaseCloseButton from './CloseButton';
 import ShowcaseContextProvider, { IShowcaseContext } from './context';
 import ShowcaseGenericButtons from './GenericButtons';
@@ -218,7 +217,7 @@ const Showcase: React.FC<IShowcaseProps> = props => {
   );
 };
 
-export default nestedComponent(withHoustonTheme(React.memo(Showcase)), {
+export default nestedComponent(React.memo(Showcase), {
   Title: ShowcaseTitle,
   Step: ShowcaseStep,
   Image: ShowcaseImage,

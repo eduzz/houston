@@ -3,7 +3,6 @@ import * as React from 'react';
 import SwitchMUI, { SwitchProps } from '@mui/material/Switch';
 import { useContextSelector } from 'use-context-selector';
 
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import { FormFieldsContext } from '../Form';
 
 type FieldSwitchPropsExtends = 'id' | 'className' | 'checked' | 'defaultChecked' | 'disabled' | 'size' | 'onChange';
@@ -44,4 +43,4 @@ const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldP
   }
 );
 
-export default withHoustonTheme(React.memo(Switch));
+export default React.memo(Switch);
