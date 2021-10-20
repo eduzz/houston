@@ -18,7 +18,7 @@ jobs:
       - name: Build
         uses: borales/actions-yarn@v2.3.0
         with:
-          cmd: build-docs
+          cmd: build:docs
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop
         env:
