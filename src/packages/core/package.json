@@ -18,7 +18,6 @@
   "scripts": {
     "clean": "git add . && git clean -f -x",
     "build": "tsc -p .",
-    "prepare": "yarn build",
     "pre-commit": "tsc -p . --noEmit"
   },
   "dependencies": {},
