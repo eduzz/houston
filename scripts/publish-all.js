@@ -72,6 +72,12 @@ async function init() {
 
   for (let package of packages) {
     await changePackageVersion(package, packages);
+    await build(package);
+  }
+
+  ora('ALL PACKAGES BUILT SUCCESSFULLY').succeed();
+
+  for (let package of packages) {
     await publish(package);
   }
 
@@ -104,8 +110,14 @@ async function generateVersion() {
 }
 
 async function publish(package) {
-  const promise = exec(`(cd ${package.folder} && npm publish --access=public)`);
+  const promise = exec(`(cd ${package.folder} && npm publish --access=public --ignore-scripts)`);
   ora.promise(promise, `PUBLISHING: ${package.name}`)
+  await promise;
+}
+
+async function build(package) {
+  const promise = exec(`(cd ${package.folder} && npm prepare)`);
+  ora.promise(promise, `BUILDING: ${package.name}`)
   await promise;
 }
 
