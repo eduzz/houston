@@ -12,7 +12,8 @@ import dateFormat from 'date-fns/format';
 import { enUS, ptBR } from 'date-fns/locale';
 import parseISO from 'date-fns/parseISO';
 import isMobileFunc from 'is-mobile';
-import ReactDatePicker, { DatePickerProps } from 'react-date-picker';
+import { DatePickerProps } from 'react-date-picker';
+import ReactDatePicker from 'react-date-picker/dist/DatePicker';
 import { useContextSelector } from 'use-context-selector';
 
 import IconArrowLeft from '@eduzz/houston-icons/ArrowLeft';
