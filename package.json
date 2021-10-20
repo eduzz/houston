@@ -10,7 +10,6 @@
   "scripts": {
     "prebuild": "yarn clean",
     "build": "yarn ultra -r -b --concurrency 10 --filter \"src/pages/*\" build",
-    "prebuild:docs": "yarn build",
     "build:docs": "(cd src && yarn build)",
     "start": "sh ./scripts/start.sh",
     "start:docs": "yarn ultra -r --concurrency 10 --filter \"+@eduzz/docs\" start",

@@ -5,7 +5,7 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  check-lint:
+  check-lint-build-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone
@@ -25,20 +25,14 @@ jobs:
         with:
           cmd: install
       - name: Linter
-        run: yarn lint
-      - name: Build
-        run: yarn build
-
-  check-docs:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone
-        uses: actions/checkout@v2
-      - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
-          cmd: install
-      - name: Build
+          cmd: lint
+      - name: Build Packages
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: build
+      - name: Build Docs
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: build:docs

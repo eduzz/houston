@@ -15,7 +15,11 @@ jobs:
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install
-      - name: Build
+      - name: Build Packages
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: build
+      - name: Build Docs
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: build:docs
