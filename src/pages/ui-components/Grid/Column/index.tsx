@@ -1,16 +1,6 @@
 import * as React from 'react';
 
 import Grid, { GridProps } from '@mui/material/Grid';
-import clsx from 'clsx';
-
-import createUseStyles from '../../styles/createUseStyles';
-
-const useStyles = createUseStyles({
-  column: {
-    paddingTop: '0 !important',
-    paddingBottom: '0 !important'
-  }
-});
 
 type IOmitProps =
   | 'container'
@@ -27,8 +17,7 @@ type IOmitProps =
 export interface IColumnProps extends Omit<GridProps, IOmitProps> {}
 
 const Column = React.forwardRef<HTMLDivElement, IColumnProps>(({ className, ...rest }, ref) => {
-  const classes = useStyles();
-  return <Grid {...rest} item className={clsx(classes.column, className)} ref={ref} />;
+  return <Grid {...rest} item className={className} ref={ref} />;
 });
 
-export default React.memo(Column);
+export default Column;

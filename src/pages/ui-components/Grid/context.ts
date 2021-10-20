@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { createContext } from 'use-context-selector';
 
 import { IContainerType } from './interfaces';
 
@@ -6,12 +6,7 @@ interface IGridContext {
   spacing?: IContainerType;
 }
 
-const GridContext = React.createContext<IGridContext>({});
+export const GridContext = createContext<IGridContext>({});
 const GridContextProvider = GridContext.Provider;
-
-export function useGrid(): IGridContext {
-  const context = React.useContext(GridContext);
-  return context ?? {};
-}
 
 export default GridContextProvider;

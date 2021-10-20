@@ -53,9 +53,9 @@
       "**/node_modules": true,
       "**/.docusaurus": true,
       ".ultra.cache.json": true,
-      "**/*.css": true,
+      "**/*[!_app.page].css": true,
       "**/*.js": true,
-      "**/*.jsx": true,
+      "**/*[!_app.page].jsx": true,
       "**/*.d.ts": true,
       "**/*?.js": true,
       "**/*.lock.json": true,
@@ -65,7 +65,8 @@
       "**/.tmp": true,
       "**/bin/**": true,
       "**/obj/**": true,
-      "tsconfig.tsbuildinfo": true
+      "tsconfig.tsbuildinfo": true,
+      "!src/pages/.jsx": true
     },
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true

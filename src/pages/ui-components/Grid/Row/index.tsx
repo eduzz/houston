@@ -1,18 +1,10 @@
 import * as React from 'react';
 
 import Grid, { GridProps, GridSpacing } from '@mui/material/Grid';
-import clsx from 'clsx';
+import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '../../styles/createUseStyles';
-import { useGrid } from '../context';
-import { IContainerType } from '../interfaces';
-
-const useStyles = createUseStyles({
-  root: {
-    margin: 0,
-    width: '100%'
-  }
-});
+import { GridContext } from '../context';
+import { ContainerSizes, IContainerType } from '../interfaces';
 
 type RowPropsExtends =
   | 'id'
@@ -28,16 +20,14 @@ export interface IRowProps extends Pick<GridProps, RowPropsExtends> {
   spacing?: IContainerType;
 }
 
-const Row = React.forwardRef<HTMLDivElement, IRowProps>(({ className, spacing: spacingProps, ...rest }, ref) => {
-  const classes = useStyles();
-  const { spacing } = useGrid();
+const Row = React.forwardRef<HTMLDivElement, IRowProps>(({ className, spacing: spacingProp, ...rest }, ref) => {
+  const spacingContext = useContextSelector(GridContext, context => context.spacing);
 
   const config = React.useMemo(() => {
-    const sizes = spacingProps ?? { comfortable: 10, cozy: 4, compact: 2 };
-    return sizes[spacing ?? 'cozy'] as GridSpacing;
-  }, [spacing, spacingProps]);
+    return ContainerSizes[spacingProp ?? spacingContext ?? 'cozy'] as GridSpacing;
+  }, [spacingContext, spacingProp]);
 
-  return <Grid {...rest} container ref={ref} className={clsx(classes.root, className)} spacing={config} />;
+  return <Grid {...rest} container ref={ref} className={className} spacing={config} />;
 });
 
 export default React.memo(Row);
