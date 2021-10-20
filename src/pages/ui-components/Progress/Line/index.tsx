@@ -6,7 +6,6 @@ import Stepper, { StepperProps } from '@mui/material/Stepper';
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import ProgressBar from './ProgressBar';
 import StepIcon from './StepIcon';
 
@@ -56,4 +55,4 @@ const ProgressLine: React.FC<IProgressLineProps> = ({ steps, currentStep = 0, ..
   );
 };
 
-export default withHoustonTheme(React.memo(ProgressLine));
+export default React.memo(ProgressLine);

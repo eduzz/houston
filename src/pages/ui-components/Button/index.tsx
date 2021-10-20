@@ -3,8 +3,6 @@ import * as React from 'react';
 import ButtonMUI, { ButtonProps } from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import withHoustonTheme from '../styles/ThemeProvider/WrapperTheme';
-
 type ButtonPropsExtends =
   | 'id'
   | 'onClick'
@@ -52,4 +50,4 @@ const Button: React.FC<IButtonProps> = ({
   );
 };
 
-export default withHoustonTheme(React.memo(Button));
+export default React.memo(Button);

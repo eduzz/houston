@@ -1,16 +1,7 @@
-import { useTheme } from '@mui/material';
+import useTheme from '@mui/material/styles/useTheme';
 
 import { IHoustonTheme } from './types';
 
-export type IHoustonThemeCustomVariables = {
-  [key: string]: unknown;
-};
-
 export default function useHoustonTheme(): IHoustonTheme {
-  const theme = useTheme();
-
-  return {
-    ...theme.houston,
-    breakpoints: theme.breakpoints
-  };
+  return useTheme();
 }

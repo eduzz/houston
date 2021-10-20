@@ -10,11 +10,11 @@ const Bar = styled(LinearProgress)(({ theme }) => ({
     height: 8
   },
   colorPrimary: {
-    backgroundColor: theme.houston.colors.grey[200]
+    backgroundColor: theme.colors.grey[200]
   },
   bar: {
     height: 80,
-    backgroundColor: theme.houston.colors.success.main
+    backgroundColor: theme.colors.success.main
   }
 }));
 

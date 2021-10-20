@@ -19,6 +19,7 @@ yarn-error.log*
 *.jsx
 *.d.ts
 *.map
+!definitions.d.ts
 
 !mui.d.ts
 !.prettierrc.js

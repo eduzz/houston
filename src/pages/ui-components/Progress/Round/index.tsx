@@ -4,7 +4,6 @@ import CircularProgressMUI from '@mui/material/CircularProgress';
 import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
-import withHoustonTheme from '../../styles/ThemeProvider/WrapperTheme';
 import Typography from '../../Typography';
 
 const useStyles = createUseStyles(theme => ({
@@ -77,4 +76,4 @@ const ProgressRound: React.FC<ICircularProgressProps> = ({ currentStep = 0, maxS
   );
 };
 
-export default withHoustonTheme(ProgressRound);
+export default ProgressRound;

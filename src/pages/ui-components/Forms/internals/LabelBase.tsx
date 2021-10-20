@@ -13,7 +13,12 @@ interface ILabelBaseProps {
 
 const LabelBase: React.FC<ILabelBaseProps> = ({ hasError, label, description, errorMessage }) => {
   if (label && typeof label !== 'string') {
-    return <>{label}</>;
+    return (
+      <>
+        {label}
+        {hasError && <FormHelperText error>{errorMessage}</FormHelperText>}
+      </>
+    );
   }
 
   return (
