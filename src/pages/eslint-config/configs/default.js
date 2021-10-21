@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     'sonarjs/cognitive-complexity': ['warn', 45],
     'sonarjs/no-duplicate-string': 'off',
+    'sonarjs/no-nested-template-literals': 'off',
     'no-restricted-globals': ['error'],
     'no-restricted-imports': [
       'error',

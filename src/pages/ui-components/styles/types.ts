@@ -8,9 +8,7 @@ declare module '@emotion/react' {
   interface Theme extends IHoustonTheme {}
 }
 
-export type IHoustonThemeCustomVariables = {
-  [key: string]: unknown;
-};
+export interface IHoustonThemeCustomVariables {}
 
 export type HoustonThemeBuilder = {
   colors?: Pick<HoustonColors, 'primary' | 'secondary'>;
@@ -116,6 +114,6 @@ export interface IHoustonTheme {
   lineHeight: (size?: HoustonLineHeights) => number;
   fontWeight: (size?: HoustonFontWeight) => number;
   breakpoints: HoustonBreakpoints;
-  variables: unknown;
+  variables: IHoustonThemeCustomVariables;
   colors: HoustonColors;
 }

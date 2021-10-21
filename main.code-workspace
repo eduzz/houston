@@ -51,13 +51,21 @@
     ],
     "files.exclude": {
       "**/node_modules": true,
-      "**/.docusaurus": true,
+      "src/.next": true,
+      "src/build": true,
+      "src/out": true,
       ".ultra.cache.json": true,
       "**/*[!_app.page].css": true,
-      "**/*.js": true,
-      "**/*[!_app.page].jsx": true,
+      "**/*.js": {
+        "when": "$(basename).ts"
+      },
+      "**/*.jsx": {
+        "when": "$(basename).tsx"
+      },
       "**/*.d.ts": true,
-      "**/*?.js": true,
+      "**/*?.js": {
+        "when": "$(basename)?.ts"
+      },
       "**/*.lock.json": true,
       "**/.DS_Store": true,
       "**/.git": true,
