@@ -9,7 +9,6 @@ import ToastContainer from '../../Toast/Container';
 import { HoustonThemeBuilder } from '../types';
 import generateTheme from './_default';
 import defaultThemeVariables from './_default/variables';
-import ContextTheme from './context';
 
 type IThemeExtends = 'children';
 
@@ -61,11 +60,9 @@ function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase, 
       <MUIThemeProvider theme={muiTheme}>
         <style dangerouslySetInnerHTML={styleContent} />
 
-        <ContextTheme.Provider value={muiTheme}>
-          {!disableToast && <ToastContainer />}
-          {!disableCssBaseline && <CssBaseline />}
-          {children}
-        </ContextTheme.Provider>
+        {!disableToast && <ToastContainer />}
+        {!disableCssBaseline && <CssBaseline />}
+        {children}
       </MUIThemeProvider>
     </StyledEngineProvider>
   );
