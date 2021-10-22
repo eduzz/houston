@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } from 'react-toastify';
 
-import themeVariable from '../styles/ThemeProvider/_default/variables';
+import themeVariable from '../styles/ThemeProvider/_generator/variables';
 import styles from './styles';
 
 const ToastContainer: React.FC<ToastContainerProps> = props => {
