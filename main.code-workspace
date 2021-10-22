@@ -59,13 +59,13 @@
       "**/*.js": {
         "when": "$(basename).ts"
       },
+      "**/*?.js": {
+        "when": "$(basename).tsx"
+      },
       "**/*.jsx": {
         "when": "$(basename).tsx"
       },
       "**/*.d.ts": true,
-      "**/*?.js": {
-        "when": "$(basename)?.ts"
-      },
       "**/*.lock.json": true,
       "**/.DS_Store": true,
       "**/.git": true,
