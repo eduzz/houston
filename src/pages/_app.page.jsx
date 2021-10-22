@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { ChakraProvider } from '@chakra-ui/react';
-import { DokzProvider, GithubLink } from 'dokz';
+import { DokzProvider, GithubLink, ColorModeSwitch } from 'dokz';
 import Head from 'next/head';
+import theme from 'prism-react-renderer/themes/nightOwl';
 
 import ToastContainer from '@eduzz/houston-ui/Toast/Container';
+
 import './_app.page.css';
 
 const sidebarOrdering = {
@@ -30,8 +32,23 @@ export default function App(props) {
         headTitlePrefix='Houston | '
         fontFamily='Open Sans'
         headerLogo={<img src='/houston/img/logo.svg' height='60px' />}
-        headerItems={[<GithubLink key='0' url='https://github.com/eduzz/houston' />]}
+        headerItems={[
+          <a
+            key='0'
+            target='_blank'
+            rel='noreferrer'
+            href='https://zeroheight.com/3a98bdd76/p/756f78-guia-de-redao-e-estilo-eduzz---v1---produtos'
+          >
+            Conteúdo
+          </a>,
+          <GithubLink key='1' url='https://github.com/eduzz/houston' />,
+          <ColorModeSwitch key={1} />
+        ]}
         sidebarOrdering={sidebarOrdering}
+        prismTheme={{
+          dark: theme,
+          light: theme
+        }}
       >
         <Component {...pageProps} />
       </DokzProvider>
