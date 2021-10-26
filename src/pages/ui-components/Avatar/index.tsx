@@ -8,7 +8,7 @@ import AvatarSolid from '@eduzz/houston-icons/AvatarSolid';
 
 import createUseStyles from '../styles/createUseStyles';
 
-type AvatarPropsExtends = 'id' | 'className' | 'src' | 'alt' | 'onClick';
+type AvatarPropsExtends = 'id' | 'className' | 'src' | 'alt' | 'onClick' | 'children';
 
 export type IAvatarSize = 'small' | 'middle' | 'large' | number;
 
