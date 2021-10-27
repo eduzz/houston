@@ -1,0 +1,73 @@
+---
+name: usePromiseCallback
+---
+
+import { useState, useCallback } from 'react';
+
+import { Playground } from 'dokz';
+
+import Button from '@eduzz/houston-ui/Button';
+import Typography from '@eduzz/houston-ui/Typography';
+
+import usePromiseCallback from '.';
+
+# usePromiseCallback
+
+Retorn um callback que dará Subscribe e retornará o resultado de uma promise e quando o componente desmonta (unmount) também dá
+unsubscribe, diminuindo assim o risco de Memory Leak. **Como useEffect que retorna o valor da Promise**
+
+## Como usar
+
+```tsx
+const [callback, value, error, loading] = usePromiseCallback(() => userService.get(), []);
+
+return (
+  <div>
+    {loading ? 'Carregando' : ''}
+    {value}
+    <button onClick={callback}>iniciar</button>
+  </div>
+);
+```
+
+<Playground>
+  {() => {
+    const [reset, setReset] = useState();
+    const [callback, value, error, loading] = usePromiseCallback(
+      () => new Promise(resolve => setTimeout(() => resolve('olá'), 2000)),
+      [reset]
+    );
+    return (
+      <div>
+        <Typography>Value: {value}</Typography>
+        <Typography marginBottom>Loading: {loading.toString()}</Typography>
+        <Button onClick={callback}>Iniciar</Button>
+      </div>
+    );
+  }}
+</Playground>
+
+## Cuidados
+
+- **Erros** ocorridos serão automaticamentes logados e as o **onUnhandledError** no **setHoustonHooksConfig**
+  for setado.
+- O valor inicial será **undefined**, lembre-se de tratar isso quando estiver usando.
+
+## Parâmetros e Retorno
+
+```ts
+/**
+ * @param promiseCallback Função que retorna uma Promise, pode receber parametros
+ * @param deps Lista de dependências
+ * @returns [
+ *    callback: callback para iniciar a promise,
+ *    value: valor de retorno do Promise,
+ *    error: se ocorrer um erro, ele será passado aqui,
+ *    loading: boolean se esta carregando ou não
+ * ]
+ */
+export default function usePromiseCallback<T, F extends (...args: any[]) => Promise<T>>(
+  promiseCallback: F,
+  deps: React.DependencyList
+): [(...a: Parameters<F>) => Promise<T>, T, any, boolean];
+```

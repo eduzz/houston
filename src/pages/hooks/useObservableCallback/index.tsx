@@ -1,43 +1,68 @@
 import * as React from 'react';
 
-import { NEVER, Observable, Subject } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { Observable, Subject, switchMap, tap } from 'rxjs';
 
 import { getConfig } from '../config';
-import useObservable from '../useObservable';
-
-type ExtractObservableResult<P> = P extends Observable<infer T> ? T : never;
 
 /**
  * Create a memoized callback that uses an observable and unsubscribe automatically if component unmount
- * @param observableGenerator Function to return a observable
+ * @param observableCallback Function to return a observable
  * @param deps List of deps
  * @returns [callbackFunction, observableValue, error, complete, loading]
  */
 export default function useObservableCallback<T, F extends (...args: any[]) => Observable<T>>(
-  observableGenerator: F,
+  observableCallback: F,
   deps: React.DependencyList
-): [(...a: Parameters<F>) => void, ExtractObservableResult<ReturnType<F>>, any, boolean, boolean] {
+): [(...a: Parameters<F>) => void, T, any, boolean, boolean] {
+  const [value, setValue] = React.useState<T>(undefined);
   const [error, setError] = React.useState();
-  const submitted$ = React.useRef(new Subject<any>()).current;
+  const [loading, setLoading] = React.useState(false);
+  const [completed, setCompleted] = React.useState(false);
+  const [submitted$] = React.useState(
+    () => new Subject<{ callback: F; args: Parameters<F>[]; deps: React.DependencyList }>()
+  );
 
-  const [data, , completed, loading] = useObservable<any>(() => {
-    return submitted$.pipe(
-      tap(() => setError(undefined)),
-      switchMap(args =>
-        observableGenerator(...args).pipe(
-          catchError(err => {
+  React.useEffect(() => {
+    const sub = submitted$
+      .pipe(
+        switchMap(({ callback, args }) => {
+          setValue(undefined);
+          setError(undefined);
+          setCompleted(false);
+          setLoading(true);
+
+          return callback(...args);
+        }),
+        tap({
+          next: (data: T) => {
+            setValue(() => data);
+            setError(undefined);
+            setLoading(false);
+          },
+          error: err => {
             getConfig().onUnhandledError(err, 'hooks');
+            setValue(null);
             setError(err);
-            return NEVER;
-          })
-        )
+            setLoading(false);
+          },
+          complete: () => {
+            setCompleted(true);
+            setLoading(false);
+          }
+        })
       )
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
+      .subscribe();
 
-  const callback = React.useCallback((...args: Parameters<F>) => submitted$.next(args), [submitted$]);
+    return () => sub.unsubscribe();
+  }, [submitted$]);
 
-  return [callback, data, error, completed, loading];
+  const callback = React.useCallback(
+    (...args: Parameters<F>) => {
+      setLoading(true);
+      submitted$.next({ callback: observableCallback, args, deps });
+    },
+    [submitted$, observableCallback, deps]
+  );
+
+  return [callback, value, error, completed, loading];
 }
