@@ -1,8 +1,11 @@
 import * as React from 'react';
 
 import { ThemeProviderProps } from '@emotion/react/types/theming';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { ptBR, enUS } from 'date-fns/locale';
 
 import { _setCurrentTheme } from '../../Toast';
 import ToastContainer from '../../Toast/Container';
@@ -14,13 +17,22 @@ type IThemeExtends = 'children';
 
 export interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
   theme?: HoustonThemeBuilder;
+  locale?: 'pt-BR' | 'en-US';
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
   disableToast?: boolean;
 }
 
-function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase, disableToast }: IThemeProviderProps) {
-  const muiTheme = React.useMemo(() => generateTheme(theme), [theme]);
+function ThemeProvider({
+  children,
+  theme,
+  disableCssBaseline,
+  disabledFontBase,
+  disableToast,
+  locale = 'pt-BR'
+}: IThemeProviderProps) {
+  const variables = React.useMemo(() => ({ lang: locale }), [locale]);
+  const muiTheme = React.useMemo(() => generateTheme(theme, variables), [theme, variables]);
 
   const fontBaseBody = React.useMemo(
     () =>
@@ -53,16 +65,26 @@ function ThemeProvider({ children, theme, disableCssBaseline, disabledFontBase, 
     [fontBaseBody]
   );
 
+  const localeNavigator = React.useMemo(() => {
+    if (locale === 'pt-BR') {
+      return ptBR;
+    }
+
+    return enUS;
+  }, [locale]);
+
   React.useEffect(() => _setCurrentTheme(muiTheme), [muiTheme]);
 
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
-        <style dangerouslySetInnerHTML={styleContent} />
+        <LocalizationProvider locale={localeNavigator} dateAdapter={AdapterDateFns}>
+          <style dangerouslySetInnerHTML={styleContent} />
 
-        {!disableToast && <ToastContainer />}
-        {!disableCssBaseline && <CssBaseline />}
-        {children}
+          {!disableToast && <ToastContainer />}
+          {!disableCssBaseline && <CssBaseline />}
+          {children}
+        </LocalizationProvider>
       </MUIThemeProvider>
     </StyledEngineProvider>
   );

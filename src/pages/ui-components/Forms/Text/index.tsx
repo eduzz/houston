@@ -68,6 +68,9 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       className,
       size,
       InputProps,
+      onKeyPress,
+      helperText,
+      disabled = false,
       ...props
     },
     ref
@@ -160,9 +163,9 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
         error={hasError}
         inputRef={ref}
         {...props}
-        disabled={isSubmitting || props.disabled || loading}
-        helperText={errorMessage || props.helperText}
-        className={clsx(className, size === 'small' ? 'input-size-small' : null)}
+        disabled={isSubmitting || disabled || loading}
+        helperText={errorMessage || helperText}
+        className={clsx(className, size === 'small' && 'input-size-small')}
         name={name}
         margin={margin ?? 'normal'}
         variant='outlined'
@@ -172,7 +175,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
         fullWidth={fullWidth ?? true}
         InputLabelProps={inputLabelProps}
         InputProps={inputProps}
-        onKeyPress={onPressEnter ? handlePressEnter : props.onKeyPress}
+        onKeyPress={onPressEnter ? handlePressEnter : onKeyPress}
       />
     );
   }
