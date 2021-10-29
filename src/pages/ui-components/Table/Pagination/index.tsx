@@ -30,6 +30,7 @@ const useStyles = createUseStyles(theme => ({
   },
 
   perPage: {
+    width: 200,
     display: 'inline-flex',
     alignItems: 'center',
 
