@@ -1,37 +1,24 @@
-import * as React from 'react';
-
-import { Theme } from '@mui/material/styles';
 import { toast, ToastOptions } from 'react-toastify';
+
+import { getCurrentTime } from '../styles/ThemeProvider/_state';
 
 type IToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 interface IToastOptions extends Pick<ToastOptions, IToastPropsExtends> {}
 
-let currentTheme: Theme;
-
-export function _setCurrentTheme(theme: Theme) {
-  currentTheme = theme;
-}
-
 class Toast {
   static success(content: React.ReactNode, options?: IToastOptions): void {
-    toast.success(content, {
-      ...options,
-      style: { ...(currentTheme ? { background: currentTheme.palette.success.main } : {}) }
-    });
+    const theme = getCurrentTime();
+    toast.success(content, { ...options, style: { ...(theme ? { background: theme.colors.success.main } : {}) } });
   }
 
   static error(content: React.ReactNode, options?: IToastOptions): void {
-    toast.error(content, {
-      ...options,
-      style: { ...(currentTheme ? { background: currentTheme.palette.error.main } : {}) }
-    });
+    const theme = getCurrentTime();
+    toast.error(content, { ...options, style: { ...(theme ? { background: theme.colors.error.main } : {}) } });
   }
 
   static info(content: React.ReactNode, options?: IToastOptions): void {
-    toast.info(content, {
-      ...options,
-      style: { ...(currentTheme ? { background: currentTheme.palette.info.main } : {}) }
-    });
+    const theme = getCurrentTime();
+    toast.info(content, { ...options, style: { ...(theme ? { background: theme.colors.info.main } : {}) } });
   }
 }
 

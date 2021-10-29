@@ -6,7 +6,7 @@ import { useState, useCallback } from 'react';
 
 import { Playground } from 'dokz';
 import { interval, of } from 'rxjs';
-import { delay, take } from 'rxjs/operators';
+import { delay, take, map } from 'rxjs/operators';
 
 import Button from '@eduzz/houston-ui/Button';
 import Typography from '@eduzz/houston-ui/Typography';
@@ -34,15 +34,21 @@ return (
 <Playground>
   {() => {
     const [reset, setReset] = useState();
-    const [value, error, completed] = useObservable(() => interval(1000).pipe(take(10)), [reset]);
+    const [value, error, completed, loading] = useObservable(
+      () =>
+        interval(1000).pipe(
+          take(5),
+          map(v => v + 1)
+        ),
+      [reset]
+    );
     const onReset = useCallback(() => setReset(Date.now()), []);
     return (
       <div>
-        <Typography>Value: {value}</Typography>
-        <Typography>Completed: {completed.toString()}</Typography>
-        <Button onClick={onReset} variant='text'>
-          Reset
-        </Button>
+        <Typography>Value: {value ? value : 'undefined'}</Typography>
+        <Typography>Loading: {loading.toString()}</Typography>
+        <Typography marginBottom>Completed: {completed.toString()}</Typography>
+        <Button onClick={onReset}>Reset</Button>
       </div>
     );
   }}
@@ -62,11 +68,10 @@ return (
     const onReset = useCallback(() => setReset(Date.now()), []);
     return (
       <div>
-        <Typography>Value: {user && user.name}</Typography>
+        <Typography>Value: {user ? user.name : 'undefined'}</Typography>
         <Typography>Loading: {loading.toString()}</Typography>
-        <Button onClick={onReset} variant='text'>
-          Reset
-        </Button>
+        <Typography marginBottom>Completed: {completed.toString()}</Typography>
+        <Button onClick={onReset}>Reset</Button>
       </div>
     );
   }}
@@ -82,7 +87,7 @@ return (
  *    value: valor de retorno do Observable,
  *    error: se ocorrer um erro, ele será passado aqui,
  *    complete: boolean se o observable foi completado ou não,
- *    loading: boolean se esta carregando ou não
+ *    loading: boolean se esta carregando ou não, assim que o primeiro valor vier ele será false
  * ]
  */
 export default useObservable<T>(observableGenerator: () => Observable<T>, deps: React.DependencyList): [T, any, boolean, boolean];

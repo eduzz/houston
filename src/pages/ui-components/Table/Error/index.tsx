@@ -23,6 +23,8 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
   const classes = useStyle();
 
   const errorMessage = React.useMemo(() => {
+    if (!error) return null;
+
     if (formater) {
       return formater(error) ?? 'Algo inesperado aconteceu...';
     }
@@ -30,7 +32,7 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
     return typeof error === 'string' ? error : 'Algo inesperado aconteceu...';
   }, [error, formater]);
 
-  if (error) return null;
+  if (!error) return null;
   children = children ?? errorMessage;
 
   return (
