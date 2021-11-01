@@ -162,6 +162,7 @@ import Table from '@eduzz/houston-ui/Table';
               <Table.Cell mobileSize={6} align='right'>
                 {row.price}
               </Table.Cell>
+              <Table.ActionLoading show={index === 1} />
               <Table.Action onClick={onEdit}>Editar</Table.Action>
               <Table.Collapse>Olá!</Table.Collapse>
             </Table.Row>
