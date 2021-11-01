@@ -44,7 +44,7 @@ const { params, handleChangePage, handleChangePerPage, handleSort, result, total
  *  result: R[]; / Array com o resultado
  *  hasMore: boolean; / Se existe mais para ser carregado, calculado com base do total, útil para o infinityScroll
  *  error: any; / Error, se aconteceu algum
- *  retry: () => void; / Função de retry
+ *  refresh: () => void; / Função de refresh
  *  updateInitialParams: React.Dispatch<React.SetStateAction<P>>; / Útil para alterar o reset de um filtro
  *  mergeParams: (params: PaginationMergeParams<P>) => void; / Função para atualizar os paramentros pode ser o valor em sí o uma função que recebe o valor atual
  *  handleChangePage: (page: number) => void; / Função de atalho para o mergeParams({ page: 1})
