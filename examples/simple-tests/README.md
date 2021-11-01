@@ -11,24 +11,35 @@ yarn add jest @types/jest enzyme @types/enzyme babel-jest @wojtekmaj/enzyme-adap
 .babelrc
 ```js
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
-  "plugins": []
+  "presets": ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"]
 }
 ```
 
 jest.config.js
 ```js
 module.exports = {
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts']
+  testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ['/node_modules/'],
+  collectCoverage: false,
+  collectCoverageFrom: ['src/**/*.spec.ts(x)', 'src/**/*.test.ts(x)'],
+  setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'],
+  modulePaths: ['<rootDir>/src/', '<rootDir>/.jest']
 };
+```
+
+.jest/setup.ts
+```js
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import { configure } from 'enzyme';
+
+configure({ adapter: new Adapter() });
 ```
 
 ### Run
 
-In package.json add:
+In package.json add line:
 ```json
 "scripts": {
-  ...
   "test": "jest"
 },
 ```
