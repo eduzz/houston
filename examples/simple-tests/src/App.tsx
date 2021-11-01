@@ -7,7 +7,7 @@ interface IProps {
 }
 
 function App({ foo }: IProps) {
-  return <ThemeProvider>{foo}</ThemeProvider>;
+  return <ThemeProvider><div>{foo}</div></ThemeProvider>;
 }
 
 export default App;
