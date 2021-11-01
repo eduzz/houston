@@ -7,11 +7,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { ptBR, enUS } from 'date-fns/locale';
 
-import { _setCurrentTheme } from '../../Toast';
 import ToastContainer from '../../Toast/Container';
 import { HoustonThemeBuilder } from '../types';
-import generateTheme from './_default';
-import defaultThemeVariables from './_default/variables';
+import generateTheme from './_generator';
+import defaultThemeVariables from './_generator/variables';
+import { setCurrentTheme } from './_state';
 
 type IThemeExtends = 'children';
 
@@ -73,7 +73,7 @@ function ThemeProvider({
     return enUS;
   }, [locale]);
 
-  React.useEffect(() => _setCurrentTheme(muiTheme), [muiTheme]);
+  React.useEffect(() => setCurrentTheme(muiTheme), [muiTheme]);
 
   return (
     <StyledEngineProvider injectFirst>
