@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import IconButton from '@mui/material/IconButton';
-
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
+import EyeOffOutline from '@eduzz/houston-icons/EyeOffOutline';
+import EyeOnOutline from '@eduzz/houston-icons/EyeOnOutline';
 
+import ButtonIcon from '../../ButtonIcon';
 import TextField, { ITextFieldProps } from '../Text';
 
 type FieldTextPropsOmit = 'type' | 'multiline' | 'loading' | 'mask' | 'fieldEndAdornment';
@@ -19,9 +19,9 @@ const PasswordField: React.FC<IPasswordFieldProps> = props => {
       {...props}
       type={showPassword ? 'text' : 'password'}
       endAdornment={
-        <IconButton size='small' onClick={toogleShowPassword}>
-          {showPassword ? <Visibility /> : <VisibilityOff />}
-        </IconButton>
+        <ButtonIcon size='small' onClick={toogleShowPassword}>
+          {showPassword ? <EyeOnOutline size={24} /> : <EyeOffOutline size={24} />}
+        </ButtonIcon>
       }
     />
   );
