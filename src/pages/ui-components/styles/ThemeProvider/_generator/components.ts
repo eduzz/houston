@@ -143,7 +143,7 @@ export default function components(palette: HoustonColors): Components {
           },
           '&.input-size-small': {
             height: 35,
-            padding: '8px 12px'
+            padding: '8px 32px 8px 12px'
           }
         },
         // selectMenu: {

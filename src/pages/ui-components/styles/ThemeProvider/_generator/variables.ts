@@ -89,8 +89,8 @@ const colors = {
   text: {
     disabled: '#B0BEC5',
     hint: '#B0BEC5',
-    primary: '#546E7A',
-    secondary: '#78909C'
+    primary: '#37474F',
+    secondary: '#102027'
   }
 };
 
