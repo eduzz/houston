@@ -8,7 +8,6 @@ export type IOmitTextFieldProps =
   | 'rows'
   | 'type'
   | 'loading'
-  | 'placeholder'
   | 'multiline';
 
 export type IPickDatePickerProps =

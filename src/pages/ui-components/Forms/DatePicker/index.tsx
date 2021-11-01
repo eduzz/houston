@@ -30,7 +30,7 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
   value = '',
   errorMessage: errorMessageProp,
   helperText,
-  fullWidth = false,
+  fullWidth,
   onChange,
   className,
   size,
@@ -38,6 +38,7 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
   disabled,
   displayFormat = 'dd/MM/yyyy',
   defaultView = 'day',
+  placeholder,
   ...rest
 }) => {
   const { variables } = useHoustonTheme();
@@ -70,9 +71,10 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
       helperText: errorMessage || helperText,
       className: clsx(className, size === 'small' && 'input-size-small'),
       margin,
-      fullWidth
+      fullWidth: fullWidth ?? true,
+      placeholder
     }),
-    [className, errorMessage, fullWidth, hasError, helperText, margin, size]
+    [className, errorMessage, fullWidth, hasError, placeholder, helperText, margin, size]
   );
 
   const buttonsText = {
