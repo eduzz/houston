@@ -12,4 +12,14 @@ describe('<App />', () => {
     const component = shallow(<App {...props} />);
     expect(component.exists()).toBeTruthy();
   });
+
+  it('should render a text', () => {
+    const component = shallow(<App {...props} />);
+    expect(component.text()).toEqual('bar');
+  });
+
+  it('force error', () => {
+    const component = shallow(<App {...props} />);
+    expect(component.text()).toEqual('zzz');
+  });
 });
