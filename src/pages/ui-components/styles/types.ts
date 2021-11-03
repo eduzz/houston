@@ -11,7 +11,7 @@ declare module '@emotion/react' {
 export interface IHoustonThemeCustomVariables {}
 
 export type HoustonThemeBuilder = {
-  colors?: Pick<HoustonColors, 'primary' | 'secondary'>;
+  colors?: Partial<Pick<HoustonColors, 'primary' | 'secondary'>>;
   variables?: IHoustonTheme['variables'];
 };
 
