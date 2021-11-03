@@ -16,7 +16,7 @@ import { setCurrentTheme } from './_state';
 type IThemeExtends = 'children';
 
 export interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
-  theme?: HoustonThemeBuilder;
+  theme?: Partial<HoustonThemeBuilder>;
   locale?: 'pt-BR' | 'en-US';
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
