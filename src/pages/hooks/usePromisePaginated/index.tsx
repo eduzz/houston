@@ -25,8 +25,8 @@ interface IDataState<T> extends IPaginationResponse<T> {
 }
 
 export type PaginationMergeParams<P> =
-  | Partial<P & { _retry?: number }>
-  | ((currenteParams: Partial<P & { _retry?: number }>) => Partial<P & { _retry?: number }>);
+  | Partial<P & { _refresh?: number }>
+  | ((currenteParams: Partial<P & { _refresh?: number }>) => Partial<P & { _refresh?: number }>);
 
 export interface IUsePaginatedOptions<P, T> {
   initialParams?: P;
@@ -44,7 +44,7 @@ export interface IUsePromisePaginated<P, R> {
   result: R[];
   hasMore: boolean;
   error: any;
-  retry: () => void;
+  refresh: () => void;
   mergeParams: (params: PaginationMergeParams<P>, reset?: boolean) => void;
   /** Sintax sugar for `mergeParams` to change page  */
   handleChangePage: (page: number) => void;
@@ -89,7 +89,7 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
           return params;
         }
 
-        return { ...newState, _retry: null };
+        return { ...newState, _refresh: null };
       });
     },
     [data.hasMore, initialParams, isLoading, isLoadingMore]
@@ -100,8 +100,8 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
       setIsLoading(!infintyScroll || params.page === initialParams.page);
       setIsLoadingMore(params.page !== initialParams.page);
 
-      const sendParams = { ...params } as P & { _retry?: number };
-      delete sendParams._retry;
+      const sendParams = { ...params } as P & { _refresh?: number };
+      delete sendParams._refresh;
       const response = await onChangeParams(sendParams);
 
       setIsLoading(false);
@@ -124,10 +124,10 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, ...deps]);
 
-  const retry = React.useCallback(() => {
+  const refresh = React.useCallback(() => {
     setIsLoading(true);
-    mergeParams({ page: 0, _retry: Date.now() } as any);
-  }, [mergeParams]);
+    mergeParams({ page: initialParams?.page ?? 1, _refresh: Date.now() } as any);
+  }, [initialParams?.page, mergeParams]);
 
   const handleChangePage = React.useCallback((page: number) => mergeParams({ page } as P), [mergeParams]);
   const handleChangePerPage = React.useCallback((perPage: number) => mergeParams({ perPage } as P), [mergeParams]);
@@ -145,7 +145,7 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
     result: data.result,
     hasMore: data.hasMore,
     error,
-    retry,
+    refresh,
     mergeParams,
     handleSort,
     handleChangePage,

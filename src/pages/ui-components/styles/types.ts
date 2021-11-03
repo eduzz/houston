@@ -8,10 +8,12 @@ declare module '@emotion/react' {
   interface Theme extends IHoustonTheme {}
 }
 
-export interface IHoustonThemeCustomVariables {}
+export interface IHoustonThemeCustomVariables {
+  lang: string;
+}
 
 export type HoustonThemeBuilder = {
-  colors?: Pick<HoustonColors, 'primary' | 'secondary'>;
+  colors?: Partial<Pick<HoustonColors, 'primary' | 'secondary'>>;
   variables?: IHoustonTheme['variables'];
 };
 
@@ -34,7 +36,9 @@ export type HoustonFontSizes =
   | 'large'
   | 'x-large'
   | 'xx-large';
+
 export type HoustonLineHeights = 'normal' | 'compact' | 'comfortable';
+
 export type HoustonFontWeight = 'light' | 'regular' | 'semibold' | 'bold';
 
 export type HoustonColors = {

@@ -96,12 +96,10 @@ const palette: IThemePalette = {}; // Opcional
 ## Variáveis customizadas
 
 ```tsx
-import ThemeProvider, { IHoustonPalette } from '@eduzz/houston-ui/styles/ThemeProvider';
+import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
+import { HoustonThemeBuilder } from '@eduzz/houston-ui/styles/types';
 
-const theme: Partial<IHoustonPalette> = {
-  // mode (light or dark)
-  type: 'dark',
-
+const theme: Partial<HoustonThemeBuilder> = {
   // custom key and value
   variables: {
     foo: true,
