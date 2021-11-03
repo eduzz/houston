@@ -8,6 +8,7 @@ export interface ITableRowContext {
   collapse: ITableCollapse;
   registerCollapse: (content: ITableCollapse) => () => void;
   registerAction: (option: Omit<ITableAction, 'key'>) => () => void;
+  registerActionLoading: (loading: boolean) => void;
 }
 
 const TableRowContext = createContext<ITableRowContext>({} as ITableRowContext);

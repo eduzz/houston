@@ -6,7 +6,9 @@ import components from './components';
 import typography from './typography';
 import defaultThemeVariables from './variables';
 
-export default function generateTheme(customTheme?: HoustonThemeBuilder) {
+import '@mui/lab/themeAugmentation';
+
+export default function generateTheme(customTheme?: HoustonThemeBuilder, variables?: any) {
   const palette = { ...defaultThemeVariables.colors, ...(customTheme?.colors ?? {}) };
 
   return createTheme({
@@ -14,7 +16,7 @@ export default function generateTheme(customTheme?: HoustonThemeBuilder) {
     components: components(palette),
     typography,
     ...(defaultThemeVariables as any),
-    variables: customTheme?.variables,
+    variables: { ...variables, ...customTheme?.variables },
     colors: palette
   });
 }

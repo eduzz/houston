@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import CircularProgress from '@mui/material/CircularProgress';
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
@@ -37,6 +38,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   const classes = useStyles();
 
   const [showCollapse, toogleShowCollapse] = useBoolean(false);
+  const [actionLoading, setActionLoading] = React.useState(false);
 
   const [collapse, setCollapse] = React.useState<ITableCollapse>(null);
   const [actions, setActions] = React.useState<ITableAction[]>([]);
@@ -74,7 +76,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   }, [hasActions, hasCollapse, registerRow]);
 
   const contextValue = React.useMemo<ITableRowContext>(
-    () => ({ registerAction, registerCollapse, data, index, collapse }),
+    () => ({ registerAction, registerCollapse, registerActionLoading: setActionLoading, data, index, collapse }),
     [collapse, data, index, registerAction, registerCollapse]
   );
 
@@ -103,11 +105,12 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 
         {hasActions && (
           <td align='right' className={classesColumnAction}>
-            {hasActions && (
+            {hasActions && !actionLoading && (
               <div onClick={onClickAction} className={classes.iconAction}>
                 {oneAction?.icon ?? <IconDotsHorizontal size={24} />}
               </div>
             )}
+            {actionLoading && <CircularProgress size={18} variant='indeterminate' />}
           </td>
         )}
 

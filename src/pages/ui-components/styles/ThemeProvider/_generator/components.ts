@@ -135,6 +135,14 @@ export default function components(palette: HoustonColors): Components {
       }
     },
 
+    MuiInputAdornment: {
+      styleOverrides: {
+        positionEnd: {
+          width: 28
+        }
+      }
+    },
+
     MuiSelect: {
       styleOverrides: {
         select: {
@@ -620,6 +628,14 @@ export default function components(palette: HoustonColors): Components {
         },
         iconContainer: {
           paddingRight: 18
+        }
+      }
+    },
+
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d'
         }
       }
     }
