@@ -46,10 +46,54 @@ por isso não é possível testar as **interfaces e props**. **Não altere nada 
 3. Mova para a coluna de RFC (Request for comments), na issue da tarefa, adicione a sua proposta de como o componente deve se comportar, automaticamente será enviado uma mensagem no discord pedindo para o pessoal comentar.
 4. Espere o feedback do pessoal (24hrs está de bom tamanho).
 5. Mande bala no código, **faça sua branch a partir da `develop`**
-6. Abra um PR linkando a issue e coloque (caso não seja colocado automaticamente pelo github) eu (@danieloprado), o fer (@ffernandomoraes) como reviewers e outros que você ache interessante olhar seu código.
-7. Mova a tarefa no Board.
-8. Quando a PR passar pela verificação automática será disparado uma mensagem no discord informando que uma PR está pronta para review.
-9. Veja os comentários da PR, se tudo estiver correto, ela será mergeada com a `develop` e estará na proxima versão.
+6. Use nosso padrão de commits (Explicação logo a baixo).
+7. Abra um PR linkando a issue e coloque (caso não seja colocado automaticamente pelo github) eu (@danieloprado), o fer (@ffernandomoraes) como reviewers e outros que você ache interessante olhar seu código.
+8. Mova a tarefa no Board.
+9. Quando a PR passar pela verificação automática será disparado uma mensagem no discord informando que uma PR está pronta para review.
+10. Veja os comentários da PR, se tudo estiver correto, ela será mergeada com a `develop` e estará na proxima versão.
+
+## Commit
+
+Estamos utilizando o [conventional commit](https://www.conventionalcommits.org/pt-br/v1.0.0/) para padronizar os commits e automatizar nosso versionamento.
+Por padrão faça commits pequenos (poucas alterações) e descritivos. Ex:
+
+```bash
+$ git commit -m "doc(core): Adicionado explicação sobre a padronização de commits"
+```
+
+### Escopos
+
+No escopo do commit coloque o package que está sendo alterado.
+
+- houston-ui
+- houston-mobile
+- eslint-config-houston
+- houston-forms
+- houston-hooks
+- core
+
+Ex:
+
+```bash
+$ git commit -m "fix(houston-mobile): Arrumado sobreposição do menu no mobile"
+$ git commit -m "refactor(houston-hooks): Lógica do toPromise() reformulada"
+```
+
+### Tipos de commits
+
+| Tipo     | Descrição                                                                                                                 |
+| -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| build    | Mudanças que afetam o sistema de compilação ou dependências externas (escopos de exemplo: gulp, broccoli, npm)            |
+| ci       | Mudanças em nossos arquivos e scripts de configuração de CI (escopos de exemplo: Travis, Circle, BrowserStack, SauceLabs) |
+| chore    | Outras mudanças que não modificam os arquivos src ou de test                                                              |
+| docs     | Alterações apenas na documentação                                                                                         |
+| feat     | Uma nova funcionalidade                                                                                                   |
+| fix      | Uma correção de bug                                                                                                       |
+| perf     | Uma mudança de código que melhora o desempenho                                                                            |
+| refactor | Uma mudança que melhora o entendimento do código mas não corrige um bug e não adiciona uma funcionalidade                 |
+| revert   | Configurações compartilhadas entre os projetos, não deve ser usado diretamente                                            |
+| style    | Adicionar testes ou corrige testes existentes                                                                             |
+| test     | Reverte um commit anterior                                                                                                |
 
 ## Backlog
 
