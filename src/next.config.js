@@ -5,6 +5,7 @@ const withTM = require('next-transpile-modules')([
 ])
 
 module.exports = withPlugins([withTM, withDokz], {
+    swcMinify: true,
     debug: true,
     basePath: '/houston',
     poweredByHeader: false,

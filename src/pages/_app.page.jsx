@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { DokzProvider, GithubLink } from 'dokz';
 import Head from 'next/head';
 import theme from 'prism-react-renderer/themes/nightOwl';
@@ -31,21 +31,13 @@ export default function App(props) {
         footer={<footer className='houston-footer'>Houston - Feito com ❤️ pela Eduzz.</footer>}
         headTitlePrefix='Houston | '
         fontFamily='Open Sans'
+        initialColorMode='light'
         headerLogo={<img src='/houston/img/logo.svg' height='60px' />}
-        headerItems={[
-          // <a
-          //   key='0'
-          //   target='_blank'
-          //   rel='noreferrer'
-          //   href='https://zeroheight.com/3a98bdd76/p/756f78-guia-de-redao-e-estilo-eduzz---v1---produtos'
-          // >
-          //   Guia de Conteúdo
-          // </a>,
-          <GithubLink key='1' url='https://github.com/eduzz/houston' />
-        ]}
+        headerItems={[<GithubLink key='1' url='https://github.com/eduzz/houston' />]}
         sidebarOrdering={sidebarOrdering}
-        prismTheme={{ light: theme }}
+        prismTheme={{ light: theme, dark: theme }}
       >
+        <ColorModeScript initialColorMode='light' />
         <Component {...pageProps} />
       </DokzProvider>
     </ChakraProvider>

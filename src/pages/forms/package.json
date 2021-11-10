@@ -24,10 +24,10 @@
   "dependencies": {
     "@eduzz/houston-core": "0.41.5",
     "@eduzz/houston-hooks": "0.41.5",
-    "@types/yup": "^0.29.13",
-    "formik": "^2.2.9",
+    "@types/yup": "^0.29",
+    "formik": "^2",
     "rxjs": "^7",
-    "yup": "^0.32.9"
+    "yup": "^0.32"
   },
   "peerDependencies": {
     "@eduzz/houston-core": "0.41.5"

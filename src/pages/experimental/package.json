@@ -24,17 +24,15 @@
     "@eduzz/houston-ui": "0.41.5",
     "@eduzz/houston-hooks": "0.41.5",
     "@eduzz/houston-icons": "0.41.5",
-    "@emotion/css": "^11.1.3",
+    "@emotion/css": "^11",
     "@mui/material": "^5",
     "@mui/styles": "^5",
     "@mui/icons-material": "^5",
     "@mui/lab": "^5.0.0-alpha.49",
-    "clsx": "^1.1.1",
+    "clsx": "^1",
     "tslib": "^2"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.41.5",
-    "@material-ui/core": "^4",
-    "@material-ui/lab": "^4"
+    "@eduzz/houston-core": "0.41.5"
   }
 }

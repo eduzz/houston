@@ -8,8 +8,8 @@
     },
     "dependencies": {
         "@chakra-ui/react": "latest",
-        "@emotion/react": "latest",
-        "@emotion/styled": "latest",
+        "@emotion/react": "^11",
+        "@emotion/styled": "^11",
         "framer-motion": "latest",
         "@eduzz/houston-hooks": "*",
         "@eduzz/houston-ui": "*",
@@ -17,12 +17,12 @@
         "@eduzz/houston-forms": "*",
         "@eduzz/houston-experimental": "*",
         "dokz": "latest",
-        "next": "^11.1.2",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "next": "^12",
+        "react": "^17",
+        "react-dom": "^17"
     },
     "devDependencies": {
-        "next-transpile-modules": "^8.0.0",
-        "next-compose-plugins": "2.2.1"
+        "next-transpile-modules": "^9",
+        "next-compose-plugins": "^2"
     }
 }
