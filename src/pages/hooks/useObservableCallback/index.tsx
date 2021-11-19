@@ -62,7 +62,7 @@ export default function useObservableCallback<T, F extends (...args: any[]) => O
       submitted$.next({ callback: observableCallback, args, deps });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [deps]
+    deps
   );
 
   return [callback, value, error, completed, loading];

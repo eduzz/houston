@@ -40,7 +40,7 @@ export default function useCallbackGenerator<F extends (...args: any[]) => any>(
       cache[key].func = (...callArgs: any[]) => generator(...cache[key].args, ...callArgs);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deps]);
+  }, deps);
 
   return result;
 }
