@@ -84,7 +84,7 @@ const colors = {
     light: '#D2EBD3',
     main: '#4caf50',
     dark: '#388e3c',
-    contrastText: 'rgba(0, 0, 0, 0.87)'
+    contrastText: '#fff'
   },
   text: {
     disabled: '#B0BEC5',

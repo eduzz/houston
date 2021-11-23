@@ -35,6 +35,28 @@ import Button from '@eduzz/houston-ui/Button';
   </Row>
 </Playground>
 
+### Cores
+
+<Playground>
+  <Row>
+    <Column>
+      <Button color='primary'>Primary</Button>
+    </Column>
+    <Column>
+      <Button color='success'>Success</Button>
+    </Column>
+    <Column>
+      <Button color='error'>Error</Button>
+    </Column>
+    <Column>
+      <Button color='info'>Info</Button>
+    </Column>
+    <Column>
+      <Button color='warning'>Success</Button>
+    </Column>
+  </Row>
+</Playground>
+
 ### Estados
 
 <Playground>
@@ -66,15 +88,16 @@ import Button from '@eduzz/houston-ui/Button';
   </Row>
 </Playground>
 
-| prop        | tipo              | obrigatório | padrão    |
-| ----------- | ----------------- | ----------- | --------- |
-| disabled    | `boolean`         | `false`     | `false`   |
-| startIcon   | `React.ReactNode` | `false`     | -         |
-| endIcon     | `React.ReactNode` | `false`     | -         |
-| variant     | `IButtonVariant`  | `false`     | `primary` |
-| href        | `string`          | `false`     | -         |
-| endIcon     | `React.ReactNode` | `false`     | -         |
-| fullWidth   | `boolean`         | `false`     | `false`   |
-| loading     | `boolean`         | `false`     | `false`   |
-| loadingText | `string`          | `false`     | -         |
-| onClick     | `function`        | `false`     | -         |
+| prop        | tipo                                                           | obrigatório | padrão      |
+| ----------- | -------------------------------------------------------------- | ----------- | ----------- |
+| disabled    | `boolean`                                                      | `false`     | `false`     |
+| startIcon   | `React.ReactNode`                                              | `false`     | -           |
+| endIcon     | `React.ReactNode`                                              | `false`     | -           |
+| variant     | contained &#124; outlined &#124; text                          | `false`     | `contained` |
+| href        | `string`                                                       | `false`     | -           |
+| endIcon     | `React.ReactNode`                                              | `false`     | -           |
+| fullWidth   | `boolean`                                                      | `false`     | `false`     |
+| loading     | `boolean`                                                      | `false`     | `false`     |
+| loadingText | `string`                                                       | `false`     | -           |
+| onClick     | `function`                                                     | `false`     | -           |
+| color       | primary &#124; success &#124; error &#124; info &#124; warning | `false`     | `primary`   |
