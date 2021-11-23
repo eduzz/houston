@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-experimental",
   "description": "Eduzz Houston Experimental",
-  "version": "0.41.6",
+  "version": "0.42.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -21,9 +21,9 @@
     "pre-commit": "tsc -p . --noEmit"
   },
   "dependencies": {
-    "@eduzz/houston-ui": "0.41.6",
-    "@eduzz/houston-hooks": "0.41.6",
-    "@eduzz/houston-icons": "0.41.6",
+    "@eduzz/houston-ui": "0.42.0",
+    "@eduzz/houston-hooks": "0.42.0",
+    "@eduzz/houston-icons": "0.42.0",
     "@emotion/css": "^11",
     "@mui/material": "^5",
     "@mui/styles": "^5",
@@ -33,6 +33,6 @@
     "tslib": "^2"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.41.6"
+    "@eduzz/houston-core": "0.42.0"
   }
 }
