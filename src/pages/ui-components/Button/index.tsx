@@ -16,17 +16,20 @@ type ButtonPropsExtends =
   | 'endIcon';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
+export type IButtonColor = 'primary' | 'success' | 'error' | 'info' | 'warning';
 
 export interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends>, React.RefAttributes<HTMLButtonElement> {
   variant?: IButtonVariant;
   loading?: boolean;
   loadingText?: string;
+  color?: IButtonColor;
 }
 
 const Button: React.FC<IButtonProps> = ({
   children,
   disabled = false,
   variant = 'contained',
+  color = 'primary',
   startIcon,
   loading = false,
   loadingText,
@@ -42,7 +45,7 @@ const Button: React.FC<IButtonProps> = ({
       disableElevation
       disableTouchRipple
       variant={variant}
-      color='primary'
+      color={color}
     >
       {!loading && children}
       {loading && (loadingText ?? children)}
