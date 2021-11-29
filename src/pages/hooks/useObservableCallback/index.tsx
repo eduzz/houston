@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Observable, Subject, switchMap, tap } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { getConfig } from '../config';
 
