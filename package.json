@@ -8,6 +8,7 @@
     "src"
   ],
   "scripts": {
+    "swc-test": "yarn swc ./src/pages/ui-components -d ./src/pages/ui-components/build",
     "prebuild": "yarn clean",
     "build": "yarn ultra -r -b --concurrency 10 --filter \"src/pages/*\" build",
     "build:docs": "(cd src && yarn build)",
