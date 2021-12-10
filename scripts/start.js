@@ -58,7 +58,7 @@ async function init() {
   }
 
   if (!skipBuild) {
-    await spawn('yarn', ['build'], { stdio: 'inherit' });
+    await spawn('yarn', ['build:dev'], { stdio: 'inherit' });
   }
 
   if (mode === 'dev') {
