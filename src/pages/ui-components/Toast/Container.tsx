@@ -48,6 +48,7 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
         draggable={false}
         pauseOnFocusLoss
         pauseOnHover
+        icon={false}
         limit={4}
       />
     </>
