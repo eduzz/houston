@@ -101,7 +101,7 @@ const styles = `
   margin: auto 0;
   -ms-flex: 1 1 auto;
       flex: 1 1 auto;
-  padding: 6px;
+  padding: 8px 4px 10px !important;
 }
 
 .Toastify--animate {
