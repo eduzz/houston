@@ -5,6 +5,7 @@ import { switchMap, tap } from 'rxjs/operators';
 
 import { getConfig } from '../config';
 
+type ExtractObservableValue<P> = P extends Observable<infer T> ? T : never;
 /**
  * Create a memoized callback that uses an observable and unsubscribe automatically if component unmount
  * @param observableCallback Function to return a observable
@@ -14,8 +15,8 @@ import { getConfig } from '../config';
 export default function useObservableCallback<T, F extends (...args: any[]) => Observable<T>>(
   observableCallback: F,
   deps: React.DependencyList
-): [(...a: Parameters<F>) => void, T, any, boolean, boolean] {
-  const [value, setValue] = React.useState<T>(undefined);
+): [(...a: Parameters<F>) => void, ExtractObservableValue<ReturnType<F>>, any, boolean, boolean] {
+  const [value, setValue] = React.useState<ExtractObservableValue<ReturnType<F>>>(undefined);
   const [error, setError] = React.useState();
   const [loading, setLoading] = React.useState(false);
   const [completed, setCompleted] = React.useState(false);
@@ -35,7 +36,7 @@ export default function useObservableCallback<T, F extends (...args: any[]) => O
           return callback(...args);
         }),
         tap({
-          next: (data: T) => {
+          next: (data: ExtractObservableValue<ReturnType<F>>) => {
             setValue(() => data);
             setError(undefined);
             setLoading(false);
