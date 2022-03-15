@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { getConfig } from '../config';
 
+type ExtractPromiseValue<P> = P extends Promise<infer T> ? T : never;
+
 /**
  * Return a callback, the promise value and unsubscribed if component unmount
  * @param promiseCallback
@@ -11,9 +13,9 @@ import { getConfig } from '../config';
 export default function usePromiseCallback<T, F extends (...args: any[]) => Promise<T>>(
   promiseCallback: F,
   deps: React.DependencyList
-): [(...a: Parameters<F>) => Promise<T>, T, any, boolean] {
+): [(...a: Parameters<F>) => Promise<T>, ExtractPromiseValue<ReturnType<F>>, any, boolean] {
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [result, setResult] = React.useState<T>();
+  const [result, setResult] = React.useState<ExtractPromiseValue<ReturnType<F>>>();
   const [error, setError] = React.useState<any>();
 
   const callback = React.useCallback((...args: Parameters<F>) => {
@@ -25,7 +27,7 @@ export default function usePromiseCallback<T, F extends (...args: any[]) => Prom
     const promise = promiseCallback(...args);
 
     promise
-      .then(result => {
+      .then((result: ExtractPromiseValue<ReturnType<F>>) => {
         if (!isSubscribed) return;
         setResult(() => result);
       })
