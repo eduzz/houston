@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
-
+import createUseStyles from '../../styles/createUseStyles';
 import Typography from '../../Typography';
 import TableContext from '../context';
 

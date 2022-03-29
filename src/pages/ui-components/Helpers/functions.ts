@@ -1,5 +1,11 @@
 import * as React from 'react';
 
+import { IHoustonTheme } from '../styles/types';
+
+export function getColorFallback(theme: IHoustonTheme, colorKey: 'primary' | 'success' | 'error' | 'info' | 'warning') {
+  return theme.colors[colorKey] ?? theme.colors.primary;
+}
+
 export function truncateText(value: string, crop: number) {
   if (value?.length <= crop) {
     return value;
