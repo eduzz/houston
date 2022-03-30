@@ -3,10 +3,8 @@ import * as React from 'react';
 import { ButtonProps } from '@mui/material/Button';
 
 import { getColorFallback } from '../Helpers/functions';
+import Spinner from '../Spinner';
 import styled from '../styles/styled';
-
-type ButtonPropsExtends =
- ;
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
 export type IButtonColor = 'primary' | 'success' | 'error' | 'info' | 'warning';
@@ -17,21 +15,34 @@ export interface IButtonProps extends ButtonProps, React.RefAttributes<HTMLButto
   loadingText?: string;
   color?: IButtonColor;
   fullWidth?: boolean;
-  startIcon?: string;
-  endIcon?: string;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
 }
 
 const Button: React.FC<IButtonProps> = props => {
-  const { children, disabled = false, startIcon, variant, loading = false, loadingText, className, ...rest } = props;
+  const {
+    children,
+    disabled = false,
+    startIcon,
+    endIcon,
+    variant,
+    loading = false,
+    loadingText,
+    className,
+    ...rest
+  } = props;
+
   return (
-    <button
-      className={`${className} --${variant ?? 'contained'}`}
-      {...rest}
-      disabled={disabled || loading}
-      // startIcon={loading ? <CircularProgress size={18} color='inherit' /> : startIcon}
-    >
-      {!loading && children}
-      {loading && (loadingText ?? children)}
+    <button className={`${className} --${variant ?? 'contained'}`} {...rest} disabled={disabled || loading}>
+      {!!startIcon && !loading && <span className='__startIcon'>{startIcon}</span>}
+      {!loading && <span className='__text'>{children}</span>}
+      {loading && (
+        <>
+          <Spinner size={15} color='inherit' className='__loader' />
+          <span className='__text'>{loadingText ?? children}</span>
+        </>
+      )}
+      {!!endIcon && <span className='__endIcon'>{endIcon}</span>}
     </button>
   );
 };
@@ -49,21 +60,23 @@ export default styled(Button, { label: 'houston-button' })`
   font-size: ${props => props.theme.textSize('small')}px;
   position: relative;
   transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &.--contained {
     background-color: ${props => getColorFallback(props.theme, props.color).main};
     color: white;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: ${props => getColorFallback(props.theme, props.color).light};
     }
 
-    &:active {
+    &:active:not(:disabled) {
       background-color: ${props => getColorFallback(props.theme, props.color).dark};
     }
 
     &:disabled {
-      color: ${props => props.theme.colors.grey[500]};
       background-color: ${props => props.theme.colors.grey[300]};
     }
   }
@@ -73,11 +86,28 @@ export default styled(Button, { label: 'houston-button' })`
     color: ${props => getColorFallback(props.theme, props.color).main};
     border: 1px solid;
     border-color: ${props => getColorFallback(props.theme, props.color).light};
+
+    &:hover:not(:disabled),
+    &:active:not(:disabled) {
+      border-color: ${props => getColorFallback(props.theme, props.color).dark};
+      color: ${props => getColorFallback(props.theme, props.color).dark};
+    }
   }
 
   &.--text {
-    background-color: white;
+    background-color: transparent;
     color: ${props => getColorFallback(props.theme, props.color).main};
+
+    &:hover:not(:disabled),
+    &:active:not(:disabled) {
+      background-color: ${props => props.theme.colors.grey[200]};
+    }
+  }
+
+  &:disabled {
+    cursor: default;
+    color: ${props => props.theme.colors.grey[500]};
+    border-color: ${props => props.theme.colors.grey[300]};
   }
 
   &:before {
@@ -94,5 +124,23 @@ export default styled(Button, { label: 'houston-button' })`
 
   &:focus:not(:active):not(:hover):before {
     border-color: ${props => props.theme.colors.grey[300]};
+  }
+
+  & > .__loader {
+    margin-right: ${props => props.theme.spacing(2)};
+  }
+
+  & > .__startIcon {
+    margin-right: ${props => props.theme.spacing(2)};
+  }
+
+  & > .__endIcon {
+    margin-left: ${props => props.theme.spacing(2)};
+  }
+
+  & > .__startIcon > svg,
+  & > .__endIcon > svg {
+    vertical-align: middle;
+    font-size: 17px;
   }
 `;
