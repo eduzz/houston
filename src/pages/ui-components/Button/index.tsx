@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { ButtonProps } from '@mui/material/Button';
-
 import { getColorFallback } from '../Helpers/functions';
 import Spinner from '../Spinner';
-import styled from '../styles/styled';
+import styled, { cx } from '../styles/styled';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
 export type IButtonColor = 'primary' | 'success' | 'error' | 'info' | 'warning';
 
-export interface IButtonProps extends ButtonProps, React.RefAttributes<HTMLButtonElement> {
+export interface IButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    React.RefAttributes<HTMLButtonElement> {
   variant?: IButtonVariant;
   loading?: boolean;
   loadingText?: string;
@@ -29,11 +29,16 @@ const Button: React.FC<IButtonProps> = props => {
     loading = false,
     loadingText,
     className,
+    fullWidth,
     ...rest
   } = props;
 
   return (
-    <button className={`${className} --${variant ?? 'contained'}`} {...rest} disabled={disabled || loading}>
+    <button
+      className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth })}
+      {...rest}
+      disabled={disabled || loading}
+    >
       {!!startIcon && !loading && <span className='__startIcon'>{startIcon}</span>}
       {!loading && <span className='__text'>{children}</span>}
       {loading && (
@@ -63,6 +68,10 @@ export default styled(Button, { label: 'houston-button' })`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.--fullWidth {
+    width: 100%;
+  }
 
   &.--contained {
     background-color: ${props => getColorFallback(props.theme, props.color).main};
