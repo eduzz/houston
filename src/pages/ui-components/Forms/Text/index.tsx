@@ -2,56 +2,42 @@
 
 import * as React from 'react';
 
-import CircularProgress from '@mui/material/CircularProgress';
-import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
-import { InputLabelProps } from '@mui/material/InputLabel';
-import TextFieldMUI, { TextFieldProps } from '@mui/material/TextField';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import IFormMask from '@eduzz/houston-core/maskAdapter';
 
 import useMask from '../../hooks/useMask';
+import Spinner from '../../Spinner';
+import styled, { cx } from '../../styles/styled';
 import { FormFieldsContext } from '../Form';
 
-type FieldTextPropsExtends =
-  | 'id'
-  | 'label'
-  | 'name'
-  | 'disabled'
-  | 'placeholder'
-  | 'type'
-  | 'fullWidth'
-  | 'required'
-  | 'helperText'
-  | 'multiline'
-  | 'rows'
-  | 'className'
-  | 'onKeyPress'
-  | 'onKeyUp'
-  | 'onKeyDown'
-  | 'onClick'
-  | 'inputRef'
-  | 'InputProps'
-  | 'value';
-
-export interface ITextFieldProps extends Pick<TextFieldProps, FieldTextPropsExtends> {
+interface IOwnProperties {
+  label?: string;
   loading?: boolean;
   errorMessage?: string;
   mask?: IFormMask;
-  onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
-  onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
   margin?: 'none' | 'dense' | 'normal';
   endAdornment?: React.ReactNode;
   startAdornment?: React.ReactNode;
-  onPressEnter?: (value: any) => any;
   maxLength?: number;
   size?: 'normal' | 'small';
+  fullWidth?: boolean;
+  helperText?: string;
+  onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
+  onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
+  onPressEnter?: (value: any) => any;
+  InputProps?: any; // remove
 }
+
+export interface ITextFieldProps
+  extends IOwnProperties,
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof IOwnProperties>,
+    React.RefAttributes<HTMLInputElement> {}
 
 const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
   (
     {
+      label,
       mask,
       value,
       name,
@@ -67,7 +53,6 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       onPressEnter,
       className,
       size,
-      InputProps,
       onKeyPress,
       helperText,
       disabled = false,
@@ -109,40 +94,6 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       [onBlur, maskClean]
     );
 
-    const inputLabelProps = React.useMemo<InputLabelProps>(
-      () => ({
-        ...(props.placeholder ? { shrink: true } : {})
-      }),
-      [props.placeholder]
-    );
-
-    const inputProps = React.useMemo(() => {
-      let end = null;
-      let start = null;
-
-      if (endAdornment) {
-        end = <InputAdornment position='end'>{endAdornment}</InputAdornment>;
-      }
-
-      if (startAdornment) {
-        start = <InputAdornment position='start'>{startAdornment}</InputAdornment>;
-      }
-
-      if (loading) {
-        end = (
-          <InputAdornment position='end'>
-            <CircularProgress color='secondary' size={20} />
-          </InputAdornment>
-        );
-      }
-
-      return {
-        ...InputProps,
-        endAdornment: end,
-        startAdornment: start
-      };
-    }, [endAdornment, startAdornment, loading, InputProps]);
-
     const handlePressEnter = React.useCallback(
       (e: React.KeyboardEvent<HTMLInputElement>) => {
         const target = e.target as HTMLInputElement;
@@ -155,30 +106,221 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       [onPressEnter, maskClean]
     );
 
-    const errorMessage = errorMessageProp ?? formError;
-    const hasError = !!errorMessage;
+    const isDisabled = isSubmitting || disabled || loading;
+    const hasError = !!errorMessageProp || !!formError;
+
+    helperText = errorMessageProp || formError || helperText;
+    endAdornment = loading ? <Spinner color='inherit' size={20} /> : endAdornment;
 
     return (
-      <TextFieldMUI
-        error={hasError}
-        inputRef={ref}
-        {...props}
-        disabled={isSubmitting || disabled || loading}
-        helperText={errorMessage || helperText}
-        className={clsx(className, size === 'small' && 'input-size-small')}
-        name={name}
-        margin={margin ?? 'normal'}
-        variant='outlined'
-        value={maskedValue ?? ''}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        fullWidth={fullWidth ?? true}
-        InputLabelProps={inputLabelProps}
-        InputProps={inputProps}
-        onKeyPress={onPressEnter ? handlePressEnter : onKeyPress}
-      />
+      <fieldset
+        className={cx(className, `--size-${size ?? 'normal'}`, `--margin-${margin ?? 'normal'}`, {
+          '--fullWidth': fullWidth,
+          '--error': hasError,
+          '--disabled': isDisabled
+        })}
+      >
+        <div className='__container'>
+          {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
+
+          <input
+            ref={ref}
+            {...props}
+            disabled={isDisabled}
+            className={cx('__input', { '--fixedLabel': !!startAdornment, '--error': hasError })}
+            name={name}
+            value={maskedValue ?? ''}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onKeyPress={onPressEnter ? handlePressEnter : onKeyPress}
+          />
+          <label className='__label'>{label}</label>
+
+          <span className='__borders'>
+            <span className='__borderStart' />
+            <span className='__borderLabel'>
+              <span className='__borderLabelText'>{label}</span>
+            </span>
+            <span className='__borderEnd' />
+          </span>
+
+          {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
+        </div>
+
+        <span className='__message'>{helperText}</span>
+      </fieldset>
     );
   }
 );
 
-export default React.memo(TextField);
+export default styled(TextField, { label: 'houston-textfield' })`
+  border: none;
+  position: relative;
+  padding: 0;
+  margin-top: ${props => props.theme.spacing(1)};
+  margin-bottom: ${props => props.theme.spacing(3)};
+
+  & .__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .__startAdornment,
+    & .__endAdornment {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > svg {
+        font-size: 24px;
+      }
+    }
+
+    & .__startAdornment {
+      margin-left: ${props => props.theme.spacing(3)};
+    }
+
+    & .__endAdornment {
+      margin-right: ${props => props.theme.spacing(3)};
+    }
+  }
+
+  & .__borders {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    height: 45px;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transition: 0.3s;
+
+    & .__borderStart {
+      flex: 1;
+      max-width: 10px;
+      color: inherit;
+      border: 1px solid ${props => props.theme.colors.grey[300]};
+      border-right: none;
+      border-top-left-radius: ${props => props.theme.radius()}px;
+      border-bottom-left-radius: ${props => props.theme.radius()}px;
+      transition: 0.3s;
+    }
+
+    & .__borderLabel {
+      flex: 1;
+      flex-shrink: 0;
+      flex-grow: 0;
+      white-space: nowrap;
+      padding: 0 4px;
+      font-size: 11px;
+      border: 1px solid ${props => props.theme.colors.grey[300]};
+      border-left: none;
+      border-right: none;
+      transition: 0.3s;
+
+      & > .__borderLabelText {
+        visibility: hidden;
+      }
+    }
+
+    & .__borderEnd {
+      flex: 1;
+      border: 1px solid ${props => props.theme.colors.grey[300]};
+      border-left: none;
+      border-top-right-radius: ${props => props.theme.radius()}px;
+      border-bottom-right-radius: ${props => props.theme.radius()}px;
+      transition: 0.3s;
+    }
+  }
+
+  & .__input {
+    height: 45px;
+    padding: 4px 12px;
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    font-size: ${props => props.theme.textSize('normal')}px;
+    border: none;
+    border-radius: ${props => props.theme.radius()}px;
+    font-family: ${props => props.theme.fontFamily};
+
+    &:placeholder-shown,
+    &:focus,
+    &:not([value='']),
+    &.--fixedLabel {
+      & + .__label {
+        transform: translate(16px, -6px) scale(0.7);
+
+        & + .__borders > .__borderLabel {
+          border-top: none;
+        }
+      }
+    }
+
+    &:focus {
+      &:not(.--error) + .__label {
+        color: ${props => props.theme.colors.primary.main};
+
+        & + .__borders .__borderStart,
+        & + .__borders .__borderLabel,
+        & + .__borders .__borderEnd {
+          border-width: 2px;
+          border-color: ${props => props.theme.colors.primary.main};
+        }
+      }
+
+      &.--error + .__label {
+        & + .__borders .__borderStart,
+        & + .__borders .__borderLabel,
+        & + .__borders .__borderEnd {
+          border-width: 2px;
+        }
+      }
+    }
+  }
+
+  & .__label {
+    pointer-events: none;
+    position: absolute;
+    font-size: ${props => props.theme.textSize('normal')}px;
+    font-family: ${props => props.theme.fontFamily};
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    transform: translate(16px, 12px) scale(1);
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+  }
+
+  & .__message {
+    display: block;
+    font-size: ${props => props.theme.textSize('x-small')}px;
+    font-family: ${props => props.theme.fontFamily};
+    margin-top: ${props => props.theme.spacing(0.5)};
+  }
+
+  &.--disabled {
+    background-color: ${props => props.theme.colors.grey[100]};
+
+    & .__input,
+    & .__label {
+      color: ${props => props.theme.colors.grey[300]};
+      text-fill-color: ${props => props.theme.colors.grey[300]};
+    }
+  }
+
+  &.--error {
+    & .__message,
+    & .__label {
+      color: ${props => props.theme.colors.error.main};
+    }
+
+    & .__borderStart,
+    & .__borderLabel,
+    & .__borderEnd {
+      border-color: ${props => props.theme.colors.error.main};
+    }
+  }
+`;

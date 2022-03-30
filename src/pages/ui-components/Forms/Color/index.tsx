@@ -2,15 +2,13 @@ import * as React from 'react';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
-import { InputLabelProps } from '@mui/material/InputLabel';
-import TextFieldMUI from '@mui/material/TextField';
 import clsx from 'clsx';
 import { HexColorPicker } from 'react-colorful';
 import { useContextSelector } from 'use-context-selector';
 
 import useOnClickOutside from '../../hooks/useClickOutside';
 import { FormFieldsContext } from '../Form';
-import { ITextFieldProps } from '../Text';
+import TextField, { ITextFieldProps } from '../Text';
 import useStyles from './styles';
 
 type FieldTextPropsOmit = 'type' | 'multiline' | 'mask' | 'value' | 'onChange' | 'onBlur' | 'maxLength';
@@ -79,13 +77,6 @@ const ColorField: React.FC<IColorFieldProps> = ({
     [name, onChange, setFieldValue]
   );
 
-  const inputLabelProps = React.useMemo<InputLabelProps>(
-    () => ({
-      ...(props.placeholder ? { shrink: true } : {})
-    }),
-    [props.placeholder]
-  );
-
   const inputProps = React.useMemo(() => {
     let end = null;
     let start = null;
@@ -114,25 +105,21 @@ const ColorField: React.FC<IColorFieldProps> = ({
   }, [endAdornment, startAdornment, loading, InputProps]);
 
   const errorMessage = errorMessageProp ?? formError;
-  const hasError = !!errorMessage;
 
   useOnClickOutside(pickerRef, handleClosePicker);
 
   return (
     <div className={clsx(classes.root, className)}>
-      <TextFieldMUI
-        error={hasError}
+      <TextField
         {...props}
         disabled={isSubmitting || disabled || loading}
         helperText={errorMessage || props.helperText}
         className={clsx(classes.input, size === 'small' && 'input-size-small', visible && '--active')}
         name={name}
         margin={margin ?? 'normal'}
-        variant='outlined'
         onClick={handleClickInput}
         value={color}
         fullWidth={fullWidth ?? true}
-        InputLabelProps={inputLabelProps}
         InputProps={inputProps}
       />
 
