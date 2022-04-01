@@ -16,7 +16,7 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "scripts": {
-    "start": "yarn tsc -w --preserveWatchOutput --isolatedModules --incremental",
+    "start": "yarn swc ~/Projects/houston/src/pages/ui-components -d ~/Projects/houston/src/pages/ui-components/build",
     "build": "tsc -p .",
     "pre-commit": "tsc -p . --noEmit"
   },
