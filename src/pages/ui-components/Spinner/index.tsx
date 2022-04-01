@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { getColorFallback } from '../Helpers/functions';
 import styled, { IStyledProp, keyframes } from '../styles/styled';
 
