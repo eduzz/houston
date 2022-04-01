@@ -23,6 +23,8 @@ interface IOwnProperties {
   size?: 'normal' | 'small';
   fullWidth?: boolean;
   helperText?: string;
+  multiline?: boolean;
+  rows?: number;
   onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
   onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
   onPressEnter?: (value: any) => any;
@@ -50,9 +52,10 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       endAdornment,
       startAdornment,
       maxLength,
-      onPressEnter,
+      multiline,
       className,
       size,
+      onPressEnter,
       onKeyPress,
       helperText,
       disabled = false,
@@ -123,26 +126,33 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
         <div className='__container'>
           {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
 
-          <input
-            ref={ref}
-            {...props}
-            disabled={isDisabled}
-            className={cx('__input', { '--fixedLabel': !!startAdornment, '--error': hasError })}
-            name={name}
-            value={maskedValue ?? ''}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            onKeyPress={onPressEnter ? handlePressEnter : onKeyPress}
-          />
-          <label className='__label'>{label}</label>
+          <div className='__wrapperAutoSizer'>
+            {!!multiline && <div className='__autoSizer'>{value + ' '}</div>}
+            {React.createElement(multiline ? 'textarea' : 'input', {
+              ref,
+              ...props,
+              disabled: isDisabled,
+              className: cx('__input', {
+                '--fixedLabel': !!startAdornment,
+                '--error': hasError,
+                '--textarea': multiline
+              }),
+              name,
+              value: maskedValue ?? '',
+              onChange: handleChange,
+              onBlur: handleBlur,
+              onKeyPress: onPressEnter ? handlePressEnter : onKeyPress
+            })}
+            <label className='__label'>{label}</label>
 
-          <span className='__borders'>
-            <span className='__borderStart' />
-            <span className='__borderLabel'>
-              <span className='__borderLabelText'>{label}</span>
+            <span className='__borders'>
+              <span className='__borderStart' />
+              <span className='__borderLabel'>
+                <span className='__borderLabelText'>{label}</span>
+              </span>
+              <span className='__borderEnd' />
             </span>
-            <span className='__borderEnd' />
-          </span>
+          </div>
 
           {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
         </div>
@@ -159,17 +169,44 @@ export default styled(TextField, { label: 'houston-textfield' })`
   padding: 0;
   margin-top: ${props => props.theme.spacing(1)};
   margin-bottom: ${props => props.theme.spacing(3)};
+  min-width: auto;
+
+  & .__wrapperAutoSizer {
+    display: grid;
+    min-height: ${prosp => (prosp.multiline ? (prosp.rows ?? 4) * 22 : 45)}px;
+    grid-template-columns: 100%;
+    width: 100%;
+
+    & .__autoSizer {
+      padding: 12px;
+      pointer-events: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      word-break: break-all;
+      visibility: hidden;
+      grid-area: 1 / 1 / 2 / 2;
+      font-family: ${props => props.theme.fontFamily};
+      font-size: ${props => props.theme.textSize('normal')}px;
+      line-height: ${props => props.theme.lineHeight('normal')};
+    }
+
+    & .__input {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+  }
 
   & .__container {
     display: flex;
-    align-items: center;
+    align-items: ${props => (props.multiline ? 'flex-start' : 'center')};
     justify-content: center;
+    position: relative;
 
     & .__startAdornment,
     & .__endAdornment {
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: ${props => (props.multiline ? 'flex-start' : 'center')};
+      margin-top: ${props => (props.multiline ? props.theme.spacing(3) : 'none')};
 
       & > svg {
         font-size: 24px;
@@ -190,7 +227,7 @@ export default styled(TextField, { label: 'houston-textfield' })`
     height: 100%;
     width: 100%;
     position: absolute;
-    height: 45px;
+    height: 100%;
     top: 0;
     left: 0;
     pointer-events: none;
@@ -235,19 +272,26 @@ export default styled(TextField, { label: 'houston-textfield' })`
   }
 
   & .__input {
-    height: 45px;
-    padding: 4px 12px;
+    height: 100%;
+    padding: 12px;
     width: 100%;
     background-color: transparent;
     outline: none;
+    font-family: ${props => props.theme.fontFamily};
     font-size: ${props => props.theme.textSize('normal')}px;
     border: none;
     border-radius: ${props => props.theme.radius()}px;
-    font-family: ${props => props.theme.fontFamily};
+    line-height: ${props => props.theme.lineHeight('normal')};
+
+    &.--textarea {
+      resize: none;
+      overflow: hidden;
+    }
 
     &:placeholder-shown,
     &:focus,
-    &:not([value='']),
+    &:not(.--textarea):not([value='']),
+    &.--textarea:not(:empty),
     &.--fixedLabel {
       & + .__label {
         transform: translate(16px, -6px) scale(0.7);

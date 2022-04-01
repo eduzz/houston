@@ -1,6 +1,5 @@
 {
-  "test": ".*[^d]\\.tsx?$",
-  "exclude": [".*.js$", ".*.map$", "node_modules", "build"],
+  "test": ".*\\.tsx?$",
   "module": {
     "type": "commonjs"
   },
