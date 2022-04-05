@@ -8,6 +8,7 @@ interface ICollapseProps {
   onEnter?: () => void;
   destroyOnClose?: boolean;
   mountOnEnter?: boolean;
+  timeout?: number;
 }
 
 const Collapse: React.FC<ICollapseProps> = ({
@@ -15,14 +16,15 @@ const Collapse: React.FC<ICollapseProps> = ({
   visibled,
   destroyOnClose = false,
   onEnter,
-  mountOnEnter = false
+  mountOnEnter = false,
+  timeout = 500
 }) => {
   return (
     <CollapseMUI
       in={visibled}
-      timeout={500}
+      timeout={timeout}
       unmountOnExit={destroyOnClose}
-      onEnter={!!onEnter && onEnter}
+      onEnter={onEnter}
       mountOnEnter={mountOnEnter}
     >
       {children}

@@ -1,8 +1,9 @@
 {
   "name": "@eduzz/houston-dev",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@eduzz/apps-toolbar-react": "1.1.11-beta",
     "@eduzz/houston-experimental": "*",
     "@eduzz/houston-forms": "*",
     "@eduzz/houston-hooks": "*",
@@ -10,7 +11,8 @@
     "@eduzz/houston-ui": "*",
     "react": "^17",
     "react-dom": "^17",
-    "react-scripts": "4.0.3"
+    "react-router-dom": "^6.2.2",
+    "react-scripts": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "16.11.7",

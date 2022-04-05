@@ -94,6 +94,15 @@ const colors = {
   }
 };
 
+function hexToRgb(hex: string) {
+  return hex
+    .replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (_, r, g, b) => '#' + r + r + g + g + b + b)
+    .substring(1)
+    .match(/.{2}/g)
+    .map(v => parseInt(v, 16))
+    .join(', ');
+}
+
 const defaultThemeVariables: Partial<IHoustonTheme> = {
   fontFamily: 'Open Sans, "Helvetica Neue", Arial, sans-serif',
   radius: (unit = 1) => 4 * unit,
@@ -101,7 +110,8 @@ const defaultThemeVariables: Partial<IHoustonTheme> = {
   textSize: (size: HoustonFontSizes = 'normal') => fontSizes[size],
   lineHeight: (size: HoustonLineHeights = 'normal') => lineHeights[size],
   fontWeight: (size: HoustonFontWeight = 'regular') => fontWeight[size],
-  colors
+  colors,
+  hexToRgb
 };
 
 export default defaultThemeVariables;
