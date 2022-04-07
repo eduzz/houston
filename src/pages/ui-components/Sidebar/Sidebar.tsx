@@ -54,7 +54,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
   const theme = useHoustonTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const [location, setLocation] = React.useState<Location['pathname']>('');
   const [collapsed, setCollapsed] = React.useState(collapsedProp ?? false);
   const [insideComponent, setInsideComponent] = React.useState(false);
 
@@ -66,8 +65,8 @@ const Sidebar: React.FC<ISidebarProps> = ({
     });
   }, [onCollapse]);
 
+  // TODO: será que é o melhor jeito (???)
   const handleOverComponent = React.useCallback(() => setInsideComponent(true), []);
-
   const handleLeaveComponent = React.useCallback(() => setInsideComponent(false), []);
 
   const overlayProps = React.useMemo(
@@ -78,24 +77,8 @@ const Sidebar: React.FC<ISidebarProps> = ({
     [onClickOverlay, visible]
   );
 
-  const updateLocation = React.useCallback(() => {
-    setLocation(v => {
-      const path = window.location.pathname;
-
-      if (v === path) {
-        return v;
-      }
-
-      return path;
-    });
-  }, []);
-
-  React.useEffect(() => {
-    updateLocation();
-  }, [updateLocation]);
-
   return (
-    <SidebarContext.Provider value={{ pathname: location, collapsed, handleCollapse, isMobile, insideComponent }}>
+    <SidebarContext.Provider value={{ collapsed, handleCollapse, isMobile, insideComponent }}>
       <aside
         {...rest}
         onMouseOver={handleOverComponent}

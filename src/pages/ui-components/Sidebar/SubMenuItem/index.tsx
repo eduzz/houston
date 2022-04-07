@@ -24,6 +24,7 @@ const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
   icon,
   label,
   id,
+  // TODO
   isActive,
   ...rest
 }) => {

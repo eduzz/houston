@@ -1,8 +1,6 @@
 import { createContext, useContext } from 'use-context-selector';
 
 interface ISidebarContext {
-  pathname: Location['pathname'];
-
   isMobile: boolean;
 
   collapsed: boolean;

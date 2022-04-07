@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import styled, { IStyledProp } from '../../styles/styled';
-import SidebarContext from '../context';
 import useSidebar from '../hooks';
 import SubMenuItemContext from '../SubMenuItem/context';
 
@@ -36,10 +35,9 @@ const SidebarMenuItem: React.FC<ISidebarMenuItem> = ({
   ...rest
 }) => {
   const identifierSubMenu = useContextSelector(SubMenuItemContext, context => context.id);
-  const pathname = useContextSelector(SidebarContext, context => context.pathname);
 
-  const { isActive } = useSidebar({ pathname });
-
+  // TODO
+  const { isActive } = useSidebar({ pathname: window.location.pathname });
   const active = isActiveProp === undefined && to ? isActive(to) : isActiveProp;
 
   if (Component) {
