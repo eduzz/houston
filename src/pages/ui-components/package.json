@@ -30,7 +30,6 @@
     "@mui/icons-material": "^5",
     "@mui/lab": "^5.0.0-alpha.54",
     "@mui/material": "^5",
-    "clsx": "^1",
     "date-fns": "^2",
     "lodash": "^4",
     "react-colorful": "^5",

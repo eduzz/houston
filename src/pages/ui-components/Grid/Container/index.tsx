@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import MUIContainer, { ContainerProps } from '@mui/material/Container';
-import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
 import GridContextProvider from '../context';
@@ -64,7 +64,7 @@ const Container = React.forwardRef<HTMLDivElement, IContainerProps>(
         <MUIContainer
           {...rest}
           ref={ref}
-          className={clsx(classes.root, classes[spacing], layout === 'fluid' && classes.fluid, className)}
+          className={cx(classes.root, classes[spacing], layout === 'fluid' && classes.fluid, className)}
         >
           {children}
         </MUIContainer>

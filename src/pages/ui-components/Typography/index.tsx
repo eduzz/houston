@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import clsx from 'clsx';
+import { cx } from '@emotion/css';
 
 import createUseStyles from '../styles/createUseStyles';
 import { HoustonFontSizes, HoustonFontWeight, HoustonLineHeights } from '../styles/types';
@@ -54,7 +54,7 @@ const Typography: React.FC<ITypographyProps> = props => {
 
   return React.createElement(props?.component ?? 'p', {
     ...typographyProps,
-    className: clsx(classes.text, props?.className, variantClasses[props?.variant])
+    className: cx(classes.text, props?.className, variantClasses[props?.variant])
   });
 };
 

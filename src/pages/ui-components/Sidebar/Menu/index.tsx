@@ -1,26 +1,26 @@
 import * as React from 'react';
 
 import styled, { IStyledProp } from '../../styles/styled';
-import MenuContext from './context';
+import MenuContext, { ISidebarMenuContext } from './context';
 
 export interface ISidebarMenu extends IStyledProp {
   id?: string;
-  /**
-   * Expanded item key.
-   * @example expanded='sales'
-   */
-  expanded?: string;
 }
 
-const SidebarMenu: React.FC<ISidebarMenu> = ({ className, children, expanded: expandedProp, ...rest }) => {
-  const [expanded, setExpanded] = React.useState<string>(expandedProp ?? '');
+const SidebarMenu: React.FC<ISidebarMenu> = ({ className, children, ...rest }) => {
+  const [expanded, setExpanded] = React.useState('');
 
-  const handleClickExpand = React.useCallback((key: string) => {
-    setExpanded(value => (value === key ? '' : key));
+  const handleClickExpand = React.useCallback((key: string, forceActive: boolean) => {
+    setExpanded(value => (value === key && !forceActive ? '' : key));
   }, []);
 
+  const contextValue = React.useMemo<ISidebarMenuContext>(
+    () => ({ expanded, handleClickExpand }),
+    [expanded, handleClickExpand]
+  );
+
   return (
-    <MenuContext.Provider value={{ expanded, handleClickExpand }}>
+    <MenuContext.Provider value={contextValue}>
       <nav {...rest} className={className}>
         <ul>{children}</ul>
       </nav>

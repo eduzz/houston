@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import ListMUI, { ListProps as ListPropsMUI } from '@mui/material/List';
-import clsx from 'clsx';
 
 import nestedComponent from '../Helpers/nestedComponent';
 import createUseStyles from '../styles/createUseStyles';
@@ -45,7 +45,7 @@ const List: React.FC<IListProps> = ({ children, stripedRows, ...props }) => {
   const classes = useStyles();
 
   return (
-    <ListMUI component='ul' {...props} className={clsx([classes.root, stripedRows && classes.stripedRows])}>
+    <ListMUI component='ul' {...props} className={cx([classes.root, stripedRows && classes.stripedRows])}>
       {children}
     </ListMUI>
   );

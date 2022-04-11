@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { cx } from '@emotion/css';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
@@ -9,14 +8,17 @@ import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
 import Collpase from '../../Collapse';
 import styled, { IStyledProp } from '../../styles/styled';
 import MenuContext from '../Menu/context';
-import SubMenuItemContext from './context';
+import SubMenuItemContext, { ISidebarSubMenuItemContext } from './context';
+
+let refCounter = 0;
 
 export interface ISidebarSubMenuItem extends IStyledProp {
-  id: string;
+  id?: string;
   label: React.ReactNode;
   icon?: React.ReactNode;
   isActive?: boolean;
   onClick?: () => void;
+  startedExpanded?: boolean;
 }
 
 const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
@@ -24,34 +26,57 @@ const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
   children,
   icon,
   label,
-  id,
-  // TODO
-  isActive,
+  startedExpanded,
+  isActive: isActiveProp,
   ...rest
 }) => {
+  const [ref] = React.useState(() => `submenu-${++refCounter}`);
+  const [items, setItems] = React.useState<{ active: boolean }[]>([]);
+
   const expanded = useContextSelector(MenuContext, context => context.expanded);
   const handleClickExpand = useContextSelector(MenuContext, context => context.handleClickExpand);
 
-  const visibled = React.useMemo(() => expanded === id, [expanded, id]);
+  const handleClickItem = React.useCallback(() => handleClickExpand(ref), [handleClickExpand, ref]);
+  const contextValue = React.useMemo<ISidebarSubMenuItemContext>(() => {
+    return {
+      ref,
+      registerItem: (active: boolean) => {
+        const refItem = { active };
 
-  const handleClickItem = React.useCallback(() => handleClickExpand(id), [handleClickExpand, id]);
+        if (active) {
+          handleClickExpand(ref, true);
+        }
+
+        setItems(items => [...items, refItem]);
+        return () => setItems(items => items.filter(i => i !== refItem));
+      }
+    };
+  }, [ref, handleClickExpand]);
+
+  React.useEffect(() => {
+    startedExpanded && handleClickExpand(ref);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const isExpanded = expanded === ref;
+  const isActive = isActiveProp ?? items.some(i => i.active);
 
   return (
-    <SubMenuItemContext.Provider value={{ id }}>
-      <li {...rest} id={id} tabIndex={1} className={clsx(className, isActive && '--active')}>
+    <SubMenuItemContext.Provider value={contextValue}>
+      <li {...rest} className={cx(className, isActive && '--active')}>
         <div className='item' onClick={handleClickItem}>
           <div className='content'>
             {icon && <div className='icon'>{icon}</div>}
             <div className='label'>{label}</div>
           </div>
 
-          <div className={cx('arrow', visibled && '--rotate')}>
+          <div className={cx('arrow', isExpanded && '--rotate')}>
             <ChevronDownIcon size={16} />
           </div>
         </div>
 
         <ul>
-          <Collpase timeout={350} visibled={visibled}>
+          <Collpase timeout={350} visibled={isExpanded}>
             {children}
           </Collpase>
         </ul>

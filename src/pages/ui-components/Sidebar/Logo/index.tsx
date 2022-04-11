@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import clsx from 'clsx';
+import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import styled, { IStyledProp } from '../../styles/styled';
@@ -34,7 +34,7 @@ const SidebarLogo: React.FC<ISidebarLogoProps> = ({ className, image, imageColla
   }, [collapsed, image, imageCollapsed, inside, isMobile]);
 
   return (
-    <figure {...rest} className={clsx(className, inside && '--inside', collapsed && !inside && '--collapsed')}>
+    <figure {...rest} className={cx(className, inside && '--inside', collapsed && !inside && '--collapsed')}>
       <div className='image'>
         {typeof currentImage === 'string' && <img src={currentImage} alt={alt ?? 'Logo Plataforma'} />}
         {typeof currentImage !== 'string' && currentImage}

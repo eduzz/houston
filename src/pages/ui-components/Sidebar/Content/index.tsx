@@ -11,14 +11,9 @@ export interface ISidebarContentProps extends IStyledProp {
   id?: string;
 }
 
-const SidebarContent: React.FC<ISidebarContentProps> = ({
-  className,
-  children,
-
-  ...rest
-}) => {
+const SidebarContent: React.FC<ISidebarContentProps> = ({ className, children, ...rest }) => {
   const visible = useContextSelector(SidebarContext, context => context.mobileVisible);
-  const onClickOverlay = useContextSelector(SidebarContext, context => context.onClickOverlay);
+  const onRequestClose = useContextSelector(SidebarContext, context => context.onRequestClose);
 
   const hasToolbar = useContextSelector(SidebarContext, context => context.hasToolbar);
   const collapsible = useContextSelector(SidebarContext, context => context.collapsible);
@@ -26,19 +21,6 @@ const SidebarContent: React.FC<ISidebarContentProps> = ({
 
   const setInsideComponentTrue = useContextSelector(SidebarContext, context => context.setInsideComponentTrue);
   const setInsideComponentFalse = useContextSelector(SidebarContext, context => context.setInsideComponentFalse);
-
-  React.useEffect(() => {
-    const menu = document.getElementById('__houston-sidebar-menu');
-    const overlay = document.getElementById('__houston-sidebar-menu-overlay');
-
-    const onScroll = () => {
-      const top = TOOLBAR_HEIGHT - window.scrollY;
-      overlay.style.top = menu.style.top = `${top >= 0 ? top : 0}px`;
-    };
-
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   return (
     <div
@@ -50,7 +32,6 @@ const SidebarContent: React.FC<ISidebarContentProps> = ({
     >
       <aside
         {...rest}
-        id='__houston-sidebar-menu'
         onMouseOver={setInsideComponentTrue}
         onMouseLeave={setInsideComponentFalse}
         className='__sidebar'
@@ -60,8 +41,7 @@ const SidebarContent: React.FC<ISidebarContentProps> = ({
       </aside>
 
       <div
-        id='__houston-sidebar-menu-overlay'
-        onClick={onClickOverlay}
+        onClick={onRequestClose}
         className={cx('__overlay', { '--visible': visible, '--has-toolbar': hasToolbar })}
       />
     </div>

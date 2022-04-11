@@ -1,11 +1,10 @@
 import * as React from 'react';
 
 import { cx } from '@emotion/css';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import styled, { IStyledProp } from '../../styles/styled';
-import useSidebar from '../hooks';
+import SidebarContext from '../context';
 import SubMenuItemContext from '../SubMenuItem/context';
 
 export interface ISidebarMenuItem extends IStyledProp {
@@ -23,6 +22,11 @@ export interface ISidebarMenuItem extends IStyledProp {
    * Redirect path.
    */
   to?: string;
+
+  /**
+   * Allow to provide more props to the `as` Component
+   */
+  [key: string]: any;
 }
 
 const SidebarMenuItem: React.FC<ISidebarMenuItem> = ({
@@ -35,30 +39,21 @@ const SidebarMenuItem: React.FC<ISidebarMenuItem> = ({
   to,
   ...rest
 }) => {
-  const identifierSubMenu = useContextSelector(SubMenuItemContext, context => context.id);
+  const refSubMenu = useContextSelector(SubMenuItemContext, context => !!context.ref);
+  const registerItem = useContextSelector(SubMenuItemContext, context => context.registerItem);
+  const menuIsActive = useContextSelector(SidebarContext, context => context.menuIsActive);
 
-  // TODO
-  const { isActive } = useSidebar({ pathname: window.location.pathname });
-  const active = isActiveProp === undefined && to ? isActive(to) : isActiveProp;
+  const active = isActiveProp ?? menuIsActive(to);
 
-  if (Component) {
-    return (
-      <Component {...rest} to={to}>
-        <li tabIndex={tabIndex} className={cx(className, identifierSubMenu && '--submenu', active && '--active')}>
-          {icon && !identifierSubMenu && <div className='icon'>{icon}</div>}
-          <div className='label'>{children}</div>
-        </li>
-      </Component>
-    );
-  }
+  React.useEffect(() => {
+    return registerItem(active);
+  }, [active, registerItem]);
 
-  return (
-    <li
-      {...rest}
-      tabIndex={tabIndex}
-      className={clsx(className, identifierSubMenu && '--submenu', active && '--active')}
-    >
-      {icon && <div className='icon'>{icon}</div>}
+  return React.createElement(
+    Component ?? 'div',
+    { ...rest, to },
+    <li tabIndex={tabIndex} className={cx(className, refSubMenu && '--submenu', active && '--active')}>
+      {icon && !refSubMenu && <div className='icon'>{icon}</div>}
       <div className='label'>{children}</div>
     </li>
   );

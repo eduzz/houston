@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'use-context-selector';
 
-interface ISidebarMenuContext {
+export interface ISidebarMenuContext {
   expanded: string;
-  handleClickExpand: (item: string) => void;
+  handleClickExpand: (item: string, forceActive?: boolean) => void;
 }
 
 const MenuContext = createContext<ISidebarMenuContext>({} as ISidebarMenuContext);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import clsx from 'clsx';
+import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import IconArrowUp from '@eduzz/houston-icons/ArrowUp';
@@ -63,7 +63,7 @@ const SortLabel: React.FC<ISortLabelProps> = ({ children, sortable, active, dire
   if (!sortable || isCollapseContent) {
     return (
       <span
-        className={clsx(
+        className={cx(
           classes.root,
           disabled && '--disabled',
           tableSize === 'small' && '--small',
@@ -77,13 +77,13 @@ const SortLabel: React.FC<ISortLabelProps> = ({ children, sortable, active, dire
 
   return (
     <div
-      className={clsx(classes.root, disabled && '--disabled', tableSize === 'small' && '--small', '--sortable')}
+      className={cx(classes.root, disabled && '--disabled', tableSize === 'small' && '--small', '--sortable')}
       onClick={onClick}
     >
       {children}
 
       {active && (
-        <div className={clsx(direction === 'desc' && '--desc', 'icon')}>
+        <div className={cx(direction === 'desc' && '--desc', 'icon')}>
           <IconArrowUp />
         </div>
       )}

@@ -29,7 +29,6 @@
     "@mui/styles": "^5",
     "@mui/icons-material": "^5",
     "@mui/lab": "^5.0.0-alpha.49",
-    "clsx": "^1",
     "tslib": "^2"
   },
   "peerDependencies": {

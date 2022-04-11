@@ -15,6 +15,10 @@ import Wrapper from './Wrapper';
 
 export interface ISidebarProps {
   /**
+   * Current location path, if you are using react-router-dom use useLocation
+   */
+  currentLocation?: string;
+  /**
    * Applies a margin to the top of the Sidebar.
    */
   hasToolbar?: boolean;
@@ -25,7 +29,7 @@ export interface ISidebarProps {
   /**
    * Function called when click in outside element on mobile.
    */
-  onClickOverlay?: () => void;
+  onRequestClose?: () => void;
   collapsed?: boolean;
   /**
    * Whether can be collapsed.
@@ -35,10 +39,11 @@ export interface ISidebarProps {
 }
 
 const Sidebar: React.FC<ISidebarProps> = ({
+  currentLocation,
   hasToolbar = true,
   children,
   mobileVisible,
-  onClickOverlay,
+  onRequestClose,
   onCollapse,
   collapsed: collapsedProp = false,
   collapsible = true
@@ -58,8 +63,10 @@ const Sidebar: React.FC<ISidebarProps> = ({
 
   const contextValue = React.useMemo<ISidebarContext>(
     () => ({
+      currentLocation,
+      menuIsActive: (path: string) => (!path ? false : path === currentLocation || currentLocation.startsWith(path)),
       hasToolbar,
-      onClickOverlay,
+      onRequestClose,
       isMobile,
       mobileVisible,
       collapsed,
@@ -70,8 +77,9 @@ const Sidebar: React.FC<ISidebarProps> = ({
       setInsideComponentFalse
     }),
     [
+      currentLocation,
       hasToolbar,
-      onClickOverlay,
+      onRequestClose,
       collapsed,
       collapsible,
       handleCollapse,
@@ -82,6 +90,12 @@ const Sidebar: React.FC<ISidebarProps> = ({
       setInsideComponentTrue
     ]
   );
+
+  React.useEffect(() => {
+    if (!mobileVisible) return;
+    onRequestClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentLocation]);
 
   return <SidebarContext.Provider value={contextValue}>{children}</SidebarContext.Provider>;
 };

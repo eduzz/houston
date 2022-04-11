@@ -1,10 +1,14 @@
 import { createContext, useContext } from 'use-context-selector';
 
-interface ISidebarSubMenuItemContext {
-  id: string;
+export interface ISidebarSubMenuItemContext {
+  ref: string;
+  registerItem: (isActive: boolean) => () => void;
 }
 
-const SubMenuItemContext = createContext<ISidebarSubMenuItemContext>({} as ISidebarSubMenuItemContext);
+const SubMenuItemContext = createContext<ISidebarSubMenuItemContext>({
+  ref: '',
+  registerItem: () => () => null
+});
 
 export function useSubMenuContext() {
   return useContext(SubMenuItemContext);

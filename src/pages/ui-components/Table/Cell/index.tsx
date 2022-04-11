@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import { GridSize } from '@mui/material/Grid';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles from '../../styles/createUseStyles';
@@ -57,7 +57,7 @@ const TableCell = React.memo<ITableCellProps>(
         {...props}
         onClick={onClick}
         onDoubleClick={onDoubleClick}
-        className={clsx(
+        className={cx(
           classes.root,
           tableSize === 'small' && classes.rootSmall,
           className,
