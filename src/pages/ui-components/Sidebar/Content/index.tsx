@@ -117,6 +117,10 @@ export default styled(SidebarContent, { label: 'houston-sidebar-content' })`
   @media screen and (max-width: 900px) {
     width: 0;
 
+    &.--collapsed {
+      width: 0;
+    }
+
     & > .__sidebar {
       left: -${SIDEBAR_WIDTH}px;
       padding: 12px 0;
