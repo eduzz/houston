@@ -1,12 +1,23 @@
 import { createContext, useContext } from 'use-context-selector';
 
-interface ISidebarContext {
-  isMobile: boolean;
+export const SIDEBAR_WIDTH = 300;
+export const SIDEBAR_WIDTH_COLLAPSED = 56;
+export const TOOLBAR_HEIGHT = 48;
 
+export interface ISidebarContext {
+  hasToolbar: boolean;
+  onClickOverlay: () => void;
+
+  isMobile: boolean;
+  mobileVisible: boolean;
+
+  collapsible: boolean;
   collapsed: boolean;
   handleCollapse: () => void;
 
   insideComponent: boolean;
+  setInsideComponentTrue: () => void;
+  setInsideComponentFalse: () => void;
 }
 
 const SidebarContext = createContext<ISidebarContext>({} as ISidebarContext);

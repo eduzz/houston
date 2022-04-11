@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
@@ -44,7 +45,7 @@ const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
             <div className='label'>{label}</div>
           </div>
 
-          <div className={clsx('arrow', visibled && '--rotate')}>
+          <div className={cx('arrow', visibled && '--rotate')}>
             <ChevronDownIcon size={16} />
           </div>
         </div>

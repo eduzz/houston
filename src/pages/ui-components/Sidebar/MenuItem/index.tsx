@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
@@ -43,7 +44,7 @@ const SidebarMenuItem: React.FC<ISidebarMenuItem> = ({
   if (Component) {
     return (
       <Component {...rest} to={to}>
-        <li tabIndex={tabIndex} className={clsx(className, identifierSubMenu && '--submenu', active && '--active')}>
+        <li tabIndex={tabIndex} className={cx(className, identifierSubMenu && '--submenu', active && '--active')}>
           {icon && !identifierSubMenu && <div className='icon'>{icon}</div>}
           <div className='label'>{children}</div>
         </li>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import clsx from 'clsx';
+import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import ChevronLeftIcon from '@eduzz/houston-icons/ChevronLeft';
@@ -15,11 +15,7 @@ const SidebarCollapse: React.FC<ISidebarCollapseProps> = ({ className }) => {
   const onClickCollapse = useContextSelector(SidebarContext, context => context.handleCollapse);
 
   return (
-    <div
-      id='houston-sidebar-collapse'
-      className={clsx(className, collapsed && '--collapsed')}
-      onClick={onClickCollapse}
-    >
+    <div className={cx(className, '__houston-sidebar-collapse', collapsed && '--collapsed')} onClick={onClickCollapse}>
       <div className='icon'>
         <ChevronLeftIcon size={14} />
       </div>
