@@ -68,4 +68,13 @@ export default styled(React.memo(SidebarLogo), { label: 'houston-sidebar-logo' }
       max-height: 80px;
     }
   }
+
+  // i'm not using breakpoint do be equal to the app toolbar menu icon
+  @media screen and (max-width: 900px) {
+    &.--collapsed {
+      padding: 16px;
+      text-align: left;
+      width: 100%;
+    }
+  }
 `;

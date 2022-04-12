@@ -123,7 +123,6 @@ export default styled(SidebarContent, { label: 'houston-sidebar-content' })`
 
     & > .__sidebar {
       left: -${SIDEBAR_WIDTH}px;
-      padding: 12px 0;
       border: 0;
       opacity: 0;
     }
