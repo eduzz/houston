@@ -5,7 +5,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
 
-import Collpase from '../../Collapse';
+import Collapse from '../../Collapse';
 import styled, { IStyledProp } from '../../styles/styled';
 import MenuContext from '../Menu/context';
 import SubMenuItemContext, { ISidebarSubMenuItemContext } from './context';
@@ -76,9 +76,9 @@ const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
         </div>
 
         <ul>
-          <Collpase timeout={350} visibled={isExpanded}>
+          <Collapse timeout={350} visibled={isExpanded}>
             {children}
-          </Collpase>
+          </Collapse>
         </ul>
       </li>
     </SubMenuItemContext.Provider>
