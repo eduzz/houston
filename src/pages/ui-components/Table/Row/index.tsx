@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import CircularProgress from '@mui/material/CircularProgress';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
@@ -81,12 +81,12 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   );
 
   const classesColumnAction = React.useMemo(
-    () => clsx(classes.cellAction, tableSize === 'small' && '--small', 'table-action-cell', className),
+    () => cx(classes.cellAction, tableSize === 'small' && '--small', 'table-action-cell', className),
     [className, classes.cellAction, tableSize]
   );
 
   const classesColumnCollapse = React.useMemo(
-    () => clsx(classes.cellCollapse, tableSize === 'small' && '--small', 'table-collapse-cell', className),
+    () => cx(classes.cellCollapse, tableSize === 'small' && '--small', 'table-collapse-cell', className),
     [className, classes.cellCollapse, tableSize]
   );
 
@@ -94,7 +94,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     <TableRowContext.Provider value={contextValue}>
       <tr
         {...props}
-        className={clsx(
+        className={cx(
           hasActions && 'table-row-has-action',
           !isCollapseContent && hasCollapse && 'table-row-has-collapse',
           !isCollapseContent && stripedRows && (index % 2 == 0 ? 'table-row-even' : 'table-row-odd'),
@@ -120,7 +120,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
           <td align='right' className={classesColumnCollapse}>
             <div
               onClick={toogleShowCollapse}
-              className={clsx(
+              className={cx(
                 classes.iconAction,
                 'table-collapse-button',
                 showCollapse && 'table-collapse-button-opened'

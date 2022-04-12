@@ -120,4 +120,5 @@ export interface IHoustonTheme {
   breakpoints: HoustonBreakpoints;
   variables: IHoustonThemeCustomVariables;
   colors: HoustonColors;
+  hexToRgb: (color: string) => string;
 }

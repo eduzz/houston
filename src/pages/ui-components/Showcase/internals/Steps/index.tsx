@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import clsx from 'clsx';
+import { cx } from '@emotion/css';
 
 import createUseStyles from '../../../styles/createUseStyles';
 import Typography from '../../../Typography';
@@ -120,10 +120,10 @@ const Steps = React.memo(() => {
           const { image, text } = step;
 
           return (
-            <div key={key} className={clsx(size === 'small' && classes.mobilePadding, classes.stepContent)}>
+            <div key={key} className={cx(size === 'small' && classes.mobilePadding, classes.stepContent)}>
               {image && (
                 <div
-                  className={clsx(
+                  className={cx(
                     size === 'small' && classes.small,
                     size === 'medium' && classes.medium,
                     classes.contentImage
@@ -132,7 +132,7 @@ const Steps = React.memo(() => {
                   <img src={image.src} alt={image.alt} />
                 </div>
               )}
-              <Typography className={clsx(size === 'small' && classes.small, classes.contentText)}>
+              <Typography className={cx(size === 'small' && classes.small, classes.contentText)}>
                 {text?.children}
               </Typography>
             </div>

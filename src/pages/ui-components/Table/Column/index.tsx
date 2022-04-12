@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import clsx from 'clsx';
+import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import createUseStyles from '../../styles/createUseStyles';
@@ -71,7 +71,7 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
   return (
     <th
       ref={cellRef}
-      className={clsx(
+      className={cx(
         classes.root,
         tableSize === 'small' && classes.rootSmall,
         className,

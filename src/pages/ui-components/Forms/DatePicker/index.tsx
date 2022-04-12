@@ -1,9 +1,9 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import DatePicker, { DatePickerProps } from '@mui/lab/DatePicker';
 import { DatePickerView } from '@mui/lab/DatePicker/shared';
 import TextField from '@mui/material/TextField';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import CalendarIcon from '@eduzz/houston-icons/Calendar';
@@ -69,7 +69,7 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
     () => ({
       error: hasError,
       helperText: errorMessage || helperText,
-      className: clsx(className, size === 'small' && 'input-size-small'),
+      className: cx(className, size === 'small' && 'input-size-small'),
       margin,
       fullWidth: fullWidth ?? true,
       placeholder

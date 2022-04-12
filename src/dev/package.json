@@ -1,8 +1,9 @@
 {
   "name": "@eduzz/houston-dev",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@eduzz/apps-toolbar-react": "1.1.17",
     "@eduzz/houston-experimental": "*",
     "@eduzz/houston-forms": "*",
     "@eduzz/houston-hooks": "*",
@@ -10,15 +11,16 @@
     "@eduzz/houston-ui": "*",
     "react": "^17",
     "react-dom": "^17",
-    "react-scripts": "4.0.3"
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.0"
   },
   "devDependencies": {
-    "@types/node": "16.11.7",
+    "@types/node": "^17",
     "@types/react": "^17",
     "@types/react-dom": "^17"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start"
   },
   "browserslist": {
     "production": [

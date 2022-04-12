@@ -1,9 +1,9 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import { TableProps } from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
@@ -143,7 +143,7 @@ const Table: React.FC<ITableProps> = props => {
   return (
     <TableContext.Provider value={contextValue}>
       <TableContainer className={classes.tableContainer} style={{ maxHeight }}>
-        <table id={id} ref={tableRef} className={clsx(classes.table, responsive && classes.tableResponsive, className)}>
+        <table id={id} ref={tableRef} className={cx(classes.table, responsive && classes.tableResponsive, className)}>
           {children}
 
           <MenuActions

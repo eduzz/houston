@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import AvatarMUI, { AvatarProps } from '@mui/material/Avatar';
-import clsx from 'clsx';
 
 import AvatarOutline from '@eduzz/houston-icons/AvatarOutline';
 import AvatarSolid from '@eduzz/houston-icons/AvatarSolid';
@@ -118,7 +118,7 @@ const Avatar: React.FC<IAvatarProps> = ({
 
   const styles = React.useMemo(
     () =>
-      clsx(
+      cx(
         classes.root,
         !sizeIsNumber && sizeClasses[size],
         hasIcon && '--icon',

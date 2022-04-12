@@ -26,7 +26,7 @@
     "pre-commit": "concurrently -r \"yarn lint\" \"yarn ultra -r pre-commit\""
   },
   "devDependencies": {
-    "@babel/core": "7.16",
+    "@babel/core": "7.17.8",
     "@commitlint/cli": "14.1.0",
     "@commitlint/config-conventional": "14.1.0",
     "@swc/cli": "0.1.52",
