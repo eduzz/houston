@@ -5556,10 +5556,10 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-dokz@latest:
-  version "2.0.16"
-  resolved "https://registry.yarnpkg.com/dokz/-/dokz-2.0.16.tgz#ebd863df726e7d8122f87e3cf2e85a53a33ed2ff"
-  integrity sha512-HAgt9hliIvwAhQvXm0OxMzcCTbai57tJNwXe9mJtlD19iEDOpDU6MZPc1TpkxZyfpmpLgBA2fwyRHX7Ke6qfFQ==
+dokz@2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/dokz/-/dokz-2.0.9.tgz#09dcc1099c8485d4d46952d38bcf162a0f2ba191"
+  integrity sha512-Sumd0RGoHsgrB4J5HrAiv08Dmryc0a1Gi/jJCXDKm9eB6RsK1+jja7tlUsjSs0KRiNBBpCPu2u9y5RAgTq5Bcg==
   dependencies:
     "@babel/generator" "^7.10.2"
     "@babel/parser" "^7.10.2"

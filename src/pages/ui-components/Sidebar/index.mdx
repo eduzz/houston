@@ -1,0 +1,50 @@
+---
+name: Sidebar
+---
+
+# Sidebar
+
+Estrutura de menu lateral.
+
+### Importação
+
+```ts
+import Sidebar from '@eduzz/houston-ui/Sidebar';
+```
+
+### Exemplo
+
+```jsx
+<Sidebar currentLocation={location.pathname} mobileVisible={visible} onRequestClose={toggleMenu}>
+  <Sidebar.Content>
+    <Sidebar.Logo
+      alt='Logo Órbita'
+      image='https://orbita.eduzz.com/img/logo-orbita-login.png'
+      imageCollapsed={svgImage}
+    />
+
+    <Sidebar.Menu>
+      <Sidebar.MenuItem as={NavLink} to='/dashboard' icon={<DashboardRoundOutline size={24} />}>
+        Dashboard
+      </Sidebar.MenuItem>
+
+      <Sidebar.SubMenuItem icon={<CartOutline size={24} />} label='Vendas'>
+        <Sidebar.MenuItem as={NavLink} to='/sales'>
+          Minhas Vendas
+        </Sidebar.MenuItem>
+      </Sidebar.SubMenuItem>
+
+      <Sidebar.MenuItem icon={<Money size={24} />}>Financeiro</Sidebar.MenuItem>
+      <Sidebar.MenuItem icon={<AppsIcon size={24} />}>Utilitários</Sidebar.MenuItem>
+
+      <Sidebar.SubMenuItem id='advanced' icon={<SettingsOutline size={24} />} label='Avançado'>
+        <Sidebar.MenuItem>Whitelist</Sidebar.MenuItem>
+        <Sidebar.MenuItem>Configurações da API</Sidebar.MenuItem>
+        <Sidebar.MenuItem>Central de Documentos Fiscais</Sidebar.MenuItem>
+      </Sidebar.SubMenuItem>
+    </Sidebar.Menu>
+  </Sidebar.Content>
+
+  <Sidebar.Wrapper>{/* Your App Here */}</Sidebar.Wrapper>
+</Sidebar>
+```
