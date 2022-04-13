@@ -9,7 +9,7 @@ import SidebarContext, { SIDEBAR_WIDTH, SIDEBAR_WIDTH_COLLAPSED, TOOLBAR_HEIGHT 
 
 export interface ISidebarContentProps extends IStyledProp {
   id?: string;
-  children:React.ReactNode;
+  children: React.ReactNode;
 }
 
 const SidebarContent: React.FC<ISidebarContentProps> = ({ className, children, ...rest }) => {
