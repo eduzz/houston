@@ -79,7 +79,7 @@ function ThemeProvider({
   React.useEffect(() => setCurrentTheme(muiTheme), [muiTheme]);
 
   return (
-    <StyledEngineProvider injectFirst>
+    <StyledEngineProvider injectFirst={false}>
       <MUIThemeProvider theme={muiTheme}>
         <LocalizationProvider locale={localeNavigator} dateAdapter={AdapterDateFns}>
           <style dangerouslySetInnerHTML={styleContent} />
