@@ -2,7 +2,9 @@ import * as React from 'react';
 
 import styled, { IStyledProp } from '../../styles/styled';
 
-export interface ISidebarWrapperProps extends IStyledProp {}
+export interface ISidebarWrapperProps extends IStyledProp {
+  children:React.ReactNode;
+}
 
 const SidebarWrapper: React.FC<ISidebarWrapperProps> = ({ className, children }) => {
   return <div className={className}>{children}</div>;
