@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import ListItemIconMUI from '@mui/material/ListItemIcon';
-import clsx from 'clsx';
 
 import IconButton from '../../ButtonIcon';
 import createUseStyles from '../../styles/createUseStyles';
@@ -42,7 +42,7 @@ const ListRight: React.FC<IListRightProps> = ({ icon, text, onClick, ...rest }) 
   const classes = useStyles();
 
   const componentProps = {
-    className: clsx([classes.rightRoot, classes.iconRootRight, onClick && classes.clickable]),
+    className: cx([classes.rightRoot, classes.iconRootRight, onClick && classes.clickable]),
     onClick: !!onClick && onClick
   };
 
@@ -55,7 +55,7 @@ const ListRight: React.FC<IListRightProps> = ({ icon, text, onClick, ...rest }) 
   }
 
   if (icon) {
-    return <ListItemIconMUI className={clsx([classes.rightRoot, classes.iconRootRight])}>{icon}</ListItemIconMUI>;
+    return <ListItemIconMUI className={cx([classes.rightRoot, classes.iconRootRight])}>{icon}</ListItemIconMUI>;
   }
 
   if (text) {

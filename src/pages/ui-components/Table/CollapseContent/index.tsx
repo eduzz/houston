@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import CollapseMUI from '@mui/material/Collapse';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import TableRowContext from '../Row/context';
@@ -28,7 +28,7 @@ const CollapseContent = React.memo<ITableCollapseContentProps>(({ visible }) => 
 
   return (
     <tr
-      className={clsx(
+      className={cx(
         'table-collapse',
         visible && 'table-collapse-opened',
         collapse?.disableBackground && 'table-collapse-no-background',

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import AvatarMUI from '@mui/material/Avatar';
 import ListItemIconMUI from '@mui/material/ListItemIcon';
-import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
 
@@ -50,11 +50,11 @@ const ListLeft: React.FC<IListLeftProps> = ({ icon, image, striped = false, ...r
   }
 
   if (typeof image === 'string') {
-    return <AvatarMUI {...rest} src={image} className={clsx([classes.imageRoot, striped && classes.striped])} />;
+    return <AvatarMUI {...rest} src={image} className={cx([classes.imageRoot, striped && classes.striped])} />;
   }
 
   return (
-    <AvatarMUI {...rest} className={clsx([classes.imageRoot, striped && classes.striped])}>
+    <AvatarMUI {...rest} className={cx([classes.imageRoot, striped && classes.striped])}>
       {image}
     </AvatarMUI>
   );

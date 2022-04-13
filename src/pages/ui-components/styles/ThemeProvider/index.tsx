@@ -13,9 +13,7 @@ import generateTheme from './_generator';
 import defaultThemeVariables from './_generator/variables';
 import { setCurrentTheme } from './_state';
 
-type IThemeExtends = 'children';
-
-export interface IThemeProviderProps extends Pick<ThemeProviderProps, IThemeExtends> {
+export interface IThemeProviderProps extends Pick<ThemeProviderProps, 'children'> {
   theme?: Partial<HoustonThemeBuilder>;
   locale?: 'pt-BR' | 'en-US';
   disableCssBaseline?: boolean;
@@ -38,11 +36,12 @@ function ThemeProvider({
     () =>
       !disabledFontBase &&
       `
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700');
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700');
 
         body {
           font-family: ${defaultThemeVariables.fontFamily};
           font-size: ${defaultThemeVariables.textSize('default')}px;
+          -webkit-font-smoothing: auto;
         }
       `,
     [disabledFontBase]
@@ -53,6 +52,10 @@ function ThemeProvider({
       __html: `
         form {
           width: 100%;
+        }
+
+        a {
+          text-decoration: none;
         }
 
         .houston-icon {
@@ -76,7 +79,7 @@ function ThemeProvider({
   React.useEffect(() => setCurrentTheme(muiTheme), [muiTheme]);
 
   return (
-    <StyledEngineProvider injectFirst>
+    <StyledEngineProvider injectFirst={false}>
       <MUIThemeProvider theme={muiTheme}>
         <LocalizationProvider locale={localeNavigator} dateAdapter={AdapterDateFns}>
           <style dangerouslySetInnerHTML={styleContent} />
