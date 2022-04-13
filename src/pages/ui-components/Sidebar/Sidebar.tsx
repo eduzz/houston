@@ -36,6 +36,8 @@ export interface ISidebarProps {
    */
   collapsible?: boolean;
   onCollapse?: (collapsed: boolean) => void;
+
+  children: React.ReactNode;
 }
 
 const Sidebar: React.FC<ISidebarProps> = ({
