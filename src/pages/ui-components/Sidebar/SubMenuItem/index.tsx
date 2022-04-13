@@ -19,6 +19,7 @@ export interface ISidebarSubMenuItem extends IStyledProp {
   isActive?: boolean;
   onClick?: () => void;
   startedExpanded?: boolean;
+  children: React.ReactNode;
 }
 
 const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
