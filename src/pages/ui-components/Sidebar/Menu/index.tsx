@@ -5,6 +5,7 @@ import MenuContext, { ISidebarMenuContext } from './context';
 
 export interface ISidebarMenu extends IStyledProp {
   id?: string;
+  children: React.ReactNode;
 }
 
 const SidebarMenu: React.FC<ISidebarMenu> = ({ className, children, ...rest }) => {
