@@ -13,6 +13,7 @@ export interface ISidebarMenuItem extends IStyledProp {
   icon?: React.ReactNode;
   isActive?: boolean;
   onClick?: () => void;
+  children: React.ReactNode;
   /**
    * Component that wraps the item.
    * @example NavLink, Link (react-router-dom)
