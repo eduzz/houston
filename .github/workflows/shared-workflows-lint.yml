@@ -1,7 +1,12 @@
 name: zSharedWorkflowsLint
 
 on:
-  workflow_call
+  workflow_call:
+    inputs:
+      skip-docs:
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   lint:
@@ -18,4 +23,5 @@ jobs:
       - name: Build Packages
         run: yarn build
       - name: Build Docs
+        if: ${{ inputs.skip-docs == 'false' }}
         run: yarn build:docs

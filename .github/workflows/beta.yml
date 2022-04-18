@@ -9,9 +9,15 @@ on:
     branches:
       - develop
 
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     uses: ./.github/workflows/shared-workflows-lint.yml
+    with:
+      skip-docs: true
 
   info:
     uses: ./.github/workflows/shared-workflows-info.yml

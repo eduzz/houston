@@ -5,9 +5,15 @@ on:
     branches:
       - master
 
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     uses: ./.github/workflows/shared-workflows-lint.yml
+    with:
+      skip-docs: true
 
   publish:
     needs: [lint]
