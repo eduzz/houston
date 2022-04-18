@@ -8,17 +8,18 @@ import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
+import { IStyledProp } from '../styled';
 import MenuActions from './Action/Menu';
 import TableCollapseContext from './CollapseContent/context';
 import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';
 import { ITableSort } from './interface';
 import { bindMutationObserver } from './observer';
-import useStyles from './styles';
+import styles from './styles';
 
 let columnsKeyIncrementer = 0,
   rowKeyIncremeter = 0;
 
-export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'> {
+export interface ITableProps extends Pick<TableProps, 'id' | 'children' | 'className'>, IStyledProp {
   loading?: boolean;
   loadingText?: React.ReactNode;
   sort?: ITableSort;
@@ -53,8 +54,6 @@ const Table: React.FC<ITableProps> = props => {
     className,
     loadingText
   } = props;
-
-  const classes = useStyles();
 
   const isCollapseContent = useContextSelector(TableCollapseContext, context => context.isCollapseContent);
 
@@ -142,8 +141,8 @@ const Table: React.FC<ITableProps> = props => {
 
   return (
     <TableContext.Provider value={contextValue}>
-      <TableContainer className={classes.tableContainer} style={{ maxHeight }}>
-        <table id={id} ref={tableRef} className={cx(classes.table, responsive && classes.tableResponsive, className)}>
+      <TableContainer className={className} style={{ maxHeight }}>
+        <table id={id} ref={tableRef} className={cx('__houston-table', responsive && '--responsive', className)}>
           {children}
 
           <MenuActions
@@ -160,4 +159,4 @@ const Table: React.FC<ITableProps> = props => {
   );
 };
 
-export default React.memo(Table);
+export default React.memo(styles(Table));

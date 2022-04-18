@@ -61,16 +61,16 @@ const SortLabel: React.FC<ISortLabelProps> = ({
 };
 
 export default styled(SortLabel)`
-  font-size: ${({ theme }) => theme.textSize('normal')};
+  font-size: ${({ theme }) => theme.textSize('normal')}px;
   font-weight: ${({ theme }) => theme.fontWeight('semibold')};
   color: ${({ theme }) => theme.colors.grey[600]};
 
   &.--small {
-    font-size: ${({ theme }) => theme.textSize('small')};
+    font-size: ${({ theme }) => theme.textSize('small')}px;
   }
 
   &.--collapse-content {
-    font-size: ${({ theme }) => theme.textSize('small')};
+    font-size: ${({ theme }) => theme.textSize('small')}px;
     color: ${({ theme }) => theme.colors.grey[500]};
   }
 

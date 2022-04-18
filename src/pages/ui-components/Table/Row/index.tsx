@@ -156,20 +156,20 @@ export default styled(TableRow)`
   .__houston-table-cell-action {
     padding: 6px 12px;
     border-top: 1px solid ${({ theme }) => theme.colors.grey[200]}};
-    font-size: ${({ theme }) => theme.textSize('normal')};
+    font-size: ${({ theme }) => theme.textSize('normal')}px;
 
     &.--small {
-      font-size: ${({ theme }) => theme.textSize('small')};
+      font-size: ${({ theme }) => theme.textSize('small')}px;
     }
   }
 
   .__houston-table-cell-collapse {
     padding-right: 8px;
     border-top: 1px solid  ${({ theme }) => theme.colors.grey[200]};
-    font-size: ${({ theme }) => theme.textSize('normal')};
+    font-size: ${({ theme }) => theme.textSize('normal')}px;
 
     &.--small {
-      font-size: ${({ theme }) => theme.textSize('small')};
+      font-size: ${({ theme }) => theme.textSize('small')}px;
     }
   }
 

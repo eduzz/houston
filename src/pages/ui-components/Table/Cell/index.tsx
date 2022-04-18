@@ -4,12 +4,12 @@ import { cx } from '@emotion/css';
 import { GridSize } from '@mui/material/Grid';
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '../../styles/createUseStyles';
+import styled, { IStyledProp } from '../../styles/styled';
 import TableContext from '../context';
 
 let cellKeyIncremeter = 0;
 
-export interface ITableCellProps {
+export interface ITableCellProps extends IStyledProp {
   id?: string;
   className?: string;
   colSpan?: number;
@@ -22,26 +22,8 @@ export interface ITableCellProps {
   align?: React.TdHTMLAttributes<HTMLTableCellElement>['align'];
 }
 
-const useStyles = createUseStyles(theme => ({
-  root: {
-    padding: '12px 20px',
-    borderTop: `1px solid ${theme.colors.grey[200]}`,
-    fontSize: theme.textSize('normal'),
-    color: theme.colors.grey[600],
-    fontWeight: theme.fontWeight('regular'),
-    lineHeight: theme.lineHeight('normal')
-  },
-
-  rootSmall: {
-    padding: '8px 12px',
-    fontSize: theme.textSize('small')
-  }
-}));
-
 const TableCell = React.memo<ITableCellProps>(
   ({ children, className, mobileSize, mobileAlign, columnLabel, onClick, onDoubleClick, align, ...props }) => {
-    const classes = useStyles();
-
     const [cellKey] = React.useState(() => `cell-${++cellKeyIncremeter}`);
     const cellRef = React.useRef<HTMLTableCellElement>();
 
@@ -58,8 +40,8 @@ const TableCell = React.memo<ITableCellProps>(
         onClick={onClick}
         onDoubleClick={onDoubleClick}
         className={cx(
-          classes.root,
-          tableSize === 'small' && classes.rootSmall,
+          className,
+          tableSize === 'small' && '--small',
           className,
           `houston-cell-size-${mobileSize ?? 'auto'}`,
           `houston-cell-align-${align ?? 'left'}`,
@@ -74,4 +56,16 @@ const TableCell = React.memo<ITableCellProps>(
   }
 );
 
-export default TableCell;
+export default styled(TableCell)`
+  padding: 12px 20px;
+  border-top: 1px solid ${({ theme }) => theme.colors.grey[200]};
+  font-size: ${({ theme }) => theme.textSize('normal')}px;
+  color: ${({ theme }) => theme.colors.grey[600]};
+  font-weight: ${({ theme }) => theme.fontWeight('regular')};
+  line-height: ${({ theme }) => theme.lineHeight('normal')};
+
+  & .--small {
+    padding: 8px 12px;
+    font-size: ${({ theme }) => theme.textSize('small')}px;
+  }
+`;

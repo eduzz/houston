@@ -4,40 +4,31 @@ import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '../../styles/createUseStyles';
+import styled, { cx, IStyledProp } from '../../styled';
 import Typography from '../../Typography';
 import TableContext from '../context';
 
-export interface ITableLoadingProps {
+export interface ITableLoadingProps extends IStyledProp {
   text: React.ReactNode;
 }
-
-const useStyle = createUseStyles(theme => ({
-  text: {
-    padding: theme.spacing(5)
-  }
-}));
-
-const TableLoading = React.memo<ITableLoadingProps>(({ text }) => {
-  const classes = useStyle();
-
+const TableLoading = React.memo<ITableLoadingProps>(({ text, className }) => {
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
   return (
-    <tr className='houston-table-loader'>
+    <tr className={cx(className, 'houston-table-loader')}>
       <td align='center' colSpan={1000}>
         {!isCollapseContent && (
           <>
             <LinearProgress />
 
-            <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
+            <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className='__text'>
               {text}
             </Typography>
           </>
         )}
 
         {isCollapseContent && (
-          <div className={classes.text}>
+          <div className='__text'>
             <CircularProgress size={32} />
           </div>
         )}
@@ -46,4 +37,8 @@ const TableLoading = React.memo<ITableLoadingProps>(({ text }) => {
   );
 });
 
-export default TableLoading;
+export default styled(TableLoading)`
+  & > td > .__text {
+    padding: ${({ theme }) => theme.spacing(5)};
+  }
+`;
