@@ -8,6 +8,8 @@ jobs:
   check-lint-build-docs:
     runs-on: ubuntu-latest
     steps:
+      - name: Git Workaround
+        run: git config --global --add safe.directory ${{ github.workspace }}
       - name: Clone
         uses: actions/checkout@v2
       - name: Setup Node
