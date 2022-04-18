@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-hooks",
   "description": "Eduzz Houston Hooks",
-  "version": "0.42.4",
+  "version": "0.42.7",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -23,7 +23,7 @@
     "pre-commit": "tsc -p . --noEmit"
   },
   "dependencies": {
-    "@eduzz/houston-core": "0.42.4",
+    "@eduzz/houston-core": "0.42.7",
     "lodash": "^4"
   },
   "devDependencies": {
