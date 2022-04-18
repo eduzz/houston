@@ -24,3 +24,5 @@ jobs:
     uses: ./.github/workflows/shared-workflows-publish.yml
     with: 
       version: ${{ needs.info.outputs.version }}
+    secrets:
+      NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
