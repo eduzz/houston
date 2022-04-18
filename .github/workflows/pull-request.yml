@@ -8,20 +8,8 @@ jobs:
   check-lint-build-docs:
     runs-on: ubuntu-latest
     steps:
-      - name: Git Workaround
-        run: git config --global --add safe.directory /github/workspace
       - name: Clone
         uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 15
-      - name: Discord
-        uses: appleboy/discord-action@master
-        with:
-          webhook_id: ${{ secrets.DISCORD_PR_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_PR_WEBHOOK_TOKEN }}
-          args: "PullRequest Criada/Atualizada: #${{ github.event.number }} \nhttps://github.com/eduzz/houston/pull/${{ github.event.number }}"
       - name: Prepare Env
         uses: borales/actions-yarn@v2.3.0
         with:
@@ -38,3 +26,9 @@ jobs:
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: build:docs
+      - name: Discord
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_PR_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_PR_WEBHOOK_TOKEN }}
+          args: "PullRequest Criada/Atualizada: #${{ github.event.number }} \nhttps://github.com/eduzz/houston/pull/${{ github.event.number }}"
