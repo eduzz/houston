@@ -6,11 +6,14 @@ on:
       - master
 
 jobs:
+  lint:
+    uses: ./.github/workflows/shared-workflows-lint.yml
+
   info:
     uses: ./.github/workflows/shared-workflows-info.yml
 
   publish:
-    needs: [info]
+    needs: [info, lint]
     if: needs.info.outputs.beta == 'false' && needs.info.outputs.skip-publish != 'true'
     uses: ./.github/workflows/shared-workflows-build.yml
     with: 

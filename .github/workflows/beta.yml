@@ -10,11 +10,14 @@ on:
       - develop
 
 jobs:
+  lint:
+    uses: ./.github/workflows/shared-workflows-lint.yml
+
   info:
     uses: ./.github/workflows/shared-workflows-info.yml
 
   publish-beta:
-    needs: [info]
+    needs: [info, lint]
     if: needs.info.outputs.beta == 'true' && needs.info.outputs.skip-publish != 'true'
     uses: ./.github/workflows/shared-workflows-build.yml
     with: 

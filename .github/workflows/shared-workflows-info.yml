@@ -11,9 +11,6 @@ on:
         value: ${{ jobs.should-release.outputs.SKIP }}
 
 jobs:
-  lint:
-    uses: ./.github/workflows/shared-workflows-lint.yml
-
   check-version:
     runs-on: ubuntu-latest
     steps:
