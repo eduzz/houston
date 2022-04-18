@@ -14,6 +14,8 @@ jobs:
         uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install
+      - name: Git Workaround
+        run: git config --global --add safe.directory /github/workspace
       - name: Linter
         uses: borales/actions-yarn@v2.3.0
         with:
