@@ -24,7 +24,7 @@ const TableLoading = React.memo<ITableLoadingProps>(({ text }) => {
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
   return (
-    <tr className='table-loader'>
+    <tr className='houston-table-loader'>
       <td align='center' colSpan={1000}>
         {!isCollapseContent && (
           <>

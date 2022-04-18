@@ -75,7 +75,7 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
         classes.root,
         tableSize === 'small' && classes.rootSmall,
         className,
-        `column-align-${align ?? 'left'}`,
+        `houston-column-align-${align ?? 'left'}`,
         isCollapseContent && '--collapse'
       )}
       {...rest}

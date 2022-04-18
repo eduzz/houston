@@ -39,7 +39,12 @@ export const salesService = (() => {
         map(result => ({ total: data.length, result }))
       );
     },
-    listWithError: () => of(true).pipe(map(() => new Error('Opá!')))
+    listWithError: () =>
+      of(true).pipe(
+        map(() => {
+          throw new Error('Opá!');
+        })
+      )
   };
 })();
 

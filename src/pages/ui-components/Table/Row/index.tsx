@@ -8,11 +8,11 @@ import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import IconDotsHorizontal from '@eduzz/houston-icons/DotsHorizontal';
 
+import styled from '../../styles/styled';
 import CollapseContent from '../CollapseContent';
 import TableContext from '../context';
 import { ITableAction, ITableCollapse } from '../interface';
 import TableRowContext, { ITableRowContext } from './context';
-import useStyles from './styles';
 
 let tableActionIncremeter = 0;
 
@@ -34,8 +34,6 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   const hasCollapseInRows = useContextSelector(TableContext, context => context.hasCollapseInRows);
   const hasActionInRows = useContextSelector(TableContext, context => context.hasActionInRows);
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
-
-  const classes = useStyles();
 
   const [showCollapse, toogleShowCollapse] = useBoolean(false);
   const [actionLoading, setActionLoading] = React.useState(false);
@@ -79,34 +77,26 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     () => ({ registerAction, registerCollapse, registerActionLoading: setActionLoading, data, index, collapse }),
     [collapse, data, index, registerAction, registerCollapse]
   );
-
-  const classesColumnAction = React.useMemo(
-    () => cx(classes.cellAction, tableSize === 'small' && '--small', 'table-action-cell', className),
-    [className, classes.cellAction, tableSize]
-  );
-
-  const classesColumnCollapse = React.useMemo(
-    () => cx(classes.cellCollapse, tableSize === 'small' && '--small', 'table-collapse-cell', className),
-    [className, classes.cellCollapse, tableSize]
-  );
-
   return (
     <TableRowContext.Provider value={contextValue}>
       <tr
         {...props}
         className={cx(
-          hasActions && 'table-row-has-action',
-          !isCollapseContent && hasCollapse && 'table-row-has-collapse',
-          !isCollapseContent && stripedRows && (index % 2 == 0 ? 'table-row-even' : 'table-row-odd'),
+          hasActions && 'houston-table-row-has-action',
+          !isCollapseContent && hasCollapse && 'houston-table-row-has-collapse',
+          !isCollapseContent && stripedRows && (index % 2 == 0 ? 'houston-table-row-even' : 'table-row-odd'),
           className
         )}
       >
         {children}
 
         {hasActions && (
-          <td align='right' className={classesColumnAction}>
+          <td
+            align='right'
+            className={cx('__houston-row-cell-action', tableSize === 'small' && '--small', 'houston-table-action-cell')}
+          >
             {hasActions && !actionLoading && (
-              <div onClick={onClickAction} className={classes.iconAction}>
+              <div onClick={onClickAction} className='__houston-table-icon-action'>
                 {oneAction?.icon ?? <IconDotsHorizontal size={24} />}
               </div>
             )}
@@ -114,16 +104,31 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
           </td>
         )}
 
-        {!hasActions && hasActionInRows && <td className={classesColumnAction} />}
+        {!hasActions && hasActionInRows && (
+          <td
+            className={cx(
+              '__houston-table-cell-collapse',
+              tableSize === 'small' && '--small',
+              'houston-houston-table-collapse-cell'
+            )}
+          />
+        )}
 
         {!isCollapseContent && hasCollapse && (
-          <td align='right' className={classesColumnCollapse}>
+          <td
+            align='right'
+            className={cx(
+              '__houston-table-cell-collapse',
+              tableSize === 'small' && '--small',
+              'houston-houston-table-collapse-cell'
+            )}
+          >
             <div
               onClick={toogleShowCollapse}
               className={cx(
-                classes.iconAction,
-                'table-collapse-button',
-                showCollapse && 'table-collapse-button-opened'
+                '__houston-table-icon-action',
+                'houston-table-collapse-button',
+                showCollapse && 'houston-table-collapse-button-opened'
               )}
             >
               <IconChevronDown size={24} />
@@ -131,7 +136,15 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
           </td>
         )}
 
-        {!hasCollapse && hasCollapseInRows && <td className={classesColumnCollapse} />}
+        {!hasCollapse && hasCollapseInRows && (
+          <td
+            className={cx(
+              '__houston-table-cell-collapse',
+              tableSize === 'small' && '--small',
+              'houston-houston-table-collapse-cell'
+            )}
+          />
+        )}
       </tr>
 
       {!isCollapseContent && hasCollapse && <CollapseContent visible={showCollapse} />}
@@ -139,4 +152,44 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   );
 });
 
-export default TableRow;
+export default styled(TableRow)`
+  .__houston-table-cell-action {
+    padding: 6px 12px;
+    border-top: 1px solid ${({ theme }) => theme.colors.grey[200]}};
+    font-size: ${({ theme }) => theme.textSize('normal')};
+
+    &.--small {
+      font-size: ${({ theme }) => theme.textSize('small')};
+    }
+  }
+
+  .__houston-table-cell-collapse {
+    padding-right: 8px;
+    border-top: 1px solid  ${({ theme }) => theme.colors.grey[200]};
+    font-size: ${({ theme }) => theme.textSize('normal')};
+
+    &.--small {
+      font-size: ${({ theme }) => theme.textSize('small')};
+    }
+  }
+
+  .__houston-table-icon-action {
+    display: inline-flex;
+    padding: 4px;
+    transition: background-color 0.2s linear;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.grey[200]};
+    }
+
+    &:focus {
+      background-color: ${({ theme }) => theme.colors.grey[300]};
+    }
+
+    & .houston-icon & svg {
+      fill: ${({ theme }) => theme.colors.grey[600]};
+    }
+  }
+`;

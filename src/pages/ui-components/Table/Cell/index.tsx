@@ -61,13 +61,13 @@ const TableCell = React.memo<ITableCellProps>(
           classes.root,
           tableSize === 'small' && classes.rootSmall,
           className,
-          `cell-size-${mobileSize ?? 'auto'}`,
-          `cell-align-${align ?? 'left'}`,
-          mobileAlign && `cell-mobile-align-${mobileAlign}`
+          `houston-cell-size-${mobileSize ?? 'auto'}`,
+          `houston-cell-align-${align ?? 'left'}`,
+          mobileAlign && `houston-cell-mobile-align-${mobileAlign}`
         )}
         ref={cellRef}
       >
-        <span className='table-label-mobile'>{columnLabel ?? label}</span>
+        <span className='houston-table-label-mobile'>{columnLabel ?? label}</span>
         {children}
       </td>
     );
