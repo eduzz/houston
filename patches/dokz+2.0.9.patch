@@ -77,15 +77,14 @@ index 808d06b..c461248 100644
 +  }
 \ No newline at end of file
 diff --git a/node_modules/dokz/dist/plugin/rehype/playground.js b/node_modules/dokz/dist/plugin/rehype/playground.js
-index f7b9806..56c40f3 100644
+index f7b9806..de4ccee 100644
 --- a/node_modules/dokz/dist/plugin/rehype/playground.js
 +++ b/node_modules/dokz/dist/plugin/rehype/playground.js
-@@ -26,7 +26,8 @@ var addComponentsProps = function (scopes) { return function (node, idx) {
+@@ -26,7 +26,7 @@ var addComponentsProps = function (scopes) { return function (node, idx) {
      var formatted = format_1.formatter(hast_util_to_string_1.default(node));
      var code = formatted.slice(1, Infinity);
      var scope = "{props, " + scopes.join(',') + "}";
 -    var child = jsx_1.sanitizeCode(jsx_1.removeTags(code));
-+    console.log({ code: jsx_1.sanitizeCode(code) });
 +    var child = jsx_1.sanitizeCode(code).replace('<Playground>', '').replace('</Playground>', '').replace(/^\\n/gmi, '').replace(/\\n$/gmi, '').replace(/\\n\s{2}/gmi, '\\n').trim().replace(/^{/gmi, '').replace(/}$/gmi, '').trim()
      var newTag = "<" + name + " __position={" + idx + "} code={'" + child + "'} scope={" + scope + "}";
      // console.log(newTag)

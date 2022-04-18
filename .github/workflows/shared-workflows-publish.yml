@@ -1,0 +1,43 @@
+name: zSharedWorkflowsPublish
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Node
+        uses: actions/setup-node@v3
+      - name: Prepare Env
+        run: yarn install
+      - name: Setup NPM Registry
+        run: echo '//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}' > ~/.npmrc && npm config get registry && npm whoami
+      - name: Publish
+        run: npm run publish -- --ci
+      - name: Check Skip Release
+        id: skip-release
+        run: echo '::set-output name=SKIP::'$(cat .skip-release)
+      - name: Create tag
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/v${{ inputs.version }}",
+              sha: context.sha
+            })
+      - name: Discord
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_RELEASE_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_RELEASE_WEBHOOK_TOKEN }}
+          args: "Nova versão beta criada: v${{ inputs.version }}\n${{ steps.release.outputs.html_url }}"

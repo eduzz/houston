@@ -11,18 +11,14 @@ jobs:
     steps:
       - name: Clone
         uses: actions/checkout@v2
+      - name: Node
+        uses: actions/setup-node@v3
       - name: Prepare Env
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install
+        run: yarn install
       - name: Build Packages
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: build
+        run: yarn build
       - name: Build Docs
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: build:docs
+        run: yarn build:docs
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop
         env:

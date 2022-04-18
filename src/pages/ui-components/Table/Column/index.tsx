@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '../../styles/createUseStyles';
+import styled from '../../styles/styled';
 import TableContext from '../context';
 import SortLabel from './SortLabel';
 
@@ -22,22 +22,6 @@ export interface ITableColumnProps {
    */
   sortableField?: string;
 }
-
-const useStyles = createUseStyles(theme => ({
-  root: {
-    padding: '8px 20px',
-    borderBottom: `1px solid ${theme.colors.grey[200]}`,
-
-    '&.--collapse': {
-      borderBottomColor: theme.colors.grey[300]
-    }
-  },
-
-  rootSmall: {
-    padding: '8px 12px'
-  }
-}));
-
 const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, className, align, ...rest }) => {
   const registerColumn = useContextSelector(TableContext, context => context.registerColumn);
   const onSort = useContextSelector(TableContext, context => context.onSort);
@@ -45,8 +29,6 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
   const loading = useContextSelector(TableContext, context => context.loading);
   const tableSize = useContextSelector(TableContext, context => context.size);
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
-
-  const classes = useStyles();
 
   const cellRef = React.useRef<HTMLTableCellElement>();
 
@@ -72,10 +54,10 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
     <th
       ref={cellRef}
       className={cx(
-        classes.root,
-        tableSize === 'small' && classes.rootSmall,
         className,
-        `column-align-${align ?? 'left'}`,
+        className,
+        `houston-column-align-${align ?? 'left'}`,
+        tableSize === 'small' && '--small',
         isCollapseContent && '--collapse'
       )}
       {...rest}
@@ -93,4 +75,15 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
   );
 });
 
-export default TableColumn;
+export default styled(TableColumn)`
+  padding: 8px 20px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey[200]};
+
+  &.--collapse {
+    border-bottom-color: ${({ theme }) => theme.colors.grey[300]};
+  }
+
+  &.--small {
+    padding: 8px 12px;
+  }
+`;

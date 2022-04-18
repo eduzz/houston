@@ -5,10 +5,10 @@ import { useContextSelector } from 'use-context-selector';
 
 import IconArrowUp from '@eduzz/houston-icons/ArrowUp';
 
-import createUseStyles from '../../../styles/createUseStyles';
+import styled, { IStyledProp } from '../../../styles/styled';
 import TableContext from '../../context';
 
-interface ISortLabelProps {
+interface ISortLabelProps extends IStyledProp {
   sortable?: boolean;
   active?: boolean;
   disabled?: boolean;
@@ -17,54 +17,23 @@ interface ISortLabelProps {
   children?: React.ReactNode;
 }
 
-const useStyles = createUseStyles(theme => ({
-  root: {
-    fontSize: theme.textSize('normal'),
-    fontWeight: theme.fontWeight('semibold'),
-    color: theme.colors.grey[600],
-
-    '&.--small': {
-      fontSize: theme.textSize('small')
-    },
-
-    '&.--collapse-content': {
-      fontSize: theme.textSize('small'),
-      color: theme.colors.grey[500]
-    },
-
-    '&.--disabled': {
-      color: theme.colors.grey[400],
-      cursor: 'no-drop'
-    },
-
-    '&.--sortable': {
-      cursor: 'pointer',
-      display: 'inline-flex',
-      alignItems: 'center'
-    },
-
-    '& .icon': {
-      lineHeight: 0,
-      transition: '0.2s linear',
-
-      '&.--desc': {
-        transform: 'rotate(-180deg)'
-      }
-    }
-  }
-}));
-
-const SortLabel: React.FC<ISortLabelProps> = ({ children, sortable, active, direction, disabled, onClick }) => {
+const SortLabel: React.FC<ISortLabelProps> = ({
+  children,
+  sortable,
+  active,
+  direction,
+  disabled,
+  onClick,
+  className
+}) => {
   const tableSize = useContextSelector(TableContext, context => context.size);
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
-
-  const classes = useStyles();
 
   if (!sortable || isCollapseContent) {
     return (
       <span
         className={cx(
-          classes.root,
+          className,
           disabled && '--disabled',
           tableSize === 'small' && '--small',
           isCollapseContent && '--collapse-content'
@@ -77,13 +46,13 @@ const SortLabel: React.FC<ISortLabelProps> = ({ children, sortable, active, dire
 
   return (
     <div
-      className={cx(classes.root, disabled && '--disabled', tableSize === 'small' && '--small', '--sortable')}
+      className={cx(className, disabled && '--disabled', tableSize === 'small' && '--small', '--sortable')}
       onClick={onClick}
     >
       {children}
 
       {active && (
-        <div className={cx(direction === 'desc' && '--desc', 'icon')}>
+        <div className={cx(direction === 'desc' && '--desc', '__icon')}>
           <IconArrowUp />
         </div>
       )}
@@ -91,4 +60,37 @@ const SortLabel: React.FC<ISortLabelProps> = ({ children, sortable, active, dire
   );
 };
 
-export default React.memo(SortLabel);
+export default styled(SortLabel)`
+  font-size: ${({ theme }) => theme.textSize('normal')}px;
+  font-weight: ${({ theme }) => theme.fontWeight('semibold')};
+  color: ${({ theme }) => theme.colors.grey[600]};
+
+  &.--small {
+    font-size: ${({ theme }) => theme.textSize('small')}px;
+  }
+
+  &.--collapse-content {
+    font-size: ${({ theme }) => theme.textSize('small')}px;
+    color: ${({ theme }) => theme.colors.grey[500]};
+  }
+
+  &.--disabled {
+    color: ${({ theme }) => theme.colors.grey[400]};
+    cursor: no-drop;
+  }
+
+  &.--sortable {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  & > .__icon {
+    line-height: 0;
+    transition: 0.2s linear;
+
+    &.--desc {
+      transform: rotate(-180deg);
+    }
+  }
+`;

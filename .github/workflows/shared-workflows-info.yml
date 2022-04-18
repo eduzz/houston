@@ -1,0 +1,46 @@
+name: zSharedWorkflowsInfo
+
+on:
+  workflow_call:
+    outputs:
+      version:
+        value: ${{ jobs.check-version.outputs.VERSION }}
+      beta:
+        value: ${{ jobs.check-version.outputs.BETA }}
+      skip-publish: 
+        value: ${{ jobs.should-release.outputs.SKIP }}
+
+jobs:
+  lint:
+    uses: ./.github/workflows/shared-workflows-lint.yml
+
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Node
+        uses: actions/setup-node@v3
+      - name: Set Version
+        id: current-version
+        run: echo '::set-output name=VERSION::'$(node -p -e "require('./package.json').version") && echo '::set-output name=BETA::'$(node -p -e "require('./package.json').version.includes('beta')")
+    outputs:
+      VERSION: ${{ steps.current-version.outputs.VERSION }}
+      BETA: ${{ steps.current-version.outputs.BETA }}
+
+  should-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Node
+        uses: actions/setup-node@v3
+      - name: Deps
+        run: npm i -g semver ora@5
+      - name: Run should-release
+        run: node ./scripts/should-release.js
+      - name: Check Skip Release
+        id: skip-release
+        run: echo '::set-output name=SKIP::'$(cat .skip-release)
+    outputs:
+      SKIP: ${{ steps.skip-release.outputs.SKIP }}

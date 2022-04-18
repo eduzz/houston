@@ -1,0 +1,21 @@
+name: zSharedWorkflowsLint
+
+on:
+  workflow_call
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Node
+        uses: actions/setup-node@v3
+      - name: Prepare Env
+        run: yarn install
+      - name: Linter
+        run: yarn lint
+      - name: Build Packages
+        run: yarn build
+      - name: Build Docs
+        run: yarn build:docs
