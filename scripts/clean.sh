@@ -2,7 +2,11 @@
 set -e
 
 BASEDIR="$( cd "$(dirname "$0")" ; pwd -P )"
- 
+
+if [ $CI == 'true' ]; then
+  exit 0
+fi
+
 if [ -d "$BASEDIR/../src/dev/src/components" ]; then
   git add $BASEDIR/../src/dev/src/components -f
 fi
