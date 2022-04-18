@@ -15,6 +15,6 @@ jobs:
   publish:
     needs: [info, lint]
     if: needs.info.outputs.beta == 'false' && needs.info.outputs.skip-publish != 'true'
-    uses: ./.github/workflows/shared-workflows-build.yml
+    uses: ./.github/workflows/shared-workflows-publish.yml
     with: 
       version: ${{ needs.info.outputs.version }}
