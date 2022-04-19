@@ -6,10 +6,7 @@
     "module": "CommonJS",
     "target": "ES5",
     "experimentalDecorators": true,
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "sourceMap": false,
     "jsx": "react-jsx",
     "moduleResolution": "node",

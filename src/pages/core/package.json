@@ -15,11 +15,6 @@
   "bugs": {
     "url": "https://github.com/eduzz/houston/issues"
   },
-  "scripts": {
-    "clean": "git add . && git clean -f -x",
-    "build": "tsc -p .",
-    "pre-commit": "tsc -p . --noEmit"
-  },
   "dependencies": {},
   "devDependencies": {}
 }

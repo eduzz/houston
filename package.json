@@ -18,7 +18,7 @@
     "start:dev": "concurrently -r \"yarn start:watch\" \"(cd src/dev && yarn start)\"",
     "start:watch": "yarn swc ./src/pages -d ./src -w",
     "prepare": "sh ./scripts/prepare.sh",
-    "publish": "NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN sh ./scripts/publish-all.sh",
+    "publish": "NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN node ./scripts/publish-all.js",
     "change-version": "sh ./scripts/change-version.sh",
     "create-icons": "sh ./scripts/create-icons.sh",
     "clean": "sh ./scripts/clean.sh",
@@ -70,10 +70,5 @@
     "**/@emotion/react": "^11",
     "gatsby-plugin-emotion": "^6",
     "theme-ui": "^0.6"
-  },
-  "ultra": {
-    "concurrent": [
-      "lint"
-    ]
   }
 }

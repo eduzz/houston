@@ -14,12 +14,5 @@
   },
   "bugs": {
     "url": "https://github.com/eduzz/houston/issues"
-  },
-  "scripts": {
-    "start": "yarn tsc -w --preserveWatchOutput --isolatedModules --incremental",
-    "clean": "git add . && git clean -f -x",
-    "build": "yarn clean && tsc -p .",
-    "lint": "yarn eslint \"./**/*.tsx\"",
-    "pre-commit": "tsc -p . --noEmit"
   }
 }
