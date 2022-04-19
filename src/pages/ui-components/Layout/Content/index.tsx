@@ -6,8 +6,8 @@ export interface ISidebarContentProps extends IStyledProp {
   children: React.ReactNode;
 }
 
-const SidebarContent: React.FC<ISidebarContentProps> = ({ className, children }) => {
-  return <div className={className}>{children}</div>;
+const SidebarContent: React.FC<ISidebarContentProps> = ({ ...rest }) => {
+  return <div {...rest} />;
 };
 
 export default styled(SidebarContent, { label: 'houston-sidebar-content' })`
