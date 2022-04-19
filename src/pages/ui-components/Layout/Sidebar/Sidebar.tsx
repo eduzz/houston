@@ -11,6 +11,8 @@ import SubMenuItem from './SubMenuItem';
 import Wrapper from './Wrapper';
 
 export interface ISidebarProps {
+  id?: string;
+  className?: string;
   /**
    * Current location path, if you are using react-router-dom use useLocation
    */
@@ -44,7 +46,8 @@ const Sidebar: React.FC<ISidebarProps> = ({
   onRequestClose,
   onCollapse,
   collapsed: collapsedProp = false,
-  collapsible = true
+  collapsible = true,
+  ...rest
 }) => {
   const [insideComponent, , setInsideComponentTrue, setInsideComponentFalse] = useBoolean(false);
   const [collapsed, setCollapsed] = React.useState(collapsedProp ?? false);
@@ -91,13 +94,16 @@ const Sidebar: React.FC<ISidebarProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLocation]);
 
-  return <SidebarContext.Provider value={contextValue}>{children}</SidebarContext.Provider>;
+  return (
+    <SidebarContext.Provider value={contextValue}>
+      <Wrapper {...rest}>{children}</Wrapper>
+    </SidebarContext.Provider>
+  );
 };
 
 export default nestedComponent(Sidebar, {
   Logo,
   Menu,
   MenuItem,
-  SubMenuItem,
-  Wrapper
+  SubMenuItem
 });

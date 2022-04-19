@@ -21,9 +21,7 @@ import Content from '@eduzz/houston-ui/Layout/Content';
 ```jsx
 <Layout>
   <Layout.Sidebar {...props}>
-    <Layout.Sidebar.Wrapper>
-      {...}
-    </Layout.Sidebar.Wrapper>
+    {...}
   </Layout.Sidebar>
 
   <Layout.Content>
@@ -40,15 +38,13 @@ Para simplificar a escrita do código, você pode desestruturar os componentes.
 import Layout from '@eduzz/houston-ui/Layout';
 
 const { Sidebar, Content } = Layout;
-const { Wrapper, Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
+const { Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
 
 function CustomLayout() {
   return (
     <Layout>
       <Sidebar {...props}>
-        <Wrapper>
-          {...}
-        </Wrapper>
+        {...}
       </Sidebar>
 
       <Content>
@@ -67,32 +63,30 @@ export default CustomLayout;
 import { NavLink } from 'react-router-dom';
 
 const { Sidebar, Content } = Layout;
-const { Wrapper, Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
+const { Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
 
 <Layout>
   <Sidebar>
-    <Wrapper>
-      <Logo image={...} />
+    <Logo image={...} />
 
-      <Menu>
-        <MenuItem as={NavLink} to='/dashboard' icon={<Icon />}>Dashboard</MenuItem>
+    <Menu>
+      <MenuItem as={NavLink} to='/dashboard' icon={<Icon />}>Dashboard</MenuItem>
 
-        <SubMenuItem id='sales' icon={<Icon />} label='Vendas'>
-          <MenuItem as={NavLink} to='/sales'>Minhas Vendas</MenuItem>
-          <MenuItem as={NavLink} to='/delivery'>Minhas Entregas</MenuItem>
-        </SubMenuItem>
+      <SubMenuItem id='sales' icon={<Icon />} label='Vendas'>
+        <MenuItem as={NavLink} to='/sales'>Minhas Vendas</MenuItem>
+        <MenuItem as={NavLink} to='/delivery'>Minhas Entregas</MenuItem>
+      </SubMenuItem>
 
-        <MenuItem as={NavLink} icon={<Icon />} to='/financial'>Financeiro</MenuItem>
+      <MenuItem as={NavLink} icon={<Icon />} to='/financial'>Financeiro</MenuItem>
 
-        <MenuItem as={NavLink} icon={<Icon />} to='/utils'>Utilitários</MenuItem>
+      <MenuItem as={NavLink} icon={<Icon />} to='/utils'>Utilitários</MenuItem>
 
-        <SubMenuItem id='advanced' label='Avançado' icon={<SettingsOutline />}>
-          <MenuItem onClick={...}>Whitelist</MenuItem>
-          <MenuItem onClick={...}>Configurações da API</MenuItem>
-          <MenuItem onClick={...}>Central de Documentos Fiscais</MenuItem>
-        </SubMenuItem>
-      </Menu>
-    </Wrapper>
+      <SubMenuItem id='advanced' label='Avançado' icon={<SettingsOutline />}>
+        <MenuItem onClick={...}>Whitelist</MenuItem>
+        <MenuItem onClick={...}>Configurações da API</MenuItem>
+        <MenuItem onClick={...}>Central de Documentos Fiscais</MenuItem>
+      </SubMenuItem>
+    </Menu>
   </Sidebar>
 
   <Content>
