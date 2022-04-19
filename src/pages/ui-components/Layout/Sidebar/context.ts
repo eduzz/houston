@@ -11,7 +11,6 @@ export interface ISidebarContext {
   hasToolbar: boolean;
   onRequestClose: () => void;
 
-  isMobile: boolean;
   mobileVisible: boolean;
 
   collapsible: boolean;

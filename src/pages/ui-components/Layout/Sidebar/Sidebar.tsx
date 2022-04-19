@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { Theme, useMediaQuery } from '@mui/material';
-
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import nestedComponent from '../../Helpers/nestedComponent';
@@ -48,8 +46,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
   collapsed: collapsedProp = false,
   collapsible = true
 }) => {
-  const isMobile = useMediaQuery<Theme>(theme => theme.breakpoints.down('md'));
-
   const [insideComponent, , setInsideComponentTrue, setInsideComponentFalse] = useBoolean(false);
   const [collapsed, setCollapsed] = React.useState(collapsedProp ?? false);
 
@@ -67,7 +63,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
       menuIsActive: (path: string) => (!path ? false : path === currentLocation || currentLocation?.startsWith(path)),
       hasToolbar,
       onRequestClose,
-      isMobile,
       mobileVisible,
       collapsed,
       collapsible,
@@ -84,7 +79,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
       collapsible,
       handleCollapse,
       insideComponent,
-      isMobile,
       mobileVisible,
       setInsideComponentFalse,
       setInsideComponentTrue
