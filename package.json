@@ -8,7 +8,7 @@
     "src"
   ],
   "scripts": {
-    "commit": "git-cz",
+    "commit": "node ./scripts/git-check-files.js && git-cz",
     "prebuild": "yarn clean",
     "build": "yarn tsc -p .",
     "build:dev": "yarn swc ./src/pages -d ./src",

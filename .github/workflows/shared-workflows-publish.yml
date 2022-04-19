@@ -16,6 +16,7 @@ on:
 
 jobs:
   publish:
+    name: Build and Publish
     runs-on: ubuntu-latest
     steps:
       - name: Clone
