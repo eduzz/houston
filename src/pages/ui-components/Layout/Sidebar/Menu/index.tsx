@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { IStyledProp } from '../../styles/styled';
+import styled, { IStyledProp } from '../../../styles/styled';
 import MenuContext, { ISidebarMenuContext } from './context';
 
 export interface ISidebarMenu extends IStyledProp {

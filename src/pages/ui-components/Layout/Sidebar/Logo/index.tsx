@@ -3,8 +3,9 @@ import * as React from 'react';
 import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp } from '../../styles/styled';
+import styled, { IStyledProp } from '../../../styles/styled';
 import SidebarContext from '../context';
+import Image from './Image';
 
 export interface ISidebarLogoProps extends IStyledProp {
   id?: string;
@@ -17,29 +18,43 @@ export interface ISidebarLogoProps extends IStyledProp {
 }
 
 const SidebarLogo: React.FC<ISidebarLogoProps> = ({ className, image, imageCollapsed, alt, ...rest }) => {
-  const isMobile = useContextSelector(SidebarContext, context => context.isMobile);
   const collapsed = useContextSelector(SidebarContext, context => context.collapsed);
   const inside = useContextSelector(SidebarContext, context => context.insideComponent);
 
-  const currentImage = React.useMemo(() => {
-    if (isMobile) {
-      return image;
-    }
+  const mainImage = React.useMemo(
+    () => (
+      <figure className='main-image'>
+        <Image image={image} alt={alt} />
+      </figure>
+    ),
+    [alt, image]
+  );
 
-    if (inside || isMobile || !imageCollapsed || !collapsed) {
-      return image;
-    }
-
-    return imageCollapsed;
-  }, [collapsed, image, imageCollapsed, inside, isMobile]);
+  const collapsedImage = React.useMemo(
+    () =>
+      imageCollapsed && (
+        <figure className='collapsed-image'>
+          <Image image={imageCollapsed} alt={alt} />
+        </figure>
+      ),
+    [alt, imageCollapsed]
+  );
 
   return (
-    <figure {...rest} className={cx(className, inside && '--inside', collapsed && !inside && '--collapsed')}>
-      <div className='image'>
-        {typeof currentImage === 'string' && <img src={currentImage} alt={alt ?? 'Logo Plataforma'} />}
-        {typeof currentImage !== 'string' && currentImage}
+    <div
+      {...rest}
+      className={cx(
+        className,
+        inside && '--inside',
+        collapsed && !inside && '--collapsed',
+        imageCollapsed && '--has-image-collapsed'
+      )}
+    >
+      <div className='wrapper'>
+        {mainImage}
+        {collapsedImage}
       </div>
-    </figure>
+    </div>
   );
 };
 
@@ -48,6 +63,7 @@ export default styled(React.memo(SidebarLogo), { label: 'houston-sidebar-logo' }
   overflow: hidden;
   min-height: 70px;
   max-height: 70px;
+  position: relative;
 
   &.--inside {
     width: 100%;
@@ -60,8 +76,37 @@ export default styled(React.memo(SidebarLogo), { label: 'houston-sidebar-logo' }
     width: 56px;
   }
 
-  .image {
+  &.--collapsed.--has-image-collapsed {
+    .main-image {
+      opacity: 0;
+    }
+
+    .collapsed-image {
+      opacity: 1;
+    }
+
+    ${({ theme }) => theme.breakpoints.down('md')} {
+      .main-image {
+        opacity: 1;
+      }
+
+      .collapsed-image {
+        opacity: 0;
+      }
+    }
+  }
+
+  .wrapper {
     max-height: 80px;
+    position: relative;
+
+    .collapsed-image {
+      opacity: 0;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
     img {
       max-width: 108px;

@@ -5,8 +5,8 @@ import { useContextSelector } from 'use-context-selector';
 
 import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
 
-import Collapse from '../../Collapse';
-import styled, { IStyledProp } from '../../styles/styled';
+import Collapse from '../../../Collapse';
+import styled, { IStyledProp } from '../../../styles/styled';
 import MenuContext from '../Menu/context';
 import SubMenuItemContext, { ISidebarSubMenuItemContext } from './context';
 
@@ -35,9 +35,11 @@ const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
   const [items, setItems] = React.useState<{ active: boolean }[]>([]);
 
   const expanded = useContextSelector(MenuContext, context => context.expanded);
+
   const handleClickExpand = useContextSelector(MenuContext, context => context.handleClickExpand);
 
   const handleClickItem = React.useCallback(() => handleClickExpand(ref), [handleClickExpand, ref]);
+
   const contextValue = React.useMemo<ISidebarSubMenuItemContext>(() => {
     return {
       ref,
