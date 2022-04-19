@@ -1,27 +1,16 @@
 import * as React from 'react';
 
 import Button from '../../Button';
-import createUseStyles from '../../styles/createUseStyles';
+import styled, { cx, IStyledProp } from '../../styles/styled';
 import Typography from '../../Typography';
 
-export interface ITableEErrorProps {
+export interface ITableEErrorProps extends IStyledProp {
   error?: any;
   formater?: (error: any) => string;
   onRetry?: () => void;
   children?: React.ReactNode;
 }
-
-const useStyle = createUseStyles(theme => ({
-  text: {
-    opacity: 0.8,
-    fontStyle: 'italic',
-    '& + button': { marginTop: theme.spacing(3) }
-  }
-}));
-
-const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, formater }) => {
-  const classes = useStyle();
-
+const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, formater, className }) => {
   const errorMessage = React.useMemo(() => {
     if (!error) return null;
 
@@ -36,11 +25,11 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
   children = children ?? errorMessage;
 
   return (
-    <tr className='table-error-message'>
+    <tr className={cx(className, 'table-error-message')}>
       <td align='center' colSpan={1000}>
         {typeof children === 'string' ? (
           <>
-            <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
+            <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className='__text'>
               {children}
             </Typography>
 
@@ -58,4 +47,13 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
   );
 });
 
-export default TableError;
+export default styled(TableError)`
+  & > td > .__text {
+    opacity: 0.8;
+    font-style: italic;
+
+    & + button {
+      margin-top: ${({ theme }) => theme.spacing(3)};
+    }
+  }
+`;

@@ -14,15 +14,15 @@ No arquivo raiz de seu projeto, defina sua paleta de cores e adicione o provedor
 ```tsx
 import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
 
-const palette: IThemePalette = {}; // Opcional
+const palette: HoustonThemeBuilder = {}; // Opcional
 <ThemeProvider palette={palette}>...</ThemeProvider>;
 ```
 
 ## Propriedades
 
-| prop    | tipo            | obrigatório | padrão      |
-| ------- | --------------- | ----------- | ----------- |
-| palette | `IThemePalette` | `false`     | Tema Padrão |
+| prop  | tipo                  | obrigatório | padrão      |
+| ----- | --------------------- | ----------- | ----------- |
+| theme | `HoustonThemeBuilder` | `false`     | Tema Padrão |
 
 ## Tema padrão (IThemePalette)
 

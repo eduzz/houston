@@ -1,10 +1,10 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
 import { InputLabelProps } from '@mui/material/InputLabel';
 import TextFieldMUI from '@mui/material/TextField';
-import clsx from 'clsx';
 import { HexColorPicker } from 'react-colorful';
 import { useContextSelector } from 'use-context-selector';
 
@@ -119,13 +119,13 @@ const ColorField: React.FC<IColorFieldProps> = ({
   useOnClickOutside(pickerRef, handleClosePicker);
 
   return (
-    <div className={clsx(classes.root, className)}>
+    <div className={cx(classes.root, className)}>
       <TextFieldMUI
         error={hasError}
         {...props}
         disabled={isSubmitting || disabled || loading}
         helperText={errorMessage || props.helperText}
-        className={clsx(classes.input, size === 'small' && 'input-size-small', visible && '--active')}
+        className={cx(classes.input, size === 'small' && 'input-size-small', visible && '--active')}
         name={name}
         margin={margin ?? 'normal'}
         variant='outlined'
@@ -136,7 +136,7 @@ const ColorField: React.FC<IColorFieldProps> = ({
         InputProps={inputProps}
       />
 
-      <div ref={pickerRef} className={clsx(classes.picker, visible && '--show')}>
+      <div ref={pickerRef} className={cx(classes.picker, visible && '--show')}>
         <HexColorPicker color={color} onChange={handleChange} />
       </div>
     </div>

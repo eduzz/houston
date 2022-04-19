@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import CircularProgressMUI from '@mui/material/CircularProgress';
-import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
 import Typography from '../../Typography';
@@ -60,14 +60,14 @@ const ProgressRound: React.FC<ICircularProgressProps> = ({ currentStep = 0, maxS
         variant='determinate'
         size={90}
         value={100}
-        className={clsx(classes.circularProgress, classes.circularProgressBackground, error && classes.progressError)}
+        className={cx(classes.circularProgress, classes.circularProgressBackground, error && classes.progressError)}
         color='primary'
       />
       <CircularProgressMUI
         variant='determinate'
         size={90}
         value={value}
-        className={clsx(classes.circularProgress, classes.progress, error && classes.progressError)}
+        className={cx(classes.circularProgress, classes.progress, error && classes.progressError)}
       />
       <div className={classes.progressIndicator}>
         <Typography size='default'>{progress}</Typography>
