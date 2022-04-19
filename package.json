@@ -10,7 +10,7 @@
   "scripts": {
     "commit": "git-cz",
     "prebuild": "yarn clean",
-    "build": "yarn ultra -r -b --concurrency 10 --filter \"src/pages/*\" build",
+    "build": "yarn tsc -p .",
     "build:dev": "yarn swc ./src/pages -d ./src",
     "build:docs": "(cd src && yarn build)",
     "start": "sh ./scripts/start.sh",
@@ -24,7 +24,7 @@
     "clean": "sh ./scripts/clean.sh",
     "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\" \"./**/*.mdx\"",
     "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -f yarn.lock && yarn install",
-    "pre-commit": "concurrently -r \"yarn lint\" \"yarn ultra -r pre-commit\""
+    "pre-commit": "concurrently -r \"yarn lint\" \"yarn build --noEmit\""
   },
   "config": {
     "commitizen": {
@@ -61,8 +61,7 @@
     "patch-package": "*",
     "prettier": "2.6.2",
     "semver": "7.3.7",
-    "typescript": "4.6",
-    "ultra-runner": "3.10.5"
+    "typescript": "4.6"
   },
   "resolutions": {
     "react": "^17",
