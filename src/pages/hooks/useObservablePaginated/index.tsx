@@ -29,8 +29,8 @@ interface IDataState<T> extends IPaginationResponse<T> {
 }
 
 export type PaginationMergeParams<P> =
-  | Partial<P & { _retry?: number }>
-  | ((currenteParams: Partial<P & { _retry?: number }>) => Partial<P & { _retry?: number }>);
+  | Partial<P & { _refresh?: number }>
+  | ((currenteParams: Partial<P & { _refresh?: number }>) => Partial<P & { _refresh?: number }>);
 
 export interface IUsePaginatedOptions<P, T> {
   initialParams?: P;
@@ -48,7 +48,7 @@ export interface IUseObservablePaginated<P, R> {
   result: R[];
   hasMore: boolean;
   error: any;
-  retry: (resetPagination?: boolean) => void;
+  refresh: (resetPagination?: boolean) => void;
   mergeParams: (params: PaginationMergeParams<P>, reset?: boolean) => void;
   /** Sintax sugar for `mergeParams` to change page  */
   handleChangePage: (page: number) => void;
@@ -100,7 +100,7 @@ export default function useObservablePaginated<P extends IPaginationParams, R>(
           return params;
         }
 
-        return { ...newState, _retry: null };
+        return { ...newState, _refresh: null };
       });
     },
     [data.hasMore, initialParams, isLoading, isLoadingMore]
@@ -114,8 +114,8 @@ export default function useObservablePaginated<P extends IPaginationParams, R>(
       }),
       delay(300),
       switchMap(() => {
-        const sendParams = { ...params } as P & { _retry?: number };
-        delete sendParams._retry;
+        const sendParams = { ...params } as P & { _refresh?: number };
+        delete sendParams._refresh;
         return onChangeParams(sendParams);
       }),
       tap({
@@ -142,11 +142,11 @@ export default function useObservablePaginated<P extends IPaginationParams, R>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, ...deps]);
 
-  const retry = React.useCallback(
+  const refresh = React.useCallback(
     (resetPagination = true) => {
       setIsLoading(true);
       mergeParams({
-        _retry: Date.now(),
+        _refresh: Date.now(),
         ...(resetPagination ? { page: getConfig()?.pagination?.pageStart ?? 1 } : {})
       } as any);
     },
@@ -169,7 +169,7 @@ export default function useObservablePaginated<P extends IPaginationParams, R>(
     result: data.result,
     hasMore: data.hasMore,
     error,
-    retry,
+    refresh,
     mergeParams,
     handleSort,
     handleChangePage,

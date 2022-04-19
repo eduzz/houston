@@ -70,7 +70,7 @@ async function init() {
   ora.promise(cleanPromise, 'CLEANING PROJECT');
   await cleanPromise;
   
-  await exec(`npm run build`)
+  await exec(`yarn build`)
   ora('ALL PACKAGES BUILT SUCCESSFULLY').succeed();
   
   for (let package of packages) {

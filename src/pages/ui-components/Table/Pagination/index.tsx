@@ -6,6 +6,7 @@ import { useContextSelector } from 'use-context-selector';
 import SelectField from '../../Forms/Select';
 import TextField from '../../Forms/Text';
 import Column from '../../Grid/Column';
+import Container from '../../Grid/Container';
 import Row from '../../Grid/Row';
 import styled, { breakpoints, IStyledProp } from '../../styled';
 import Typography from '../../Typography';
@@ -118,56 +119,58 @@ const Pagination = React.memo<ITablePagination>(
       <tfoot className={className}>
         <tr>
           <td colSpan={1000} className='__td'>
-            <Row>
-              <Column xs={12} sm='auto'>
-                <Row justifyContent='center'>
-                  <Column xs='auto' className='__perPage'>
-                    <Typography size='small' fontWeight='semibold'>
-                      {labelItensPerPage ?? 'Itens por página:'}
-                    </Typography>
+            <Container>
+              <Row>
+                <Column xs={12} sm='auto'>
+                  <Row justifyContent='center'>
+                    <Column xs='auto' className='__perPage'>
+                      <Typography size='small' fontWeight='semibold'>
+                        {labelItensPerPage ?? 'Itens por página:'}
+                      </Typography>
 
-                    <SelectField
+                      <SelectField
+                        disabled={loading}
+                        size='small'
+                        margin='none'
+                        options={optionsPerPage}
+                        value={perPage}
+                        onChange={handleChangePerPage}
+                      />
+                    </Column>
+
+                    <Column xs='auto' className='__labels'>
+                      <Typography size='small' fontWeight='semibold'>
+                        {labelGoToPage ?? 'Ir para:'}
+                      </Typography>
+
+                      <TextField
+                        margin='none'
+                        size='small'
+                        disabled={loading}
+                        value={pageInput}
+                        className='__input'
+                        onChange={handlePageInputChange}
+                        onKeyUp={handlePageInputChange}
+                        onBlur={handlePageInputChange}
+                      />
+                    </Column>
+                  </Row>
+                </Column>
+
+                <Column xs={12} sm={true}>
+                  <div className='__pages'>
+                    <PaginationMUI
+                      count={Math.ceil(total / perPage)}
+                      page={page ?? 1}
                       disabled={loading}
-                      size='small'
-                      margin='none'
-                      options={optionsPerPage}
-                      value={perPage}
-                      onChange={handleChangePerPage}
+                      shape='rounded'
+                      size='medium'
+                      onChange={handleChangePage}
                     />
-                  </Column>
-
-                  <Column xs='auto' className='__labels'>
-                    <Typography size='small' fontWeight='semibold'>
-                      {labelGoToPage ?? 'Ir para:'}
-                    </Typography>
-
-                    <TextField
-                      margin='none'
-                      size='small'
-                      disabled={loading}
-                      value={pageInput}
-                      className='__input'
-                      onChange={handlePageInputChange}
-                      onKeyUp={handlePageInputChange}
-                      onBlur={handlePageInputChange}
-                    />
-                  </Column>
-                </Row>
-              </Column>
-
-              <Column xs={12} sm={true}>
-                <div className='__pages'>
-                  <PaginationMUI
-                    count={Math.ceil(total / perPage)}
-                    page={page ?? 1}
-                    disabled={loading}
-                    shape='rounded'
-                    size='medium'
-                    onChange={handleChangePage}
-                  />
-                </div>
-              </Column>
-            </Row>
+                  </div>
+                </Column>
+              </Row>
+            </Container>
           </td>
         </tr>
       </tfoot>

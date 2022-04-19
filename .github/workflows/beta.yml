@@ -30,3 +30,5 @@ jobs:
       version: ${{ needs.info.outputs.version }}
     secrets:
       NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      DISCORD_RELEASE_WEBHOOK_ID: ${{ secrets.DISCORD_RELEASE_WEBHOOK_ID }}
+      DISCORD_RELEASE_WEBHOOK_TOKEN: ${{ secrets.DISCORD_RELEASE_WEBHOOK_TOKEN }}

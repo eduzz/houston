@@ -10,6 +10,7 @@ on:
 
 jobs:
   lint:
+    name: Lint and Build
     runs-on: ubuntu-latest
     steps:
       - name: Clone
@@ -18,9 +19,10 @@ jobs:
         uses: actions/setup-node@v3
       - name: Prepare Env
         run: yarn install
-      - name: Linter
+      - name: Lint
         run: yarn lint
-      - name: Build Packages
+      - name: Build
+        shell: bash
         run: yarn build
       - name: Build Docs
         if: ${{ inputs.skip-docs == 'false' }}
