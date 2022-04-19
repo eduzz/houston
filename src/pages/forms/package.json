@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-forms",
-  "version": "0.42.7",
+  "version": "0.43.0",
   "description": "Houston Forms",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -15,22 +15,16 @@
   "bugs": {
     "url": "https://github.com/eduzz/houston/issues"
   },
-  "scripts": {
-    "start": "yarn tsc -w --preserveWatchOutput --isolatedModules --incremental",
-    "clean": "git add . && git clean -f -x",
-    "build": "yarn clean && tsc -p .",
-    "pre-commit": "tsc -p . --noEmit"
-  },
   "dependencies": {
-    "@eduzz/houston-core": "0.42.7",
-    "@eduzz/houston-hooks": "0.42.7",
+    "@eduzz/houston-core": "0.43.0",
+    "@eduzz/houston-hooks": "0.43.0",
     "@types/yup": "^0.29",
     "formik": "^2",
     "rxjs": "^7",
     "yup": "^0.32"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.42.7"
+    "@eduzz/houston-core": "0.43.0"
   },
   "devDependencies": {}
 }
