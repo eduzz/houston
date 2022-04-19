@@ -24,7 +24,7 @@
     "clean": "sh ./scripts/clean.sh",
     "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\" \"./**/*.mdx\"",
     "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -f yarn.lock && yarn install",
-    "pre-commit": "concurrently -r \"yarn lint\" \"yarn build --noEmit\""
+    "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc -p . --noEmit\""
   },
   "config": {
     "commitizen": {
