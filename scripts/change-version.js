@@ -62,8 +62,6 @@ async function init() {
   const foldersBlackList = ['pages'];
   let packages = await fs.promises.readdir(`${__dirname}/../src/pages`, { withFileTypes: true });
 
-  console.log({packages})
-
   packages = [
     {
       name: 'workspace',

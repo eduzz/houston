@@ -2071,6 +2071,73 @@
     "@emotion/styled" "^11"
     react "^17"
 
+"@eduzz/houston-core@0.42.7":
+  version "0.42.7"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-core/-/houston-core-0.42.7.tgz#694f816c8198a0dc66aba4855e3daaa1897eb1f7"
+  integrity sha512-iw6962Wy/lpKJ9M+PmSKVpOdwqSy0JwsKXw6vAMKSBdoM6GlctuxTzw0es2e6hPGPAeMKRvShJKJkKvHyKRZuA==
+
+"@eduzz/houston-experimental@*":
+  version "0.42.7"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-experimental/-/houston-experimental-0.42.7.tgz#3463ad31e8f6f29d3525f9f8b4a0e25fab4b6f02"
+  integrity sha512-0tAzmgLgfrCbrBEXmF5EiolT6EkxbIVoZh3YvepxiHaJePh08r99yRBpnKpqsL/otxxcsb/NwJlaHx9eh9PWCw==
+  dependencies:
+    "@eduzz/houston-hooks" "0.42.7"
+    "@eduzz/houston-icons" "0.42.7"
+    "@eduzz/houston-ui" "0.42.7"
+    "@emotion/css" "^11"
+    "@mui/icons-material" "^5"
+    "@mui/lab" "^5.0.0-alpha.49"
+    "@mui/material" "^5"
+    "@mui/styles" "^5"
+    tslib "^2"
+
+"@eduzz/houston-forms@*":
+  version "0.42.7"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-forms/-/houston-forms-0.42.7.tgz#f9cb75d01cc28a3d13e88aca35cb72090935665a"
+  integrity sha512-RF5WWirc0Q+on/PPuQtcMg1eMWgG0FGBiCj1dlAqYs+O9+XYqCeZ7nAeTuYYuWJbXFOrbxMa3hG3vCw8ixatEQ==
+  dependencies:
+    "@eduzz/houston-core" "0.42.7"
+    "@eduzz/houston-hooks" "0.42.7"
+    "@types/yup" "^0.29"
+    formik "^2"
+    rxjs "^7"
+    yup "^0.32"
+
+"@eduzz/houston-hooks@*", "@eduzz/houston-hooks@0.42.7":
+  version "0.42.7"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-hooks/-/houston-hooks-0.42.7.tgz#580a3fcba7b1ff8f6b7b3f43dbad391d43d9da55"
+  integrity sha512-hmiuyuouJug4MyaWEAstUC85p26c1SnXd+9cKut40TDog1Lb+l+wBWrXHlDXgGB16Jn2H6NN/TOfPc4ABXvHFQ==
+  dependencies:
+    "@eduzz/houston-core" "0.42.7"
+    lodash "^4"
+
+"@eduzz/houston-icons@*", "@eduzz/houston-icons@0.42.7", "@eduzz/houston-icons@^0.42.3":
+  version "0.42.7"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-icons/-/houston-icons-0.42.7.tgz#53f039a759cc4ab6556bbe37b31448eb3c4eb2ef"
+  integrity sha512-yUdRvIR2bdnKoA2DcMeQ6KUuFcOjE3llixu9OtVDAN+9if/svJa5hNtoly1gmlCArBObiYh1BSIQaXzCgzZsCA==
+
+"@eduzz/houston-ui@*", "@eduzz/houston-ui@0.42.7":
+  version "0.42.7"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-ui/-/houston-ui-0.42.7.tgz#9ab633e620b046f50b42270e838fb2398cc6d025"
+  integrity sha512-CDdiwB94GI6opgez6FPDEFe1LBDbIUCCDLEeT4a5xG+bKVHT/m/tM0jrsQbrb8Rkqo1KPzJqjbZoDi63T5+7IA==
+  dependencies:
+    "@eduzz/houston-core" "0.42.7"
+    "@eduzz/houston-hooks" "0.42.7"
+    "@eduzz/houston-icons" "0.42.7"
+    "@emotion/cache" "^11"
+    "@emotion/css" "^11"
+    "@emotion/react" "^11"
+    "@emotion/styled" "^11"
+    "@mui/icons-material" "^5"
+    "@mui/lab" "^5.0.0-alpha.54"
+    "@mui/material" "^5"
+    date-fns "^2"
+    lodash "^4"
+    react-colorful "^5"
+    react-toastify "^8"
+    tslib "^2"
+    use-context-selector "^1"
+
 "@emotion/babel-plugin-jsx-pragmatic@^0.1.5":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-0.1.5.tgz#27debfe9c27c4d83574d509787ae553bf8a34d7e"
