@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import MUITabs from '@mui/material/Tabs';
-import clsx from 'clsx';
 
 import createUseStyles from '../styles/createUseStyles';
 import { ITabsContentProps } from './Content';
@@ -74,7 +74,7 @@ const Tabs: React.FC<ITabsProps> = ({ value, onChange, children }) => {
           <div
             role='tabpanel'
             id={currentId}
-            className={clsx(!disablePadding && classes.containerPadding, className)}
+            className={cx(!disablePadding && classes.containerPadding, className)}
             hidden={index !== currentValue}
             key={currentId}
           >

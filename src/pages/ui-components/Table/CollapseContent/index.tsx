@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import CollapseMUI from '@mui/material/Collapse';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import TableRowContext from '../Row/context';
@@ -28,11 +28,11 @@ const CollapseContent = React.memo<ITableCollapseContentProps>(({ visible }) => 
 
   return (
     <tr
-      className={clsx(
-        'table-collapse',
-        visible && 'table-collapse-opened',
-        collapse?.disableBackground && 'table-collapse-no-background',
-        collapse?.disabledPadding && 'table-collapse-no-padding'
+      className={cx(
+        'houston-table-collapse',
+        visible && 'houston-table-collapse-opened',
+        collapse?.disableBackground && 'houston-table-collapse-no-background',
+        collapse?.disabledPadding && 'houston-table-collapse-no-padding'
       )}
     >
       <td colSpan={1000}>
@@ -43,7 +43,7 @@ const CollapseContent = React.memo<ITableCollapseContentProps>(({ visible }) => 
           onExited={onCollapseClose}
           unmountOnExit
         >
-          <div className='table-collapse-content'>
+          <div className='houston-table-collapse-content'>
             <TableCollapseContext.Provider value={{ isCollapseContent: collapse !== null }}>
               {collapse?.content}
             </TableCollapseContext.Provider>

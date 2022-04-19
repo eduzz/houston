@@ -1,8 +1,8 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import Check from '@mui/icons-material/Check';
 import Warning from '@mui/icons-material/Warning';
-import clsx from 'clsx';
 
 import createUseStyles from '../../../styles/createUseStyles';
 
@@ -48,7 +48,7 @@ const StepIcon: React.FC<IStepIconProps> = ({ icon, active, completed, error }) 
       {error && <Warning className={classes.warning} />}
       {!error && (
         <div
-          className={clsx(classes.root, {
+          className={cx(classes.root, {
             [classes.finished]: active || completed
           })}
         >

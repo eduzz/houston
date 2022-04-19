@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Observable, of } from 'rxjs';
 import { delay, switchMap, tap } from 'rxjs/operators';
 
+import { getConfig } from '../config';
 import useObservable from '../useObservable';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -28,8 +29,8 @@ interface IDataState<T> extends IPaginationResponse<T> {
 }
 
 export type PaginationMergeParams<P> =
-  | Partial<P & { _retry?: number }>
-  | ((currenteParams: Partial<P & { _retry?: number }>) => Partial<P & { _retry?: number }>);
+  | Partial<P & { _refresh?: number }>
+  | ((currenteParams: Partial<P & { _refresh?: number }>) => Partial<P & { _refresh?: number }>);
 
 export interface IUsePaginatedOptions<P, T> {
   initialParams?: P;
@@ -47,7 +48,7 @@ export interface IUseObservablePaginated<P, R> {
   result: R[];
   hasMore: boolean;
   error: any;
-  retry: () => void;
+  refresh: (resetPagination?: boolean) => void;
   mergeParams: (params: PaginationMergeParams<P>, reset?: boolean) => void;
   /** Sintax sugar for `mergeParams` to change page  */
   handleChangePage: (page: number) => void;
@@ -73,7 +74,14 @@ export default function useObservablePaginated<P extends IPaginationParams, R>(
   const [isLoading, setIsLoading] = React.useState(true);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 
-  const [initialParams] = React.useState<P>(() => ({ page: 1, perPage: 25, ...(initialParamsOption ?? {}) } as P));
+  const [initialParams] = React.useState<P>(
+    () =>
+      ({
+        page: getConfig()?.pagination?.pageStart ?? 1,
+        perPage: getConfig().pagination?.perPage,
+        ...(initialParamsOption ?? {})
+      } as P)
+  );
   const [params, setParams] = React.useState<P>(() => ({ ...initialParams }));
 
   const mergeParams = React.useCallback(
@@ -92,7 +100,7 @@ export default function useObservablePaginated<P extends IPaginationParams, R>(
           return params;
         }
 
-        return { ...newState, _retry: null };
+        return { ...newState, _refresh: null };
       });
     },
     [data.hasMore, initialParams, isLoading, isLoadingMore]
@@ -106,8 +114,8 @@ export default function useObservablePaginated<P extends IPaginationParams, R>(
       }),
       delay(300),
       switchMap(() => {
-        const sendParams = { ...params } as P & { _retry?: number };
-        delete sendParams._retry;
+        const sendParams = { ...params } as P & { _refresh?: number };
+        delete sendParams._refresh;
         return onChangeParams(sendParams);
       }),
       tap({
@@ -134,10 +142,16 @@ export default function useObservablePaginated<P extends IPaginationParams, R>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, ...deps]);
 
-  const retry = React.useCallback(() => {
-    setIsLoading(true);
-    mergeParams({ page: 0, _retry: Date.now() } as any);
-  }, [mergeParams]);
+  const refresh = React.useCallback(
+    (resetPagination = true) => {
+      setIsLoading(true);
+      mergeParams({
+        _refresh: Date.now(),
+        ...(resetPagination ? { page: getConfig()?.pagination?.pageStart ?? 1 } : {})
+      } as any);
+    },
+    [mergeParams]
+  );
 
   const handleChangePage = React.useCallback((page: number) => mergeParams({ page } as P), [mergeParams]);
   const handleChangePerPage = React.useCallback((perPage: number) => mergeParams({ perPage } as P), [mergeParams]);
@@ -155,7 +169,7 @@ export default function useObservablePaginated<P extends IPaginationParams, R>(
     result: data.result,
     hasMore: data.hasMore,
     error,
-    retry,
+    refresh,
     mergeParams,
     handleSort,
     handleChangePage,

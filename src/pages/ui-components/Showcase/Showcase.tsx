@@ -1,10 +1,10 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import CardMUI from '@mui/material/Card';
 import CardActionsMUI from '@mui/material/CardActions';
 import CardContentMUI from '@mui/material/CardContent';
 import ModalMUI from '@mui/material/Modal';
-import clsx from 'clsx';
 
 import { getReactChildrenComponent, getReactFirstChildrenProps } from '../Helpers/functions';
 import nestedComponent from '../Helpers/nestedComponent';
@@ -199,7 +199,7 @@ const Showcase: React.FC<IShowcaseProps> = props => {
   return (
     <ModalMUI {...rest} open={modalState} onClose={handleClose}>
       <ShowcaseContextProvider value={contextValue}>
-        <div className={clsx(className, size && classes[size], classes.modalContent)}>
+        <div className={cx(className, size && classes[size], classes.modalContent)}>
           <CardMUI className='card-mui'>
             <Header />
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import BoxMUI, { BoxProps } from '@mui/material/Box';
-import clsx from 'clsx';
 
 import useStyles from './styles';
 
@@ -30,7 +30,7 @@ const Box: React.FC<IBoxProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <BoxMUI {...rest} className={clsx(className, classes.box, paper && classes.paper)}>
+    <BoxMUI {...rest} className={cx(className, classes.box, paper && classes.paper)}>
       {children}
     </BoxMUI>
   );

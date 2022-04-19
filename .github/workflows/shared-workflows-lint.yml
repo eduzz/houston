@@ -1,0 +1,29 @@
+name: zSharedWorkflowsLint
+
+on:
+  workflow_call:
+    inputs:
+      skip-docs:
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  lint:
+    name: Lint and Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Node
+        uses: actions/setup-node@v3
+      - name: Prepare Env
+        run: yarn install
+      - name: Lint
+        run: yarn lint
+      - name: Build
+        shell: bash
+        run: yarn build
+      - name: Build Docs
+        if: ${{ inputs.skip-docs == 'false' }}
+        run: yarn build:docs

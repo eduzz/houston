@@ -1,8 +1,11 @@
+import { cx as emotionCx } from '@emotion/css';
 import emotionStyled from '@emotion/styled';
 import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
 
 export { keyframes } from '@emotion/react';
-export { cx } from '@emotion/css';
+
+export const clsx = emotionCx;
+export const cx = emotionCx;
 
 export interface IStyledProp {
   className?: string;

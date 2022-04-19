@@ -6,14 +6,17 @@ import { useContextSelector } from 'use-context-selector';
 import SelectField from '../../Forms/Select';
 import TextField from '../../Forms/Text';
 import Column from '../../Grid/Column';
+import Container from '../../Grid/Container';
 import Row from '../../Grid/Row';
-import createUseStyles from '../../styles/createUseStyles';
+import styled, { breakpoints, IStyledProp } from '../../styled';
 import Typography from '../../Typography';
 import TableContext from '../context';
 
 type ITablePaginationExtends = 'id' | 'className' | 'children';
 
-export interface ITablePagination extends Pick<React.HTMLAttributes<HTMLTableRowElement>, ITablePaginationExtends> {
+export interface ITablePagination
+  extends Pick<React.HTMLAttributes<HTMLTableRowElement>, ITablePaginationExtends>,
+    IStyledProp {
   page: number;
   perPage: number;
   total: number;
@@ -24,55 +27,6 @@ export interface ITablePagination extends Pick<React.HTMLAttributes<HTMLTableRow
   onChangePerPage: (rowsPerPage: number) => void;
 }
 
-const useStyles = createUseStyles(theme => ({
-  td: {
-    padding: '12px 0'
-  },
-
-  perPage: {
-    width: 200,
-    display: 'inline-flex',
-    alignItems: 'center',
-
-    '& > p': {
-      whiteSpace: 'nowrap',
-      marginRight: theme.spacing(2),
-      color: theme.colors.grey[600]
-    }
-  },
-
-  labels: {
-    display: 'inline-flex',
-    alignItems: 'center',
-
-    '& > p': {
-      whiteSpace: 'nowrap',
-      marginRight: theme.spacing(2),
-      color: theme.colors.grey[600]
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      display: 'none'
-    }
-  },
-
-  input: {
-    maxWidth: 50
-  },
-
-  pages: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    height: '100%',
-    alignItems: 'center',
-
-    [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(2),
-      justifyContent: 'center'
-    }
-  }
-}));
-
 const Pagination = React.memo<ITablePagination>(
   ({
     page,
@@ -82,12 +36,10 @@ const Pagination = React.memo<ITablePagination>(
     total,
     perPage,
     labelGoToPage,
-    labelItensPerPage
+    labelItensPerPage,
+    className
   }) => {
-    const classes = useStyles();
-
     const loading = useContextSelector(TableContext, context => context.loading);
-
     const [pageInput, setPageInput] = React.useState<string>(page?.toString());
 
     const optionsPerPage = React.useMemo(() => {
@@ -164,59 +116,61 @@ const Pagination = React.memo<ITablePagination>(
     }, [page]);
 
     return (
-      <tfoot>
+      <tfoot className={className}>
         <tr>
-          <td colSpan={1000} className={classes.td}>
-            <Row>
-              <Column xs={12} sm='auto'>
-                <Row justifyContent='center'>
-                  <Column xs='auto' className={classes.perPage}>
-                    <Typography size='small' fontWeight='semibold'>
-                      {labelItensPerPage ?? 'Itens por página:'}
-                    </Typography>
+          <td colSpan={1000} className='__td'>
+            <Container>
+              <Row>
+                <Column xs={12} sm='auto'>
+                  <Row justifyContent='center'>
+                    <Column xs='auto' className='__perPage'>
+                      <Typography size='small' fontWeight='semibold'>
+                        {labelItensPerPage ?? 'Itens por página:'}
+                      </Typography>
 
-                    <SelectField
+                      <SelectField
+                        disabled={loading}
+                        size='small'
+                        margin='none'
+                        options={optionsPerPage}
+                        value={perPage}
+                        onChange={handleChangePerPage}
+                      />
+                    </Column>
+
+                    <Column xs='auto' className='__labels'>
+                      <Typography size='small' fontWeight='semibold'>
+                        {labelGoToPage ?? 'Ir para:'}
+                      </Typography>
+
+                      <TextField
+                        margin='none'
+                        size='small'
+                        disabled={loading}
+                        value={pageInput}
+                        className='__input'
+                        onChange={handlePageInputChange}
+                        onKeyUp={handlePageInputChange}
+                        onBlur={handlePageInputChange}
+                      />
+                    </Column>
+                  </Row>
+                </Column>
+
+                <Column xs={12} sm={true}>
+                  <div className='__pages'>
+                    <PaginationMUI
+                      count={Math.ceil(total / perPage)}
+                      page={page ?? 1}
                       disabled={loading}
-                      size='small'
-                      margin='none'
-                      options={optionsPerPage}
-                      value={perPage}
-                      onChange={handleChangePerPage}
+                      shape='rounded'
+                      size='medium'
+                      onChange={handleChangePage}
                     />
-                  </Column>
-
-                  <Column xs='auto' className={classes.labels}>
-                    <Typography size='small' fontWeight='semibold'>
-                      {labelGoToPage ?? 'Ir para:'}
-                    </Typography>
-
-                    <TextField
-                      margin='none'
-                      size='small'
-                      disabled={loading}
-                      value={pageInput}
-                      className={classes.input}
-                      onChange={handlePageInputChange}
-                      onKeyUp={handlePageInputChange}
-                      onBlur={handlePageInputChange}
-                    />
-                  </Column>
-                </Row>
-              </Column>
-
-              <Column xs={12} sm={true}>
-                <div className={classes.pages}>
-                  <PaginationMUI
-                    count={Math.ceil(total / perPage)}
-                    page={page ?? 1}
-                    disabled={loading}
-                    shape='rounded'
-                    size='medium'
-                    onChange={handleChangePage}
-                  />
-                </div>
-              </Column>
-            </Row>
+                  </div>
+                </Column>
+              </Row>
+            </Container>
           </td>
         </tr>
       </tfoot>
@@ -224,4 +178,53 @@ const Pagination = React.memo<ITablePagination>(
   }
 );
 
-export default Pagination;
+export default styled(Pagination)`
+  & > tr {
+    & .__td {
+      padding: 12px 0;
+    }
+
+    .__perPage {
+      width: 200px;
+      display: inline-flex;
+      align-items: center;
+
+      & > p {
+        white-space: nowrap;
+        margin-right: ${({ theme }) => theme.spacing(2)};
+        color: ${({ theme }) => theme.colors.grey[600]};
+      }
+    }
+
+    .__labels {
+      display: inline-flex;
+      align-items: center;
+
+      & > p {
+        white-space: nowrap;
+        margin-right: ${({ theme }) => theme.spacing(2)};
+        color: ${({ theme }) => theme.colors.grey[600]};
+      }
+
+      ${breakpoints.down('sm')} {
+        display: none;
+      }
+    }
+
+    .__input {
+      max-width: 50px;
+    }
+
+    .__pages {
+      display: flex;
+      justify-content: flex-end;
+      height: 100%;
+      align-items: center;
+
+      ${breakpoints.down('sm')} {
+        margin-top: ${({ theme }) => theme.spacing(2)};
+        justify-content: center;
+      }
+    }
+  }
+`;

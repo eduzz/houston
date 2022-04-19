@@ -16,7 +16,7 @@
         "@eduzz/houston-icons": "*",
         "@eduzz/houston-forms": "*",
         "@eduzz/houston-experimental": "*",
-        "dokz": "latest",
+        "dokz": "2.0.9",
         "next": "^12",
         "react": "^17",
         "react-dom": "^17"

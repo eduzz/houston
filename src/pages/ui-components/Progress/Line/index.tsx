@@ -1,9 +1,9 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper, { StepperProps } from '@mui/material/Stepper';
-import clsx from 'clsx';
 
 import createUseStyles from '../../styles/createUseStyles';
 import ProgressBar from './ProgressBar';
@@ -38,7 +38,7 @@ const ProgressLine: React.FC<IProgressLineProps> = ({ steps, currentStep = 0, ..
   return (
     <>
       <Stepper
-        className={clsx([classes.root, !!props.className && props.className])}
+        className={cx([classes.root, !!props.className && props.className])}
         activeStep={currentStep}
         connector={null}
       >
