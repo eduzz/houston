@@ -1,61 +1,67 @@
 {
   "private": true,
   "name": "@eduzz/houston-workspaces",
-  "version": "0.42.7",
+  "version": "0.42.9-beta.1",
   "workspaces": [
     "src/pages/*",
     "src/dev",
     "src"
   ],
   "scripts": {
+    "commit": "node ./scripts/git-check-files.js && git-cz",
     "prebuild": "yarn clean",
-    "build": "yarn ultra -r -b --concurrency 10 --filter \"src/pages/*\" build",
+    "build": "yarn tsc -p .",
     "build:dev": "yarn swc ./src/pages -d ./src",
     "build:docs": "(cd src && yarn build)",
-    "start": "sh ./scripts/start.sh",
+    "start": "node ./scripts/start.js",
     "start:docs": "concurrently -r \"yarn start:watch\" \"(cd src && yarn start)\"",
     "start:dev": "concurrently -r \"yarn start:watch\" \"(cd src/dev && yarn start)\"",
     "start:watch": "yarn swc ./src/pages -d ./src -w",
     "prepare": "sh ./scripts/prepare.sh",
-    "publish": "NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN sh ./scripts/publish-all.sh",
-    "change-version": "sh ./scripts/change-version.sh",
-    "create-icons": "sh ./scripts/create-icons.sh",
+    "publish": "NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN node ./scripts/publish-all.js",
+    "change-version": "node ./scripts/change-version.js",
+    "create-icons": "node ./scripts/create-icons.js",
     "clean": "sh ./scripts/clean.sh",
     "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\" \"./**/*.mdx\"",
     "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -f yarn.lock && yarn install",
-    "pre-commit": "concurrently -r \"yarn lint\" \"yarn ultra -r pre-commit\""
+    "pre-commit": "concurrently -r \"yarn lint\" \"yarn tsc -p . --noEmit\""
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "devDependencies": {
-    "@babel/core": "7.17.8",
-    "@commitlint/cli": "14.1.0",
-    "@commitlint/config-conventional": "14.1.0",
-    "@swc/cli": "0.1.52",
-    "@swc/core": "1.2.118",
-    "@swc/helpers": "0.3.2",
-    "@types/faker": "5.5.9",
-    "@typescript-eslint/eslint-plugin": "5.3.1",
-    "@typescript-eslint/parser": "5.3.1",
-    "concurrently": "6.3.0",
-    "eslint": "8.2.0",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-eslint-plugin": "4.0.2",
-    "eslint-plugin-import": "2.25.3",
-    "eslint-plugin-mdx": "1.16.0",
+    "@babel/core": "7.17.9",
+    "@commitlint/cli": "16.2.3",
+    "@commitlint/config-conventional": "16.2.1",
+    "@swc/cli": "0.1.57",
+    "@swc/core": "1.2.168",
+    "@swc/helpers": "0.3.8",
+    "@typescript-eslint/eslint-plugin": "5.20.0",
+    "@typescript-eslint/parser": "5.20.0",
+    "concurrently": "7.1.0",
+    "commitizen": "4.2.4",
+    "eslint": "8.13.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-eslint-plugin": "4.1.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-mdx": "1.17.0",
     "eslint-plugin-prettier": "4.0.0",
-    "eslint-plugin-react": "7.27.0",
-    "eslint-plugin-react-hooks": "4.3.0",
-    "eslint-plugin-sonarjs": "0.10.0",
+    "eslint-plugin-react": "7.29.4",
+    "eslint-plugin-react-hooks": "4.4.0",
+    "eslint-plugin-sonarjs": "0.13.0",
     "eslint-plugin-unused-imports": "2.0.0",
-    "chokidar": "3.5.2",
-    "faker": "5.5.3",
+    "cz-conventional-changelog": "3.3.0",
+    "chokidar": "3.5.3",
+    "@faker-js/faker": "6.1.2",
     "husky": "7.0.4",
-    "inquirer": "8.2.0",
+    "inquirer": "8.2.2",
     "ora": "5",
     "patch-package": "*",
-    "prettier": "2.4.1",
-    "semver": "7.3.5",
-    "typescript": "4.4",
-    "ultra-runner": "3.10.5"
+    "prettier": "2.6.2",
+    "semver": "7.3.7",
+    "typescript": "4.6"
   },
   "resolutions": {
     "react": "^17",
@@ -64,10 +70,5 @@
     "**/@emotion/react": "^11",
     "gatsby-plugin-emotion": "^6",
     "theme-ui": "^0.6"
-  },
-  "ultra": {
-    "concurrent": [
-      "lint"
-    ]
   }
 }

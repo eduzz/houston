@@ -9,9 +9,14 @@ on:
     secrets:
         NPM_AUTH_TOKEN:
           required: true
+        DISCORD_RELEASE_WEBHOOK_ID:
+          required: true
+        DISCORD_RELEASE_WEBHOOK_TOKEN:
+          required: true
 
 jobs:
   publish:
+    name: Build and Publish
     runs-on: ubuntu-latest
     steps:
       - name: Clone

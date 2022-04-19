@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-experimental",
   "description": "Eduzz Houston Experimental",
-  "version": "0.42.7",
+  "version": "0.42.9-beta.1",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -15,15 +15,10 @@
   "bugs": {
     "url": "https://github.com/eduzz/houston/issues"
   },
-  "scripts": {
-    "start": "yarn tsc -w --preserveWatchOutput --isolatedModules --incremental",
-    "build": "tsc -p .",
-    "pre-commit": "tsc -p . --noEmit"
-  },
   "dependencies": {
-    "@eduzz/houston-ui": "0.42.7",
-    "@eduzz/houston-hooks": "0.42.7",
-    "@eduzz/houston-icons": "0.42.7",
+    "@eduzz/houston-ui": "0.42.9-beta.1",
+    "@eduzz/houston-hooks": "0.42.9-beta.1",
+    "@eduzz/houston-icons": "0.42.9-beta.1",
     "@emotion/css": "^11",
     "@mui/material": "^5",
     "@mui/styles": "^5",
@@ -32,6 +27,6 @@
     "tslib": "^2"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.42.7"
+    "@eduzz/houston-core": "0.42.9-beta.1"
   }
 }
