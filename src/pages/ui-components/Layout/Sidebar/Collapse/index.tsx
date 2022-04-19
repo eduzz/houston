@@ -5,7 +5,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import ChevronLeftIcon from '@eduzz/houston-icons/ChevronLeft';
 
-import styled, { IStyledProp } from '../../styles/styled';
+import styled, { IStyledProp } from '../../../styles/styled';
 import SidebarContext from '../context';
 
 interface ISidebarCollapseProps extends IStyledProp {}

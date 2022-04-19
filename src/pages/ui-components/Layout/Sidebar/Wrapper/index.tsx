@@ -3,16 +3,16 @@ import * as React from 'react';
 import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp } from '../../styles/styled';
+import styled, { IStyledProp } from '../../../styles/styled';
 import Collapse from '../Collapse';
 import SidebarContext, { SIDEBAR_WIDTH, SIDEBAR_WIDTH_COLLAPSED, TOOLBAR_HEIGHT } from '../context';
 
-export interface ISidebarContentProps extends IStyledProp {
+export interface ILayoutContentProps extends IStyledProp {
   id?: string;
   children: React.ReactNode;
 }
 
-const SidebarContent: React.FC<ISidebarContentProps> = ({ className, children, ...rest }) => {
+const SidebarWrapper: React.FC<ILayoutContentProps> = ({ className, children, ...rest }) => {
   const visible = useContextSelector(SidebarContext, context => context.mobileVisible);
   const onRequestClose = useContextSelector(SidebarContext, context => context.onRequestClose);
 
@@ -49,9 +49,10 @@ const SidebarContent: React.FC<ISidebarContentProps> = ({ className, children, .
   );
 };
 
-export default styled(SidebarContent, { label: 'houston-sidebar-content' })`
+export default styled(SidebarWrapper, { label: 'houston-sidebar-wrapper' })`
   width: ${SIDEBAR_WIDTH}px;
   transition: 0.2s linear;
+  height: auto;
 
   & > .__sidebar {
     background: #fff;

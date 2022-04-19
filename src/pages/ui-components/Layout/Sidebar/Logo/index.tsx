@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp } from '../../styles/styled';
+import styled, { IStyledProp } from '../../../styles/styled';
 import SidebarContext from '../context';
 
 export interface ISidebarLogoProps extends IStyledProp {
@@ -21,6 +21,7 @@ const SidebarLogo: React.FC<ISidebarLogoProps> = ({ className, image, imageColla
   const collapsed = useContextSelector(SidebarContext, context => context.collapsed);
   const inside = useContextSelector(SidebarContext, context => context.insideComponent);
 
+  // remover render
   const currentImage = React.useMemo(() => {
     if (isMobile) {
       return image;

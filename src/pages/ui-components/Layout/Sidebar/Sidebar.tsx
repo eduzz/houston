@@ -4,8 +4,7 @@ import { Theme, useMediaQuery } from '@mui/material';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
-import nestedComponent from '../Helpers/nestedComponent';
-import Content from './Content';
+import nestedComponent from '../../Helpers/nestedComponent';
 import SidebarContext, { ISidebarContext } from './context';
 import Logo from './Logo';
 import Menu from './Menu';
@@ -36,7 +35,6 @@ export interface ISidebarProps {
    */
   collapsible?: boolean;
   onCollapse?: (collapsed: boolean) => void;
-
   children: React.ReactNode;
 }
 
@@ -66,7 +64,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
   const contextValue = React.useMemo<ISidebarContext>(
     () => ({
       currentLocation,
-      menuIsActive: (path: string) => (!path ? false : path === currentLocation || currentLocation.startsWith(path)),
+      menuIsActive: (path: string) => (!path ? false : path === currentLocation || currentLocation?.startsWith(path)),
       hasToolbar,
       onRequestClose,
       isMobile,
@@ -95,7 +93,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
 
   React.useEffect(() => {
     if (!mobileVisible) return;
-    onRequestClose();
+    onRequestClose && onRequestClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLocation]);
 
@@ -107,6 +105,5 @@ export default nestedComponent(Sidebar, {
   Menu,
   MenuItem,
   SubMenuItem,
-  Content,
   Wrapper
 });

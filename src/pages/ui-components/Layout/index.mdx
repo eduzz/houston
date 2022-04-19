@@ -1,0 +1,109 @@
+---
+name: Layout
+---
+
+# Sidebar
+
+Estrutura de menu lateral.
+
+### Importação
+
+```ts
+import Sidebar from '@eduzz/houston-ui/Sidebar';
+```
+
+### Exemplo
+
+```jsx
+<Sidebar currentLocation={location.pathname} mobileVisible={visible} onRequestClose={toggleMenu}>
+  <Sidebar.Content>
+    <Sidebar.Logo
+      alt='Logo'
+      image={...}
+      imageCollapsed={svgImage}
+    />
+
+    <Sidebar.Menu>
+      <Sidebar.MenuItem as={NavLink} to='/dashboard' icon={<DashboardRoundOutline size={24} />}>
+        Dashboard
+      </Sidebar.MenuItem>
+
+      <Sidebar.SubMenuItem icon={<CartOutline size={24} />} label='Vendas'>
+        <Sidebar.MenuItem as={NavLink} to='/sales'>
+          Minhas Vendas
+        </Sidebar.MenuItem>
+      </Sidebar.SubMenuItem>
+
+      <Sidebar.MenuItem as={NavLink} icon={<Money size={24} to='/financial' />}>Financeiro</Sidebar.MenuItem>
+      <Sidebar.MenuItem as={NavLink} icon={<AppsIcon size={24} />} to='/utils'>Utilitários</Sidebar.MenuItem>
+
+      <Sidebar.SubMenuItem id='advanced' icon={<SettingsOutline size={24} />} label='Avançado'>
+        <Sidebar.MenuItem onClick={...}>Whitelist</Sidebar.MenuItem>
+        <Sidebar.MenuItem onClick={...}>Configurações da API</Sidebar.MenuItem>
+        <Sidebar.MenuItem onClick={...}>Central de Documentos Fiscais</Sidebar.MenuItem>
+      </Sidebar.SubMenuItem>
+    </Sidebar.Menu>
+  </Sidebar.Content>
+
+  <Sidebar.Wrapper>{/* Your App Here */}</Sidebar.Wrapper>
+</Sidebar>
+```
+
+### Desestruturando
+
+Para simplificar a escrita do código, você pode desestruturar os componentes.
+
+```jsx
+import Sidebar from '@eduzz/houston-ui/Sidebar';
+
+const { Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
+
+function CustomLayout() {
+  return (
+    <Sidebar>
+      {...}
+    </Sidebar>
+  );
+}
+
+export default CustomLayout;
+```
+
+### Sidebar props
+
+| prop            | tipo       | obrigatório | padrão  | descrição                                               |
+| --------------- | ---------- | ----------- | ------- | ------------------------------------------------------- |
+| currentLocation | `string`   | `false`     | -       | Caminho de localização atual (pathname).                |
+| hasToolbar      | `boolean`  | `false`     | `true`  | Aplica uma margem à parte superior da Sidebar.          |
+| mobileVisible   | `boolean`  | `true`      | `false` | Controle de exibição no mobile.                         |
+| onRequestClose  | `function` | `false`     | `false` | Função chamada ao clicar no elemento externo no mobile. |
+| collapsed       | `boolean`  | `false`     | `false` | -                                                       |
+| collapsible     | `boolean`  | `false`     | `true`  | -                                                       |
+| onCollapse      | `function` | `false`     | -       | -                                                       |
+
+### Sidebar.Logo props
+
+| prop           | tipo              | obrigatório | padrão | descrição |
+| -------------- | ----------------- | ----------- | ------ | --------- |
+| image          | `React.ReactNode` | `true`      | -      | -         |
+| imageCollapsed | `React.ReactNode` | `false`     | -      | -         |
+| alt            | `string`          | `false`     | -      | -         |
+
+### Sidebar.MenuItem props
+
+| prop     | tipo                | obrigatório | padrão  | descrição                                            |
+| -------- | ------------------- | ----------- | ------- | ---------------------------------------------------- |
+| icon     | `React.ReactNode`   | `false`     | -       | -                                                    |
+| isActive | `boolean`           | `false`     | `false` | -                                                    |
+| as       | `React.ElementType` | `false`     | -       | Componente que envolve o item.                       |
+| to       | `string`            | `false`     | -       | Caminho de redirecionamento (se houver a prop `as`). |
+
+### Sidebar.SubMenuItem props
+
+| prop            | tipo              | obrigatório | padrão  | descrição                                     |
+| --------------- | ----------------- | ----------- | ------- | --------------------------------------------- |
+| id              | `string`          | `true`      | -       | Chave única usada internamente (não repetir). |
+| label           | `React.ReactNode` | `false`     | -       | -                                             |
+| icon            | `React.ReactNode` | `false`     | -       | -                                             |
+| isActive        | `boolean`         | `false`     | `false` | -                                             |
+| startedExpanded | `boolean`         | `false`     | -       | -                                             |
