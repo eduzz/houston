@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "./",
+    "outDir": "./src/pages",
     "declaration": true,
-    "declarationDir": "./",
+    "declarationDir": "./src/pages",
     "module": "CommonJS",
     "target": "ES5",
     "experimentalDecorators": true,
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "sourceMap": false,
     "jsx": "react-jsx",
     "moduleResolution": "node",
@@ -28,10 +25,11 @@
     "isolatedModules": true
   },
   "include": [
-    "**/*.tsx",
-    "**/*.ts"
+    "./src/pages/**/*.tsx",
+    "./src/pages/**/*.ts"
   ],
   "exclude": [
+    "./src/pages/**/*.d.ts",
     "node_modules"
   ]
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { getConfig } from '../config';
 import usePromise from '../usePromise';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -70,7 +71,14 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
   const [isLoading, setIsLoading] = React.useState(true);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 
-  const [initialParams] = React.useState<P>(() => ({ page: 1, perPage: 25, ...(initialParamsOption ?? {}) } as P));
+  const [initialParams] = React.useState<P>(
+    () =>
+      ({
+        page: getConfig()?.pagination?.pageStart ?? 1,
+        perPage: getConfig()?.pagination?.perPage ?? 25,
+        ...(initialParamsOption ?? {})
+      } as P)
+  );
   const [params, setParams] = React.useState<P>(() => ({ ...initialParams }));
 
   const mergeParams = React.useCallback(
@@ -126,8 +134,8 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
 
   const refresh = React.useCallback(() => {
     setIsLoading(true);
-    mergeParams({ page: initialParams?.page ?? 1, _refresh: Date.now() } as any);
-  }, [initialParams?.page, mergeParams]);
+    mergeParams({ page: getConfig()?.pagination?.pageStart ?? 1, _refresh: Date.now() } as any);
+  }, [mergeParams]);
 
   const handleChangePage = React.useCallback((page: number) => mergeParams({ page } as P), [mergeParams]);
   const handleChangePerPage = React.useCallback((perPage: number) => mergeParams({ perPage } as P), [mergeParams]);

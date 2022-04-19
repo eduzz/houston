@@ -12,6 +12,7 @@ on:
 
 jobs:
   check-version:
+    name: Check version
     runs-on: ubuntu-latest
     steps:
       - name: Clone
@@ -26,6 +27,7 @@ jobs:
       BETA: ${{ steps.current-version.outputs.BETA }}
 
   should-release:
+    name: Should Release
     runs-on: ubuntu-latest
     steps:
       - name: Clone
