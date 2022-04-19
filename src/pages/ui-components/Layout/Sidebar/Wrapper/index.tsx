@@ -7,12 +7,12 @@ import styled, { IStyledProp } from '../../../styles/styled';
 import Collapse from '../Collapse';
 import SidebarContext, { SIDEBAR_WIDTH, SIDEBAR_WIDTH_COLLAPSED, TOOLBAR_HEIGHT } from '../context';
 
-export interface ILayoutContentProps extends IStyledProp {
+export interface ISidebarWrapper extends IStyledProp {
   id?: string;
   children: React.ReactNode;
 }
 
-const SidebarWrapper: React.FC<ILayoutContentProps> = ({ className, children, ...rest }) => {
+const SidebarWrapper: React.FC<ISidebarWrapper> = ({ className, children, ...rest }) => {
   const visible = useContextSelector(SidebarContext, context => context.mobileVisible);
   const onRequestClose = useContextSelector(SidebarContext, context => context.onRequestClose);
 
