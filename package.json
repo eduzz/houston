@@ -8,6 +8,7 @@
     "src"
   ],
   "scripts": {
+    "commit": "git-cz",
     "prebuild": "yarn clean",
     "build": "yarn ultra -r -b --concurrency 10 --filter \"src/pages/*\" build",
     "build:dev": "yarn swc ./src/pages -d ./src",
@@ -25,6 +26,11 @@
     "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -f yarn.lock && yarn install",
     "pre-commit": "concurrently -r \"yarn lint\" \"yarn ultra -r pre-commit\""
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "devDependencies": {
     "@babel/core": "7.17.9",
     "@commitlint/cli": "16.2.3",
@@ -35,6 +41,7 @@
     "@typescript-eslint/eslint-plugin": "5.20.0",
     "@typescript-eslint/parser": "5.20.0",
     "concurrently": "7.1.0",
+    "commitizen": "4.2.4",
     "eslint": "8.13.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-eslint-plugin": "4.1.0",
@@ -45,6 +52,7 @@
     "eslint-plugin-react-hooks": "4.4.0",
     "eslint-plugin-sonarjs": "0.13.0",
     "eslint-plugin-unused-imports": "2.0.0",
+    "cz-conventional-changelog": "3.3.0",
     "chokidar": "3.5.3",
     "@faker-js/faker": "6.1.2",
     "husky": "7.0.4",
