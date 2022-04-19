@@ -38,6 +38,7 @@ export default styled(React.memo(SidebarCollapse), { label: 'houston-sidebar-col
   cursor: pointer;
   opacity: 0;
   transition: 0.15s linear;
+  z-index: 2;
 
   &:hover {
     background: rgba(${({ theme }) => theme.hexToRgb(theme.colors.primary.dark)}, 0.72);
