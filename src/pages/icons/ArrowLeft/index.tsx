@@ -1,10 +1,10 @@
-import * as React from 'react';
+import { memo } from 'react';
 
 import { IconWebBase } from '../interfaces';
 import IconBase from '../utils/wrapperWeb';
 import Icon from './svg';
 
-const IconArrowLeft = React.memo<IconWebBase>(({ ...rest }) => (
+const IconArrowLeft = memo<IconWebBase>(({ ...rest }) => (
   <IconBase {...rest}>
     <Icon />
   </IconBase>

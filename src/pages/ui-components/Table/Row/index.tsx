@@ -91,12 +91,9 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
         {children}
 
         {hasActions && (
-          <td
-            align='right'
-            className={cx('__houston-row-cell-action', tableSize === 'small' && '--small', 'houston-table-action-cell')}
-          >
+          <td align='right' className={cx('houston-table-action-cell', tableSize === 'small' && '--small')}>
             {hasActions && !actionLoading && (
-              <div onClick={onClickAction} className='__houston-table-icon-action'>
+              <div onClick={onClickAction} className='houston-table-icon-action'>
                 {oneAction?.icon ?? <IconDotsHorizontal size={24} />}
               </div>
             )}
@@ -105,28 +102,15 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
         )}
 
         {!hasActions && hasActionInRows && (
-          <td
-            className={cx(
-              '__houston-table-cell-collapse',
-              tableSize === 'small' && '--small',
-              'houston-houston-table-collapse-cell'
-            )}
-          />
+          <td className={cx('houston-houston-table-collapse-cell', tableSize === 'small' && '--small')} />
         )}
 
         {!isCollapseContent && hasCollapse && (
-          <td
-            align='right'
-            className={cx(
-              '__houston-table-cell-collapse',
-              tableSize === 'small' && '--small',
-              'houston-houston-table-collapse-cell'
-            )}
-          >
+          <td align='right' className={cx('houston-houston-table-collapse-cell', tableSize === 'small' && '--small')}>
             <div
               onClick={toogleShowCollapse}
               className={cx(
-                '__houston-table-icon-action',
+                'houston-table-icon-action',
                 'houston-table-collapse-button',
                 showCollapse && 'houston-table-collapse-button-opened'
               )}
@@ -139,7 +123,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
         {!hasCollapse && hasCollapseInRows && (
           <td
             className={cx(
-              '__houston-table-cell-collapse',
+              'houston-houston-table-collapse-cell',
               tableSize === 'small' && '--small',
               'houston-houston-table-collapse-cell'
             )}
@@ -153,7 +137,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 });
 
 export default styled(TableRow)`
-  .__houston-table-cell-action {
+  .houston-table-action-cell {
     padding: 6px 12px;
     border-top: 1px solid ${({ theme }) => theme.colors.grey[200]}};
     font-size: ${({ theme }) => theme.textSize('normal')}px;
@@ -163,7 +147,7 @@ export default styled(TableRow)`
     }
   }
 
-  .__houston-table-cell-collapse {
+  .houston-houston-table-collapse-cell {
     padding-right: 8px;
     border-top: 1px solid  ${({ theme }) => theme.colors.grey[200]};
     font-size: ${({ theme }) => theme.textSize('normal')}px;
@@ -173,7 +157,7 @@ export default styled(TableRow)`
     }
   }
 
-  .__houston-table-icon-action {
+  .houston-table-icon-action {
     display: inline-flex;
     padding: 4px;
     transition: background-color 0.2s linear;
