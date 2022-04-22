@@ -35,10 +35,11 @@ export default function setHoustonHooksConfig(config: IHoustonHooksConfig) {
 
 async function configRxjs() {
   try {
-    const rxjs = await import('rxjs');
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const rxjs = require('rxjs');
 
     if (rxjs.config && !rxjs.config.onUnhandledError) {
-      rxjs.config.onUnhandledError = err => _config.onUnhandledError(err, 'rxjs');
+      rxjs.config.onUnhandledError = (err: any) => _config.onUnhandledError(err, 'rxjs');
     }
   } catch (err) {
     /* Sem problemas, o projeto não tem rxjs */
