@@ -30,15 +30,19 @@ export default function setHoustonHooksConfig(config: IHoustonHooksConfig) {
     }
   };
 
-  import('rxjs')
-    .then(rxjs => {
-      if (rxjs.config && !rxjs.config.onUnhandledError) {
-        rxjs.config.onUnhandledError = err => config.onUnhandledError(err, 'rxjs');
-      }
-    })
-    .catch(() => {
-      /* Sem problemas, o projeto não tem rxjs */
-    });
+  configRxjs();
+}
+
+async function configRxjs() {
+  try {
+    const rxjs = await import('rxjs');
+
+    if (rxjs.config && !rxjs.config.onUnhandledError) {
+      rxjs.config.onUnhandledError = err => _config.onUnhandledError(err, 'rxjs');
+    }
+  } catch (err) {
+    /* Sem problemas, o projeto não tem rxjs */
+  }
 }
 
 export function getConfig() {
