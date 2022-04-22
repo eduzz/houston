@@ -1,7 +1,7 @@
 # Eduzz Houston
 
 
-[![Publish](https://github.com/eduzz/houston/actions/workflows/master.yml/badge.svg)](https://github.com/eduzz/houston/actions/workflows/master.yml) [![version](https://img.shields.io/npm/v/@eduzz/houston-core)](https://www.npmjs.com/package/@eduzz/houston-ui)
+[![Publish](https://github.com/eduzz/houston/actions/workflows/master.yml/badge.svg?branch=master)](https://github.com/eduzz/houston/actions/workflows/master.yml) [![version](https://img.shields.io/npm/v/@eduzz/houston-core)](https://www.npmjs.com/package/@eduzz/houston-ui)
 
 <img src="/src/public/img/welcome.png" width="100%" />
 
