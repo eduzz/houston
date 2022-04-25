@@ -35,6 +35,10 @@
     {
       "name": "@eduzz/houston-experimental",
       "path": "./src/pages/experimental"
+    },
+    {
+      "name": "@eduzz/houston-tokens",
+      "path": "./src/pages/tokens"
     }
   ],
   "settings": {
