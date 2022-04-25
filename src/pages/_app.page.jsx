@@ -20,6 +20,7 @@ export default function App(props) {
   return (
     <ChakraProvider resetCSS>
       <Head>
+        <link rel='shortcut icon' href='/houston/img/favicon.ico' />
         <link href='https://fonts.googleapis.com/css?family=Fira+Code' rel='stylesheet' key='google-font-Fira' />
         <link href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700' rel='stylesheet' />
       </Head>

@@ -1,36 +1,3 @@
 {
-  "compilerOptions": {
-    "outDir": "./",
-    "declaration": true,
-    "declarationDir": "./",
-    "module": "CommonJs",
-    "target": "es5",
-    "experimentalDecorators": true,
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "sourceMap": false,
-    "jsx": "react",
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": false,
-    "noUnusedLocals": true,
-    "importHelpers": true,
-    "skipLibCheck": true
-  },
-  "include": [
-    "./**/*.tsx",
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "./*.d.ts",
-    "./**/*.d.ts",
-    "./**/*.d.ts"
-  ]
+  "extends": "../../../tsconfig.json"
 }

@@ -78,7 +78,8 @@
       "**/bin/**": true,
       "**/obj/**": true,
       "tsconfig.tsbuildinfo": true,
-      "!src/pages/.jsx": true
+      "!src/pages/.jsx": true,
+      "src/pages/icons/Add": true
     },
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true

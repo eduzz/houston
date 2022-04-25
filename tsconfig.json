@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "outDir": "./src/pages",
+    "declaration": true,
+    "declarationDir": "./src/pages",
+    "module": "CommonJS",
+    "target": "ES6",
+    "experimentalDecorators": true,
+    "lib": ["es2020", "dom"],
+    "sourceMap": false,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": false,
+    "noUnusedLocals": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "./src/pages/**/*.tsx",
+    "./src/pages/**/*.ts"
+  ],
+  "exclude": [
+    "./src/pages/**/*.d.ts",
+    "node_modules"
+  ]
+}

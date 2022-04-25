@@ -1,10 +1,13 @@
 const nodeVersion = process.version.replace('v', '');
 const fs = require('fs');
-
-
 const childProccess = require('child_process');
-const semver = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/semver`);
-const ora = require(`/opt/hostedtoolcache/node/${nodeVersion}/x64/lib/node_modules/ora`);
+
+const globalPackages = childProccess.execSync("npm root -g")
+  .toString()
+  .trim();
+
+const semver = require(`${globalPackages}/semver`);
+const ora = require(`${globalPackages}/ora`);
 
 let currentVersion = require('../package.json').version;
 

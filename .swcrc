@@ -1,0 +1,21 @@
+{
+  "test": ".*\\.tsx?$",
+  "exclude": [".*.js$", ".*.map$", "node_modules", "build"],
+  "module": {
+    "type": "commonjs"
+  },
+  "jsc": {
+    "externalHelpers": true,
+    "target": "es5",
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true
+    },
+    "transform": {
+      "react": {
+        "runtime": "automatic"
+      }
+    },
+    "keepClassNames": true
+  }
+}

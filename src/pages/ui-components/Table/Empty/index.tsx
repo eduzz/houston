@@ -2,24 +2,15 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '@eduzz/houston-ui/styles/createUseStyles';
-
+import styled, { IStyledProp, cx } from '../../styles/styled';
 import Typography from '../../Typography';
 import TableContext from '../context';
 
-export interface ITableEmptyProps {
+export interface ITableEmptyProps extends IStyledProp {
   count: number;
   children?: React.ReactNode;
 }
-const useStyles = createUseStyles(theme => ({
-  text: {
-    padding: theme.spacing(5)
-  }
-}));
-
-const TableEmpty = React.memo<ITableEmptyProps>(({ children, count }) => {
-  const classes = useStyles();
-
+const TableEmpty = React.memo<ITableEmptyProps>(({ children, count, className }) => {
   const columnsLen = useContextSelector(TableContext, context => context.columns.length);
 
   if (count) return null;
@@ -27,10 +18,10 @@ const TableEmpty = React.memo<ITableEmptyProps>(({ children, count }) => {
   children = children ?? 'Nenhum dado encontrado';
 
   return (
-    <tr className='table-empty-message'>
+    <tr className={cx(className, 'table-empty-message')}>
       <td align='center' colSpan={columnsLen}>
         {typeof children === 'string' ? (
-          <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className={classes.text}>
+          <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className='__text'>
             {children}
           </Typography>
         ) : (
@@ -41,4 +32,8 @@ const TableEmpty = React.memo<ITableEmptyProps>(({ children, count }) => {
   );
 });
 
-export default TableEmpty;
+export default styled(TableEmpty)`
+  & > td > .__text {
+    padding: ${({ theme }) => theme.spacing(5)};
+  }
+`;

@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-core",
-  "version": "0.42.3",
+  "version": "0.43.2",
   "description": "Houston Core",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -14,11 +14,6 @@
   },
   "bugs": {
     "url": "https://github.com/eduzz/houston/issues"
-  },
-  "scripts": {
-    "clean": "git add . && git clean -f -x",
-    "build": "tsc -p .",
-    "pre-commit": "tsc -p . --noEmit"
   },
   "dependencies": {},
   "devDependencies": {}

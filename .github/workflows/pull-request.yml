@@ -5,34 +5,16 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  check-lint-build-docs:
+  lint:
+    uses: ./.github/workflows/shared-workflows-lint.yml
+
+  discord:
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
-      - name: Clone
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 15
       - name: Discord
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_PR_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_PR_WEBHOOK_TOKEN }}
           args: "PullRequest Criada/Atualizada: #${{ github.event.number }} \nhttps://github.com/eduzz/houston/pull/${{ github.event.number }}"
-      - name: Prepare Env
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install
-      - name: Linter
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: lint
-      - name: Build Packages
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: build
-      - name: Build Docs
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: build:docs

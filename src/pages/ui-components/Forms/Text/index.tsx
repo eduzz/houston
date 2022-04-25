@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
 import { InputLabelProps } from '@mui/material/InputLabel';
 import TextFieldMUI, { TextFieldProps } from '@mui/material/TextField';
-import clsx from 'clsx';
 import { useContextSelector } from 'use-context-selector';
 
 import IFormMask from '@eduzz/houston-core/maskAdapter';
@@ -165,7 +165,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
         {...props}
         disabled={isSubmitting || disabled || loading}
         helperText={errorMessage || helperText}
-        className={clsx(className, size === 'small' && 'input-size-small')}
+        className={cx(className, size === 'small' && 'input-size-small')}
         name={name}
         margin={margin ?? 'normal'}
         variant='outlined'
