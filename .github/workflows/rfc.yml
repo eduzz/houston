@@ -4,6 +4,10 @@ on:
   project_card: 
     types: ["created", "moved", "converted", "edited"]
 
+concurrency: 
+  group: rfc-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   request-for-comments:
     runs-on: ubuntu-latest
