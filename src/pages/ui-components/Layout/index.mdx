@@ -95,17 +95,53 @@ const { Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
 </Layout>
 ```
 
+### Controlável
+
+Há possibilidade de você controlar quando a Sidebar é recolhida/expandida.
+
+```jsx
+import Layout from '@eduzz/houston-ui/Layout';
+import Button from '@eduzz/houston-ui/Button';
+
+const { Sidebar, Content } = Layout;
+const { Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
+
+function CustomLayout() {
+  const [collapsed, setCollapsed] = useState(false);
+
+  function toggle() {
+    setCollapsed(state => !state)
+  }
+
+  return (
+    <Layout>
+      <Sidebar collapsed={collapsed} onCollapse={toggle}>
+        {...}
+      </Sidebar>
+
+      <Content>
+        <Button onClick={toggle}>Toggle collapsed</Button>
+        {...}
+      </Content>
+    </Layout>
+  );
+}
+
+export default CustomLayout;
+```
+
 ### Sidebar props
 
-| prop            | tipo       | obrigatório | padrão  | descrição                                               |
-| --------------- | ---------- | ----------- | ------- | ------------------------------------------------------- |
-| currentLocation | `string`   | `false`     | -       | Caminho de localização atual (pathname).                |
-| hasToolbar      | `boolean`  | `false`     | `true`  | Aplica uma margem à parte superior da Sidebar.          |
-| mobileVisible   | `boolean`  | `true`      | `false` | Controle de exibição no mobile.                         |
-| onRequestClose  | `function` | `false`     | `false` | Função chamada ao clicar no elemento externo no mobile. |
-| collapsed       | `boolean`  | `false`     | `false` | -                                                       |
-| collapsible     | `boolean`  | `false`     | `true`  | -                                                       |
-| onCollapse      | `function` | `false`     | -       | -                                                       |
+| prop             | tipo       | obrigatório | padrão  | descrição                                                           |
+| ---------------- | ---------- | ----------- | ------- | ------------------------------------------------------------------- |
+| currentLocation  | `string`   | `false`     | -       | Caminho de localização atual (pathname).                            |
+| hasToolbar       | `boolean`  | `false`     | `true`  | Aplica uma margem à parte superior da Sidebar.                      |
+| mobileVisible    | `boolean`  | `true`      | `false` | Controle de exibição no mobile.                                     |
+| onRequestClose   | `function` | `false`     | `false` | Função chamada ao clicar no elemento externo no mobile.             |
+| collapsed        | `boolean`  | `false`     | `false` | Se preenchido, você deve controlar quando será recolhido/expandido. |
+| initialCollapsed | `boolean`  | `false`     | `false` | -                                                                   |
+| collapsible      | `boolean`  | `false`     | `true`  | -                                                                   |
+| onCollapse       | `function` | `false`     | -       | -                                                                   |
 
 ### Sidebar.Logo props
 
