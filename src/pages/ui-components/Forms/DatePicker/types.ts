@@ -4,6 +4,7 @@ export type IOmitTextFieldProps =
   | 'maxLength'
   | 'onChange'
   | 'onBlur'
+  | 'onError'
   | 'value'
   | 'rows'
   | 'type'
