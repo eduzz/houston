@@ -1,16 +1,9 @@
 {
   "name": "@eduzz/houston-tokens",
-  "version": "0.1.0",
-  "main": "./build/index.cjs.js",
-  "module": "./build/index.es.js",
-  "types": "./build/index.es.d.ts",
-  "exports": {
-    ".": {
-      "require": "./build/index.cjs.js",
-      "import": "./build/index.es.js"
-    }
-  },
-  "sideEffects": false,
+  "description": "Eduzz Houston Tokens",
+  "version": "0.43.2",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "author": "Eduzz Team",
   "license": "MIT",
   "private": false,
@@ -22,12 +15,5 @@
   "bugs": {
     "url": "https://github.com/eduzz/houston/issues"
   },
-  "scripts": {
-    "build": "tsc && vite build"
-  },
-  "devDependencies": {
-    "typescript": "^4.6.3",
-    "vite": "^2.9.1",
-    "vite-dts": "^1.0.4"
-  }
+  "devDependencies": {}
 }

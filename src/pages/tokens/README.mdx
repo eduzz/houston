@@ -2,38 +2,10 @@
 name: Instalação
 ---
 
-# Ícones
+# Tokens
 
 ### Instalação
 
 ```bash
 yarn add @eduzz/houston-tokens
 ```
-
-### Como usar
-
-```js
-import Bullet from '@eduzz/houston-icons/Bullet';
-```
-
-### Como adicionar novos ícones
-
-- Crie uma pasta temporária chamada `_dump` dentro do repositório dos ícones,
-- Insira o(s) ícone(s) dentro da pasta temporária com seu(s) devido(s) nome(s). Por exemplo: Alert/Default.svg, Bullet/Outline.svg, ArrowDown/Solid.svg...,
-- Certifique-se que os arquivos dentro das pastas dos ícones estejam com o nome e formato corretos,
-- Rode o comando `yarn create-icon`;
-- Pronto, os ícones serão criados com suas variações.
-
-### Padrão de nomenclatura de arquivos
-
-Exemplo ícone `Alert`.
-
-- \_dump/Alert/Default.svg = Alert
-- \_dump/Alert/Outline.svg = AlertOutline
-- \_dump/Alert/Solid.svg = AlertSolid
-
-### Regras
-
-- Ícones já existentes serão ignorados. Se for necessário modificar o ícone, remova a pasta do mesmo e rode o script,
-- Arquivos com nomes diferentes dos padrões serão ignorados,
-- Os ícones serão adicionados automaticamente na documentação.

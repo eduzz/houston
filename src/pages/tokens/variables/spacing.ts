@@ -1,8 +1,8 @@
 import type { Spacing, SpacingFn } from '../types';
 
 const spacingFn: SpacingFn = (mult: number) => {
-  return `${mult * 0.25}rem`
-}
+  return `${mult * 0.25}rem`;
+};
 
 export const spacing: Spacing = {
   fn: spacingFn,

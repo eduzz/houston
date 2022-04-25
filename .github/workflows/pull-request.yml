@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
 
+concurrency: 
+  group: pr-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     uses: ./.github/workflows/shared-workflows-lint.yml
