@@ -119,7 +119,7 @@ const Pagination = React.memo<ITablePagination>(
       <tfoot className={className}>
         <tr>
           <td colSpan={1000} className='__td'>
-            <Container>
+            <Container layout='fluid'>
               <Row>
                 <Column xs={12} sm='auto'>
                   <Row justifyContent='center'>
