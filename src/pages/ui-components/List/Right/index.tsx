@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import ListItemIconMUI from '@mui/material/ListItemIcon';
 
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import IconButton from '../../ButtonIcon';
 import Typography from '../../Typography';

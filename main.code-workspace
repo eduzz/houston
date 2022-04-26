@@ -41,8 +41,8 @@
       "path": "./src/pages/tokens"
     },
     {
-      "name": "@eduzz/houston-style",
-      "path": "./src/pages/style"
+      "name": "@eduzz/houston-styles",
+      "path": "./src/pages/styles"
     }
   ],
   "settings": {

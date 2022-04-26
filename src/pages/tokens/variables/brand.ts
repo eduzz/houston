@@ -1,4 +1,4 @@
-import type { BrandColors, Brands } from '../types';
+import type { BrandColor, BrandColors, Brands } from '../types';
 
 const brands = {
   eduzz: {
@@ -73,8 +73,8 @@ const brands = {
   }
 } as BrandColors;
 
-export function createBrandColors<B extends Brands>(brand: B, custom?: BrandColors[B]): BrandColors[B] {
-  const brandVariables = brand === 'custom' ? custom : brands[brand];
+export function createBrandColors(brand: Brands | BrandColor): BrandColor {
+  const brandVariables = typeof brand === 'string' ? brands[brand] : brand;
 
   if (!brandVariables) {
     throw new Error('You must provide a valid brand');

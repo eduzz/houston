@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import Check from '@mui/icons-material/Check';
 import Warning from '@mui/icons-material/Warning';
 
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 const useStyles = createUseStyles(theme => ({
   root: {

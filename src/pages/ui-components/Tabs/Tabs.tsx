@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
+import { cx } from '@eduzz/houston-styles';
 import MUITabs from '@mui/material/Tabs';
 
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import { ITabsContentProps } from './Content';
 import TabsContext, { ITabsContext } from './context';

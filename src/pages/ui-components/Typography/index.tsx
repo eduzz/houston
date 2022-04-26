@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
-
-import styled, { IStyledProp } from '@eduzz/houston-style/styled';
+import { cx } from '@eduzz/houston-styles';
+import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
 import { HoustonTokens } from '@eduzz/houston-tokens';
 
 export type ITypographyVariant = 'secondary';

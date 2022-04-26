@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { cx, IStyledProp } from '@eduzz/houston-style/styled';
+import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
 
 import Button from '../../Button';
 import Typography from '../../Typography';

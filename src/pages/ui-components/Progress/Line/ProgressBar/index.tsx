@@ -1,6 +1,6 @@
 import LinearProgress from '@mui/material/LinearProgress';
 
-import styled from '@eduzz/houston-style/styled';
+import styled from '@eduzz/houston-styles/styled';
 
 interface IProgressBarProps {
   progress: number;

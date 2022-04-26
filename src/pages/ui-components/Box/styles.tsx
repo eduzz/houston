@@ -1,4 +1,4 @@
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import { IBoxProps } from '.';
 

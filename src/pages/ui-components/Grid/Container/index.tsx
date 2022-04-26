@@ -1,9 +1,10 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import MUIContainer, { ContainerProps } from '@mui/material/Container';
 
-import createUseStyles from '@eduzz/houston-style/createUseStyles'
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+
 import GridContextProvider from '../context';
 import { IContainerType } from '../interfaces';
 

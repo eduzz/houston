@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import AvatarMUI from '@mui/material/Avatar';
 import ListItemIconMUI from '@mui/material/ListItemIcon';
 
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 const useStyles = createUseStyles(theme => ({
   iconRoot: {

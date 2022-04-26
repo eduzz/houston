@@ -1,4 +1,4 @@
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 const useStyles = createUseStyles(theme => ({
   root: {

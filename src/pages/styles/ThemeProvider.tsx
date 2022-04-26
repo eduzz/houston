@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { ThemeProvider as ThemeProviderEmotion } from '@emotion/react';
 
-import { HoustonTokens } from '@eduzz/houston-tokens';
+import { IHoustonTheme } from '.';
 
 export interface IThemeProvider {
-  theme: HoustonTokens;
+  theme: IHoustonTheme;
   children?: React.ReactNode;
 }
 

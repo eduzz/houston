@@ -4,7 +4,7 @@ import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import CancelIcon from '@eduzz/houston-icons/Cancel';
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import ButtonIcon from '../../../ButtonIcon';
 import Typography from '../../../Typography';

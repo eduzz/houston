@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
-
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';

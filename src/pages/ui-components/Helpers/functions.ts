@@ -39,8 +39,9 @@ export function isReactComponent(child: any, componentType?: React.ReactElement[
   return child && React.isValidElement(child);
 }
 
-export type Colors = 'primary' | 'positive' | 'negative' | 'informative' | 'warning';
-
-export function getColorFallback(theme: HoustonTokens, colorKey: Colors): Color {
-  return theme.feedbackColor[colorKey] ?? theme.brandColor.primary;
+export function getColorFallback(
+  theme: HoustonTokens,
+  colorKey: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'inherit'
+): Color {
+  return colorKey === 'inherit' ? 'inherit' : theme.feedbackColor[colorKey] ?? theme.brandColor.primary;
 }

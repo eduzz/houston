@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
+import { cx } from '@eduzz/houston-styles';
 import { CalendarPickerView } from '@mui/lab';
 import DatePicker, { DatePickerProps } from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';

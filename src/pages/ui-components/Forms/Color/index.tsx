@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
+import { cx } from '@eduzz/houston-styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
 import { InputLabelProps } from '@mui/material/InputLabel';

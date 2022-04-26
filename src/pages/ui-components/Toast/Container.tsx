@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } from 'react-toastify';
 
-import useHoustonTheme from '@eduzz/houston-style/useHoustonTheme';
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
 import styles from './styles';
 

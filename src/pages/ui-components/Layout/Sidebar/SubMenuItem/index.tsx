@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
+import { cx } from '@eduzz/houston-styles';
 import { useContextSelector } from 'use-context-selector';
 
 import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
-import styled, { IStyledProp } from '@eduzz/houston-style/styled';
+import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import Collapse from '../../../Collapse';
 import MenuContext from '../Menu/context';

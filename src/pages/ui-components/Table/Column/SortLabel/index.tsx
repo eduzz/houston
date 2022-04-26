@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import IconArrowUp from '@eduzz/houston-icons/ArrowUp';
-import styled, { IStyledProp } from '@eduzz/houston-style/styled';
+import { cx } from '@eduzz/houston-styles';
+import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import TableContext from '../../context';
 

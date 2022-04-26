@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { cx, IStyledProp } from '@eduzz/houston-style/styled';
+import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
 
 import Typography from '../../Typography';
 import TableContext from '../context';

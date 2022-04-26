@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { css } from '@emotion/react';
 
-import styled from '@eduzz/houston-style/styled';
+import styled from '@eduzz/houston-styles/styled';
 
 import { ITableProps } from './Table';
 

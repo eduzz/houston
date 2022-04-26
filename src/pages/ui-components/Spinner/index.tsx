@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import styled, { IStyledProp, keyframes } from '@eduzz/houston-style/styled';
+import styled, { IStyledProp, keyframes } from '@eduzz/houston-styles/styled';
 
-import { Colors, getColorFallback } from '../Helpers/functions';
+import { getColorFallback } from '../Helpers/functions';
 
 export interface ILoaderProps extends IStyledProp {
   size?: number;
-  color?: Colors | 'inherit';
+  color?: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'inherit';
 }
 
 const SIZE_BASE = 65;

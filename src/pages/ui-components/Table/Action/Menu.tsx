@@ -3,7 +3,7 @@ import * as React from 'react';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import styled, { IStyledProp } from '@eduzz/houston-style/styled';
+import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import { ITableAction } from '../interface';
 

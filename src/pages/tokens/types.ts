@@ -192,6 +192,10 @@ export type FeedbackColor = {
   };
 };
 
+export type BrandColor = {
+  primary: Color;
+};
+
 export type BrandColors = {
   eduzz: {
     primary: {
@@ -263,9 +267,6 @@ export type BrandColors = {
       dark: '#560877';
     };
   };
-  custom: {
-    primary: Color;
-  };
 };
 
 export type Brands = keyof BrandColors;
@@ -292,7 +293,7 @@ export type HoustonTokens = {
   line: Line;
   neutralColor: NeutralColor;
   feedbackColor: FeedbackColor;
-  brandColor: BrandColors['custom'];
+  brandColor: BrandColor;
   breakpoints: Breakpoints & BreakpointsUtils;
   pxToRem: PxToRem;
 };

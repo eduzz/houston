@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled from '@emotion/styled';
 
-import { IStyledProp } from '@eduzz/houston-style/styled';
+import { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import nestedComponent from '../Helpers/nestedComponent';
 import Content from './Content';

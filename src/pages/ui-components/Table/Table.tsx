@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import { TableProps } from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import { IStyledProp } from '@eduzz/houston-style/styled';
+import { cx } from '@eduzz/houston-styles';
+import { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import MenuActions from './Action/Menu';
 import TableCollapseContext from './CollapseContent/context';

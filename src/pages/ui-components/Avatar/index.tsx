@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import AvatarMUI, { AvatarProps } from '@mui/material/Avatar';
 
 import AvatarOutline from '@eduzz/houston-icons/AvatarOutline';
 import AvatarSolid from '@eduzz/houston-icons/AvatarSolid';
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 type AvatarPropsExtends = 'id' | 'className' | 'src' | 'alt' | 'onClick' | 'children';
 
@@ -34,8 +34,8 @@ const useStyles = createUseStyles(theme => ({
   root: ({ size }: { size: IAvatarSize }) => ({
     display: 'inline-flex',
     background: 'none',
-    border: `2px solid ${theme.neutralColor.high.dark}`,
-    color: theme.neutralColor.high.dark,
+    border: `2px solid ${theme.neutralColor.low.light}`,
+    color: theme.neutralColor.low.light,
     fontWeight: theme.font.weight.semibold,
     width: size,
     height: size,
@@ -51,7 +51,7 @@ const useStyles = createUseStyles(theme => ({
     },
 
     '&.--filled': {
-      background: theme.neutralColor.high.dark,
+      background: theme.neutralColor.low.light,
       color: 'white',
       borderWidth: 4,
 

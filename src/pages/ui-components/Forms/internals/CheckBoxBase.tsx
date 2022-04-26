@@ -4,7 +4,7 @@ import Checkbox, { CheckboxProps } from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '@eduzz/houston-style/createUseStyles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import { FormFieldsContext } from '../Form';
 import LabelBase from './LabelBase';

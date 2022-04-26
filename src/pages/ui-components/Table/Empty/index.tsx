@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp, cx } from '@eduzz/houston-style/styled';
+import styled, { IStyledProp, cx } from '@eduzz/houston-styles/styled';
 
 import Typography from '../../Typography';
 import TableContext from '../context';

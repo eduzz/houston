@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
 import { InputLabelProps } from '@mui/material/InputLabel';
@@ -10,6 +9,7 @@ import TextFieldMUI, { TextFieldProps } from '@mui/material/TextField';
 import { useContextSelector } from 'use-context-selector';
 
 import IFormMask from '@eduzz/houston-core/maskAdapter';
+import { cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
 import { FormFieldsContext } from '../Form';

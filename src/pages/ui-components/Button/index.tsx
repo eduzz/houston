@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import styled, { cx, withHoustonTheme } from '@eduzz/houston-style/styled';
+import styled, { cx } from '@eduzz/houston-styles/styled';
 
 import { getColorFallback } from '../Helpers/functions';
 import Spinner from '../Spinner';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
-export type IButtonColor = 'primary' | 'positive' | 'negative' | 'informative' | 'warning';
+export type IButtonColor = 'positive' | 'negative' | 'warning' | 'informative' | 'primary';
 
 export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -53,15 +53,15 @@ const Button: React.FC<IButtonProps> = props => {
   );
 };
 
-export default withHoustonTheme(styled(Button, { label: 'houston-button' })`
+export default styled(Button, { label: 'houston-button' })`
   border: none;
   cursor: pointer;
   text-transform: none;
   padding: 10px 16px;
   height: 40px;
-  border-radius: ${props => props.theme.border.radius.sm};
+  border-radius: ${props => props.theme.border.radius.xs};
   font-weight: ${props => props.theme.font.weight.bold};
-  font-family: ${props => props.theme.font.family};
+  font-family: ${props => props.theme.font.family.base};
   line-height: ${props => props.theme.line.height.xl};
   font-size: ${props => props.theme.font.size.xxs};
   position: relative;
@@ -153,4 +153,4 @@ export default withHoustonTheme(styled(Button, { label: 'houston-button' })`
     vertical-align: middle;
     font-size: 17px;
   }
-`);
+`;

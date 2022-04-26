@@ -3,7 +3,7 @@ import * as React from 'react';
 import PaginationMUI from '@mui/material/Pagination';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { breakpoints, IStyledProp } from '@eduzz/houston-style/styled';
+import styled, { breakpoints, IStyledProp } from '@eduzz/houston-styles/styled';
 
 import SelectField from '../../Forms/Select';
 import TextField from '../../Forms/Text';

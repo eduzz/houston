@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import IconDotsHorizontal from '@eduzz/houston-icons/DotsHorizontal';
-import styled from '@eduzz/houston-style/styled';
+import { cx } from '@eduzz/houston-styles';
+import styled from '@eduzz/houston-styles/styled';
 
 import CollapseContent from '../CollapseContent';
 import TableContext from '../context';
