@@ -1,6 +1,7 @@
 import { css, CSSInterpolation } from '@emotion/css';
 
-import { IHoustonTheme } from './types';
+import { HoustonTokens } from '@eduzz/houston-tokens';
+
 import useHoustonTheme from './useHoustonTheme';
 
 type StyleResult<Props, ClassKey extends string> = Record<
@@ -10,7 +11,7 @@ type StyleResult<Props, ClassKey extends string> = Record<
 
 type Style<Props, ClassKey extends string> =
   | StyleResult<Props, ClassKey>
-  | ((theme: IHoustonTheme) => StyleResult<Props, ClassKey>);
+  | ((theme: HoustonTokens) => StyleResult<Props, ClassKey>);
 
 export default function createUseStyles<Props extends Record<string, any>, ClassKey extends string = string>(
   generator: Style<Props, ClassKey>

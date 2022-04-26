@@ -8,17 +8,26 @@ interface IToastOptions extends Pick<ToastOptions, IToastPropsExtends> {}
 class Toast {
   static success(content: React.ReactNode, options?: IToastOptions): void {
     const theme = getCurrentTime();
-    toast.success(content, { ...options, style: { ...(theme ? { background: theme.colors.success.main } : {}) } });
+    toast.success(content, {
+      ...options,
+      style: { ...(theme ? { background: theme.feedbackColor.positive.pure } : {}) }
+    });
   }
 
   static error(content: React.ReactNode, options?: IToastOptions): void {
     const theme = getCurrentTime();
-    toast.error(content, { ...options, style: { ...(theme ? { background: theme.colors.error.main } : {}) } });
+    toast.error(content, {
+      ...options,
+      style: { ...(theme ? { background: theme.feedbackColor.negative.pure } : {}) }
+    });
   }
 
   static info(content: React.ReactNode, options?: IToastOptions): void {
     const theme = getCurrentTime();
-    toast.info(content, { ...options, style: { ...(theme ? { background: theme.colors.info.main } : {}) } });
+    toast.info(content, {
+      ...options,
+      style: { ...(theme ? { background: theme.feedbackColor.informative.pure } : {}) }
+    });
   }
 }
 

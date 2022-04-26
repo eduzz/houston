@@ -7,8 +7,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
+import { IStyledProp } from '@eduzz/houston-style/styled';
 
-import { IStyledProp } from '../styled';
 import MenuActions from './Action/Menu';
 import TableCollapseContext from './CollapseContent/context';
 import TableContext, { ITableActionShow, ITableContext, ITableRow } from './context';

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import styled, { IStyledProp } from '../../../styles/styled';
+import styled, { IStyledProp } from '@eduzz/houston-style/styled';
+
 import MenuContext, { ISidebarMenuContext } from './context';
 
 export interface ISidebarMenu extends IStyledProp {
@@ -39,7 +40,7 @@ export default styled(React.memo(SidebarMenu), { label: 'houston-sidebar-menu' }
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.grey[300]};
+    background: ${({ theme }) => theme.neutralColor.high.medium};
     border-radius: 4px;
   }
 

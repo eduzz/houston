@@ -4,8 +4,8 @@ import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import IconArrowUp from '@eduzz/houston-icons/ArrowUp';
+import styled, { IStyledProp } from '@eduzz/houston-style/styled';
 
-import styled, { IStyledProp } from '../../../styles/styled';
 import TableContext from '../../context';
 
 interface ISortLabelProps extends IStyledProp {
@@ -61,21 +61,21 @@ const SortLabel: React.FC<ISortLabelProps> = ({
 };
 
 export default styled(SortLabel)`
-  font-size: ${({ theme }) => theme.textSize('normal')}px;
-  font-weight: ${({ theme }) => theme.fontWeight('semibold')};
-  color: ${({ theme }) => theme.colors.grey[600]};
+  font-size: ${({ theme }) => theme.font.size.xs};
+  font-weight: ${({ theme }) => theme.font.weight.semibold};
+  color: ${({ theme }) => theme.neutralColor.low.light};
 
   &.--small {
-    font-size: ${({ theme }) => theme.textSize('small')}px;
+    font-size: ${({ theme }) => theme.font.size.xxs};
   }
 
   &.--collapse-content {
-    font-size: ${({ theme }) => theme.textSize('small')}px;
-    color: ${({ theme }) => theme.colors.grey[500]};
+    font-size: ${({ theme }) => theme.font.size.xxs};
+    color: ${({ theme }) => theme.neutralColor.high.dark};
   }
 
   &.--disabled {
-    color: ${({ theme }) => theme.colors.grey[400]};
+    color: ${({ theme }) => theme.neutralColor.high.dark};
     cursor: no-drop;
   }
 

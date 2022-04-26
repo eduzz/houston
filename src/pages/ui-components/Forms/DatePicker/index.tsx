@@ -1,14 +1,13 @@
 import * as React from 'react';
 
 import { cx } from '@emotion/css';
+import { CalendarPickerView } from '@mui/lab';
 import DatePicker, { DatePickerProps } from '@mui/lab/DatePicker';
-import { DatePickerView } from '@mui/lab/DatePicker/shared';
 import TextField from '@mui/material/TextField';
 import { useContextSelector } from 'use-context-selector';
 
 import CalendarIcon from '@eduzz/houston-icons/Calendar';
 
-import useHoustonTheme from '../../styles/useHoustonTheme';
 import { FormFieldsContext } from '../Form';
 import { ITextFieldProps } from '../Text';
 import { IDateFormat, IOmitTextFieldProps, IPickDatePickerProps } from './types';
@@ -22,7 +21,7 @@ export interface IDatePickerProps
   */
   displayFormat?: IDateFormat;
   onChange?: (date: Date) => void;
-  defaultView?: DatePickerView;
+  defaultView?: CalendarPickerView;
 }
 
 const DatePickerField: React.FC<IDatePickerProps> = ({
@@ -41,8 +40,6 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
   placeholder,
   ...rest
 }) => {
-  const { variables } = useHoustonTheme();
-
   const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
   const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
   const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
@@ -77,11 +74,6 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
     [className, errorMessage, fullWidth, hasError, placeholder, helperText, margin, size]
   );
 
-  const buttonsText = {
-    'pt-BR': { cancel: 'Cancelar', confirm: 'Selecionar' },
-    'en-US': { cancel: 'Cancel', confirm: 'OK' }
-  };
-
   return (
     <DatePicker
       renderInput={props => <TextField {...props} {...inputProps} />}
@@ -92,8 +84,8 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
       onChange={handleChange}
       components={{ OpenPickerIcon: CalendarIcon }}
       showToolbar={false}
-      cancelText={buttonsText[variables.lang].cancel}
-      okText={buttonsText[variables.lang].confirm}
+      cancelText='Cancelar'
+      okText='Selecionar'
       {...rest}
     />
   );

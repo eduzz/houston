@@ -3,7 +3,8 @@ import * as React from 'react';
 import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp } from '../../../styles/styled';
+import styled, { IStyledProp } from '@eduzz/houston-style/styled';
+
 import SidebarContext from '../context';
 import SubMenuItemContext from '../SubMenuItem/context';
 
@@ -69,7 +70,7 @@ export default styled(React.memo(SidebarMenuItem), { label: 'houston-menu-item' 
   transition: 0.15s linear;
   color: #666666;
   text-decoration: none;
-  outline-color: ${({ theme }) => theme.colors.primary.main};
+  outline-color: ${({ theme }) => theme.brandColor.primary.pure};
   white-space: nowrap;
 
   .icon {
@@ -103,10 +104,10 @@ export default styled(React.memo(SidebarMenuItem), { label: 'houston-menu-item' 
   }
 
   &.--active {
-    color: ${({ theme }) => theme.colors.primary.main};
+    color: ${({ theme }) => theme.brandColor.primary.pure};
 
     &::before {
-      background: ${({ theme }) => theme.colors.primary.main};
+      background: ${({ theme }) => theme.brandColor.primary.pure};
     }
   }
 

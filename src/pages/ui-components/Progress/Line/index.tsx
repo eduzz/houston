@@ -5,7 +5,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper, { StepperProps } from '@mui/material/Stepper';
 
-import createUseStyles from '../../styles/createUseStyles';
+import createUseStyles from '@eduzz/houston-style/createUseStyles'
 import ProgressBar from './ProgressBar';
 import StepIcon from './StepIcon';
 

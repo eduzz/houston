@@ -185,8 +185,6 @@ export type FeedbackColor = {
   };
 };
 
-export type Brands = 'eduzz' | 'alumy' | 'blinket' | 'jobzz' | 'nutror' | 'orbita' | 'safevideo' | 'telescope';
-
 export type BrandColors = {
   eduzz: {
     primary: {
@@ -258,7 +256,17 @@ export type BrandColors = {
       dark: '#560877';
     };
   };
+  custom: {
+    primary: {
+      pure: string;
+      light: string;
+      medium: string;
+      dark: string;
+    };
+  };
 };
+
+export type Brands = keyof BrandColors;
 
 export type Breakpoints = {
   xs: '320px';
@@ -273,7 +281,7 @@ export type BreakpointsUtils = {
   up(key: keyof Breakpoints): string;
 };
 
-export type Tokens<B extends Brands> = {
+export type HoustonTokens = {
   spacing: Spacing;
   border: Border;
   opacity: Opacity;
@@ -282,7 +290,7 @@ export type Tokens<B extends Brands> = {
   line: Line;
   neutralColor: NeutralColor;
   feedbackColor: FeedbackColor;
-  brandColor: BrandColors[B];
+  brandColor: BrandColors['custom'];
   breakpoints: Breakpoints & BreakpointsUtils;
   pxToRem: PxToRem;
 };

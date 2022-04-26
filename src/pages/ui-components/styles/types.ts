@@ -1,13 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-declare module '@mui/material/styles/createTheme' {
-  interface Theme extends IHoustonTheme {}
-  interface ThemeOptions extends IHoustonTheme {}
-}
-
-declare module '@emotion/react' {
-  interface Theme extends IHoustonTheme {}
-}
-
 export interface IHoustonThemeCustomVariables {
   lang: string;
 }

@@ -26,7 +26,7 @@ const LabelBase: React.FC<ILabelBaseProps> = ({ hasError, label, description, er
       {label && <Typography>{label}</Typography>}
 
       {description && (
-        <Typography size='x-small' fontWeight='regular'>
+        <Typography size='xxxs' fontWeight='regular'>
           {description}
         </Typography>
       )}

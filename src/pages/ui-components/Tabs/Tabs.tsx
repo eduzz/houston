@@ -3,7 +3,8 @@ import * as React from 'react';
 import { cx } from '@emotion/css';
 import MUITabs from '@mui/material/Tabs';
 
-import createUseStyles from '../styles/createUseStyles';
+import createUseStyles from '@eduzz/houston-style/createUseStyles';
+
 import { ITabsContentProps } from './Content';
 import TabsContext, { ITabsContext } from './context';
 
@@ -19,7 +20,7 @@ interface ITabsContentPropsAndKey extends ITabsContentProps {
 
 const useStyles = createUseStyles(theme => ({
   containerPadding: {
-    padding: theme.spacing(2)
+    padding: theme.spacing.nano
   }
 }));
 

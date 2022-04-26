@@ -1,7 +1,8 @@
 import * as React from 'react';
 
+import styled, { cx, IStyledProp } from '@eduzz/houston-style/styled';
+
 import Button from '../../Button';
-import styled, { cx, IStyledProp } from '../../styles/styled';
 import Typography from '../../Typography';
 
 export interface ITableEErrorProps extends IStyledProp {
@@ -29,7 +30,7 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
       <td align='center' colSpan={1000}>
         {typeof children === 'string' ? (
           <>
-            <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className='__text'>
+            <Typography size='xs' fontWeight='regular' lineHeight='comfortable' className='__text'>
               {children}
             </Typography>
 
@@ -53,7 +54,7 @@ export default styled(TableError)`
     font-style: italic;
 
     & + button {
-      margin-top: ${({ theme }) => theme.spacing(3)};
+      margin-top: ${({ theme }) => theme.spacing.xxxs};
     }
   }
 `;

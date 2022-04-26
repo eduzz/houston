@@ -65,6 +65,7 @@
   },
   "resolutions": {
     "react": "^17",
+    "@types/react": "^17",
     "**/@emotion/css": "^11",
     "**/@emotion/styled": "^11",
     "**/@emotion/react": "^11",

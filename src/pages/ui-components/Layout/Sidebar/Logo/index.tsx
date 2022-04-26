@@ -3,7 +3,8 @@ import * as React from 'react';
 import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp } from '../../../styles/styled';
+import styled, { IStyledProp } from '@eduzz/houston-style/styled';
+
 import SidebarContext from '../context';
 import Image from './Image';
 

@@ -7,14 +7,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { ptBR, enUS } from 'date-fns/locale';
 
+import HoustonThemeProvider from '@eduzz/houston-style/ThemeProvider';
+import { HoustonTokens } from '@eduzz/houston-tokens';
+
 import ToastContainer from '../../Toast/Container';
-import { HoustonThemeBuilder } from '../types';
 import generateTheme from './_generator';
-import defaultThemeVariables from './_generator/variables';
 import { setCurrentTheme } from './_state';
 
 export interface IThemeProviderProps extends Pick<ThemeProviderProps, 'children'> {
-  theme?: Partial<HoustonThemeBuilder>;
+  theme?: HoustonTokens;
   locale?: 'pt-BR' | 'en-US';
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
@@ -29,8 +30,7 @@ function ThemeProvider({
   disableToast,
   locale = 'pt-BR'
 }: IThemeProviderProps) {
-  const variables = React.useMemo(() => ({ lang: locale }), [locale]);
-  const muiTheme = React.useMemo(() => generateTheme(theme, variables), [theme, variables]);
+  const muiTheme = React.useMemo(() => generateTheme(theme), [theme]);
 
   const fontBaseBody = React.useMemo(
     () =>
@@ -39,12 +39,12 @@ function ThemeProvider({
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700');
 
         body {
-          font-family: ${defaultThemeVariables.fontFamily};
-          font-size: ${defaultThemeVariables.textSize('default')}px;
+          font-family: ${theme.font.family};
+          font-size: ${theme.font.size.xs}px;
           -webkit-font-smoothing: auto;
         }
       `,
-    [disabledFontBase]
+    [disabledFontBase, theme.font.family, theme.font.size.xs]
   );
 
   const styleContent = React.useMemo(
@@ -76,18 +76,20 @@ function ThemeProvider({
     return enUS;
   }, [locale]);
 
-  React.useEffect(() => setCurrentTheme(muiTheme), [muiTheme]);
+  React.useEffect(() => setCurrentTheme(theme), [theme]);
 
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
-        <LocalizationProvider locale={localeNavigator} dateAdapter={AdapterDateFns}>
-          <style dangerouslySetInnerHTML={styleContent} />
+        <HoustonThemeProvider theme={theme}>
+          <LocalizationProvider locale={localeNavigator} dateAdapter={AdapterDateFns}>
+            <style dangerouslySetInnerHTML={styleContent} />
 
-          {!disableToast && <ToastContainer />}
-          {!disableCssBaseline && <CssBaseline />}
-          {children}
-        </LocalizationProvider>
+            {!disableToast && <ToastContainer />}
+            {!disableCssBaseline && <CssBaseline />}
+            {children}
+          </LocalizationProvider>
+        </HoustonThemeProvider>
       </MUIThemeProvider>
     </StyledEngineProvider>
   );

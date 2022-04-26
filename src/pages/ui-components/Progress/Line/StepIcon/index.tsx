@@ -4,32 +4,32 @@ import { cx } from '@emotion/css';
 import Check from '@mui/icons-material/Check';
 import Warning from '@mui/icons-material/Warning';
 
-import createUseStyles from '../../../styles/createUseStyles';
+import createUseStyles from '@eduzz/houston-style/createUseStyles';
 
 const useStyles = createUseStyles(theme => ({
   root: {
     width: 40,
     height: 40,
-    color: theme.colors.grey[300],
-    backgroundColor: theme.colors.grey[200],
+    color: theme.neutralColor.high.medium,
+    backgroundColor: theme.neutralColor.high.light,
     borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     pointerEvents: 'none',
-    fontSize: theme.textSize('default'),
-    fontWeight: theme.fontWeight('semibold')
+    fontSize: theme.font.size.xs,
+    fontWeight: theme.font.weight.semibold
   },
   finished: {
-    backgroundColor: theme.colors.success.main,
-    fontWeight: theme.fontWeight('semibold'),
+    backgroundColor: theme.feedbackColor.positive.pure,
+    fontWeight: theme.font.weight.semibold,
     color: '#fff'
   },
   check: {
-    fontSize: theme.textSize('default')
+    fontSize: theme.font.size.xs
   },
   warning: {
-    color: theme.colors.error.main
+    color: theme.feedbackColor.negative.pure
   }
 }));
 

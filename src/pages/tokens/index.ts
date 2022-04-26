@@ -1,4 +1,4 @@
-import { Brands, Tokens } from './types';
+import { BrandColors, Brands, HoustonTokens } from './types';
 import { border } from './variables/border';
 import { createBrandColors } from './variables/brand';
 import { breakpoinstUtils, breakpoints } from './variables/breakpoints';
@@ -11,11 +11,15 @@ import { shadow } from './variables/shadow';
 import { spacing } from './variables/spacing';
 import { pxToRem } from './variables/utils';
 
-export function createTokens<B extends Brands>(brand: B): Tokens<B> {
+export * from './types';
+
+export function createTokens(brand: keyof Omit<BrandColors, 'custom'>): HoustonTokens;
+export function createTokens(brand: 'custom', custom: BrandColors['custom']): HoustonTokens;
+export function createTokens<B extends Brands>(brand: B, custom?: BrandColors[B]): HoustonTokens {
   return {
     spacing,
     border,
-    brandColor: createBrandColors(brand),
+    brandColor: createBrandColors(brand, custom),
     breakpoints: {
       ...breakpoints,
       ...breakpoinstUtils

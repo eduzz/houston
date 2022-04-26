@@ -3,7 +3,8 @@ import * as React from 'react';
 import { cx } from '@emotion/css';
 import CircularProgressMUI from '@mui/material/CircularProgress';
 
-import createUseStyles from '../../styles/createUseStyles';
+import createUseStyles from '@eduzz/houston-style/createUseStyles';
+
 import Typography from '../../Typography';
 
 const useStyles = createUseStyles(theme => ({
@@ -16,7 +17,7 @@ const useStyles = createUseStyles(theme => ({
   },
   circularProgress: {
     '& svg': {
-      color: theme.colors.success.main
+      color: theme.feedbackColor.positive.pure
     }
   },
   progress: {
@@ -24,7 +25,7 @@ const useStyles = createUseStyles(theme => ({
   },
   progressError: {
     '& svg': {
-      color: theme.colors.error.main
+      color: theme.feedbackColor.negative.pure
     }
   },
   progressIndicator: {
@@ -37,7 +38,7 @@ const useStyles = createUseStyles(theme => ({
     left: 0,
     right: 0,
     '& p': {
-      color: theme.colors.grey[500]
+      color: theme.neutralColor.high.dark
     }
   }
 }));
@@ -70,7 +71,7 @@ const ProgressRound: React.FC<ICircularProgressProps> = ({ currentStep = 0, maxS
         className={cx(classes.circularProgress, classes.progress, error && classes.progressError)}
       />
       <div className={classes.progressIndicator}>
-        <Typography size='default'>{progress}</Typography>
+        <Typography size='xs'>{progress}</Typography>
       </div>
     </div>
   );

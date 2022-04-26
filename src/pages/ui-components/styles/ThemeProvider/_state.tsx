@@ -1,8 +1,8 @@
-import { Theme } from '@mui/material/styles';
+import { HoustonTokens } from '@eduzz/houston-tokens';
 
-let currentTheme: Theme;
+let currentTheme: HoustonTokens;
 
-export function setCurrentTheme(theme: Theme) {
+export function setCurrentTheme(theme: HoustonTokens) {
   currentTheme = theme;
 }
 

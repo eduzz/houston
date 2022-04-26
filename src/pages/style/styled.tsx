@@ -1,11 +1,14 @@
+import './types';
+
 import { cx as emotionCx } from '@emotion/css';
 import emotionStyled from '@emotion/styled';
-import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
+
+import { breakpoinstUtils } from '@eduzz/houston-tokens/variables/breakpoints';
 
 export const clsx = emotionCx;
 export const cx = emotionCx;
 
-export const breakpoints = createBreakpoints({});
+export const breakpoints = breakpoinstUtils;
 const styled = emotionStyled;
 
 export interface IStyledProp {

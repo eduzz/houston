@@ -136,7 +136,7 @@ const useStyle = createUseStyle(theme => ({
   },
   content: (props: IProps) => {
     return {
-      backgroundColor: props.success ? theme.colors.success.main : theme.colors.error.main
+      backgroundColor: props.success ? theme.feedbackColor.positive.pure : theme.feedbackColor.negative.pure
     };
   }
 }));

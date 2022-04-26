@@ -6,10 +6,11 @@ import CardActionsMUI from '@mui/material/CardActions';
 import CardContentMUI from '@mui/material/CardContent';
 import ModalMUI from '@mui/material/Modal';
 
+import createUseStyles from '@eduzz/houston-style/createUseStyles';
+
 import { getReactChildrenComponent, getReactFirstChildrenProps } from '../Helpers/functions';
 import nestedComponent from '../Helpers/nestedComponent';
 import { useFirstChildrenProps } from '../hooks/useChildrenProps';
-import createUseStyles from '../styles/createUseStyles';
 import ShowcaseCloseButton from './CloseButton';
 import ShowcaseContextProvider, { IShowcaseContext } from './context';
 import ShowcaseGenericButtons from './GenericButtons';

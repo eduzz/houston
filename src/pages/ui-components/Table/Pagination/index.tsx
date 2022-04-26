@@ -3,12 +3,13 @@ import * as React from 'react';
 import PaginationMUI from '@mui/material/Pagination';
 import { useContextSelector } from 'use-context-selector';
 
+import styled, { breakpoints, IStyledProp } from '@eduzz/houston-style/styled';
+
 import SelectField from '../../Forms/Select';
 import TextField from '../../Forms/Text';
 import Column from '../../Grid/Column';
 import Container from '../../Grid/Container';
 import Row from '../../Grid/Row';
-import styled, { breakpoints, IStyledProp } from '../../styled';
 import Typography from '../../Typography';
 import TableContext from '../context';
 
@@ -124,7 +125,7 @@ const Pagination = React.memo<ITablePagination>(
                 <Column xs={12} sm='auto'>
                   <Row justifyContent='center'>
                     <Column xs='auto' className='__perPage'>
-                      <Typography size='small' fontWeight='semibold'>
+                      <Typography size='xxs' fontWeight='semibold'>
                         {labelItensPerPage ?? 'Itens por página:'}
                       </Typography>
 
@@ -139,7 +140,7 @@ const Pagination = React.memo<ITablePagination>(
                     </Column>
 
                     <Column xs='auto' className='__labels'>
-                      <Typography size='small' fontWeight='semibold'>
+                      <Typography size='xxs' fontWeight='semibold'>
                         {labelGoToPage ?? 'Ir para:'}
                       </Typography>
 
@@ -191,8 +192,8 @@ export default styled(Pagination)`
 
       & > p {
         white-space: nowrap;
-        margin-right: ${({ theme }) => theme.spacing(2)};
-        color: ${({ theme }) => theme.colors.grey[600]};
+        margin-right: ${({ theme }) => theme.spacing.nano};
+        color: ${({ theme }) => theme.neutralColor.low.light};
       }
     }
 
@@ -202,8 +203,8 @@ export default styled(Pagination)`
 
       & > p {
         white-space: nowrap;
-        margin-right: ${({ theme }) => theme.spacing(2)};
-        color: ${({ theme }) => theme.colors.grey[600]};
+        margin-right: ${({ theme }) => theme.spacing.nano};
+        color: ${({ theme }) => theme.neutralColor.low.light};
       }
 
       ${breakpoints.down('sm')} {
@@ -222,7 +223,7 @@ export default styled(Pagination)`
       align-items: center;
 
       ${breakpoints.down('sm')} {
-        margin-top: ${({ theme }) => theme.spacing(2)};
+        margin-top: ${({ theme }) => theme.spacing.nano};
         justify-content: center;
       }
     }
