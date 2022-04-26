@@ -24,7 +24,7 @@ export interface ISidebarProps {
   /**
    * Mobile display control.
    */
-  mobileVisible: boolean;
+  mobileVisible?: boolean;
   /**
    * Function called when click in outside element on mobile.
    */
@@ -34,6 +34,7 @@ export interface ISidebarProps {
    * Whether can be collapsed.
    */
   collapsible?: boolean;
+  initialCollapsed?: boolean;
   onCollapse?: (collapsed: boolean) => void;
   children: React.ReactNode;
 }
@@ -42,15 +43,16 @@ const Sidebar: React.FC<ISidebarProps> = ({
   currentLocation,
   hasToolbar = true,
   children,
-  mobileVisible,
+  mobileVisible = false,
   onRequestClose,
   onCollapse,
-  collapsed: collapsedProp = false,
+  initialCollapsed,
+  collapsed: collapsedProp,
   collapsible = true,
   ...rest
 }) => {
   const [insideComponent, , setInsideComponentTrue, setInsideComponentFalse] = useBoolean(false);
-  const [collapsed, setCollapsed] = React.useState(collapsedProp ?? false);
+  const [collapsed, setCollapsed] = React.useState(initialCollapsed ?? false);
 
   const handleCollapse = React.useCallback(() => {
     setCollapsed(v => {
@@ -67,7 +69,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
       hasToolbar,
       onRequestClose,
       mobileVisible,
-      collapsed,
+      collapsed: collapsedProp !== undefined ? collapsedProp : collapsed,
       collapsible,
       handleCollapse,
       insideComponent,
@@ -78,13 +80,14 @@ const Sidebar: React.FC<ISidebarProps> = ({
       currentLocation,
       hasToolbar,
       onRequestClose,
+      mobileVisible,
+      collapsedProp,
       collapsed,
       collapsible,
       handleCollapse,
       insideComponent,
-      mobileVisible,
-      setInsideComponentFalse,
-      setInsideComponentTrue
+      setInsideComponentTrue,
+      setInsideComponentFalse
     ]
   );
 
