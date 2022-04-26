@@ -63,7 +63,7 @@ export default styled(TableCell)`
   font-size: ${({ theme }) => theme.font.size.xs};
   color: ${({ theme }) => theme.neutralColor.low.light};
   font-weight: ${({ theme }) => theme.font.weight.regular};
-  line-height: normal; // TODO
+  line-height: ${({ theme }) => theme.line.height.md};
 
   & .--small {
     padding: 8px 12px;

@@ -1,5 +1,12 @@
 export type SpacingFn = (mult: number) => string;
 
+export type Color = {
+  pure: string;
+  light: string;
+  medium: string;
+  dark: string;
+};
+
 export type Spacing = {
   /**
    * A helper function that returns a value following our spacing ratio
@@ -257,12 +264,7 @@ export type BrandColors = {
     };
   };
   custom: {
-    primary: {
-      pure: string;
-      light: string;
-      medium: string;
-      dark: string;
-    };
+    primary: Color;
   };
 };
 

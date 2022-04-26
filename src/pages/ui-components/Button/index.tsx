@@ -1,56 +1,156 @@
 import * as React from 'react';
 
-import ButtonMUI, { ButtonProps } from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
+import styled, { cx, withHoustonTheme } from '@eduzz/houston-style/styled';
 
-type ButtonPropsExtends =
-  | 'id'
-  | 'onClick'
-  | 'disabled'
-  | 'href'
-  | 'children'
-  | 'type'
-  | 'className'
-  | 'fullWidth'
-  | 'startIcon'
-  | 'endIcon';
+import { getColorFallback } from '../Helpers/functions';
+import Spinner from '../Spinner';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
-export type IButtonColor = 'primary' | 'success' | 'error' | 'info' | 'warning';
+export type IButtonColor = 'primary' | 'positive' | 'negative' | 'informative' | 'warning';
 
-export interface IButtonProps extends Pick<ButtonProps, ButtonPropsExtends>, React.RefAttributes<HTMLButtonElement> {
+export interface IButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    React.RefAttributes<HTMLButtonElement> {
   variant?: IButtonVariant;
   loading?: boolean;
   loadingText?: string;
   color?: IButtonColor;
+  fullWidth?: boolean;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
 }
 
-const Button: React.FC<IButtonProps> = ({
-  children,
-  disabled = false,
-  variant = 'contained',
-  color = 'primary',
-  startIcon,
-  loading = false,
-  loadingText,
-  ...rest
-}) => {
+const Button: React.FC<IButtonProps> = props => {
+  const {
+    children,
+    disabled = false,
+    startIcon,
+    endIcon,
+    variant,
+    loading = false,
+    loadingText,
+    className,
+    fullWidth,
+    ...rest
+  } = props;
+
   return (
-    <ButtonMUI
+    <button
+      className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth })}
       {...rest}
       disabled={disabled || loading}
-      startIcon={loading ? <CircularProgress size={18} color='inherit' /> : startIcon}
-      disableRipple
-      disableFocusRipple
-      disableElevation
-      disableTouchRipple
-      variant={variant}
-      color={color}
     >
-      {!loading && children}
-      {loading && (loadingText ?? children)}
-    </ButtonMUI>
+      {!!startIcon && !loading && <span className='__startIcon'>{startIcon}</span>}
+      {!loading && <span className='__text'>{children}</span>}
+      {loading && (
+        <>
+          <Spinner size={15} color='inherit' className='__loader' />
+          <span className='__text'>{loadingText ?? children}</span>
+        </>
+      )}
+      {!!endIcon && <span className='__endIcon'>{endIcon}</span>}
+    </button>
   );
 };
 
-export default React.memo(Button);
+export default withHoustonTheme(styled(Button, { label: 'houston-button' })`
+  border: none;
+  cursor: pointer;
+  text-transform: none;
+  padding: 10px 16px;
+  height: 40px;
+  border-radius: ${props => props.theme.border.radius.sm};
+  font-weight: ${props => props.theme.font.weight.bold};
+  font-family: ${props => props.theme.font.family};
+  line-height: ${props => props.theme.line.height.xl};
+  font-size: ${props => props.theme.font.size.xxs};
+  position: relative;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.--fullWidth {
+    width: 100%;
+  }
+
+  &.--contained {
+    background-color: ${props => getColorFallback(props.theme, props.color).pure};
+    color: white;
+
+    &:hover:not(:disabled) {
+      background-color: ${props => getColorFallback(props.theme, props.color).light};
+    }
+
+    &:active:not(:disabled) {
+      background-color: ${props => getColorFallback(props.theme, props.color).dark};
+    }
+
+    &:disabled {
+      background-color: ${props => props.theme.neutralColor.high.medium};
+    }
+  }
+
+  &.--outlined {
+    background-color: transparent;
+    color: ${props => getColorFallback(props.theme, props.color).pure};
+    border: 1px solid;
+    border-color: ${props => getColorFallback(props.theme, props.color).light};
+
+    &:hover:not(:disabled),
+    &:active:not(:disabled) {
+      border-color: ${props => getColorFallback(props.theme, props.color).dark};
+      color: ${props => getColorFallback(props.theme, props.color).dark};
+    }
+  }
+
+  &.--text {
+    background-color: transparent;
+    color: ${props => getColorFallback(props.theme, props.color).pure};
+
+    &:hover:not(:disabled),
+    &:active:not(:disabled) {
+      background-color: ${props => props.theme.neutralColor.high.light};
+    }
+  }
+
+  &:disabled {
+    cursor: default;
+    color: ${props => props.theme.neutralColor.high.dark};
+    border-color: ${props => props.theme.neutralColor.high.medium};
+  }
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    top: -4px;
+    bottom: -4px;
+    border: 2px solid transparent;
+    transition: 0.3s;
+    border-radius: ${props => props.theme.border.radius.sm};
+  }
+
+  &:focus:not(:active):not(:hover):before {
+    border-color: ${props => props.theme.neutralColor.high.medium};
+  }
+
+  & > .__loader {
+    margin-right: ${props => props.theme.spacing.nano};
+  }
+
+  & > .__startIcon {
+    margin-right: ${props => props.theme.spacing.nano};
+  }
+
+  & > .__endIcon {
+    margin-left: ${props => props.theme.spacing.nano};
+  }
+
+  & > .__startIcon > svg,
+  & > .__endIcon > svg {
+    vertical-align: middle;
+    font-size: 17px;
+  }
+`);

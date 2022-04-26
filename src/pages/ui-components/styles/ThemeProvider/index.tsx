@@ -7,15 +7,14 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { ptBR, enUS } from 'date-fns/locale';
 
-import HoustonThemeProvider from '@eduzz/houston-style/ThemeProvider';
-import { HoustonTokens } from '@eduzz/houston-tokens';
+import { Brands, createTokens } from '@eduzz/houston-tokens';
 
 import ToastContainer from '../../Toast/Container';
 import generateTheme from './_generator';
 import { setCurrentTheme } from './_state';
 
 export interface IThemeProviderProps extends Pick<ThemeProviderProps, 'children'> {
-  theme?: HoustonTokens;
+  brand?: Brands;
   locale?: 'pt-BR' | 'en-US';
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
@@ -24,13 +23,14 @@ export interface IThemeProviderProps extends Pick<ThemeProviderProps, 'children'
 
 function ThemeProvider({
   children,
-  theme,
+  brand = 'orbita',
   disableCssBaseline,
   disabledFontBase,
   disableToast,
   locale = 'pt-BR'
 }: IThemeProviderProps) {
-  const muiTheme = React.useMemo(() => generateTheme(theme), [theme]);
+  const [tokens] = React.useState(() => createTokens(brand as any));
+  const muiTheme = React.useMemo(() => generateTheme(tokens), [tokens]);
 
   const fontBaseBody = React.useMemo(
     () =>
@@ -39,12 +39,12 @@ function ThemeProvider({
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700');
 
         body {
-          font-family: ${theme.font.family};
-          font-size: ${theme.font.size.xs}px;
+          font-family: ${tokens.font.family};
+          font-size: ${tokens.font.size.xs}px;
           -webkit-font-smoothing: auto;
         }
       `,
-    [disabledFontBase, theme.font.family, theme.font.size.xs]
+    [disabledFontBase, tokens.font.family, tokens.font.size.xs]
   );
 
   const styleContent = React.useMemo(
@@ -76,20 +76,18 @@ function ThemeProvider({
     return enUS;
   }, [locale]);
 
-  React.useEffect(() => setCurrentTheme(theme), [theme]);
+  React.useEffect(() => setCurrentTheme(tokens), [tokens]);
 
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
-        <HoustonThemeProvider theme={theme}>
-          <LocalizationProvider locale={localeNavigator} dateAdapter={AdapterDateFns}>
-            <style dangerouslySetInnerHTML={styleContent} />
+        <LocalizationProvider locale={localeNavigator} dateAdapter={AdapterDateFns}>
+          <style dangerouslySetInnerHTML={styleContent} />
 
-            {!disableToast && <ToastContainer />}
-            {!disableCssBaseline && <CssBaseline />}
-            {children}
-          </LocalizationProvider>
-        </HoustonThemeProvider>
+          {!disableToast && <ToastContainer />}
+          {!disableCssBaseline && <CssBaseline />}
+          {children}
+        </LocalizationProvider>
       </MUIThemeProvider>
     </StyledEngineProvider>
   );

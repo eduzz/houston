@@ -6,6 +6,17 @@ import components from './components';
 import typography from './typography';
 import defaultThemeVariables from './variables';
 
+declare module '@mui/material/styles' {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  interface BreakpointOverrides {
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xlg: true;
+  }
+}
+
 export default function generateTheme(tokens?: HoustonTokens) {
   const palette: Partial<Palette> = {
     background: {
@@ -75,11 +86,31 @@ export default function generateTheme(tokens?: HoustonTokens) {
     }
   };
 
-  return createTheme({
+  const muiTheme = createTheme({
     palette,
     components: components(palette),
+    breakpoints: {
+      values: Object.keys(tokens.breakpoints).reduce((acc, key) => {
+        if (['up', 'down'].includes(key)) return acc;
+        return { ...acc, [key]: Number(tokens.breakpoints[key].replace('px', '')) };
+      }, {})
+    },
     typography,
     ...(defaultThemeVariables as any),
     colors: palette
   });
+
+  Object.keys(tokens).forEach(key => {
+    if (!muiTheme[key]) {
+      muiTheme[key] = tokens[key];
+      return;
+    }
+
+    Object.keys(tokens[key]).forEach(childKey => {
+      if (key === 'breakpoints' && ['up', 'down'].includes(childKey)) return;
+      muiTheme[key][childKey] = tokens[key][childKey];
+    });
+  });
+
+  return muiTheme;
 }

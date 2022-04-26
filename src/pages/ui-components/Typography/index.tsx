@@ -12,7 +12,7 @@ export type ITypographyComponent = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
 export interface ITypographyProps extends IStyledProp {
   id?: string;
   size?: keyof HoustonTokens['font']['size'];
-  lineHeight?: string; // TODO
+  lineHeight?: keyof HoustonTokens['line']['height'];
   fontWeight?: keyof HoustonTokens['font']['weight'];
   marginBottom?: boolean;
   children?: React.ReactNode;
@@ -37,6 +37,7 @@ export default styled(Typography)`
   margin: 0;
   font-size: ${({ theme, size }) => theme.font.size[size ?? 'sm']};
   font-weight: ${({ theme, fontWeight }) => theme.font.weight[fontWeight ?? 'regular']};
+  line-height: ${({ theme, lineHeight }) => theme.line.height[lineHeight ?? 'md']};
   margin-bottom: ${({ theme, marginBottom }) => (marginBottom ? theme.spacing.nano : null)};
 
   &.--variant-secondary {

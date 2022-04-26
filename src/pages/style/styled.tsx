@@ -1,18 +1,22 @@
 import './types';
 
-import { cx as emotionCx } from '@emotion/css';
 import emotionStyled from '@emotion/styled';
 
-import { breakpoinstUtils } from '@eduzz/houston-tokens/variables/breakpoints';
+import useHoustonTheme from './useHoustonTheme';
 
-export const clsx = emotionCx;
-export const cx = emotionCx;
-
-export const breakpoints = breakpoinstUtils;
-const styled = emotionStyled;
+export { breakpoinstUtils as breakpoints } from '@eduzz/houston-tokens/variables/breakpoints';
+export { keyframes, cx, cx as clsx } from '@emotion/css';
 
 export interface IStyledProp {
   className?: string;
 }
 
+export const withHoustonTheme =
+  <P,>(Component: React.ComponentType<P>): React.FC<P> =>
+  (props: P) => {
+    const tokens = useHoustonTheme();
+    return <Component {...props} houston={tokens} />;
+  };
+
+const styled = emotionStyled;
 export default styled;
