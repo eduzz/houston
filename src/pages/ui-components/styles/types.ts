@@ -10,6 +10,7 @@ declare module '@emotion/react' {
 
 export interface IHoustonThemeCustomVariables {
   lang: string;
+  [key: string]: string | number;
 }
 
 export type HoustonThemeBuilder = {

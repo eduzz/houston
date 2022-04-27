@@ -16,7 +16,7 @@ export default function generateTheme(customTheme?: HoustonThemeBuilder, variabl
     components: components(palette),
     typography,
     ...(defaultThemeVariables as any),
-    variables: { ...variables, ...customTheme?.variables },
+    variables,
     colors: palette
   });
 }

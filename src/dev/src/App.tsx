@@ -6,7 +6,14 @@ import { HoustonThemeBuilder } from '@eduzz/houston-ui/styles/types';
 import ComponentDev from './components';
 
 function App() {
-  const theme = {} as HoustonThemeBuilder;
+  const customVariables = { background: 'pink' };
+
+  const theme = {
+    variables: {
+      lang: 'pt-BR',
+      ...customVariables
+    }
+  } as Partial<HoustonThemeBuilder>;
 
   return (
     <BrowserRouter>

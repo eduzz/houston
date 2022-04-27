@@ -29,7 +29,7 @@ function ThemeProvider({
   disableToast,
   locale = 'pt-BR'
 }: IThemeProviderProps) {
-  const variables = React.useMemo(() => ({ lang: locale }), [locale]);
+  const variables = React.useMemo(() => ({ ...theme?.variables, lang: locale }), [locale, theme?.variables]);
   const muiTheme = React.useMemo(() => generateTheme(theme, variables), [theme, variables]);
 
   const fontBaseBody = React.useMemo(
