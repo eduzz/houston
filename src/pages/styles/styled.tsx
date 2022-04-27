@@ -1,13 +1,18 @@
 import '.';
 
+import { keyframes as keyframesEmotion, cx as cxEmotion } from '@emotion/css';
 import emotionStyled from '@emotion/styled';
 
-export { breakpoinstUtils as breakpoints } from '@eduzz/houston-tokens/variables/breakpoints';
-export { keyframes, cx, cx as clsx } from '@emotion/css';
+import { breakpoinstUtils } from '@eduzz/houston-tokens/variables/breakpoints';
 
 export interface IStyledProp {
   className?: string;
 }
+
+export const keyframes = keyframesEmotion;
+export const cx = cxEmotion;
+export const clsx = cxEmotion;
+export const breakpoints = breakpoinstUtils;
 
 const styled = emotionStyled;
 export default styled;

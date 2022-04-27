@@ -1,6 +1,6 @@
 import { toast, ToastOptions } from 'react-toastify';
 
-import { getCurrentTime } from '../styles/ThemeProvider/_state';
+import { getCurrentTime } from '../ThemeProvider/_state';
 
 type IToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 interface IToastOptions extends Pick<ToastOptions, IToastPropsExtends> {}

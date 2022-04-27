@@ -11,7 +11,9 @@ import './_app.page.css';
 
 const sidebarOrdering = {
   'index.mdx': true,
-  'ui-components': true
+  'README.mdx': true,
+  styles: { 'README.mdx': true },
+  'ui-components': { 'README.mdx': true }
 };
 
 export default function App(props) {

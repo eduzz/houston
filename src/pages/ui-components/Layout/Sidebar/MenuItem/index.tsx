@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { cx } from '@eduzz/houston-styles';
 import { useContextSelector } from 'use-context-selector';
 
+import { cx } from '@eduzz/houston-styles';
 import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import SidebarContext from '../context';

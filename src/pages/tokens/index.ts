@@ -13,7 +13,7 @@ import { pxToRem } from './variables/utils';
 
 export * from './types';
 
-export function createTokens(brand: Brands | BrandColor): HoustonTokens {
+export default function createTokens(brand: Brands | BrandColor): HoustonTokens {
   return {
     spacing,
     border,

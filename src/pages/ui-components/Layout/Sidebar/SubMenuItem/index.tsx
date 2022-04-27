@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { cx } from '@eduzz/houston-styles';
 import { useContextSelector } from 'use-context-selector';
 
 import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
+import { cx } from '@eduzz/houston-styles';
 import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import Collapse from '../../../Collapse';

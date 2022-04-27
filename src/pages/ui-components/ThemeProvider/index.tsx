@@ -10,7 +10,7 @@ import { ptBR } from 'date-fns/locale';
 import { IHoustonTheme } from '@eduzz/houston-styles';
 import createTheme from '@eduzz/houston-styles/createTheme';
 
-import ToastContainer from '../../Toast/Container';
+import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
 import { setCurrentTheme } from './_state';
 

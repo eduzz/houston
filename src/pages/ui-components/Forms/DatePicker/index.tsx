@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { cx } from '@eduzz/houston-styles';
 import { CalendarPickerView } from '@mui/lab';
 import DatePicker, { DatePickerProps } from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
 import { useContextSelector } from 'use-context-selector';
 
 import CalendarIcon from '@eduzz/houston-icons/Calendar';
+import { cx } from '@eduzz/houston-styles';
 
 import { FormFieldsContext } from '../Form';
 import { ITextFieldProps } from '../Text';

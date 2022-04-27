@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { cx } from '@eduzz/houston-styles/styled';
+import styled, { cx, IStyledProp } from '@eduzz/houston-styles';
 
 import { getColorFallback } from '../Helpers/functions';
 import Spinner from '../Spinner';
@@ -10,7 +10,8 @@ export type IButtonColor = 'positive' | 'negative' | 'warning' | 'informative' |
 
 export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    React.RefAttributes<HTMLButtonElement> {
+    React.RefAttributes<HTMLButtonElement>,
+    IStyledProp {
   variant?: IButtonVariant;
   loading?: boolean;
   loadingText?: string;
@@ -116,7 +117,7 @@ export default styled(Button, { label: 'houston-button' })`
 
   &:disabled {
     cursor: default;
-    color: ${props => props.theme.neutralColor.high.dark};
+    color: ${props => props.theme.neutralColor.low.medium};
     border-color: ${props => props.theme.neutralColor.high.medium};
   }
 

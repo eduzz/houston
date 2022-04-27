@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { cx } from '@eduzz/houston-styles';
 import BoxMUI, { BoxProps } from '@mui/material/Box';
+
+import { cx } from '@eduzz/houston-styles';
 
 import useStyles from './styles';
 

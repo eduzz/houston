@@ -1,6 +1,10 @@
 import { HoustonTokens } from '@eduzz/houston-tokens';
 
+import styled from './styled';
+
 export * from './styled';
+
+export default styled;
 
 export interface IHoustonThemeCustomVariables {}
 

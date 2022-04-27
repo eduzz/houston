@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { cx } from '@eduzz/houston-styles';
 import MUITabs from '@mui/material/Tabs';
 
+import { cx } from '@eduzz/houston-styles';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import { ITabsContentProps } from './Content';

@@ -1,4 +1,4 @@
-import { BrandColor, Brands, createTokens } from '@eduzz/houston-tokens';
+import createTokens, { BrandColor, Brands } from '@eduzz/houston-tokens';
 
 import { IHoustonTheme, IHoustonThemeCustomVariables } from '.';
 
