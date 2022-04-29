@@ -1,0 +1,91 @@
+---
+name: Início
+---
+
+# Styles
+
+## Instalação
+
+> Só é necessário instalar diretamente o **@eduzz/houston-styles** caso não utilize o **@eduzz/houston-ui**.
+
+```bash
+yarn add @eduzz/houston-styles
+```
+
+## Uso
+
+No arquivo raiz de seu projeto, defina sua paleta de cores e adicione o provedor da seguinte maneira:
+
+```tsx
+import createTheme, { IHoustonTheme } from '@eduzz/houston-styles/createTheme';
+import ThemeProvider from '@eduzz/houston-styles/ThemeProvider';
+
+const theme: IHoustonTheme = createTheme('orbita');
+// ou
+const theme: IHoustonTheme = createTheme({
+  primary: {
+    pure: '#0D47A1',
+    light: '#9EB5D9',
+    medium: '#265AAB',
+    dark: '#072D83'
+  }
+});
+
+<ThemeProvider theme={theme}>...</ThemeProvider>;
+```
+
+### Estilizando um componente
+
+Existem duas maneiras de estilar, mas ambos usam o emotion e tem o mesmo impacto de performance, fica mais a critério de
+gosto, mas recomendamos o styled para padronizar:
+
+- [styled](/houston/styles/styled) (_Recomendado_): estilar os componentes no estilo styled-components.
+
+```js
+import styled, { IStyledProp } from '@eduzz/houston-styles';
+
+const Component: React.FC<IStyledProp> = ({ className }) => {
+  return <div className={className} />;
+};
+
+export default styled(Component)`
+  background-color: red;
+`;
+```
+
+- [useStyles](/houston/styles/createUseStyles): estilar usando o padrão do JSS.
+
+```js title="testes"
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+
+const useStyles = createUseStyles(() => {
+  container: {
+    background: 'red';
+  }
+});
+
+const Component: React.FC = props => {
+  const styles = useStyles(props);
+
+  return <div className={styles.container} />;
+};
+
+export default Component;
+```
+
+### useHoustonTheme
+
+Caso queria apenas utlizar as variáveis sem criar um estilo é possível utilizar esse hook.
+
+```tsx
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
+const ComponentsDev = memo<IProps>(props => {
+  const theme = useHoustonTheme();
+  return <div>Tamanho: {theme.font.size.xs}</div>;
+});
+```
+
+### Objeto Tema (IHoustonTheme)
+
+Veja [aqui os tokens](/houston/tokens/tokens)

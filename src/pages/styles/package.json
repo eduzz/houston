@@ -1,0 +1,26 @@
+{
+  "name": "@eduzz/houston-styles",
+  "description": "Eduzz Houston Style",
+  "version": "0.44.0-beta.0",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "author": "Eduzz Team",
+  "license": "MIT",
+  "private": false,
+  "homepage": "https://github.com/eduzz/houston",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eduzz/houston"
+  },
+  "bugs": {
+    "url": "https://github.com/eduzz/houston/issues"
+  },
+  "dependencies": {
+    "@eduzz/houston-tokens": "0.44.0-beta.0",
+    "@emotion/css": "^11",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@emotion/cache": "^11"
+  },
+  "devDependencies": {}
+}

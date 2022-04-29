@@ -4,7 +4,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { cx, IStyledProp } from '../../styled';
+import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
+
 import Typography from '../../Typography';
 import TableContext from '../context';
 
@@ -21,7 +22,7 @@ const TableLoading = React.memo<ITableLoadingProps>(({ text, className }) => {
           <>
             <LinearProgress />
 
-            <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className='__text'>
+            <Typography size='xs' fontWeight='regular' lineHeight='xl' className='__text'>
               {text}
             </Typography>
           </>
@@ -39,6 +40,6 @@ const TableLoading = React.memo<ITableLoadingProps>(({ text, className }) => {
 
 export default styled(TableLoading)`
   & > td > .__text {
-    padding: ${({ theme }) => theme.spacing(5)};
+    padding: ${({ theme }) => theme.spacing.xxs};
   }
 `;

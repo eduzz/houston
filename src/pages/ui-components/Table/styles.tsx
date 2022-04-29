@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { css } from '@emotion/react';
 
-import styled from '../styled';
+import styled from '@eduzz/houston-styles/styled';
+
 import { ITableProps } from './Table';
 
 export default (Component: React.FC<ITableProps>) => styled(Component)`
@@ -14,8 +15,8 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
 
     & .houston-table-label-mobile {
       display: none;
-      font-size: ${({ theme }) => theme.textSize('x-small')}px;
-      font-weight: ${({ theme }) => theme.fontWeight('semibold')};
+      font-size: ${({ theme }) => theme.font.size.xxxs};
+      font-weight: ${({ theme }) => theme.font.weight.semibold};
     }
 
     & .houston-table-collapse-button {
@@ -31,7 +32,7 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
     }
 
     & > tbody > tr.houston-table-row-even > td {
-      background-color: ${({ theme }) => theme.colors.grey[100]};
+      background-color: ${({ theme }) => theme.neutralColor.high.pure};
     }
 
     & > tbody > tr.houston-table-row-even + tr.houston-table-collapse td {
@@ -55,7 +56,7 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
       > tr.houston-table-collapse:not(.houston-table-collapse-no-padding)
       > td
       div.houston-table-collapse-content {
-      padding: ${({ theme }) => theme.spacing(3)};
+      padding: ${({ theme }) => theme.spacing.xxxs};
     }
 
     &
@@ -63,15 +64,15 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
       > tr.houston-table-collapse:not(.houston-table-collapse-no-background)
       > td
       div.houston-table-collapse-content {
-      background-color: ${({ theme }) => theme.colors.grey[200]};
+      background-color: ${({ theme }) => theme.neutralColor.high.light};
     }
 
     & > tbody > tr > td.houston-table-action-cell {
-      padding-right: ${({ theme }) => theme.spacing(3)};
+      padding-right: ${({ theme }) => theme.spacing.xxxs};
     }
 
     & > tbody > tr > td.houston-table-action-cell button + button {
-      margin-left: ${({ theme }) => theme.spacing(1)};
+      margin-left: ${({ theme }) => theme.spacing.quarck};
     }
 
     & > thead > tr > th.houston-column-align-left {
@@ -118,22 +119,22 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
 
       & > tbody > tr {
         display: flex;
-        width: ${({ theme }) => `calc(100% - ${theme.spacing(4)})`};
+        width: ${({ theme }) => `calc(100% - ${theme.spacing.xxxs})`};
         flex-wrap: wrap;
         position: relative;
         box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
         border-radius: 3px;
-        margin: ${({ theme }) => theme.spacing(2)};
+        margin: ${({ theme }) => theme.spacing.nano};
         margin-top: 0;
-        border: 1px solid ${({ theme }) => theme.colors.grey[200]};
-        padding: ${({ theme }) => theme.spacing(3)};
-        padding-bottom: ${({ theme }) => theme.spacing(1)};
+        border: 1px solid ${({ theme }) => theme.neutralColor.high.light};
+        padding: ${({ theme }) => theme.spacing.xxxs};
+        padding-bottom: ${({ theme }) => theme.spacing.quarck};
         box-sizing: border-box;
       }
 
       & > tbody > tr.houston-table-collapse {
         padding: 0;
-        margin-top: ${({ theme }) => (Number(theme.spacing(2).toString().replace('px', '')) + 2) * -1}px;
+        margin-top: ${({ theme }) => (Number(theme.spacing.nano.toString().replace('px', '')) + 2) * -1}px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         box-shadow: none;
@@ -149,11 +150,11 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
       }
 
       & > tbody > tr.houston-table-row-even {
-        background-color: ${({ theme }) => theme.colors.grey[100]};
+        background-color: ${({ theme }) => theme.neutralColor.high.pure};
       }
 
       & > tbody > tr.houston-table-row-even + tr.houston-table-collapse {
-        background-color: ${({ theme }) => theme.colors.grey[100]};
+        background-color: ${({ theme }) => theme.neutralColor.high.pure};
         border: 0;
       }
 
@@ -173,7 +174,7 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
           content: ' ';
           display: block;
           position: absolute;
-          border-left: 1px solid ${({ theme }) => theme.colors.grey[200]};
+          border-left: 1px solid ${({ theme }) => theme.neutralColor.high.light};
           right: 40px;
           top: 0px;
           bottom: 0px;
@@ -182,9 +183,9 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
 
       & > tbody > tr > td.houston-houston-table-collapse-cell {
         position: absolute;
-        right: ${({ theme }) => theme.spacing(1)};
+        right: ${({ theme }) => theme.spacing.quarck};
         top: auto;
-        bottom: ${({ theme }) => theme.spacing(1)};
+        bottom: ${({ theme }) => theme.spacing.quarck};
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
@@ -195,8 +196,8 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
 
       & > tbody > tr > td.houston-table-action-cell {
         position: absolute;
-        right: ${({ theme }) => theme.spacing(1)};
-        top: ${({ theme }) => theme.spacing(1)};
+        right: ${({ theme }) => theme.spacing.quarck};
+        top: ${({ theme }) => theme.spacing.quarck};
         bottom: auto;
         flex-direction: column;
         justify-content: space-between;
@@ -218,13 +219,13 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
         box-sizing: border-box;
         word-break: break-word;
         padding: 0;
-        margin-bottom: ${({ theme }) => theme.spacing(2)};
+        margin-bottom: ${({ theme }) => theme.spacing.nano};
         flex: 1;
         border: none;
         flex-grow: 0;
         flex-basis: 100%;
         max-width: 100%;
-        line-height: ${({ theme }) => theme.lineHeight('compact')};
+        /* line-height:  */
       }
 
       & > tbody > tr.houston-table-loader {

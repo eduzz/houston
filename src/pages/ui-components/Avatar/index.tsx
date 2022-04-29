@@ -1,12 +1,11 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import AvatarMUI, { AvatarProps } from '@mui/material/Avatar';
 
 import AvatarOutline from '@eduzz/houston-icons/AvatarOutline';
 import AvatarSolid from '@eduzz/houston-icons/AvatarSolid';
-
-import createUseStyles from '../styles/createUseStyles';
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 type AvatarPropsExtends = 'id' | 'className' | 'src' | 'alt' | 'onClick' | 'children';
 
@@ -35,9 +34,9 @@ const useStyles = createUseStyles(theme => ({
   root: ({ size }: { size: IAvatarSize }) => ({
     display: 'inline-flex',
     background: 'none',
-    border: `2px solid ${theme.colors.grey[500]}`,
-    color: theme.colors.grey[500],
-    fontWeight: theme.fontWeight('semibold'),
+    border: `2px solid ${theme.neutralColor.low.light}`,
+    color: theme.neutralColor.low.light,
+    fontWeight: theme.font.weight.semibold,
     width: size,
     height: size,
 
@@ -52,7 +51,7 @@ const useStyles = createUseStyles(theme => ({
     },
 
     '&.--filled': {
-      background: theme.colors.grey[500],
+      background: theme.neutralColor.low.light,
       color: 'white',
       borderWidth: 4,
 
@@ -70,20 +69,20 @@ const useStyles = createUseStyles(theme => ({
   small: ({ size }: { size: IAvatarSize }) => ({
     width: size ?? sizes.small,
     height: size ?? sizes.small,
-    fontSize: theme.textSize('small'),
+    fontSize: theme.font.size.xxs,
     borderWidth: 2
   }),
 
   middle: ({ size }: { size: IAvatarSize }) => ({
     width: size ?? sizes.middle,
     height: size ?? sizes.middle,
-    fontSize: theme.textSize('medium')
+    fontSize: theme.font.size.sm
   }),
 
   large: ({ size }: { size: IAvatarSize }) => ({
     width: size ?? sizes.large,
     height: size ?? sizes.large,
-    fontSize: theme.textSize('x-large')
+    fontSize: theme.font.size.lg
   })
 }));
 

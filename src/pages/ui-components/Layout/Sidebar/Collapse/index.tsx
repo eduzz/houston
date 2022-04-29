@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import ChevronLeftIcon from '@eduzz/houston-icons/ChevronLeft';
+import styled, { IStyledProp, cx } from '@eduzz/houston-styles/styled';
 
-import styled, { IStyledProp } from '../../../styles/styled';
 import SidebarContext from '../context';
 
 interface ISidebarCollapseProps extends IStyledProp {}
@@ -30,7 +29,7 @@ export default styled(React.memo(SidebarCollapse), { label: 'houston-sidebar-col
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: ${({ theme }) => theme.colors.primary.dark};
+  background: ${({ theme }) => theme.brandColor.primary.dark};
   position: absolute;
   right: -12px;
   top: 8px;
@@ -41,11 +40,11 @@ export default styled(React.memo(SidebarCollapse), { label: 'houston-sidebar-col
   z-index: 2;
 
   &:hover {
-    background: rgba(${({ theme }) => theme.hexToRgb(theme.colors.primary.dark)}, 0.72);
+    background: ${({ theme }) => theme.brandColor.primary.dark + 'b8'};
   }
 
   &:active {
-    background: rgba(${({ theme }) => theme.hexToRgb(theme.colors.primary.dark)}, 0.64);
+    background: ${({ theme }) => theme.brandColor.primary.dark + 'a3'};
   }
 
   ${({ theme }) => theme.breakpoints.down('md')} {

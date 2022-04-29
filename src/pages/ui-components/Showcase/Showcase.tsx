@@ -1,15 +1,16 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import CardMUI from '@mui/material/Card';
 import CardActionsMUI from '@mui/material/CardActions';
 import CardContentMUI from '@mui/material/CardContent';
 import ModalMUI from '@mui/material/Modal';
 
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+
 import { getReactChildrenComponent, getReactFirstChildrenProps } from '../Helpers/functions';
 import nestedComponent from '../Helpers/nestedComponent';
 import { useFirstChildrenProps } from '../hooks/useChildrenProps';
-import createUseStyles from '../styles/createUseStyles';
 import ShowcaseCloseButton from './CloseButton';
 import ShowcaseContextProvider, { IShowcaseContext } from './context';
 import ShowcaseGenericButtons from './GenericButtons';

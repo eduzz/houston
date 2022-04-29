@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@eduzz/houston-workspaces",
-  "version": "0.43.2",
+  "version": "0.44.0-beta.0",
   "workspaces": [
     "src/pages/*",
     "src/dev",
@@ -36,7 +36,7 @@
     "@commitlint/cli": "16.2.3",
     "@commitlint/config-conventional": "16.2.1",
     "@swc/cli": "0.1.57",
-    "@swc/core": "1.2.168",
+    "@swc/core": "1.2.172",
     "@swc/helpers": "0.3.8",
     "@typescript-eslint/eslint-plugin": "5.20.0",
     "@typescript-eslint/parser": "5.20.0",
@@ -65,6 +65,7 @@
   },
   "resolutions": {
     "react": "^17",
+    "@types/react": "^17",
     "**/@emotion/css": "^11",
     "**/@emotion/styled": "^11",
     "**/@emotion/react": "^11",
