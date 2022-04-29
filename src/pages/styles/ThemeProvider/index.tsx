@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ThemeProvider as ThemeProviderEmotion } from '@emotion/react';
 
-import { IHoustonTheme } from '.';
+import { IHoustonTheme } from '..';
 
 export interface IThemeProvider {
   theme: IHoustonTheme;

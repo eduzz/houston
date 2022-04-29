@@ -82,3 +82,5 @@ export function createBrandColors(brand: Brands | BrandColor): BrandColor {
 
   return brandVariables;
 }
+
+export const getSupportedBrands = () => Object.keys(brands);

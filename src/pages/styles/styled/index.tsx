@@ -1,5 +1,3 @@
-import '.';
-
 import { keyframes as keyframesEmotion, cx as cxEmotion } from '@emotion/css';
 import emotionStyled from '@emotion/styled';
 

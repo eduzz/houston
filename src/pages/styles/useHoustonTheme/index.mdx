@@ -1,0 +1,20 @@
+---
+name: useHoustonTheme
+---
+
+# useHoustonTheme
+
+Caso queria apenas utlizar as variáveis sem criar um estilo é possível utilizar esse hook.
+
+```tsx
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
+const ComponentsDev = memo<IProps>(props => {
+  const theme = useHoustonTheme();
+  return <div>Tamanho: {theme.font.size.xs}</div>;
+});
+```
+
+### Objeto Tema (IHoustonTheme)
+
+Veja [aqui os tokens](/houston/tokens/tokens)
