@@ -63,7 +63,7 @@ const SortLabel: React.FC<ISortLabelProps> = ({
 export default styled(SortLabel)`
   font-size: ${({ theme }) => theme.font.size.xs};
   font-weight: ${({ theme }) => theme.font.weight.semibold};
-  color: ${({ theme }) => theme.neutralColor.low.light};
+  color: ${({ theme }) => theme.neutralColor.low.dark};
 
   &.--small {
     font-size: ${({ theme }) => theme.font.size.xxs};
