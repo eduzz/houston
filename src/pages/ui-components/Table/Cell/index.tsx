@@ -61,7 +61,7 @@ export default styled(TableCell)`
   padding: 12px 20px;
   border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light};
   font-size: ${({ theme }) => theme.font.size.xs};
-  color: ${({ theme }) => theme.neutralColor.low.light};
+  color: ${({ theme }) => theme.neutralColor.low.dark};
   font-weight: ${({ theme }) => theme.font.weight.regular};
   line-height: ${({ theme }) => theme.line.height.md};
 

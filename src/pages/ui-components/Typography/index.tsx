@@ -34,7 +34,7 @@ const Typography: React.FC<ITypographyProps> = ({ className, variant, id, childr
 
 export default styled(Typography)`
   margin: 0;
-  font-size: ${({ theme, size }) => theme.font.size[size ?? 'sm']};
+  font-size: ${({ theme, size }) => theme.font.size[size] ?? theme.font.size['sm']};
   font-weight: ${({ theme, fontWeight }) => theme.font.weight[fontWeight ?? 'regular']};
   line-height: ${({ theme, lineHeight }) => theme.line.height[lineHeight ?? 'md']};
   margin-bottom: ${({ theme, marginBottom }) => (marginBottom ? theme.spacing.nano : null)};

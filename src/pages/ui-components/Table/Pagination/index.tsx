@@ -193,7 +193,7 @@ export default styled(Pagination)`
       & > p {
         white-space: nowrap;
         margin-right: ${({ theme }) => theme.spacing.nano};
-        color: ${({ theme }) => theme.neutralColor.low.light};
+        color: ${({ theme }) => theme.neutralColor.low.dark};
       }
     }
 
@@ -204,7 +204,7 @@ export default styled(Pagination)`
       & > p {
         white-space: nowrap;
         margin-right: ${({ theme }) => theme.spacing.nano};
-        color: ${({ theme }) => theme.neutralColor.low.light};
+        color: ${({ theme }) => theme.neutralColor.low.dark};
       }
 
       ${breakpoints.down('sm')} {
