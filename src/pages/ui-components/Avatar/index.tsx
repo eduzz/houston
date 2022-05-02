@@ -4,16 +4,15 @@ import AvatarMUI, { AvatarProps } from '@mui/material/Avatar';
 
 import AvatarOutline from '@eduzz/houston-icons/AvatarOutline';
 import AvatarSolid from '@eduzz/houston-icons/AvatarSolid';
-import { cx } from '@eduzz/houston-styles';
-import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+import styled, { cx, IStyledProp } from '@eduzz/houston-styles';
 
 type AvatarPropsExtends = 'id' | 'className' | 'src' | 'alt' | 'onClick' | 'children';
 
-export type IAvatarSize = 'small' | 'middle' | 'large' | number;
+export type IAvatarSize = 'small' | 'medium' | 'large' | number;
 
 export type IAvatarType = 'text' | 'icon';
 
-export interface IAvatarProps extends Pick<AvatarProps, AvatarPropsExtends> {
+export interface IAvatarProps extends Pick<AvatarProps, AvatarPropsExtends>, IStyledProp {
   /**
    * Default `false`
    */
@@ -23,73 +22,17 @@ export interface IAvatarProps extends Pick<AvatarProps, AvatarPropsExtends> {
    */
   type?: IAvatarType;
   /**
-   * Default `middle`
+   * Default `medium`
    */
   size?: IAvatarSize;
 }
 
-const sizes = { small: 40, middle: 60, large: 80 };
-
-const useStyles = createUseStyles(theme => ({
-  root: ({ size }: { size: IAvatarSize }) => ({
-    display: 'inline-flex',
-    background: 'none',
-    border: `2px solid ${theme.neutralColor.low.light}`,
-    color: theme.neutralColor.low.light,
-    fontWeight: theme.font.weight.semibold,
-    width: size,
-    height: size,
-
-    '&.--icon': {
-      alignItems: 'flex-end',
-      borderWidth: 2,
-
-      '& span.houston-icon': {
-        position: 'relative',
-        top: 5
-      }
-    },
-
-    '&.--filled': {
-      background: theme.neutralColor.low.light,
-      color: 'white',
-      borderWidth: 4,
-
-      '& span.houston-icon': {
-        color: 'white',
-        top: '7px !important'
-      }
-    },
-
-    '&.--image': {
-      borderWidth: 1
-    }
-  }),
-
-  small: ({ size }: { size: IAvatarSize }) => ({
-    width: size ?? sizes.small,
-    height: size ?? sizes.small,
-    fontSize: theme.font.size.xxs,
-    borderWidth: 2
-  }),
-
-  middle: ({ size }: { size: IAvatarSize }) => ({
-    width: size ?? sizes.middle,
-    height: size ?? sizes.middle,
-    fontSize: theme.font.size.sm
-  }),
-
-  large: ({ size }: { size: IAvatarSize }) => ({
-    width: size ?? sizes.large,
-    height: size ?? sizes.large,
-    fontSize: theme.font.size.lg
-  })
-}));
+const sizes = { small: 40, medium: 60, large: 80 };
 
 const Avatar: React.FC<IAvatarProps> = ({
   children,
   className,
-  size = 'middle',
+  size = 'medium',
   type = 'icon',
   filled,
   src,
@@ -98,15 +41,8 @@ const Avatar: React.FC<IAvatarProps> = ({
   const hasIcon = type === 'icon';
   const sizeIsNumber = typeof size === 'number';
 
-  const classes = useStyles({ size: sizeIsNumber ? size : null });
-
-  const sizeClasses = React.useMemo(
-    () => ({ small: classes.small, middle: classes.middle, large: classes.large }),
-    [classes.large, classes.middle, classes.small]
-  );
-
   const iconRender = React.useMemo(() => {
-    const currentSize = (sizeIsNumber ? size : sizes[size]) - 4;
+    const currentSize = ((sizeIsNumber ? size : sizes[size]) ?? sizes.medium) - 4;
 
     if (filled) {
       return <AvatarSolid size={currentSize} />;
@@ -115,25 +51,73 @@ const Avatar: React.FC<IAvatarProps> = ({
     return <AvatarOutline size={currentSize} />;
   }, [filled, size, sizeIsNumber]);
 
-  const styles = React.useMemo(
-    () =>
-      cx(
-        classes.root,
-        !sizeIsNumber && sizeClasses[size],
+  return (
+    <AvatarMUI
+      {...rest}
+      src={src}
+      className={cx(
+        className,
+        !sizeIsNumber && `--${size ?? 'medium'}`,
         hasIcon && '--icon',
         filled && '--filled',
-        src && '--image',
-        className
-      ),
-    [className, classes.root, filled, hasIcon, size, sizeClasses, sizeIsNumber, src]
-  );
-
-  return (
-    <AvatarMUI {...rest} src={src} className={styles}>
+        src && '--image'
+      )}
+    >
       {hasIcon && iconRender}
       {type === 'text' && children}
     </AvatarMUI>
   );
 };
 
-export default React.memo(Avatar);
+export default styled(Avatar)`
+    display: inline-flex;
+    background: none;
+    border: 2px solid ${({ theme }) => theme.neutralColor.low.light};
+    color: ${({ theme }) => theme.neutralColor.low.light};
+    font-weight: ${({ theme }) => theme.font.weight.semibold};
+
+    &.--icon {
+      align-items: flex-end;
+      border-width: 2px;
+
+      & span.houston-icon {
+        position: relative;
+        top: 5;
+      }
+    }
+
+    &.--filled {
+      background: ${({ theme }) => theme.neutralColor.low.light};
+      color: white;
+      border-width: 4px;
+
+      & span.houston-icon {
+        color: white;
+        top: 7px !important;
+      }
+    }
+
+    &.--image {
+      border-width: 1px;
+    }
+
+  &.--small {
+    width: ${sizes.small}px;
+    height: ${sizes.small}px;
+    font-size: ${({ theme }) => theme.font.size.xxs};
+    border-width: 2px;
+  }
+
+  &.--medium{
+    width: ${sizes.medium}px;
+    height: ${sizes.medium}px;
+    font-size: ${({ theme }) => theme.font.size.sm};
+  }
+
+  &.--large {
+    width: ${sizes.large}px;
+    height: ${sizes.large}px;
+    font-size: ${({ theme }) => theme.font.size.lg};
+  }
+})
+`;
