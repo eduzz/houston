@@ -1,13 +1,13 @@
 import { toast, ToastOptions } from 'react-toastify';
 
-import { getCurrentTime } from '../ThemeProvider/_state';
+import { getCurrentTheme } from '../ThemeProvider/_state';
 
 type IToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 interface IToastOptions extends Pick<ToastOptions, IToastPropsExtends> {}
 
 class Toast {
   static success(content: React.ReactNode, options?: IToastOptions): void {
-    const theme = getCurrentTime();
+    const theme = getCurrentTheme();
     toast.success(content, {
       ...options,
       style: { ...(theme ? { background: theme.feedbackColor.positive.pure } : {}) }
@@ -15,7 +15,7 @@ class Toast {
   }
 
   static error(content: React.ReactNode, options?: IToastOptions): void {
-    const theme = getCurrentTime();
+    const theme = getCurrentTheme();
     toast.error(content, {
       ...options,
       style: { ...(theme ? { background: theme.feedbackColor.negative.pure } : {}) }
@@ -23,7 +23,7 @@ class Toast {
   }
 
   static info(content: React.ReactNode, options?: IToastOptions): void {
-    const theme = getCurrentTime();
+    const theme = getCurrentTheme();
     toast.info(content, {
       ...options,
       style: { ...(theme ? { background: theme.feedbackColor.informative.pure } : {}) }

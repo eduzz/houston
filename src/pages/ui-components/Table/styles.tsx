@@ -225,7 +225,7 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
         flex-grow: 0;
         flex-basis: 100%;
         max-width: 100%;
-        /* line-height:  */
+        line-height: ${({ theme }) => theme.line.height.sm};
       }
 
       & > tbody > tr.houston-table-loader {

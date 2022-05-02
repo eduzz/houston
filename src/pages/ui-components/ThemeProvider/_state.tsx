@@ -6,6 +6,6 @@ export function setCurrentTheme(theme: HoustonTokens) {
   currentTheme = theme;
 }
 
-export function getCurrentTime() {
+export function getCurrentTheme() {
   return currentTheme;
 }
