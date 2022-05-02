@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { useTheme } from '@emotion/react';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import Typography from '../../Typography';
@@ -12,6 +13,8 @@ interface ILabelBaseProps {
 }
 
 const LabelBase: React.FC<ILabelBaseProps> = ({ hasError, label, description, errorMessage }) => {
+  const theme = useTheme();
+
   if (label && typeof label !== 'string') {
     return (
       <>
@@ -23,15 +26,19 @@ const LabelBase: React.FC<ILabelBaseProps> = ({ hasError, label, description, er
 
   return (
     <>
-      {label && <Typography>{label}</Typography>}
+      {label && <Typography size='xxs'>{label}</Typography>}
 
       {description && (
-        <Typography size='xxxs' fontWeight='regular'>
+        <Typography size='xxs' fontWeight='regular'>
           {description}
         </Typography>
       )}
 
-      {hasError && <FormHelperText error>{errorMessage}</FormHelperText>}
+      {hasError && (
+        <FormHelperText sx={{ fontSize: theme.font.size.xxxs }} error>
+          {errorMessage}
+        </FormHelperText>
+      )}
     </>
   );
 };

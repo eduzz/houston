@@ -186,7 +186,7 @@ export default styled(Pagination)`
     }
 
     .__perPage {
-      width: 200px;
+      width: 240px;
       display: inline-flex;
       align-items: center;
 

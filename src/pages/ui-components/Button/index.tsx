@@ -63,7 +63,7 @@ export default styled(Button, { label: 'houston-button' })`
   border-radius: ${props => props.theme.border.radius.xs};
   font-weight: ${props => props.theme.font.weight.bold};
   font-family: ${props => props.theme.font.family.base};
-  line-height: ${props => props.theme.line.height.xl};
+  line-height: ${props => props.theme.line.height.default};
   font-size: ${props => props.theme.font.size.xxs};
   position: relative;
   transition: 0.3s;
