@@ -1,4 +1,5 @@
-import { keyframes as keyframesEmotion, cx as cxEmotion, css as cssEmotion } from '@emotion/css';
+import { cx as cxEmotion } from '@emotion/css';
+import { css as cssEmotion, keyframes as keyframesEmotion } from '@emotion/react';
 import emotionStyled from '@emotion/styled';
 
 import { breakpoinstUtils } from '@eduzz/houston-tokens/variables/breakpoints';

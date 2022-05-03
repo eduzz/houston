@@ -114,4 +114,31 @@ export default styled(ComponentsDev)`
 `;
 ```
 
+### Complexidade
+
+Se estiver usando muita interpolação, ou precisar fazer algum calculo é possível utilizar a seguinte sintax;
+
+```tsx
+import * as React from 'react';
+import styled, { IStyledProp, clsx, css } from '@eduzz/houston-styles';
+
+interface IProps extends IStyledProp {
+  size?: numberl;
+}
+
+const ComponentsDev: React.FC<> = ({ className }) => {
+  return <div className={clsx(className, 'outra-classe', { 'classe-condicional': true })} />;
+};
+
+export default styled(ComponentsDev)(({ theme, size }) => {
+  const height = size * 4;
+
+  // O css é apenas para que o vscode entenda a sintax, e dentro dele não pode haver interpolação de função.
+  return css`
+    background-color: ${theme.color};
+    height: ${size}px;
+  `;
+});
+```
+
 Para mais informações [clique aqui](https://emotion.sh/docs/styled).

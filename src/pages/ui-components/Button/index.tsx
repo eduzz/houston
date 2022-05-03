@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import { getColorFallback } from '../Helpers/functions';
 import Spinner from '../Spinner';
@@ -54,104 +54,108 @@ const Button: React.FC<IButtonProps> = props => {
   );
 };
 
-export default styled(Button, { label: 'houston-button' })`
-  border: none;
-  cursor: pointer;
-  text-transform: none;
-  padding: 10px 16px;
-  height: 40px;
-  border-radius: ${props => props.theme.border.radius.xs};
-  font-weight: ${props => props.theme.font.weight.bold};
-  font-family: ${props => props.theme.font.family.base};
-  line-height: ${props => props.theme.line.height.default};
-  font-size: ${props => props.theme.font.size.xxs};
-  position: relative;
-  transition: 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export default styled(Button, { label: 'houston-button' })(({ theme, color: colorProp }) => {
+  const color = getColorFallback(theme, colorProp);
 
-  &.--fullWidth {
-    width: 100%;
-  }
+  return css`
+    border: none;
+    cursor: pointer;
+    text-transform: none;
+    padding: 10px 16px;
+    height: 40px;
+    border-radius: ${theme.border.radius.xs};
+    font-weight: ${theme.font.weight.bold};
+    font-family: ${theme.font.family.base};
+    line-height: ${theme.line.height.default};
+    font-size: ${theme.font.size.xxs};
+    position: relative;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  &.--contained {
-    background-color: ${props => getColorFallback(props.theme, props.color).pure};
-    color: white;
-
-    &:hover:not(:disabled) {
-      background-color: ${props => getColorFallback(props.theme, props.color).light};
+    &.--fullWidth {
+      width: 100%;
     }
 
-    &:active:not(:disabled) {
-      background-color: ${props => getColorFallback(props.theme, props.color).dark};
+    &.--contained {
+      background-color: ${color.pure};
+      color: white;
+
+      &:hover:not(:disabled) {
+        background-color: ${color.light};
+      }
+
+      &:active:not(:disabled) {
+        background-color: ${color.dark};
+      }
+
+      &:disabled {
+        background-color: ${theme.neutralColor.high.medium};
+      }
+    }
+
+    &.--outlined {
+      background-color: transparent;
+      color: ${color.pure};
+      border: 1px solid;
+      border-color: ${color.light};
+
+      &:hover:not(:disabled),
+      &:active:not(:disabled) {
+        border-color: ${color.dark};
+        color: ${color.dark};
+      }
+    }
+
+    &.--text {
+      background-color: transparent;
+      color: ${color.pure};
+
+      &:hover:not(:disabled),
+      &:active:not(:disabled) {
+        background-color: ${theme.neutralColor.high.light};
+      }
     }
 
     &:disabled {
-      background-color: ${props => props.theme.neutralColor.high.medium};
+      cursor: default;
+      color: ${theme.neutralColor.low.medium};
+      border-color: ${theme.neutralColor.high.medium};
     }
-  }
 
-  &.--outlined {
-    background-color: transparent;
-    color: ${props => getColorFallback(props.theme, props.color).pure};
-    border: 1px solid;
-    border-color: ${props => getColorFallback(props.theme, props.color).light};
-
-    &:hover:not(:disabled),
-    &:active:not(:disabled) {
-      border-color: ${props => getColorFallback(props.theme, props.color).dark};
-      color: ${props => getColorFallback(props.theme, props.color).dark};
+    &:before {
+      content: ' ';
+      position: absolute;
+      left: -4px;
+      right: -4px;
+      top: -4px;
+      bottom: -4px;
+      border: 2px solid transparent;
+      transition: 0.3s;
+      border-radius: ${theme.border.radius.sm};
     }
-  }
 
-  &.--text {
-    background-color: transparent;
-    color: ${props => getColorFallback(props.theme, props.color).pure};
-
-    &:hover:not(:disabled),
-    &:active:not(:disabled) {
-      background-color: ${props => props.theme.neutralColor.high.light};
+    &:focus:not(:active):not(:hover):before {
+      border-color: ${theme.neutralColor.high.medium};
     }
-  }
 
-  &:disabled {
-    cursor: default;
-    color: ${props => props.theme.neutralColor.low.medium};
-    border-color: ${props => props.theme.neutralColor.high.medium};
-  }
+    & > .__loader {
+      margin-right: ${theme.spacing.nano};
+    }
 
-  &:before {
-    content: ' ';
-    position: absolute;
-    left: -4px;
-    right: -4px;
-    top: -4px;
-    bottom: -4px;
-    border: 2px solid transparent;
-    transition: 0.3s;
-    border-radius: ${props => props.theme.border.radius.sm};
-  }
+    & > .__startIcon {
+      margin-right: ${theme.spacing.nano};
+    }
 
-  &:focus:not(:active):not(:hover):before {
-    border-color: ${props => props.theme.neutralColor.high.medium};
-  }
+    & > .__endIcon {
+      margin-left: ${theme.spacing.nano};
+    }
 
-  & > .__loader {
-    margin-right: ${props => props.theme.spacing.nano};
-  }
-
-  & > .__startIcon {
-    margin-right: ${props => props.theme.spacing.nano};
-  }
-
-  & > .__endIcon {
-    margin-left: ${props => props.theme.spacing.nano};
-  }
-
-  & > .__startIcon > svg,
-  & > .__endIcon > svg {
-    vertical-align: middle;
-    font-size: 17px;
-  }
-`;
+    & > .__startIcon > svg,
+    & > .__endIcon > svg {
+      vertical-align: middle;
+      font-size: 17px;
+    }
+  `;
+});
