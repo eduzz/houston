@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-forms",
-  "version": "0.44.0",
+  "version": "0.44.1",
   "description": "Houston Forms",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -16,15 +16,15 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "dependencies": {
-    "@eduzz/houston-core": "0.44.0",
-    "@eduzz/houston-hooks": "0.44.0",
+    "@eduzz/houston-core": "0.44.1",
+    "@eduzz/houston-hooks": "0.44.1",
     "@types/yup": "^0.29",
     "formik": "^2",
     "rxjs": "^7",
     "yup": "^0.32"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.44.0"
+    "@eduzz/houston-core": "0.44.1"
   },
   "devDependencies": {}
 }
