@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import CollapseMUI from '@mui/material/Collapse';
 import { useContextSelector } from 'use-context-selector';
+
+import { cx } from '@eduzz/houston-styles';
 
 import TableRowContext from '../Row/context';
 import TableCollapseContext from './context';

@@ -1,0 +1,144 @@
+---
+name: styled
+---
+
+# styled
+
+Padrão styled, é possível receber o _theme_ e as _props_ juntos na função da interpolação.
+
+```tsx
+import * as React from 'react';
+import styled, { IStyledProp } from '@eduzz/houston-styles';
+
+interface IProps extends IStyledProp {
+  success: boolean;
+}
+
+const ComponentsDev: React.FC<IProps> = ({ className }) => {
+  return (
+    <div className={className}>
+      <span className='__text'>Teste</span>
+      <button>Teste</button>
+    </div>
+  );
+};
+
+export default styled(ComponentsDev)`
+  background-color: ${({ theme, success }) =>
+    success ? theme.feedbackColor.positive.pure : theme.feedbackColor.negative.pure};
+
+  & > .__text {
+    color: red;
+  }
+`;
+```
+
+### Breakpoints
+
+Basta importar o breakpoints e utilizar os [tamanhos pré-definidos no tokens](./houston/tokens/tokens).
+
+```tsx
+import * as React from 'react';
+import styled, { IStyledProp, breakpoints } from '@eduzz/houston-styles';
+
+const ComponentsDev: React.FC<IStyledProp> = ({ className }) => {
+  return <div className={className} />;
+};
+
+export default styled(ComponentsDev)`
+  background-color: red;
+
+  ${breakpoints.up('md')} {
+    background-color: purple;
+  }
+`;
+```
+
+### cx/clsx
+
+Utilize o [cx](https://emotion.sh/docs/@emotion/css#cx) para facilitar na hora de compor nomes de classes.
+**clsx é apenas um alias para o cx**.
+
+```tsx
+import * as React from 'react';
+import styled, { IStyledProp, clsx } from '@eduzz/houston-styles';
+
+const ComponentsDev: React.FC<IStyledProp> = ({ className }) => {
+  return <div className={clsx(className, 'outra-classe', { 'classe-condicional': true })} />;
+};
+
+export default styled(ComponentsDev)`
+  background-color: red;
+`;
+```
+
+### keyframes
+
+Para criar animações utilize o keyframes conforme o exemplo abaixo.
+
+```tsx
+import * as React from 'react';
+import styled, { IStyledProp, keyframes, IHoustonTheme } from '@eduzz/houston-styles';
+
+interface IProps extends IStyledProp {
+  size: number;
+}
+
+const ComponentsDev: React.FC<IStyledProp> = ({ className }) => {
+  return (
+    <div className={className}>
+      <div className='__circle' />
+    </div>
+  );
+};
+
+// simples
+const rotationAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(270deg); }
+`;
+
+// usando props, não é possível interpolar as props/theme, é preciso receber eles via parametro.
+const circleAnimation = (props: ILoaderProps & { theme: IHoustonTheme }) => keyframes`
+  0% { stroke-dashoffset: ${props.size}
+  50% { stroke-dashoffset: ${props.size}; transform: rotate(135deg); }
+  100% { stroke-dashoffset: ${props.size}; transform: rotate(450deg); }
+`;
+
+export default styled(ComponentsDev)`
+  animation: ${rotationAnimation} 1.4s linear infinite;
+
+  & > .__circle {
+    animation: ${props => circleAnimation(props)} 1.4s ease-in-out infinite;
+  }
+`;
+```
+
+### Complexidade
+
+Se estiver usando muita interpolação, ou precisar fazer algum calculo é possível utilizar a seguinte sintax;
+
+```tsx
+import * as React from 'react';
+import styled, { IStyledProp, clsx, css } from '@eduzz/houston-styles';
+
+interface IProps extends IStyledProp {
+  size?: numberl;
+}
+
+const ComponentsDev: React.FC<> = ({ className }) => {
+  return <div className={clsx(className, 'outra-classe', { 'classe-condicional': true })} />;
+};
+
+export default styled(ComponentsDev)(({ theme, size }) => {
+  const height = size * 4;
+
+  // O css é apenas para que o vscode entenda a sintax, e dentro dele não pode haver interpolação de função.
+  return css`
+    background-color: ${theme.color};
+    height: ${size}px;
+  `;
+});
+```
+
+Para mais informações [clique aqui](https://emotion.sh/docs/styled).

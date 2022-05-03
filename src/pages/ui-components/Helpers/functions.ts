@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Color, HoustonTokens } from '@eduzz/houston-tokens';
+
 export function truncateText(value: string, crop: number) {
   if (value?.length <= crop) {
     return value;
@@ -35,4 +37,11 @@ export function isReactComponent(child: any, componentType?: React.ReactElement[
   }
 
   return child && React.isValidElement(child);
+}
+
+export function getColorFallback(
+  theme: HoustonTokens,
+  colorKey: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'inherit'
+): Color {
+  return colorKey === 'inherit' ? 'inherit' : theme.feedbackColor[colorKey] ?? theme.brandColor.primary;
 }

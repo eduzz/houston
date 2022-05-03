@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import AvatarMUI from '@mui/material/Avatar';
 import ListItemIconMUI from '@mui/material/ListItemIcon';
 
-import createUseStyles from '../../styles/createUseStyles';
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 const useStyles = createUseStyles(theme => ({
   iconRoot: {
-    color: theme.colors.grey[500],
+    color: theme.neutralColor.high.dark,
     minWidth: 20,
     lineHeight: 1.5,
     marginRight: 8,
@@ -18,8 +18,8 @@ const useStyles = createUseStyles(theme => ({
     }
   },
   imageRoot: {
-    color: theme.colors.grey[600],
-    backgroundColor: theme.colors.grey[200],
+    color: theme.neutralColor.low.light,
+    backgroundColor: theme.neutralColor.high.light,
     marginRight: 8,
     '& > svg': {
       width: 20,

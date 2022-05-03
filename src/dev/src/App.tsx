@@ -1,23 +1,22 @@
 import { BrowserRouter } from 'react-router-dom';
 
-import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
-import { HoustonThemeBuilder } from '@eduzz/houston-ui/styles/types';
+import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
 
 import ComponentDev from './components';
 
+declare module '@eduzz/houston-styles' {
+  interface IHoustonThemeCustomVariables {
+    customVar: string;
+    customObject: {
+      prop: number;
+    };
+  }
+}
+
 function App() {
-  const customVariables = { background: 'pink' };
-
-  const theme = {
-    variables: {
-      lang: 'pt-BR',
-      ...customVariables
-    }
-  } as Partial<HoustonThemeBuilder>;
-
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <ComponentDev />
       </ThemeProvider>
     </BrowserRouter>

@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
+import { cx } from '@eduzz/houston-styles';
+import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import Collapse from '../../../Collapse';
-import styled, { IStyledProp } from '../../../styles/styled';
 import MenuContext from '../Menu/context';
 import SubMenuItemContext, { ISidebarSubMenuItemContext } from './context';
 
@@ -91,7 +91,7 @@ const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
 export default styled(React.memo(SidebarSubMenuItem), { label: 'houston-sidebar-submenu-item' })`
   &.--active {
     .item {
-      color: ${({ theme }) => theme.colors.primary.main};
+      color: ${({ theme }) => theme.brandColor.primary.pure};
     }
   }
 

@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp, cx } from '../../styles/styled';
+import styled, { IStyledProp, cx } from '@eduzz/houston-styles/styled';
+
 import Typography from '../../Typography';
 import TableContext from '../context';
 
@@ -21,7 +22,7 @@ const TableEmpty = React.memo<ITableEmptyProps>(({ children, count, className })
     <tr className={cx(className, 'table-empty-message')}>
       <td align='center' colSpan={columnsLen}>
         {typeof children === 'string' ? (
-          <Typography size='normal' fontWeight='regular' lineHeight='comfortable' className='__text'>
+          <Typography size='xs' fontWeight='regular' lineHeight='xl' className='__text'>
             {children}
           </Typography>
         ) : (
@@ -34,6 +35,6 @@ const TableEmpty = React.memo<ITableEmptyProps>(({ children, count, className })
 
 export default styled(TableEmpty)`
   & > td > .__text {
-    padding: ${({ theme }) => theme.spacing(5)};
+    padding: ${({ theme }) => theme.spacing.xxs};
   }
 `;

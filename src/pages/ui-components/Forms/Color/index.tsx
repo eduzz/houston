@@ -1,12 +1,13 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
 import { InputLabelProps } from '@mui/material/InputLabel';
 import TextFieldMUI from '@mui/material/TextField';
 import { HexColorPicker } from 'react-colorful';
 import { useContextSelector } from 'use-context-selector';
+
+import { cx } from '@eduzz/houston-styles';
 
 import useOnClickOutside from '../../hooks/useClickOutside';
 import { FormFieldsContext } from '../Form';
