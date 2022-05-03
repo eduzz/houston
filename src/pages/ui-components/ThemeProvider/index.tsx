@@ -5,83 +5,60 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import { ptBR, enUS } from 'date-fns/locale';
+import { ptBR } from 'date-fns/locale';
 
-import ToastContainer from '../../Toast/Container';
-import { HoustonThemeBuilder } from '../types';
+import { IHoustonTheme } from '@eduzz/houston-styles';
+import createTheme from '@eduzz/houston-styles/createTheme';
+
+import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
-import defaultThemeVariables from './_generator/variables';
 import { setCurrentTheme } from './_state';
 
 export interface IThemeProviderProps extends Pick<ThemeProviderProps, 'children'> {
-  theme?: Partial<HoustonThemeBuilder>;
-  locale?: 'pt-BR' | 'en-US';
+  theme?: IHoustonTheme;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
   disableToast?: boolean;
 }
 
+const defaultTheme = createTheme('orbita');
+
 function ThemeProvider({
+  theme = defaultTheme,
   children,
-  theme,
   disableCssBaseline,
   disabledFontBase,
-  disableToast,
-  locale = 'pt-BR'
+  disableToast
 }: IThemeProviderProps) {
-  const variables = React.useMemo(() => ({ lang: locale }), [locale]);
-  const muiTheme = React.useMemo(() => generateTheme(theme, variables), [theme, variables]);
+  const [muiTheme] = React.useState(() => generateTheme(theme));
 
-  const fontBaseBody = React.useMemo(
-    () =>
-      !disabledFontBase &&
-      `
+  const [styleContent] = React.useState(() => ({
+    __html: `
+        form { width: 100%; }
+        a { text-decoration: none; }
+        .houston-icon { line-height: 0; }
+
+        ${
+          !disabledFontBase &&
+          `
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700');
 
         body {
-          font-family: ${defaultThemeVariables.fontFamily};
-          font-size: ${defaultThemeVariables.textSize('default')}px;
+          font-family: ${theme.font.family.base};
+          font-size: ${theme.font.size.xs}px;
           -webkit-font-smoothing: auto;
         }
-      `,
-    [disabledFontBase]
-  );
-
-  const styleContent = React.useMemo(
-    () => ({
-      __html: `
-        form {
-          width: 100%;
-        }
-
-        a {
-          text-decoration: none;
-        }
-
-        .houston-icon {
-          line-height: 0;
-        }
-
-        ${fontBaseBody}
       `
-    }),
-    [fontBaseBody]
-  );
+        }
+      `
+  }));
 
-  const localeNavigator = React.useMemo(() => {
-    if (locale === 'pt-BR') {
-      return ptBR;
-    }
-
-    return enUS;
-  }, [locale]);
-
-  React.useEffect(() => setCurrentTheme(muiTheme), [muiTheme]);
+  React.useEffect(() => setCurrentTheme(theme), [theme]);
 
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
-        <LocalizationProvider locale={localeNavigator} dateAdapter={AdapterDateFns}>
+        <LocalizationProvider locale={ptBR} dateAdapter={AdapterDateFns}>
           <style dangerouslySetInnerHTML={styleContent} />
 
           {!disableToast && <ToastContainer />}

@@ -1,12 +1,42 @@
+diff --git a/node_modules/dokz/dist/components/FloatingTableOfContents.js b/node_modules/dokz/dist/components/FloatingTableOfContents.js
+index 95405f6..ead5cc7 100644
+--- a/node_modules/dokz/dist/components/FloatingTableOfContents.js
++++ b/node_modules/dokz/dist/components/FloatingTableOfContents.js
+@@ -50,6 +50,7 @@ var react_2 = __importStar(require("react"));
+ var pick_1 = __importDefault(require("lodash/pick"));
+ var parse_github_url_1 = __importDefault(require("parse-github-url"));
+ var provider_1 = require("../provider");
++var keyCounter = 0;
+ function FloatingTableOfContents(_a) {
+     var table = _a.table, rest = __rest(_a, ["table"]);
+     var _b = provider_1.useDokzConfig(), branch = _b.branch, githubUrl = _b.githubUrl;
+@@ -77,7 +78,7 @@ function FloatingTableOfContents(_a) {
+             react_2.default.createElement(react_1.Button, { fontWeight: '600', variant: 'solid' }, "Edit This Page"))),
+         table.children &&
+             table.children.map(function (table) {
+-                return react_2.default.createElement(TableItem, __assign({ key: table.slug }, table));
++                return react_2.default.createElement(TableItem, __assign({ key: table.slug || 'key-' + ++keyCounter }, table));
+             })));
+ }
+ exports.FloatingTableOfContents = FloatingTableOfContents;
+@@ -89,7 +90,7 @@ function TableItem(_a) {
+             react_2.default.createElement(react_1.Link, { href: slug }, title)),
+         react_2.default.createElement(react_1.Stack, { ml: baseW * depth + 'px' }, children &&
+             children.map(function (table) {
+-                return react_2.default.createElement(TableItem, __assign({ key: table.slug }, table));
++                return react_2.default.createElement(TableItem, __assign({ key: table.slug || 'key-' + ++keyCounter }, table));
+             }))));
+ }
+ function makeGithubEditUrl(_a) {
 diff --git a/node_modules/dokz/dist/components/Playground.js b/node_modules/dokz/dist/components/Playground.js
-index c052028..f84a11d 100644
+index c052028..7d09f8e 100644
 --- a/node_modules/dokz/dist/components/Playground.js
 +++ b/node_modules/dokz/dist/components/Playground.js
 @@ -62,6 +62,7 @@ var provider_1 = require("../provider");
  var Code_1 = require("./Code");
  var react_3 = require("@mdx-js/react");
  var support_1 = require("./support");
-+var ThemeProvider = require('@eduzz/houston-ui/styles/ThemeProvider');
++var ThemeProvider = require('@eduzz/houston-ui/ThemeProvider');
  exports.Playground = function (_a) {
      var className = _a.className, _b = _a.children, children = _b === void 0 ? null : _b, code = _a.code, scope = _a.scope, _c = _a.iframe, iframe = _c === void 0 ? false : _c, _d = _a.previewEnabled, previewEnabled = _d === void 0 ? true : _d, rest = __rest(_a, ["className", "children", "code", "scope", "iframe", "previewEnabled"]);
      var prismTheme = provider_1.useDokzConfig().prismTheme;
@@ -33,7 +63,7 @@ index c052028..f84a11d 100644
          react_2.default.createElement(re_resizable_1.Resizable, __assign({}, resizableProps, { handleComponent: { right: react_2.default.createElement(HandleComponent, { height: '100%' }) } }),
              react_2.default.createElement(react_live_1.LiveProvider, __assign({}, liveProviderProps),
 diff --git a/node_modules/dokz/dist/plugin/index.js b/node_modules/dokz/dist/plugin/index.js
-index 808d06b..c461248 100644
+index 808d06b..43d61d9 100644
 --- a/node_modules/dokz/dist/plugin/index.js
 +++ b/node_modules/dokz/dist/plugin/index.js
 @@ -102,7 +102,7 @@ var writeMdxIndex = throttle_1.default(function () {
@@ -45,7 +75,7 @@ index 808d06b..c461248 100644
      })
          .catch(function (e) {
          console.error('could not write mdx sidebar file');
-@@ -119,3 +119,29 @@ function unique(arr) {
+@@ -119,3 +119,31 @@ function unique(arr) {
      }
      return a;
  }
@@ -55,6 +85,8 @@ index 808d06b..c461248 100644
 +    'icons': '@eduzz/houston-icons',
 +    'experimental': '@eduzz/houston-experimental',
 +    'forms': '@eduzz/houston-forms',
++    'tokens': '@eduzz/houston-tokens',
++    'styles': '@eduzz/houston-styles',
 +}
 +function clean(node) {
 +    if(names[node.name]) node.title = names[node.name];
@@ -90,14 +122,14 @@ index f7b9806..de4ccee 100644
      // console.log(newTag)
      node.value = node.value.replace(tagOpen, newTag);
 diff --git a/node_modules/dokz/esm/components/Playground.js b/node_modules/dokz/esm/components/Playground.js
-index 86a74cf..79bbce9 100644
+index 86a74cf..5f1a929 100644
 --- a/node_modules/dokz/esm/components/Playground.js
 +++ b/node_modules/dokz/esm/components/Playground.js
 @@ -37,6 +37,7 @@ import { useDokzConfig } from '../provider';
  import { CopyButton } from './Code';
  import { mdx } from '@mdx-js/react';
  import { CODE_FONT } from './support';
-+import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
++import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
  export var Playground = function (_a) {
      var className = _a.className, _b = _a.children, children = _b === void 0 ? null : _b, code = _a.code, scope = _a.scope, _c = _a.iframe, iframe = _c === void 0 ? false : _c, _d = _a.previewEnabled, previewEnabled = _d === void 0 ? true : _d, rest = __rest(_a, ["className", "children", "code", "scope", "iframe", "previewEnabled"]);
      var prismTheme = useDokzConfig().prismTheme;

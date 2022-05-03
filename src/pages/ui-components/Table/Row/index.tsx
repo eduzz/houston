@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import IconDotsHorizontal from '@eduzz/houston-icons/DotsHorizontal';
+import { cx } from '@eduzz/houston-styles';
+import styled from '@eduzz/houston-styles/styled';
 
-import styled from '../../styles/styled';
 import CollapseContent from '../CollapseContent';
 import TableContext from '../context';
 import { ITableAction, ITableCollapse } from '../interface';
@@ -139,21 +139,21 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 export default styled(TableRow)`
   .houston-table-action-cell {
     padding: 6px 12px;
-    border-top: 1px solid ${({ theme }) => theme.colors.grey[200]}};
-    font-size: ${({ theme }) => theme.textSize('normal')}px;
+    border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light}};
+    font-size: ${({ theme }) => theme.font.size.xs};
 
     &.--small {
-      font-size: ${({ theme }) => theme.textSize('small')}px;
+      font-size: ${({ theme }) => theme.font.size.xxs};
     }
   }
 
   .houston-houston-table-collapse-cell {
     padding-right: 8px;
-    border-top: 1px solid  ${({ theme }) => theme.colors.grey[200]};
-    font-size: ${({ theme }) => theme.textSize('normal')}px;
+    border-top: 1px solid  ${({ theme }) => theme.neutralColor.high.light};
+    font-size: ${({ theme }) => theme.font.size.xs};
 
     &.--small {
-      font-size: ${({ theme }) => theme.textSize('small')}px;
+      font-size: ${({ theme }) => theme.font.size.xxs};
     }
   }
 
@@ -165,15 +165,15 @@ export default styled(TableRow)`
     cursor: pointer;
 
     &:hover {
-      background-color: ${({ theme }) => theme.colors.grey[200]};
+      background-color: ${({ theme }) => theme.neutralColor.high.light};
     }
 
     &:focus {
-      background-color: ${({ theme }) => theme.colors.grey[300]};
+      background-color: ${({ theme }) => theme.neutralColor.high.medium};
     }
 
     & .houston-icon & svg {
-      fill: ${({ theme }) => theme.colors.grey[600]};
+      fill: ${({ theme }) => theme.neutralColor.low.light};
     }
   }
 `;

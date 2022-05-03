@@ -1,4 +1,4 @@
-import createUseStyles from '../../styles/createUseStyles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 interface IStyleProps {
   size?: 'small' | 'normal';
@@ -17,11 +17,11 @@ export default createUseStyles(theme => ({
     '&.--active': {
       '& fieldset': {
         borderWidth: 2,
-        borderColor: theme.colors.primary.main
+        borderColor: theme.brandColor.primary.pure
       },
 
       '& label': {
-        color: theme.colors.primary.main
+        color: theme.brandColor.primary.pure
       }
     }
   },
