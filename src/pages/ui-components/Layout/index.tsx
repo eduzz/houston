@@ -2,8 +2,9 @@ import * as React from 'react';
 
 import styled from '@emotion/styled';
 
+import { IStyledProp } from '@eduzz/houston-styles/styled';
+
 import nestedComponent from '../Helpers/nestedComponent';
-import { IStyledProp } from '../styled';
 import Content from './Content';
 import Sidebar from './Sidebar';
 

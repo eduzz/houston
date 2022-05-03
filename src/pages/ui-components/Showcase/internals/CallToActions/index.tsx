@@ -4,10 +4,10 @@ import { Theme, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import FinishIcon from '@eduzz/houston-icons/Done';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import Button from '../../../Button';
 import { useFirstChildrenProps } from '../../../hooks/useChildrenProps';
-import createUseStyles from '../../../styles/createUseStyles';
 import ShowcaseCloseButton from '../../CloseButton';
 import { useShowcaseContext } from '../../context';
 import ShowcaseLastStep, { IShowcaseLastStepProps } from '../../LastButton';
@@ -34,7 +34,7 @@ const useStyles = createUseStyles(theme => ({
       whiteSpace: 'nowrap',
 
       '&.--secondary-color': {
-        color: theme.colors.grey[500]
+        color: theme.neutralColor.high.dark
       }
     },
 
@@ -64,7 +64,7 @@ const useStyles = createUseStyles(theme => ({
 
       '& .arrow': {
         borderStyle: 'solid',
-        borderColor: theme.colors.grey[500],
+        borderColor: theme.neutralColor.high.dark,
         borderWidth: '0 3px 3px 0',
         display: 'inline-block',
         padding: 3,

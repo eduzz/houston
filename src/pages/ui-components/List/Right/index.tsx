@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import ListItemIconMUI from '@mui/material/ListItemIcon';
 
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+
 import IconButton from '../../ButtonIcon';
-import createUseStyles from '../../styles/createUseStyles';
 import Typography from '../../Typography';
 
 const useStyles = createUseStyles(theme => ({
@@ -19,11 +20,11 @@ const useStyles = createUseStyles(theme => ({
     }
   },
   rightRoot: {
-    color: theme.colors.grey[500],
+    color: theme.neutralColor.high.dark,
     marginLeft: 'auto'
   },
   rightText: {
-    color: theme.colors.grey[600]
+    color: theme.neutralColor.low.light
   },
   clickable: {
     cursor: 'pointer'
@@ -60,7 +61,7 @@ const ListRight: React.FC<IListRightProps> = ({ icon, text, onClick, ...rest }) 
 
   if (text) {
     return (
-      <Typography {...rest} {...componentProps} size='xx-small'>
+      <Typography {...rest} {...componentProps} size='xxxs'>
         {text}
       </Typography>
     );

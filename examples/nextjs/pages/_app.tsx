@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 
-import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
+import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
 
 function App({ Component, pageProps }: AppProps) {
   useEffect(() => {

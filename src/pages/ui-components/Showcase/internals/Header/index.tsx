@@ -4,9 +4,9 @@ import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import CancelIcon from '@eduzz/houston-icons/Cancel';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import ButtonIcon from '../../../ButtonIcon';
-import createUseStyles from '../../../styles/createUseStyles';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
@@ -52,7 +52,7 @@ const Header = React.memo(() => {
   if (!title) return null;
 
   return (
-    <Typography className={classes.header} size='normal'>
+    <Typography className={classes.header} size='xs'>
       <span className='header-title'>{title.children}</span>
       {size !== 'small' && !isMobile && stepCounter && (
         <span>

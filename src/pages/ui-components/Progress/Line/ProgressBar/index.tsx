@@ -1,5 +1,6 @@
 import LinearProgress from '@mui/material/LinearProgress';
-import { styled } from '@mui/material/styles';
+
+import styled from '@eduzz/houston-styles/styled';
 
 interface IProgressBarProps {
   progress: number;
@@ -10,11 +11,11 @@ const Bar = styled(LinearProgress)(({ theme }) => ({
     height: 8
   },
   colorPrimary: {
-    backgroundColor: theme.colors.grey[200]
+    backgroundColor: theme.neutralColor.high.light
   },
   bar: {
     height: 80,
-    backgroundColor: theme.colors.success.main
+    backgroundColor: theme.feedbackColor.positive.pure
   }
 }));
 

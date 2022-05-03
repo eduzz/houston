@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper, { StepperProps } from '@mui/material/Stepper';
 
-import createUseStyles from '../../styles/createUseStyles';
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+
 import ProgressBar from './ProgressBar';
 import StepIcon from './StepIcon';
 

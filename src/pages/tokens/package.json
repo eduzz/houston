@@ -1,0 +1,19 @@
+{
+  "name": "@eduzz/houston-tokens",
+  "description": "Eduzz Houston Tokens",
+  "version": "0.44.0-beta.1",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "author": "Eduzz Team",
+  "license": "MIT",
+  "private": false,
+  "homepage": "https://github.com/eduzz/houston",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eduzz/houston"
+  },
+  "bugs": {
+    "url": "https://github.com/eduzz/houston/issues"
+  },
+  "devDependencies": {}
+}

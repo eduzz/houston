@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import { GridSize } from '@mui/material/Grid';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp } from '../../styles/styled';
+import { cx } from '@eduzz/houston-styles';
+import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
+
 import TableContext from '../context';
 
 let cellKeyIncremeter = 0;
@@ -58,14 +59,14 @@ const TableCell = React.memo<ITableCellProps>(
 
 export default styled(TableCell)`
   padding: 12px 20px;
-  border-top: 1px solid ${({ theme }) => theme.colors.grey[200]};
-  font-size: ${({ theme }) => theme.textSize('normal')}px;
-  color: ${({ theme }) => theme.colors.grey[600]};
-  font-weight: ${({ theme }) => theme.fontWeight('regular')};
-  line-height: ${({ theme }) => theme.lineHeight('normal')};
+  border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light};
+  font-size: ${({ theme }) => theme.font.size.xs};
+  color: ${({ theme }) => theme.neutralColor.low.dark};
+  font-weight: ${({ theme }) => theme.font.weight.regular};
+  line-height: ${({ theme }) => theme.line.height.md};
 
   & .--small {
     padding: 8px 12px;
-    font-size: ${({ theme }) => theme.textSize('small')}px;
+    font-size: ${({ theme }) => theme.font.size.xxs};
   }
 `;
