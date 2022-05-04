@@ -1,9 +1,10 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled from '../../styles/styled';
+import { cx } from '@eduzz/houston-styles';
+import styled from '@eduzz/houston-styles/styled';
+
 import TableContext from '../context';
 import SortLabel from './SortLabel';
 
@@ -77,10 +78,10 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
 
 export default styled(TableColumn)`
   padding: 8px 20px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey[200]};
+  border-bottom: 1px solid ${({ theme }) => theme.neutralColor.high.light};
 
   &.--collapse {
-    border-bottom-color: ${({ theme }) => theme.colors.grey[300]};
+    border-bottom-color: ${({ theme }) => theme.neutralColor.high.medium};
   }
 
   &.--small {

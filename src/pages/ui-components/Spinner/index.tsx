@@ -1,11 +1,12 @@
 import * as React from 'react';
 
+import styled, { IStyledProp, keyframes } from '@eduzz/houston-styles/styled';
+
 import { getColorFallback } from '../Helpers/functions';
-import styled, { IStyledProp, keyframes } from '../styles/styled';
 
 export interface ILoaderProps extends IStyledProp {
   size?: number;
-  color?: 'primary' | 'success' | 'error' | 'info' | 'warning' | 'inherit';
+  color?: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'inherit';
 }
 
 const SIZE_BASE = 65;
@@ -35,7 +36,7 @@ const circleAnimation = (props: ILoaderProps) => keyframes`
 
 export default styled(Spinner, { label: 'houston-loader' })`
   animation: ${rotationAnimation} 1.4s linear infinite;
-  color: ${props => (props.color === 'inherit' ? 'inherit' : getColorFallback(props.theme, props.color).main)};
+  color: ${props => (props.color === 'inherit' ? 'inherit' : getColorFallback(props.theme, props.color).pure)};
 
   & > circle {
     stroke: currentColor;

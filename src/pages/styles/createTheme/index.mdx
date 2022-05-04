@@ -1,0 +1,32 @@
+---
+name: createTheme/ThemeProvider
+---
+
+import { getSupportedBrands } from '@eduzz/houston-tokens/variables/brand';
+
+# createTheme e ThemeProvider
+
+Utilizado para criação do tema padrão.
+
+> Utilize o ThemeProvider do **@eduzz/houston-styles** apenas quando não estiver utilizando o **@eduzz/houston-ui**
+> pois causará conflito de contexto.
+
+```tsx
+import createTheme, { IHoustonTheme } from '@eduzz/houston-styles/createTheme';
+import ThemeProvider from '@eduzz/houston-styles/ThemeProvider';
+
+const theme: IHoustonTheme = createTheme('orbita');
+// ou
+const theme: IHoustonTheme = createTheme({
+  primary: {
+    pure: '#0D47A1',
+    light: '#9EB5D9',
+    medium: '#265AAB',
+    dark: '#072D83'
+  }
+});
+
+<ThemeProvider theme={theme}>...</ThemeProvider>;
+```
+
+<span>O createTheme pode receber o nome do produto ({getSupportedBrands().join(', ')}) ou um object com as cores.</span>

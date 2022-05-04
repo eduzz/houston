@@ -1,16 +1,22 @@
 import { BrowserRouter } from 'react-router-dom';
 
-import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
-import { HoustonThemeBuilder } from '@eduzz/houston-ui/styles/types';
+import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
 
 import ComponentDev from './components';
 
-function App() {
-  const theme = {} as HoustonThemeBuilder;
+declare module '@eduzz/houston-styles' {
+  interface IHoustonThemeCustomVariables {
+    customVar: string;
+    customObject: {
+      prop: number;
+    };
+  }
+}
 
+function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <ComponentDev />
       </ThemeProvider>
     </BrowserRouter>

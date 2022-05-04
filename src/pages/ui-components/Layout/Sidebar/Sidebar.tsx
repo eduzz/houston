@@ -24,7 +24,7 @@ export interface ISidebarProps {
   /**
    * Mobile display control.
    */
-  mobileVisible: boolean;
+  mobileVisible?: boolean;
   /**
    * Function called when click in outside element on mobile.
    */
@@ -34,6 +34,7 @@ export interface ISidebarProps {
    * Whether can be collapsed.
    */
   collapsible?: boolean;
+  initialCollapsed?: boolean;
   onCollapse?: (collapsed: boolean) => void;
   children: React.ReactNode;
 }
@@ -42,23 +43,26 @@ const Sidebar: React.FC<ISidebarProps> = ({
   currentLocation,
   hasToolbar = true,
   children,
-  mobileVisible,
+  mobileVisible = false,
   onRequestClose,
   onCollapse,
-  collapsed: collapsedProp = false,
+  initialCollapsed,
+  collapsed: collapsedProp,
   collapsible = true,
   ...rest
 }) => {
   const [insideComponent, , setInsideComponentTrue, setInsideComponentFalse] = useBoolean(false);
-  const [collapsed, setCollapsed] = React.useState(collapsedProp ?? false);
+  const [collapsed, setCollapsed] = React.useState(initialCollapsed ?? false);
+
+  const isControlled = collapsedProp !== undefined;
+  const isCollapsed = isControlled ? collapsedProp : collapsed;
 
   const handleCollapse = React.useCallback(() => {
-    setCollapsed(v => {
-      const currentValue = !v;
-      onCollapse && onCollapse(currentValue);
-      return currentValue;
-    });
-  }, [onCollapse]);
+    if (!isControlled) {
+      setCollapsed(v => !v);
+    }
+    onCollapse?.(!isCollapsed);
+  }, [onCollapse, isControlled, isCollapsed]);
 
   const contextValue = React.useMemo<ISidebarContext>(
     () => ({
@@ -67,7 +71,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
       hasToolbar,
       onRequestClose,
       mobileVisible,
-      collapsed,
+      collapsed: isCollapsed,
       collapsible,
       handleCollapse,
       insideComponent,
@@ -78,13 +82,13 @@ const Sidebar: React.FC<ISidebarProps> = ({
       currentLocation,
       hasToolbar,
       onRequestClose,
-      collapsed,
+      mobileVisible,
+      isCollapsed,
       collapsible,
       handleCollapse,
       insideComponent,
-      mobileVisible,
-      setInsideComponentFalse,
-      setInsideComponentTrue
+      setInsideComponentTrue,
+      setInsideComponentFalse
     ]
   );
 

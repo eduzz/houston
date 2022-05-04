@@ -3,12 +3,13 @@ import * as React from 'react';
 import PaginationMUI from '@mui/material/Pagination';
 import { useContextSelector } from 'use-context-selector';
 
+import styled, { breakpoints, IStyledProp } from '@eduzz/houston-styles/styled';
+
 import SelectField from '../../Forms/Select';
 import TextField from '../../Forms/Text';
 import Column from '../../Grid/Column';
 import Container from '../../Grid/Container';
 import Row from '../../Grid/Row';
-import styled, { breakpoints, IStyledProp } from '../../styled';
 import Typography from '../../Typography';
 import TableContext from '../context';
 
@@ -119,12 +120,12 @@ const Pagination = React.memo<ITablePagination>(
       <tfoot className={className}>
         <tr>
           <td colSpan={1000} className='__td'>
-            <Container>
+            <Container layout='fluid'>
               <Row>
                 <Column xs={12} sm='auto'>
                   <Row justifyContent='center'>
                     <Column xs='auto' className='__perPage'>
-                      <Typography size='small' fontWeight='semibold'>
+                      <Typography size='xxs' fontWeight='semibold'>
                         {labelItensPerPage ?? 'Itens por página:'}
                       </Typography>
 
@@ -139,7 +140,7 @@ const Pagination = React.memo<ITablePagination>(
                     </Column>
 
                     <Column xs='auto' className='__labels'>
-                      <Typography size='small' fontWeight='semibold'>
+                      <Typography size='xxs' fontWeight='semibold'>
                         {labelGoToPage ?? 'Ir para:'}
                       </Typography>
 
@@ -185,14 +186,14 @@ export default styled(Pagination)`
     }
 
     .__perPage {
-      width: 200px;
+      width: 240px;
       display: inline-flex;
       align-items: center;
 
       & > p {
         white-space: nowrap;
-        margin-right: ${({ theme }) => theme.spacing(2)};
-        color: ${({ theme }) => theme.colors.grey[600]};
+        margin-right: ${({ theme }) => theme.spacing.nano};
+        color: ${({ theme }) => theme.neutralColor.low.dark};
       }
     }
 
@@ -202,8 +203,8 @@ export default styled(Pagination)`
 
       & > p {
         white-space: nowrap;
-        margin-right: ${({ theme }) => theme.spacing(2)};
-        color: ${({ theme }) => theme.colors.grey[600]};
+        margin-right: ${({ theme }) => theme.spacing.nano};
+        color: ${({ theme }) => theme.neutralColor.low.dark};
       }
 
       ${breakpoints.down('sm')} {
@@ -222,7 +223,7 @@ export default styled(Pagination)`
       align-items: center;
 
       ${breakpoints.down('sm')} {
-        margin-top: ${({ theme }) => theme.spacing(2)};
+        margin-top: ${({ theme }) => theme.spacing.nano};
         justify-content: center;
       }
     }

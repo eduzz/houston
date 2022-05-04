@@ -1,14 +1,14 @@
 /* eslint-disable max-lines */
-import { Components } from '@mui/material/styles';
+import { Components, Palette } from '@mui/material/styles';
 
-import { HoustonColors } from '../../types';
+import { IHoustonTheme } from '@eduzz/houston-styles';
+
 import DefaultDialogTransition from './DefaultDialogTransition';
-import defaultThemeVariables from './variables';
 
 const SWITCH_MEDIUM_HEIGHT = 20;
 const SWITCH_SMALL_HEIGHT = 16;
 
-export default function components(palette: HoustonColors): Components {
+export default function components(palette: Partial<Palette>, theme: IHoustonTheme): Components {
   return {
     MuiDialog: {
       defaultProps: {
@@ -21,11 +21,11 @@ export default function components(palette: HoustonColors): Components {
           textTransform: 'none',
           padding: '10px 16px',
           height: 40,
-          borderRadius: defaultThemeVariables.radius(),
-          fontWeight: defaultThemeVariables.fontWeight('semibold'),
-          fontFamily: defaultThemeVariables.fontFamily,
-          lineHeight: defaultThemeVariables.lineHeight('compact'),
-          fontSize: defaultThemeVariables.textSize('small'),
+          borderRadius: theme.border.radius.xs,
+          fontWeight: theme.font.weight.semibold,
+          fontFamily: theme.font.family.base,
+          lineHeight: theme.line.height.sm,
+          fontSize: theme.font.size.xxs,
 
           '&:before': {
             content: '" "',
@@ -36,11 +36,11 @@ export default function components(palette: HoustonColors): Components {
             bottom: -4,
             border: '2px solid transparent',
             transition: '0.3s',
-            borderRadius: defaultThemeVariables.radius(2)
+            borderRadius: theme.border.radius.sm
           },
 
           '&:focus:not(:active):not(:hover):before': {
-            borderColor: defaultThemeVariables.colors.grey[300]
+            borderColor: palette.grey[300]
           }
         },
 
@@ -114,9 +114,7 @@ export default function components(palette: HoustonColors): Components {
             },
 
             '& label': {
-              transform: `translate(${defaultThemeVariables.spacing(4)}px, ${
-                defaultThemeVariables.spacing(2) + 2
-              }px) scale(1)`
+              transform: `translate(${theme.spacing.xxxs}px, ${theme.spacing.nano + 2}px) scale(1)`
             }
           }
         }
@@ -126,7 +124,7 @@ export default function components(palette: HoustonColors): Components {
     MuiInputBase: {
       styleOverrides: {
         root: {
-          fontFamily: defaultThemeVariables.fontFamily,
+          fontFamily: theme.font.family.base,
 
           '&.Mui-disabled': {
             backgroundColor: palette.grey['100']
@@ -249,8 +247,8 @@ export default function components(palette: HoustonColors): Components {
         input: {
           height: 45,
           boxSizing: 'border-box',
-          fontSize: defaultThemeVariables.textSize(),
-          padding: `${defaultThemeVariables.spacing(3)}px ${defaultThemeVariables.spacing(4)}px`
+          fontSize: theme.font.size.xs,
+          padding: `${theme.spacing.xxxs}px ${theme.spacing.xxxs}px`
         },
         inputMultiline: {
           minHeight: 96
@@ -261,9 +259,9 @@ export default function components(palette: HoustonColors): Components {
     MuiFormHelperText: {
       styleOverrides: {
         root: {
-          fontFamily: defaultThemeVariables.fontFamily,
-          fontSize: defaultThemeVariables.textSize('x-small'),
-          lineHeight: defaultThemeVariables.lineHeight('compact')
+          fontFamily: theme.font.family.base,
+          fontSize: theme.font.size.xxs,
+          lineHeight: theme.line.height.sm
         },
         contained: {
           marginLeft: 2,
@@ -276,7 +274,7 @@ export default function components(palette: HoustonColors): Components {
       styleOverrides: {
         root: {
           color: palette.grey[500],
-          fontFamily: defaultThemeVariables.fontFamily
+          fontFamily: theme.font.family.base
         }
       }
     },
@@ -284,8 +282,8 @@ export default function components(palette: HoustonColors): Components {
     MuiFormControl: {
       styleOverrides: {
         marginNormal: {
-          marginTop: defaultThemeVariables.spacing(1),
-          marginBottom: defaultThemeVariables.spacing(3)
+          marginTop: theme.spacing.quarck,
+          marginBottom: theme.spacing.xxxs
         }
       }
     },
@@ -294,7 +292,7 @@ export default function components(palette: HoustonColors): Components {
       styleOverrides: {
         root: {
           color: palette.grey[500],
-          fontFamily: defaultThemeVariables.fontFamily
+          fontFamily: theme.font.family.base
         }
       }
     },
@@ -302,8 +300,8 @@ export default function components(palette: HoustonColors): Components {
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          fontFamily: defaultThemeVariables.fontFamily,
-          fontSize: defaultThemeVariables.textSize()
+          fontFamily: theme.font.family.base,
+          fontSize: theme.font.size.xs
         },
         outlined: {
           transform: 'translate(16px, 12px) scale(1)'
@@ -317,7 +315,7 @@ export default function components(palette: HoustonColors): Components {
     MuiAlertTitle: {
       styleOverrides: {
         root: {
-          fontWeight: defaultThemeVariables.fontWeight('semibold')
+          fontWeight: theme.font.weight.semibold
         }
       }
     },
@@ -340,7 +338,7 @@ export default function components(palette: HoustonColors): Components {
         },
 
         message: {
-          fontWeight: defaultThemeVariables.fontWeight('regular'),
+          fontWeight: theme.font.weight.regular,
           color: palette.grey[600],
           width: '100%'
         },
@@ -388,9 +386,9 @@ export default function components(palette: HoustonColors): Components {
         },
 
         head: {
-          fontWeight: defaultThemeVariables.fontWeight('semibold'),
+          fontWeight: theme.font.weight.semibold,
           color: palette.grey[600],
-          lineHeight: defaultThemeVariables.lineHeight('compact')
+          lineHeight: theme.line.height.sm
         },
 
         body: {
@@ -398,7 +396,7 @@ export default function components(palette: HoustonColors): Components {
         },
 
         sizeSmall: {
-          fontSize: defaultThemeVariables.textSize('small'),
+          fontSize: theme.font.size.xxs,
           padding: '8px 12px'
         }
       }
@@ -431,8 +429,8 @@ export default function components(palette: HoustonColors): Components {
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          fontSize: defaultThemeVariables.textSize('normal'),
-          fontWeight: defaultThemeVariables.fontWeight('regular')
+          fontSize: theme.font.size.xs,
+          fontWeight: theme.font.weight.regular
         }
       }
     },
@@ -444,7 +442,7 @@ export default function components(palette: HoustonColors): Components {
           minWidth: 32,
           minHeight: 28,
           padding: 0,
-          fontWeight: defaultThemeVariables.fontWeight('semibold'),
+          fontWeight: theme.font.weight.semibold,
 
           '&$selected': {
             color: palette.primary.main
@@ -516,11 +514,11 @@ export default function components(palette: HoustonColors): Components {
           height: 40,
           minHeight: 40,
           minWidth: '0 !important',
-          lineHeight: defaultThemeVariables.lineHeight('normal'),
-          fontSize: defaultThemeVariables.textSize('small'),
-          fontWeight: defaultThemeVariables.fontWeight('semibold'),
+          lineHeight: theme.line.height.md,
+          fontSize: theme.font.size.xxs,
+          fontWeight: theme.font.weight.semibold,
           textTransform: 'none',
-          padding: `0px ${defaultThemeVariables.spacing(4)}px`
+          padding: `0px ${theme.spacing.xxxs}px`
         },
         labelIcon: {
           minHeight: 40,
@@ -530,7 +528,7 @@ export default function components(palette: HoustonColors): Components {
             marginBottom: '0 !important',
             maxWidth: 20,
             maxHeight: 20,
-            marginRight: defaultThemeVariables.spacing(2)
+            marginRight: theme.spacing.nano
           }
         },
         textColorPrimary: {
@@ -538,7 +536,7 @@ export default function components(palette: HoustonColors): Components {
           transition: '0.3s',
           border: '2px solid transparent',
           borderBottom: 'none',
-          borderRadius: `${defaultThemeVariables.radius(1)}px ${defaultThemeVariables.radius(1)}px 0 0`,
+          borderRadius: `${theme.border.radius.xs}px ${theme.border.radius.xs}px 0 0`,
           '& svg': {
             fill: palette.grey[500],
             transition: '0.3s'
@@ -577,7 +575,7 @@ export default function components(palette: HoustonColors): Components {
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          fontSize: defaultThemeVariables.textSize('x-small'),
+          fontSize: theme.font.size.xxs,
           backgroundColor: palette.grey[600],
           letterSpacing: 0.5
         },
@@ -614,16 +612,16 @@ export default function components(palette: HoustonColors): Components {
         },
         label: {
           color: palette.grey[300],
-          fontSize: defaultThemeVariables.textSize('default'),
+          fontSize: theme.font.size.xs,
           lineHeight: 1.5,
-          fontWeight: defaultThemeVariables.fontWeight('semibold'),
+          fontWeight: theme.font.weight.semibold,
           '&$active': {
             color: palette.success.main,
-            fontWeight: defaultThemeVariables.fontWeight('semibold')
+            fontWeight: theme.font.weight.semibold
           },
           '&$completed': {
             color: palette.success.main,
-            fontWeight: defaultThemeVariables.fontWeight('semibold')
+            fontWeight: theme.font.weight.semibold
           }
         },
         iconContainer: {

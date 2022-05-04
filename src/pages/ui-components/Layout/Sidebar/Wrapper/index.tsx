@@ -1,9 +1,10 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp } from '../../../styles/styled';
+import { cx } from '@eduzz/houston-styles';
+import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
+
 import Collapse from '../Collapse';
 import SidebarContext, { SIDEBAR_WIDTH, SIDEBAR_WIDTH_COLLAPSED, TOOLBAR_HEIGHT } from '../context';
 

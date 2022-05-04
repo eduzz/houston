@@ -11,7 +11,7 @@ on:
       - master
 
 concurrency: 
-  group: ${{ github.ref }}
+  group: beta-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

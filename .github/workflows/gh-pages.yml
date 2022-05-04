@@ -6,7 +6,7 @@ on:
       - master
 
 concurrency: 
-  group: ${{ github.ref }}
+  group: docs-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -25,8 +25,8 @@ jobs:
         uses: actions/setup-node@v3
       - name: Prepare Env
         run: yarn install
-      - name: Build Packages
-        run: yarn build
+      - name: Build Packages with SWC
+        run: yarn build:dev
       - name: Build Docs
         run: yarn build:docs
       - name: Deploy

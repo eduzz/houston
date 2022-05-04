@@ -7,6 +7,7 @@ const inquirer = require('inquirer');
 let currentVersion = require('../package.json').version;
 
 const isCI = process.argv.slice(2)[0] === '--ci';
+const isBeta = currentVersion.includes('beta');
 
 async function init() {
   if (!isCI) {
@@ -107,7 +108,7 @@ async function generateVersion() {
 }
 
 async function publish(package) {
-  const promise = exec(`(cd ${package.folder} && npm publish --access=public)`);
+  const promise = exec(`(cd ${package.folder} && npm publish --access=public ${isBeta && ' --tag beta'})`);
   ora.promise(promise, `PUBLISHING: ${package.name}`)
   await promise;
 }

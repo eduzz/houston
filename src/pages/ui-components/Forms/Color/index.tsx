@@ -5,8 +5,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { HexColorPicker } from 'react-colorful';
 import { useContextSelector } from 'use-context-selector';
 
+import { cx } from '@eduzz/houston-styles';
+
 import useOnClickOutside from '../../hooks/useClickOutside';
-import { cx } from '../../styled';
 import { FormFieldsContext } from '../Form';
 import TextField, { ITextFieldProps } from '../Text';
 import useStyles from './styles';

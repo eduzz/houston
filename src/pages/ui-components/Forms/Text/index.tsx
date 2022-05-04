@@ -5,10 +5,10 @@ import * as React from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import IFormMask from '@eduzz/houston-core/maskAdapter';
+import styled, { cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
 import Spinner from '../../Spinner';
-import styled, { cx } from '../../styles/styled';
 import { FormFieldsContext } from '../Form';
 
 interface IOwnProperties {
@@ -167,8 +167,8 @@ export default styled(TextField, { label: 'houston-textfield' })`
   border: none;
   position: relative;
   padding: 0;
-  margin-top: ${props => props.theme.spacing(1)};
-  margin-bottom: ${props => props.theme.spacing(3)};
+  margin-top: ${props => props.theme.spacing.quarck};
+  margin-bottom: ${props => props.theme.spacing.nano};
   min-width: auto;
 
   & .__wrapperAutoSizer {
@@ -185,9 +185,9 @@ export default styled(TextField, { label: 'houston-textfield' })`
       word-break: break-all;
       visibility: hidden;
       grid-area: 1 / 1 / 2 / 2;
-      font-family: ${props => props.theme.fontFamily};
-      font-size: ${props => props.theme.textSize('normal')}px;
-      line-height: ${props => props.theme.lineHeight('normal')};
+      font-family: ${props => props.theme.font.family};
+      font-size: ${props => props.theme.font.size.xs};
+      line-height: ${props => props.theme.line.height.md};
     }
 
     & .__input {
@@ -206,7 +206,7 @@ export default styled(TextField, { label: 'houston-textfield' })`
       display: flex;
       justify-content: center;
       align-items: ${props => (props.multiline ? 'flex-start' : 'center')};
-      margin-top: ${props => (props.multiline ? props.theme.spacing(3) : 'none')};
+      margin-top: ${props => (props.multiline ? props.theme.spacing.xxxs : 'none')};
 
       & > svg {
         font-size: 24px;
@@ -214,11 +214,11 @@ export default styled(TextField, { label: 'houston-textfield' })`
     }
 
     & .__startAdornment {
-      margin-left: ${props => props.theme.spacing(3)};
+      margin-left: ${props => props.theme.spacing.xxxs};
     }
 
     & .__endAdornment {
-      margin-right: ${props => props.theme.spacing(3)};
+      margin-right: ${props => props.theme.spacing.xxs};
     }
   }
 
@@ -237,10 +237,10 @@ export default styled(TextField, { label: 'houston-textfield' })`
       flex: 1;
       max-width: 10px;
       color: inherit;
-      border: 1px solid ${props => props.theme.colors.grey[300]};
+      border: 1px solid ${props => props.theme.neutralColor.high.medium};
       border-right: none;
-      border-top-left-radius: ${props => props.theme.radius()}px;
-      border-bottom-left-radius: ${props => props.theme.radius()}px;
+      border-top-left-radius: ${props => props.theme.border.radius.xs};
+      border-bottom-left-radius: ${props => props.theme.border.radius.xs};
       transition: 0.3s;
     }
 
@@ -251,7 +251,7 @@ export default styled(TextField, { label: 'houston-textfield' })`
       white-space: nowrap;
       padding: 0 4px;
       font-size: 11px;
-      border: 1px solid ${props => props.theme.colors.grey[300]};
+      border: 1px solid ${props => props.theme.neutralColor.high.medium};
       border-left: none;
       border-right: none;
       transition: 0.3s;
@@ -263,10 +263,10 @@ export default styled(TextField, { label: 'houston-textfield' })`
 
     & .__borderEnd {
       flex: 1;
-      border: 1px solid ${props => props.theme.colors.grey[300]};
+      border: 1px solid ${props => props.theme.neutralColor.high.medium};
       border-left: none;
-      border-top-right-radius: ${props => props.theme.radius()}px;
-      border-bottom-right-radius: ${props => props.theme.radius()}px;
+      border-top-right-radius: ${props => props.theme.border.radius.xs};
+      border-bottom-right-radius: ${props => props.theme.border.radius.xs};
       transition: 0.3s;
     }
   }
@@ -277,11 +277,11 @@ export default styled(TextField, { label: 'houston-textfield' })`
     width: 100%;
     background-color: transparent;
     outline: none;
-    font-family: ${props => props.theme.fontFamily};
-    font-size: ${props => props.theme.textSize('normal')}px;
+    font-family: ${props => props.theme.font.family};
+    font-size: ${props => props.theme.font.size.xs};
     border: none;
-    border-radius: ${props => props.theme.radius()}px;
-    line-height: ${props => props.theme.lineHeight('normal')};
+    border-radius: ${props => props.theme.border.radius.xs};
+    line-height: ${props => props.theme.line.height.md};
 
     &.--textarea {
       resize: none;
@@ -304,13 +304,13 @@ export default styled(TextField, { label: 'houston-textfield' })`
 
     &:focus {
       &:not(.--error) + .__label {
-        color: ${props => props.theme.colors.primary.main};
+        color: ${props => props.theme.brandColor.primary.pure};
 
         & + .__borders .__borderStart,
         & + .__borders .__borderLabel,
         & + .__borders .__borderEnd {
           border-width: 2px;
-          border-color: ${props => props.theme.colors.primary.main};
+          border-color: ${props => props.theme.brandColor.primary.pure};
         }
       }
 
@@ -327,12 +327,12 @@ export default styled(TextField, { label: 'houston-textfield' })`
   & .__label {
     pointer-events: none;
     position: absolute;
-    font-size: ${props => props.theme.textSize('normal')}px;
-    font-family: ${props => props.theme.fontFamily};
+    font-size: ${props => props.theme.font.size.xs};
+    font-family: ${props => props.theme.font.family};
     top: 0;
     left: 0;
     transform-origin: top left;
-    transform: translate(16px, 12px) scale(1);
+    transform: translate(16px, 10px) scale(1);
     display: flex;
     align-items: center;
     transition: 0.3s;
@@ -340,31 +340,31 @@ export default styled(TextField, { label: 'houston-textfield' })`
 
   & .__message {
     display: block;
-    font-size: ${props => props.theme.textSize('x-small')}px;
-    font-family: ${props => props.theme.fontFamily};
-    margin-top: ${props => props.theme.spacing(0.5)};
+    font-size: ${props => props.theme.font.size.xxxs};
+    font-family: ${props => props.theme.font.family};
+    margin-top: ${props => props.theme.spacing.quarck};
   }
 
   &.--disabled {
-    background-color: ${props => props.theme.colors.grey[100]};
+    background-color: ${props => props.theme.neutralColor.high.pure};
 
     & .__input,
     & .__label {
-      color: ${props => props.theme.colors.grey[300]};
-      text-fill-color: ${props => props.theme.colors.grey[300]};
+      color: ${props => props.theme.neutralColor.high.medium};
+      text-fill-color: ${props => props.theme.neutralColor.high.medium};
     }
   }
 
   &.--error {
     & .__message,
     & .__label {
-      color: ${props => props.theme.colors.error.main};
+      color: ${props => props.theme.feedbackColor.negative.pure};
     }
 
     & .__borderStart,
     & .__borderLabel,
     & .__borderEnd {
-      border-color: ${props => props.theme.colors.error.main};
+      border-color: ${props => props.theme.feedbackColor.negative.pure};
     }
   }
 `;

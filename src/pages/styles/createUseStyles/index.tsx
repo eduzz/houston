@@ -1,7 +1,10 @@
-import { css, CSSInterpolation } from '@emotion/css';
+import { css, CSSInterpolation, cx as cxEmotion } from '@emotion/css';
 
-import { IHoustonTheme } from './types';
-import useHoustonTheme from './useHoustonTheme';
+import { IHoustonTheme } from '..';
+import useHoustonTheme from '../useHoustonTheme';
+
+export const cx = cxEmotion;
+export const clsx = cxEmotion;
 
 type StyleResult<Props, ClassKey extends string> = Record<
   ClassKey,

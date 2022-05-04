@@ -2,10 +2,12 @@ import * as React from 'react';
 
 import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } from 'react-toastify';
 
-import themeVariable from '../styles/ThemeProvider/_generator/variables';
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
 import styles from './styles';
 
 const ToastContainer: React.FC<ToastContainerProps> = props => {
+  const theme = useHoustonTheme();
   const styleContent = React.useMemo(
     () => ({
       __html: `
@@ -18,7 +20,7 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
         }
 
         .Toastify__toast-body {
-          font-family: ${themeVariable.fontFamily};
+          font-family: ${theme?.font?.family ?? 'Open Sans'};
           font-weight: 600;
           padding-right: 8px;
           line-height: 1.45;
@@ -29,7 +31,7 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
         }
       `
     }),
-    []
+    [theme?.font?.family]
   );
 
   return (

@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import ListMUI, { ListProps as ListPropsMUI } from '@mui/material/List';
 
+import { cx } from '@eduzz/houston-styles';
+import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+
 import nestedComponent from '../Helpers/nestedComponent';
-import createUseStyles from '../styles/createUseStyles';
 import Item from './Item';
 import Left from './Left';
 import Right from './Right';
@@ -36,7 +37,7 @@ const useStyles = createUseStyles(theme => ({
   },
   stripedRows: {
     '& > li:nth-child(even)': {
-      backgroundColor: theme.colors.grey[100]
+      backgroundColor: theme.neutralColor.high.pure
     }
   }
 }));
