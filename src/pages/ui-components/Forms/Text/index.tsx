@@ -214,11 +214,11 @@ export default styled(TextField, { label: 'houston-textfield' })`
     }
 
     & .__startAdornment {
-      margin-left: ${props => props.theme.spacing.xxxs};
+      margin-left: 12px;
     }
 
     & .__endAdornment {
-      margin-right: ${props => props.theme.spacing.xxs};
+      margin-right: 12px;
     }
   }
 
@@ -336,6 +336,7 @@ export default styled(TextField, { label: 'houston-textfield' })`
     display: flex;
     align-items: center;
     transition: 0.3s;
+    color: ${props => props.theme.neutralColor.low.light};
   }
 
   & .__message {
