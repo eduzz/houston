@@ -1,0 +1,111 @@
+---
+name: Caption
+---
+
+import { Playground } from 'dokz';
+
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
+import Caption from './';
+
+# Caption
+
+O componente de caption é um elemento de legenda utilizado normalmente a uma figura ou ilustração.
+
+### Importação
+
+```js
+import Caption from '@eduzz/houston-ui/Caption';
+```
+
+### Exemplo
+
+<Playground>
+  <figure style={{ display: 'inline-block', textAlign: 'center' }}>
+    <img src='https://picsum.photos/250' alt='Random' />
+    <Caption>Lorem ipsum</Caption>
+  </figure>
+</Playground>
+
+### Altura da linha
+
+<Playground>
+  <Caption lineHeight='default'>
+    line-height
+    <br />
+    default
+  </Caption>
+  <hr style={{ margin: '10px 0' }} />
+  <Caption lineHeight='xs'>
+    line-height
+    <br />
+    xs
+  </Caption>
+  <hr style={{ margin: '10px 0' }} />
+  <Caption lineHeight='sm'>
+    line-height
+    <br />
+    sm
+  </Caption>
+  <hr style={{ margin: '10px 0' }} />
+  <Caption lineHeight='md'>
+    line-height
+    <br />
+    md
+  </Caption>
+  <hr style={{ margin: '10px 0' }} />
+  <Caption lineHeight='lg'>
+    line-height
+    <br />
+    lg
+  </Caption>
+  <hr style={{ margin: '10px 0' }} />
+  <Caption lineHeight='xl'>
+    line-height
+    <br />
+    xl
+  </Caption>
+  <hr style={{ margin: '10px 0' }} />
+  <Caption lineHeight='xxl'>
+    line-height
+    <br />
+    xxl
+  </Caption>
+</Playground>
+
+### Cores
+
+<Playground>
+  <Caption color='primary'>Primary (cor do produto)</Caption>
+  <Caption>Low (padrão)</Caption>
+  <div style={{ backgroundColor: '#0D47A1' }}>
+    <Caption color='high'>High</Caption>
+  </div>
+</Playground>
+
+### Informando ref e evento
+
+<Playground>
+  {() => {
+    const ref = React.useRef(null);
+    function scrollIntoView() {
+      ref.current.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+    return (
+      <Caption ref={ref} onClick={scrollIntoView}>
+        Click to scroll into view
+      </Caption>
+    );
+  }}
+</Playground>
+
+| prop       | tipo                                                | obrigatório | padrão       |
+| ---------- | --------------------------------------------------- | ----------- | ------------ |
+| lineHeight | `Line Height Tokens`                                | `false`     | `md`         |
+| className  | `string`                                            | `false`     | -            |
+| onClick    | `(e: React.MouseEvent) => void`                     | `false`     | -            |
+| as         | `'figcaption', 'p'`                                 | `false`     | `figcaption` |
+| ref        | `React.ReactRef<HTMLParagraphElement, HTMLElement>` | `false`     | -            |
+| color      | `'primary', 'low', 'pure'`                          | `false`     | `low`        |
