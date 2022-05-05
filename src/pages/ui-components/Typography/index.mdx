@@ -4,6 +4,8 @@ name: Typography
 
 import { Playground } from 'dokz';
 
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
 import Typography from './';
 
 # Typography
@@ -87,6 +89,16 @@ import Typography from '@eduzz/houston-ui/Typography';
   </Typography>
 </Playground>
 
+### Cores
+
+<Playground>
+  <Typography color='primary'>Primary (cor do produto)</Typography>
+  <Typography color='low'>Low (padrão)</Typography>
+  <div style={{ backgroundColor: '#0D47A1' }}>
+    <Typography color='high'>High</Typography>
+  </div>
+</Playground>
+
 ### Informando ref e evento
 
 <Playground>
@@ -98,7 +110,7 @@ import Typography from '@eduzz/houston-ui/Typography';
       });
     }
     return (
-      <Typography ref={ref} lineHeight='default' onClick={scrollIntoView}>
+      <Typography ref={ref} onClick={scrollIntoView}>
         Click to scroll into view
       </Typography>
     );
@@ -115,3 +127,4 @@ import Typography from '@eduzz/houston-ui/Typography';
 | onClick      | `(e: React.MouseEvent) => void`                             | `false`     | -         |
 | as           | `'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'strong'` | `false`     | `p`       |
 | ref          | `React.ReactRef<any>`                                       | `false`     | -         |
+| color        | `'primary', 'low', 'pure'`                                  | `false`     | `low`     |
