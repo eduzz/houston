@@ -5,11 +5,13 @@ import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import useMediaQuery from '../../hooks/useMediaQuery';
-import Typography from '../Typography';
+import Typography, { TypographyColors } from '../Typography';
 
 type SubtitleTags = 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 
 export type SubtitleSizes = 'large' | 'small';
+
+export type SubtitleColors = TypographyColors;
 
 export interface IHeadingProps extends IStyledProp {
   id?: string;
@@ -26,6 +28,10 @@ export interface IHeadingProps extends IStyledProp {
    * Defaults to 'h2'
    */
   as?: SubtitleTags;
+  /**
+   * Defaults to 'low'
+   */
+  color?: SubtitleColors;
   ['aria-label']?: string;
 }
 

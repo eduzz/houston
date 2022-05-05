@@ -5,11 +5,13 @@ import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import useMediaQuery from '../../hooks/useMediaQuery';
-import Typography from '../Typography';
+import Typography, { TypographyColors } from '../Typography';
 
 type ParagraphTags = 'p' | 'span' | 'strong';
 
 export type ParagraphSizes = 'large' | 'small';
+
+export type ParagraphColors = TypographyColors;
 
 export interface IHeadingProps extends IStyledProp {
   id?: string;
@@ -26,6 +28,10 @@ export interface IHeadingProps extends IStyledProp {
    * Defaults to 'p'
    */
   as?: ParagraphTags;
+  /**
+   * Defaults to 'low'
+   */
+  color?: ParagraphColors;
   ['aria-label']?: string;
 }
 
