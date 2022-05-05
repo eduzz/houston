@@ -22,7 +22,7 @@ const TableEmpty = React.memo<ITableEmptyProps>(({ children, count, className })
     <tr className={cx(className, 'table-empty-message')}>
       <td align='center' colSpan={columnsLen}>
         {typeof children === 'string' ? (
-          <Typography size='xs' fontWeight='regular' lineHeight='xl' className='__text'>
+          <Typography size='xs' weight='regular' lineHeight='xl' className='__text'>
             {children}
           </Typography>
         ) : (
