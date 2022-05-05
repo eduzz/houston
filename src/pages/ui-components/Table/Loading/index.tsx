@@ -6,7 +6,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
 
-import Typography from '../../Typography';
+import Typography from '../../Texts/Typography';
 import TableContext from '../context';
 
 export interface ITableLoadingProps extends IStyledProp {

@@ -4,33 +4,33 @@ import { IStyledProp } from '@eduzz/houston-styles/styled';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-import useMediaQuery from '../hooks/useMediaQuery';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import Typography from '../Typography';
 
-type SubtitleTags = 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+type ParagraphTags = 'p' | 'span' | 'strong';
 
-export type SubtitleSizes = 'large' | 'small';
+export type ParagraphSizes = 'large' | 'small';
 
 export interface IHeadingProps extends IStyledProp {
   id?: string;
   /**
    * Defaults to 'large'
    */
-  size?: SubtitleSizes;
+  size?: ParagraphSizes;
   weight?: keyof HoustonTokens['font']['weight'];
   lineHeight?: keyof HoustonTokens['line']['height'];
   marginBottom?: boolean;
   children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
   /**
-   * Defaults to 'h2'
+   * Defaults to 'p'
    */
-  as?: SubtitleTags;
+  as?: ParagraphTags;
   ['aria-label']?: string;
 }
 
 type SizesMap = {
-  [key in SubtitleSizes]: keyof HoustonTokens['font']['size'];
+  [key in ParagraphSizes]: keyof HoustonTokens['font']['size'];
 };
 
 const defaultSizesMap: SizesMap = {
@@ -39,12 +39,12 @@ const defaultSizesMap: SizesMap = {
 };
 
 const mobileSizesMap: SizesMap = {
-  large: 'md',
-  small: 'sm'
+  large: 'sm',
+  small: 'xs'
 };
 
-const Subtitle = React.forwardRef<HTMLHeadingElement | HTMLParagraphElement, IHeadingProps>(
-  ({ as = 'h2', children, size: sizeProp = 'large', ...props }, ref) => {
+const Paragraph = React.forwardRef<HTMLParagraphElement | HTMLSpanElement | HTMLElement, IHeadingProps>(
+  ({ as = 'p', children, size: sizeProp = 'large', ...props }, ref) => {
     const { breakpoints } = useHoustonTheme();
     const isMobile = useMediaQuery(breakpoints.down('sm'));
     const sizesMap = isMobile ? mobileSizesMap : defaultSizesMap;
@@ -57,4 +57,4 @@ const Subtitle = React.forwardRef<HTMLHeadingElement | HTMLParagraphElement, IHe
   }
 );
 
-export default Subtitle;
+export default Paragraph;

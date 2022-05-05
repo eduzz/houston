@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useTheme } from '@emotion/react';
 import FormHelperText from '@mui/material/FormHelperText';
 
-import Typography from '../../Typography';
+import Typography from '../../Texts/Typography';
 
 interface ILabelBaseProps {
   hasError: boolean;
