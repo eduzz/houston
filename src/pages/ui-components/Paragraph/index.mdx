@@ -1,0 +1,120 @@
+---
+name: Paragraph
+---
+
+import { Playground } from 'dokz';
+
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
+import Paragraph from './';
+
+# Paragraph
+
+O componente de parágrafo é utilizado para criarmos corpos de texto.
+
+### Importação
+
+```js
+import Paragraph from '@eduzz/houston-ui/Paragraph';
+```
+
+### Tamanhos
+
+<Playground>
+  <Paragraph size='large'>Large</Paragraph>
+  <Paragraph size='small'>Small</Paragraph>
+</Playground>
+
+### Intensidade da fonte
+
+<Playground>
+  <Paragraph weight='regular'>regular</Paragraph>
+  <Paragraph weight='semibold'>semibold</Paragraph>
+  <Paragraph weight='bold'>bold</Paragraph>
+</Playground>
+
+### Altura da linha
+
+<Playground>
+  <Paragraph lineHeight='default'>
+    line-height
+    <br />
+    default
+  </Paragraph>
+  <hr style={{ margin: '10px 0' }} />
+  <Paragraph lineHeight='xs'>
+    line-height
+    <br />
+    xs
+  </Paragraph>
+  <hr style={{ margin: '10px 0' }} />
+  <Paragraph lineHeight='sm'>
+    line-height
+    <br />
+    sm
+  </Paragraph>
+  <hr style={{ margin: '10px 0' }} />
+  <Paragraph lineHeight='md'>
+    line-height
+    <br />
+    md
+  </Paragraph>
+  <hr style={{ margin: '10px 0' }} />
+  <Paragraph lineHeight='lg'>
+    line-height
+    <br />
+    lg
+  </Paragraph>
+  <hr style={{ margin: '10px 0' }} />
+  <Paragraph lineHeight='xl'>
+    line-height
+    <br />
+    xl
+  </Paragraph>
+  <hr style={{ margin: '10px 0' }} />
+  <Paragraph lineHeight='xxl'>
+    line-height
+    <br />
+    xxl
+  </Paragraph>
+</Playground>
+
+### Cores
+
+<Playground>
+  <Paragraph color='primary'>Primary (cor do produto)</Paragraph>
+  <Paragraph>Low (padrão)</Paragraph>
+  <div style={{ backgroundColor: '#0D47A1' }}>
+    <Paragraph color='high'>High</Paragraph>
+  </div>
+</Playground>
+
+### Informando ref e evento
+
+<Playground>
+  {() => {
+    const ref = React.useRef(null);
+    function scrollIntoView() {
+      ref.current.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+    return (
+      <Paragraph ref={ref} onClick={scrollIntoView}>
+        Click to scroll into view
+      </Paragraph>
+    );
+  }}
+</Playground>
+
+| prop         | tipo                                 | obrigatório     | padrão        |
+| ------------ | ------------------------------------ | --------------- | ------------- | ------- | --- |
+| size         | `large, small`                       | `false`         | `large`       |
+| lineHeight   | `Line Height Tokens`                 | `false`         | `md`          |
+| weight       | `Font Weight Tokens`                 | `false`         | `regular`     |
+| marginBottom | `boolean`                            | `false`         | -             |
+| className    | `string`                             | `false`         | -             |
+| onClick      | `(e: React.MouseEvent) => void`      | `false`         | -             |
+| as           | `'p', 'span', 'strong'`              | `false`         | `p`           |
+| ref          | `React.ReactRef<HTMLParagraphElement | HTMLSpanElement | HTMLElement>` | `false` | -   |
+| color        | `'primary', 'low', 'pure'`           | `false`         | `low`         |
