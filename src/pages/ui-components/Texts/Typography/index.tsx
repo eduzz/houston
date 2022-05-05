@@ -22,7 +22,7 @@ export interface ITypographyProps extends IStyledProp {
   /**
    * Defaults to 'p'
    */
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'strong' | 'article';
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'strong' | 'article' | 'figcaption';
   ['aria-label']?: string;
 }
 
