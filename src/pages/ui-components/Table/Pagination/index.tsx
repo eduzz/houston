@@ -10,7 +10,7 @@ import TextField from '../../Forms/Text';
 import Column from '../../Grid/Column';
 import Container from '../../Grid/Container';
 import Row from '../../Grid/Row';
-import Typography from '../../Texts/Typography';
+import Typography from '../../Typography';
 import TableContext from '../context';
 
 type ITablePaginationExtends = 'id' | 'className' | 'children';

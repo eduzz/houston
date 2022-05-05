@@ -7,7 +7,7 @@ import CancelIcon from '@eduzz/houston-icons/Cancel';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import ButtonIcon from '../../../ButtonIcon';
-import Typography from '../../../Texts/Typography';
+import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
 interface IStyleProps {

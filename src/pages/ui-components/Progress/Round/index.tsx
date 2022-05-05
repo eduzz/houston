@@ -5,7 +5,7 @@ import CircularProgressMUI from '@mui/material/CircularProgress';
 import { cx } from '@eduzz/houston-styles';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
-import Typography from '../../Texts/Typography';
+import Typography from '../../Typography';
 
 const useStyles = createUseStyles(theme => ({
   root: {

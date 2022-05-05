@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cx } from '@eduzz/houston-styles';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
-import Typography from '../../../Texts/Typography';
+import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
 interface IWidthSizes {

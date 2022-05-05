@@ -6,7 +6,7 @@ import { cx } from '@eduzz/houston-styles';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
 import IconButton from '../../ButtonIcon';
-import Typography from '../../Texts/Typography';
+import Typography from '../../Typography';
 
 const useStyles = createUseStyles(theme => ({
   iconRootRight: {

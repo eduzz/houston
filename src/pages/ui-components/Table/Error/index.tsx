@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
 
 import Button from '../../Button';
-import Typography from '../../Texts/Typography';
+import Typography from '../../Typography';
 
 export interface ITableEErrorProps extends IStyledProp {
   error?: any;

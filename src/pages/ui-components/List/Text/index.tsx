@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Typography, { ITypographyProps } from '../../Texts/Typography';
+import Typography, { ITypographyProps } from '../../Typography';
 
 type ListTitleProps = 'id' | 'className';
 
