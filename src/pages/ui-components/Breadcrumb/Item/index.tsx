@@ -5,12 +5,28 @@ import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 export interface IBreadcrumbItemProps extends IStyledProp {
   icon?: React.ReactNode;
   isActive?: boolean;
+  onClick?: () => void;
+  /**
+   * Component that wraps the item.
+   * @example NavLink, Link (react-router-dom)
+   */
+  as?: React.ElementType;
+  /**
+   * Redirect path.
+   */
+  to?: string;
+  /**
+   * Allow to provide more props to the `as` Component
+   */
+  [key: string]: any;
 }
 
 const BreadcrumbbItem: React.FC<IBreadcrumbItemProps> = props => {
-  const { children, icon, className, isActive } = props;
+  const { children, icon, className, isActive, as: Component, to, ...rest } = props;
 
-  return (
+  return React.createElement(
+    Component ?? 'div',
+    { ...rest, to },
     <div className={cx(className, isActive && '--active')}>
       {!!icon && <span className='__icon'>{icon}</span>}
       {!!React.Children.count(children) && <div className={cx('__text', isActive && '--active')}>{children}</div>}
