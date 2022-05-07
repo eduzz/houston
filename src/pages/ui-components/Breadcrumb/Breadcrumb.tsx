@@ -30,8 +30,6 @@ const Breadcrumb: React.FC<IBreadcrumbProps> = props => {
 
 const StyledBreadcrumb = styled(Breadcrumb, { label: 'houston-breadcrumb' })(({ theme }) => {
   return css`
-    border: solid;
-    border-width: thin;
     text-transform: none;
     padding: 10px 16px;
     height: 40px;

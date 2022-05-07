@@ -23,7 +23,19 @@ const BreadcrumbItem = styled(BreadcrumbbItem, { label: 'houston-breadcrumbItem'
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: ${theme.spacing.inset.quarck};
+      padding: ${theme.spacing.inset.quarck};
+      border-radius: ${theme.border.radius.xs};
+
+      &:hover {
+        background-color: ${theme.neutralColor.high.medium};
+        text-decoration: underline;
+      }
+
+      &:focus {
+        border: solid;
+        border-width: ${theme.border.width.sm};
+        border-color: ${theme.feedbackColor.informative.pure};
+      }
 
       & > .__text {
         font-family: ${theme.font.family.base};
@@ -39,7 +51,6 @@ const BreadcrumbItem = styled(BreadcrumbbItem, { label: 'houston-breadcrumbItem'
   
       & > .__icon {
         color: ${theme.neutralColor.low.pure};
-        margin: ${theme.spacing.inset.quarck};
       }
 
       & > .__icon ~ .__text {
