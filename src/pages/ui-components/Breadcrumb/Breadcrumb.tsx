@@ -1,24 +1,27 @@
 import * as React from 'react';
 
+import IconChevronRight from '@eduzz/houston-icons/ChevronRight';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../Helpers/nestedComponent';
 import Item from './Item';
 
-export interface IBreadcrumbProps extends IStyledProp {}
+export interface IBreadcrumbProps extends IStyledProp {
+  separator?: React.ReactNode;
+}
 
 const Breadcrumb: React.FC<IBreadcrumbProps> = props => {
-  const { children, className } = props;
+  const { children, className, separator } = props;
 
   return (
     <div className={cx(className)}>
       {React.Children.toArray(children)
         .slice(0, -1)
-        .map(child => (
-          <>
+        .map((child, index) => (
+          <React.Fragment key={`breadcrumbItem-${index}`}>
             <>{child}</>
-            <div className='__separator'>{'>'}</div>
-          </>
+            <div className='__separator'>{separator ?? <IconChevronRight size={14} />}</div>
+          </React.Fragment>
         ))}
       {children[React.Children.count(children) - 1]}
     </div>
@@ -42,21 +45,12 @@ const StyledBreadcrumb = styled(Breadcrumb, { label: 'houston-breadcrumb' })(({ 
     align-items: center;
     justify-content: center;
 
-    & > .__item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      & > .__icon ~ .__text {
-        margin: 6px;
-      }
-    }
-
     & > .__separator {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 12px;
+      margin: ${theme.spacing.inset.quarck};
+      color: ${theme.neutralColor.low.light};
     }
   `;
 });
