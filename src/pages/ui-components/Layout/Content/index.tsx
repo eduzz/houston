@@ -12,4 +12,6 @@ const SidebarContent: React.FC<ISidebarContentProps> = ({ ...rest }) => {
 
 export default styled(SidebarContent, { label: 'houston-sidebar-content' })`
   flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
