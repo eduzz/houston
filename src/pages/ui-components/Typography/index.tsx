@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import styled, { css, IStyledProp } from '@eduzz/houston-styles/styled';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
-
-import { getColorFallback } from '../Helpers/functions';
+import { getColorFallback } from '@eduzz/houston-ui/Helpers/functions';
 
 export type TypographyColors = 'low' | 'high' | 'primary';
 

@@ -3,9 +3,8 @@ import * as React from 'react';
 import { IStyledProp } from '@eduzz/houston-styles/styled';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
-
-import useMediaQuery from '../hooks/useMediaQuery';
-import Typography, { TypographyColors } from '../Typography';
+import useMediaQuery from '@eduzz/houston-ui/hooks/useMediaQuery';
+import Typography, { TypographyColors } from '@eduzz/houston-ui/Typography';
 
 type SubtitleTags = 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 
