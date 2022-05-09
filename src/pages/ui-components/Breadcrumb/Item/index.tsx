@@ -70,7 +70,7 @@ const BreadcrumbItem = styled(BreadcrumbbItem, { label: 'houston-breadcrumbItem'
       }
 
       & > .__icon ~ .__text {
-        margin-left: 6px;
+        margin-left: ${theme.spacing.inset.quarck};
       }
     }
   `;

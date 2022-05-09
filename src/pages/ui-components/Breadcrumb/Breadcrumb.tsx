@@ -30,23 +30,15 @@ const Breadcrumb: React.FC<IBreadcrumbProps> = props => {
 
 const StyledBreadcrumb = styled(Breadcrumb, { label: 'houston-breadcrumb' })(({ theme }) => {
   return css`
-    text-transform: none;
-    padding: 10px 16px;
-    height: 40px;
-    border-radius: ${theme.border.radius.xs};
     font-weight: ${theme.font.weight.regular};
     font-family: ${theme.font.family.base};
     line-height: ${theme.line.height.default};
     font-size: ${theme.font.size.xxs};
-    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
     & > .__separator {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       margin: ${theme.spacing.inset.quarck};
       color: ${theme.neutralColor.low.light};
     }
