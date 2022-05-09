@@ -1,0 +1,65 @@
+---
+name: Breadcrumb
+---
+
+import { Playground } from 'dokz';
+
+import ArrowRight from '@eduzz/houston-icons/ArrowRight';
+import HomeOutline from '@eduzz/houston-icons/HomeOutline';
+
+import Breadcrumb from './';
+
+# Breadcrumb
+
+O breadcrumb ajuda o usuário a visualizar a sua localização atual dentro da aplicação ou a sua localização em um contexto da aplicação, como etapas na criação de um produto. Também pode permitir o usuário clicar em uma etapa anterior para voltar para aquela localização.
+
+### Importação
+
+```js
+import Breadcrumb from '@eduzz/houston-ui/Breadcrumb';
+```
+
+### Exemplo
+
+<Playground>
+  <Breadcrumb>
+    <Breadcrumb.Item onClick={() => alert('clicked')} icon={<HomeOutline />} />
+    <Breadcrumb.Item>BreadcrumbItem2</Breadcrumb.Item>
+    <Breadcrumb.Item icon={<HomeOutline />}>
+      <span>Breadcrumb</span>
+      <span>Item3</span>
+    </Breadcrumb.Item>
+    <Breadcrumb.Item isActive>BreadcrumbItem4</Breadcrumb.Item>
+  </Breadcrumb>
+</Playground>
+
+### Separador customizado
+
+<Playground>
+  <Breadcrumb separator={<ArrowRight />}>
+    <Breadcrumb.Item onClick={() => alert('clicked')} icon={<HomeOutline />} />
+    <Breadcrumb.Item>BreadcrumbItem2</Breadcrumb.Item>
+    <Breadcrumb.Item icon={<HomeOutline />}>
+      <span>Breadcrumb</span>
+      <span>Item3</span>
+    </Breadcrumb.Item>
+    <Breadcrumb.Item isActive>BreadcrumbItem4</Breadcrumb.Item>
+  </Breadcrumb>
+</Playground>
+
+### Breadcrump
+
+| prop      | tipo              | obrigatório | padrão                           |
+| --------- | ----------------- | ----------- | -------------------------------- |
+| children  | `React.ReactNode` | `true`      | -                                |
+| separator | `React.ReactNode` | `false`     | `<IconChevronRight size={14} />` |
+
+### Breadcrump.Item
+
+| prop     | tipo              | obrigatório | padrão |
+| -------- | ----------------- | ----------- | ------ |
+| children | `React.ReactNode` | `false`     | -      |
+| icon     | `React.ReactNode` | `false`     | -      |
+| as       | `React.ReactNode` | `false`     | -      |
+| to       | `string`          | `false`     | -      |
+| isActive | `boolean`         | `false`     | -      |
