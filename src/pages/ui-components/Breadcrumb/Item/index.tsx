@@ -38,11 +38,11 @@ const BreadcrumbItem = styled(BreadcrumbbItem, { label: 'houston-breadcrumbItem'
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: ${({ theme }) => theme.spacing.inset.quarck};
+  padding: ${({ theme }) => theme.spacing.inset.nano};
   border-radius: ${({ theme }) => theme.border.radius.xs};
 
   &:hover {
-    background-color: ${({ theme }) => theme.neutralColor.high.medium};
+    background: ${({ theme }) => `rgba(0,0,0,${theme.opacity.level[2]})`};
     text-decoration: underline;
   }
 
