@@ -4,7 +4,7 @@ import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 export type IAvatarSize = 'xs' | 'sm' | 'md' | 'lg';
 
-export type IAvatarColor = 'high' | 'low';
+export type IAvatarColor = 'primary' | 'high';
 
 type ISizesMap = { [key in IAvatarSize]: number };
 
@@ -25,7 +25,7 @@ export interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement>, ISty
   size?: IAvatarSize;
 }
 
-const Avatar: React.FC<IAvatarProps> = ({ src, alt, children, className, color, id, onClick }) => {
+const Avatar: React.FC<IAvatarProps> = ({ src, alt, children, className, color = 'primary', id, onClick }) => {
   const wrapperProps = React.useMemo(() => ({ id, onClick }), [id, onClick]);
   const imageProps = React.useMemo(() => ({ src, alt }), [src, alt]);
 
@@ -35,7 +35,7 @@ const Avatar: React.FC<IAvatarProps> = ({ src, alt, children, className, color, 
   const firstLetter = React.useMemo(() => (hasText && children?.[0]?.trim()) ?? ' ', [children, hasText]);
 
   return (
-    <div className={cx(className, { '--low': color === 'low' })} {...wrapperProps}>
+    <div className={cx(className, { '--high': color === 'high' })} {...wrapperProps}>
       {hasImage && (
         <figure className='__image'>
           <img {...imageProps} />
@@ -75,7 +75,7 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme,
     justify-content: center;
     background-color: ${theme.brandColor.primary.pure};
 
-    &.--low {
+    &.--high {
       color: ${theme.brandColor.primary.pure};
       background-color: ${theme.neutralColor.high.pure};
 
