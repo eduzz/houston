@@ -9,7 +9,7 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 
 type HeadingTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-export type HeadingSizes = 'display' | 'x-large' | 'large' | 'medium' | 'small' | 'x-small';
+export type HeadingSizes = 'display' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
 
 export type HeadingColors = TypographyColors;
 
@@ -43,11 +43,11 @@ const defaultSizesMap: SizesMap = {
   h5: 'md',
   h6: 'xs',
   display: 'giant',
-  ['x-large']: 'xxxl',
-  large: 'xxl',
-  medium: 'lg',
-  small: 'md',
-  ['x-small']: 'xs'
+  xl: 'xxxl',
+  lg: 'xxl',
+  md: 'lg',
+  sm: 'md',
+  xs: 'xs'
 };
 
 const mobileSizesMap: SizesMap = {
@@ -58,11 +58,11 @@ const mobileSizesMap: SizesMap = {
   h5: 'sm',
   h6: 'xs',
   display: 'xxxl',
-  ['x-large']: 'xxl',
-  large: 'lg',
-  medium: 'md',
-  small: 'sm',
-  ['x-small']: 'xs'
+  xl: 'xxl',
+  lg: 'lg',
+  md: 'md',
+  sm: 'sm',
+  xs: 'xs'
 };
 
 const Heading = React.forwardRef<HTMLHeadingElement, IHeadingProps>(

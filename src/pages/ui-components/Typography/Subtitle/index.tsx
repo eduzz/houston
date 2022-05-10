@@ -9,14 +9,14 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 
 type SubtitleTags = 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 
-export type SubtitleSizes = 'large' | 'small';
+export type SubtitleSizes = 'lg' | 'sm';
 
 export type SubtitleColors = TypographyColors;
 
 export interface ISubtitleProps extends IStyledProp {
   id?: string;
   /**
-   * Defaults to 'large'
+   * Defaults to 'lg'
    */
   size?: SubtitleSizes;
   weight?: keyof HoustonTokens['font']['weight'];
@@ -40,17 +40,17 @@ type SizesMap = {
 };
 
 const defaultSizesMap: SizesMap = {
-  large: 'lg',
-  small: 'md'
+  lg: 'lg',
+  sm: 'md'
 };
 
 const mobileSizesMap: SizesMap = {
-  large: 'md',
-  small: 'sm'
+  lg: 'md',
+  sm: 'sm'
 };
 
 const Subtitle = React.forwardRef<HTMLHeadingElement | HTMLParagraphElement, ISubtitleProps>(
-  ({ as = 'h2', children, size: sizeProp = 'large', ...props }, ref) => {
+  ({ as = 'h2', children, size: sizeProp = 'lg', ...props }, ref) => {
     const { breakpoints } = useHoustonTheme();
     const isMobile = useMediaQuery(breakpoints.down('sm'));
     const sizesMap = isMobile ? mobileSizesMap : defaultSizesMap;
