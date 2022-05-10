@@ -6,13 +6,11 @@ export type IAvatarSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type IAvatarColor = 'high' | 'low';
 
-type ISizesMap = {
-  [key in IAvatarSize]: number;
-};
+type ISizesMap = { [key in IAvatarSize]: number };
 
-type IFontSizesMap = {
-  [key in IAvatarSize]: string;
-};
+type IFontSizesMap = { [key in IAvatarSize]: string };
+
+const sizesMap: ISizesMap = { xs: 24, sm: 32, md: 40, lg: 64 };
 
 export interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement>, IStyledProp {
   src?: string;
@@ -64,13 +62,6 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme,
     sm: theme.font.size.sm,
     md: theme.font.size.md,
     lg: theme.font.size.xl
-  };
-
-  const sizesMap: ISizesMap = {
-    xs: 24,
-    sm: 32,
-    md: 40,
-    lg: 64
   };
 
   return css`
