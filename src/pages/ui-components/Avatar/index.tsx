@@ -112,7 +112,7 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme,
       text-transform: uppercase;
       font-size: ${theme.pxToRem(fontSizeMap[size])};
       line-height: ${theme.pxToRem(fontSizeMap[size])};
-      font-weight: ${theme.font.weight.regular};
+      font-weight: ${theme.font.weight.bold};
       user-select: none;
     }
 
@@ -125,8 +125,7 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme,
 
       svg {
         fill: white;
-        width: calc(100% - ${theme.spacing.inset.nano});
-        height: calc(100% - ${theme.spacing.inset.nano});
+        height: 87.5%;
       }
     }
   `;
