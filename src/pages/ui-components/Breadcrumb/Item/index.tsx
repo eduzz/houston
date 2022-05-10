@@ -52,7 +52,7 @@ export default styled(BreadcrumbItem, { label: 'houston-breadcrumb-item' })`
     transition: 0.3s;
 
     :hover {
-      background: ${({ theme }) => `rgba(0,0,0,${theme.opacity.level[2]})`};
+      background: ${({ theme }) => theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       text-decoration: underline;
     }
   }
