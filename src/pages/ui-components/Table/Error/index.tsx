@@ -30,7 +30,7 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
       <td align='center' colSpan={1000}>
         {typeof children === 'string' ? (
           <>
-            <Typography size='xs' fontWeight='regular' lineHeight='xl' className='__text'>
+            <Typography size='xs' weight='regular' lineHeight='xl' className='__text'>
               {children}
             </Typography>
 

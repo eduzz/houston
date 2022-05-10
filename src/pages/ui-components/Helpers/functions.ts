@@ -41,7 +41,13 @@ export function isReactComponent(child: any, componentType?: React.ReactElement[
 
 export function getColorFallback(
   theme: HoustonTokens,
-  colorKey: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'inherit'
+  colorKey: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'secondary' | 'low' | 'high' = 'primary'
 ): Color {
-  return colorKey === 'inherit' ? 'inherit' : theme.feedbackColor[colorKey] ?? theme.brandColor.primary;
+  if (['low', 'high'].includes(colorKey)) {
+    return theme.neutralColor[colorKey];
+  }
+  if (['positive', 'negative', 'warning', 'informative'].includes(colorKey)) {
+    return theme.feedbackColor[colorKey];
+  }
+  return theme.brandColor[colorKey];
 }
