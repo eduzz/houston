@@ -1,123 +1,133 @@
 import * as React from 'react';
 
-import AvatarMUI, { AvatarProps } from '@mui/material/Avatar';
+import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-import AvatarOutline from '@eduzz/houston-icons/AvatarOutline';
-import AvatarSolid from '@eduzz/houston-icons/AvatarSolid';
-import styled, { cx, IStyledProp } from '@eduzz/houston-styles';
+export type IAvatarSize = 'xs' | 'sm' | 'md' | 'lg';
 
-type AvatarPropsExtends = 'id' | 'className' | 'src' | 'alt' | 'onClick' | 'children';
+export type IAvatarColor = 'high' | 'low';
 
-export type IAvatarSize = 'small' | 'medium' | 'large' | number;
+type ISizesMap = {
+  [key in IAvatarSize]: number;
+};
 
-export type IAvatarType = 'text' | 'icon';
+type IFontSizesMap = {
+  [key in IAvatarSize]: string;
+};
 
-export interface IAvatarProps extends Pick<AvatarProps, AvatarPropsExtends>, IStyledProp {
+export interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement>, IStyledProp {
+  src?: string;
+  alt?: string;
   /**
-   * Default `false`
+   * Default `primary`
    */
-  filled?: boolean;
+  color?: IAvatarColor;
   /**
-   * Default `icon`
-   */
-  type?: IAvatarType;
-  /**
-   * Default `medium`
+   * Default `md`
    */
   size?: IAvatarSize;
 }
 
-const sizes = { small: 40, medium: 60, large: 80 };
+const Avatar: React.FC<IAvatarProps> = ({ src, alt, children, className, color, id, onClick }) => {
+  const wrapperProps = React.useMemo(() => ({ id, onClick }), [id, onClick]);
+  const imageProps = React.useMemo(() => ({ src, alt }), [src, alt]);
 
-const Avatar: React.FC<IAvatarProps> = ({
-  children,
-  className,
-  size = 'medium',
-  type = 'icon',
-  filled,
-  src,
-  ...rest
-}) => {
-  const hasIcon = type === 'icon';
-  const sizeIsNumber = typeof size === 'number';
+  const hasImage = !!src;
+  const hasText = children && typeof children === 'string';
 
-  const iconRender = React.useMemo(() => {
-    const currentSize = ((sizeIsNumber ? size : sizes[size]) ?? sizes.medium) - 4;
-
-    if (filled) {
-      return <AvatarSolid size={currentSize} />;
-    }
-
-    return <AvatarOutline size={currentSize} />;
-  }, [filled, size, sizeIsNumber]);
+  const firstLetter = React.useMemo(() => (hasText && children?.[0]?.trim()) ?? ' ', [children, hasText]);
 
   return (
-    <AvatarMUI
-      {...rest}
-      src={src}
-      className={cx(
-        className,
-        !sizeIsNumber && `--${size ?? 'medium'}`,
-        hasIcon && '--icon',
-        filled && '--filled',
-        src && '--image'
+    <div className={cx(className, { '--low': color === 'low' })} {...wrapperProps}>
+      {hasImage && (
+        <figure className='__image'>
+          <img {...imageProps} />
+        </figure>
       )}
-    >
-      {hasIcon && iconRender}
-      {type === 'text' && children}
-    </AvatarMUI>
+
+      {!hasImage && hasText && <div className='__text'>{firstLetter}</div>}
+
+      {!hasImage && !hasText && (
+        <div className='__icon'>
+          <svg viewBox='0 0 44 55' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path d='M43.3333 45.1362C38.1975 51.1715 30.5458 55 22 55C13.4542 55 5.80257 51.1715 0.666687 45.1362V40.3333C0.666687 33.7059 6.03927 28.3333 12.6667 28.3333H31.3333C37.9608 28.3333 43.3333 33.7059 43.3333 40.3333V45.1362Z' />
+            <path d='M22 24.3333C28.6274 24.3333 34 18.9608 34 12.3333C34 5.70592 28.6274 0.333336 22 0.333336C15.3726 0.333336 10 5.70592 10 12.3333C10 18.9608 15.3726 24.3333 22 24.3333Z' />
+          </svg>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default styled(Avatar)`
+export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme, size = 'md' }) => {
+  const fontSizeMap: IFontSizesMap = {
+    xs: theme.font.size.xxs,
+    sm: theme.font.size.sm,
+    md: theme.font.size.md,
+    lg: theme.font.size.xl
+  };
+
+  const sizesMap: ISizesMap = {
+    xs: 24,
+    sm: 32,
+    md: 40,
+    lg: 64
+  };
+
+  return css`
+    width: ${theme.pxToRem(sizesMap[size])};
+    height: ${theme.pxToRem(sizesMap[size])};
+    color: white;
+    overflow: hidden;
+    border-radius: 50%;
     display: inline-flex;
-    background: none;
-    border: 2px solid ${({ theme }) => theme.neutralColor.low.light};
-    color: ${({ theme }) => theme.neutralColor.low.light};
-    font-weight: ${({ theme }) => theme.font.weight.semibold};
+    vertical-align: middle;
+    justify-content: center;
+    background-color: ${theme.brandColor.primary.pure};
 
-    &.--icon {
-      align-items: flex-end;
-      border-width: 2px;
+    &.--low {
+      color: ${theme.brandColor.primary.pure};
+      background-color: ${theme.neutralColor.high.pure};
 
-      & span.houston-icon {
-        position: relative;
-        top: 5;
+      .__icon svg {
+        fill: ${theme.brandColor.primary.pure};
       }
     }
 
-    &.--filled {
-      background: ${({ theme }) => theme.neutralColor.low.light};
-      color: white;
-      border-width: 4px;
-
-      & span.houston-icon {
-        color: white;
-        top: 7px !important;
+    .__image {
+      img,
+      svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
       }
     }
 
-    &.--image {
-      border-width: 1px;
+    .__text {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      font-size: ${theme.pxToRem(fontSizeMap[size])};
+      line-height: ${theme.pxToRem(fontSizeMap[size])};
+      font-weight: ${theme.font.weight.regular};
+      user-select: none;
     }
 
-  &.--small {
-    width: ${sizes.small}px;
-    height: ${sizes.small}px;
-    font-size: ${({ theme }) => theme.font.size.xxs};
-    border-width: 2px;
-  }
+    .__icon {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  &.--medium{
-    width: ${sizes.medium}px;
-    height: ${sizes.medium}px;
-    font-size: ${({ theme }) => theme.font.size.sm};
-  }
-
-  &.--large {
-    width: ${sizes.large}px;
-    height: ${sizes.large}px;
-    font-size: ${({ theme }) => theme.font.size.lg};
-  }
-})
-`;
+      svg {
+        fill: white;
+        width: calc(100% - ${theme.spacing.inset.nano});
+        height: calc(100% - ${theme.spacing.inset.nano});
+      }
+    }
+  `;
+});

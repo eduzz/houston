@@ -45,7 +45,7 @@ function ThemeProvider({
 
         body {
           font-family: ${theme.font.family.base};
-          font-size: ${theme.font.size.xs}px;
+          font-size: ${theme.font.size.xs};
           -webkit-font-smoothing: auto;
         }
       `

@@ -136,7 +136,7 @@ export type Font = {
  *
  * Note: We consider 1rem as 16px by default
  */
-export type PxToRem = (value: number, rate?: number) => string;
+export type PxToRem = (value: number | string, rate?: number) => string;
 
 export type Line = {
   height: {
