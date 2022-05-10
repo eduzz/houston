@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import IconChevronRight from '@eduzz/houston-icons/ChevronRight';
 import styled, { cx, IStyledProp } from '@eduzz/houston-styles';
 
 export interface IBreadcrumbItemProps extends IStyledProp {
@@ -22,24 +23,38 @@ export interface IBreadcrumbItemProps extends IStyledProp {
 }
 
 const BreadcrumbbItem: React.FC<IBreadcrumbItemProps> = props => {
-  const { children, icon, className, isActive, as: Component, to, ...rest } = props;
+  const { children, icon, className, isActive /* as: Component, to */ } = props;
 
-  return React.createElement(
-    Component ?? 'div',
-    { ...rest, to },
-    <div className={cx(className, isActive && '--active')}>
-      {!!icon && <span className='__icon'>{icon}</span>}
-      {!!React.Children.count(children) && <div className={cx('__text', isActive && '--active')}>{children}</div>}
-    </div>
+  return (
+    <li className={cx(className, isActive && '--active')} {...(isActive && { 'aria-current': 'page' })}>
+      <a /*aqui vai ser o as*/>
+        {!!icon && <span className='__icon'>{icon}</span>}
+        {!!React.Children.count(children) && <span className='__text'>{children}</span>}
+      </a>
+      <span role='presentation' className='__separator'>
+        {<IconChevronRight size={14} />}
+      </span>
+    </li>
   );
 };
 
-const BreadcrumbItem = styled(BreadcrumbbItem, { label: 'houston-breadcrumbItem' })`
+export default styled(BreadcrumbbItem, { label: 'houston-breadcrumb-item' })`
   display: flex;
   align-items: center;
   justify-content: center;
   padding: ${({ theme }) => theme.spacing.inset.nano};
   border-radius: ${({ theme }) => theme.border.radius.xs};
+
+  .__text {
+    font-family: ${({ theme }) => theme.font.family.base};
+    font-size: ${({ theme }) => theme.font.size.xxs};
+    line-height: ${({ theme }) => theme.line.height.md};
+    color: ${({ theme }) => theme.neutralColor.low.pure};
+  }
+
+  &.--active {
+    font-weight: ${({ theme }) => theme.font.weight.semibold};
+  }
 
   &:hover {
     background: ${({ theme }) => `rgba(0,0,0,${theme.opacity.level[2]})`};
@@ -52,18 +67,6 @@ const BreadcrumbItem = styled(BreadcrumbbItem, { label: 'houston-breadcrumbItem'
     border-color: ${({ theme }) => theme.feedbackColor.informative.pure};
   }
 
-  .__text {
-    font-family: ${({ theme }) => theme.font.family.base};
-    font-size: ${({ theme }) => theme.font.size.xxs};
-    line-height: ${({ theme }) => theme.line.height.md};
-    font-weight: ${({ theme }) => theme.font.weight.regular};
-    color: ${({ theme }) => theme.neutralColor.low.pure};
-
-    &.--active {
-      font-weight: ${({ theme }) => theme.font.weight.semibold};
-    }
-  }
-
   .__icon {
     color: ${({ theme }) => theme.neutralColor.low.pure};
   }
@@ -71,6 +74,9 @@ const BreadcrumbItem = styled(BreadcrumbbItem, { label: 'houston-breadcrumbItem'
   .__icon ~ .__text {
     margin-left: ${({ theme }) => theme.spacing.inset.quarck};
   }
-`;
 
-export default BreadcrumbItem;
+  .__separator {
+    margin: ${({ theme }) => theme.spacing.inset.quarck};
+    color: ${({ theme }) => theme.neutralColor.low.light};
+  }
+`;
