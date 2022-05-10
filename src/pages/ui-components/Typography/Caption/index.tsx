@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { IStyledProp } from '@eduzz/houston-styles/styled';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
-import Typography, { TypographyColors } from '@eduzz/houston-ui/Typography';
+
+import Typography, { TypographyColors } from '..';
 
 export type CaptionColors = TypographyColors;
 
