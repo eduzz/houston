@@ -29,6 +29,10 @@ const StyledBreadcrumb = styled(Breadcrumb, { label: 'houston-breadcrumb' })`
     align-items: center;
     justify-content: center;
   }
+
+  li:last-child .__separator {
+    display: none;
+  }
 `;
 
 export default nestedComponent(React.memo(StyledBreadcrumb), {

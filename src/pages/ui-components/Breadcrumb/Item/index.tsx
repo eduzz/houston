@@ -22,15 +22,15 @@ export interface IBreadcrumbItemProps extends IStyledProp {
   [key: string]: any;
 }
 
-const BreadcrumbbItem: React.FC<IBreadcrumbItemProps> = props => {
-  const { children, icon, className, isActive /* as: Component, to */ } = props;
+const BreadcrumbItem: React.FC<IBreadcrumbItemProps> = props => {
+  const { children, icon, className, isActive, as: Tag = 'a', to, ...rest } = props;
 
   return (
     <li className={cx(className, isActive && '--active')} {...(isActive && { 'aria-current': 'page' })}>
-      <a /*aqui vai ser o as*/>
+      <Tag to={to} {...rest}>
         {!!icon && <span className='__icon'>{icon}</span>}
         {!!React.Children.count(children) && <span className='__text'>{children}</span>}
-      </a>
+      </Tag>
       <span role='presentation' className='__separator'>
         {<IconChevronRight size={14} />}
       </span>
@@ -38,12 +38,24 @@ const BreadcrumbbItem: React.FC<IBreadcrumbItemProps> = props => {
   );
 };
 
-export default styled(BreadcrumbbItem, { label: 'houston-breadcrumb-item' })`
+export default styled(BreadcrumbItem, { label: 'houston-breadcrumb-item' })`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: ${({ theme }) => theme.spacing.inset.nano};
-  border-radius: ${({ theme }) => theme.border.radius.xs};
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: ${({ theme }) => theme.spacing.inset.quarck};
+    border-radius: ${({ theme }) => theme.border.radius.xs};
+    transition: 0.3s;
+
+    :hover {
+      background: ${({ theme }) => `rgba(0,0,0,${theme.opacity.level[2]})`};
+      text-decoration: underline;
+    }
+  }
 
   .__text {
     font-family: ${({ theme }) => theme.font.family.base};
@@ -54,11 +66,6 @@ export default styled(BreadcrumbbItem, { label: 'houston-breadcrumb-item' })`
 
   &.--active {
     font-weight: ${({ theme }) => theme.font.weight.semibold};
-  }
-
-  &:hover {
-    background: ${({ theme }) => `rgba(0,0,0,${theme.opacity.level[2]})`};
-    text-decoration: underline;
   }
 
   &:focus {
