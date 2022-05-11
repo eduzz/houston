@@ -1,7 +1,11 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import IconChevronRight from '@eduzz/houston-icons/ChevronRight';
 import styled, { cx, IStyledProp } from '@eduzz/houston-styles';
+
+import { BreadcrumbContext } from '../context';
 
 export interface IBreadcrumbItemProps extends IStyledProp {
   icon?: React.ReactNode;
@@ -24,6 +28,7 @@ export interface IBreadcrumbItemProps extends IStyledProp {
 
 const BreadcrumbItem: React.FC<IBreadcrumbItemProps> = props => {
   const { children, icon, className, isActive, as: Tag = 'a', to, ...rest } = props;
+  const separator = useContextSelector(BreadcrumbContext, context => context?.separator);
 
   return (
     <li className={cx(className, isActive && '--active')} {...(isActive && { 'aria-current': 'page' })}>
@@ -32,7 +37,7 @@ const BreadcrumbItem: React.FC<IBreadcrumbItemProps> = props => {
         {!!React.Children.count(children) && <span className='__text'>{children}</span>}
       </Tag>
       <span role='presentation' className='__separator'>
-        {<IconChevronRight size={14} />}
+        {separator ?? <IconChevronRight size={14} />}
       </span>
     </li>
   );
@@ -41,12 +46,11 @@ const BreadcrumbItem: React.FC<IBreadcrumbItemProps> = props => {
 export default styled(BreadcrumbItem, { label: 'houston-breadcrumb-item' })`
   display: flex;
   align-items: center;
-  justify-content: center;
 
   a {
     display: flex;
     align-items: center;
-    justify-content: center;
+
     padding: ${({ theme }) => theme.spacing.inset.quarck};
     border-radius: ${({ theme }) => theme.border.radius.xs};
     transition: 0.3s;

@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled, { IStyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../Helpers/nestedComponent';
+import { IBreadcrumbContext, BreadcrumbContext } from './context';
 import Item from './Item';
 
 export interface IBreadcrumbProps extends IStyledProp {
@@ -10,12 +11,21 @@ export interface IBreadcrumbProps extends IStyledProp {
 }
 
 const Breadcrumb: React.FC<IBreadcrumbProps> = props => {
-  const { children, className } = props;
+  const { children, className, separator } = props;
+
+  const contextValue = React.useMemo<IBreadcrumbContext>(
+    () => ({
+      separator
+    }),
+    [separator]
+  );
 
   return (
-    <nav aria-label='breadcrumb' className={className}>
-      <ol className='__list'>{children}</ol>
-    </nav>
+    <BreadcrumbContext.Provider value={contextValue}>
+      <nav aria-label='breadcrumb' className={className}>
+        <ol className='__list'>{children}</ol>
+      </nav>
+    </BreadcrumbContext.Provider>
   );
 };
 
@@ -25,9 +35,8 @@ const StyledBreadcrumb = styled(Breadcrumb, { label: 'houston-breadcrumb' })`
     font-family: ${({ theme }) => theme.font.family.base};
     line-height: ${({ theme }) => theme.line.height.default};
     font-size: ${({ theme }) => theme.font.size.xxs};
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    justify-content: center;
   }
 
   li:last-child .__separator {
