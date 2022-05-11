@@ -9,7 +9,7 @@ import { neutralColor } from './variables/neutralColor';
 import { opacity } from './variables/opacity';
 import { shadow } from './variables/shadow';
 import { spacing } from './variables/spacing';
-import { pxToRem } from './variables/utils';
+import { pxToRem, hexToRgba } from './variables/utils';
 
 export * from './types';
 
@@ -28,6 +28,7 @@ export default function createTokens(brand: Brands | BrandColor): HoustonTokens 
     neutralColor,
     opacity,
     shadow,
-    pxToRem
+    pxToRem,
+    hexToRgba
   };
 }
