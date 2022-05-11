@@ -43,9 +43,15 @@ const Avatar = ({ src, alt, children, className, color = 'primary', id, onClick 
 
       {!hasImage && !hasText && (
         <span className='__icon' role='img' aria-label='usuário'>
-          <svg viewBox='0 0 44 55' fill='none' xmlns='http://www.w3.org/2000/svg' focusable={false} aria-hidden='true'>
-            <path d='M43.3333 45.1362C38.1975 51.1715 30.5458 55 22 55C13.4542 55 5.80257 51.1715 0.666687 45.1362V40.3333C0.666687 33.7059 6.03927 28.3333 12.6667 28.3333H31.3333C37.9608 28.3333 43.3333 33.7059 43.3333 40.3333V45.1362Z' />
-            <path d='M22 24.3333C28.6274 24.3333 34 18.9608 34 12.3333C34 5.70592 28.6274 0.333336 22 0.333336C15.3726 0.333336 10 5.70592 10 12.3333C10 18.9608 15.3726 24.3333 22 24.3333Z' />
+          <svg
+            viewBox='0 0 192 192'
+            fill='none'
+            xmlns='http://www.w3.org/2000/svg'
+            focusable={false}
+            aria-hidden='true'
+          >
+            <path d='M160 150.408C144.592 168.515 121.637 180 96 180C70.3625 180 47.4076 168.515 32 150.408V136C32 116.118 48.1178 100 68 100H124C143.882 100 160 116.118 160 136V150.408Z' />
+            <path d='M132 52C132 71.8823 115.882 88 96 88C76.1177 88 60 71.8823 60 52C60 32.1177 76.1177 16 96 16C115.882 16 132 32.1177 132 52Z' />
           </svg>
         </span>
       )}
@@ -53,7 +59,7 @@ const Avatar = ({ src, alt, children, className, color = 'primary', id, onClick 
   );
 };
 
-export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme, size = 'md' }) => {
+export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme, size: sizeProp = 'md' }) => {
   const fontSizeMap: IFontSizesMap = {
     xs: theme.font.size.xxs,
     sm: theme.font.size.sm,
@@ -61,9 +67,12 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme,
     lg: theme.font.size.xl
   };
 
+  const size = theme.pxToRem(sizesMap[sizeProp]);
+  const fontSize = theme.pxToRem(fontSizeMap[sizeProp]);
+
   return css`
-    width: ${theme.pxToRem(sizesMap[size])};
-    height: ${theme.pxToRem(sizesMap[size])};
+    width: ${size};
+    height: ${size};
     color: white;
     overflow: hidden;
     border-radius: 50%;
@@ -95,8 +104,8 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme,
       align-items: center;
       justify-content: center;
       text-transform: uppercase;
-      font-size: ${theme.pxToRem(fontSizeMap[size])};
-      line-height: ${theme.pxToRem(fontSizeMap[size])};
+      font-size: ${fontSize};
+      line-height: ${fontSize};
       font-weight: ${theme.font.weight.bold};
       user-select: none;
     }
@@ -110,7 +119,7 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme,
 
       svg {
         fill: white;
-        height: 87.5%;
+        width: 100%;
       }
     }
   `;
