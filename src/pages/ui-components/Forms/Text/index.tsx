@@ -123,6 +123,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
           '--disabled': isDisabled
         })}
       >
+        <label className='__label'>{label}</label>
         <div className='__container'>
           {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
 
@@ -133,9 +134,10 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
               ...props,
               disabled: isDisabled,
               className: cx('__input', {
-                '--fixedLabel': !!startAdornment,
+                // '--fixedLabel': !!startAdornment,
                 '--error': hasError,
-                '--textarea': multiline
+                '--textarea': multiline,
+                '--start-adornment': !!startAdornment
               }),
               name,
               value: maskedValue ?? '',
@@ -143,21 +145,12 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
               onBlur: handleBlur,
               onKeyPress: onPressEnter ? handlePressEnter : onKeyPress
             })}
-            <label className='__label'>{label}</label>
-
-            <span className='__borders'>
-              <span className='__borderStart' />
-              <span className='__borderLabel'>
-                <span className='__borderLabelText'>{label}</span>
-              </span>
-              <span className='__borderEnd' />
-            </span>
           </div>
 
           {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
         </div>
 
-        <span className='__message'>{helperText}</span>
+        {!!helperText && <span className='__message'>{helperText}</span>}
       </fieldset>
     );
   }
@@ -168,7 +161,7 @@ export default styled(TextField, { label: 'houston-textfield' })`
   position: relative;
   padding: 0;
   margin-top: ${props => props.theme.spacing.quarck};
-  margin-bottom: ${props => props.theme.spacing.nano};
+  margin-bottom: ${props => props.theme.spacing.xxxs};
   min-width: auto;
 
   & .__wrapperAutoSizer {
@@ -185,7 +178,7 @@ export default styled(TextField, { label: 'houston-textfield' })`
       word-break: break-all;
       visibility: hidden;
       grid-area: 1 / 1 / 2 / 2;
-      font-family: ${props => props.theme.font.family};
+      font-family: ${props => props.theme.font.family.base};
       font-size: ${props => props.theme.font.size.xs};
       line-height: ${props => props.theme.line.height.md};
     }
@@ -196,10 +189,14 @@ export default styled(TextField, { label: 'houston-textfield' })`
   }
 
   & .__container {
+    height: 48px;
     display: flex;
     align-items: ${props => (props.multiline ? 'flex-start' : 'center')};
     justify-content: center;
     position: relative;
+    border: 1px solid ${props => props.theme.neutralColor.low.pure};
+    border-radius: ${props => props.theme.border.radius.sm};
+    transition: 0.3s;
 
     & .__startAdornment,
     & .__endAdornment {
@@ -214,157 +211,65 @@ export default styled(TextField, { label: 'houston-textfield' })`
     }
 
     & .__startAdornment {
-      margin-left: 12px;
+      margin-left: ${props => props.theme.spacing.xxxs};
     }
 
     & .__endAdornment {
-      margin-right: 12px;
+      margin-right: ${props => props.theme.spacing.xxxs};
     }
   }
 
-  & .__borders {
+  & .__label {
+    font-size: ${props => props.theme.font.size.xs};
+    font-family: ${props => props.theme.font.family.base};
+    font-weight: ${props => props.theme.font.weight.regular};
+    line-height: ${props => props.theme.line.height.default};
+    margin-bottom: ${props => props.theme.spacing.quarck};
+    color: ${props => props.theme.neutralColor.low.pure};
     display: flex;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    transition: 0.3s;
-
-    & .__borderStart {
-      flex: 1;
-      max-width: 10px;
-      color: inherit;
-      border: 1px solid ${props => props.theme.neutralColor.high.medium};
-      border-right: none;
-      border-top-left-radius: ${props => props.theme.border.radius.xs};
-      border-bottom-left-radius: ${props => props.theme.border.radius.xs};
-      transition: 0.3s;
-    }
-
-    & .__borderLabel {
-      flex: 1;
-      flex-shrink: 0;
-      flex-grow: 0;
-      white-space: nowrap;
-      padding: 0 4px;
-      font-size: 11px;
-      border: 1px solid ${props => props.theme.neutralColor.high.medium};
-      border-left: none;
-      border-right: none;
-      transition: 0.3s;
-
-      & > .__borderLabelText {
-        visibility: hidden;
-      }
-    }
-
-    & .__borderEnd {
-      flex: 1;
-      border: 1px solid ${props => props.theme.neutralColor.high.medium};
-      border-left: none;
-      border-top-right-radius: ${props => props.theme.border.radius.xs};
-      border-bottom-right-radius: ${props => props.theme.border.radius.xs};
-      transition: 0.3s;
-    }
+    align-items: center;
   }
 
   & .__input {
     height: 100%;
-    padding: 12px;
+    padding: ${props => props.theme.spacing.xxxs};
     width: 100%;
     background-color: transparent;
     outline: none;
-    font-family: ${props => props.theme.font.family};
     font-size: ${props => props.theme.font.size.xs};
+    font-family: ${props => props.theme.font.family.base};
+    font-weight: ${props => props.theme.font.weight.regular};
+    line-height: ${props => props.theme.line.height.default};
+    color: ${props => props.theme.neutralColor.low.pure};
     border: none;
-    border-radius: ${props => props.theme.border.radius.xs};
-    line-height: ${props => props.theme.line.height.md};
 
     &.--textarea {
       resize: none;
       overflow: hidden;
     }
-
-    &:placeholder-shown,
-    &:focus,
-    &:not(.--textarea):not([value='']),
-    &.--textarea:not(:empty),
-    &.--fixedLabel {
-      & + .__label {
-        transform: translate(16px, -6px) scale(0.7);
-
-        & + .__borders > .__borderLabel {
-          border-top: none;
-        }
-      }
-    }
-
-    &:focus {
-      &:not(.--error) + .__label {
-        color: ${props => props.theme.brandColor.primary.pure};
-
-        & + .__borders .__borderStart,
-        & + .__borders .__borderLabel,
-        & + .__borders .__borderEnd {
-          border-width: 2px;
-          border-color: ${props => props.theme.brandColor.primary.pure};
-        }
-      }
-
-      &.--error + .__label {
-        & + .__borders .__borderStart,
-        & + .__borders .__borderLabel,
-        & + .__borders .__borderEnd {
-          border-width: 2px;
-        }
-      }
-    }
-  }
-
-  & .__label {
-    pointer-events: none;
-    position: absolute;
-    font-size: ${props => props.theme.font.size.xs};
-    font-family: ${props => props.theme.font.family};
-    top: 0;
-    left: 0;
-    transform-origin: top left;
-    transform: translate(16px, 10px) scale(1);
-    display: flex;
-    align-items: center;
-    transition: 0.3s;
-    color: ${props => props.theme.neutralColor.low.light};
   }
 
   & .__message {
     display: block;
-    font-size: ${props => props.theme.font.size.xxxs};
-    font-family: ${props => props.theme.font.family};
-    margin-top: ${props => props.theme.spacing.quarck};
+    font-size: ${props => props.theme.font.size.xxs};
+    font-family: ${props => props.theme.font.family.base};
+    font-weight: ${props => props.theme.font.weight.regular};
+    line-height: ${props => props.theme.line.height.default};
+    color: ${props => props.theme.neutralColor.low.pure};
+    margin-top: ${props => props.theme.spacing.nano};
   }
 
   &.--disabled {
-    background-color: ${props => props.theme.neutralColor.high.pure};
-
-    & .__input,
-    & .__label {
-      color: ${props => props.theme.neutralColor.high.medium};
-      text-fill-color: ${props => props.theme.neutralColor.high.medium};
-    }
+    opacity: ${props => props.theme.opacity.level[6]};
   }
 
   &.--error {
-    & .__message,
-    & .__label {
+    & .__message {
       color: ${props => props.theme.feedbackColor.negative.pure};
     }
 
-    & .__borderStart,
-    & .__borderLabel,
-    & .__borderEnd {
+    & .__container {
+      background-color: ${props => props.theme.feedbackColor.negative.pure};
       border-color: ${props => props.theme.feedbackColor.negative.pure};
     }
   }

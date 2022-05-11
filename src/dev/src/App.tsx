@@ -1,3 +1,4 @@
+import './app.css';
 import { BrowserRouter } from 'react-router-dom';
 
 import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
