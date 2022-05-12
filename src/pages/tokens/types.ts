@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 export type SpacingFn = (mult: number) => string;
 
 export type Color = {
