@@ -5,12 +5,14 @@ import styled, { IStyledProp } from '@eduzz/houston-styles';
 import nestedComponent from '../Helpers/nestedComponent';
 import { IBreadcrumbContext, BreadcrumbContext } from './context';
 import Item from './Item';
+import Link from './Link';
 
 export interface IBreadcrumbProps extends IStyledProp {
   separator?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-const Breadcrumb: React.FC<IBreadcrumbProps> = props => {
+const Breadcrumb = (props: IBreadcrumbProps) => {
   const { children, className, separator } = props;
 
   const contextValue = React.useMemo<IBreadcrumbContext>(
@@ -45,5 +47,6 @@ const StyledBreadcrumb = styled(Breadcrumb, { label: 'houston-breadcrumb' })`
 `;
 
 export default nestedComponent(React.memo(StyledBreadcrumb), {
-  Item
+  Item,
+  Link
 });
