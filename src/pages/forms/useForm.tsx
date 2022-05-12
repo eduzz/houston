@@ -2,13 +2,17 @@ import './yupLocale';
 
 import { useCallback, useEffect, useRef } from 'react';
 
-import { FormikConfig, FormikErrors, FormikHelpers, FormikTouched, useFormik } from 'formik';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm as useFormHook } from 'react-hook-form';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, share, switchMap } from 'rxjs/operators';
 import * as yup from 'yup';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import useObservable from '@eduzz/houston-hooks/useObservable';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const get = require('lodash/get');
 
 export declare type FormikInstance<Values = any> = ReturnType<typeof useForm> & {
   values: Partial<Values>;
@@ -23,11 +27,10 @@ export declare type FormikConfigResolver<Values> = {
 type Yup = typeof yup;
 
 export interface IUseFormParams<Values> {
-  validateOnMount?: boolean;
   initialValues?: Partial<Values>;
-  validationSchema?: (yup: Yup) => any;
+  validationSchema?: (yup: Yup) => yup.AnyObjectSchema;
   onSubmitWithErrors?: (errors: FormikErrors<Values>, values: Partial<Values>) => void;
-  onSubmit: (values: Values, formikHelpers: FormikHelpers<Values>) => void | Promise<any> | Observable<any>;
+  onSubmit: (values: Values) => void | Promise<any> | Observable<any>;
 }
 
 /**
@@ -38,8 +41,7 @@ export default function useForm<Values = Record<string, never>>({
   onSubmit,
   onSubmitWithErrors,
   validationSchema,
-  initialValues,
-  validateOnMount = true
+  initialValues
 }: IUseFormParams<Values>): IFormAdapter<Values> {
   const promiseRef = useRef<{ promise?: Promise<any> }>({}).current;
   const handlers = useRef<{ [key: string]: (value: any) => void }>({}).current;
@@ -66,69 +68,72 @@ export default function useForm<Values = Record<string, never>>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const formik = useFormik<Partial<Values>>({
-    validateOnMount,
-    initialValues: initialValues ?? {},
-    validationSchema: validationSchema ? () => validationSchema(yup) : null,
-    onSubmit: (model, formikHelpers) => {
-      onSubmitRef.current = onSubmit;
-      submitData.next({ model, formikHelpers });
-      return new Promise(resolve => setTimeout(() => resolve(promiseRef.promise), 500));
-    }
+  const {
+    setValue,
+    getFieldState,
+    getValues,
+    reset: formReset,
+    handleSubmit: formHandleSubmit,
+    formState: { submitCount, isValid, isSubmitting }
+  } = useFormHook<Partial<Values>>({
+    // validateOnMount,
+    defaultValues: initialValues ?? ({} as any),
+    resolver: validationSchema ? yupResolver(validationSchema(yup)) : null
+    // onSubmit: (model, formikHelpers) => {
+    //   onSubmitRef.current = onSubmit;
+    //   submitData.next({ model, formikHelpers });
+    //   return new Promise(resolve => setTimeout(() => resolve(promiseRef.promise), 500));
+    // }
   });
 
   useEffect(() => {
-    if (!formik.submitCount || formik.isValid) return;
-    onSubmitWithErrors && onSubmitWithErrors(formik.errors, formik.values);
+    if (!submitCount || isValid) return;
+    onSubmitWithErrors && onSubmitWithErrors(errors, formik.values);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formik.submitCount]);
+  }, [submitCount]);
 
   const handleChange = useRef((field: string) => {
     if (!handlers[field]) {
       handlers[field] = (value: any) => {
-        formik.setFieldTouched(field, true, false);
-        formik.setFieldValue(field, value, false);
+        setValue(field as any, value, { shouldTouch: true, shouldDirty: true, shouldValidate: true });
       };
     }
 
     return handlers[field];
   }).current;
 
-  const handleSubmit = useCallback(e => formik.handleSubmit(e), [formik]);
+  const handleSubmit = useCallback(e => formHandleSubmit(onSubmit, onSubmitWithErrors)(e), [formHandleSubmit]);
 
-  const getFieldValue = useCallback((name: string) => formik.getFieldMeta(name).value, [formik]);
-
-  const setFieldValue = useCallback((name: string, value: any) => {
-    formik.setFieldTouched(name, true, false);
-    formik.setFieldValue(name, value, true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const getFieldValue = useCallback((name: string) => get(getValues(), name), [getValues]);
+  const setFieldValue = useCallback(
+    (name: string, value: any) => {
+      setValue(name as any, value, { shouldTouch: true, shouldDirty: true, shouldValidate: true });
+    },
+    [setValue]
+  );
 
   const getFieldError = useCallback(
     (name: string) => {
-      const field = formik.getFieldMeta(name);
-      return field.touched || (formik.submitCount > 0 && !field.value) ? field.error : '';
+      const field = getFieldState(name as any);
+      return field.isTouched || submitCount > 0 ? field.error?.message : '';
     },
-    [formik]
+    [getFieldState, submitCount]
   );
-
-  const setErrors = useCallback((errors: FormikErrors<Partial<Values>>) => formik.setErrors(errors), [formik]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleReset = useCallback(() => formReset(initialValues as any), []);
 
   return {
     handleSubmit,
     handleChange,
-    handleReset: () => formik.resetForm({ values: initialValues }),
-    setValues: formik.setValues,
-    setErrors: setErrors,
+    handleReset,
     getFieldValue: getFieldValue,
     setFieldValue: setFieldValue,
     getFieldError: getFieldError,
-    setFieldTouched: formik.setFieldTouched,
-    reset: values => formik.resetForm({ values: values === undefined ? initialValues : values }),
-    initialValues: formik.initialValues,
-    values: formik.values,
-    isSubmitting: formik.isSubmitting,
-    isValid: formik.isValid,
-    errors: formik.errors
+    reset: values => formReset(values === undefined ? initialValues : (values as any)),
+    initialValues: initialValues,
+    values: form.values,
+    isSubmitting: isSubmitting,
+    isValid: isValid,
+    errors: errors
   };
 }
