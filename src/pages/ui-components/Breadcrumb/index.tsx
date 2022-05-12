@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import styled, { IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, IStyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../Helpers/nestedComponent';
-import { IBreadcrumbContext, BreadcrumbContext } from './context';
+import { BreadcrumbProvider } from './context';
 import Item from './Item';
 import Link from './Link';
 
@@ -12,38 +12,33 @@ export interface IBreadcrumbProps extends IStyledProp {
   children: React.ReactNode;
 }
 
-const Breadcrumb = (props: IBreadcrumbProps) => {
-  const { children, className, separator } = props;
-
-  const contextValue = React.useMemo<IBreadcrumbContext>(
-    () => ({
-      separator
-    }),
-    [separator]
-  );
-
+const Breadcrumb = ({ children, className, separator }: IBreadcrumbProps) => {
   return (
-    <BreadcrumbContext.Provider value={contextValue}>
+    <BreadcrumbProvider separator={separator}>
       <nav aria-label='breadcrumb' className={className}>
         <ol className='__list'>{children}</ol>
       </nav>
-    </BreadcrumbContext.Provider>
+    </BreadcrumbProvider>
   );
 };
 
 const StyledBreadcrumb = styled(Breadcrumb, { label: 'houston-breadcrumb' })`
-  .__list {
-    font-weight: ${({ theme }) => theme.font.weight.regular};
-    font-family: ${({ theme }) => theme.font.family.base};
-    line-height: ${({ theme }) => theme.line.height.default};
-    font-size: ${({ theme }) => theme.font.size.xxs};
-    display: flex;
-    align-items: center;
-  }
+  ${({ theme }) => css`
+    .__list {
+      display: flex;
+      align-items: center;
 
-  li:last-child .__separator {
-    display: none;
-  }
+      font-weight: ${theme.font.weight.regular};
+      font-family: ${theme.font.family.base};
+      line-height: ${theme.line.height.default};
+      font-size: ${theme.font.size.xxxs};
+      color: ${theme.neutralColor.low.pure};
+
+      li:last-child .__separator {
+        display: none;
+      }
+    }
+  `}
 `;
 
 export default nestedComponent(React.memo(StyledBreadcrumb), {
