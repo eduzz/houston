@@ -1,4 +1,4 @@
-import nestedComponent from '../Helpers/nestedComponent';
+import nestedComponent from '../utils/nestedComponent';
 import Action from './Action';
 import ActionLoading from './Action/Loading';
 import Body from './Body';
