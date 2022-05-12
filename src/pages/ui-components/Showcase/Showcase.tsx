@@ -8,9 +8,9 @@ import ModalMUI from '@mui/material/Modal';
 import { cx } from '@eduzz/houston-styles';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
-import { getReactChildrenComponent, getReactFirstChildrenProps } from '../Helpers/functions';
-import nestedComponent from '../Helpers/nestedComponent';
 import { useFirstChildrenProps } from '../hooks/useChildrenProps';
+import { getReactChildrenComponent, getReactFirstChildrenProps } from '../utils/children';
+import nestedComponent from '../utils/nestedComponent';
 import ShowcaseCloseButton from './CloseButton';
 import ShowcaseContextProvider, { IShowcaseContext } from './context';
 import ShowcaseGenericButtons from './GenericButtons';

@@ -1,15 +1,5 @@
 import * as React from 'react';
 
-import { Color, HoustonTokens } from '@eduzz/houston-tokens';
-
-export function truncateText(value: string, crop: number) {
-  if (value?.length <= crop) {
-    return value;
-  }
-
-  return `${value.slice(0, crop)}...`;
-}
-
 export function getReactChildrenComponent(
   children: any,
   componentType: React.ReactElement['type']
@@ -37,17 +27,4 @@ export function isReactComponent(child: any, componentType?: React.ReactElement[
   }
 
   return child && React.isValidElement(child);
-}
-
-export function getColorFallback(
-  theme: HoustonTokens,
-  colorKey: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'secondary' | 'low' | 'high' = 'primary'
-): Color {
-  if (['low', 'high'].includes(colorKey)) {
-    return theme.neutralColor[colorKey];
-  }
-  if (['positive', 'negative', 'warning', 'informative'].includes(colorKey)) {
-    return theme.feedbackColor[colorKey];
-  }
-  return theme.brandColor[colorKey];
 }

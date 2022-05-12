@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
-import nestedComponent from '../../Helpers/nestedComponent';
+import nestedComponent from '../../utils/nestedComponent';
 import SidebarContext, { ISidebarContext } from './context';
 import Logo from './Logo';
 import Menu from './Menu';
