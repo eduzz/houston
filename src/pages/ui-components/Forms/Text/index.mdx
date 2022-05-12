@@ -113,7 +113,13 @@ import maskPhone from '@eduzz/houston-forms/masks/phone';
         <TextField label='Moeda' name='money' value={money} onChange={setMoney} mask={moneyMask} />
         <TextField label='Telefone' name='phone' value={phone} onChange={setPhone} mask={phoneMask} />
         <TextField label='CEP' name='zipcode' value={zipcode} onChange={setZipcode} mask={zipcodeMask} />
-        <TextField label='Documento' name='document' value={document} onChange={setDocument} mask={documentMask} />
+        <TextField
+          label='Documento (CPF/CNPJ)'
+          name='document'
+          value={document}
+          onChange={setDocument}
+          mask={documentMask}
+        />
         <TextField label='CNPJ' name='cnpj' value={cnpj} onChange={setCnpj} mask={cnpjMask} />
         <TextField label='CPF' name='cpf' value={cpf} onChange={setCpf} mask={cpfMask} />
       </>

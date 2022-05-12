@@ -5,7 +5,7 @@ import * as React from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import IFormMask from '@eduzz/houston-core/maskAdapter';
-import styled, { cx } from '@eduzz/houston-styles';
+import styled, { css, cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
 import Spinner from '../../Spinner';
@@ -55,6 +55,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       multiline,
       className,
       size,
+      readOnly,
       onPressEnter,
       onKeyPress,
       helperText,
@@ -109,7 +110,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       [onPressEnter, maskClean]
     );
 
-    const isDisabled = isSubmitting || disabled || loading;
+    const isDisabled = isSubmitting || disabled;
     const hasError = !!errorMessageProp || !!formError;
 
     helperText = errorMessageProp || formError || helperText;
@@ -120,7 +121,8 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
         className={cx(className, `--size-${size ?? 'normal'}`, `--margin-${margin ?? 'normal'}`, {
           '--fullWidth': fullWidth,
           '--error': hasError,
-          '--disabled': isDisabled
+          '--disabled': isDisabled,
+          '--loading': loading
         })}
       >
         <label className='__label'>{label}</label>
@@ -141,6 +143,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
               }),
               name,
               value: maskedValue ?? '',
+              readOnly: readOnly ?? loading,
               onChange: handleChange,
               onBlur: handleBlur,
               onKeyPress: onPressEnter ? handlePressEnter : onKeyPress
@@ -156,121 +159,137 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
   }
 );
 
-export default styled(TextField, { label: 'houston-textfield' })`
-  border: none;
-  position: relative;
-  padding: 0;
-  margin-top: ${props => props.theme.spacing.quarck};
-  margin-bottom: ${props => props.theme.spacing.xxxs};
-  min-width: auto;
-
-  & .__wrapperAutoSizer {
-    display: grid;
-    min-height: ${prosp => (prosp.multiline ? (prosp.rows ?? 4) * 22 : 45)}px;
-    grid-template-columns: 100%;
-    width: 100%;
-
-    & .__autoSizer {
-      padding: 12px;
-      pointer-events: none;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      word-break: break-all;
-      visibility: hidden;
-      grid-area: 1 / 1 / 2 / 2;
-      font-family: ${props => props.theme.font.family.base};
-      font-size: ${props => props.theme.font.size.xs};
-      line-height: ${props => props.theme.line.height.md};
-    }
-
-    & .__input {
-      grid-area: 1 / 1 / 2 / 2;
-    }
-  }
-
-  & .__container {
-    height: 48px;
-    display: flex;
-    align-items: ${props => (props.multiline ? 'flex-start' : 'center')};
-    justify-content: center;
+export default styled(TextField, { label: 'houston-textfield' })(
+  ({ theme, multiline, rows }) => css`
+    border: none;
     position: relative;
-    border: 1px solid ${props => props.theme.neutralColor.low.pure};
-    border-radius: ${props => props.theme.border.radius.sm};
-    transition: 0.3s;
+    padding: 0;
+    margin-top: ${theme.spacing.quarck};
+    margin-bottom: ${theme.spacing.xxxs};
+    min-width: auto;
 
-    & .__startAdornment,
-    & .__endAdornment {
-      display: flex;
-      justify-content: center;
-      align-items: ${props => (props.multiline ? 'flex-start' : 'center')};
-      margin-top: ${props => (props.multiline ? props.theme.spacing.xxxs : 'none')};
+    & .__wrapperAutoSizer {
+      display: grid;
+      min-height: ${multiline ? (rows ?? 4) * 22 : 45}px;
+      grid-template-columns: 100%;
+      width: 100%;
 
-      & > svg {
-        font-size: 24px;
+      & .__autoSizer {
+        pointer-events: none;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: break-all;
+        visibility: hidden;
+        grid-area: 1 / 1 / 2 / 2;
+      }
+
+      & .__input {
+        grid-area: 1 / 1 / 2 / 2;
+      }
+
+      & .__autoSizer,
+      & .__input {
+        padding: ${theme.spacing.xxxs};
+        font-size: ${theme.font.size.xs};
+        font-family: ${theme.font.family.base};
+        font-weight: ${theme.font.weight.regular};
+        line-height: ${theme.line.height.default};
       }
     }
 
-    & .__startAdornment {
-      margin-left: ${props => props.theme.spacing.xxxs};
-    }
-
-    & .__endAdornment {
-      margin-right: ${props => props.theme.spacing.xxxs};
-    }
-  }
-
-  & .__label {
-    font-size: ${props => props.theme.font.size.xs};
-    font-family: ${props => props.theme.font.family.base};
-    font-weight: ${props => props.theme.font.weight.regular};
-    line-height: ${props => props.theme.line.height.default};
-    margin-bottom: ${props => props.theme.spacing.quarck};
-    color: ${props => props.theme.neutralColor.low.pure};
-    display: flex;
-    align-items: center;
-  }
-
-  & .__input {
-    height: 100%;
-    padding: ${props => props.theme.spacing.xxxs};
-    width: 100%;
-    background-color: transparent;
-    outline: none;
-    font-size: ${props => props.theme.font.size.xs};
-    font-family: ${props => props.theme.font.family.base};
-    font-weight: ${props => props.theme.font.weight.regular};
-    line-height: ${props => props.theme.line.height.default};
-    color: ${props => props.theme.neutralColor.low.pure};
-    border: none;
-
-    &.--textarea {
-      resize: none;
-      overflow: hidden;
-    }
-  }
-
-  & .__message {
-    display: block;
-    font-size: ${props => props.theme.font.size.xxs};
-    font-family: ${props => props.theme.font.family.base};
-    font-weight: ${props => props.theme.font.weight.regular};
-    line-height: ${props => props.theme.line.height.default};
-    color: ${props => props.theme.neutralColor.low.pure};
-    margin-top: ${props => props.theme.spacing.nano};
-  }
-
-  &.--disabled {
-    opacity: ${props => props.theme.opacity.level[6]};
-  }
-
-  &.--error {
-    & .__message {
-      color: ${props => props.theme.feedbackColor.negative.pure};
-    }
-
     & .__container {
-      background-color: ${props => props.theme.feedbackColor.negative.pure};
-      border-color: ${props => props.theme.feedbackColor.negative.pure};
+      display: flex;
+      align-items: ${multiline ? 'flex-start' : 'center'};
+      justify-content: center;
+      position: relative;
+      border: 1px solid ${theme.neutralColor.low.pure};
+      border-radius: ${theme.border.radius.sm};
+      transition: 0.3s;
+
+      & .__startAdornment,
+      & .__endAdornment {
+        display: flex;
+        justify-content: center;
+        align-items: ${multiline ? 'flex-start' : 'center'};
+        margin-top: ${multiline ? theme.spacing.xxxs : 'none'};
+
+        & > svg {
+          font-size: 24px;
+        }
+      }
+
+      & .__startAdornment {
+        margin-left: ${theme.spacing.xxxs};
+      }
+
+      & .__endAdornment {
+        margin-right: ${theme.spacing.xxxs};
+      }
     }
-  }
-`;
+
+    & .__label {
+      font-size: ${theme.font.size.xs};
+      font-family: ${theme.font.family.base};
+      font-weight: ${theme.font.weight.regular};
+      line-height: ${theme.line.height.default};
+      margin-bottom: ${theme.spacing.quarck};
+      color: ${theme.neutralColor.low.pure};
+      display: flex;
+      align-items: center;
+    }
+
+    & .__input {
+      height: 100%;
+      width: 100%;
+      background-color: transparent;
+      outline: none;
+      color: ${theme.neutralColor.low.pure};
+      border: none;
+
+      &.--textarea {
+        resize: none;
+        overflow: hidden;
+      }
+
+      &::placeholder {
+        color: ${theme.neutralColor.low.medium};
+      }
+    }
+
+    & .__message {
+      display: block;
+      font-size: ${theme.font.size.xxs};
+      font-family: ${theme.font.family.base};
+      font-weight: ${theme.font.weight.regular};
+      line-height: ${theme.line.height.default};
+      color: ${theme.neutralColor.low.pure};
+      margin-top: ${theme.spacing.nano};
+    }
+
+    &.--disabled {
+      opacity: ${theme.opacity.level[6]};
+      cursor: not-allowed;
+
+      & .__label,
+      & .__input {
+        cursor: not-allowed;
+      }
+    }
+
+    &.--loading {
+      cursor: progress;
+
+      & .__label,
+      & .__input {
+        cursor: progress;
+      }
+    }
+
+    &.--error {
+      & .__container {
+        background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
+        border-color: ${theme.feedbackColor.negative.pure};
+      }
+    }
+  `
+);
