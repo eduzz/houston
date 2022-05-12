@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 export type SpacingFn = (mult: number) => string;
 
 export type Color = {
@@ -137,6 +139,8 @@ export type Font = {
  * Note: We consider 1rem as 16px by default
  */
 export type PxToRem = (value: number, rate?: number) => string;
+
+export type HexToRgba = (hexColor: string, opacity?: number) => string;
 
 export type Line = {
   height: {
@@ -296,4 +300,5 @@ export type HoustonTokens = {
   brandColor: BrandColor;
   breakpoints: Breakpoints & BreakpointsUtils;
   pxToRem: PxToRem;
+  hexToRgba: HexToRgba;
 };
