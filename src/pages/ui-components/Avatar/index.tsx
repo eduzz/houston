@@ -12,8 +12,6 @@ type FontMap = { [key in IAvatarSize]: string };
 
 const sizesMap: SizesMap = { xs: '24px', sm: '32px', md: '40px', lg: '64px' };
 
-const defaultSize: IAvatarSize = 'md';
-
 const Icon = () => (
   <svg viewBox='0 0 192 192' fill='none' xmlns='http://www.w3.org/2000/svg' focusable={false} aria-hidden='true'>
     <path d='M160 150.408C144.592 168.515 121.637 180 96 180C70.3625 180 47.4076 168.515 32 150.408V136C32 116.118 48.1178 100 68 100H124C143.882 100 160 116.118 160 136V150.408Z' />
@@ -35,7 +33,7 @@ export interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement>, ISty
   children?: React.ReactNode;
 }
 
-const Avatar = ({ src, alt, children, className, color = 'primary', size = defaultSize, ...rest }: IAvatarProps) => {
+const Avatar = ({ src, alt, children, className, color = 'primary', size = 'md', ...rest }: IAvatarProps) => {
   const imageProps = { src, alt };
 
   const hasImage = !!src;
@@ -67,19 +65,17 @@ const Avatar = ({ src, alt, children, className, color = 'primary', size = defau
   );
 };
 
-export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme, size: sizeProp = defaultSize }) => {
-  const fontSizeMap: FontMap = {
+export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme }) => {
+  const fontMap: FontMap = {
     xs: theme.font.size.xxs,
     sm: theme.font.size.sm,
     md: theme.font.size.md,
     lg: theme.font.size.xl
   };
 
-  const fontSize = theme.pxToRem(fontSizeMap[sizeProp]);
-
   return css`
-    width: ${sizesMap.md};
-    height: ${sizesMap.md};
+    width: ${theme.pxToRem(sizesMap.md)};
+    height: ${theme.pxToRem(sizesMap.md)};
     color: white;
     overflow: hidden;
     border-radius: 50%;
@@ -96,18 +92,33 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme,
     }
 
     &.--xsmall {
-      width: ${sizesMap.xs};
-      height: ${sizesMap.xs};
+      width: ${theme.pxToRem(sizesMap.xs)};
+      height: ${theme.pxToRem(sizesMap.xs)};
+
+      .__text {
+        font-size: ${theme.pxToRem(fontMap.xs)};
+        line-height: ${theme.pxToRem(fontMap.xs)};
+      }
     }
 
     &.--small {
-      width: ${sizesMap.sm};
-      height: ${sizesMap.sm};
+      width: ${theme.pxToRem(sizesMap.sm)};
+      height: ${theme.pxToRem(sizesMap.sm)};
+
+      .__text {
+        font-size: ${theme.pxToRem(fontMap.sm)};
+        line-height: ${theme.pxToRem(fontMap.sm)};
+      }
     }
 
     &.--large {
-      width: ${sizesMap.lg};
-      height: ${sizesMap.lg};
+      width: ${theme.pxToRem(sizesMap.lg)};
+      height: ${theme.pxToRem(sizesMap.lg)};
+
+      .__text {
+        font-size: ${theme.pxToRem(fontMap.lg)};
+        line-height: ${theme.pxToRem(fontMap.lg)};
+      }
     }
 
     &.--high {
@@ -126,8 +137,8 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme,
       align-items: center;
       justify-content: center;
       text-transform: uppercase;
-      font-size: ${fontSize};
-      line-height: ${fontSize};
+      font-size: ${theme.pxToRem(fontMap.md)};
+      line-height: ${theme.pxToRem(fontMap.md)};
       font-weight: ${theme.font.weight.bold};
       user-select: none;
     }
