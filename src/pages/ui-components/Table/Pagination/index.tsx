@@ -145,7 +145,6 @@ const Pagination = React.memo<ITablePagination>(
                       </Typography>
 
                       <TextField
-                        margin='none'
                         size='small'
                         disabled={loading}
                         value={pageInput}

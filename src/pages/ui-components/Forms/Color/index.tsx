@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import CircularProgress from '@mui/material/CircularProgress';
-import InputAdornment from '@mui/material/InputAdornment';
 import { HexColorPicker } from 'react-colorful';
 import { useContextSelector } from 'use-context-selector';
 
@@ -22,22 +20,16 @@ export interface IColorFieldProps extends Omit<ITextFieldProps, FieldTextPropsOm
 
 const ColorField: React.FC<IColorFieldProps> = ({
   className,
-  loading,
   value,
   defaultValue,
-  endAdornment,
-  startAdornment,
-  InputProps,
   errorMessage: errorMessageProp,
-  fullWidth,
-  margin,
+  loading,
   name,
   onChange,
-  size,
   disabled,
   ...props
 }) => {
-  const classes = useStyles({ size });
+  const classes = useStyles();
 
   const pickerRef = React.useRef<HTMLDivElement>();
 
@@ -78,33 +70,6 @@ const ColorField: React.FC<IColorFieldProps> = ({
     [name, onChange, setFieldValue]
   );
 
-  const inputProps = React.useMemo(() => {
-    let end = null;
-    let start = null;
-
-    if (endAdornment) {
-      end = <InputAdornment position='end'>{endAdornment}</InputAdornment>;
-    }
-
-    if (startAdornment) {
-      start = <InputAdornment position='start'>{startAdornment}</InputAdornment>;
-    }
-
-    if (loading) {
-      end = (
-        <InputAdornment position='end'>
-          <CircularProgress color='secondary' size={20} />
-        </InputAdornment>
-      );
-    }
-
-    return {
-      ...InputProps,
-      endAdornment: end,
-      startAdornment: start
-    };
-  }, [endAdornment, startAdornment, loading, InputProps]);
-
   const errorMessage = errorMessageProp ?? formError;
 
   useOnClickOutside(pickerRef, handleClosePicker);
@@ -115,13 +80,9 @@ const ColorField: React.FC<IColorFieldProps> = ({
         {...props}
         disabled={isSubmitting || disabled || loading}
         helperText={errorMessage || props.helperText}
-        className={cx(classes.input, size === 'small' && 'input-size-small', visible && '--active')}
         name={name}
-        margin={margin ?? 'normal'}
         onClick={handleClickInput}
         value={color}
-        fullWidth={fullWidth ?? true}
-        InputProps={inputProps}
       />
 
       <div ref={pickerRef} className={cx(classes.picker, visible && '--show')}>

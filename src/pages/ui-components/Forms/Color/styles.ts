@@ -1,10 +1,6 @@
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
-interface IStyleProps {
-  size?: 'small' | 'normal';
-}
-
-export default createUseStyles(theme => ({
+export default createUseStyles(() => ({
   root: {
     position: 'relative'
   },
@@ -13,23 +9,10 @@ export default createUseStyles(theme => ({
     color: 'currentcolor'
   },
 
-  input: {
-    '&.--active': {
-      '& fieldset': {
-        borderWidth: 2,
-        borderColor: theme.brandColor.primary.pure
-      },
-
-      '& label': {
-        color: theme.brandColor.primary.pure
-      }
-    }
-  },
-
-  picker: (props: IStyleProps) => ({
+  picker: () => ({
     position: 'absolute',
     marginTop: 4,
-    top: props?.size === 'small' ? 35 : 45,
+    top: 65,
     left: 0,
     zIndex: 2,
     height: 0,

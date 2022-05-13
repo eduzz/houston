@@ -11,24 +11,25 @@ import useMask from '../../hooks/useMask';
 import Spinner from '../../Spinner';
 import { FormFieldsContext } from '../Form';
 
+const ROWS: Array<IOwnProperties['rows']> = [2, 4, 6, 8, 10, 14, 18, 24];
+
 interface IOwnProperties {
   label?: string;
   loading?: boolean;
   errorMessage?: string;
   mask?: IFormMask;
-  margin?: 'none' | 'dense' | 'normal';
+  size?: 'small' | 'normal';
   endAdornment?: React.ReactNode;
   startAdornment?: React.ReactNode;
   maxLength?: number;
-  size?: 'normal' | 'small';
   fullWidth?: boolean;
   helperText?: string;
   multiline?: boolean;
-  rows?: number;
+  rows?: 2 | 4 | 6 | 8 | 10 | 14 | 18 | 24;
+  disableAutoResize?: boolean;
   onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
   onBlur?: (value: any, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
   onPressEnter?: (value: any) => any;
-  InputProps?: any; // remove
 }
 
 export interface ITextFieldProps
@@ -44,17 +45,19 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       value,
       name,
       loading,
+      onFocus,
       onChange,
       onBlur,
       errorMessage: errorMessageProp,
       fullWidth,
-      margin,
       endAdornment,
       startAdornment,
       maxLength,
       multiline,
-      className,
       size,
+      rows,
+      disableAutoResize,
+      className,
       readOnly,
       onPressEnter,
       onKeyPress,
@@ -68,6 +71,8 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
     const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
     const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
     const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
+
+    const [focused, setFocus] = React.useState(false);
 
     if (!name && setFieldValue) {
       throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
@@ -91,9 +96,18 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       [onChange, maskClean, setFieldValue, name, maxLength]
     );
 
+    const handleFocus = React.useCallback(
+      (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        onFocus && onFocus(e as any);
+        setFocus(true);
+      },
+      [onFocus]
+    );
+
     const handleBlur = React.useCallback(
       (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         onBlur && onBlur(maskClean(e.currentTarget.value), e);
+        setFocus(false);
       },
       [onBlur, maskClean]
     );
@@ -118,33 +132,34 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
 
     return (
       <fieldset
-        className={cx(className, `--size-${size ?? 'normal'}`, `--margin-${margin ?? 'normal'}`, {
+        className={cx(className, {
           '--fullWidth': fullWidth,
           '--error': hasError,
           '--disabled': isDisabled,
-          '--loading': loading
+          '--loading': loading,
+          '--multiline': multiline,
+          [`--multiline-rows-${rows ?? 4}`]: multiline,
+          '--disable-auto-resize': disableAutoResize,
+          '--focused': focused,
+          [`--size-${size ?? 'normal'}`]: true
         })}
       >
-        <label className='__label'>{label}</label>
+        {!!label && <label className='__label'>{label}</label>}
         <div className='__container'>
           {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
 
           <div className='__wrapperAutoSizer'>
-            {!!multiline && <div className='__autoSizer'>{value + ' '}</div>}
+            {!!multiline && !disableAutoResize && <div className='__autoSizer'>{value + ' '}</div>}
             {React.createElement(multiline ? 'textarea' : 'input', {
               ref,
               ...props,
-              disabled: isDisabled,
-              className: cx('__input', {
-                // '--fixedLabel': !!startAdornment,
-                '--error': hasError,
-                '--textarea': multiline,
-                '--start-adornment': !!startAdornment
-              }),
               name,
+              disabled: isDisabled,
+              className: '__input',
               value: maskedValue ?? '',
               readOnly: readOnly ?? loading,
               onChange: handleChange,
+              onFocus: handleFocus,
               onBlur: handleBlur,
               onKeyPress: onPressEnter ? handlePressEnter : onKeyPress
             })}
@@ -160,58 +175,37 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
 );
 
 export default styled(TextField, { label: 'houston-textfield' })(
-  ({ theme, multiline, rows }) => css`
+  ({ theme }) => css`
     border: none;
     position: relative;
     padding: 0;
     margin-top: ${theme.spacing.quarck};
     margin-bottom: ${theme.spacing.xxxs};
     min-width: auto;
-
-    & .__wrapperAutoSizer {
-      display: grid;
-      min-height: ${multiline ? (rows ?? 4) * 22 : 45}px;
-      grid-template-columns: 100%;
-      width: 100%;
-
-      & .__autoSizer {
-        pointer-events: none;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        word-break: break-all;
-        visibility: hidden;
-        grid-area: 1 / 1 / 2 / 2;
-      }
-
-      & .__input {
-        grid-area: 1 / 1 / 2 / 2;
-      }
-
-      & .__autoSizer,
-      & .__input {
-        padding: ${theme.spacing.xxxs};
-        font-size: ${theme.font.size.xs};
-        font-family: ${theme.font.family.base};
-        font-weight: ${theme.font.weight.regular};
-        line-height: ${theme.line.height.default};
-      }
-    }
+    transition: 0.3s;
+    outline: 2px solid transparent;
 
     & .__container {
       display: flex;
-      align-items: ${multiline ? 'flex-start' : 'center'};
+      align-items: center;
       justify-content: center;
       position: relative;
-      border: 1px solid ${theme.neutralColor.low.pure};
+      border: 1px solid ${theme.neutralColor.low.light};
       border-radius: ${theme.border.radius.sm};
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
       transition: 0.3s;
+      height: 48px;
+
+      &:hover {
+        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+      }
 
       & .__startAdornment,
       & .__endAdornment {
         display: flex;
         justify-content: center;
-        align-items: ${multiline ? 'flex-start' : 'center'};
-        margin-top: ${multiline ? theme.spacing.xxxs : 'none'};
+        align-items: center;
+        margin-top: none;
 
         & > svg {
           font-size: 24px;
@@ -225,6 +219,35 @@ export default styled(TextField, { label: 'houston-textfield' })(
       & .__endAdornment {
         margin-right: ${theme.spacing.xxxs};
       }
+
+      & .__wrapperAutoSizer {
+        display: grid;
+        grid-template-columns: 100%;
+        width: 100%;
+        min-height: 100%;
+
+        & .__autoSizer {
+          pointer-events: none;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          word-break: break-all;
+          visibility: hidden;
+          grid-area: 1 / 1 / 2 / 2;
+        }
+
+        & .__input {
+          grid-area: 1 / 1 / 2 / 2;
+        }
+
+        & .__autoSizer,
+        & .__input {
+          padding: ${theme.spacing.squish.xxs};
+          font-size: ${theme.font.size.xs};
+          font-family: ${theme.font.family.base};
+          font-weight: ${theme.font.weight.regular};
+          line-height: ${theme.line.height.sm};
+        }
+      }
     }
 
     & .__label {
@@ -232,7 +255,7 @@ export default styled(TextField, { label: 'houston-textfield' })(
       font-family: ${theme.font.family.base};
       font-weight: ${theme.font.weight.regular};
       line-height: ${theme.line.height.default};
-      margin-bottom: ${theme.spacing.quarck};
+      margin-bottom: ${theme.spacing.stack.quarck};
       color: ${theme.neutralColor.low.pure};
       display: flex;
       align-items: center;
@@ -245,11 +268,6 @@ export default styled(TextField, { label: 'houston-textfield' })(
       outline: none;
       color: ${theme.neutralColor.low.pure};
       border: none;
-
-      &.--textarea {
-        resize: none;
-        overflow: hidden;
-      }
 
       &::placeholder {
         color: ${theme.neutralColor.low.medium};
@@ -264,6 +282,43 @@ export default styled(TextField, { label: 'houston-textfield' })(
       line-height: ${theme.line.height.default};
       color: ${theme.neutralColor.low.pure};
       margin-top: ${theme.spacing.nano};
+    }
+
+    &.--multiline {
+      & .__container {
+        align-items: flex-start;
+        height: auto;
+
+        & .__startAdornment,
+        & .__endAdornment {
+          align-items: flex-start;
+          margin-top: ${theme.spacing.xxxs};
+        }
+
+        & .__input {
+          resize: none;
+          overflow: hidden;
+        }
+
+        & .__autoSizer,
+        & .__input {
+          padding: ${theme.spacing.xxxs};
+        }
+      }
+
+      &.--disable-auto-resize {
+        & .__input {
+          overflow: auto;
+        }
+      }
+
+      ${ROWS.map(
+        n => css`
+          &.--multiline-rows-${n} .__wrapperAutoSizer {
+            min-height: calc(${n * 19}px + ${theme.spacing.xs});
+          }
+        `
+      )}
     }
 
     &.--disabled {
@@ -285,10 +340,26 @@ export default styled(TextField, { label: 'houston-textfield' })(
       }
     }
 
+    &.--focused {
+      outline-color: ${theme.feedbackColor.informative.pure};
+
+      & .__container {
+        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+      }
+    }
+
     &.--error {
       & .__container {
         background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
         border-color: ${theme.feedbackColor.negative.pure};
+      }
+    }
+
+    &.--size-small {
+      margin: 0;
+
+      & .__container {
+        height: 35px;
       }
     }
   `

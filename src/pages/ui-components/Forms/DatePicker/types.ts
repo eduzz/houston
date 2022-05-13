@@ -11,16 +11,6 @@ export type IOmitTextFieldProps =
   | 'loading'
   | 'multiline';
 
-export type IPickDatePickerProps =
-  | 'readOnly'
-  | 'onClose'
-  | 'onError'
-  | 'onOpen'
-  | 'openTo'
-  | 'maxDate'
-  | 'minDate'
-  | 'disableHighlightToday'
-  | 'disableCloseOnSelect'
-  | 'disableFuture';
+export type IPickDatePickerProps = 'maxDate' | 'minDate' | 'disableFuture';
 
 export type IDateFormat = 'dd/MM/yyyy' | 'MM/dd/yyyy' | 'yyyy-MM-dd' | 'dd-MM-yyyy' | string;

@@ -2,14 +2,13 @@ import * as React from 'react';
 
 import { CalendarPickerView } from '@mui/lab';
 import DatePicker, { DatePickerProps } from '@mui/lab/DatePicker';
-import TextField from '@mui/material/TextField';
+import { TextFieldProps } from '@mui/material';
 import { useContextSelector } from 'use-context-selector';
 
 import CalendarIcon from '@eduzz/houston-icons/Calendar';
-import { cx } from '@eduzz/houston-styles';
 
 import { FormFieldsContext } from '../Form';
-import { ITextFieldProps } from '../Text';
+import TextField, { ITextFieldProps } from '../Text';
 import { IDateFormat, IOmitTextFieldProps, IPickDatePickerProps } from './types';
 
 export interface IDatePickerProps
@@ -28,17 +27,11 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
   name,
   value = '',
   errorMessage: errorMessageProp,
-  helperText,
-  fullWidth,
   onChange,
-  className,
-  size,
-  margin = 'normal',
   disabled,
   displayFormat = 'dd/MM/yyyy',
   defaultView = 'day',
-  placeholder,
-  ...rest
+  ...inputProps
 }) => {
   const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
   const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
@@ -60,23 +53,11 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
   );
 
   const errorMessage = errorMessageProp ?? formError;
-  const hasError = !!errorMessage;
-
-  const inputProps = React.useMemo(
-    () => ({
-      error: hasError,
-      helperText: errorMessage || helperText,
-      className: cx(className, size === 'small' && 'input-size-small'),
-      margin,
-      fullWidth: fullWidth ?? true,
-      placeholder
-    }),
-    [className, errorMessage, fullWidth, hasError, placeholder, helperText, margin, size]
-  );
 
   return (
     <DatePicker
-      renderInput={props => <TextField {...props} {...inputProps} />}
+      renderInput={RenderTextField}
+      InputProps={{ ...inputProps, errorMessage } as any}
       value={value}
       openTo={defaultView}
       inputFormat={displayFormat}
@@ -86,7 +67,32 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
       showToolbar={false}
       cancelText='Cancelar'
       okText='Selecionar'
-      {...rest}
+    />
+  );
+};
+
+const RenderTextField: React.FC<TextFieldProps & ITextFieldProps> = ({
+  inputRef,
+  inputProps: { onChange, onBlur, ...inputProps },
+  InputProps
+}) => {
+  const handleChange = React.useCallback(
+    (v: any, e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => onChange(e),
+    [onChange]
+  );
+
+  const handleBlur = React.useCallback(
+    (v: any, e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => onBlur(e),
+    [onBlur]
+  );
+
+  return (
+    <TextField
+      ref={inputRef as any}
+      {...(inputProps as any)}
+      {...InputProps}
+      onChange={handleChange}
+      onBlur={handleBlur}
     />
   );
 };

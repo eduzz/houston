@@ -127,27 +127,27 @@ import maskPhone from '@eduzz/houston-forms/masks/phone';
   }}
 </Playground>
 
-| prop           | tipo                        | obrigatório | padrão  | descrição                                                                           |
-| -------------- | --------------------------- | ----------- | ------- | ----------------------------------------------------------------------------------- |
-| id             | `string`                    | `false`     | -       | -                                                                                   |
-| name           | `string`                    | `true`      | -       | -                                                                                   |
-| label          | `React.ReactNode`           | `false`     | -       | -                                                                                   |
-| type           | `React.InputHTMLAttributes` | `false`     | `text`  | -                                                                                   |
-| placeholder    | `string`                    | `false`     | -       | -                                                                                   |
-| disabled       | `boolean`                   | `false`     | `false` | -                                                                                   |
-| fullWidth      | `boolean`                   | `false`     | `true`  | -                                                                                   |
-| multiline      | `boolean`                   | `false`     | `false` | Permite um campo de texto com várias linhas.                                        |
-| className      | `string`                    | `false`     | -       | -                                                                                   |
-| loading        | `boolean`                   | `false`     | -       | Exibe ícone de carregamento no componente de texto.                                 |
-| helperText     | `string`                    | `false`     | -       | Exibe texto de ajuda abaixo do componente de texto.                                 |
-| errorMessage   | `string`                    | `false`     | -       | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |
-| mask           | `IFormMask`                 | `false`     | -       | Máscara que será aplicada no campo.                                                 |
-| value          | `any`                       | `false`     | -       | -                                                                                   |
-| margin         | `none`, `dense`, `normal`   | `normal`    | -       | -                                                                                   |
-| onChange       | `function`                  | `false`     | -       | Função disparada ao alterar o valor do campo de texto.                              |
-| onPressEnter   | `function`                  | `false`     | -       | Função disparada ao apertar Enter dentro do campo de texto.                         |
-| endAdornment   | `React.ReactNode`           | `false`     | -       | Ícone ou botão com ícone que será exibido no final do campo.                        |
-| startAdornment | `React.ReactNode`           | `false`     | -       | Ícone ou botão com ícone que será exibido no início do campo.                       |
-| maxLength      | `number`                    | `false`     | -       | -                                                                                   |
-| rows           | `number`                    | `false`     | -       | Número de linhas quando `multiline` for verdadeiro.                                 |
-| required       | `boolean`                   | `false`     | -       | -                                                                                   |
+| prop              | tipo                         | obrigatório | padrão  | descrição                                                                           |
+| ----------------- | ---------------------------- | ----------- | ------- | ----------------------------------------------------------------------------------- |
+| id                | `string`                     | `false`     | -       | -                                                                                   |
+| name              | `string`                     | `true`      | -       | -                                                                                   |
+| label             | `React.ReactNode`            | `false`     | -       | -                                                                                   |
+| type              | `React.InputHTMLAttributes`  | `false`     | `text`  | -                                                                                   |
+| placeholder       | `string`                     | `false`     | -       | -                                                                                   |
+| disabled          | `boolean`                    | `false`     | `false` | -                                                                                   |
+| fullWidth         | `boolean`                    | `false`     | `true`  | -                                                                                   |
+| multiline         | `boolean`                    | `false`     | `false` | Permite um campo de texto com várias linhas.                                        |
+| className         | `string`                     | `false`     | -       | -                                                                                   |
+| loading           | `boolean`                    | `false`     | -       | Exibe ícone de carregamento no componente de texto.                                 |
+| helperText        | `string`                     | `false`     | -       | Exibe texto de ajuda abaixo do componente de texto.                                 |
+| errorMessage      | `string`                     | `false`     | -       | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |
+| mask              | `IFormMask`                  | `false`     | -       | Máscara que será aplicada no campo.                                                 |
+| value             | `any`                        | `false`     | -       | -                                                                                   |
+| onChange          | `function`                   | `false`     | -       | Função disparada ao alterar o valor do campo de texto.                              |
+| onPressEnter      | `function`                   | `false`     | -       | Função disparada ao apertar Enter dentro do campo de texto.                         |
+| endAdornment      | `React.ReactNode`            | `false`     | -       | Ícone ou botão com ícone que será exibido no final do campo.                        |
+| startAdornment    | `React.ReactNode`            | `false`     | -       | Ícone ou botão com ícone que será exibido no início do campo.                       |
+| maxLength         | `number`                     | `false`     | -       | -                                                                                   |
+| rows              | `2, 4, 6, 8, 10, 14, 18, 24` | `false`     | -       | Número de linhas quando `multiline` for verdadeiro.                                 |
+| disableAutoResize | `boolean`                    | `false`     | -       | Desativa o auto-resize do multiline                                                 |
+| required          | `boolean`                    | `false`     | -       | -                                                                                   |
