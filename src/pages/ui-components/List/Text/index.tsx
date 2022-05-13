@@ -13,14 +13,14 @@ const ListText: React.FC<IListTitleProps> = ({ title, subtitle, ...props }) => {
   return (
     <div className='list-item-text'>
       {typeof title === 'string' ? (
-        <Typography {...props} size='xs' fontWeight='regular' lineHeight='xs'>
+        <Typography {...props} size='xs' weight='regular' lineHeight='xs'>
           {title}
         </Typography>
       ) : (
         title
       )}
       {typeof subtitle === 'string' ? (
-        <Typography {...props} size='xxs' fontWeight='regular' lineHeight='xs'>
+        <Typography {...props} size='xxs' weight='regular' lineHeight='xs'>
           {subtitle}
         </Typography>
       ) : (

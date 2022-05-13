@@ -6,8 +6,8 @@ import Collapse from '@mui/material/Collapse';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import Button from '../Button';
-import nestedComponent from '../Helpers/nestedComponent';
 import { useChildrenProps } from '../hooks/useChildrenProps';
+import nestedComponent from '../utils/nestedComponent';
 import AlertAction, { IAlertActionProps } from './Action';
 import useStyles from './styles';
 import AlertTitle from './Title';

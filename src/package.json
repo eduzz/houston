@@ -8,21 +8,21 @@
     },
     "dependencies": {
         "@chakra-ui/react": "latest",
+        "@eduzz/houston-experimental": "*",
+        "@eduzz/houston-forms": "*",
+        "@eduzz/houston-hooks": "*",
+        "@eduzz/houston-icons": "*",
+        "@eduzz/houston-ui": "*",
         "@emotion/react": "^11",
         "@emotion/styled": "^11",
-        "framer-motion": "latest",
-        "@eduzz/houston-hooks": "*",
-        "@eduzz/houston-ui": "*",
-        "@eduzz/houston-icons": "*",
-        "@eduzz/houston-forms": "*",
-        "@eduzz/houston-experimental": "*",
         "dokz": "2.0.9",
+        "framer-motion": "latest",
         "next": "^12",
         "react": "^17",
         "react-dom": "^17"
     },
     "devDependencies": {
-        "next-transpile-modules": "^9",
-        "next-compose-plugins": "^2"
+        "next-compose-plugins": "^2",
+        "next-transpile-modules": "^9"
     }
 }

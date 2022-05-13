@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled, { IStyledProp } from '@eduzz/houston-styles';
 
-import nestedComponent from '../Helpers/nestedComponent';
+import nestedComponent from '../utils/nestedComponent';
 import { IBreadcrumbContext, BreadcrumbContext } from './context';
 import Item from './Item';
 
