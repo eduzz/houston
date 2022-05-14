@@ -7,13 +7,16 @@ export type ThumbnailFits = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
 
 export interface IThumbnailProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackSrc?: string;
-  size: ThumbnailSizes;
+  /**
+   * Default `md`
+   */
+  size?: ThumbnailSizes;
   src: string;
   fit?: ThumbnailFits;
 }
 
 const Thumbnail = React.forwardRef<HTMLImageElement, IThumbnailProps>(
-  ({ fallbackSrc, src: srcProp, size, className, fit, ...props }, ref) => {
+  ({ fallbackSrc, src: srcProp, size = 'md', className, fit, ...props }, ref) => {
     const [src, setSrc] = React.useState(fallbackSrc || srcProp);
 
     React.useEffect(() => {
