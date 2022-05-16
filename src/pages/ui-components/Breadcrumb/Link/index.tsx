@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styled, { css } from '@eduzz/houston-styles';
+import Tooltip from '@eduzz/houston-ui/Tooltip';
 
 type BreadcrumbLinkProps = {
   /**
@@ -23,7 +24,13 @@ type BreadcrumbLinkProps = {
 const BreadcrumbLink = ({ as: Tag = 'a', icon, children, ...rest }: BreadcrumbLinkProps) => (
   <Tag {...rest}>
     {!!icon && <span className='__icon'>{icon}</span>}
-    {!!children && <span className='__text'>{children}</span>}
+    {!!children && typeof children === 'string' && children.length > 32 ? (
+      <Tooltip placement='bottom' title={children}>
+        <span className='__text'>{children.slice(0, 32) + ' ...'}</span>
+      </Tooltip>
+    ) : (
+      <>{!!children && <span className='__text'>{children}</span>}</>
+    )}
   </Tag>
 );
 
@@ -62,9 +69,13 @@ export default React.memo(styled(BreadcrumbLink, { label: 'houston-breadcrumb-li
       .__icon {
         line-height: 0;
         color: ${theme.neutralColor.low.pure};
+        max-height: ${theme.pxToRem('16px')};
+        max-width: ${theme.pxToRem('16px')};
 
         svg {
           fill: ${theme.neutralColor.low.pure};
+          max-height: ${theme.pxToRem('16px')};
+          max-width: ${theme.pxToRem('16px')};
         }
       }
 
