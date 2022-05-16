@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 export type SpacingFn = (mult: number) => string;
 
 export type Color = {
@@ -29,7 +30,7 @@ export type Spacing = {
   xxxl: '120px';
   huge: '160px';
   giant: '200px';
-  inset: {
+  inline: {
     quarck: '4px';
     nano: '8px';
     xxxs: '16px';
@@ -43,6 +44,14 @@ export type Spacing = {
     xxxl: '120px';
     huge: '160px';
     giant: '200px';
+  };
+  inset: {
+    xxxs: '4px';
+    xxs: '8px';
+    xs: '16px';
+    sm: '24px';
+    md: '32px';
+    lg: '48px';
   };
   stack: {
     quarck: '4px';
