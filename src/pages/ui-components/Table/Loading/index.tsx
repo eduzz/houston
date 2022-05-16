@@ -22,7 +22,7 @@ const TableLoading = React.memo<ITableLoadingProps>(({ text, className }) => {
           <>
             <LinearProgress />
 
-            <Typography size='xs' fontWeight='regular' lineHeight='xl' className='__text'>
+            <Typography size='xs' weight='regular' lineHeight='xl' className='__text'>
               {text}
             </Typography>
           </>

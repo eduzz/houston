@@ -1,46 +1,49 @@
 import * as React from 'react';
 
-import { cx } from '@eduzz/houston-styles';
-import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
-import { HoustonTokens } from '@eduzz/houston-tokens';
+import styled, { css, IStyledProp } from '@eduzz/houston-styles/styled';
+import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-export type ITypographyVariant = 'secondary';
+import getColorFallback from '../utils/getColorFallback';
 
-export type ITypographyComponent = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div';
+export type TypographyColors = 'low' | 'high' | 'primary';
 
 export interface ITypographyProps extends IStyledProp {
   id?: string;
   size?: keyof HoustonTokens['font']['size'];
   lineHeight?: keyof HoustonTokens['line']['height'];
-  fontWeight?: keyof HoustonTokens['font']['weight'];
+  weight?: keyof HoustonTokens['font']['weight'];
   marginBottom?: boolean;
   children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
-  variant?: ITypographyVariant;
-  component?: ITypographyComponent;
+  /**
+   * Defaults to 'low'
+   */
+  color?: TypographyColors;
+  /**
+   * Defaults to 'p'
+   */
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'strong' | 'article' | 'figcaption';
+  ['aria-label']?: string;
 }
 
-const Typography: React.FC<ITypographyProps> = ({ className, variant, id, children, component, onClick }) => {
-  return React.createElement(
-    component ?? 'p',
-    {
-      id: id,
-      onClick: onClick,
-      className: cx(className, className, variant && `--variant-${variant}`)
-    },
-    children
-  );
-};
+const Typography = React.forwardRef<any, ITypographyProps>(
+  ({ as: Tag = 'p', children, color = 'low', ...props }, ref) => {
+    return (
+      <Tag ref={ref} color={color} {...props}>
+        {children}
+      </Tag>
+    );
+  }
+);
 
 export default styled(Typography)`
-  margin: 0;
-  font-size: ${({ theme, size }) => theme.font.size[size] ?? theme.font.size['xs']};
-  font-weight: ${({ theme, fontWeight }) => theme.font.weight[fontWeight ?? 'regular']};
-  line-height: ${({ theme, lineHeight }) => theme.line.height[lineHeight ?? 'md']};
-  margin-bottom: ${({ theme, marginBottom }) => (marginBottom ? theme.spacing.nano : null)};
-
-  &.--variant-secondary {
-    color: ${({ theme }) => theme.neutralColor.high.dark};
-    font-size: ${({ theme }) => theme.font.size.xxs};
-  }
+  ${({ theme, size = 'xs', weight = 'regular', lineHeight = 'md', marginBottom, color = 'low' }) =>
+    css`
+      margin: 0;
+      font-size: ${theme.font.size[size]};
+      font-weight: ${theme.font.weight[weight]};
+      line-height: ${theme.line.height[lineHeight]};
+      margin-bottom: ${marginBottom ? theme.spacing.nano : null};
+      color: ${getColorFallback(theme, color).pure};
+    `}
 `;

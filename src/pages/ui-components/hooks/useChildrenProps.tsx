@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getReactChildrenProps, getReactFirstChildrenProps } from '../Helpers/functions';
+import { getReactChildrenProps, getReactFirstChildrenProps } from '../utils/children';
 
 export type ReactChildrenOrNode = React.ReactChildren | React.ReactNode;
 export type ReactChild = React.ReactElement;
