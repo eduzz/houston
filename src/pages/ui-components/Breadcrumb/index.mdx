@@ -5,6 +5,7 @@ name: Breadcrumb
 import { Playground } from 'dokz';
 
 import ArrowRight from '@eduzz/houston-icons/ArrowRight';
+import Bullet from '@eduzz/houston-icons/Bullet';
 import HomeOutline from '@eduzz/houston-icons/HomeOutline';
 
 import Breadcrumb from './';
@@ -23,27 +24,31 @@ import Breadcrumb from '@eduzz/houston-ui/Breadcrumb';
 
 <Playground>
   <Breadcrumb>
-    <Breadcrumb.Item onClick={() => alert('clicked')} icon={<HomeOutline />} />
-    <Breadcrumb.Item>Home</Breadcrumb.Item>
-    <Breadcrumb.Item icon={<HomeOutline />}>
-      <span>Lista de </span>
-      <span>Produtos</span>
+    <Breadcrumb.Item>
+      <Breadcrumb.Link href='' icon={<HomeOutline />} />
     </Breadcrumb.Item>
-    <Breadcrumb.Item isActive>Edição de produto</Breadcrumb.Item>
+    <Breadcrumb.Item>
+      <Breadcrumb.Link href=''>Lista de Produtos</Breadcrumb.Link>
+    </Breadcrumb.Item>
+    <Breadcrumb.Item>
+      <Breadcrumb.Link href=''>Produto</Breadcrumb.Link>
+    </Breadcrumb.Item>
+    <Breadcrumb.Item isActive>Edição de Produto</Breadcrumb.Item>
   </Breadcrumb>
 </Playground>
 
 ### Separador customizado
 
 <Playground>
-  <Breadcrumb separator={<ArrowRight />}>
-    <Breadcrumb.Item onClick={() => alert('clicked')} icon={<HomeOutline />} />
-    <Breadcrumb.Item>Home</Breadcrumb.Item>
-    <Breadcrumb.Item icon={<HomeOutline />}>
-      <span>Lista de </span>
-      <span>Produtos</span>
+  <Breadcrumb separator={<ArrowRight size={16} />}>
+    <Breadcrumb.Item>
+      <Breadcrumb.Link href='' icon={<HomeOutline />} />
     </Breadcrumb.Item>
-    <Breadcrumb.Item isActive>Edição de produto</Breadcrumb.Item>
+    <Breadcrumb.Item>Home</Breadcrumb.Item>
+    <Breadcrumb.Item>
+      <span>Lista de Produtos</span>
+    </Breadcrumb.Item>
+    <Breadcrumb.Item isActive>Livro: Mil Maneiras de ficar rico sem sair de casa</Breadcrumb.Item>
   </Breadcrumb>
 </Playground>
 
@@ -59,8 +64,14 @@ import Breadcrumb from '@eduzz/houston-ui/Breadcrumb';
 | prop     | tipo                            | obrigatório | padrão |
 | -------- | ------------------------------- | ----------- | ------ |
 | children | `React.ReactNode`               | `false`     | -      |
-| icon     | `React.ReactNode`               | `false`     | -      |
-| as       | `React.ReactNode`               | `false`     | `a`    |
-| to       | `string`                        | `false`     | -      |
 | isActive | `boolean`                       | `false`     | -      |
 | onClick  | `(e: React.MouseEvent) => void` | `false`     | -      |
+
+### Breadcrumb.Link
+
+| prop     | tipo              | obrigatório | padrão |
+| -------- | ----------------- | ----------- | ------ |
+| children | `React.ReactNode` | `false`     | -      |
+| icon     | `React.ReactNode` | `false`     | -      |
+| as       | `React.ReactNode` | `false`     | `a`    |
+| href     | `string`          | `false`     | -      |
