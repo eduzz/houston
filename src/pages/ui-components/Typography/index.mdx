@@ -4,6 +4,8 @@ name: Typography
 
 import { Playground } from 'dokz';
 
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
 import Typography from './';
 
 # Typography
@@ -36,10 +38,9 @@ import Typography from '@eduzz/houston-ui/Typography';
 ### Intensidade da fonte
 
 <Playground>
-  <Typography fontWeight='light'>light</Typography>
-  <Typography fontWeight='regular'>regular</Typography>
-  <Typography fontWeight='semibold'>semibold</Typography>
-  <Typography fontWeight='bold'>bold</Typography>
+  <Typography weight='regular'>regular</Typography>
+  <Typography weight='semibold'>semibold</Typography>
+  <Typography weight='bold'>bold</Typography>
 </Playground>
 
 ### Altura da linha
@@ -88,13 +89,42 @@ import Typography from '@eduzz/houston-ui/Typography';
   </Typography>
 </Playground>
 
-| prop         | tipo                   | obrigatório | padrão    |
-| ------------ | ---------------------- | ----------- | --------- |
-| size         | `FontSizes`            | `false`     | `xs`      |
-| lineHeight   | `LineHeights`          | `false`     | `md`      |
-| fontWeight   | `FontWeight`           | `false`     | `regular` |
-| marginBottom | `boolean`              | `false`     | -         |
-| className    | `string`               | `false`     | -         |
-| onClick      | `function`             | `false`     | -         |
-| component    | `ITypographyComponent` | `false`     | `p`       |
-| variant      | `ITypographyVariant`   | `false`     | -         |
+### Cores
+
+<Playground>
+  <Typography color='primary'>Primary (cor do produto)</Typography>
+  <Typography color='low'>Low (padrão)</Typography>
+  <div style={{ backgroundColor: '#0D47A1' }}>
+    <Typography color='high'>High</Typography>
+  </div>
+</Playground>
+
+### Informando ref e evento
+
+<Playground>
+  {() => {
+    const ref = React.useRef(null);
+    function scrollIntoView() {
+      ref.current.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+    return (
+      <Typography ref={ref} onClick={scrollIntoView}>
+        Click to scroll into view
+      </Typography>
+    );
+  }}
+</Playground>
+
+| prop         | tipo                                                        | obrigatório | padrão    |
+| ------------ | ----------------------------------------------------------- | ----------- | --------- |
+| size         | `Font Size Tokens`                                          | `false`     | `xs`      |
+| lineHeight   | `Line Height Tokens`                                        | `false`     | `md`      |
+| weight       | `Font Weight Tokens`                                        | `false`     | `regular` |
+| marginBottom | `boolean`                                                   | `false`     | -         |
+| className    | `string`                                                    | `false`     | -         |
+| onClick      | `(e: React.MouseEvent) => void`                             | `false`     | -         |
+| as           | `'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'strong'` | `false`     | `p`       |
+| ref          | `React.ReactRef<any>`                                       | `false`     | -         |
+| color        | `'primary', 'low', 'pure'`                                  | `false`     | `low`     |

@@ -1,123 +1,159 @@
 import * as React from 'react';
 
-import AvatarMUI, { AvatarProps } from '@mui/material/Avatar';
+import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-import AvatarOutline from '@eduzz/houston-icons/AvatarOutline';
-import AvatarSolid from '@eduzz/houston-icons/AvatarSolid';
-import styled, { cx, IStyledProp } from '@eduzz/houston-styles';
+export type IAvatarSize = 'xs' | 'sm' | 'md' | 'lg';
 
-type AvatarPropsExtends = 'id' | 'className' | 'src' | 'alt' | 'onClick' | 'children';
+export type IAvatarColor = 'primary' | 'high';
 
-export type IAvatarSize = 'small' | 'medium' | 'large' | number;
+type SizesMap = { [key in IAvatarSize]: string };
 
-export type IAvatarType = 'text' | 'icon';
+type FontMap = { [key in IAvatarSize]: string };
 
-export interface IAvatarProps extends Pick<AvatarProps, AvatarPropsExtends>, IStyledProp {
+const sizesMap: SizesMap = { xs: '24px', sm: '32px', md: '40px', lg: '64px' };
+
+const Icon = () => (
+  <svg viewBox='0 0 192 192' fill='none' xmlns='http://www.w3.org/2000/svg' focusable={false} aria-hidden='true'>
+    <path d='M160 150.408C144.592 168.515 121.637 180 96 180C70.3625 180 47.4076 168.515 32 150.408V136C32 116.118 48.1178 100 68 100H124C143.882 100 160 116.118 160 136V150.408Z' />
+    <path d='M132 52C132 71.8823 115.882 88 96 88C76.1177 88 60 71.8823 60 52C60 32.1177 76.1177 16 96 16C115.882 16 132 32.1177 132 52Z' />
+  </svg>
+);
+
+export interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement>, IStyledProp {
+  src?: string;
+  alt?: string;
   /**
-   * Default `false`
+   * Default `primary`
    */
-  filled?: boolean;
+  color?: IAvatarColor;
   /**
-   * Default `icon`
-   */
-  type?: IAvatarType;
-  /**
-   * Default `medium`
+   * Default `md`
    */
   size?: IAvatarSize;
+  children?: React.ReactNode;
 }
 
-const sizes = { small: 40, medium: 60, large: 80 };
+const Avatar = ({ src, alt, children, className, color = 'primary', size = 'md', ...rest }: IAvatarProps) => {
+  const imageProps = { src, alt };
 
-const Avatar: React.FC<IAvatarProps> = ({
-  children,
-  className,
-  size = 'medium',
-  type = 'icon',
-  filled,
-  src,
-  ...rest
-}) => {
-  const hasIcon = type === 'icon';
-  const sizeIsNumber = typeof size === 'number';
+  const hasImage = !!src;
+  const hasText = children && typeof children === 'string';
 
-  const iconRender = React.useMemo(() => {
-    const currentSize = ((sizeIsNumber ? size : sizes[size]) ?? sizes.medium) - 4;
-
-    if (filled) {
-      return <AvatarSolid size={currentSize} />;
-    }
-
-    return <AvatarOutline size={currentSize} />;
-  }, [filled, size, sizeIsNumber]);
+  const firstLetter = (hasText && children?.[0]?.trim()) ?? ' ';
 
   return (
-    <AvatarMUI
-      {...rest}
-      src={src}
+    <span
       className={cx(
         className,
-        !sizeIsNumber && `--${size ?? 'medium'}`,
-        hasIcon && '--icon',
-        filled && '--filled',
-        src && '--image'
+        { '--high': color === 'high' },
+        { '--xsmall': size === 'xs' },
+        { '--small': size === 'sm' },
+        { '--large': size === 'lg' }
       )}
+      {...rest}
     >
-      {hasIcon && iconRender}
-      {type === 'text' && children}
-    </AvatarMUI>
+      {hasImage && <img {...imageProps} />}
+
+      {!hasImage && hasText && <span className='__text'>{firstLetter}</span>}
+
+      {!hasImage && !hasText && (
+        <span className='__icon' role='img' aria-label='usuário'>
+          <Icon />
+        </span>
+      )}
+    </span>
   );
 };
 
-export default styled(Avatar)`
+export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme }) => {
+  const fontMap: FontMap = {
+    xs: theme.font.size.xxs,
+    sm: theme.font.size.sm,
+    md: theme.font.size.md,
+    lg: theme.font.size.xl
+  };
+
+  return css`
+    width: ${theme.pxToRem(sizesMap.md)};
+    height: ${theme.pxToRem(sizesMap.md)};
+    color: white;
+    overflow: hidden;
+    border-radius: 50%;
     display: inline-flex;
-    background: none;
-    border: 2px solid ${({ theme }) => theme.neutralColor.low.light};
-    color: ${({ theme }) => theme.neutralColor.low.light};
-    font-weight: ${({ theme }) => theme.font.weight.semibold};
+    vertical-align: middle;
+    justify-content: center;
+    background-color: ${theme.brandColor.primary.pure};
 
-    &.--icon {
-      align-items: flex-end;
-      border-width: 2px;
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
 
-      & span.houston-icon {
-        position: relative;
-        top: 5;
+    &.--xsmall {
+      width: ${theme.pxToRem(sizesMap.xs)};
+      height: ${theme.pxToRem(sizesMap.xs)};
+
+      .__text {
+        font-size: ${theme.pxToRem(fontMap.xs)};
+        line-height: ${theme.pxToRem(fontMap.xs)};
       }
     }
 
-    &.--filled {
-      background: ${({ theme }) => theme.neutralColor.low.light};
-      color: white;
-      border-width: 4px;
+    &.--small {
+      width: ${theme.pxToRem(sizesMap.sm)};
+      height: ${theme.pxToRem(sizesMap.sm)};
 
-      & span.houston-icon {
-        color: white;
-        top: 7px !important;
+      .__text {
+        font-size: ${theme.pxToRem(fontMap.sm)};
+        line-height: ${theme.pxToRem(fontMap.sm)};
       }
     }
 
-    &.--image {
-      border-width: 1px;
+    &.--large {
+      width: ${theme.pxToRem(sizesMap.lg)};
+      height: ${theme.pxToRem(sizesMap.lg)};
+
+      .__text {
+        font-size: ${theme.pxToRem(fontMap.lg)};
+        line-height: ${theme.pxToRem(fontMap.lg)};
+      }
     }
 
-  &.--small {
-    width: ${sizes.small}px;
-    height: ${sizes.small}px;
-    font-size: ${({ theme }) => theme.font.size.xxs};
-    border-width: 2px;
-  }
+    &.--high {
+      color: ${theme.brandColor.primary.pure};
+      background-color: ${theme.neutralColor.high.pure};
 
-  &.--medium{
-    width: ${sizes.medium}px;
-    height: ${sizes.medium}px;
-    font-size: ${({ theme }) => theme.font.size.sm};
-  }
+      .__icon svg {
+        fill: ${theme.brandColor.primary.pure};
+      }
+    }
 
-  &.--large {
-    width: ${sizes.large}px;
-    height: ${sizes.large}px;
-    font-size: ${({ theme }) => theme.font.size.lg};
-  }
-})
-`;
+    .__text {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      font-size: ${theme.pxToRem(fontMap.md)};
+      line-height: ${theme.pxToRem(fontMap.md)};
+      font-weight: ${theme.font.weight.bold};
+      user-select: none;
+    }
+
+    .__icon {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        fill: white;
+        width: 100%;
+      }
+    }
+  `;
+});

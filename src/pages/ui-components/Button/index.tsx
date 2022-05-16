@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-import { getColorFallback } from '../Helpers/functions';
 import Spinner from '../Spinner';
+import getColorFallback from '../utils/getColorFallback';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
 export type IButtonColor = 'positive' | 'negative' | 'warning' | 'informative' | 'primary';

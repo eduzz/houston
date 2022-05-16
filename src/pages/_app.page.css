@@ -11,6 +11,10 @@ ul li {
   background: #ccc;
 }
 
+.bg-dark {
+  background: #222;
+}
+
 /* footer */
 footer.houston-footer {
   text-align: center;

@@ -1,0 +1,121 @@
+---
+name: Subtitle
+---
+
+import { Playground } from 'dokz';
+
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
+import Subtitle from './';
+
+# Subtitle
+
+O componente de tipografia é utilizado para criação de títulos, subtítulos e textos, padronizando fontes, espaçamentos e tudo
+referente a tipografias e hierarquia textual.
+
+### Importação
+
+```js
+import Subtitle from '@eduzz/houston-ui/Typography/Subtitle';
+```
+
+### Tamanhos
+
+<Playground>
+  <Subtitle size='lg'>Large</Subtitle>
+  <Subtitle size='sm'>Small</Subtitle>
+</Playground>
+
+### Intensidade da fonte
+
+<Playground>
+  <Subtitle weight='regular'>regular</Subtitle>
+  <Subtitle weight='semibold'>semibold</Subtitle>
+  <Subtitle weight='bold'>bold</Subtitle>
+</Playground>
+
+### Altura da linha
+
+<Playground>
+  <Subtitle lineHeight='default'>
+    line-height
+    <br />
+    default
+  </Subtitle>
+  <hr style={{ margin: '10px 0' }} />
+  <Subtitle lineHeight='xs'>
+    line-height
+    <br />
+    xs
+  </Subtitle>
+  <hr style={{ margin: '10px 0' }} />
+  <Subtitle lineHeight='sm'>
+    line-height
+    <br />
+    sm
+  </Subtitle>
+  <hr style={{ margin: '10px 0' }} />
+  <Subtitle lineHeight='md'>
+    line-height
+    <br />
+    md
+  </Subtitle>
+  <hr style={{ margin: '10px 0' }} />
+  <Subtitle lineHeight='lg'>
+    line-height
+    <br />
+    lg
+  </Subtitle>
+  <hr style={{ margin: '10px 0' }} />
+  <Subtitle lineHeight='xl'>
+    line-height
+    <br />
+    xl
+  </Subtitle>
+  <hr style={{ margin: '10px 0' }} />
+  <Subtitle lineHeight='xxl'>
+    line-height
+    <br />
+    xxl
+  </Subtitle>
+</Playground>
+
+### Cores
+
+<Playground>
+  <Subtitle color='primary'>Primary (cor do produto)</Subtitle>
+  <Subtitle>Low (padrão)</Subtitle>
+  <div style={{ backgroundColor: '#0D47A1' }}>
+    <Subtitle color='high'>High</Subtitle>
+  </div>
+</Playground>
+
+### Informando ref e evento
+
+<Playground>
+  {() => {
+    const ref = React.useRef(null);
+    function scrollIntoView() {
+      ref.current.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+    return (
+      <Subtitle ref={ref} onClick={scrollIntoView}>
+        Click to scroll into view
+      </Subtitle>
+    );
+  }}
+</Playground>
+
+| prop         | tipo                            | obrigatório | padrão    |
+| ------------ | ------------------------------- | ----------- | --------- |
+| size         | `lg, sm`                        | `false`     | `lg`      |
+| lineHeight   | `Line Height Tokens`            | `false`     | `md`      |
+| weight       | `Font Weight Tokens`            | `false`     | `regular` |
+| marginBottom | `boolean`                       | `false`     | -         |
+| className    | `string`                        | `false`     | -         |
+| onClick      | `(e: React.MouseEvent) => void` | `false`     | -         |
+| as           | `'h2', 'h3', 'h4', 'h5', 'h6'`  | `false`     | `h2`      |
+| ref          | `React.ReactRef<any>`           | `false`     | -         |
+| color        | `'primary', 'low', 'pure'`      | `false`     | `low`     |

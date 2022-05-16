@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled, { IStyledProp, keyframes } from '@eduzz/houston-styles/styled';
 
-import { getColorFallback } from '../Helpers/functions';
+import getColorFallback from '../utils/getColorFallback';
 
 export interface ILoaderProps extends IStyledProp {
   size?: number;

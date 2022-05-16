@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import { IStyledProp } from '@eduzz/houston-styles/styled';
 
-import nestedComponent from '../Helpers/nestedComponent';
+import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import Sidebar from './Sidebar';
 

@@ -125,7 +125,7 @@ const Pagination = React.memo<ITablePagination>(
                 <Column xs={12} sm='auto'>
                   <Row justifyContent='center'>
                     <Column xs='auto' className='__perPage'>
-                      <Typography size='xxs' fontWeight='semibold'>
+                      <Typography size='xxs' weight='semibold'>
                         {labelItensPerPage ?? 'Itens por página:'}
                       </Typography>
 
@@ -140,7 +140,7 @@ const Pagination = React.memo<ITablePagination>(
                     </Column>
 
                     <Column xs='auto' className='__labels'>
-                      <Typography size='xxs' fontWeight='semibold'>
+                      <Typography size='xxs' weight='semibold'>
                         {labelGoToPage ?? 'Ir para:'}
                       </Typography>
 
