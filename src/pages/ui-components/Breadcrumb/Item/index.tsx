@@ -56,7 +56,7 @@ export default React.memo(styled(BreadcrumbItem, { label: 'houston-breadcrumb-it
     .__separator {
       display: flex;
       align-items: center;
-      margin: 0 ${theme.spacing.inset.quarck};
+      margin: 0 ${theme.spacing.inset.xxxs};
 
       svg {
         width: ${theme.pxToRem('16px')};

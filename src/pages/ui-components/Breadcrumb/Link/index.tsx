@@ -44,7 +44,7 @@ export default React.memo(styled(BreadcrumbLink, { label: 'houston-breadcrumb-li
       min-height: ${theme.pxToRem('24px')};
       min-width: ${theme.pxToRem('24px')};
       border-radius: ${theme.border.radius.xs};
-      padding: ${theme.spacing.inset.quarck};
+      padding: ${theme.spacing.inset.xxxs};
 
       ${hasOnlyIcon &&
       css`
@@ -80,7 +80,7 @@ export default React.memo(styled(BreadcrumbLink, { label: 'houston-breadcrumb-li
       }
 
       .__icon ~ .__text {
-        margin-left: ${theme.spacing.inset.quarck};
+        margin-left: ${theme.spacing.inset.xxxs};
       }
 
       .__text {
