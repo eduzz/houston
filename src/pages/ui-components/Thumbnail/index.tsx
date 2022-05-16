@@ -29,16 +29,13 @@ const Thumbnail = React.forwardRef<HTMLImageElement, IThumbnailProps>(
     return (
       <img
         ref={ref}
-        className={cx(
-          className,
-          {
-            '--xlarge': size === 'xl',
-            '--large': size === 'lg',
-            '--medium': size === 'md',
-            '--small': size === 'sm'
-          },
-          fit && `--${fit}`
-        )}
+        className={cx(className, {
+          '--xlarge': size === 'xl',
+          '--large': size === 'lg',
+          '--medium': size === 'md',
+          '--small': size === 'sm',
+          [`--${fit}`]: !!fit
+        })}
         src={src}
         {...props}
       />
@@ -70,23 +67,23 @@ export default styled(Thumbnail, { label: 'houston-thumbnail' })`
       height: ${theme.pxToRem('24px')};
     }
 
-    &.--fill {
+    &.--fit-fill {
       object-fit: fill;
     }
 
-    &.--contain {
+    &.--fit-contain {
       object-fit: contain;
     }
 
-    &.--cover {
+    &.--fit-cover {
       object-fit: cover;
     }
 
-    &.--none {
+    &.--fit-none {
       object-fit: none;
     }
 
-    &.--scale-down {
+    &.--fit-scale-down {
       object-fit: scale-down;
     }
   `}
