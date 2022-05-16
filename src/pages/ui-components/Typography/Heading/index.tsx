@@ -31,11 +31,13 @@ export interface IHeadingProps extends IStyledProp {
   ['aria-label']?: string;
 }
 
-type SizesMap = {
-  [key in HeadingTags | HeadingSizes]: keyof HoustonTokens['font']['size'];
+type FontProps = 'size' | 'weight';
+
+type FontPropMap<P extends FontProps> = {
+  [key in HeadingTags | HeadingSizes]: keyof HoustonTokens['font'][P];
 };
 
-const defaultSizesMap: SizesMap = {
+const defaultSizesMap: FontPropMap<'size'> = {
   h1: 'giant',
   h2: 'xxxl',
   h3: 'xxl',
@@ -50,7 +52,7 @@ const defaultSizesMap: SizesMap = {
   xs: 'xs'
 };
 
-const mobileSizesMap: SizesMap = {
+const mobileSizesMap: FontPropMap<'size'> = {
   h1: 'xxxl',
   h2: 'xxl',
   h3: 'lg',
@@ -65,14 +67,30 @@ const mobileSizesMap: SizesMap = {
   xs: 'xs'
 };
 
+const weightsMap: FontPropMap<'weight'> = {
+  h1: 'regular',
+  h2: 'regular',
+  h3: 'semibold',
+  h4: 'semibold',
+  h5: 'semibold',
+  h6: 'bold',
+  display: 'regular',
+  xl: 'regular',
+  lg: 'semibold',
+  md: 'semibold',
+  sm: 'semibold',
+  xs: 'bold'
+};
+
 const Heading = React.forwardRef<HTMLHeadingElement, IHeadingProps>(
   ({ as = 'h1', children, size: sizeProp, ...props }, ref) => {
     const { breakpoints } = useHoustonTheme();
     const isMobile = useMediaQuery(breakpoints.down('sm'));
     const sizesMap = isMobile ? mobileSizesMap : defaultSizesMap;
     const fontSize = sizeProp ? sizesMap[sizeProp] : sizesMap[as];
+    const fontWeight = sizeProp ? weightsMap[sizeProp] : weightsMap[as];
     return (
-      <Typography as={as} ref={ref} size={fontSize} weight='bold' {...props}>
+      <Typography as={as} ref={ref} size={fontSize} weight={fontWeight} {...props}>
         {children}
       </Typography>
     );
