@@ -8,8 +8,8 @@ import IFormMask from '@eduzz/houston-core/maskAdapter';
 import styled, { css, cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
-import Spinner from '../../Spinner';
 import { FormFieldsContext } from '../Form';
+import Fieldset from '../internals/Fieldset';
 
 const ROWS: Array<IOwnProperties['rows']> = [2, 4, 6, 8, 10, 14, 18, 24];
 
@@ -48,7 +48,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       onFocus,
       onChange,
       onBlur,
-      errorMessage: errorMessageProp,
+      errorMessage,
       fullWidth,
       endAdornment,
       startAdornment,
@@ -125,163 +125,85 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
     );
 
     const isDisabled = isSubmitting || disabled;
-    const hasError = !!errorMessageProp || !!formError;
-
-    helperText = errorMessageProp || formError || helperText;
-    endAdornment = loading ? <Spinner color='inherit' size={20} /> : endAdornment;
 
     return (
-      <fieldset
+      <Fieldset
+        label={label}
+        loading={loading}
+        focused={focused}
+        errorMessage={errorMessage || formError}
+        fullWidth={fullWidth}
+        endAdornment={endAdornment}
+        startAdornment={startAdornment}
+        helperText={helperText}
+        disabled={isSubmitting || disabled}
         className={cx(className, {
-          '--fullWidth': fullWidth,
-          '--error': hasError,
-          '--disabled': isDisabled,
-          '--loading': loading,
           '--multiline': multiline,
           [`--multiline-rows-${rows ?? 4}`]: multiline,
           '--disable-auto-resize': disableAutoResize,
-          '--focused': focused,
           [`--size-${size ?? 'normal'}`]: true
         })}
       >
-        {!!label && <label className='__label'>{label}</label>}
-        <div className='__container'>
-          {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
-
-          <div className='__wrapperAutoSizer'>
-            {!!multiline && !disableAutoResize && <div className='__autoSizer'>{value + ' '}</div>}
-            {React.createElement(multiline ? 'textarea' : 'input', {
-              ref,
-              ...props,
-              name,
-              disabled: isDisabled,
-              className: '__input',
-              value: maskedValue ?? '',
-              readOnly: readOnly ?? loading,
-              onChange: handleChange,
-              onFocus: handleFocus,
-              onBlur: handleBlur,
-              onKeyPress: onPressEnter ? handlePressEnter : onKeyPress
-            })}
-          </div>
-
-          {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
+        <div className='__wrapperAutoSizer'>
+          {!!multiline && !disableAutoResize && <div className='__autoSizer'>{value + ' '}</div>}
+          {React.createElement(multiline ? 'textarea' : 'input', {
+            ref,
+            ...props,
+            name,
+            disabled: isDisabled,
+            className: '__input',
+            value: maskedValue ?? '',
+            readOnly: readOnly ?? loading,
+            onChange: handleChange,
+            onFocus: handleFocus,
+            onBlur: handleBlur,
+            onKeyPress: onPressEnter ? handlePressEnter : onKeyPress
+          })}
         </div>
-
-        {!!helperText && <span className='__message'>{helperText}</span>}
-      </fieldset>
+      </Fieldset>
     );
   }
 );
 
 export default styled(TextField, { label: 'houston-textfield' })(
   ({ theme }) => css`
-    border: none;
-    position: relative;
-    padding: 0;
-    margin-top: ${theme.spacing.quarck};
-    margin-bottom: ${theme.spacing.xxxs};
-    min-width: auto;
-    transition: 0.3s;
-    outline: 2px solid transparent;
-
-    & .__container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      border: 1px solid ${theme.neutralColor.low.light};
-      border-radius: ${theme.border.radius.sm};
-      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
-      transition: 0.3s;
-      height: 48px;
-
-      &:hover {
-        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-      }
-
-      & .__startAdornment,
-      & .__endAdornment {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: none;
-
-        & > svg {
-          font-size: 24px;
-        }
-      }
-
-      & .__startAdornment {
-        margin-left: ${theme.spacing.xxxs};
-      }
-
-      & .__endAdornment {
-        margin-right: ${theme.spacing.xxxs};
-      }
-
-      & .__wrapperAutoSizer {
-        display: grid;
-        grid-template-columns: 100%;
-        width: 100%;
-        min-height: 100%;
-
-        & .__autoSizer {
-          pointer-events: none;
-          white-space: pre-wrap;
-          word-wrap: break-word;
-          word-break: break-all;
-          visibility: hidden;
-          grid-area: 1 / 1 / 2 / 2;
-        }
-
-        & .__input {
-          grid-area: 1 / 1 / 2 / 2;
-        }
-
-        & .__autoSizer,
-        & .__input {
-          padding: ${theme.spacing.squish.xxs};
-          font-size: ${theme.font.size.xs};
-          font-family: ${theme.font.family.base};
-          font-weight: ${theme.font.weight.regular};
-          line-height: ${theme.line.height.sm};
-        }
-      }
-    }
-
-    & .__label {
-      font-size: ${theme.font.size.xs};
-      font-family: ${theme.font.family.base};
-      font-weight: ${theme.font.weight.regular};
-      line-height: ${theme.line.height.default};
-      margin-bottom: ${theme.spacing.stack.quarck};
-      color: ${theme.neutralColor.low.pure};
-      display: flex;
-      align-items: center;
-    }
-
-    & .__input {
-      height: 100%;
+    & .__wrapperAutoSizer {
+      display: grid;
+      grid-template-columns: 100%;
       width: 100%;
-      background-color: transparent;
-      outline: none;
-      color: ${theme.neutralColor.low.pure};
-      border: none;
+      min-height: 100%;
 
-      &::placeholder {
-        color: ${theme.neutralColor.low.medium};
+      & .__autoSizer {
+        pointer-events: none;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: break-all;
+        visibility: hidden;
+        grid-area: 1 / 1 / 2 / 2;
       }
-    }
 
-    & .__message {
-      display: block;
-      font-size: ${theme.font.size.xxs};
-      font-family: ${theme.font.family.base};
-      font-weight: ${theme.font.weight.regular};
-      line-height: ${theme.line.height.default};
-      color: ${theme.neutralColor.low.pure};
-      margin-top: ${theme.spacing.nano};
+      & .__input {
+        grid-area: 1 / 1 / 2 / 2;
+        height: 100%;
+        width: 100%;
+        background-color: transparent;
+        outline: none;
+        color: ${theme.neutralColor.low.pure};
+        border: none;
+
+        &::placeholder {
+          color: ${theme.neutralColor.low.medium};
+        }
+      }
+
+      & .__autoSizer,
+      & .__input {
+        padding: ${theme.spacing.squish.xxs};
+        font-size: ${theme.font.size.xs};
+        font-family: ${theme.font.family.base};
+        font-weight: ${theme.font.weight.regular};
+        line-height: ${theme.line.height.sm};
+      }
     }
 
     &.--multiline {
@@ -322,9 +244,6 @@ export default styled(TextField, { label: 'houston-textfield' })(
     }
 
     &.--disabled {
-      opacity: ${theme.opacity.level[6]};
-      cursor: not-allowed;
-
       & .__label,
       & .__input {
         cursor: not-allowed;
@@ -332,26 +251,9 @@ export default styled(TextField, { label: 'houston-textfield' })(
     }
 
     &.--loading {
-      cursor: progress;
-
       & .__label,
       & .__input {
         cursor: progress;
-      }
-    }
-
-    &.--focused {
-      outline-color: ${theme.feedbackColor.informative.pure};
-
-      & .__container {
-        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-      }
-    }
-
-    &.--error {
-      & .__container {
-        background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
-        border-color: ${theme.feedbackColor.negative.pure};
       }
     }
 
