@@ -36,7 +36,7 @@ const BreadcrumbLink = ({ as: Tag = 'a', icon, children, className, ...rest }: B
     <li className={className}>
       <Tag {...rest} className='__tag'>
         {!!icon && <span className='__icon'>{icon}</span>}
-        <LongTextToolTip>{children}</LongTextToolTip>
+        {!!children && <LongTextToolTip>{children}</LongTextToolTip>}
       </Tag>
       <span role='presentation' className='__separator'>
         {separator ?? <SeparatorIcon />}
