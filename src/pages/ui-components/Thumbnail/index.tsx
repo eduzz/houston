@@ -29,20 +29,7 @@ const Thumbnail = React.forwardRef<HTMLImageElement, IThumbnailProps>(
       image.onload = () => setSrc(srcProp);
     }, [srcProp, fallbackSrc]);
 
-    return (
-      <img
-        ref={ref}
-        className={cx(className, {
-          '--xlarge': size === 'xl',
-          '--large': size === 'lg',
-          '--medium': size === 'md',
-          '--small': size === 'sm',
-          [`--fit-${fit}`]: !!fit
-        })}
-        src={src}
-        {...props}
-      />
-    );
+    return <img ref={ref} className={cx(className, size && `--${size}`, fit && `--fit-${fit}`)} src={src} {...props} />;
   }
 );
 
@@ -50,22 +37,22 @@ export default styled(Thumbnail, { label: 'houston-thumbnail' })`
   ${({ theme }) => css`
     border-radius: ${theme.pxToRem(theme.border.radius.xs)};
 
-    &.--xlarge {
+    &.--xl {
       width: ${theme.pxToRem('80px')};
       height: ${theme.pxToRem('80px')};
     }
 
-    &.--large {
+    &.--lg {
       width: ${theme.pxToRem('64px')};
       height: ${theme.pxToRem('64px')};
     }
 
-    &.--medium {
+    &.--md {
       width: ${theme.pxToRem('40px')};
       height: ${theme.pxToRem('40px')};
     }
 
-    &.--small {
+    &.--sm {
       width: ${theme.pxToRem('24px')};
       height: ${theme.pxToRem('24px')};
     }
