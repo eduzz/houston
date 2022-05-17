@@ -3,7 +3,26 @@ import * as React from 'react';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles/styled';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
+import nestedComponent from '../utils/nestedComponent';
+import Caption from './Caption';
+import Heading from './Heading';
+import Paragraph from './Paragraph';
+import Subtitle from './Subtitle';
+
 export type TypographyColors = 'low' | 'high' | 'primary';
+
+export type TypographyTags =
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'p'
+  | 'span'
+  | 'strong'
+  | 'article'
+  | 'figcaption';
 
 export interface ITypographyProps extends IStyledProp {
   id?: string;
@@ -20,7 +39,7 @@ export interface ITypographyProps extends IStyledProp {
   /**
    * Defaults to 'p'
    */
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'strong' | 'article' | 'figcaption';
+  as?: TypographyTags;
   ['aria-label']?: string;
 }
 
@@ -58,19 +77,21 @@ const Typography = React.forwardRef<any, ITypographyProps>(
   }
 );
 
-export default styled(Typography)`
+const TypographyWrapper = styled(Typography)`
   ${({ theme }) => {
     function mountFontModifiers(theme: HoustonTokens) {
       const modifiers: any[] = [];
+
       (['size', 'weight'] as const).forEach(fontProp =>
         Object.entries(theme.font[fontProp]).forEach(([key, value]) =>
           modifiers.push(css`
-            &.--${fontProp}-${key} {
-              font-${fontProp}: ${value};
-            }
-          `)
+          &.--${fontProp}-${key} {
+            font-${fontProp}: ${value};
+          }
+        `)
         )
       );
+
       Object.entries(theme.line.height).forEach(([key, value]) =>
         modifiers.push(css`
           &.--line-height-${key} {
@@ -78,6 +99,7 @@ export default styled(Typography)`
           }
         `)
       );
+
       return modifiers;
     }
 
@@ -104,3 +126,10 @@ export default styled(Typography)`
     `;
   }}
 `;
+
+export default nestedComponent(TypographyWrapper, {
+  Caption,
+  Heading,
+  Paragraph,
+  Subtitle
+});
