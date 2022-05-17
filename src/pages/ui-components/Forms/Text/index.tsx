@@ -150,7 +150,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
   }
 );
 
-export default styled(TextField, { label: 'houston-textfield' })(
+export default styled(React.memo(TextField), { label: 'houston-form-text' })(
   ({ theme }) => css`
     & .__wrapperAutoSizer {
       display: grid;
@@ -175,6 +175,7 @@ export default styled(TextField, { label: 'houston-textfield' })(
         outline: none;
         color: ${theme.neutralColor.low.pure};
         border: none;
+        transition: 0.3s;
 
         &::placeholder {
           color: ${theme.neutralColor.low.medium};
@@ -247,6 +248,14 @@ export default styled(TextField, { label: 'houston-textfield' })(
 
       & .__container {
         height: 35px;
+      }
+    }
+
+    & > .__container:hover,
+    &.--focused {
+      & .__input,
+      & .__autoSizer {
+        font-weight: ${theme.font.weight.semibold};
       }
     }
   `
