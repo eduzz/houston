@@ -21,7 +21,6 @@ interface IOwnProperties {
   size?: 'small' | 'normal';
   endAdornment?: React.ReactNode;
   startAdornment?: React.ReactNode;
-  maxLength?: number;
   fullWidth?: boolean;
   helperText?: string;
   multiline?: boolean;
@@ -52,7 +51,6 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
       fullWidth,
       endAdornment,
       startAdornment,
-      maxLength,
       multiline,
       size,
       rows,
@@ -84,16 +82,12 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        let cleanValue = maskClean(e.currentTarget.value);
-
-        if (maxLength) {
-          cleanValue = (cleanValue as string).substring(0, maxLength);
-        }
+        const cleanValue = maskClean(e.currentTarget.value);
 
         onChange && onChange(cleanValue, e);
         setFieldValue && setFieldValue(name, cleanValue);
       },
-      [onChange, maskClean, setFieldValue, name, maxLength]
+      [onChange, maskClean, setFieldValue, name]
     );
 
     const handleFocus = React.useCallback(
