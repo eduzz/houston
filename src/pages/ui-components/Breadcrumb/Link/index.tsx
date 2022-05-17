@@ -61,6 +61,7 @@ export default React.memo(styled(BreadcrumbLink, { label: 'houston-breadcrumb-li
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
         transition: 0.5s background-color;
       }
+
       :focus {
         color: ${theme.neutralColor.low.pure};
         outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};

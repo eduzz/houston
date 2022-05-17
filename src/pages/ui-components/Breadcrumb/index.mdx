@@ -36,15 +36,13 @@ import Breadcrumb from '@eduzz/houston-ui/Breadcrumb';
 <Playground>
   <Breadcrumb separator={<ArrowRight size={16} />}>
     <Breadcrumb.Item>Home</Breadcrumb.Item>
-    <Breadcrumb.Item>
-      <span>Produto</span>
-    </Breadcrumb.Item>
+    <Breadcrumb.Item>Lista de Produtos</Breadcrumb.Item>
     <Breadcrumb.Item>Edição de Produto</Breadcrumb.Item>
     <Breadcrumb.Item isActive>Livro: Mil Maneiras de ficar rico sem sair de casa</Breadcrumb.Item>
   </Breadcrumb>
 </Playground>
 
-### Exemplo com NavLink
+### Exemplo com componentes externos (Link, NavLink, ...).
 
 ```jsx
 import { NavLink } from 'react-router-dom';
@@ -52,9 +50,7 @@ import { NavLink } from 'react-router-dom';
 <Breadcrumb>
   <Breadcrumb.Link as={NavLink} to='/' icon={<HomeIcon />} />
   <Breadcrumb.Link as={NavLink} to='/'>Lista de Produtos</Breadcrumb.Item>
-  <Breadcrumb.Link as={NavLink} to='/'>
-    Produtos
-  </Breadcrumb.Link>
+  <Breadcrumb.Link as={NavLink} to='/'>Produtos</Breadcrumb.Link>
   <Breadcrumb.Item isActive> Livro: O Mistério</Breadcrumb.Item>
 </Breadcrumb>
 ```
@@ -68,11 +64,10 @@ import { NavLink } from 'react-router-dom';
 
 ### Breadcrumb.Item
 
-| prop     | tipo                            | obrigatório | padrão |
-| -------- | ------------------------------- | ----------- | ------ |
-| children | `React.ReactNode`               | `false`     | -      |
-| isActive | `boolean`                       | `false`     | -      |
-| onClick  | `(e: React.MouseEvent) => void` | `false`     | -      |
+| prop     | tipo              | obrigatório | padrão |
+| -------- | ----------------- | ----------- | ------ |
+| children | `React.ReactNode` | `false`     | -      |
+| isActive | `boolean`         | `false`     | -      |
 
 ### Breadcrumb.Link
 
