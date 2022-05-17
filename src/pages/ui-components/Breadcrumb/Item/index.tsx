@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
-import Tooltip from '@eduzz/houston-ui/Tooltip';
 
 import { useBreadcrumb } from '../context';
 
@@ -23,13 +22,7 @@ const BreadcrumbItem = ({ children, className, isActive }: IBreadcrumbItemProps)
   return (
     <li className={cx(className, isActive && '--active')}>
       <span className='__content' {...(isActive && { 'aria-current': 'page' })}>
-        {!!children && typeof children === 'string' && children.length > 32 ? (
-          <Tooltip placement='bottom' title={children}>
-            {children.slice(0, 32) + ' ...'}
-          </Tooltip>
-        ) : (
-          children
-        )}
+        {children}
       </span>
 
       <span role='presentation' className='__separator'>
@@ -47,21 +40,11 @@ export default React.memo(styled(BreadcrumbItem, { label: 'houston-breadcrumb-it
     .__content {
       display: flex;
       align-items: center;
+      padding: ${theme.spacing.inset.xxxs};
     }
 
     &.--active {
       font-weight: ${theme.font.weight.semibold};
-    }
-
-    .__separator {
-      display: flex;
-      align-items: center;
-      margin: 0 ${theme.spacing.inset.xxxs};
-
-      svg {
-        width: ${theme.pxToRem('16px')};
-        fill: ${theme.neutralColor.low.light};
-      }
     }
   `}
 `);

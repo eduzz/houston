@@ -27,14 +27,25 @@ const BreadcrumbWrapper = styled(Breadcrumb, { label: 'houston-breadcrumb' })`
     .__list {
       display: flex;
       align-items: center;
-      font-weight: ${theme.font.weight.regular};
       font-family: ${theme.font.family.base};
-      line-height: ${theme.line.height.default};
+      font-weight: ${theme.font.weight.regular};
       font-size: ${theme.font.size.xxxs};
+      line-height: ${theme.line.height.lg};
       color: ${theme.neutralColor.low.pure};
 
       li:last-child .__separator {
         display: none;
+      }
+
+      .__separator {
+        display: flex;
+        align-items: center;
+        margin: 0 ${theme.spacing.inset.xxxs};
+
+        svg {
+          width: ${theme.pxToRem('16px')};
+          fill: ${theme.neutralColor.low.light};
+        }
       }
     }
   `}
