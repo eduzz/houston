@@ -18,8 +18,11 @@ const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(({ targetRef, child
     ref,
     () => ({
       open() {
-        console.log({ opened: true, target: targetRef.current, content: children });
-        setState({ opened: true, target: targetRef.current, content: children });
+        setState({
+          opened: true,
+          target: targetRef.current,
+          content: children
+        });
       }
     }),
     [children, setState, targetRef]

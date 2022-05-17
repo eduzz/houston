@@ -111,7 +111,7 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
         <Popover {...popoverProps}>Teste 2sdfsdfdsff</Popover>
 
         <Fieldset
-          {...popoverTargetProps}
+          containterRef={popoverTargetProps.ref}
           label={label}
           loading={loading}
           focused={false} //TODO
@@ -122,9 +122,9 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
           helperText={helperText}
           disabled={isSubmitting || disabled}
           className={className}
-          onClickContainer={openPopover}
+          onClickContainer={!disabled && !loading ? openPopover : null}
         >
-          <div className='__text'>teste</div>
+          <div className='__text'>{emptyOption ?? 'Selecione...'}</div>
         </Fieldset>
       </>
     );

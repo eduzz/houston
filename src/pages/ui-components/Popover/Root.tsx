@@ -4,6 +4,7 @@ import { createPopper } from '@popperjs/core';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
+import useOnClickOutside from '../hooks/useClickOutside';
 import PopoverContext, { IPopoverContext, IPopoverContextState } from './context';
 
 export interface IPopoverProps extends IStyledProp {
@@ -28,6 +29,16 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ className, children }) => {
   }, [state]);
 
   const contextValue: IPopoverContext = React.useCallback(state => setState(state), []);
+
+  useOnClickOutside(
+    contentRef,
+    () => {
+      console.log('teste');
+      if (!state.opened) return;
+      setState(state => ({ ...state, opened: false }));
+    },
+    []
+  );
 
   return (
     <PopoverContext.Provider value={contextValue}>

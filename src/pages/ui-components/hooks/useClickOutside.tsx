@@ -4,17 +4,27 @@ type AnyEvent = MouseEvent | TouchEvent;
 
 function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   ref: React.RefObject<T>,
-  handler: (event: AnyEvent) => void
+  handler: (event: AnyEvent) => void,
+  deps: React.DependencyList
 ) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const callback = React.useCallback((event: AnyEvent) => handler(event), deps ?? []);
+
   React.useEffect(() => {
+    console.log('deps');
+    let ignore = false;
+
     const listener = (event: AnyEvent) => {
       const el = ref?.current;
 
-      if (!el || el.contains(event.target as Node)) {
+      if (!el || el.contains(event.target as Node) || ignore) {
         return;
       }
 
-      handler(event);
+      ignore = true;
+      setTimeout(() => (ignore = false), 500);
+
+      callback(event);
     };
 
     document.addEventListener('mousedown', listener);
@@ -26,7 +36,7 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
       document.removeEventListener('touchstart', listener);
       document.removeEventListener('click', listener);
     };
-  }, [ref, handler]);
+  }, [ref, callback]);
 }
 
 export default useOnClickOutside;

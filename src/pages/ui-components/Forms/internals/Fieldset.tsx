@@ -15,6 +15,7 @@ export interface IFieldsetProps extends IStyledProp {
   fullWidth?: boolean;
   errorMessage?: string;
   helperText?: string;
+  containterRef?: React.RefObject<HTMLDivElement>;
 }
 
 interface IInternalFieldsetProps extends IFieldsetProps {
@@ -37,6 +38,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
       helperText,
       disabled,
       children,
+      containterRef,
       onClickContainer
     },
     ref
@@ -57,7 +59,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
         })}
       >
         {!!label && <label className='__label'>{label}</label>}
-        <div className='__container' onClick={onClickContainer}>
+        <div className='__container' ref={containterRef} onClick={onClickContainer}>
           {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
           <div className='__content'>{children}</div>
           {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
@@ -93,10 +95,6 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
 
       &:hover {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-
-        & .__text {
-          font-weight: ${theme.font.weight.semibold};
-        }
       }
 
       & > .__startAdornment,
@@ -153,6 +151,10 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       margin-top: ${theme.spacing.nano};
     }
 
+    &.--clickable:not(.--disabled) > .__container {
+      cursor: pointer;
+    }
+
     &.--disabled {
       opacity: ${theme.opacity.level[6]};
       cursor: not-allowed;
@@ -168,19 +170,11 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       & > .__container {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       }
-
-      & .__text {
-        font-weight: ${theme.font.weight.semibold};
-      }
     }
 
     &.--error > .__container {
       background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
       border-color: ${theme.feedbackColor.negative.pure};
-    }
-
-    &.--clickable > .__container {
-      cursor: pointer;
     }
   `
 );
