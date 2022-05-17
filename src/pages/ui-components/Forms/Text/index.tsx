@@ -184,6 +184,7 @@ export default styled(React.memo(TextField), { label: 'houston-form-text' })(
         outline: none;
         color: ${theme.neutralColor.low.pure};
         border: none;
+        transition: 0.3s;
 
         &::placeholder {
           color: ${theme.neutralColor.low.medium};
@@ -256,6 +257,14 @@ export default styled(React.memo(TextField), { label: 'houston-form-text' })(
 
       & .__container {
         height: 35px;
+      }
+    }
+
+    & > .__container:hover,
+    &.--focused {
+      & .__input,
+      & .__autoSizer {
+        font-weight: ${theme.font.weight.semibold};
       }
     }
   `
