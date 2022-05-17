@@ -46,9 +46,9 @@ const Avatar = ({ src, alt, children, className, color = 'primary', size = 'md',
       className={cx(
         className,
         { '--high': color === 'high' },
-        { '--xsmall': size === 'xs' },
-        { '--small': size === 'sm' },
-        { '--large': size === 'lg' }
+        { '--xs': size === 'xs' },
+        { '--sm': size === 'sm' },
+        { '--lg': size === 'lg' }
       )}
       {...rest}
     >
@@ -91,7 +91,7 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme 
       object-fit: cover;
     }
 
-    &.--xsmall {
+    &.--xs {
       width: ${theme.pxToRem(sizesMap.xs)};
       height: ${theme.pxToRem(sizesMap.xs)};
 
@@ -101,7 +101,7 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme 
       }
     }
 
-    &.--small {
+    &.--sm {
       width: ${theme.pxToRem(sizesMap.sm)};
       height: ${theme.pxToRem(sizesMap.sm)};
 
@@ -111,7 +111,7 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme 
       }
     }
 
-    &.--large {
+    &.--lg {
       width: ${theme.pxToRem(sizesMap.lg)};
       height: ${theme.pxToRem(sizesMap.lg)};
 
