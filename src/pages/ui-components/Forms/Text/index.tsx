@@ -159,7 +159,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
   }
 );
 
-export default styled(TextField, { label: 'houston-textfield' })(
+export default styled(React.memo(TextField), { label: 'houston-form-text' })(
   ({ theme }) => css`
     & .__wrapperAutoSizer {
       display: grid;

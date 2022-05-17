@@ -57,7 +57,7 @@ const Fieldset: React.FC<IFieldsetProps> = ({
   );
 };
 
-export default styled(Fieldset, { label: 'houston-textfield' })(
+export default styled(Fieldset, { label: 'houston-form-fieldset' })(
   ({ theme }) => css`
     border: none;
     position: relative;
@@ -74,7 +74,7 @@ export default styled(Fieldset, { label: 'houston-textfield' })(
       justify-content: center;
       position: relative;
       border: 1px solid ${theme.neutralColor.low.light};
-      border-radius: ${theme.border.radius.sm};
+      border-radius: ${theme.border.radius.xs};
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
       transition: 0.3s;
       height: 48px;
