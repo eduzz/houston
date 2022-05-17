@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-imports */
-
 import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
@@ -9,20 +7,13 @@ import styled, { css, cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
 import { FormFieldsContext } from '../Form';
-import Fieldset from '../internals/Fieldset';
+import Fieldset, { IFieldsetProps } from '../internals/Fieldset';
 
 const ROWS: Array<IOwnProperties['rows']> = [2, 4, 6, 8, 10, 14, 18, 24];
 
-interface IOwnProperties {
-  label?: string;
-  loading?: boolean;
-  errorMessage?: string;
+interface IOwnProperties extends IFieldsetProps {
   mask?: IFormMask;
   size?: 'small' | 'normal';
-  endAdornment?: React.ReactNode;
-  startAdornment?: React.ReactNode;
-  fullWidth?: boolean;
-  helperText?: string;
   multiline?: boolean;
   rows?: 2 | 4 | 6 | 8 | 10 | 14 | 18 | 24;
   disableAutoResize?: boolean;

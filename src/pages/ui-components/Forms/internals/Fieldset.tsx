@@ -15,47 +15,59 @@ export interface IFieldsetProps extends IStyledProp {
   fullWidth?: boolean;
   errorMessage?: string;
   helperText?: string;
+}
+
+interface IInternalFieldsetProps extends IFieldsetProps {
   focused?: boolean;
+  onClickContainer?: () => void;
   children: React.ReactNode;
 }
 
-const Fieldset: React.FC<IFieldsetProps> = ({
-  label,
-  loading,
-  focused,
-  errorMessage,
-  fullWidth,
-  endAdornment,
-  startAdornment,
-  className,
-  helperText,
-  disabled,
-  children
-}) => {
-  helperText = errorMessage || helperText;
-  endAdornment = loading ? <Spinner color='inherit' size={20} /> : endAdornment;
+const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
+  (
+    {
+      label,
+      loading,
+      focused,
+      errorMessage,
+      fullWidth,
+      endAdornment,
+      startAdornment,
+      className,
+      helperText,
+      disabled,
+      children,
+      onClickContainer
+    },
+    ref
+  ) => {
+    helperText = errorMessage || helperText;
+    endAdornment = loading ? <Spinner color='inherit' size={20} /> : endAdornment;
 
-  return (
-    <fieldset
-      className={cx(className, {
-        '--fullWidth': fullWidth,
-        '--error': !!errorMessage,
-        '--disabled': disabled,
-        '--loading': loading,
-        '--focused': focused
-      })}
-    >
-      {!!label && <label className='__label'>{label}</label>}
-      <div className='__container'>
-        {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
-        {children}
-        {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
-      </div>
+    return (
+      <fieldset
+        ref={ref}
+        className={cx(className, {
+          '--fullWidth': fullWidth,
+          '--error': !!errorMessage,
+          '--disabled': disabled,
+          '--loading': loading,
+          '--focused': focused,
+          '--clickable': !!onClickContainer
+        })}
+      >
+        {!!label && <label className='__label'>{label}</label>}
+        <div className='__container' onClick={onClickContainer}>
+          {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
+          <div className='__content'>{children}</div>
+          {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
+        </div>
 
-      {!!helperText && <span className='__message'>{helperText}</span>}
-    </fieldset>
-  );
-};
+        {!!helperText && <span className='__message'>{helperText}</span>}
+      </fieldset>
+    );
+  }
+);
 
 export default styled(Fieldset, { label: 'houston-textfield' })(
   ({ theme }) => css`
@@ -93,6 +105,10 @@ export default styled(Fieldset, { label: 'houston-textfield' })(
         & > svg {
           font-size: 24px;
         }
+      }
+
+      & > .__content {
+        width: 100%;
       }
 
       & > .__startAdornment {
@@ -145,6 +161,10 @@ export default styled(Fieldset, { label: 'houston-textfield' })(
     &.--error > .__container {
       background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
       border-color: ${theme.feedbackColor.negative.pure};
+    }
+
+    &.--clickable > .__container {
+      cursor: pointer;
     }
   `
 );

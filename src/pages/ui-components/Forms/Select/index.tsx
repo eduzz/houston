@@ -1,49 +1,31 @@
 import * as React from 'react';
 
-import Checkbox from '@mui/material/Checkbox';
-import CircularProgress from '@mui/material/CircularProgress';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import ListItemText from '@mui/material/ListItemText';
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent, SelectProps } from '@mui/material/Select';
+import { SelectChangeEvent } from '@mui/material/Select';
 import { useContextSelector } from 'use-context-selector';
 
-import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+import ChevronDown from '@eduzz/houston-icons/ChevronDown';
+import styled from '@eduzz/houston-styles';
 
+import Popover, { IPopoverRef } from '../../Popover';
 import { FormFieldsContext } from '../Form';
+import Fieldset, { IFieldsetProps } from '../internals/Fieldset';
 
-type FieldSelectPropsExtends = 'id' | 'label' | 'name' | 'disabled' | 'type' | 'fullWidth' | 'multiple' | 'className';
-
-export interface ISelectFieldProps extends Pick<SelectProps, FieldSelectPropsExtends> {
-  loading?: boolean;
-  helperText?: string;
-  errorMessage?: string;
+interface IOwnProperties extends Omit<IFieldsetProps, 'focused' | 'endAdornment'> {
   options?: ISelectFieldOption[];
   emptyOption?: string;
   maxLabelItems?: number;
-  value?: any;
-  onChange?: (value: any, event: SelectChangeEvent<{ name?: string; value: any }>) => any;
-  margin?: 'none' | 'dense' | 'normal';
-  size?: 'normal' | 'small';
 }
+
+export interface ISelectFieldProps
+  extends IOwnProperties,
+    Omit<React.SelectHTMLAttributes<HTMLSelectElement>, keyof IOwnProperties>,
+    React.RefAttributes<HTMLSelectElement> {}
 
 export interface ISelectFieldOption {
   value: string | number;
   label: string;
   disabled?: boolean;
 }
-
-const useStyles = createUseStyles(() => ({
-  endAdornment: {
-    background: 'white',
-    position: 'relative',
-    zIndex: 1,
-    right: -2
-  }
-}));
 
 const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelectFieldProps>(
   (
@@ -53,19 +35,21 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
       name,
       loading,
       onChange,
+      disabled,
       maxLabelItems,
+      startAdornment,
       errorMessage: errorMessageProp,
       fullWidth,
       options,
       emptyOption,
       helperText,
-      margin,
-      size,
+      className,
       ...props
     },
     ref
   ) => {
-    const classes = useStyles();
+    const fieldsetRef = React.useRef<HTMLFieldSetElement>();
+    const popoverRef = React.useRef<IPopoverRef>();
 
     const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
     const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
@@ -76,17 +60,17 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
       throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
     }
 
-    const endAdornment = React.useMemo(
-      () =>
-        !loading ? null : (
-          <InputAdornment position='end'>
-            <div className={classes.endAdornment}>
-              <CircularProgress color='secondary' size={20} />
-            </div>
-          </InputAdornment>
-        ),
-      [loading, classes.endAdornment]
-    );
+    // const endAdornment = React.useMemo(
+    //   () =>
+    //     !loading ? null : (
+    //       <InputAdornment position='end'>
+    //         <div className={classes.endAdornment}>
+    //           <CircularProgress color='secondary' size={20} />
+    //         </div>
+    //       </InputAdornment>
+    //     ),
+    //   [loading, classes.endAdornment]
+    // );
 
     const renderValue = React.useCallback(
       selected => {
@@ -121,18 +105,33 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
     const errorMessage = errorMessageProp ?? formError;
     const hasError = !!errorMessage;
 
-    const styles = React.useMemo(() => ({ select: size === 'small' ? 'input-size-small' : '' }), [size]);
+    const handleClick = React.useCallback(() => {
+      console.log({ popoverRef });
+      popoverRef.current.open();
+    }, []);
 
     return (
-      <FormControl margin={margin ?? 'normal'} fullWidth={fullWidth ?? true} error={!!errorMessage} variant='outlined'>
-        {!!label && <InputLabel error={!!errorMessage}>{label}</InputLabel>}
-        {!!label && (
-          <InputLabel disabled={props.disabled || loading} error={!!errorMessage}>
-            {label}
-          </InputLabel>
-        )}
+      <>
+        <Popover ref={popoverRef} targetRef={fieldsetRef}>
+          Teste 2
+        </Popover>
 
-        <Select
+        <Fieldset
+          ref={fieldsetRef}
+          label={label}
+          loading={loading}
+          focused={false} //TODO
+          errorMessage={errorMessage || formError}
+          fullWidth={fullWidth}
+          endAdornment={<ChevronDown />}
+          startAdornment={startAdornment}
+          helperText={helperText}
+          disabled={isSubmitting || disabled}
+          className={className}
+          onClickContainer={handleClick}
+        >
+          <div />
+          {/* <select
           error={hasError}
           {...props}
           classes={{ ...styles }}
@@ -153,21 +152,16 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
           )}
 
           {(options || []).map(option => (
-            <MenuItem disabled={option.disabled} key={`option-value-${option.value}`} value={option.value}>
+            <option disabled={option.disabled} key={`option-value-${option.value}`} value={option.value}>
               {props.multiple && <Checkbox checked={value?.includes(option.value)} />}
               <ListItemText primary={option.label} />
-            </MenuItem>
+            </option>
           ))}
-        </Select>
-
-        {!!(errorMessage || helperText) && (
-          <FormHelperText error={!!errorMessage} variant='outlined'>
-            {errorMessage || helperText}
-          </FormHelperText>
-        )}
-      </FormControl>
+        </select> */}
+        </Fieldset>
+      </>
     );
   }
 );
 
-export default React.memo(SelectField);
+export default styled(SelectField, { label: 'houston-selectfield' })``;
