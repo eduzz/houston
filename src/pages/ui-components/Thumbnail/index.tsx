@@ -12,11 +12,14 @@ export interface IThumbnailProps extends React.ImgHTMLAttributes<HTMLImageElemen
    */
   size?: ThumbnailSizes;
   src: string;
+  /**
+   * Default `cover`
+   */
   fit?: ThumbnailFits;
 }
 
 const Thumbnail = React.forwardRef<HTMLImageElement, IThumbnailProps>(
-  ({ fallbackSrc, src: srcProp, size = 'md', className, fit, ...props }, ref) => {
+  ({ fallbackSrc, src: srcProp, size = 'md', className, fit = 'cover', ...props }, ref) => {
     const [src, setSrc] = React.useState(fallbackSrc || srcProp);
 
     React.useEffect(() => {
@@ -34,7 +37,7 @@ const Thumbnail = React.forwardRef<HTMLImageElement, IThumbnailProps>(
           '--large': size === 'lg',
           '--medium': size === 'md',
           '--small': size === 'sm',
-          [`--${fit}`]: !!fit
+          [`--fit-${fit}`]: !!fit
         })}
         src={src}
         {...props}
