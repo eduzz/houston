@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import styled, { css, cx } from '@eduzz/houston-styles';
+import styled, { css } from '@eduzz/houston-styles';
 
 import { useBreadcrumb } from '../context';
+import LongTextToolTip from '../internals/LongTextToolTip';
 
 type BreadcrumbLinkProps = {
   /**
@@ -32,10 +33,10 @@ const BreadcrumbLink = ({ as: Tag = 'a', icon, children, className, ...rest }: B
   const { separator } = useBreadcrumb();
 
   return (
-    <li className={cx(className)}>
+    <li className={className}>
       <Tag {...rest} className='__tag'>
         {!!icon && <span className='__icon'>{icon}</span>}
-        <>{!!children && <span className='__text'>{children}</span>}</>
+        <LongTextToolTip>{children}</LongTextToolTip>
       </Tag>
       <span role='presentation' className='__separator'>
         {separator ?? <SeparatorIcon />}

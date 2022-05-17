@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import { useBreadcrumb } from '../context';
+import LongTextToolTip from '../internals/LongTextToolTip';
 
 export interface IBreadcrumbItemProps extends IStyledProp {
   isActive?: boolean;
@@ -22,9 +23,8 @@ const BreadcrumbItem = ({ children, className, isActive }: IBreadcrumbItemProps)
   return (
     <li className={cx(className, isActive && '--active')}>
       <span className='__content' {...(isActive && { 'aria-current': 'page' })}>
-        {children}
+        <LongTextToolTip>{children}</LongTextToolTip>
       </span>
-
       <span role='presentation' className='__separator'>
         {separator ?? <SeparatorIcon />}
       </span>
