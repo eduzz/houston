@@ -147,6 +147,8 @@ export type Font = {
  */
 export type PxToRem = (value: string, rate?: number) => string;
 
+export type HexToRgba = (hexColor: string, opacity?: number) => string;
+
 export type Line = {
   height: {
     default: '100%';
@@ -305,4 +307,5 @@ export type HoustonTokens = {
   brandColor: BrandColor;
   breakpoints: Breakpoints & BreakpointsUtils;
   pxToRem: PxToRem;
+  hexToRgba: HexToRgba;
 };
