@@ -24,33 +24,40 @@ import Breadcrumb from '@eduzz/houston-ui/Breadcrumb';
 
 <Playground>
   <Breadcrumb>
-    <Breadcrumb.Item>
-      <Breadcrumb.Link href='' icon={<HomeOutline />} />
-    </Breadcrumb.Item>
-    <Breadcrumb.Item>
-      <Breadcrumb.Link href=''>Lista de Produtos</Breadcrumb.Link>
-    </Breadcrumb.Item>
-    <Breadcrumb.Item>
-      <Breadcrumb.Link href=''>Produto</Breadcrumb.Link>
-    </Breadcrumb.Item>
+    <Breadcrumb.Link href='' icon={<HomeOutline />} />
+    <Breadcrumb.Link href=''>Lista de Produtos</Breadcrumb.Link>
+    <Breadcrumb.Link href=''>Produto</Breadcrumb.Link>
     <Breadcrumb.Item isActive>Edição de Produto</Breadcrumb.Item>
   </Breadcrumb>
 </Playground>
 
-### Separador customizado
+### Separador customizado e sem links
 
 <Playground>
   <Breadcrumb separator={<ArrowRight size={16} />}>
-    <Breadcrumb.Item>
-      <Breadcrumb.Link href='' icon={<HomeOutline />} />
-    </Breadcrumb.Item>
     <Breadcrumb.Item>Home</Breadcrumb.Item>
     <Breadcrumb.Item>
-      <span>Lista de Produtos</span>
+      <span>Produto</span>
     </Breadcrumb.Item>
+    <Breadcrumb.Item>Edição de Produto</Breadcrumb.Item>
     <Breadcrumb.Item isActive>Livro: Mil Maneiras de ficar rico sem sair de casa</Breadcrumb.Item>
   </Breadcrumb>
 </Playground>
+
+### Exemplo com NavLink
+
+```jsx
+import { NavLink } from 'react-router-dom';
+
+<Breadcrumb>
+  <Breadcrumb.Link as={NavLink} to='/' icon={<HomeIcon />} />
+  <Breadcrumb.Link as={NavLink} to='/'>Lista de Produtos</Breadcrumb.Item>
+  <Breadcrumb.Link as={NavLink} to='/'>
+    Produtos
+  </Breadcrumb.Link>
+  <Breadcrumb.Item isActive> Livro: O Mistério</Breadcrumb.Item>
+</Breadcrumb>
+```
 
 ### Breadcrumb
 
