@@ -259,13 +259,5 @@ export default styled(React.memo(TextField), { label: 'houston-form-text' })(
         height: 35px;
       }
     }
-
-    & > .__container:hover,
-    &.--focused {
-      & .__input,
-      & .__autoSizer {
-        font-weight: ${theme.font.weight.semibold};
-      }
-    }
   `
 );
