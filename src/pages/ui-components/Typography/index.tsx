@@ -1,9 +1,7 @@
 import * as React from 'react';
 
-import styled, { css, IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles/styled';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
-
-import getColorFallback from '../utils/getColorFallback';
 
 export type TypographyColors = 'low' | 'high' | 'primary';
 
@@ -27,9 +25,33 @@ export interface ITypographyProps extends IStyledProp {
 }
 
 const Typography = React.forwardRef<any, ITypographyProps>(
-  ({ as: Tag = 'p', children, color = 'low', ...props }, ref) => {
+  (
+    {
+      as: Tag = 'p',
+      children,
+      size = 'xs',
+      weight = 'regular',
+      lineHeight = 'md',
+      marginBottom,
+      color = 'low',
+      className,
+      ...props
+    },
+    ref
+  ) => {
     return (
-      <Tag ref={ref} color={color} {...props}>
+      <Tag
+        ref={ref}
+        className={cx(
+          className,
+          `--size-${size}`,
+          `--weight-${weight}`,
+          `--line-height-${lineHeight}`,
+          `--color-${color}`,
+          !!marginBottom && '--margin-bottom'
+        )}
+        {...props}
+      >
         {children}
       </Tag>
     );
@@ -37,13 +59,48 @@ const Typography = React.forwardRef<any, ITypographyProps>(
 );
 
 export default styled(Typography)`
-  ${({ theme, size = 'xs', weight = 'regular', lineHeight = 'md', marginBottom, color = 'low' }) =>
-    css`
+  ${({ theme }) => {
+    function mountFontModifiers(theme: HoustonTokens) {
+      const modifiers: any[] = [];
+      (['size', 'weight'] as const).forEach(fontProp =>
+        Object.entries(theme.font[fontProp]).forEach(([key, value]) =>
+          modifiers.push(css`
+            &.--${fontProp}-${key} {
+              font-${fontProp}: ${value};
+            }
+          `)
+        )
+      );
+      Object.entries(theme.line.height).forEach(([key, value]) =>
+        modifiers.push(css`
+          &.--line-height-${key} {
+            line-height: ${value};
+          }
+        `)
+      );
+      return modifiers;
+    }
+
+    return css`
       margin: 0;
-      font-size: ${theme.font.size[size]};
-      font-weight: ${theme.font.weight[weight]};
-      line-height: ${theme.line.height[lineHeight]};
-      margin-bottom: ${marginBottom ? theme.spacing.nano : null};
-      color: ${getColorFallback(theme, color).pure};
-    `}
+
+      ${mountFontModifiers(theme)}
+
+      &.--color-high {
+        color: ${theme.neutralColor.high.pure};
+      }
+
+      &.--color-low {
+        color: ${theme.neutralColor.low.pure};
+      }
+
+      &.--color-primary {
+        color: ${theme.brandColor.primary.pure};
+      }
+
+      &.--margin-bottom {
+        margin-bottom: ${theme.spacing.nano};
+      }
+    `;
+  }}
 `;

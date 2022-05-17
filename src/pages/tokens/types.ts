@@ -289,12 +289,10 @@ export type Breakpoints = {
   lg: '992px';
   xlg: '1400px';
 };
-
 export type BreakpointsUtils = {
   down(key: keyof Breakpoints): string;
   up(key: keyof Breakpoints): string;
 };
-
 export type HoustonTokens = {
   spacing: Spacing;
   border: Border;
