@@ -4,9 +4,10 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { useContextSelector } from 'use-context-selector';
 
 import ChevronDown from '@eduzz/houston-icons/ChevronDown';
-import styled from '@eduzz/houston-styles';
+import styled, { css } from '@eduzz/houston-styles';
 
-import Popover, { IPopoverRef } from '../../Popover';
+import Popover from '../../Popover';
+import usePopover from '../../Popover/usePopover';
 import { FormFieldsContext } from '../Form';
 import Fieldset, { IFieldsetProps } from '../internals/Fieldset';
 
@@ -14,6 +15,7 @@ interface IOwnProperties extends Omit<IFieldsetProps, 'focused' | 'endAdornment'
   options?: ISelectFieldOption[];
   emptyOption?: string;
   maxLabelItems?: number;
+  onChange?: (value: any, event: React.ChangeEvent<HTMLInputElement>) => any;
 }
 
 export interface ISelectFieldProps
@@ -48,8 +50,7 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
     },
     ref
   ) => {
-    const fieldsetRef = React.useRef<HTMLFieldSetElement>();
-    const popoverRef = React.useRef<IPopoverRef>();
+    const { openPopover, popoverTargetProps, popoverProps } = usePopover();
 
     const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
     const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
@@ -105,19 +106,12 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
     const errorMessage = errorMessageProp ?? formError;
     const hasError = !!errorMessage;
 
-    const handleClick = React.useCallback(() => {
-      console.log({ popoverRef });
-      popoverRef.current.open();
-    }, []);
-
     return (
       <>
-        <Popover ref={popoverRef} targetRef={fieldsetRef}>
-          Teste 2
-        </Popover>
+        <Popover {...popoverProps}>Teste 2sdfsdfdsff</Popover>
 
         <Fieldset
-          ref={fieldsetRef}
+          {...popoverTargetProps}
           label={label}
           loading={loading}
           focused={false} //TODO
@@ -128,40 +122,13 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
           helperText={helperText}
           disabled={isSubmitting || disabled}
           className={className}
-          onClickContainer={handleClick}
+          onClickContainer={openPopover}
         >
-          <div />
-          {/* <select
-          error={hasError}
-          {...props}
-          classes={{ ...styles }}
-          inputRef={ref}
-          disabled={isSubmitting || props.disabled || loading}
-          name={name}
-          value={value ?? (props.multiple ? [] : '')}
-          onChange={handleChange}
-          fullWidth={fullWidth ?? true}
-          label={label}
-          endAdornment={endAdornment}
-          renderValue={renderValue}
-        >
-          {emptyOption && (
-            <MenuItem disabled value={''}>
-              {emptyOption}
-            </MenuItem>
-          )}
-
-          {(options || []).map(option => (
-            <option disabled={option.disabled} key={`option-value-${option.value}`} value={option.value}>
-              {props.multiple && <Checkbox checked={value?.includes(option.value)} />}
-              <ListItemText primary={option.label} />
-            </option>
-          ))}
-        </select> */}
+          <div className='__text'>teste</div>
         </Fieldset>
       </>
     );
   }
 );
 
-export default styled(SelectField, { label: 'houston-selectfield' })``;
+export default styled(SelectField, { label: 'houston-selectfield' })(({ theme }) => css``);

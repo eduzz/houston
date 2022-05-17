@@ -130,13 +130,13 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
         })}
       >
         <div className='__wrapperAutoSizer'>
-          {!!multiline && !disableAutoResize && <div className='__autoSizer'>{value + ' '}</div>}
+          {!!multiline && !disableAutoResize && <div className='__autoSizer __text'>{value + ' '}</div>}
           {React.createElement(multiline ? 'textarea' : 'input', {
             ref,
             ...props,
             name,
             disabled: isDisabled,
-            className: '__input',
+            className: '__input __text',
             value: maskedValue ?? '',
             readOnly: readOnly ?? loading,
             onChange: handleChange,
@@ -180,15 +180,6 @@ export default styled(React.memo(TextField), { label: 'houston-form-text' })(
         &::placeholder {
           color: ${theme.neutralColor.low.medium};
         }
-      }
-
-      & .__autoSizer,
-      & .__input {
-        padding: ${theme.spacing.squish.xxs};
-        font-size: ${theme.font.size.xs};
-        font-family: ${theme.font.family.base};
-        font-weight: ${theme.font.weight.regular};
-        line-height: ${theme.line.height.sm};
       }
     }
 
@@ -248,14 +239,6 @@ export default styled(React.memo(TextField), { label: 'houston-form-text' })(
 
       & .__container {
         height: 35px;
-      }
-    }
-
-    & > .__container:hover,
-    &.--focused {
-      & .__input,
-      & .__autoSizer {
-        font-weight: ${theme.font.weight.semibold};
       }
     }
   `

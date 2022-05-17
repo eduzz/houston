@@ -93,6 +93,10 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
 
       &:hover {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+
+        & .__text {
+          font-weight: ${theme.font.weight.semibold};
+        }
       }
 
       & > .__startAdornment,
@@ -117,6 +121,14 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
 
       & > .__endAdornment {
         margin-right: ${theme.spacing.xxxs};
+      }
+
+      & .__text {
+        padding: ${theme.spacing.squish.xxs};
+        font-size: ${theme.font.size.xs};
+        font-family: ${theme.font.family.base};
+        font-weight: ${theme.font.weight.regular};
+        line-height: ${theme.line.height.sm};
       }
     }
 
@@ -155,6 +167,10 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
 
       & > .__container {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+      }
+
+      & .__text {
+        font-weight: ${theme.font.weight.semibold};
       }
     }
 
