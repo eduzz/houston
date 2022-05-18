@@ -1,4 +1,4 @@
-import { Shadow } from '../types';
+import type { Shadow } from '../types';
 
 export const shadow: Shadow = {
   level: {
