@@ -153,6 +153,7 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
 
     &.--clickable:not(.--disabled) > .__container {
       cursor: pointer;
+      user-select: none;
     }
 
     &.--disabled {

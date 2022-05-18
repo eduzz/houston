@@ -108,7 +108,11 @@ const SelectField = React.forwardRef<React.LegacyRef<HTMLSelectElement>, ISelect
 
     return (
       <>
-        <Popover {...popoverProps}>Teste 2sdfsdfdsff</Popover>
+        <Popover {...popoverProps}>
+          <p>Teste 2sdfsdfdsff</p>
+          <p>Teste 2sdfsdfdsff</p>
+          <p>Teste 2sdfsdfdsff</p>
+        </Popover>
 
         <Fieldset
           containterRef={popoverTargetProps.ref}
