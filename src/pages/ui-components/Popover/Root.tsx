@@ -91,9 +91,15 @@ export default styled(PopoverRoot, { label: 'houston-popover' })(
     max-width: 100vw;
     z-index: 1000;
     pointer-events: none;
+    position: absolute;
+    top: calc(100vh * -1000);
+    left: calc(100vh * -1000);
 
     & > .__container {
       width: 100%;
+      max-height: 50vh;
+      overflow-y: auto;
+      overflow-x: hidden;
       background-color: white;
       box-shadow: ${theme.shadow.level[1]};
       border-radius: ${theme.border.radius.xs};
