@@ -43,7 +43,7 @@ const BreadcrumbWrapper = styled(Breadcrumb, { label: 'houston-breadcrumb' })`
         margin: 0 ${theme.spacing.inset.xxxs};
 
         svg {
-          width: ${theme.pxToRem('16px')};
+          width: ${theme.pxToRem(16)};
           fill: ${theme.neutralColor.low.light};
         }
       }
