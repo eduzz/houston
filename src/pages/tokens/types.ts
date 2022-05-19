@@ -298,12 +298,12 @@ export type HoustonTokens = {
    * A helper function to convert pixel into rem
    * @param {number} rate - Rem to pixel rate with default value to 16
    */
-  pxToRem: (value: number, rate?: number) => string;
+  pxToRem: (value: number, rate?: number) => number;
   /**
    * A helper function to convert rem into pixel
    * @param {number} rate - Rem to pixel rate with default value to 16
    */
-  remToPx: (value: number, rate?: number) => string;
+  remToPx: (value: number, rate?: number) => number;
   /**
    * A helper function to convert hex colors into rgba
    * @param {number} opacity - Default value to 1

@@ -8,19 +8,17 @@ function cleanUnit(value: string) {
 
 export default function typography(theme: IHoustonTheme): TypographyOptions {
   const fontInPx = theme.remToPx(cleanUnit(theme.font.size.xs));
-  const cleanPx = cleanUnit(fontInPx);
   return {
     fontFamily: theme.font.family.base,
-    fontSize: cleanPx,
+    fontSize: fontInPx,
     body1: {
       fontFamily: theme.font.family.base,
-      fontSize: cleanPx,
+      fontSize: fontInPx,
       fontWeight: theme.font.weight.regular
     },
-
     body2: {
       fontFamily: theme.font.family.base,
-      fontSize: cleanPx,
+      fontSize: fontInPx,
       fontWeight: theme.font.weight.regular
     },
     button: {

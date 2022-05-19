@@ -1,13 +1,17 @@
-export function pxToRem(value: number, rate = 16) {
-  return `${value / rate}rem`;
+const PIXELS_IN_ONE_REM = 16;
+
+export function pxToRem(value: number, rate = PIXELS_IN_ONE_REM) {
+  return value / rate;
 }
 
-export function remToPx(value: number, rate = 16) {
-  return `${value * rate}px`;
+export function remToPx(value: number, rate = PIXELS_IN_ONE_REM) {
+  return value * rate;
 }
+
+const HEXADECIMAL_BASE = 16;
 
 export function decimalToHexadecimal(value: string) {
-  return parseInt(value, 16);
+  return parseInt(value, HEXADECIMAL_BASE);
 }
 
 export function hexToRgba(hexColor: string, opacity = 1) {

@@ -19,23 +19,23 @@ export default styled(Thumbnail, { label: 'houston-thumbnail' })`
     border-radius: ${theme.border.radius.xs};
 
     &.--xl {
-      width: ${theme.pxToRem(80)};
-      height: ${theme.pxToRem(80)};
+      width: ${theme.pxToRem(80)}px;
+      height: ${theme.pxToRem(80)}px;
     }
 
     &.--lg {
-      width: ${theme.pxToRem(64)};
-      height: ${theme.pxToRem(64)};
+      width: ${theme.pxToRem(64)}px;
+      height: ${theme.pxToRem(64)}px;
     }
 
     &.--md {
-      width: ${theme.pxToRem(40)};
-      height: ${theme.pxToRem(40)};
+      width: ${theme.pxToRem(40)}px;
+      height: ${theme.pxToRem(40)}px;
     }
 
     &.--sm {
-      width: ${theme.pxToRem(24)};
-      height: ${theme.pxToRem(24)};
+      width: ${theme.pxToRem(24)}px;
+      height: ${theme.pxToRem(24)}px;
     }
   `}
 `;

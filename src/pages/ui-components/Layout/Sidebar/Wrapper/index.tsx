@@ -51,8 +51,8 @@ const SidebarWrapper: React.FC<ISidebarWrapperProps> = ({ className, children, .
 
 export default styled(SidebarWrapper, { label: 'houston-sidebar-wrapper' })`
   ${({ theme }) => {
-    const SIDEBAR_WIDTH_IN_REM = theme.pxToRem(SIDEBAR_WIDTH);
-    const SIDEBAR_WIDTH_COLLAPSED_IN_REM = theme.pxToRem(SIDEBAR_WIDTH_COLLAPSED);
+    const SIDEBAR_WIDTH_IN_REM = `${theme.pxToRem(SIDEBAR_WIDTH)}rem`;
+    const SIDEBAR_WIDTH_COLLAPSED_IN_REM = `${theme.pxToRem(SIDEBAR_WIDTH_COLLAPSED)}rem`;
 
     return css`
       width: ${SIDEBAR_WIDTH_IN_REM};
@@ -100,7 +100,7 @@ export default styled(SidebarWrapper, { label: 'houston-sidebar-wrapper' })`
       &.--has-toolbar {
         & > .__sidebar,
         & > .__overlay {
-          top: ${theme.pxToRem(TOOLBAR_HEIGHT)};
+          top: ${theme.pxToRem(TOOLBAR_HEIGHT)}rem;
         }
       }
 
