@@ -29,7 +29,7 @@ export interface ISubtitleProps extends IStyledProp {
    */
   as?: SubtitleTags;
   /**
-   * Defaults to 'low'
+   * Defaults to 'neutralColor.low.pure'
    */
   color?: SubtitleColors;
   ['aria-label']?: string;
