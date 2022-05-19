@@ -20,6 +20,7 @@ const SidebarWrapper: React.FC<ISidebarWrapperProps> = ({ className, children, .
   const hasToolbar = useContextSelector(SidebarContext, context => context.hasToolbar);
   const collapsible = useContextSelector(SidebarContext, context => context.collapsible);
   const collapsed = useContextSelector(SidebarContext, context => context.collapsed);
+  const inside = useContextSelector(SidebarContext, context => context.insideComponent);
 
   const setInsideComponentTrue = useContextSelector(SidebarContext, context => context.setInsideComponentTrue);
   const setInsideComponentFalse = useContextSelector(SidebarContext, context => context.setInsideComponentFalse);
@@ -29,7 +30,8 @@ const SidebarWrapper: React.FC<ISidebarWrapperProps> = ({ className, children, .
       className={cx(className, {
         '--visible': visible,
         '--has-toolbar': hasToolbar,
-        '--collapsed': collapsed
+        '--collapsed': collapsed,
+        '--expanded': inside
       })}
     >
       <aside
@@ -52,8 +54,8 @@ const SidebarWrapper: React.FC<ISidebarWrapperProps> = ({ className, children, .
 
 export default styled(SidebarWrapper, { label: 'houston-sidebar-wrapper' })`
   width: ${SIDEBAR_WIDTH}px;
-  transition: 0.2s linear;
   height: auto;
+  position: relative;
 
   & > .__sidebar {
     background: #fff;
@@ -61,7 +63,7 @@ export default styled(SidebarWrapper, { label: 'houston-sidebar-wrapper' })`
     flex-direction: column;
     width: ${SIDEBAR_WIDTH}px;
     border-right: 1px solid #e0e0e0;
-    transition: 0.2s linear, top 0s;
+    transition: 0.2s ease-out, top 0s;
     z-index: 104;
     flex-grow: 1;
     position: fixed;
@@ -69,10 +71,6 @@ export default styled(SidebarWrapper, { label: 'houston-sidebar-wrapper' })`
     left: 0;
     top: 0;
     animation-delay: 0.3s;
-
-    &:hover .__houston-sidebar-collapse {
-      opacity: 1;
-    }
 
     a {
       text-decoration: none;
@@ -87,7 +85,6 @@ export default styled(SidebarWrapper, { label: 'houston-sidebar-wrapper' })`
     bottom: 0;
     background: rgba(0, 0, 0, 0.4);
     z-index: -1;
-    transition: 0.1s linear, top 0s;
     opacity: 0;
     visibility: hidden;
     user-select: none;
@@ -109,10 +106,12 @@ export default styled(SidebarWrapper, { label: 'houston-sidebar-wrapper' })`
       ${({ theme }) => theme.breakpoints.down('md')} {
         width: ${SIDEBAR_WIDTH}px;
       }
+    }
+  }
 
-      &:hover {
-        width: ${SIDEBAR_WIDTH}px;
-      }
+  &.--expanded > .__sidebar {
+      width: ${SIDEBAR_WIDTH}px;
+      transition: 0.3s 0.3s ease-in;
     }
   }
 

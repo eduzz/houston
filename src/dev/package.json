@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@eduzz/apps-toolbar-react": "1.1.17",
+    "@eduzz/apps-toolbar-react": "latest",
     "@eduzz/houston-experimental": "*",
     "@eduzz/houston-forms": "*",
     "@eduzz/houston-hooks": "*",
