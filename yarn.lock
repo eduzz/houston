@@ -2032,12 +2032,13 @@
   dependencies:
     "@date-io/core" "^2.13.1"
 
-"@eduzz/apps-toolbar-react@1.1.17":
-  version "1.1.17"
-  resolved "https://registry.yarnpkg.com/@eduzz/apps-toolbar-react/-/apps-toolbar-react-1.1.17.tgz#6d9757f31e0c81433bccb2ad23bfb76fdde89d1f"
-  integrity sha512-OnCFwvp5DMqNeQe1LsdSBjcqZeUzviv236p/NKOvIbOPBuSggAYPmePikuwNlvW9Ox9RQXACKtH9dvK6Ofy1SA==
+"@eduzz/apps-toolbar-react@latest":
+  version "1.1.26"
+  resolved "https://registry.yarnpkg.com/@eduzz/apps-toolbar-react/-/apps-toolbar-react-1.1.26.tgz#192f8845540ec0a9494b4202c0b3fda0a05d8f52"
+  integrity sha512-f9SQU5YgwMy8Pec3AcIUGMwSd5HV4V+azZ+GWIPNcrY3C9UipB75CdY2jVClPxiOfFk6F2Yf/9WmgWMlCmZGhw==
   dependencies:
     "@eduzz/houston-icons" "^0.42.3"
+    "@emotion/css" "^11.9.0"
     "@emotion/react" "^11"
     "@emotion/styled" "^11"
     react "^17"
@@ -2093,7 +2094,7 @@
     "@emotion/weak-memoize" "^0.2.5"
     stylis "4.0.13"
 
-"@emotion/css@^11":
+"@emotion/css@^11", "@emotion/css@^11.9.0":
   version "11.9.0"
   resolved "https://registry.yarnpkg.com/@emotion/css/-/css-11.9.0.tgz#d5aeaca5ed19fc61cbdc9e032ad0b32fa6e366be"
   integrity sha512-S9UjCxSrxEHawOLnWw4upTwfYKb0gVQdatHejn3W9kPyXxmKv3HmjVfJ84kDLmdX8jR20OuDQwaJ4Um24qD9vA==
