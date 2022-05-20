@@ -9,16 +9,13 @@ import Heading from './Heading';
 import Paragraph from './Paragraph';
 import Subtitle from './Subtitle';
 
-export type TypographyColors =
-  | 'primary'
-  | 'neutralColor.low.pure'
-  | 'neutralColor.low.light'
-  | 'neutralColor.low.medium'
-  | 'neutralColor.low.dark'
-  | 'neutralColor.high.pure'
-  | 'neutralColor.high.light'
-  | 'neutralColor.high.medium'
-  | 'neutralColor.high.dark';
+type MountColorVariants<Obj, K extends keyof Obj & string = keyof Obj & string> = `${K}${Obj[K] extends object
+  ? `.${MountColorVariants<Obj[K]>}`
+  : ''}`;
+
+type NeutralColor = Pick<HoustonTokens, 'neutralColor'>;
+
+export type TypographyColors = 'primary' | MountColorVariants<NeutralColor>;
 
 export type TypographyTags =
   | 'h1'
