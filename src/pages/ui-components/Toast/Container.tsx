@@ -15,14 +15,11 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
 
         .Toastify__toast {
           border-radius: 4px;
-          margin-bottom: 16px;
-          padding: 8px 16px;
         }
 
         .Toastify__toast-body {
           font-family: ${theme?.font?.family ?? 'Open Sans'};
           font-weight: 600;
-          padding-right: 8px;
           line-height: 1.45;
         }
 
@@ -42,8 +39,8 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
         {...props}
         transition={Slide}
         position='top-right'
-        autoClose={4000}
-        hideProgressBar={false}
+        autoClose={300000}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -52,6 +49,7 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
         pauseOnHover
         icon={false}
         limit={4}
+        closeButton={false}
       />
     </>
   );

@@ -4,8 +4,6 @@ const styles = `
   z-index: 9999;
   -webkit-transform: translate3d(0, 0, 9999px);
   position: fixed;
-  padding: 4px;
-  width: 320px;
   box-sizing: border-box;
   color: #fff;
 }
@@ -58,10 +56,8 @@ const styles = `
 }
 .Toastify__toast {
   position: relative;
-  min-height: 64px;
+  min-height: 10px;
   box-sizing: border-box;
-  margin-bottom: 1rem;
-  padding: 8px;
   border-radius: 4px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 15px 0 rgba(0, 0, 0, 0.05);
   display: -ms-flexbox;
@@ -101,7 +97,6 @@ const styles = `
   margin: auto 0;
   -ms-flex: 1 1 auto;
       flex: 1 1 auto;
-  padding: 8px 4px 10px !important;
 }
 
 .Toastify--animate {
