@@ -9,7 +9,13 @@ import Heading from './Heading';
 import Paragraph from './Paragraph';
 import Subtitle from './Subtitle';
 
-export type TypographyColors = 'low' | 'high' | 'primary';
+type MountColorVariants<Obj, K extends keyof Obj & string = keyof Obj & string> = `${K}${Obj[K] extends object
+  ? `.${MountColorVariants<Obj[K]>}`
+  : ''}`;
+
+type NeutralColor = Pick<HoustonTokens, 'neutralColor'>;
+
+export type TypographyColors = 'primary' | MountColorVariants<NeutralColor>;
 
 export type TypographyTags =
   | 'h1'
@@ -33,7 +39,7 @@ export interface ITypographyProps extends IStyledProp {
   children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
   /**
-   * Defaults to 'low'
+   * Defaults to 'neutralColor.low.pure'
    */
   color?: TypographyColors;
   /**
@@ -52,12 +58,14 @@ const Typography = React.forwardRef<any, ITypographyProps>(
       weight = 'regular',
       lineHeight = 'md',
       marginBottom,
-      color = 'low',
+      color = 'neutralColor.low.pure',
       className,
       ...props
     },
     ref
   ) => {
+    const currentColor = color.replace(/[.]/g, '-');
+
     return (
       <Tag
         ref={ref}
@@ -66,7 +74,7 @@ const Typography = React.forwardRef<any, ITypographyProps>(
           `--size-${size}`,
           `--weight-${weight}`,
           `--line-height-${lineHeight}`,
-          `--color-${color}`,
+          `--color-${currentColor}`,
           !!marginBottom && '--margin-bottom'
         )}
         {...props}
@@ -100,6 +108,16 @@ const TypographyWrapper = styled(Typography)`
         `)
       );
 
+      (['low', 'high'] as const).forEach(colorProp =>
+        Object.entries(theme.neutralColor[colorProp]).forEach(([key, value]) =>
+          modifiers.push(css`
+            &.--color-neutralColor-${colorProp}-${key} {
+              color: ${value};
+            }
+          `)
+        )
+      );
+
       return modifiers;
     }
 
@@ -107,14 +125,6 @@ const TypographyWrapper = styled(Typography)`
       margin: 0;
 
       ${mountFontModifiers(theme)}
-
-      &.--color-high {
-        color: ${theme.neutralColor.high.pure};
-      }
-
-      &.--color-low {
-        color: ${theme.neutralColor.low.pure};
-      }
 
       &.--color-primary {
         color: ${theme.brandColor.primary.pure};
