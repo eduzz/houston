@@ -25,7 +25,7 @@ export interface IHeadingProps extends IStyledProp {
    */
   as?: HeadingTags;
   /**
-   * Defaults to 'low'
+   * Defaults to 'neutralColor.low.pure'
    */
   color?: HeadingColors;
   ['aria-label']?: string;
