@@ -1,33 +1,25 @@
 import { toast, ToastOptions } from 'react-toastify';
 
-import { getCurrentTheme } from '../ThemeProvider/_state';
+import ToastBody from './ToastBody';
 
 type IToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 interface IToastOptions extends Pick<ToastOptions, IToastPropsExtends> {}
 
 class Toast {
+  static info(content: React.ReactNode, options?: IToastOptions): void {
+    toast(<ToastBody content={content} type='informative' />, options);
+  }
+
   static success(content: React.ReactNode, options?: IToastOptions): void {
-    const theme = getCurrentTheme();
-    toast.success(content, {
-      ...options,
-      style: { ...(theme ? { background: theme.feedbackColor.positive.pure } : {}) }
-    });
+    toast(<ToastBody content={content} type='positive' />, options);
   }
 
   static error(content: React.ReactNode, options?: IToastOptions): void {
-    const theme = getCurrentTheme();
-    toast.error(content, {
-      ...options,
-      style: { ...(theme ? { background: theme.feedbackColor.negative.pure } : {}) }
-    });
+    toast(<ToastBody content={content} type='negative' />, options);
   }
 
-  static info(content: React.ReactNode, options?: IToastOptions): void {
-    const theme = getCurrentTheme();
-    toast.info(content, {
-      ...options,
-      style: { ...(theme ? { background: theme.feedbackColor.informative.pure } : {}) }
-    });
+  static warning(content: React.ReactNode, options?: IToastOptions): void {
+    toast(<ToastBody content={content} type='warning' />, options);
   }
 }
 
