@@ -26,8 +26,17 @@ export type TypographyTags =
 
 export interface ITypographyProps extends IStyledProp {
   id?: string;
+  /**
+   * Defaults to 'xxs'
+   */
   size?: keyof HoustonTokens['font']['size'];
+  /**
+   * Defaults to 'md'
+   */
   lineHeight?: keyof HoustonTokens['line']['height'];
+  /**
+   * Defaults to 'regular'
+   */
   weight?: keyof HoustonTokens['font']['weight'];
   marginBottom?: boolean;
   children?: React.ReactNode;
@@ -48,7 +57,7 @@ const Typography = React.forwardRef<any, ITypographyProps>(
     {
       as: Tag = 'p',
       children,
-      size = 'xs',
+      size = 'xxs',
       weight = 'regular',
       lineHeight = 'md',
       marginBottom,
