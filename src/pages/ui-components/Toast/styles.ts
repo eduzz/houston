@@ -16,10 +16,7 @@ const styles = `
   left: 50%;
   transform: translateX(-50%);
 } 
-.Toastify__toast-container--top-right {
-  top: 1em;
-  right: 1em;
-}
+
 .Toastify__toast-container--bottom-left {
   bottom: 1em;
   left: 1em;
@@ -56,13 +53,11 @@ const styles = `
 }
 .Toastify__toast {
   position: relative;
-  min-height: 10px;
   box-sizing: border-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  max-height: 800px;
   overflow: hidden;
   font-family: sans-serif;
   cursor: pointer;

@@ -2,17 +2,29 @@ import * as React from 'react';
 
 import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } from 'react-toastify';
 
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
 import styles from './styles';
 
 const ToastContainer: React.FC<ToastContainerProps> = props => {
+  const theme = useHoustonTheme();
   const styleContent = {
     __html: `
         ${styles}
 
         .Toastify__toast {
-          border-radius: 4px;
+          border-radius: ${theme.border.radius.xs};
           box-shadow: 0px 8px 24px rgba(0,0,0, 0.16);
-          margin-bottom: 8px;
+          margin-bottom: ${theme.spacing.stack.nano};
+          width: max-content;
+          margin-left: auto;
+          min-height: ${theme.pxToRem('10px')}; 
+          max-height: ${theme.pxToRem('800px')};  
+        }
+
+        .Toastify__toast-container--top-right {
+          top: ${theme.spacing.stack.nano};
+          right: ${theme.spacing.inline.xxxs};
         }
       `
   };
@@ -25,16 +37,12 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
         {...props}
         transition={Slide}
         position='top-right'
-        autoClose={1000}
+        autoClose={4000}
         hideProgressBar={true}
-        newestOnTop={false}
         closeOnClick
-        rtl={false}
         draggable={false}
-        pauseOnFocusLoss
-        pauseOnHover
         icon={false}
-        limit={1}
+        limit={4}
         closeButton={false}
       />
     </>
