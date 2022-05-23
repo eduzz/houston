@@ -2,29 +2,27 @@ import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import { InformativeIcon, PositiveIcon, AlertIcon, CancelIcon } from '../Icons';
 
-interface IToastBody extends IStyledProp {
+type ToastTypes = 'informative' | 'positive' | 'negative' | 'warning';
+
+interface IToastBodyProps extends IStyledProp {
   content: React.ReactNode;
-  type: 'informative' | 'positive' | 'negative' | 'warning';
+  type: ToastTypes;
 }
 
-interface IInitialIcon {
-  type: IToastBody['type'];
-}
+type IIconsMap = Record<ToastTypes, JSX.Element>;
 
-const InitialIcon = ({ type }: IInitialIcon) => {
-  switch (type) {
-    case 'informative':
-      return <InformativeIcon />;
-    case 'positive':
-      return <PositiveIcon />;
-    case 'negative':
-      return <AlertIcon />;
-    case 'warning':
-      return <AlertIcon />;
-  }
+type IInitialIcon = Record<'type', ToastTypes>;
+
+const iconsMap: IIconsMap = {
+  informative: <InformativeIcon />,
+  positive: <PositiveIcon />,
+  negative: <AlertIcon />,
+  warning: <AlertIcon />
 };
 
-const ToastBody = ({ className, content, type }: IToastBody) => {
+const InitialIcon = ({ type }: IInitialIcon) => iconsMap[type];
+
+const ToastBody = ({ className, content, type }: IToastBodyProps) => {
   return (
     <div className={cx(className, `--type-${type}`)}>
       <InitialIcon type={type} />
@@ -62,14 +60,13 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
     }
 
     .__text {
-      margin: 0 ${theme.spacing.inline.nano};
+      margin: 0 ${theme.spacing.inline.xxxs};
       font-family: ${theme.font.family.base};
       font-weight: ${theme.font.weight.regular};
       font-size: ${theme.font.size.xs};
       line-height: ${theme.line.height.lg};
       color: ${theme.neutralColor.low.pure};
-      max-width: ${theme.pxToRem('370px')};
-      word-wrap: break-word;
+      max-width: ${theme.pxToRem('391px')};
     }
   `}
 `;
