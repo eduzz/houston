@@ -1,4 +1,4 @@
-import { Breakpoints, BreakpointsUtils } from '../types';
+import type { Breakpoints, BreakpointsUtils } from '../types';
 
 const DEFAULT_DISTANCE_BETWEEN_BREAKPOINTS = 5;
 

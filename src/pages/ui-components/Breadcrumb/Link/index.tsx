@@ -80,13 +80,13 @@ export default React.memo(styled(BreadcrumbLink, { label: 'houston-breadcrumb-li
     .__icon {
       line-height: 0;
       color: ${theme.neutralColor.low.pure};
-      max-height: ${theme.pxToRem('16px')};
-      max-width: ${theme.pxToRem('16px')};
+      max-height: ${theme.pxToRem(16)}rem;
+      max-width: ${theme.pxToRem(16)}rem;
 
       svg {
         fill: ${theme.neutralColor.low.pure};
-        max-height: ${theme.pxToRem('16px')};
-        max-width: ${theme.pxToRem('16px')};
+        max-height: ${theme.pxToRem(16)}rem;
+        max-width: ${theme.pxToRem(16)}rem;
       }
     }
 

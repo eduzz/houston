@@ -16,26 +16,26 @@ const Thumbnail = React.forwardRef<HTMLImageElement, IThumbnailProps>(({ size = 
 
 export default styled(Thumbnail, { label: 'houston-thumbnail' })`
   ${({ theme }) => css`
-    border-radius: ${theme.pxToRem(theme.border.radius.xs)};
+    border-radius: ${theme.border.radius.xs};
 
     &.--xl {
-      width: ${theme.pxToRem('80px')};
-      height: ${theme.pxToRem('80px')};
+      width: ${theme.pxToRem(80)}rem;
+      height: ${theme.pxToRem(80)}rem;
     }
 
     &.--lg {
-      width: ${theme.pxToRem('64px')};
-      height: ${theme.pxToRem('64px')};
+      width: ${theme.pxToRem(64)}rem;
+      height: ${theme.pxToRem(64)}rem;
     }
 
     &.--md {
-      width: ${theme.pxToRem('40px')};
-      height: ${theme.pxToRem('40px')};
+      width: ${theme.pxToRem(40)}rem;
+      height: ${theme.pxToRem(40)}rem;
     }
 
     &.--sm {
-      width: ${theme.pxToRem('24px')};
-      height: ${theme.pxToRem('24px')};
+      width: ${theme.pxToRem(24)}rem;
+      height: ${theme.pxToRem(24)}rem;
     }
   `}
 `;

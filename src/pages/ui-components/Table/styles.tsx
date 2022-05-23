@@ -134,7 +134,7 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
 
       & > tbody > tr.houston-table-collapse {
         padding: 0;
-        margin-top: ${({ theme }) => (Number(theme.spacing.nano.toString().replace('px', '')) + 2) * -1}px;
+        margin-top: ${({ theme }) => (Number(theme.spacing.nano.replace('rem', '')) * 16 + 2) * -1}px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         box-shadow: none;

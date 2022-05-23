@@ -1,4 +1,4 @@
-import { Line } from '../types';
+import type { Line } from '../types';
 
 export const line: Line = {
   height: {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { css, IStyledProp } from '@eduzz/houston-styles/styled';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import nestedComponent from '../utils/nestedComponent';
@@ -9,7 +9,13 @@ import Heading from './Heading';
 import Paragraph from './Paragraph';
 import Subtitle from './Subtitle';
 
-export type TypographyColors = 'low' | 'high' | 'primary';
+type MountColorVariants<Obj, K extends keyof Obj & string = keyof Obj & string> = `${K}${Obj[K] extends object
+  ? `.${MountColorVariants<Obj[K]>}`
+  : ''}`;
+
+type NeutralColor = Pick<HoustonTokens, 'neutralColor'>;
+
+export type TypographyColors = 'primary' | MountColorVariants<NeutralColor>;
 
 export type TypographyTags =
   | 'h1'
@@ -26,14 +32,23 @@ export type TypographyTags =
 
 export interface ITypographyProps extends IStyledProp {
   id?: string;
+  /**
+   * Defaults to 'xxs'
+   */
   size?: keyof HoustonTokens['font']['size'];
+  /**
+   * Defaults to 'md'
+   */
   lineHeight?: keyof HoustonTokens['line']['height'];
+  /**
+   * Defaults to 'regular'
+   */
   weight?: keyof HoustonTokens['font']['weight'];
   marginBottom?: boolean;
   children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
   /**
-   * Defaults to 'low'
+   * Defaults to 'neutralColor.low.pure'
    */
   color?: TypographyColors;
   /**
@@ -43,86 +58,30 @@ export interface ITypographyProps extends IStyledProp {
   ['aria-label']?: string;
 }
 
-const Typography = React.forwardRef<any, ITypographyProps>(
-  (
-    {
-      as: Tag = 'p',
-      children,
-      size = 'xs',
-      weight = 'regular',
-      lineHeight = 'md',
-      marginBottom,
-      color = 'low',
-      className,
-      ...props
-    },
-    ref
-  ) => {
-    return (
-      <Tag
-        ref={ref}
-        className={cx(
-          className,
-          `--size-${size}`,
-          `--weight-${weight}`,
-          `--line-height-${lineHeight}`,
-          `--color-${color}`,
-          !!marginBottom && '--margin-bottom'
-        )}
-        {...props}
-      >
-        {children}
-      </Tag>
-    );
-  }
-);
+const Typography = React.forwardRef<any, ITypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
+  return <Tag ref={ref} className={className} {...props} />;
+});
 
 const TypographyWrapper = styled(Typography)`
-  ${({ theme }) => {
-    function mountFontModifiers(theme: HoustonTokens) {
-      const modifiers: any[] = [];
-
-      (['size', 'weight'] as const).forEach(fontProp =>
-        Object.entries(theme.font[fontProp]).forEach(([key, value]) =>
-          modifiers.push(css`
-          &.--${fontProp}-${key} {
-            font-${fontProp}: ${value};
-          }
-        `)
-        )
-      );
-
-      Object.entries(theme.line.height).forEach(([key, value]) =>
-        modifiers.push(css`
-          &.--line-height-${key} {
-            line-height: ${value};
-          }
-        `)
-      );
-
-      return modifiers;
+  ${({ theme, size = 'xxs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
+    function getColor(color: TypographyColors) {
+      if (color === 'primary') {
+        return theme.brandColor.primary.pure;
+      }
+      const [themeColor, level, variable] = color.split('.');
+      return theme[themeColor][level][variable];
     }
-
     return css`
       margin: 0;
+      font-size: ${theme.font.size[size]};
+      font-weight: ${theme.font.weight[weight]};
+      line-height: ${theme.line.height[lineHeight]};
+      color: ${getColor(color)};
 
-      ${mountFontModifiers(theme)}
-
-      &.--color-high {
-        color: ${theme.neutralColor.high.pure};
-      }
-
-      &.--color-low {
-        color: ${theme.neutralColor.low.pure};
-      }
-
-      &.--color-primary {
-        color: ${theme.brandColor.primary.pure};
-      }
-
-      &.--margin-bottom {
+      ${marginBottom &&
+      css`
         margin-bottom: ${theme.spacing.nano};
-      }
+      `}
     `;
   }}
 `;

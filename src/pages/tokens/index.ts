@@ -1,4 +1,4 @@
-import { BrandColor, Brands, HoustonTokens } from './types';
+import type { BrandColor, Brands, HoustonTokens } from './types';
 import { border } from './variables/border';
 import { createBrandColors } from './variables/brand';
 import { breakpoinstUtils, breakpoints } from './variables/breakpoints';
@@ -9,7 +9,7 @@ import { neutralColor } from './variables/neutralColor';
 import { opacity } from './variables/opacity';
 import { shadow } from './variables/shadow';
 import { spacing } from './variables/spacing';
-import { pxToRem, hexToRgba } from './variables/utils';
+import { pxToRem, hexToRgba, remToPx } from './variables/utils';
 
 export * from './types';
 
@@ -29,6 +29,7 @@ export default function createTokens(brand: Brands | BrandColor): HoustonTokens 
     opacity,
     shadow,
     pxToRem,
+    remToPx,
     hexToRgba
   };
 }

@@ -1,4 +1,4 @@
-import { Opacity } from '../types';
+import type { Opacity } from '../types';
 
 export const opacity: Opacity = {
   level: {
