@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { css, IStyledProp } from '@eduzz/houston-styles/styled';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import nestedComponent from '../utils/nestedComponent';
@@ -58,90 +58,30 @@ export interface ITypographyProps extends IStyledProp {
   ['aria-label']?: string;
 }
 
-const Typography = React.forwardRef<any, ITypographyProps>(
-  (
-    {
-      as: Tag = 'p',
-      children,
-      size = 'xxs',
-      weight = 'regular',
-      lineHeight = 'md',
-      marginBottom,
-      color = 'neutralColor.low.pure',
-      className,
-      ...props
-    },
-    ref
-  ) => {
-    const currentColor = color.replace(/[.]/g, '-');
-
-    return (
-      <Tag
-        ref={ref}
-        className={cx(
-          className,
-          `--size-${size}`,
-          `--weight-${weight}`,
-          `--line-height-${lineHeight}`,
-          `--color-${currentColor}`,
-          !!marginBottom && '--margin-bottom'
-        )}
-        {...props}
-      >
-        {children}
-      </Tag>
-    );
-  }
-);
+const Typography = React.forwardRef<any, ITypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
+  return <Tag ref={ref} className={className} {...props} />;
+});
 
 const TypographyWrapper = styled(Typography)`
-  ${({ theme }) => {
-    function mountFontModifiers(theme: HoustonTokens) {
-      const modifiers: any[] = [];
-
-      (['size', 'weight'] as const).forEach(fontProp =>
-        Object.entries(theme.font[fontProp]).forEach(([key, value]) =>
-          modifiers.push(css`
-          &.--${fontProp}-${key} {
-            font-${fontProp}: ${value};
-          }
-        `)
-        )
-      );
-
-      Object.entries(theme.line.height).forEach(([key, value]) =>
-        modifiers.push(css`
-          &.--line-height-${key} {
-            line-height: ${value};
-          }
-        `)
-      );
-
-      (['low', 'high'] as const).forEach(colorProp =>
-        Object.entries(theme.neutralColor[colorProp]).forEach(([key, value]) =>
-          modifiers.push(css`
-            &.--color-neutralColor-${colorProp}-${key} {
-              color: ${value};
-            }
-          `)
-        )
-      );
-
-      return modifiers;
+  ${({ theme, size = 'xxs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
+    function getColor(color: TypographyColors) {
+      if (color === 'primary') {
+        return theme.brandColor.primary.pure;
+      }
+      const [themeColor, level, variable] = color.split('.');
+      return theme[themeColor][level][variable];
     }
-
     return css`
       margin: 0;
+      font-size: ${theme.font.size[size]};
+      font-weight: ${theme.font.weight[weight]};
+      line-height: ${theme.line.height[lineHeight]};
+      color: ${getColor(color)};
 
-      ${mountFontModifiers(theme)}
-
-      &.--color-primary {
-        color: ${theme.brandColor.primary.pure};
-      }
-
-      &.--margin-bottom {
+      ${marginBottom &&
+      css`
         margin-bottom: ${theme.spacing.nano};
-      }
+      `}
     `;
   }}
 `;
