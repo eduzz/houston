@@ -52,6 +52,8 @@ export default styled(React.memo(SidebarLogo), { label: 'houston-sidebar-logo' }
   min-height: 70px;
   max-height: 70px;
   position: relative;
+  transition-delay: 0s;
+  transition-property: padding;
 
   & > .__wrapper {
     max-height: 80px;
@@ -63,6 +65,7 @@ export default styled(React.memo(SidebarLogo), { label: 'houston-sidebar-logo' }
       position: absolute;
       top: 0;
       left: 0;
+      text-align: center;
     }
 
     img {
@@ -79,18 +82,18 @@ export default styled(React.memo(SidebarLogo), { label: 'houston-sidebar-logo' }
   &.--inside {
     width: 100%;
     padding: 16px;
+    transition: 0s 0.3s ease-in;
 
     & > .__wrapper {
       & > .__main-image,
       & > .__collapsed-image {
-        transition: 0s 0.4s ease-in;
+        transition: 0s 0.3s ease-in;
       }
     }
   }
 
   &.--collapsed {
     padding: 16px 4px;
-    text-align: center;
     width: 56px;
   }
 
