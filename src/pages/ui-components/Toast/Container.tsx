@@ -14,7 +14,7 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
 
         .Toastify__toast {
           border-radius: ${theme.border.radius.xs};
-          box-shadow: 0px 8px 24px rgba(0,0,0, 0.16);
+          box-shadow: ${theme.shadow.level[2]};
           margin-bottom: ${theme.spacing.stack.nano};
           width: max-content;
           margin-left: auto;
