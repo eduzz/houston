@@ -24,7 +24,7 @@ export default function generateTheme(theme?: IHoustonTheme) {
     palette: newPalette,
     components: components(newPalette, theme),
     typography: typography(theme),
-    spacing: (unit = 4) => Number(theme.spacing.quarck.replace('px', '')) * unit,
+    spacing: theme.spacing.fn,
     breakpoints: {
       values: Object.keys(theme.breakpoints).reduce((acc, key) => {
         if (['up', 'down'].includes(key)) return acc;
