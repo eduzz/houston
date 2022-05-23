@@ -1,18 +1,18 @@
-import { Font } from '../types';
+import type { Font } from '../types';
 
 export const font: Font = {
   size: {
-    xxxs: '12px',
-    xxs: '14px',
-    xs: '16px',
-    sm: '20px',
-    md: '24px',
-    lg: '32px',
-    xl: '40px',
-    xxl: '48px',
-    xxxl: '64px',
-    display: '80px',
-    giant: '96px'
+    xxxs: '0.75rem',
+    xxs: '0.875rem',
+    xs: '1rem',
+    sm: '1.25rem',
+    md: '1.5rem',
+    lg: '2rem',
+    xl: '2.5rem',
+    xxl: '3rem',
+    xxxl: '4rem',
+    display: '5rem',
+    giant: '6rem'
   },
   family: {
     base: 'Open Sans, "Helvetica Neue", Arial, sans-serif'

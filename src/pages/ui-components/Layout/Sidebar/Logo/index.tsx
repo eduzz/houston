@@ -89,6 +89,7 @@ export default styled(React.memo(SidebarLogo), { label: 'houston-sidebar-logo' }
   }
 
   &.--collapsed {
+    padding: 16px 4px;
     text-align: center;
     width: 56px;
   }

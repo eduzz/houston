@@ -1,32 +1,22 @@
-import { PxToRem, HexToRgba } from '../types';
+const PIXELS_IN_ONE_REM = 16;
 
-export const cleanValue = (value: string) => {
-  if (!/px$/g.test(value)) {
-    console.warn(
-      "[@eduzz/houston-tokens]: use valores em pixels (px) na função pxToRem(). Por exemplo: pxToRem('16px')"
-    );
+export function pxToRem(value: number, rate = PIXELS_IN_ONE_REM) {
+  return value / rate;
+}
 
-    return NaN;
-  }
+export function remToPx(value: number, rate = PIXELS_IN_ONE_REM) {
+  return value * rate;
+}
 
-  value = value.replace(/\D/g, '');
-  return value && parseInt(value);
-};
+const HEXADECIMAL_BASE = 16;
 
-export const pxToRem: PxToRem = (value: string, rate = 16) => {
-  const cleanedValue = cleanValue(value);
+export function decimalToHexadecimal(value: string) {
+  return parseInt(value, HEXADECIMAL_BASE);
+}
 
-  if (!cleanedValue) {
-    return value;
-  }
+export function hexToRgba(hexColor: string, opacity = 1) {
+  const twoLettersRegex = /\w\w/g;
+  const [r, g, b] = hexColor.match(twoLettersRegex).map(decimalToHexadecimal);
 
-  return `${cleanedValue / rate}rem`;
-};
-
-export const hexToRgba: HexToRgba = (hexColor: string, opacity?: number) => {
-  const r = parseInt(hexColor.slice(1, 3), 16);
-  const g = parseInt(hexColor.slice(3, 5), 16);
-  const b = parseInt(hexColor.slice(5, 7), 16);
-
-  return `rgba(${r}, ${g}, ${b}, ${opacity ?? 1})`;
-};
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}
