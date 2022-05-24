@@ -55,8 +55,8 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
     }
 
     svg {
-      width: ${theme.pxToRem(24)};
-      height: ${theme.pxToRem(24)};
+      width: ${theme.pxToRem(24)}rem;
+      height: ${theme.pxToRem(24)}rem;
     }
 
     .__text {
@@ -66,7 +66,7 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
       font-size: ${theme.font.size.xs};
       line-height: ${theme.line.height.lg};
       color: ${theme.neutralColor.low.pure};
-      max-width: ${theme.pxToRem(391)};
+      max-width: ${theme.pxToRem(391)}rem;
     }
   `}
 `;
