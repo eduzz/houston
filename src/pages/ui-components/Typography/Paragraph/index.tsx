@@ -29,7 +29,7 @@ export interface IParagraphProps extends IStyledProp {
    */
   as?: ParagraphTags;
   /**
-   * Defaults to 'low'
+   * Defaults to 'neutralColor.low.pure'
    */
   color?: ParagraphColors;
   ['aria-label']?: string;

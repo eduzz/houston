@@ -17,7 +17,7 @@ export interface ICaptionProps extends IStyledProp {
    */
   as?: 'figcaption' | 'p';
   /**
-   * Defaults: to 'low'
+   * Defaults: to 'neutralColor.low.pure'
    */
   color?: CaptionColors;
   ['aria-label']?: string;

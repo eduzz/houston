@@ -11,10 +11,12 @@ interface ISidebarCollapseProps extends IStyledProp {}
 
 const SidebarCollapse: React.FC<ISidebarCollapseProps> = ({ className }) => {
   const collapsed = useContextSelector(SidebarContext, context => context.collapsed);
+  const inside = useContextSelector(SidebarContext, context => context.insideComponent);
+
   const onClickCollapse = useContextSelector(SidebarContext, context => context.handleCollapse);
 
   return (
-    <div className={cx(className, '__houston-sidebar-collapse', collapsed && '--collapsed')} onClick={onClickCollapse}>
+    <div className={cx(className, { '--collapsed': collapsed, '--inside': inside })} onClick={onClickCollapse}>
       <div className='icon'>
         <ChevronLeftIcon size={14} />
       </div>
@@ -38,6 +40,10 @@ export default styled(React.memo(SidebarCollapse), { label: 'houston-sidebar-col
   opacity: 0;
   transition: 0.15s linear;
   z-index: 2;
+
+  &.--inside {
+    opacity: 1;
+  }
 
   &:hover {
     background: ${({ theme }) => theme.brandColor.primary.dark + 'b8'};
