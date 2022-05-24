@@ -260,7 +260,7 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
       styleOverrides: {
         root: {
           fontFamily: theme.font.family.base,
-          fontSize: theme.font.size.xxs,
+          fontSize: theme.font.size.xxxs,
           lineHeight: theme.line.height.sm
         },
         contained: {
@@ -575,7 +575,7 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          fontSize: theme.font.size.xxs,
+          fontSize: theme.font.size.xxxs,
           backgroundColor: palette.grey[600],
           letterSpacing: 0.5
         },
