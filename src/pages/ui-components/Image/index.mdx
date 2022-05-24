@@ -1,0 +1,43 @@
+---
+name: Image
+---
+
+import { Playground } from 'dokz';
+
+import Image from './';
+
+# Image
+
+Componente utilizado para exibição de imagens.
+
+### Importação
+
+```js
+import Image from '@eduzz/houston-ui/Image';
+```
+
+### Exemplo
+
+<Playground>
+  <div style={{ width: 300 }}>
+    <Image src='https://picsum.photos/300' />
+  </div>
+</Playground>
+
+### Fallback
+
+<Playground>
+  <div style={{ width: 300 }}>
+    <Image src='' fallbackSrc='https://via.placeholder.com/300' />
+  </div>
+</Playground>
+
+## Propriedades
+
+Possui todas propriedades de uma tag `<img />` comum e:
+
+| prop        | tipo                                               | obrigatório | padrão | descrição                                                                                                                                  |
+| ----------- | -------------------------------------------------- | ----------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| src         | `string`                                           | `true`      | -      | Caminho da imagem.                                                                                                                         |
+| fallbackSrc | `string`                                           | `false`     | -      | Caminho para imagem quando a imagem principal não estiver carregada ou não carregar. É recomendável usar um caminho para uma imagem local. |
+| fit         | `'fill', 'contain', 'cover', 'none', 'scale-down'` | `false`     | -      | -                                                                                                                                          |

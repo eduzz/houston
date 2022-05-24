@@ -59,10 +59,14 @@ const Sidebar: React.FC<ISidebarProps> = ({
 
   const handleCollapse = React.useCallback(() => {
     if (!isControlled) {
-      setCollapsed(v => !v);
+      setCollapsed(collapsed => {
+        if (!collapsed) setInsideComponentFalse();
+        return !collapsed;
+      });
     }
+
     onCollapse?.(!isCollapsed);
-  }, [onCollapse, isControlled, isCollapsed]);
+  }, [isControlled, onCollapse, isCollapsed, setInsideComponentFalse]);
 
   const contextValue = React.useMemo<ISidebarContext>(
     () => ({

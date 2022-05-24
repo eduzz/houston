@@ -1,6 +1,4 @@
 /* eslint-disable max-lines */
-export type SpacingFn = (mult: number) => string;
-
 export type Color = {
   pure: string;
   light: string;
@@ -10,85 +8,84 @@ export type Color = {
 
 export type Spacing = {
   /**
-   * A helper function that returns a value following our spacing ratio
+   * A helper function that returns a value following
+   * our spacing ratio that is is 4px/0.25rem
    *
-   * Example: If you provide 1 we'll return you 0.25rem
-   *
-   * Note: Our spacing ratio is 4px/0.25rem
+   * Example: If you provide 1 we'll return 0.25rem
    */
-  fn: SpacingFn;
-  quarck: '4px';
-  nano: '8px';
-  xxxs: '16px';
-  xxs: '24px';
-  xs: '32px';
-  sm: '40px';
-  md: '48px';
-  lg: '56px';
-  xl: '64px';
-  xxl: '80px';
-  xxxl: '120px';
-  huge: '160px';
-  giant: '200px';
+  fn: (mult?: number) => string;
+  quarck: '0.25rem';
+  nano: '0.5rem';
+  xxxs: '1rem';
+  xxs: '1.5rem';
+  xs: '2rem';
+  sm: '2.5rem';
+  md: '3rem';
+  lg: '3.5rem';
+  xl: '4rem';
+  xxl: '5rem';
+  xxxl: '7.5rem';
+  huge: '10rem';
+  giant: '12.5rem';
   inline: {
-    quarck: '4px';
-    nano: '8px';
-    xxxs: '16px';
-    xxs: '24px';
-    xs: '32px';
-    sm: '40px';
-    md: '48px';
-    lg: '56px';
-    xl: '64px';
-    xxl: '80px';
-    xxxl: '120px';
-    huge: '160px';
-    giant: '200px';
+    quarck: '0.25rem';
+    nano: '0.5rem';
+    xxxs: '1rem';
+    xxs: '1.5rem';
+    xs: '2rem';
+    sm: '2.5rem';
+    md: '3rem';
+    lg: '3.5rem';
+    xl: '4rem';
+    xxl: '5rem';
+    xxxl: '7.5rem';
+    huge: '10rem';
+    giant: '12.5rem';
   };
   inset: {
-    xxxs: '4px';
-    xxs: '8px';
-    xs: '16px';
-    sm: '24px';
-    md: '32px';
-    lg: '48px';
+    xxxs: '0.25rem';
+    xxs: '0.5rem';
+    xs: '1rem';
+    sm: '1.5rem';
+    md: '2rem';
+    lg: '3rem';
   };
   stack: {
-    quarck: '4px';
-    nano: '8px';
-    xxxs: '16px';
-    xxs: '24px';
-    xs: '32px';
-    sm: '40px';
-    md: '48px';
-    lg: '56px';
-    xl: '64px';
-    xxl: '80px';
-    xxxl: '120px';
-    huge: '160px';
-    giant: '200px';
+    quarck: '0.25rem';
+    nano: '0.5rem';
+    xxxs: '1rem';
+    xxs: '1.5rem';
+    xs: '2rem';
+    sm: '2.5rem';
+    md: '3rem';
+    lg: '3.5rem';
+    xl: '4rem';
+    xxl: '5rem';
+    xxxl: '7.5rem';
+    huge: '10rem';
+    giant: '12.5rem';
   };
   squish: {
-    xxs: '8px 16px 8px 16px';
-    xs: '16px 24px 16px 24px';
-    sm: '16px 32px 16px 32px';
+    xxs: '0.5rem 1rem 0.5rem 1rem';
+    xs: '1rem 1.5rem 1rem 1.5rem';
+    sm: '1rem 2rem 1rem 2rem';
   };
 };
 
 export type Border = Readonly<{
   width: {
-    none: '0px';
+    none: '0';
     xs: '1px';
     sm: '2px';
     md: '4px';
     lg: '8px';
   };
   radius: {
-    none: '0px';
-    xs: '4px';
-    sm: '8px';
-    md: '16px';
-    pill: '500px';
+    none: '0';
+    xs: '0.25rem';
+    sm: '0.5rem';
+    md: '1rem';
+    pill: '31.25rem';
     circular: '50%';
   };
 }>;
@@ -109,26 +106,26 @@ export type Opacity = {
 
 export type Shadow = {
   level: {
-    1: '0px 4px 8px rgba(0,0,0,0.16)';
-    2: '0px 8px 24px rgba(0,0,0,0.16)';
-    3: '0px 16px 32px rgba(0,0,0,0.16)';
-    4: '0px 16px 48px rgba(0,0,0,0.24)';
+    1: '0px 4px 8px rgba(0, 0, 0, 0.16)';
+    2: '0px 8px 24px rgba(0, 0, 0, 0.16)';
+    3: '0px 16px 32px rgba(0, 0, 0, 0.16)';
+    4: '0px 16px 48px rgba(0, 0, 0, 0.24)';
   };
 };
 
 export type Font = {
   size: {
-    xxxs: '12px';
-    xxs: '14px';
-    xs: '16px';
-    sm: '20px';
-    md: '24px';
-    lg: '32px';
-    xl: '40px';
-    xxl: '48px';
-    xxxl: '64px';
-    display: '80px';
-    giant: '96px';
+    xxxs: '0.75rem';
+    xxs: '0.875rem';
+    xs: '1rem';
+    sm: '1.25rem';
+    md: '1.5rem';
+    lg: '2rem';
+    xl: '2.5rem';
+    xxl: '3rem';
+    xxxl: '4rem';
+    display: '5rem';
+    giant: '6rem';
   };
   family: {
     base: 'Open Sans, "Helvetica Neue", Arial, sans-serif';
@@ -139,15 +136,6 @@ export type Font = {
     bold: 700;
   };
 };
-
-/**
- * A helper function to transform pixels into rem
- *
- * Note: We consider 1rem as 16px by default
- */
-export type PxToRem = (value: string, rate?: number) => string;
-
-export type HexToRgba = (hexColor: string, opacity?: number) => string;
 
 export type Line = {
   height: {
@@ -306,6 +294,19 @@ export type HoustonTokens = {
   feedbackColor: FeedbackColor;
   brandColor: BrandColor;
   breakpoints: Breakpoints & BreakpointsUtils;
-  pxToRem: PxToRem;
-  hexToRgba: HexToRgba;
+  /**
+   * A helper function to convert pixel into rem
+   * @param {number} rate - Rem to pixel rate with default value to 16
+   */
+  pxToRem: (value: number, rate?: number) => number;
+  /**
+   * A helper function to convert rem into pixel
+   * @param {number} rate - Rem to pixel rate with default value to 16
+   */
+  remToPx: (value: number, rate?: number) => number;
+  /**
+   * A helper function to convert hex colors into rgba
+   * @param {number} opacity - Default value to 1
+   */
+  hexToRgba: (hexColor: string, opacity?: number) => string;
 };
