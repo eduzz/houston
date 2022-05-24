@@ -15,7 +15,7 @@ type MountColorVariants<Obj, K extends keyof Obj & string = keyof Obj & string> 
 
 type NeutralColor = Pick<HoustonTokens, 'neutralColor'>;
 
-export type TypographyColors = 'primary' | MountColorVariants<NeutralColor>;
+export type TypographyColors = 'primary' | 'inherit' | MountColorVariants<NeutralColor>;
 
 export type TypographyTags =
   | 'h1'
@@ -65,9 +65,14 @@ const Typography = React.forwardRef<any, ITypographyProps>(({ as: Tag = 'p', cla
 const TypographyWrapper = styled(Typography)`
   ${({ theme, size = 'xxs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
     function getColor(color: TypographyColors) {
+      if (color === 'inherit') {
+        return 'inherit';
+      }
+
       if (color === 'primary') {
         return theme.brandColor.primary.pure;
       }
+
       const [themeColor, level, variable] = color.split('.');
       return theme[themeColor][level][variable];
     }

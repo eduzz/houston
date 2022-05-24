@@ -65,7 +65,7 @@ export default styled(TableCell)`
   font-weight: ${({ theme }) => theme.font.weight.regular};
   line-height: ${({ theme }) => theme.line.height.md};
 
-  & .--small {
+  &.--small {
     padding: 8px 12px;
     font-size: ${({ theme }) => theme.font.size.xxs};
   }
