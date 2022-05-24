@@ -18,8 +18,8 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
           margin-bottom: ${theme.spacing.stack.nano};
           width: max-content;
           margin-left: auto;
-          min-height: ${theme.pxToRem(10)}; 
-          max-height: ${theme.pxToRem(800)};  
+          min-height: ${theme.pxToRem(10)}rem; 
+          max-height: ${theme.pxToRem(800)}rem;  
         }
 
         .Toastify__toast-container--top-right {
