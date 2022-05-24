@@ -152,14 +152,12 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
             padding: '8px 32px 8px 12px'
           }
         },
-        // selectMenu: {
-        //   height: 45
-        // },
         iconOutlined: {
           right: 4
         },
         icon: {
-          top: 'calc(50% - 14px)'
+          top: '50%',
+          transform: 'translate(0, -50%)'
         }
       }
     },
