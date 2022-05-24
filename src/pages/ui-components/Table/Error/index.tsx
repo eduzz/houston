@@ -1,9 +1,12 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
 
 import Button from '../../Button';
-import Typography from '../../Typography';
+import Typography, { ITypographyProps } from '../../Typography';
+import TableContext, { TableSize } from '../context';
 
 export interface ITableEErrorProps extends IStyledProp {
   error?: any;
@@ -12,6 +15,8 @@ export interface ITableEErrorProps extends IStyledProp {
   children?: React.ReactNode;
 }
 const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, formater, className }) => {
+  const tableSize = useContextSelector(TableContext, context => context.size);
+
   const errorMessage = React.useMemo(() => {
     if (!error) return null;
 
@@ -22,6 +27,11 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
     return typeof error === 'string' ? error : 'Algo inesperado aconteceu...';
   }, [error, formater]);
 
+  const fontSizeMap: Record<TableSize, ITypographyProps['size']> = {
+    small: 'xxs',
+    medium: 'xs'
+  };
+
   if (!error) return null;
   children = children ?? errorMessage;
 
@@ -30,7 +40,7 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
       <td align='center' colSpan={1000}>
         {typeof children === 'string' ? (
           <>
-            <Typography size='xs' weight='regular' lineHeight='xl' className='__text'>
+            <Typography size={fontSizeMap[tableSize]} weight='regular' lineHeight='xl' className='__text'>
               {children}
             </Typography>
 

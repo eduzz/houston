@@ -120,7 +120,7 @@ export default styled(Button, { label: 'houston-button' })(({ theme, color: colo
 
     &:disabled {
       cursor: default;
-      color: ${theme.neutralColor.low.medium};
+      color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
       border-color: ${theme.neutralColor.high.medium};
     }
 
