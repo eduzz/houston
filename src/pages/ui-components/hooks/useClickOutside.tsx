@@ -3,7 +3,7 @@ import * as React from 'react';
 type AnyEvent = MouseEvent | TouchEvent;
 
 function useOnClickOutside<T extends HTMLElement = HTMLElement>(
-  ref: React.RefObject<T>,
+  ref: React.RefObject<T> | T,
   handler: (event: AnyEvent) => void,
   deps: React.DependencyList
 ) {
@@ -14,7 +14,7 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
     let throttle = false;
 
     const listener = (event: AnyEvent) => {
-      const el = ref?.current;
+      const el = (ref as any)?.current ?? ref;
 
       if (!el || el.contains(event.target as Node) || throttle) {
         return;

@@ -15,12 +15,12 @@ export interface IFieldsetProps extends IStyledProp {
   fullWidth?: boolean;
   errorMessage?: string;
   helperText?: string;
-  containterRef?: React.RefObject<HTMLDivElement>;
 }
 
 interface IInternalFieldsetProps extends IFieldsetProps {
   focused?: boolean;
   onClickContainer?: () => void;
+  containterRef?: React.RefObject<HTMLDivElement>;
   children: React.ReactNode;
 }
 
