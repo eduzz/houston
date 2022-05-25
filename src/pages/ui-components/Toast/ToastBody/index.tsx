@@ -22,6 +22,8 @@ const iconsMap: IIconsMap = {
 
 const InitialIcon = ({ type }: IInitialIcon) => iconsMap[type];
 
+const MAX_WIDTH = 391;
+
 const ToastBody = ({ className, content, type }: IToastBodyProps) => {
   return (
     <div className={cx(className, `--type-${type}`)}>
@@ -66,7 +68,7 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
       font-size: ${theme.font.size.xs};
       line-height: ${theme.line.height.lg};
       color: ${theme.neutralColor.low.pure};
-      max-width: ${theme.pxToRem(391)}rem;
+      max-width: ${theme.pxToRem(MAX_WIDTH)}rem;
     }
   `}
 `;
