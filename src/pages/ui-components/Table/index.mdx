@@ -185,7 +185,31 @@ import Table from '@eduzz/houston-ui/Table';
               <Table.ActionLoading show={index === 1} />
               <Table.Action onClick={onEdit}>Editar</Table.Action>
               <Table.Action onClick={onEdit}>Remover</Table.Action>
-              <Table.Collapse>Olá!</Table.Collapse>
+              <Table.Collapse>
+                <Table stripedRows sort={sort} onSort={onSort}>
+                  <Table.Header>
+                    <Table.Column width={50} sortableField='id'>
+                      #
+                    </Table.Column>
+                    <Table.Column sortableField='name'>Nome</Table.Column>
+                    <Table.Column sortableField='email'>Email</Table.Column>
+                    <Table.Column align='right'>Valor</Table.Column>
+                  </Table.Header>
+                  <Table.Body>
+                    <Table.Empty count={rows.length} />
+                    {rows.map((row, index) => (
+                      <Table.Row data={row} index={index} key={row.id}>
+                        <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
+                        <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
+                        <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
+                        <Table.Cell mobileSize={6} align='right'>
+                          {row.price}
+                        </Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </Table.Body>
+                </Table>
+              </Table.Collapse>
             </Table.Row>
           ))}
         </Table.Body>
