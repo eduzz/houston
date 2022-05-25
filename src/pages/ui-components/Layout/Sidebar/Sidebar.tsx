@@ -60,11 +60,14 @@ const Sidebar: React.FC<ISidebarProps> = ({
   const handleCollapse = React.useCallback(() => {
     if (!isControlled) {
       setCollapsed(collapsed => {
-        if (!collapsed) setInsideComponentFalse();
+        const isCollapsing = !collapsed;
+        if (isCollapsing) setInsideComponentFalse();
         return !collapsed;
       });
     }
 
+    const isCollapsing = !isCollapsed;
+    if (isCollapsing) setInsideComponentFalse();
     onCollapse?.(!isCollapsed);
   }, [isControlled, onCollapse, isCollapsed, setInsideComponentFalse]);
 
