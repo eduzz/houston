@@ -66,8 +66,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
       });
     }
 
-    const isCollapsing = !isCollapsed;
-    if (isCollapsing) setInsideComponentFalse();
     onCollapse?.(!isCollapsed);
   }, [isControlled, onCollapse, isCollapsed, setInsideComponentFalse]);
 
@@ -104,6 +102,11 @@ const Sidebar: React.FC<ISidebarProps> = ({
     onRequestClose && onRequestClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLocation]);
+
+  React.useEffect(() => {
+    const isCollapsing = !isCollapsed;
+    if (isCollapsing) setInsideComponentFalse();
+  }, [isCollapsed, setInsideComponentFalse]);
 
   return (
     <SidebarContext.Provider value={contextValue}>
