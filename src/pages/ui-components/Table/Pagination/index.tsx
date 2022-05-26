@@ -129,13 +129,7 @@ const Pagination = React.memo<ITablePagination>(
                         {labelItensPerPage ?? 'Itens por página:'}
                       </Typography>
 
-                      <SelectField
-                        disabled={loading}
-                        // size='small' TODO
-                        // margin='none' TODO
-                        value={perPage}
-                        onChange={handleChangePerPage}
-                      >
+                      <SelectField disabled={loading} size='sm' value={perPage} onChange={handleChangePerPage}>
                         {optionsPerPage.map(({ value, label }) => (
                           <SelectField.Option key={value} value={value} label={label} />
                         ))}
@@ -148,7 +142,7 @@ const Pagination = React.memo<ITablePagination>(
                       </Typography>
 
                       <TextField
-                        size='small'
+                        size='sm'
                         disabled={loading}
                         value={pageInput}
                         className='__input'

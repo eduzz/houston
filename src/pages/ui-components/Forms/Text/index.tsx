@@ -13,7 +13,6 @@ const ROWS: Array<IOwnProperties['rows']> = [2, 4, 6, 8, 10, 14, 18, 24];
 
 interface IOwnProperties extends IFieldsetProps {
   mask?: IFormMask;
-  size?: 'small' | 'normal';
   multiline?: boolean;
   rows?: 2 | 4 | 6 | 8 | 10 | 14 | 18 | 24;
   disableAutoResize?: boolean;
@@ -114,6 +113,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
     return (
       <Fieldset
         label={label}
+        size={size}
         loading={loading}
         focused={focused}
         errorMessage={errorMessage || formError}
@@ -125,8 +125,7 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
         className={cx(className, {
           '--multiline': multiline,
           [`--multiline-rows-${rows ?? 4}`]: multiline,
-          '--disable-auto-resize': disableAutoResize,
-          [`--size-${size ?? 'normal'}`]: true
+          '--disable-auto-resize': disableAutoResize
         })}
       >
         <div className='__wrapperAutoSizer'>
@@ -231,14 +230,6 @@ export default styled(React.memo(TextField), { label: 'houston-form-text' })(
       & .__label,
       & .__input {
         cursor: progress;
-      }
-    }
-
-    &.--size-small {
-      margin: 0;
-
-      & .__container {
-        height: 35px;
       }
     }
   `

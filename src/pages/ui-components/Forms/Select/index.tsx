@@ -31,10 +31,12 @@ export interface ISelectFieldOption {
 
 const SelectField: React.FC<ISelectFieldProps> = ({
   label,
-  value,
+  value: valueProp,
   name,
+  size,
   placeholder,
   loading,
+  multiple,
   renderValue,
   onChange,
   disabled,
@@ -54,55 +56,67 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
   const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
 
+  let value = formValue ?? valueProp;
+  value = !multiple ? value : Array.isArray(value) ? value : [];
+
   if (!name && setFieldValue) {
     throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
   }
 
-  const handleChange = React.useCallback(
-    (value: any) => {
-      if (Array.isArray(value) && value.includes('')) {
-        value = [];
+  const contextRegisterOption = React.useCallback<ISelectContext['registerOption']>(option => {
+    setOptions(options => [...options, option]);
+    return () => setOptions(options => options.filter(op => op !== option));
+  }, []);
+
+  const contextOnSelect = React.useCallback<ISelectContext['onSelect']>(
+    (selected: any) => {
+      if (!multiple) {
+        onChange && onChange(selected);
+        setFieldValue && setFieldValue(name, selected);
+        closePopover();
+        return;
       }
 
-      onChange && onChange(value);
-      setFieldValue && setFieldValue(name, value);
-      closePopover();
-    },
-    [onChange, setFieldValue, name, closePopover]
-  );
+      const newValue = value.includes(selected) ? value.filter((v: any) => v !== selected) : [...value, selected];
+      console.log({ newValue });
 
-  value = formValue ?? value;
+      onChange && onChange(newValue);
+      setFieldValue && setFieldValue(name, newValue);
+    },
+    [multiple, onChange, value, setFieldValue, name, closePopover]
+  );
 
   const contextValue = React.useMemo<ISelectContext>(
     () => ({
-      registerOption(option) {
-        setOptions(options => [...options, option]);
-        return () => setOptions(options => options.filter(op => op !== option));
-      },
-      onSelect: handleChange
+      registerOption: contextRegisterOption,
+      onSelect: contextOnSelect,
+      inputSize: size,
+      multiple,
+      inputValue: value
     }),
-    [handleChange]
+    [contextOnSelect, contextRegisterOption, multiple, size, value]
   );
 
   const text = React.useMemo(() => {
     if (renderValue) return renderValue(value);
-    if (value === undefined || value === null || value === '') {
-      return placeholder ?? 'Selecione...';
-    }
 
-    if (!Array.isArray(value)) {
-      return options.find(o => value === o.value)?.text;
+    if (!multiple) {
+      return options.find(o => (value ?? '') === (o.value ?? ''))?.text ?? placeholder ?? 'Selecione...';
     }
 
     if (value.length > 3) {
       return `${value.length} selecionados`;
     }
 
-    return options
-      .filter(o => (value as any[]).includes(o.value))
-      .map(o => o.text)
-      .join(', ');
-  }, [options, placeholder, renderValue, value]);
+    return (
+      options
+        .filter(o => value.includes(o.value))
+        .map(o => o.text)
+        .join(', ') ||
+      placeholder ||
+      'Selecione...'
+    );
+  }, [multiple, options, placeholder, renderValue, value]);
 
   const errorMessage = errorMessageProp ?? formError;
 
@@ -115,6 +129,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
       <Fieldset
         containterRef={popoverTargetProps.ref}
         label={label}
+        size={size}
         loading={loading}
         className={className}
         focused={isPopoverOpened}

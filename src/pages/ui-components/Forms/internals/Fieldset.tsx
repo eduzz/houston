@@ -9,6 +9,7 @@ import Spinner from '../../Spinner';
 export interface IFieldsetProps extends IStyledProp {
   label?: string;
   loading?: boolean;
+  size?: 'sm' | 'default';
   disabled?: boolean;
   endAdornment?: React.ReactNode;
   startAdornment?: React.ReactNode;
@@ -29,6 +30,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
     {
       label,
       loading,
+      size,
       focused,
       errorMessage,
       fullWidth,
@@ -55,7 +57,8 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
           '--disabled': disabled,
           '--loading': loading,
           '--focused': focused,
-          '--clickable': !!onClickContainer
+          '--clickable': !!onClickContainer,
+          [`--size-${size ?? 'default'}`]: true
         })}
       >
         {!!label && <label className='__label'>{label}</label>}
@@ -175,6 +178,27 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
     &.--error > .__container {
       background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
       border-color: ${theme.feedbackColor.negative.pure};
+    }
+
+    &.--size-sm {
+      margin: 0;
+
+      & .__container {
+        height: 35px;
+
+        & > .__startAdornment {
+          margin-left: ${theme.spacing.nano};
+        }
+
+        & > .__endAdornment {
+          margin-right: ${theme.spacing.nano};
+        }
+      }
+
+      & .__text,
+      & > .__label {
+        font-size: ${theme.font.size.xxs};
+      }
     }
   `
 );
