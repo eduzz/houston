@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { keyframes, css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useContextSelector } from 'use-context-selector';
 
 import { IStyledProp } from '@eduzz/houston-styles';
 
@@ -10,6 +11,7 @@ import PopoverContext from './context';
 export interface IPopoverProps extends IStyledProp {
   targetRef: React.RefObject<HTMLElement>;
   children?: React.ReactNode;
+  fullWidth?: boolean;
 }
 
 export interface IPopoverRef {
@@ -17,8 +19,8 @@ export interface IPopoverRef {
   close(): void;
 }
 
-const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(({ targetRef, children, className }, ref) => {
-  const setState = React.useContext(PopoverContext);
+const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(({ targetRef, children, className, fullWidth }, ref) => {
+  const setState = useContextSelector(PopoverContext, context => context.setState);
   const contentRef = React.useRef<HTMLDivElement>();
   const closeRef = React.useRef<() => void>();
 
@@ -31,12 +33,14 @@ const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(({ targetRef, child
           target: targetRef.current,
           content: contentRef.current
         });
+
+        contentRef.current.style.width = fullWidth ? `${targetRef.current.offsetWidth}px` : 'auto';
       },
       close() {
         closeRef.current && closeRef.current();
       }
     }),
-    [contentRef, setState, targetRef]
+    [fullWidth, setState, targetRef]
   );
 
   return (
@@ -79,6 +83,7 @@ export default styled(Popover, { label: 'houston-popover' })(
       animation-duration: 0.2s;
       animation-name: ${hideAnimation};
       animation-fill-mode: forwards;
+      margin-top: ${theme.spacing.nano};
     }
 
     &.--opened {

@@ -1,8 +1,13 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import { IPopoverRef } from '.';
+import PopoverContext from './context';
 
 export default function usePopover() {
+  const openedTarget = useContextSelector(PopoverContext, context => context.openedTarget);
+
   const popoverRef = React.useRef<IPopoverRef>();
   const targetRef = React.useRef<any>();
   const contentRef = React.useRef<any>();
@@ -13,6 +18,7 @@ export default function usePopover() {
   return {
     openPopover,
     closePopover,
+    isPopoverOpened: targetRef.current && openedTarget === targetRef.current,
     popoverProps: { ref: popoverRef, targetRef, contentRef },
     popoverTargetProps: { ref: targetRef }
   };

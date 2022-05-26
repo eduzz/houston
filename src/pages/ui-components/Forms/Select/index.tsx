@@ -18,6 +18,7 @@ interface IOwnProperties extends Omit<IFieldsetProps, 'focused' | 'endAdornment'
   placeholder?: string;
   renderValue?: (value: any) => string;
   onChange?: (value: any) => any;
+  multiple?: boolean;
 }
 
 export interface ISelectFieldProps extends IOwnProperties, React.RefAttributes<HTMLSelectElement> {}
@@ -42,9 +43,10 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   fullWidth,
   helperText,
   className,
+  // multiple,
   children
 }) => {
-  const { openPopover, closePopover, popoverTargetProps, popoverProps } = usePopover();
+  const { openPopover, closePopover, isPopoverOpened, popoverTargetProps, popoverProps } = usePopover();
   const [options, setOptions] = React.useState<ISelectOption[]>([]);
 
   const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
@@ -106,14 +108,16 @@ const SelectField: React.FC<ISelectFieldProps> = ({
 
   return (
     <SelectContext.Provider value={contextValue}>
-      <Popover {...popoverProps}>{children}</Popover>
+      <Popover {...popoverProps} fullWidth>
+        {children}
+      </Popover>
 
       <Fieldset
         containterRef={popoverTargetProps.ref}
         label={label}
         loading={loading}
         className={className}
-        focused={false} //TODO
+        focused={isPopoverOpened}
         errorMessage={errorMessage || formError}
         fullWidth={fullWidth}
         endAdornment={<ChevronDown />}

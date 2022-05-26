@@ -11,11 +11,12 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   const callback = React.useCallback((event: AnyEvent) => handler(event), deps ?? []);
 
   React.useEffect(() => {
+    const el = (ref as any)?.current ?? ref;
+    if (!el) return null;
+
     let throttle = false;
 
     const listener = (event: AnyEvent) => {
-      const el = (ref as any)?.current ?? ref;
-
       if (!el || el.contains(event.target as Node) || throttle) {
         return;
       }

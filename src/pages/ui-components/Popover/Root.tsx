@@ -11,6 +11,7 @@ export interface IPopoverProps {
 
 interface IState extends IPopoverContextState {
   closedTarget: IPopoverContextState['target'];
+  timestamp: number;
 }
 
 const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
@@ -18,7 +19,8 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     opened: false,
     target: null,
     content: null,
-    closedTarget: null
+    closedTarget: null,
+    timestamp: 0
   });
 
   React.useEffect(() => {
@@ -27,7 +29,6 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
       return null;
     }
 
-    state.content.style.width = `${state.target.offsetWidth}px`;
     const instance = createPopper(state.target, state.content);
     state.content?.classList?.add('--opened');
 
@@ -38,22 +39,39 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.opened]);
 
-  const contextValue: IPopoverContext = React.useCallback(newState => {
-    const resolveNewState = (currentState: IState) => ({
-      ...currentState,
-      ...newState,
-      opened: currentState.closedTarget === newState.target ? false : true
-    });
+  useOnClickOutside(
+    state.content,
+    () => {
+      const justOpened = (Date.now() - state.timestamp ?? 0) < 100;
+      if (!state.opened || justOpened) return;
 
-    setState(currentState => {
-      const waitPreviousclose = !!currentState.closedTarget;
-      if (waitPreviousclose) {
-        setTimeout(() => setState(resolveNewState), 100);
-        return currentState;
-      }
+      setState(currentState => ({ ...currentState, opened: false, closedTarget: currentState.target }));
+      setTimeout(() => {
+        setState(currentState => ({ ...currentState, closedTarget: null }));
+      }, 300);
+    },
+    [state.opened]
+  );
 
-      return resolveNewState(currentState);
-    });
+  const contextSetValue = React.useCallback<IPopoverContext['setState']>(newState => {
+    setTimeout(() => {
+      const resolveNewState = (currentState: IState) => ({
+        ...currentState,
+        ...newState,
+        timestamp: Date.now(),
+        opened: currentState.closedTarget === newState.target ? false : true
+      });
+
+      setState(currentState => {
+        const waitPreviousclose = !!currentState.closedTarget;
+        if (waitPreviousclose) {
+          setTimeout(() => setState(resolveNewState), 100);
+          return currentState;
+        }
+
+        return resolveNewState(currentState);
+      });
+    }, 0);
 
     return () => {
       setState(currentState => {
@@ -63,16 +81,9 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     };
   }, []);
 
-  useOnClickOutside(
-    state.content,
-    () => {
-      if (!state.opened) return;
-      setState(currentState => ({ ...currentState, opened: false, closedTarget: currentState.target }));
-      setTimeout(() => {
-        setState(currentState => ({ ...currentState, closedTarget: null }));
-      }, 300);
-    },
-    [state.opened]
+  const contextValue = React.useMemo<IPopoverContext>(
+    () => ({ setState: contextSetValue, openedTarget: state.opened ? state.target : null }),
+    [contextSetValue, state.opened, state.target]
   );
 
   return <PopoverContext.Provider value={contextValue}>{children}</PopoverContext.Provider>;

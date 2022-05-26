@@ -131,12 +131,15 @@ const Pagination = React.memo<ITablePagination>(
 
                       <SelectField
                         disabled={loading}
-                        size='small'
-                        margin='none'
-                        options={optionsPerPage}
+                        // size='small' TODO
+                        // margin='none' TODO
                         value={perPage}
                         onChange={handleChangePerPage}
-                      />
+                      >
+                        {optionsPerPage.map(({ value, label }) => (
+                          <SelectField.Option key={value} value={value} label={label} />
+                        ))}
+                      </SelectField>
                     </Column>
 
                     <Column xs='auto' className='__labels'>
