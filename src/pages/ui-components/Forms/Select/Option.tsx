@@ -57,7 +57,7 @@ const SelectOption: React.FC<ISelectOptionProps> = ({ children, value, label, cl
   );
 };
 
-export default styled(SelectOption, { label: 'houston-form-select-option' })(
+export default styled(React.memo(SelectOption), { label: 'houston-form-select-option' })(
   ({ theme }) => css`
     cursor: pointer;
     padding: ${theme.spacing.squish.xs};

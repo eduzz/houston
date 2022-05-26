@@ -147,6 +147,6 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   );
 };
 
-export default nestedComponent(SelectField, {
+export default nestedComponent(React.memo(SelectField), {
   Option: SelectOption
 });

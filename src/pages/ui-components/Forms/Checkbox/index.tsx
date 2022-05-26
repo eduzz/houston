@@ -1,13 +1,11 @@
 import * as React from 'react';
 
-import Checkbox from '@mui/material/Checkbox';
+import CheckboxRadio, { ICheckboxRadioProps } from '../internals/CheckboxRadio';
 
-import CheckboxRadioField, { ICheckboxBaseFieldProps } from '../internals/CheckBoxBase';
+export interface ICheckboxProps extends ICheckboxRadioProps {}
 
-export interface ICheckboxFieldProps extends Omit<ICheckboxBaseFieldProps, 'Control'> {}
-
-const CheckboxField: React.FC<ICheckboxFieldProps> = props => {
-  return <CheckboxRadioField {...props} Control={Checkbox} />;
+const Checkbox: React.FC<ICheckboxProps> = props => {
+  return <CheckboxRadio {...props} type='checkbox' />;
 };
 
-export default CheckboxField;
+export default Checkbox;
