@@ -104,8 +104,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
   }, [currentLocation]);
 
   React.useEffect(() => {
-    const isCollapsing = !isCollapsed;
-    if (isCollapsing) setInsideComponentFalse();
+    if (isCollapsed) setInsideComponentFalse();
   }, [isCollapsed, setInsideComponentFalse]);
 
   return (
