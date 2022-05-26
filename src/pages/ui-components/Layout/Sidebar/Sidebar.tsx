@@ -59,14 +59,11 @@ const Sidebar: React.FC<ISidebarProps> = ({
 
   const handleCollapse = React.useCallback(() => {
     if (!isControlled) {
-      setCollapsed(collapsed => {
-        if (!collapsed) setInsideComponentFalse();
-        return !collapsed;
-      });
+      setCollapsed(collapsed => !collapsed);
     }
 
     onCollapse?.(!isCollapsed);
-  }, [isControlled, onCollapse, isCollapsed, setInsideComponentFalse]);
+  }, [isControlled, onCollapse, isCollapsed]);
 
   const contextValue = React.useMemo<ISidebarContext>(
     () => ({
@@ -101,6 +98,10 @@ const Sidebar: React.FC<ISidebarProps> = ({
     onRequestClose && onRequestClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLocation]);
+
+  React.useEffect(() => {
+    if (isCollapsed) setInsideComponentFalse();
+  }, [isCollapsed, setInsideComponentFalse]);
 
   return (
     <SidebarContext.Provider value={contextValue}>
