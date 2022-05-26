@@ -15,47 +15,61 @@ export interface IFieldsetProps extends IStyledProp {
   fullWidth?: boolean;
   errorMessage?: string;
   helperText?: string;
+}
+
+interface IInternalFieldsetProps extends IFieldsetProps {
   focused?: boolean;
+  onClickContainer?: () => void;
+  containterRef?: React.RefObject<HTMLDivElement>;
   children: React.ReactNode;
 }
 
-const Fieldset: React.FC<IFieldsetProps> = ({
-  label,
-  loading,
-  focused,
-  errorMessage,
-  fullWidth,
-  endAdornment,
-  startAdornment,
-  className,
-  helperText,
-  disabled,
-  children
-}) => {
-  helperText = errorMessage || helperText;
-  endAdornment = loading ? <Spinner color='inherit' size={20} /> : endAdornment;
+const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
+  (
+    {
+      label,
+      loading,
+      focused,
+      errorMessage,
+      fullWidth,
+      endAdornment,
+      startAdornment,
+      className,
+      helperText,
+      disabled,
+      children,
+      containterRef,
+      onClickContainer
+    },
+    ref
+  ) => {
+    helperText = errorMessage || helperText;
+    endAdornment = loading ? <Spinner color='inherit' size={20} /> : endAdornment;
 
-  return (
-    <fieldset
-      className={cx(className, {
-        '--fullWidth': fullWidth,
-        '--error': !!errorMessage,
-        '--disabled': disabled,
-        '--loading': loading,
-        '--focused': focused
-      })}
-    >
-      {!!label && <label className='__label'>{label}</label>}
-      <div className='__container'>
-        {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
-        {children}
-        {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
-      </div>
+    return (
+      <fieldset
+        ref={ref}
+        className={cx(className, {
+          '--fullWidth': fullWidth,
+          '--error': !!errorMessage,
+          '--disabled': disabled,
+          '--loading': loading,
+          '--focused': focused,
+          '--clickable': !!onClickContainer
+        })}
+      >
+        {!!label && <label className='__label'>{label}</label>}
+        <div className='__container' ref={containterRef} onClick={onClickContainer}>
+          {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
+          <div className='__content'>{children}</div>
+          {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
+        </div>
 
-      {!!helperText && <span className='__message'>{helperText}</span>}
-    </fieldset>
-  );
-};
+        {!!helperText && <span className='__message'>{helperText}</span>}
+      </fieldset>
+    );
+  }
+);
 
 export default styled(Fieldset, { label: 'houston-form-fieldset' })(
   ({ theme }) => css`
@@ -95,12 +109,24 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
         }
       }
 
+      & > .__content {
+        width: 100%;
+      }
+
       & > .__startAdornment {
         margin-left: ${theme.spacing.xxxs};
       }
 
       & > .__endAdornment {
         margin-right: ${theme.spacing.xxxs};
+      }
+
+      & .__text {
+        padding: ${theme.spacing.squish.xxs};
+        font-size: ${theme.font.size.xs};
+        font-family: ${theme.font.family.base};
+        font-weight: ${theme.font.weight.regular};
+        line-height: ${theme.line.height.sm};
       }
     }
 
@@ -123,6 +149,11 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       line-height: ${theme.line.height.default};
       color: ${theme.neutralColor.low.pure};
       margin-top: ${theme.spacing.nano};
+    }
+
+    &.--clickable:not(.--disabled) > .__container {
+      cursor: pointer;
+      user-select: none;
     }
 
     &.--disabled {

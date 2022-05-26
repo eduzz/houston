@@ -21,7 +21,6 @@ import SelectField from '@eduzz/houston-ui/Forms/Select';
 <Playground>
   {() => {
     const [text, setText] = React.useState('');
-    const [multiple, setMultiple] = React.useState([]);
     const [options] = React.useState(() => [
       { value: 1, label: 'Opção 1' },
       { value: 2, label: 'Opção 2' },
@@ -31,30 +30,24 @@ import SelectField from '@eduzz/houston-ui/Forms/Select';
     ]);
     return (
       <>
-        <p>Componente de seleção com opção em branco</p>
         <SelectField
-          label='Componente de seleção'
+          label='Com opção em branco'
           emptyOption='Selecione...'
           options={options}
           value={text}
           onChange={setText}
         />
-        <p>Componente de seleção desabilitado</p>
-        <SelectField label='Componente de seleção' options={options} disabled value={text} onChange={setText} />
-        <p>Componente de seleção com carregamento</p>
-        <SelectField label='Componente de seleção' options={options} loading value={text} onChange={setText} />
-        <p>Componente de seleção com texto de ajuda</p>
+        <SelectField label='Desativado' options={options} disabled value={text} onChange={setText} />
+        <SelectField label='Carregamento' options={options} loading value={text} onChange={setText} />
         <SelectField
-          label='Componente de seleção'
+          label='Com texto de ajuda'
           helperText='Exemplo de texto de ajuda'
           options={options}
-          disabled
           value={text}
           onChange={setText}
         />
-        <p>Componente de seleção com mensagem de erro</p>
         <SelectField
-          label='Componente de seleção'
+          label='Com mensagem de erro'
           errorMessage='Mensagem de erro'
           options={options}
           value={text}

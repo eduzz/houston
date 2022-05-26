@@ -55,12 +55,6 @@ const ColorField: React.FC<IColorFieldProps> = ({
     }
   }, [disabled, loading]);
 
-  const handleClosePicker = React.useCallback(() => {
-    if (visible) {
-      setVisible(false);
-    }
-  }, [visible]);
-
   const handleChange = React.useCallback(
     (value: string) => {
       setColor(value);
@@ -72,7 +66,14 @@ const ColorField: React.FC<IColorFieldProps> = ({
 
   const errorMessage = errorMessageProp ?? formError;
 
-  useOnClickOutside(pickerRef, handleClosePicker);
+  useOnClickOutside(
+    pickerRef,
+    () => {
+      if (!visible) return;
+      setVisible(false);
+    },
+    [visible]
+  );
 
   return (
     <div className={cx(classes.root, className)}>

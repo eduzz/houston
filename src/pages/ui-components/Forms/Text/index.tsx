@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-imports */
-
 import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
@@ -9,20 +7,13 @@ import styled, { css, cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
 import { FormFieldsContext } from '../Form';
-import Fieldset from '../internals/Fieldset';
+import Fieldset, { IFieldsetProps } from '../internals/Fieldset';
 
 const ROWS: Array<IOwnProperties['rows']> = [2, 4, 6, 8, 10, 14, 18, 24];
 
-interface IOwnProperties {
-  label?: string;
-  loading?: boolean;
-  errorMessage?: string;
+interface IOwnProperties extends IFieldsetProps {
   mask?: IFormMask;
   size?: 'small' | 'normal';
-  endAdornment?: React.ReactNode;
-  startAdornment?: React.ReactNode;
-  fullWidth?: boolean;
-  helperText?: string;
   multiline?: boolean;
   rows?: 2 | 4 | 6 | 8 | 10 | 14 | 18 | 24;
   disableAutoResize?: boolean;
@@ -139,13 +130,13 @@ const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
         })}
       >
         <div className='__wrapperAutoSizer'>
-          {!!multiline && !disableAutoResize && <div className='__autoSizer'>{value + ' '}</div>}
+          {!!multiline && !disableAutoResize && <div className='__autoSizer __text'>{value + ' '}</div>}
           {React.createElement(multiline ? 'textarea' : 'input', {
             ref,
             ...props,
             name,
             disabled: isDisabled,
-            className: '__input',
+            className: '__input __text',
             value: maskedValue ?? '',
             readOnly: readOnly ?? loading,
             onChange: handleChange,
@@ -189,15 +180,6 @@ export default styled(React.memo(TextField), { label: 'houston-form-text' })(
         &::placeholder {
           color: ${theme.neutralColor.low.medium};
         }
-      }
-
-      & .__autoSizer,
-      & .__input {
-        padding: ${theme.spacing.squish.xxs};
-        font-size: ${theme.font.size.xs};
-        font-family: ${theme.font.family.base};
-        font-weight: ${theme.font.weight.regular};
-        line-height: ${theme.line.height.sm};
       }
     }
 
