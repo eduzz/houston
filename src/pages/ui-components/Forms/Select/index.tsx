@@ -1,14 +1,12 @@
 import * as React from 'react';
 
-import { useContextSelector } from 'use-context-selector';
-
+import { useFormIsSubmitting, useFormValue, useFormError, useFormSetValue } from '@eduzz/houston-forms/context';
 import ChevronDown from '@eduzz/houston-icons/ChevronDown';
 
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
 import nestedComponent from '../../utils/nestedComponent';
-import { FormFieldsContext } from '../Form';
-import Fieldset, { IFieldsetProps } from '../internals/Fieldset';
+import Fieldset, { IFieldsetProps } from '../_utils/Fieldset';
 import SelectContext, { ISelectContext, ISelectOption } from './context';
 import SelectOption from './Option';
 
@@ -19,10 +17,22 @@ interface IOwnProperties extends Omit<IFieldsetProps, 'focused' | 'endAdornment'
   renderValue?: (value: any) => string;
   onChange?: (value: any) => any;
   multiple?: boolean;
+
+  /**
+   * @deprecated Utilizar a nova estrutura de options
+   */
+  emptyOption?: string;
+  /**
+   * @deprecated Utilizar a nova estrutura de options
+   */
+  options?: ISelectFieldOption[];
 }
 
 export interface ISelectFieldProps extends IOwnProperties, React.RefAttributes<HTMLSelectElement> {}
 
+/**
+ * @deprecated Utilizar a nova estrutura de options
+ */
 export interface ISelectFieldOption {
   value: string | number;
   label: string;
@@ -42,26 +52,24 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   disabled,
   startAdornment,
   errorMessage: errorMessageProp,
+
   fullWidth,
   helperText,
   className,
   // multiple,
+  emptyOption,
+  options: optionsProps,
   children
 }) => {
   const { openPopover, closePopover, isPopoverOpened, popoverTargetProps, popoverProps } = usePopover();
   const [options, setOptions] = React.useState<ISelectOption[]>([]);
 
-  const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
-  const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
-  const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
-  const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
+  const isSubmitting = useFormIsSubmitting();
+  let value = useFormValue(name, valueProp);
+  const errorMessage = useFormError(name, errorMessageProp);
+  const setFormValue = useFormSetValue(name);
 
-  let value = formValue ?? valueProp;
   value = !multiple ? value : Array.isArray(value) ? value : [];
-
-  if (!name && setFieldValue) {
-    throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
-  }
 
   const contextRegisterOption = React.useCallback<ISelectContext['registerOption']>(option => {
     setOptions(options => [...options, option]);
@@ -72,18 +80,22 @@ const SelectField: React.FC<ISelectFieldProps> = ({
     (selected: any) => {
       if (!multiple) {
         onChange && onChange(selected);
-        setFieldValue && setFieldValue(name, selected);
+        setFormValue && setFormValue(selected);
         closePopover();
         return;
       }
 
-      const newValue = value.includes(selected) ? value.filter((v: any) => v !== selected) : [...value, selected];
-      console.log({ newValue });
+      const isEmptyOption = selected === null || selected === undefined || selected === '';
+      const newValue = isEmptyOption
+        ? []
+        : value.includes(selected)
+        ? value.filter((v: any) => v !== selected)
+        : [...value, selected];
 
       onChange && onChange(newValue);
-      setFieldValue && setFieldValue(name, newValue);
+      setFormValue && setFormValue(newValue);
     },
-    [multiple, onChange, value, setFieldValue, name, closePopover]
+    [multiple, onChange, value, setFormValue, closePopover]
   );
 
   const contextValue = React.useMemo<ISelectContext>(
@@ -118,12 +130,19 @@ const SelectField: React.FC<ISelectFieldProps> = ({
     );
   }, [multiple, options, placeholder, renderValue, value]);
 
-  const errorMessage = errorMessageProp ?? formError;
-
   return (
     <SelectContext.Provider value={contextValue}>
       <Popover {...popoverProps} fullWidth>
         {children}
+        {!!emptyOption && <SelectOption label={emptyOption} />}
+        {optionsProps?.map((option, index) => (
+          <SelectOption
+            key={option.value ?? `op-${index}`}
+            value={option.value}
+            label={option.label}
+            disabled={option.disabled}
+          />
+        ))}
       </Popover>
 
       <Fieldset
@@ -133,7 +152,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
         loading={loading}
         className={className}
         focused={isPopoverOpened}
-        errorMessage={errorMessage || formError}
+        errorMessage={errorMessage}
         fullWidth={fullWidth}
         endAdornment={<ChevronDown />}
         startAdornment={startAdornment}

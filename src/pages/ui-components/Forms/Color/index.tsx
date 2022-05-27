@@ -1,93 +1,54 @@
 import * as React from 'react';
 
 import { HexColorPicker } from 'react-colorful';
-import { useContextSelector } from 'use-context-selector';
 
-import { cx } from '@eduzz/houston-styles';
+import { useFormValue, useFormError, useFormSetValue } from '@eduzz/houston-forms/context';
+import useBoolean from '@eduzz/houston-hooks/useBoolean';
+import { cx, IStyledProp } from '@eduzz/houston-styles';
 
 import useOnClickOutside from '../../hooks/useClickOutside';
-import { FormFieldsContext } from '../Form';
-import TextField, { ITextFieldProps } from '../Text';
+import Input, { IInputProps } from '../Input';
 import useStyles from './styles';
 
-type FieldTextPropsOmit = 'type' | 'multiline' | 'mask' | 'value' | 'onChange' | 'onBlur' | 'maxLength';
-
-export interface IColorFieldProps extends Omit<ITextFieldProps, FieldTextPropsOmit> {
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value: string) => void;
+export interface IColorFieldProps
+  extends IStyledProp,
+    Omit<IInputProps<string>, 'type' | 'multiline' | 'mask' | 'rows' | 'disableAutoResize' | 'onChange'> {
+  onChange(value: string): void;
 }
 
 const ColorField: React.FC<IColorFieldProps> = ({
   className,
-  value,
-  defaultValue,
-  errorMessage: errorMessageProp,
-  loading,
   name,
+  value: valueProp,
+  errorMessage: errorMessageProp,
   onChange,
-  disabled,
   ...props
 }) => {
   const classes = useStyles();
 
   const pickerRef = React.useRef<HTMLDivElement>();
+  const [visible, , setVisibleTrue, setVisibleFalse] = useBoolean(false);
 
-  const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
-  const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
-  const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
-  const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
-
-  if (!name && setFieldValue) {
-    throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
-  }
-
-  value = formValue ?? value;
-
-  const initialColor = value ? value : defaultValue ?? '';
-
-  const [visible, setVisible] = React.useState<boolean>(false);
-  const [color, setColor] = React.useState<string>(initialColor);
-
-  const handleClickInput = React.useCallback(() => {
-    if (!disabled && !loading) {
-      setVisible(true);
-    }
-  }, [disabled, loading]);
+  const value = useFormValue(name, valueProp);
+  const errorMessage = useFormError(name, errorMessageProp);
+  const setFormValue = useFormSetValue(name);
 
   const handleChange = React.useCallback(
     (value: string) => {
-      setColor(value);
       onChange && onChange(value);
-      setFieldValue && setFieldValue(name, value);
+      setFormValue && setFormValue(value);
     },
-    [name, onChange, setFieldValue]
+    [onChange, setFormValue]
   );
 
-  const errorMessage = errorMessageProp ?? formError;
-
-  useOnClickOutside(
-    pickerRef,
-    () => {
-      if (!visible) return;
-      setVisible(false);
-    },
-    [visible]
-  );
+  useOnClickOutside(pickerRef, () => setVisibleFalse(), []);
 
   return (
     <div className={cx(classes.root, className)}>
-      <TextField
-        {...props}
-        disabled={isSubmitting || disabled || loading}
-        helperText={errorMessage || props.helperText}
-        name={name}
-        onClick={handleClickInput}
-        value={color}
-      />
+      <Input {...props} value={value} errorMessage={errorMessage} onClick={setVisibleTrue} />
 
       <div ref={pickerRef} className={cx(classes.picker, visible && '--show')}>
-        <HexColorPicker color={color} onChange={handleChange} />
+        <HexColorPicker color={value} onChange={handleChange} />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { useContext } from 'use-context-selector';
 
+import Cancel from '@eduzz/houston-icons/Cancel';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import Typography from '../../Typography';
@@ -19,7 +20,7 @@ export interface ISelectOptionProps extends IStyledProp {
   children?: React.ReactNode;
 }
 
-const SelectOption: React.FC<ISelectOptionProps> = ({ children, value, label, className }) => {
+const SelectOption: React.FC<ISelectOptionProps> = ({ children, value, label, className, disabled }) => {
   const divRef = React.useRef<HTMLDivElement>();
   const { registerOption, onSelect, inputSize, inputValue, multiple } = useContext(SelectContext);
   const isSelected = inputValue && (Array.isArray(inputValue) ? inputValue.includes(value) : inputValue === value);
@@ -29,9 +30,11 @@ const SelectOption: React.FC<ISelectOptionProps> = ({ children, value, label, cl
   }, [registerOption, label, value, divRef.current?.textContent]);
 
   const handleClick = React.useCallback(() => {
+    if (disabled) return;
     onSelect(value);
-  }, [onSelect, value]);
+  }, [disabled, onSelect, value]);
 
+  const isEmptyOption = value === null || value === undefined || value === '';
   children = children ?? label;
 
   return (
@@ -39,20 +42,22 @@ const SelectOption: React.FC<ISelectOptionProps> = ({ children, value, label, cl
       ref={divRef}
       className={cx(className, {
         [`--size-${inputSize ?? 'default'}`]: true,
-        '--selected': isSelected,
-        '--multiple': multiple
+        '--disabled': disabled
       })}
       onClick={handleClick}
     >
-      {multiple && <Checkbox checked={isSelected} />}
+      <div className='__content'>
+        {multiple && !isEmptyOption && <Checkbox checked={isSelected} className='__checkbox' />}
+        {multiple && isEmptyOption && <Cancel className='__icon' />}
 
-      {typeof children === 'string' ? (
-        <Typography size={inputSize === 'sm' ? 'xxs' : 'xs'} weight={isSelected ? 'semibold' : 'regular'}>
-          {children}
-        </Typography>
-      ) : (
-        children
-      )}
+        {typeof children === 'string' ? (
+          <Typography size={inputSize === 'sm' ? 'xxs' : 'xs'} weight={isSelected ? 'semibold' : 'regular'}>
+            {children}
+          </Typography>
+        ) : (
+          children
+        )}
+      </div>
     </div>
   );
 };
@@ -64,8 +69,6 @@ export default styled(React.memo(SelectOption), { label: 'houston-form-select-op
     background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
     transition: 0.3s;
     position: relative;
-    display: flex;
-    align-items: center;
 
     &:hover {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[1])};
@@ -78,6 +81,25 @@ export default styled(React.memo(SelectOption), { label: 'houston-form-select-op
       left: ${theme.spacing.xxxs};
       right: ${theme.spacing.xxxs};
       border-bottom: ${theme.border.width.xs} solid ${theme.neutralColor.high.medium};
+    }
+
+    & > .__content {
+      display: flex;
+      align-items: center;
+
+      & > .__checkbox,
+      & > .__icon {
+        margin-right: ${theme.spacing.nano};
+      }
+    }
+
+    &.--disabled {
+      cursor: not-allowed;
+
+      & > .__content {
+        opacity: ${theme.opacity.level[6]};
+        pointer-events: none;
+      }
     }
 
     &.--size-sm {

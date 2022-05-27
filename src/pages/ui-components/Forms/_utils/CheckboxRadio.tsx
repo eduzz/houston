@@ -1,13 +1,11 @@
 import * as React from 'react';
 
-import { useContextSelector } from 'use-context-selector';
-
+import { useFormError, useFormIsSubmitting, useFormSetValue, useFormValue } from '@eduzz/houston-forms/context';
 import Bullet from '@eduzz/houston-icons/Bullet';
 import Done from '@eduzz/houston-icons/Done';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import Typography from '../../Typography';
-import { FormFieldsContext } from '../Form';
 
 interface IOwnProperties extends IStyledProp {
   children?: React.ReactNode;
@@ -49,20 +47,17 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   onChange,
   className
 }) => {
-  const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
-  const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
-  const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
-  const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
+  const isSubmitting = useFormIsSubmitting();
 
-  if (!name && setFieldValue) {
-    throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
-  }
+  let value = useFormValue(name, checked);
+  const errorMessage = useFormError(name, errorMessageProp);
+  const setFieldValue = useFormSetValue(name);
 
+  value = !multiple ? value : Array.isArray(value) ? value : [];
+
+  disabled = disabled || isSubmitting;
   checkedValue = checkedValue ?? true;
   multiple = type === 'checkbox' ? multiple : false;
-
-  let value = formValue ?? checked;
-  value = !multiple ? value : Array.isArray(value) ? value : [];
 
   const isChecked: boolean = React.useMemo(() => {
     if (typeof checked === 'boolean') return checked;
@@ -70,13 +65,15 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   }, [checked, checkedValue, value]);
 
   const handleChange = React.useCallback(() => {
+    if (disabled) return;
+
     if (!multiple) {
-      setFieldValue && setFieldValue(name, !checked);
+      setFieldValue && setFieldValue(!checked);
       onChange && onChange(!checked);
       return;
     }
 
-    const setValue = new Set(formValue ?? []);
+    const setValue = new Set(value ?? []);
 
     if (checked) {
       setValue.add(value);
@@ -84,10 +81,9 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
       setValue.delete(value);
     }
 
-    setFieldValue && setFieldValue(name, Array.from(setValue));
-  }, [checked, formValue, multiple, name, onChange, setFieldValue, value]);
+    setFieldValue && setFieldValue(Array.from(setValue));
+  }, [checked, disabled, multiple, onChange, setFieldValue, value]);
 
-  const errorMessage = errorMessageProp ?? formError;
   const message = errorMessage ?? helperText;
 
   return (
@@ -96,7 +92,8 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
         '--empty': !children,
         '--checked': isChecked,
         '--error': !!errorMessage,
-        '--disabled': disabled
+        '--disabled': disabled,
+        [`--type-${type}`]: true
       })}
       onClick={handleChange}
     >
@@ -110,8 +107,7 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
       />
 
       <div className='__check'>
-        {isChecked &&
-          (type === 'checkbox' ? <Done size={18} className='__icon' /> : <Bullet size={18} className='__icon' />)}
+        {type === 'checkbox' ? <Done size={18} className='__icon' /> : <Bullet size={16} className='__icon' />}
       </div>
 
       {!!children && (
@@ -145,10 +141,6 @@ export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-che
     & > .__input {
       display: none;
 
-      &[type='radio'] + .__check {
-        border-radius: 50%;
-      }
-
       &:focus + .__check {
         box-shadow: 0 0 0 2px ${theme.feedbackColor.informative.pure};
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
@@ -160,9 +152,8 @@ export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-che
       height: 16px;
       line-height: 0;
       border: 1px solid ${theme.neutralColor.low.light};
-      border-radius: ${theme.border.radius.xs};
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
-      transition: 0.3s;
+      transition: 0.3s, color 0s;
       position: relative;
 
       & + .__label {
@@ -171,8 +162,9 @@ export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-che
 
       & > .__icon {
         position: absolute;
-        top: -2px;
-        left: -2px;
+        transition: 0.5s;
+        transform: scale(0);
+        opacity: 0;
       }
     }
 
@@ -194,15 +186,77 @@ export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-che
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
     }
 
-    &.--checked > .__check {
-      color: white;
-      background-color: ${theme.brandColor.primary.pure};
-      border-color: ${theme.brandColor.primary.pure};
+    &.--type-checkbox {
+      & > .__check {
+        border-radius: ${theme.border.radius.xs};
+
+        & > .__icon {
+          top: -2px;
+          left: -2px;
+        }
+      }
+
+      &.--checked > .__check {
+        color: white;
+        background-color: ${theme.brandColor.primary.pure};
+        border-color: ${theme.brandColor.primary.pure};
+
+        & > .__icon {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      &.--error:not(.--checked) > .__check {
+        background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
+        border-color: ${theme.feedbackColor.negative.pure};
+      }
+
+      &.--error.--checked > .__check {
+        background-color: ${theme.feedbackColor.negative.pure};
+        border-color: ${theme.feedbackColor.negative.pure};
+      }
     }
 
-    &.--error > .__check {
-      background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
-      border-color: ${theme.feedbackColor.negative.pure};
+    &.--type-radio {
+      & > .__check {
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px transparent;
+
+        & > .__icon {
+          top: -1px;
+          left: -1px;
+        }
+      }
+
+      &.--checked > .__check {
+        color: ${theme.brandColor.primary.pure};
+        background-color: white;
+        border-color: ${theme.brandColor.primary.pure};
+        box-shadow: 0 0 0 1px ${theme.brandColor.primary.pure};
+
+        & > .__icon {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      &.--error:not(.--checked) > .__check {
+        background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
+        border-color: ${theme.feedbackColor.negative.pure};
+      }
+
+      &.--error.--checked > .__check {
+        color: ${theme.feedbackColor.negative.pure};
+        background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
+        border-color: ${theme.feedbackColor.negative.pure};
+        box-shadow: 0 0 0 1px ${theme.feedbackColor.negative.pure};
+      }
+    }
+
+    &.--disabled {
+      cursor: not-allowed;
+      opacity: ${theme.opacity.level[6]};
     }
   `
 );

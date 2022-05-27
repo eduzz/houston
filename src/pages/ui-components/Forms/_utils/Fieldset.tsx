@@ -52,7 +52,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
       <fieldset
         ref={ref}
         className={cx(className, {
-          '--fullWidth': fullWidth,
+          '--full-width': fullWidth ?? true,
           '--error': !!errorMessage,
           '--disabled': disabled,
           '--loading': loading,
@@ -178,6 +178,10 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
     &.--error > .__container {
       background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
       border-color: ${theme.feedbackColor.negative.pure};
+    }
+
+    &.--full-width {
+      width: 100%;
     }
 
     &.--size-sm {

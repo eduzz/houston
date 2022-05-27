@@ -83,7 +83,7 @@ export default styled(Popover, { label: 'houston-popover' })(
       animation-duration: 0.2s;
       animation-name: ${hideAnimation};
       animation-fill-mode: forwards;
-      margin-top: ${theme.spacing.nano};
+      margin: ${theme.spacing.nano} 0;
     }
 
     &.--opened {
