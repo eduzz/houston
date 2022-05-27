@@ -12,6 +12,14 @@ interface IOwnProperties extends IStyledProp {
   errorMessage?: string;
   helperText?: string;
   /**
+   * @deprecated use children instead
+   */
+  label?: string;
+  /**
+   * @deprecated use helperText instead
+   */
+  description?: string;
+  /**
    * Value of checked. Ex. true, 1, 'value'
    */
   value?: any;
@@ -36,10 +44,12 @@ interface IInternalCheckboxRadioProps extends ICheckboxRadioProps {
 
 const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   name,
+  label,
   children,
   value: checkedValue,
   errorMessage: errorMessageProp,
   helperText,
+  description,
   disabled,
   multiple,
   checked,
@@ -58,6 +68,8 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   disabled = disabled || isSubmitting;
   checkedValue = checkedValue ?? true;
   multiple = type === 'checkbox' ? multiple : false;
+  children = children ?? label;
+  helperText = helperText ?? description;
 
   const isChecked: boolean = React.useMemo(() => {
     if (typeof checked === 'boolean') return checked;
@@ -112,13 +124,7 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
 
       {!!children && (
         <div className='__label'>
-          {typeof children === 'string' ? (
-            <Typography size='xs'>
-              {children} {isChecked ? 'S' : 'N'}
-            </Typography>
-          ) : (
-            children
-          )}
+          {typeof children === 'string' ? <Typography size='xs'>{children}</Typography> : children}
           {!!message && <span className='__message'>{message}</span>}
         </div>
       )}
