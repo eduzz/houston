@@ -1,11 +1,17 @@
 import * as React from 'react';
 
-import MUIAlertTitle from '@mui/material/AlertTitle';
+import Typography from '../../Typography';
 
 export interface IAlertTitleProps {
   children?: React.ReactNode;
 }
 
-const AlertTitle: React.FC<IAlertTitleProps> = ({ children }) => <MUIAlertTitle>{children}</MUIAlertTitle>;
+const AlertTitle = ({ children }: IAlertTitleProps) => (
+  <div className='__title'>
+    <Typography.Heading color='neutralColor.low.pure' as='h5' lineHeight='default'>
+      {children}
+    </Typography.Heading>
+  </div>
+);
 
 export default AlertTitle;

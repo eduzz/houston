@@ -1,71 +1,169 @@
 import * as React from 'react';
 
-import AlertMUI, { AlertProps, AlertColor } from '@mui/material/Alert';
-import Collapse from '@mui/material/Collapse';
+import styled, { css, cx, IStyledProp, CSSInterpolation } from '@eduzz/houston-styles';
 
-import useBoolean from '@eduzz/houston-hooks/useBoolean';
-
-import Button from '../Button';
-import { useChildrenProps } from '../hooks/useChildrenProps';
 import nestedComponent from '../utils/nestedComponent';
-import AlertAction, { IAlertActionProps } from './Action';
-import useStyles from './styles';
-import AlertTitle from './Title';
+import Button from './Button';
+import Content from './Content';
+import Icon from './icons';
+import Title from './Title';
 
-type AlertPropsExtends = 'id' | 'className' | 'children' | 'severity' | 'onClose' | 'icon';
+export type AlertTypes = 'informative' | 'positive' | 'negative' | 'warning';
 
-interface IAlertProps extends Pick<AlertProps, AlertPropsExtends>, React.RefAttributes<AlertProps> {
-  type?: AlertColor;
-  closable?: boolean;
-  multiline?: boolean;
+export type IconMap = { [key in AlertTypes]: JSX.Element };
+
+export interface IAlertProps {
+  /**
+   * Default `informative`
+   */
+  type?: AlertTypes;
+  /**
+   * Show icon close.
+   * Default `true`
+   */
+  closeIcon?: boolean;
+  visible?: boolean;
+  onClose?: () => void;
 }
 
-let alertActionIncrementer = 0;
+export interface IAlertInterface extends IAlertProps, React.HTMLAttributes<HTMLDivElement>, IStyledProp {}
 
-const Alert: React.FC<IAlertProps> = props => {
-  const { id, className, children, type = 'success', icon, onClose, closable, multiline } = props;
-  const alertProps = { id, className, severity: type, icon, onClose };
-
-  const classes = useStyles();
-
-  const [hide, , , setHide] = useBoolean(false);
-
-  const actions = useChildrenProps<IAlertActionProps>(children, AlertAction).map(props => ({
-    ...props,
-    id: `action-${alertActionIncrementer++}`
-  }));
-
-  const buttonActions = React.useMemo(
-    () =>
-      actions?.map((act, index) => {
-        const buttonProps = { ...act };
-        delete buttonProps.label;
-
-        return (
-          <Button {...buttonProps} key={`alert-action-${index}`}>
-            {act.label}
-          </Button>
-        );
-      }),
-    [actions]
-  );
-
-  const renderActions = React.useMemo(() => {
-    if (multiline) return false;
-    if (!!actions.length) return <div className={classes.controlButtons}>{buttonActions}</div>;
-    return null;
-  }, [multiline, actions, classes, buttonActions]);
-
-  return (
-    <Collapse in={!hide} timeout={500}>
-      <AlertMUI {...alertProps} onClose={closable ? setHide : onClose} action={renderActions}>
-        {children}
-        {multiline && buttonActions.length > 0 && (
-          <div className={classes.controlButtonsMultiline}>{buttonActions}</div>
-        )}
-      </AlertMUI>
-    </Collapse>
-  );
+const IconMap: IconMap = {
+  informative: <Icon.Informative />,
+  positive: <Icon.Positive />,
+  negative: <Icon.Warning />,
+  warning: <Icon.Warning />
 };
 
-export default nestedComponent(React.memo(Alert), { Title: AlertTitle, Action: AlertAction });
+const Alert = React.forwardRef<HTMLDivElement, IAlertInterface>(
+  ({ className, type = 'informative', closeIcon = true, visible: visibleProp, onClose, children, ...rest }, ref) => {
+    const [visible, setVisible] = React.useState(true);
+
+    const controlled = visibleProp !== undefined;
+
+    const handleClose = React.useCallback(() => {
+      if (!controlled) {
+        setVisible(false);
+      }
+
+      onClose && onClose();
+    }, [controlled, onClose]);
+
+    if ((!controlled && !visible) || (controlled && !visibleProp)) {
+      return null;
+    }
+
+    return (
+      <div {...rest} ref={ref} role='alert' className={cx(className, `--type-${type}`, { '--close-icon': closeIcon })}>
+        <span role='img' className='__icon'>
+          {IconMap[type]}
+        </span>
+
+        <div className='__content'>{children}</div>
+
+        {closeIcon && (
+          <span role='img' className='__close-icon' onClick={handleClose}>
+            <Icon.Close />
+          </span>
+        )}
+      </div>
+    );
+  }
+);
+
+const AlertWrapper = styled(Alert, { label: 'houston-alert' })`
+  ${({ theme }) => {
+    const modifiersTypes: CSSInterpolation[] = [];
+
+    Object.keys(theme.feedbackColor).forEach(key =>
+      modifiersTypes.push(css`
+        &.--type-${key} {
+          background-color: ${theme.feedbackColor[key].light};
+
+          .__icon svg {
+            fill: ${theme.feedbackColor[key].pure};
+          }
+        }
+      `)
+    );
+
+    return css`
+      padding: ${theme.spacing.inset.sm};
+      border-radius: ${theme.border.radius.sm};
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      position: relative;
+
+      ${theme.breakpoints.down('md')} {
+        padding: ${theme.spacing.inset.xs};
+      }
+
+      ${modifiersTypes}
+
+      &.--close-icon {
+        .__content .__action {
+          ${theme.breakpoints.down('md')} {
+            width: calc(100% + 1.5rem);
+          }
+        }
+      }
+
+      .__icon {
+        line-height: 0;
+        margin-top: 1px;
+        margin-right: ${theme.spacing.inline.xxxs};
+
+        ${theme.breakpoints.down('md')} {
+          display: none;
+        }
+      }
+
+      .__content {
+        flex: 1;
+        position: relative;
+
+        .__title {
+          margin-bottom: ${theme.spacing.stack.xxxs};
+
+          ${theme.breakpoints.down('md')} {
+            margin-bottom: ${theme.spacing.stack.nano};
+          }
+        }
+
+        .__action {
+          margin-top: ${theme.spacing.stack.xxxs};
+
+          ${theme.breakpoints.down('md')} {
+            margin-top: ${theme.spacing.stack.xxs};
+
+            button {
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .__close-icon {
+        line-height: 0;
+        margin-left: ${theme.spacing.inline.xxxs};
+        cursor: pointer;
+        margin-top: 4px;
+
+        svg {
+          fill: ${theme.neutralColor.low.pure};
+        }
+
+        ${theme.breakpoints.down('md')} {
+          margin-left: ${theme.spacing.inline.nano};
+        }
+      }
+    `;
+  }}
+`;
+
+export default nestedComponent(AlertWrapper, {
+  Title,
+  Content,
+  Button
+});
