@@ -5,17 +5,19 @@ import EyeOffOutline from '@eduzz/houston-icons/EyeOffOutline';
 import EyeOnOutline from '@eduzz/houston-icons/EyeOnOutline';
 
 import ButtonIcon from '../../ButtonIcon';
-import TextField, { ITextFieldProps } from '../Text';
+import Input, { IInputProps } from '../Input';
 
-type FieldTextPropsOmit = 'type' | 'multiline' | 'loading' | 'mask' | 'fieldEndAdornment';
+export interface IInputPasswordProps
+  extends Omit<
+    IInputProps<string>,
+    'mask' | 'type' | 'multiline' | 'rows' | 'disableAutoResize' | 'fieldEndAdornment'
+  > {}
 
-export interface IPasswordFieldProps extends Omit<ITextFieldProps, FieldTextPropsOmit> {}
-
-const PasswordField: React.FC<IPasswordFieldProps> = props => {
+const InputPassword: React.FC<IInputPasswordProps> = props => {
   const [showPassword, toogleShowPassword] = useBoolean(false);
 
   return (
-    <TextField
+    <Input
       {...props}
       type={showPassword ? 'text' : 'password'}
       endAdornment={
@@ -27,4 +29,4 @@ const PasswordField: React.FC<IPasswordFieldProps> = props => {
   );
 };
 
-export default React.memo(PasswordField);
+export default React.memo(InputPassword);
