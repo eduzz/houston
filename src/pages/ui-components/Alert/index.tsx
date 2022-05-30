@@ -2,15 +2,15 @@ import * as React from 'react';
 
 import styled, { css, cx, IStyledProp, CSSInterpolation } from '@eduzz/houston-styles';
 
-import nestedComponent from '../utils/nestedComponent';
-import Button from './Button';
-import Content from './Content';
+import Button, { IButtonProps } from '../Button';
+import Typography from '../Typography';
 import Icon from './icons';
-import Title from './Title';
 
 export type AlertTypes = 'informative' | 'positive' | 'negative' | 'warning';
 
-export type IconMap = { [key in AlertTypes]: JSX.Element };
+export type IconMap = Record<AlertTypes, JSX.Element>;
+
+export type AlertTag = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>;
 
 export interface IAlertProps {
   /**
@@ -18,15 +18,24 @@ export interface IAlertProps {
    */
   type?: AlertTypes;
   /**
-   * Show icon close.
+   * Show icon close
    * Default `true`
    */
   closeIcon?: boolean;
+  /**
+   * Default `true`
+   */
   visible?: boolean;
+  title?: React.ReactNode;
+  /**
+   * Call to action (CTA)
+   */
+  actionText?: React.ReactNode;
+  actionProps?: IButtonProps;
   onClose?: () => void;
 }
 
-export interface IAlertInterface extends IAlertProps, React.HTMLAttributes<HTMLDivElement>, IStyledProp {}
+export interface IAlertInterface extends IAlertProps, AlertTag, IStyledProp {}
 
 const IconMap: IconMap = {
   informative: <Icon.Informative />,
@@ -35,8 +44,24 @@ const IconMap: IconMap = {
   warning: <Icon.Warning />
 };
 
+const CLOSE_ICON_SIZE = 16;
+
 const Alert = React.forwardRef<HTMLDivElement, IAlertInterface>(
-  ({ className, type = 'informative', closeIcon = true, visible: visibleProp, onClose, children, ...rest }, ref) => {
+  (
+    {
+      className,
+      type = 'informative',
+      closeIcon = true,
+      visible: visibleProp,
+      onClose,
+      children,
+      title,
+      actionText,
+      actionProps,
+      ...rest
+    },
+    ref
+  ) => {
     const [visible, setVisible] = React.useState(true);
 
     const controlled = visibleProp !== undefined;
@@ -59,10 +84,30 @@ const Alert = React.forwardRef<HTMLDivElement, IAlertInterface>(
           {IconMap[type]}
         </span>
 
-        <div className='__content'>{children}</div>
+        <div className='__wrapper'>
+          <div className='__content'>
+            {title && (
+              <div className='__title'>
+                <Typography.Heading color='neutralColor.low.pure' as='h5' lineHeight='default'>
+                  {title}
+                </Typography.Heading>
+              </div>
+            )}
+
+            <Typography.Paragraph color='neutralColor.low.pure' size='sm' lineHeight='lg'>
+              {children}
+            </Typography.Paragraph>
+          </div>
+
+          {actionText && (
+            <div className='__action'>
+              <Button {...actionProps}>{actionText}</Button>
+            </div>
+          )}
+        </div>
 
         {closeIcon && (
-          <span role='img' className='__close-icon' onClick={handleClose}>
+          <span role='img' className='__close' onClick={handleClose}>
             <Icon.Close />
           </span>
         )}
@@ -71,8 +116,9 @@ const Alert = React.forwardRef<HTMLDivElement, IAlertInterface>(
   }
 );
 
-const AlertWrapper = styled(Alert, { label: 'houston-alert' })`
+export default styled(Alert, { label: 'houston-alert' })`
   ${({ theme }) => {
+    const mobileSpacingCloseIcon = theme.remToPx(theme.cleanUnit(theme.spacing.inline.nano)) + CLOSE_ICON_SIZE;
     const modifiersTypes: CSSInterpolation[] = [];
 
     Object.keys(theme.feedbackColor).forEach(key =>
@@ -99,29 +145,34 @@ const AlertWrapper = styled(Alert, { label: 'houston-alert' })`
         padding: ${theme.spacing.inset.xs};
       }
 
-      ${modifiersTypes}
+      ${theme.breakpoints.down('md')} {
+        &.--close-icon {
+          .__content {
+            margin-right: ${theme.pxToRem(mobileSpacingCloseIcon)}rem;
+          }
 
-      &.--close-icon {
-        .__content .__action {
-          ${theme.breakpoints.down('md')} {
-            width: calc(100% + 1.5rem);
+          .__close {
+            position: absolute;
+            top: ${theme.spacing.inset.xs};
+            right: ${theme.spacing.inset.xs};
+            z-index: 2;
           }
         }
       }
 
+      ${modifiersTypes}
+
       .__icon {
         line-height: 0;
-        margin-top: 1px;
-        margin-right: ${theme.spacing.inline.xxxs};
+        margin: ${theme.pxToRem(2)}rem ${theme.spacing.inline.xxxs} 0 0;
 
         ${theme.breakpoints.down('md')} {
           display: none;
         }
       }
 
-      .__content {
+      .__wrapper {
         flex: 1;
-        position: relative;
 
         .__title {
           margin-bottom: ${theme.spacing.stack.xxxs};
@@ -144,26 +195,15 @@ const AlertWrapper = styled(Alert, { label: 'houston-alert' })`
         }
       }
 
-      .__close-icon {
+      .__close {
         line-height: 0;
-        margin-left: ${theme.spacing.inline.xxxs};
+        margin: ${theme.pxToRem(4)}rem 0 0 ${theme.spacing.inline.xxxs};
         cursor: pointer;
-        margin-top: 4px;
 
         svg {
           fill: ${theme.neutralColor.low.pure};
-        }
-
-        ${theme.breakpoints.down('md')} {
-          margin-left: ${theme.spacing.inline.nano};
         }
       }
     `;
   }}
 `;
-
-export default nestedComponent(AlertWrapper, {
-  Title,
-  Content,
-  Button
-});
