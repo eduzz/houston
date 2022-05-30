@@ -2,33 +2,32 @@ import * as React from 'react';
 
 import { HexColorPicker } from 'react-colorful';
 
-import { useFormValue, useFormError, useFormSetValue } from '@eduzz/houston-forms/context';
-import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import { cx, IStyledProp } from '@eduzz/houston-styles';
+import { useFormValue, useFormError, useFormSetValue, useFormIsSubmitting } from '@eduzz/houston-forms/context';
+import styled, { IStyledProp } from '@eduzz/houston-styles';
 
-import useOnClickOutside from '../../hooks/useClickOutside';
+import Popover from '../../Popover';
+import usePopover from '../../Popover/usePopover';
 import Input, { IInputProps } from '../Input';
-import useStyles from './styles';
 
-export interface IColorFieldProps
+export interface IColorProps
   extends IStyledProp,
     Omit<IInputProps<string>, 'type' | 'multiline' | 'mask' | 'rows' | 'disableAutoResize' | 'onChange'> {
   onChange(value: string): void;
 }
 
-const ColorField: React.FC<IColorFieldProps> = ({
+const Color: React.FC<IColorProps> = ({
   className,
   name,
   value: valueProp,
   errorMessage: errorMessageProp,
+  disabled,
+  loading,
   onChange,
   ...props
 }) => {
-  const classes = useStyles();
+  const { openPopover, popoverTargetProps, popoverProps } = usePopover();
 
-  const pickerRef = React.useRef<HTMLDivElement>();
-  const [visible, , setVisibleTrue, setVisibleFalse] = useBoolean(false);
-
+  const isSubmitting = useFormIsSubmitting();
   const value = useFormValue(name, valueProp);
   const errorMessage = useFormError(name, errorMessageProp);
   const setFormValue = useFormSetValue(name);
@@ -41,17 +40,48 @@ const ColorField: React.FC<IColorFieldProps> = ({
     [onChange, setFormValue]
   );
 
-  useOnClickOutside(pickerRef, () => setVisibleFalse(), []);
-
   return (
-    <div className={cx(classes.root, className)}>
-      <Input {...props} value={value} errorMessage={errorMessage} onClick={setVisibleTrue} />
+    <div>
+      <Popover {...popoverProps} placement='bottom-start'>
+        <div className={className}>
+          <HexColorPicker color={value} onChange={handleChange} />
+        </div>
+      </Popover>
 
-      <div ref={pickerRef} className={cx(classes.picker, visible && '--show')}>
-        <HexColorPicker color={value} onChange={handleChange} />
-      </div>
+      <Input
+        {...props}
+        value={value}
+        {...popoverTargetProps}
+        disabled={disabled}
+        loading={loading}
+        errorMessage={errorMessage}
+        onChange={handleChange}
+        onClick={!disabled && !loading && !isSubmitting ? openPopover : null}
+      />
     </div>
   );
 };
 
-export default React.memo(ColorField);
+export default styled(React.memo(Color))`
+  & .react-colorful {
+    width: 170px;
+    height: 170px;
+  }
+
+  & .react-colorful__saturation {
+    border-radius: 0;
+  }
+
+  & .react-colorful__pointer {
+    width: 20px;
+    height: 20px;
+  }
+
+  & .react-colorful__hue {
+    height: 22px;
+  }
+
+  & .react-colorful__last-control {
+    border-radius: 0 0 4px 4px;
+  }
+`;

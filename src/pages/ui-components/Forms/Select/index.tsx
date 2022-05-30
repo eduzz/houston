@@ -52,11 +52,9 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   disabled,
   startAdornment,
   errorMessage: errorMessageProp,
-
   fullWidth,
   helperText,
   className,
-  // multiple,
   emptyOption,
   options: optionsProps,
   children
@@ -158,7 +156,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
         startAdornment={startAdornment}
         helperText={helperText}
         disabled={isSubmitting || disabled}
-        onClickContainer={!disabled && !loading ? openPopover : null}
+        onClickContainer={!disabled && !loading && !isSubmitting ? openPopover : null}
       >
         <div className='__text'>{text}</div>
       </Fieldset>

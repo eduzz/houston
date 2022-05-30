@@ -20,7 +20,8 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     target: null,
     content: null,
     closedTarget: null,
-    timestamp: 0
+    timestamp: 0,
+    placement: 'auto'
   });
 
   React.useEffect(() => {
@@ -29,7 +30,17 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
       return null;
     }
 
-    const instance = createPopper(state.target, state.content);
+    const instance = createPopper(state.target, state.content, {
+      placement: state.placement ?? 'auto',
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 8]
+          }
+        }
+      ]
+    });
     state.content?.classList?.add('--opened');
 
     return () => {

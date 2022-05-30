@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { keyframes, css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Placement } from '@popperjs/core';
 import { useContextSelector } from 'use-context-selector';
 
 import { IStyledProp } from '@eduzz/houston-styles';
@@ -12,6 +13,7 @@ export interface IPopoverProps extends IStyledProp {
   targetRef: React.RefObject<HTMLElement>;
   children?: React.ReactNode;
   fullWidth?: boolean;
+  placement?: Placement;
 }
 
 export interface IPopoverRef {
@@ -19,36 +21,39 @@ export interface IPopoverRef {
   close(): void;
 }
 
-const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(({ targetRef, children, className, fullWidth }, ref) => {
-  const setState = useContextSelector(PopoverContext, context => context.setState);
-  const contentRef = React.useRef<HTMLDivElement>();
-  const closeRef = React.useRef<() => void>();
+const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
+  ({ targetRef, children, className, fullWidth, placement }, ref) => {
+    const setState = useContextSelector(PopoverContext, context => context.setState);
+    const contentRef = React.useRef<HTMLDivElement>();
+    const closeRef = React.useRef<() => void>();
 
-  React.useImperativeHandle(
-    ref,
-    () => ({
-      open() {
-        closeRef.current = setState({
-          opened: true,
-          target: targetRef.current,
-          content: contentRef.current
-        });
+    React.useImperativeHandle(
+      ref,
+      () => ({
+        open() {
+          closeRef.current = setState({
+            opened: true,
+            target: targetRef.current,
+            content: contentRef.current,
+            placement
+          });
 
-        contentRef.current.style.width = fullWidth ? `${targetRef.current.offsetWidth}px` : 'auto';
-      },
-      close() {
-        closeRef.current && closeRef.current();
-      }
-    }),
-    [fullWidth, setState, targetRef]
-  );
+          contentRef.current.style.width = fullWidth ? `${targetRef.current.offsetWidth}px` : 'auto';
+        },
+        close() {
+          closeRef.current && closeRef.current();
+        }
+      }),
+      [fullWidth, placement, setState, targetRef]
+    );
 
-  return (
-    <div ref={contentRef} className={className}>
-      <div className='__container'>{children}</div>
-    </div>
-  );
-});
+    return (
+      <div ref={contentRef} className={className}>
+        <div className='__container'>{children}</div>
+      </div>
+    );
+  }
+);
 
 const showAnimation = keyframes`
   0% { transform: scale(0.5); opacity: 0; }
@@ -83,7 +88,6 @@ export default styled(Popover, { label: 'houston-popover' })(
       animation-duration: 0.2s;
       animation-name: ${hideAnimation};
       animation-fill-mode: forwards;
-      margin: ${theme.spacing.nano} 0;
     }
 
     &.--opened {

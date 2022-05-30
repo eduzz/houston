@@ -26,7 +26,7 @@ interface IOwnProperties extends IStyledProp {
   /**
    * If checked or the state value
    */
-  checked: boolean | any[];
+  checked?: boolean | any[];
   /**
    * Value will be an array and checkedValue will be add/remove from this array
    */
@@ -52,14 +52,15 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   description,
   disabled,
   multiple,
-  checked,
+  checked: checkedProp,
   type,
   onChange,
-  className
+  className,
+  ...props
 }) => {
   const isSubmitting = useFormIsSubmitting();
 
-  let value = useFormValue(name, checked);
+  let value = useFormValue(name, checkedProp);
   const errorMessage = useFormError(name, errorMessageProp);
   const setFieldValue = useFormSetValue(name);
 
@@ -72,29 +73,33 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   helperText = helperText ?? description;
 
   const isChecked: boolean = React.useMemo(() => {
-    if (typeof checked === 'boolean') return checked;
-    return value && (Array.isArray(value) ? value.includes(value) : value === checkedValue);
-  }, [checked, checkedValue, value]);
+    if (typeof checkedProp === 'boolean') return checkedProp ?? false;
+    return value ? (Array.isArray(value) ? value.includes(checkedValue) : value === checkedValue) : false;
+  }, [checkedProp, checkedValue, value]);
 
   const handleChange = React.useCallback(() => {
     if (disabled) return;
 
+    const justChecked = !isChecked;
+    const returnValue = justChecked ? checkedValue ?? true : checkedValue ? null : false;
+
     if (!multiple) {
-      setFieldValue && setFieldValue(!checked);
-      onChange && onChange(!checked);
+      setFieldValue && setFieldValue(returnValue);
+      onChange && onChange(returnValue);
       return;
     }
 
     const setValue = new Set(value ?? []);
 
-    if (checked) {
-      setValue.add(value);
+    if (justChecked) {
+      setValue.add(checkedValue);
     } else {
-      setValue.delete(value);
+      setValue.delete(checkedValue);
     }
 
     setFieldValue && setFieldValue(Array.from(setValue));
-  }, [checked, disabled, multiple, onChange, setFieldValue, value]);
+    onChange && onChange(Array.from(setValue));
+  }, [checkedValue, disabled, isChecked, multiple, onChange, setFieldValue, value]);
 
   const message = errorMessage ?? helperText;
 
@@ -112,10 +117,10 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
       <input
         type={type}
         className='__input'
-        disabled
         value={checkedValue ?? true}
         checked={isChecked}
         onChange={handleChange}
+        {...props}
       />
 
       <div className='__check'>

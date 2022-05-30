@@ -127,17 +127,21 @@ import maskPhone from '@eduzz/houston-forms/masks/phone';
   }}
 </Playground>
 
+### Props
+
 | prop              | tipo                         | obrigatório | padrão  | descrição                                                                           |
 | ----------------- | ---------------------------- | ----------- | ------- | ----------------------------------------------------------------------------------- |
 | id                | `string`                     | `false`     | -       | -                                                                                   |
 | name              | `string`                     | `true`      | -       | -                                                                                   |
-| label             | `React.ReactNode`            | `false`     | -       | -                                                                                   |
+| label             | `string`                     | `false`     | -       | -                                                                                   |
 | type              | `React.InputHTMLAttributes`  | `false`     | `text`  | -                                                                                   |
+| className         | `string`                     | `false`     | -       | -                                                                                   |
 | placeholder       | `string`                     | `false`     | -       | -                                                                                   |
 | disabled          | `boolean`                    | `false`     | `false` | -                                                                                   |
 | fullWidth         | `boolean`                    | `false`     | `true`  | -                                                                                   |
 | multiline         | `boolean`                    | `false`     | `false` | Permite um campo de texto com várias linhas.                                        |
-| className         | `string`                     | `false`     | -       | -                                                                                   |
+| rows              | `2, 4, 6, 8, 10, 14, 18, 24` | `false`     | -       | Número de linhas quando `multiline` for verdadeiro.                                 |
+| disableAutoResize | `boolean`                    | `false`     | -       | Desativa o auto-resize do multiline                                                 |
 | loading           | `boolean`                    | `false`     | -       | Exibe ícone de carregamento no componente de texto.                                 |
 | helperText        | `string`                     | `false`     | -       | Exibe texto de ajuda abaixo do componente de texto.                                 |
 | errorMessage      | `string`                     | `false`     | -       | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |
@@ -147,7 +151,3 @@ import maskPhone from '@eduzz/houston-forms/masks/phone';
 | onPressEnter      | `function`                   | `false`     | -       | Função disparada ao apertar Enter dentro do campo de texto.                         |
 | endAdornment      | `React.ReactNode`            | `false`     | -       | Ícone ou botão com ícone que será exibido no final do campo.                        |
 | startAdornment    | `React.ReactNode`            | `false`     | -       | Ícone ou botão com ícone que será exibido no início do campo.                       |
-| maxLength         | `number`                     | `false`     | -       | -                                                                                   |
-| rows              | `2, 4, 6, 8, 10, 14, 18, 24` | `false`     | -       | Número de linhas quando `multiline` for verdadeiro.                                 |
-| disableAutoResize | `boolean`                    | `false`     | -       | Desativa o auto-resize do multiline                                                 |
-| required          | `boolean`                    | `false`     | -       | -                                                                                   |

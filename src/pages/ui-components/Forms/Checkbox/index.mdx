@@ -40,34 +40,27 @@ import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
   }}
 </Playground>
 
-### Formulário
+### Multiplos valores
 
-Caso utilize o componente de caixa de seleção sem estar dentro de um contexto de formulário,
-é possível referenciá-lo através da propriedade `form`.
-
-```tsx
-import useForm from '@eduzz/houston-forms/useForm';
-import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
-import Form from '@eduzz/houston-ui/Forms/Form';
-
-interface IModel {
-  check: boolean;
-}
-
-const MyComponent = () => {
-  const form = useForm<IModel>({
-    onSubmit: () => {}
-  });
-
-  return (
-    <Form context={form}>
-      <Checkbox name='check' helperText='Checkbox fora de um FormContext'>
-        Exemplo formulário
-      </Checkbox>
-    </Form>
-  );
-};
-```
+<Playground>
+  {() => {
+    const [value, setValue] = React.useState([]);
+    return (
+      <>
+        <p>Valores: {JSON.stringify(value)}</p>
+        <Checkbox checked={value} multiple value={1} onChange={setValue}>
+          Valor 1
+        </Checkbox>
+        <Checkbox checked={value} multiple value={2} onChange={setValue}>
+          Valor 2
+        </Checkbox>
+        <Checkbox checked={value} multiple value={3} onChange={setValue}>
+          Valor 3
+        </Checkbox>
+      </>
+    );
+  }}
+</Playground>
 
 ### Utilizando método onChange (sem hook useForm)
 
@@ -86,13 +79,15 @@ const MyComponent = () => {
   }}
 </Playground>
 
-| prop         | tipo       | obrigatório | padrão  | descrição                                                                                                                           |
-| ------------ | ---------- | ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| name         | `string`   | `true`      | -       |                                                                                                                                     |
-| helperText   | `string`   | `false`     | -       |                                                                                                                                     |
-| errorMessage | `string`   | `false`     | -       |                                                                                                                                     |
-| multiple     | `boolean`  | `false`     | `false` |                                                                                                                                     |
-| , `normal`   | `false`    | `none`      |         |
-| checked      | `boolean`  | `false`     | `false` | Caso a prop `form` esteja configurada, o componente será checado através dos valores do formulário e essa propriedade será ignorada |
-| onChange     | `function` | `false`     | -       | Função chamada quando o valor do checkbox é alterado                                                                                |
-| disabled     | `boolean`  | `false`     | -       |                                                                                                                                     |
+### Props
+
+| prop         | tipo       | obrigatório | padrão  | descrição                                                  |
+| ------------ | ---------- | ----------- | ------- | ---------------------------------------------------------- |
+| name         | `string`   | `false`     | -       |                                                            |
+| helperText   | `string`   | `false`     | -       |                                                            |
+| errorMessage | `string`   | `false`     | -       |                                                            |
+| value        | `boolean`  | `false`     | -       | Valor setado caso seja checkado                            |
+| multiple     | `boolean`  | `false`     | `false` | Trata o valor passado como um array, útil em caso de lista |
+| checked      | `boolean`  | `false`     | `false` | Pode receber um boolean ou um array no caso de multiple    |
+| onChange     | `function` | `false`     | -       | Função chamada quando o valor do checkbox é alterado       |
+| disabled     | `boolean`  | `false`     | -       |                                                            |

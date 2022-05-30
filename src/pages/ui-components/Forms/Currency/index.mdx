@@ -1,12 +1,12 @@
 ---
-name: Currency Field
+name: Currency
 ---
 
 import { Playground } from 'dokz';
 
 import CurrencyField from './';
 
-# Currency Field
+# Currency
 
 O componente é responsável por formatar campos monetários em formulários.
 
@@ -21,11 +21,7 @@ import CurrencyField from '@eduzz/houston-ui/Forms/Currency';
 <Playground>
   {() => {
     const [money, setMoney] = React.useState('');
-    return (
-      <>
-        <CurrencyField label='Valor' value={money} onChange={setMoney} />
-      </>
-    );
+    return <CurrencyField label='Valor' value={money} onChange={setMoney} />;
   }}
 </Playground>
 
