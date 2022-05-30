@@ -8,7 +8,7 @@ export interface IText extends IInputProps {}
  * @deprecated Migrar para o Input
  */
 const Text: React.FC<IText> = props => {
-  return <Input {...props} multiline />;
+  return <Input {...props} />;
 };
 
 export default Text;
