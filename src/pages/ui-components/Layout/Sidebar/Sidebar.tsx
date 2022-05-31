@@ -36,10 +36,10 @@ export interface ISidebarProps {
   collapsible?: boolean;
   initialCollapsed?: boolean;
   onCollapse?: (collapsed: boolean) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const Sidebar: React.FC<ISidebarProps> = ({
+const Sidebar = ({
   currentLocation,
   hasToolbar = true,
   children,
@@ -50,7 +50,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
   collapsed: collapsedProp,
   collapsible = true,
   ...rest
-}) => {
+}: ISidebarProps) => {
   const [insideComponent, , setInsideComponentTrue, setInsideComponentFalse] = useBoolean(false);
   const [collapsed, setCollapsed] = React.useState(initialCollapsed ?? false);
 
