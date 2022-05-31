@@ -27,7 +27,7 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
   React.useEffect(() => {
     if (!state.opened) {
       state.content?.classList?.remove('--opened');
-      return null;
+      return undefined;
     }
 
     const instance = createPopper(state.target, state.content, {

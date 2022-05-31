@@ -12,7 +12,7 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
 
   React.useEffect(() => {
     const el = (ref as any)?.current ?? ref;
-    if (!el) return null;
+    if (!el) return undefined;
 
     let throttle = false;
 
