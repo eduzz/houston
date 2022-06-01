@@ -1,19 +1,19 @@
 ---
-name: DatePicker Field
+name: DatePicker
 ---
 
 import { Playground } from 'dokz';
 
-import DatePickerField from './';
+import DatePicker from './';
 
-# Date Picker Field
+# Date Picker
 
 O componente é responsável por exibir um campo de data nos formulários.
 
 ### Importação
 
 ```js
-import DatePickerField from '@eduzz/houston-ui/Forms/DatePicker';
+import DatePicker from '@eduzz/houston-ui/Forms/DatePicker';
 ```
 
 ### Exemplo
@@ -23,8 +23,7 @@ import DatePickerField from '@eduzz/houston-ui/Forms/DatePicker';
     const [value, setValue] = React.useState(null);
     return (
       <>
-        <DatePickerField label='Data' value={value} onChange={value => setValue(value)} />
-        <DatePickerField label='Data' value={value} onChange={value => setValue(value)} />
+        <DatePicker label='Data' value={value} onChange={value => setValue(value)} />
       </>
     );
   }}

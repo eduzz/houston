@@ -9,6 +9,7 @@ module.exports = withPlugins([withTM, withDokz], {
     debug: true,
     basePath: '/houston',
     poweredByHeader: false,
+    reactStrictMode: true,
     distDir: 'build',
     pageExtensions: ['page.js', 'page.jsx', 'md', 'mdx', 'page.ts', 'page.tsx'],
     eslint: {

@@ -12,6 +12,7 @@ module.exports = {
       "extends": "./src/pages/eslint-config",
       "rules": {
         "@typescript-eslint/ban-ts-comment": "off",
+        "max-lines": ["error", 500],
         "no-restricted-imports": ["error", "date-fns", "mdi-react", "lodash", "@material-ui/core", "@material-ui/styles", "@eduzz/houston-ui/*"]
       }
     }

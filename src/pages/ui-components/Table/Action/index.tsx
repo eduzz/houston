@@ -19,7 +19,7 @@ const TableActionOption = React.memo<ITableActionOptionProp>(({ children, disabl
     return () => unregister();
   }, [children, disabled, onClick, icon, registerAction]);
 
-  return null;
+  return undefined;
 });
 
 export default TableActionOption;

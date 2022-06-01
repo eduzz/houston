@@ -29,7 +29,7 @@ const TableCollapse = React.memo<ITableCollapseProps>(
       return () => unregister();
     }, [children, disabled, registerCollapse, onOpen, onClose, disableBackground, disabledPadding]);
 
-    return null;
+    return undefined;
   }
 );
 
