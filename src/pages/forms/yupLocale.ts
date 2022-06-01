@@ -6,7 +6,8 @@ setLocale({
     default: 'Inválido',
     required: 'Obrigatório',
     oneOf: 'Deve ser um dos seguintes valores: ${values}',
-    notOneOf: 'Não pode ser um dos seguintes valores: ${values}'
+    notOneOf: 'Não pode ser um dos seguintes valores: ${values}',
+    notType: ({ type }) => (type === 'number' ? 'Deve ser um número' : 'Inválido')
   },
   string: {
     length: 'Deve ter exatamente ${length} caracteres',

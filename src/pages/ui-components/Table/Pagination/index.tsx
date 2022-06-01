@@ -5,8 +5,8 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { breakpoints, IStyledProp } from '@eduzz/houston-styles/styled';
 
-import SelectField from '../../Forms/Select';
-import TextField from '../../Forms/Text';
+import Input from '../../Forms/Input';
+import Select from '../../Forms/Select';
 import Column from '../../Grid/Column';
 import Container from '../../Grid/Container';
 import Row from '../../Grid/Row';
@@ -57,7 +57,7 @@ const Pagination = React.memo<ITablePagination>(
 
     const handlePageInputChange = React.useCallback(
       (
-        valueOrEvent: string | React.KeyboardEvent<HTMLDivElement>,
+        valueOrEvent: string | number | React.KeyboardEvent<HTMLDivElement>,
         event?:
           | React.KeyboardEvent<HTMLDivElement>
           | React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -71,7 +71,7 @@ const Pagination = React.memo<ITablePagination>(
           enterPressed = valueOrEvent.key?.toLowerCase() === 'enter';
           value = (valueOrEvent.target as any).value;
         } else {
-          value = valueOrEvent;
+          value = valueOrEvent.toString();
         }
 
         setPageInput(value);
@@ -129,14 +129,11 @@ const Pagination = React.memo<ITablePagination>(
                         {labelItensPerPage ?? 'Itens por página:'}
                       </Typography>
 
-                      <SelectField
-                        disabled={loading}
-                        size='small'
-                        margin='none'
-                        options={optionsPerPage}
-                        value={perPage}
-                        onChange={handleChangePerPage}
-                      />
+                      <Select disabled={loading} size='sm' value={perPage} onChange={handleChangePerPage}>
+                        {optionsPerPage.map(({ value, label }) => (
+                          <Select.Option key={value} value={value} label={label} />
+                        ))}
+                      </Select>
                     </Column>
 
                     <Column xs='auto' className='__labels'>
@@ -144,9 +141,8 @@ const Pagination = React.memo<ITablePagination>(
                         {labelGoToPage ?? 'Ir para:'}
                       </Typography>
 
-                      <TextField
-                        margin='none'
-                        size='small'
+                      <Input
+                        size='sm'
                         disabled={loading}
                         value={pageInput}
                         className='__input'

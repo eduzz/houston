@@ -1,0 +1,44 @@
+diff --git a/node_modules/react-dom/cjs/react-dom.development.js b/node_modules/react-dom/cjs/react-dom.development.js
+index f0b9ee7..4c59fc4 100644
+--- a/node_modules/react-dom/cjs/react-dom.development.js
++++ b/node_modules/react-dom/cjs/react-dom.development.js
+@@ -9730,7 +9730,7 @@ function warnForInsertedHydratedElement(parentNode, tag, props) {
+ 
+     didWarnInvalidHydration = true;
+ 
+-    error('Expected server HTML to contain a matching <%s> in <%s>.', tag, parentNode.nodeName.toLowerCase());
++    // error('Expected server HTML to contain a matching <%s> in <%s>.', tag, parentNode.nodeName.toLowerCase());
+   }
+ }
+ function warnForInsertedHydratedText(parentNode, text) {
+@@ -9749,7 +9749,7 @@ function warnForInsertedHydratedText(parentNode, text) {
+ 
+     didWarnInvalidHydration = true;
+ 
+-    error('Expected server HTML to contain a matching text node for "%s" in <%s>.', text, parentNode.nodeName.toLowerCase());
++    // error('Expected server HTML to contain a matching text node for "%s" in <%s>.', text, parentNode.nodeName.toLowerCase());
+   }
+ }
+ function restoreControlledState$3(domElement, tag, props) {
+diff --git a/node_modules/react-dom/umd/react-dom.development.js b/node_modules/react-dom/umd/react-dom.development.js
+index 45db5aa..167e5f9 100644
+--- a/node_modules/react-dom/umd/react-dom.development.js
++++ b/node_modules/react-dom/umd/react-dom.development.js
+@@ -9760,7 +9760,7 @@
+ 
+       didWarnInvalidHydration = true;
+ 
+-      error('Expected server HTML to contain a matching <%s> in <%s>.', tag, parentNode.nodeName.toLowerCase());
++      // error('Expected server HTML to contain a matching <%s> in <%s>.', tag, parentNode.nodeName.toLowerCase());
+     }
+   }
+   function warnForInsertedHydratedText(parentNode, text) {
+@@ -9779,7 +9779,7 @@
+ 
+       didWarnInvalidHydration = true;
+ 
+-      error('Expected server HTML to contain a matching text node for "%s" in <%s>.', text, parentNode.nodeName.toLowerCase());
++      // error('Expected server HTML to contain a matching text node for "%s" in <%s>.', text, parentNode.nodeName.toLowerCase());
+     }
+   }
+   function restoreControlledState$3(domElement, tag, props) {

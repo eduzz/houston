@@ -2,7 +2,7 @@
 name: Ícones
 ---
 
-import TextField from '@eduzz/houston-ui/Forms/Text';
+import Input from '@eduzz/houston-ui/Forms/Input';
 import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
 import Toast from '@eduzz/houston-ui/Toast';
 import Tooltip from '@eduzz/houston-ui/Tooltip';
@@ -47,7 +47,7 @@ export const Example = () => {
   return (
     <ThemeProvider disableToast disabledFontBase disableCssBaseline>
       <div className='list-icons'>
-        <TextField value={search} onChange={handleChangeSearch} placeholder='Busque por ícones' />
+        <Input value={search} onChange={handleChangeSearch} placeholder='Busque por ícones' />
         {icons
           .sort((a, b) => a.name.localeCompare(b.name))
           .map(icon => (

@@ -1,103 +1,93 @@
 ---
-name: Checkbox Field
+name: Checkbox
 ---
 
 import { Playground } from 'dokz';
 
-import CheckboxField from './';
+import Checkbox from './';
 
-# Checkbox Field
+# Checkbox
 
 O componente de caixa de seleção (Checkbox) permite que o usuário selecione um ou mais itens de um determinado grupo.
 
 ### Importação
 
 ```js
-import CheckboxField from '@eduzz/houston-ui/Forms/Checkbox';
+import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
 ```
 
 ### Variações
 
 <Playground>
-  <div>
-    <CheckboxField name='example-1' label='Exemplo 1' margin='normal' />
-  </div>
-  <div>
-    <CheckboxField
-      name='example-2'
-      label='Exemplo 2'
-      description='Exemplo de utilização do Checkbox com descrição'
-      margin='normal'
-    />
-  </div>
-  <div>
-    <CheckboxField name='example-3' label='Exemplo 3' errorMessage='Mensagem de erro' margin='normal' />
-  </div>
-  <div>
-    <CheckboxField name='example-4' label='Exemplo 4' description='Checkbox sem margem' margin='none' />
-  </div>
+  {() => {
+    const [checked, setChecked] = React.useState(false);
+    return (
+      <>
+        <Checkbox checked={checked} onChange={setChecked}>
+          Simples
+        </Checkbox>
+        <Checkbox helperText='Exemplo de utilização do Checkbox com descrição' checked={checked} onChange={setChecked}>
+          Com descrição
+        </Checkbox>
+        <Checkbox errorMessage='Mensagem de erro' checked={checked} onChange={setChecked}>
+          Com erro
+        </Checkbox>
+        <Checkbox disabled helperText='Checkbox sem margem' checked={checked} onChange={setChecked}>
+          Desativado
+        </Checkbox>
+      </>
+    );
+  }}
 </Playground>
 
-### Formulário
+### Multiplos valores
 
-Caso utilize o componente de caixa de seleção sem estar dentro de um contexto de formulário,
-é possível referenciá-lo através da propriedade `form`.
-
-```tsx
-import useForm from '@eduzz/houston-forms/useForm';
-import CheckboxField from '@eduzz/houston-ui/Forms/Checkbox';
-
-interface IModel {
-  name: string;
-}
-
-const MyComponent = () => {
-  const form = useForm<IModel>({
-    onSubmit: () => {}
-  });
-
-  return (
-    <CheckboxField
-      name='example-form'
-      label='Exemplo formulário'
-      description='Checkbox fora de um FormContext'
-      form={form}
-    />
-  );
-};
-```
+<Playground>
+  {() => {
+    const [value, setValue] = React.useState([]);
+    return (
+      <>
+        <p>Valores: {JSON.stringify(value)}</p>
+        <Checkbox checked={value} multiple value={1} onChange={setValue}>
+          Valor 1
+        </Checkbox>
+        <Checkbox checked={value} multiple value={2} onChange={setValue}>
+          Valor 2
+        </Checkbox>
+        <Checkbox checked={value} multiple value={3} onChange={setValue}>
+          Valor 3
+        </Checkbox>
+      </>
+    );
+  }}
+</Playground>
 
 ### Utilizando método onChange (sem hook useForm)
 
 <Playground>
   {() => {
     const [value, setValue] = React.useState(false);
-    const handleChange = event => {
-      setValue(event.target.checked);
-      console.log('current checkbox value', event.target.checked);
+    const handleChange = checked => {
+      setValue(checked);
+      console.log('current checkbox value', checked);
     };
     return (
-      <CheckboxField
-        name='example-on-change'
-        label='Exemplo com método onChange'
-        description='Checkbox utilizando método de onChange'
-        onChange={handleChange}
-        checked={value}
-      />
+      <Checkbox helperText='Checkbox utilizando método de onChange' onChange={handleChange} checked={value}>
+        Exemplo com método onChange
+      </Checkbox>
     );
   }}
 </Playground>
 
-| prop          | tipo                | obrigatório | padrão  | descrição                                                                                                                           |
-| ------------- | ------------------- | ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| name          | `string`            | `true`      | -       |                                                                                                                                     |
-| label         | `React.ReactNode`   | `false`     | -       |                                                                                                                                     |
-| description   | `string`            | `false`     | -       |                                                                                                                                     |
-| errorMessage  | `string`            | `false`     | -       |                                                                                                                                     |
-| form          | `IFormAdapter<any>` | `false`     | -       |                                                                                                                                     |
-| isMultiple    | `boolean`           | `false`     | `false` | Se a propriedade for configurada como `true` é necessário passar um valor para `form` obrigatoriamente                              |
-| margin        | `none`, `normal`    | `false`     | `none`  |                                                                                                                                     |
-| checked       | `boolean`           | `false`     | `false` | Caso a prop `form` esteja configurada, o componente será checado através dos valores do formulário e essa propriedade será ignorada |
-| onChange      | `function`          | `false`     | -       | Função chamada quando o valor do checkbox é alterado                                                                                |
-| disabled      | `boolean`           | `false`     | -       |                                                                                                                                     |
-| indeterminate | `boolean`           | `false`     | -       |                                                                                                                                     |
+### Props
+
+| prop         | tipo       | obrigatório | padrão  | descrição                                                  |
+| ------------ | ---------- | ----------- | ------- | ---------------------------------------------------------- |
+| name         | `string`   | `false`     | -       |                                                            |
+| helperText   | `string`   | `false`     | -       |                                                            |
+| errorMessage | `string`   | `false`     | -       |                                                            |
+| value        | `boolean`  | `false`     | -       | Valor setado caso seja checkado                            |
+| multiple     | `boolean`  | `false`     | `false` | Trata o valor passado como um array, útil em caso de lista |
+| checked      | `boolean`  | `false`     | `false` | Pode receber um boolean ou um array no caso de multiple    |
+| onChange     | `function` | `false`     | -       | Função chamada quando o valor do checkbox é alterado       |
+| disabled     | `boolean`  | `false`     | -       |                                                            |

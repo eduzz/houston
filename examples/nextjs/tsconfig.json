@@ -18,6 +18,10 @@
     "strict": true,
     "target": "esnext"
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "**/*.d.ts",
+    "**/*.d.tsx",
+    "node_modules"
+  ],
   "include": ["**/*.ts", "**/*.tsx"]
 }
