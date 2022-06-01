@@ -40,8 +40,8 @@ type SizesMap = {
 };
 
 const defaultSizesMap: SizesMap = {
-  lg: 'lg',
-  sm: 'md'
+  lg: 'sm',
+  sm: 'xs'
 };
 
 const mobileSizesMap: SizesMap = {
@@ -55,8 +55,9 @@ const Paragraph = React.forwardRef<HTMLParagraphElement | HTMLSpanElement | HTML
     const isMobile = useMediaQuery(breakpoints.down('sm'));
     const sizesMap = isMobile ? mobileSizesMap : defaultSizesMap;
     const fontSize = sizesMap[sizeProp];
+
     return (
-      <Typography as={as} ref={ref} size={fontSize} {...props}>
+      <Typography as={as} ref={ref} size={fontSize} lineHeight={sizeProp} {...props}>
         {children}
       </Typography>
     );

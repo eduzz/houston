@@ -20,3 +20,7 @@ export function hexToRgba(hexColor: string, opacity = 1) {
 
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
+
+export function cleanUnit(value: string) {
+  return parseFloat(value.replace(/[a-zA-Z]/g, ''));
+}
