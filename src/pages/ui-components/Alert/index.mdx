@@ -22,7 +22,7 @@ import Alert from '@eduzz/houston-ui/Alert';
 ### Exemplo
 
 <Playground>
-  <Alert title='Atenção!!!' actionText='Ação customizada'>
+  <Alert title='Atenção!!!' actionProps={{ text: 'Ação customizada' }}>
     Alert pode ser utilizado para mostrar mensagens de atualizações para os usuários, sejam atualizações de segurança ou
     de interface. O objetivo é avisar e não guiar o caminho para o usuário.
   </Alert>
@@ -86,7 +86,7 @@ Controle a exibição pela prop `visible`.
 É possível adicionar apenas uma ação (CTA). A prop `actionProps` disponibiliza todas as props do componente Button.
 
 <Playground>
-  <Alert actionText='Ação customizada' actionProps={{ onClick: () => alert('Houston ❤️') }}>
+  <Alert actionProps={{ text: 'Ação customizada', onClick: () => alert('Houston ❤️') }}>
     Alert pode ser utilizado para mostrar mensagens de atualizações para os usuários, sejam atualizações de segurança ou
     de interface. O objetivo é avisar e não guiar o caminho para o usuário.
   </Alert>
@@ -94,12 +94,11 @@ Controle a exibição pela prop `visible`.
 
 ### Alert props
 
-| prop        | tipo              | obrigatório | padrão        | descrição                              |
-| ----------- | ----------------- | ----------- | ------------- | -------------------------------------- |
-| type        | `AlertTypes`      | `false`     | `informative` | -                                      |
-| title       | `React.ReactNode` | `false`     | -             | -                                      |
-| closeIcon   | `boolean`         | `false`     | `true`        | Se `false`, o ícone (x) será ocultado. |
-| visible     | `boolean`         | `false`     | `true`        | Controle de exibição.                  |
-| actionText  | `React.ReactNode` | `false`     | -             | -                                      |
-| actionProps | `IButtonProps`    | `false`     | -             | -                                      |
-| onClose     | `function`        | `false`     | -             | -                                      |
+| prop        | tipo              | obrigatório | padrão        | descrição                                                 |
+| ----------- | ----------------- | ----------- | ------------- | --------------------------------------------------------- |
+| type        | `AlertTypes`      | `false`     | `informative` | -                                                         |
+| title       | `React.ReactNode` | `false`     | -             | -                                                         |
+| closeIcon   | `boolean`         | `false`     | `true`        | Se `false`, o ícone (x) será ocultado.                    |
+| visible     | `boolean`         | `false`     | -             | Controle de exibição.                                     |
+| actionProps | `AlertAction`     | `false`     | -             | Se houver valor na prop `text`, será renderizado o botão. |
+| onClose     | `function`        | `false`     | -             | -                                                         |
