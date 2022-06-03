@@ -1,4 +1,4 @@
-import { cx as cxEmotion } from '@emotion/css';
+import { cx as cxEmotion, CSSInterpolation as CSSInterpolationType } from '@emotion/css';
 import { css as cssEmotion, keyframes as keyframesEmotion } from '@emotion/react';
 import emotionStyled from '@emotion/styled';
 
@@ -8,6 +8,7 @@ export interface IStyledProp {
   className?: string;
 }
 
+export type CSSInterpolation = CSSInterpolationType;
 export const keyframes = keyframesEmotion;
 export const cx = cxEmotion;
 export const clsx = cxEmotion;

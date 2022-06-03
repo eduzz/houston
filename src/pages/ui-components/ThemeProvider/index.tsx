@@ -10,6 +10,7 @@ import { ptBR } from 'date-fns/locale';
 import { IHoustonTheme } from '@eduzz/houston-styles';
 import createTheme from '@eduzz/houston-styles/createTheme';
 
+import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
 import { setCurrentTheme } from './_state';
@@ -59,11 +60,13 @@ function ThemeProvider({
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
         <LocalizationProvider locale={ptBR} dateAdapter={AdapterDateFns}>
-          <style dangerouslySetInnerHTML={styleContent} />
+          <PopoverRoot>
+            <style dangerouslySetInnerHTML={styleContent} />
 
-          {!disableToast && <ToastContainer />}
-          {!disableCssBaseline && <CssBaseline />}
-          {children}
+            {!disableToast && <ToastContainer />}
+            {!disableCssBaseline && <CssBaseline />}
+            {children}
+          </PopoverRoot>
         </LocalizationProvider>
       </MUIThemeProvider>
     </StyledEngineProvider>

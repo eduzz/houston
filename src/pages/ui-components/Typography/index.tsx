@@ -1,9 +1,11 @@
 import * as React from 'react';
 
+import { IHoustonTheme } from '@eduzz/houston-styles';
 import styled, { css, IStyledProp } from '@eduzz/houston-styles/styled';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import nestedComponent from '../utils/nestedComponent';
+import warning from '../utils/warning';
 import Caption from './Caption';
 import Heading from './Heading';
 import Paragraph from './Paragraph';
@@ -55,33 +57,41 @@ export interface ITypographyProps extends IStyledProp {
    * Defaults to 'p'
    */
   as?: TypographyTags;
-  ['aria-label']?: string;
 }
 
 const Typography = React.forwardRef<any, ITypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
-  return <Tag ref={ref} className={className} {...props} />;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { size, lineHeight, weight, marginBottom, color, ...forwardProps } = props;
+  return <Tag ref={ref} className={className} {...forwardProps} />;
 });
+
+function getColor(theme: IHoustonTheme, color: TypographyColors) {
+  if (color === 'inherit') {
+    return 'inherit';
+  }
+
+  if (color === 'primary') {
+    return theme.brandColor.primary.pure;
+  }
+
+  const [themeColor, level, variable] = color.split('.');
+  const result = theme[themeColor]?.[level]?.[variable];
+
+  if (!result) {
+    warning('Typography', `invalid color ${color}`);
+  }
+
+  return result;
+}
 
 const TypographyWrapper = styled(Typography)`
   ${({ theme, size = 'xxs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
-    function getColor(color: TypographyColors) {
-      if (color === 'inherit') {
-        return 'inherit';
-      }
-
-      if (color === 'primary') {
-        return theme.brandColor.primary.pure;
-      }
-
-      const [themeColor, level, variable] = color.split('.');
-      return theme[themeColor][level][variable];
-    }
     return css`
       margin: 0;
       font-size: ${theme.font.size[size]};
       font-weight: ${theme.font.weight[weight]};
       line-height: ${theme.line.height[lineHeight]};
-      color: ${getColor(color)};
+      color: ${getColor(theme, color)};
 
       ${marginBottom &&
       css`

@@ -48,4 +48,4 @@ jobs:
         with:
           webhook_id: ${{ secrets.DISCORD_RELEASE_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_RELEASE_WEBHOOK_TOKEN }}
-          args: "Nova versão beta criada: v${{ inputs.version }}\n${{ steps.release.outputs.html_url }}"
+          args: "Nova versão: v${{ inputs.version }}\n${{ steps.release.outputs.html_url }}"

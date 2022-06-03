@@ -37,6 +37,7 @@ const Button: React.FC<IButtonProps> = props => {
 
   return (
     <button
+      role='button'
       className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth })}
       {...rest}
       disabled={disabled || loading}

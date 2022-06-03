@@ -62,6 +62,35 @@ index c052028..7d09f8e 100644
      return (react_2.default.createElement(react_1.Box, __assign({ my: '20px' }, rest),
          react_2.default.createElement(re_resizable_1.Resizable, __assign({}, resizableProps, { handleComponent: { right: react_2.default.createElement(HandleComponent, { height: '100%' }) } }),
              react_2.default.createElement(react_live_1.LiveProvider, __assign({}, liveProviderProps),
+diff --git a/node_modules/dokz/dist/components/TableOfContents.js b/node_modules/dokz/dist/components/TableOfContents.js
+index bd52c7f..35a26cb 100644
+--- a/node_modules/dokz/dist/components/TableOfContents.js
++++ b/node_modules/dokz/dist/components/TableOfContents.js
+@@ -30,6 +30,7 @@ var react_2 = require("@chakra-ui/react");
+ var Link_1 = require("./Link");
+ var react_3 = require("react");
+ var provider_1 = require("../provider");
++var keyCounter = 0;
+ function TableOfContents(_a) {
+     var _b;
+     var rest = __rest(_a, []);
+@@ -39,7 +40,7 @@ function TableOfContents(_a) {
+     }
+     var Faded = provider_1.useAnimationComponent();
+     return (react_1.jsx(react_2.Stack, __assign({ my: '10px', spacing: '0.6em', as: Faded, cascade: true }, rest), (_b = tableOfContents === null || tableOfContents === void 0 ? void 0 : tableOfContents.children) === null || _b === void 0 ? void 0 : _b.map(function (table) {
+-        return react_1.jsx(TableItem, __assign({ key: table.slug }, table));
++        return react_1.jsx(TableItem, __assign({ key: table.slug || 'key-' + ++keyCounter }, table));
+     })));
+ }
+ exports.TableOfContents = TableOfContents;
+@@ -51,6 +52,6 @@ function TableItem(_a) {
+             react_1.jsx(Link_1.Link, { href: slug }, title)),
+         react_1.jsx(react_2.Stack, { ml: baseW * depth + 'px' }, children &&
+             children.map(function (table) {
+-                return react_1.jsx(TableItem, __assign({ key: table.slug }, table));
++                return react_1.jsx(TableItem, __assign({ key: table.slug || 'key-' + ++keyCounter }, table));
+             }))));
+ }
 diff --git a/node_modules/dokz/dist/plugin/index.js b/node_modules/dokz/dist/plugin/index.js
 index 808d06b..43d61d9 100644
 --- a/node_modules/dokz/dist/plugin/index.js
@@ -121,6 +150,36 @@ index f7b9806..de4ccee 100644
      var newTag = "<" + name + " __position={" + idx + "} code={'" + child + "'} scope={" + scope + "}";
      // console.log(newTag)
      node.value = node.value.replace(tagOpen, newTag);
+diff --git a/node_modules/dokz/esm/components/FloatingTableOfContents.js b/node_modules/dokz/esm/components/FloatingTableOfContents.js
+index 3ee818f..897dc4c 100644
+--- a/node_modules/dokz/esm/components/FloatingTableOfContents.js
++++ b/node_modules/dokz/esm/components/FloatingTableOfContents.js
+@@ -25,6 +25,7 @@ import React, { useState, useEffect } from 'react';
+ import pick from 'lodash/pick';
+ import parseGithubUrl from 'parse-github-url';
+ import { useAnimationComponent, useDokzConfig } from '../provider';
++var keyCounter = 0;
+ export function FloatingTableOfContents(_a) {
+     var table = _a.table, rest = __rest(_a, ["table"]);
+     var _b = useDokzConfig(), branch = _b.branch, githubUrl = _b.githubUrl;
+@@ -52,7 +53,7 @@ export function FloatingTableOfContents(_a) {
+             React.createElement(Button, { fontWeight: '600', variant: 'solid' }, "Edit This Page"))),
+         table.children &&
+             table.children.map(function (table) {
+-                return React.createElement(TableItem, __assign({ key: table.slug }, table));
++                return React.createElement(TableItem, __assign({ key: table.slug|| 'key-' + ++keyCounter }, table));
+             })));
+ }
+ function TableItem(_a) {
+@@ -63,7 +64,7 @@ function TableItem(_a) {
+             React.createElement(Link, { href: slug }, title)),
+         React.createElement(Stack, { ml: baseW * depth + 'px' }, children &&
+             children.map(function (table) {
+-                return React.createElement(TableItem, __assign({ key: table.slug }, table));
++                return React.createElement(TableItem, __assign({ key: table.slug || 'key-' + ++keyCounter  }, table));
+             }))));
+ }
+ function makeGithubEditUrl(_a) {
 diff --git a/node_modules/dokz/esm/components/Playground.js b/node_modules/dokz/esm/components/Playground.js
 index 86a74cf..5f1a929 100644
 --- a/node_modules/dokz/esm/components/Playground.js
@@ -146,3 +205,32 @@ index 86a74cf..5f1a929 100644
      };
      var handleCodeChange = useCallback(function (newCode) { return setEditorCode(newCode.trim()); }, [setEditorCode]);
      var editorBar = (React.createElement(React.Fragment, null,
+diff --git a/node_modules/dokz/esm/components/TableOfContents.js b/node_modules/dokz/esm/components/TableOfContents.js
+index 978206c..398ba2e 100644
+--- a/node_modules/dokz/esm/components/TableOfContents.js
++++ b/node_modules/dokz/esm/components/TableOfContents.js
+@@ -27,6 +27,7 @@ import { Stack, Box } from '@chakra-ui/react';
+ import { Link } from './Link';
+ import { useContext } from 'react';
+ import { TableOfContentsContext, useAnimationComponent } from '../provider';
++var keyCounter = 0;
+ export function TableOfContents(_a) {
+     var _b;
+     var rest = __rest(_a, []);
+@@ -36,7 +37,7 @@ export function TableOfContents(_a) {
+     }
+     var Faded = useAnimationComponent();
+     return (jsx(Stack, __assign({ my: '10px', spacing: '0.6em', as: Faded, cascade: true }, rest), (_b = tableOfContents === null || tableOfContents === void 0 ? void 0 : tableOfContents.children) === null || _b === void 0 ? void 0 : _b.map(function (table) {
+-        return jsx(TableItem, __assign({ key: table.slug }, table));
++        return jsx(TableItem, __assign({ key: table.slug|| 'key-' + ++keyCounter }, table));
+     })));
+ }
+ function TableItem(_a) {
+@@ -47,6 +48,6 @@ function TableItem(_a) {
+             jsx(Link, { href: slug }, title)),
+         jsx(Stack, { ml: baseW * depth + 'px' }, children &&
+             children.map(function (table) {
+-                return jsx(TableItem, __assign({ key: table.slug }, table));
++                return jsx(TableItem, __assign({ key: table.slug|| 'key-' + ++keyCounter }, table));
+             }))));
+ }

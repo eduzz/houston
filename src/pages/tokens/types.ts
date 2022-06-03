@@ -309,4 +309,10 @@ export type HoustonTokens = {
    * @param {number} opacity - Default value to 1
    */
   hexToRgba: (hexColor: string, opacity?: number) => string;
+  /**
+   * A helper function to convert string measurement units to numbers
+   * @param {string} value
+   * @example '0.5rem' => 0.5
+   */
+  cleanUnit: (value: string) => number;
 };
