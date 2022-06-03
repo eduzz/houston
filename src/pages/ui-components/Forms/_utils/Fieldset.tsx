@@ -21,7 +21,7 @@ export interface IFieldsetProps extends IStyledProp {
 interface IInternalFieldsetProps extends IFieldsetProps {
   focused?: boolean;
   onClickContainer?: () => void;
-  containterRef?: React.RefObject<HTMLDivElement>;
+  containerRef?: React.RefObject<HTMLDivElement>;
   children: React.ReactNode;
 }
 
@@ -40,7 +40,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
       helperText,
       disabled,
       children,
-      containterRef,
+      containerRef,
       onClickContainer
     },
     ref
@@ -62,7 +62,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
         })}
       >
         {!!label && <label className='__label'>{label}</label>}
-        <div className='__container' ref={containterRef} onClick={onClickContainer}>
+        <div className='__container' ref={containerRef} onClick={onClickContainer}>
           {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
           <div className='__content'>{children}</div>
           {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}

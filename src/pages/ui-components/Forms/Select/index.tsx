@@ -144,7 +144,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
       </Popover>
 
       <Fieldset
-        containterRef={popoverTargetProps.ref}
+        containerRef={popoverTargetProps.ref}
         label={label}
         size={size}
         loading={loading}
