@@ -38,6 +38,11 @@ export default styled(React.memo(SidebarMenu), { label: 'houston-sidebar-menu' }
   overflow-y: hidden;
   overflow-x: hidden;
 
+  & > ul {
+    margin: 0;
+    padding: 0;
+  }
+
   &.--inside {
     overflow-y: auto;
   }

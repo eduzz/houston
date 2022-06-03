@@ -8,8 +8,8 @@ import moneyMask from '@eduzz/houston-forms/masks/money';
 import useForm from '@eduzz/houston-forms/useForm';
 import Button from '@eduzz/houston-ui/Button';
 import Form from '@eduzz/houston-ui/Forms/Form';
+import Input from '@eduzz/houston-ui/Forms/Input';
 import SelectField from '@eduzz/houston-ui/Forms/Select';
-import TextField from '@eduzz/houston-ui/Forms/Text';
 
 # Exemplo de Validação
 
@@ -58,9 +58,9 @@ import Form from '@eduzz/houston-ui/Forms/Form';
       //Criando o contexto do form não é preciso passar para os components filhos
       <Form context={form}>
         {/* a prop name que irá dizer o campo que receberá o valor */}
-        <TextField label='Name' name='name' />
+        <Input label='Name' name='name' />
         {/* você passar uma função de mascara, você pode importar uma pronta ou criar a sua */}
-        <TextField label='Money' name='money' mask={moneyMask} />
+        <Input label='Money' name='money' mask={moneyMask} />
         <SelectField label='Options' name='option' options={options} />
         {/* Por ser um type submit não precisa passar o form.handleSubmit */}
         <Button type='submit' loading={form.isSubmitting}>
@@ -85,7 +85,7 @@ passando o formulário via propriedade:
     const form = useForm({
       onSubmit: () => {}
     });
-    return <TextField label='Name' name='name' form={form} />;
+    return <Input label='Name' name='name' form={form} />;
   }}
 </Playground>
 
@@ -131,9 +131,9 @@ passando o formulário via propriedade:
       <Form context={form}>
         {values.map((_, index) => (
           <div style={{ borderBottom: '1px solid #ccc', paddingBottom: 10, marginBottom: 20 }} key={index}>
-            <TextField name={`users.${index}.id`} label='ID' />
-            <TextField name={`users.${index}.name`} label='Nome' />
-            <TextField name={`users.${index}.age`} label='Idade' />
+            <Input name={`users.${index}.id`} label='ID' />
+            <Input name={`users.${index}.name`} label='Nome' />
+            <Input name={`users.${index}.age`} label='Idade' />
             <Button variant='text' onClick={() => handleClickRemove(index)}>
               Remover linha
             </Button>

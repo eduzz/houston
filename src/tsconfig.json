@@ -25,6 +25,8 @@
     "**/*.tsx"
   ],
   "exclude": [
+    "**/*.d.ts",
+    "**/*.d.tsx",
     "node_modules",
     "dev"
   ]

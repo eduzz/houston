@@ -16,6 +16,7 @@ const Layout = ({ ...rest }: ILayoutProps) => <div {...rest} />;
 
 const LayoutWrapper = styled(Layout, { label: 'houston-layout' })`
   display: flex;
+  width: 100%;
 `;
 
 export default nestedComponent(LayoutWrapper, {
