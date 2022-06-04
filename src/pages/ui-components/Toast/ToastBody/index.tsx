@@ -1,6 +1,6 @@
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-import { InformativeIcon, PositiveIcon, AlertIcon, CancelIcon } from '../Icons';
+import { InformativeIcon, PositiveIcon, AlertIcon, CancelIcon, WarningIcon } from '../Icons';
 
 type ToastTypes = 'informative' | 'positive' | 'negative' | 'warning';
 
@@ -17,7 +17,7 @@ const iconsMap: IIconsMap = {
   informative: <InformativeIcon />,
   positive: <PositiveIcon />,
   negative: <AlertIcon />,
-  warning: <AlertIcon />
+  warning: <WarningIcon />
 };
 
 const InitialIcon = ({ type }: IInitialIcon) => iconsMap[type];
@@ -39,21 +39,29 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
     display: flex;
     align-items: center;
     padding: ${theme.spacing.inset.xs};
+    border-style: solid;
+    border-radius: ${theme.border.radius.sm};
+    border-width: ${theme.border.width.xs};
+    box-shadow: ${theme.shadow.level[2]};
 
     &.--type-informative {
-      background-color: ${theme.feedbackColor.informative.medium};
+      background-color: ${theme.feedbackColor.informative.light};
+      border-color: ${theme.feedbackColor.informative.medium};
     }
 
     &.--type-positive {
-      background-color: ${theme.feedbackColor.positive.medium};
+      background-color: ${theme.feedbackColor.positive.light};
+      border-color: ${theme.feedbackColor.positive.medium};
     }
 
     &.--type-negative {
-      background-color: ${theme.feedbackColor.negative.medium};
+      background-color: ${theme.feedbackColor.negative.light};
+      border-color: ${theme.feedbackColor.negative.medium};
     }
 
     &.--type-warning {
-      background-color: ${theme.feedbackColor.warning.medium};
+      background-color: ${theme.feedbackColor.warning.light};
+      border-color: ${theme.feedbackColor.warning.medium};
     }
 
     svg {

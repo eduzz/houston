@@ -14,13 +14,12 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
         ${styles}
 
         .Toastify__toast {
-          border-radius: ${theme.border.radius.xs};
-          box-shadow: ${theme.shadow.level[2]};
           margin-bottom: ${theme.spacing.stack.nano};
           width: max-content;
           margin-left: auto;
           min-height: ${theme.pxToRem(10)}rem;
           max-height: ${theme.pxToRem(800)}rem;
+          box-shadow: ${theme.shadow.level[2]};
         }
 
         .Toastify__toast-container--top-right {
@@ -39,7 +38,7 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
         transition={Slide}
         position='top-right'
         autoClose={4000}
-        hideProgressBar={true}
+        hideProgressBar
         closeOnClick
         draggable={false}
         icon={false}
