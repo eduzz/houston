@@ -36,7 +36,6 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
-    justify-content: space-around;
     border-style: solid;
     padding: ${theme.spacing.inset.xs};
     border-radius: ${theme.border.radius.sm};
@@ -59,6 +58,10 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
     .__cancel-icon {
       line-height: 0;
       margin-left: ${theme.spacing.inline.xxxs};
+
+      ${theme.breakpoints.down('sm')} {
+        margin-left: auto;
+      }
     }
 
     &.--type-informative {
