@@ -5,7 +5,7 @@ import { InformativeIcon, PositiveIcon, AlertIcon, CancelIcon, WarningIcon } fro
 type ToastTypes = 'informative' | 'positive' | 'negative' | 'warning';
 
 interface IToastBodyProps extends IStyledProp {
-  content: React.ReactNode;
+  content: string;
   type: ToastTypes;
 }
 
@@ -19,18 +19,24 @@ const IconsMap: IIconsMap = {
 };
 
 const GUTTER_WIDTH = 32;
+const MAX_LENGTH = 48;
 
-const ToastBody = ({ className, content, type }: IToastBodyProps) => (
-  <div role='alertdialog' className={cx(className, `--type-${type}`)}>
-    <span role='img' className='__icon'>
-      {IconsMap[type]}
-    </span>
-    <div className='__text'>{content}</div>
-    <span className='__cancel-icon'>
-      <CancelIcon />
-    </span>
-  </div>
-);
+const ToastBody = ({ className, content, type }: IToastBodyProps) => {
+  if (content.length > MAX_LENGTH) {
+    throw new Error('@eduzz/houston-ui: text limit is 48 characters');
+  }
+  return (
+    <div role='alertdialog' className={cx(className, `--type-${type}`)}>
+      <span role='img' className='__icon'>
+        {IconsMap[type]}
+      </span>
+      <div className='__text'>{content}</div>
+      <span className='__cancel-icon'>
+        <CancelIcon />
+      </span>
+    </div>
+  );
+};
 
 export default styled(ToastBody, { label: 'houston-toast-body' })`
   ${({ theme }) => css`
