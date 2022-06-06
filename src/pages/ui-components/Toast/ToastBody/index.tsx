@@ -11,38 +11,55 @@ interface IToastBodyProps extends IStyledProp {
 
 type IIconsMap = Record<ToastTypes, JSX.Element>;
 
-type IInitialIcon = Record<'type', ToastTypes>;
-
-const iconsMap: IIconsMap = {
+const IconsMap: IIconsMap = {
   informative: <InformativeIcon />,
   positive: <PositiveIcon />,
   negative: <AlertIcon />,
   warning: <WarningIcon />
 };
 
-const InitialIcon = ({ type }: IInitialIcon) => iconsMap[type];
+const GUTTER_WIDTH = 32;
 
-const MAX_WIDTH = 391;
-
-const ToastBody = ({ className, content, type }: IToastBodyProps) => {
-  return (
-    <div className={cx(className, `--type-${type}`)}>
-      <InitialIcon type={type} />
-      <div className='__text'>{content}</div>
+const ToastBody = ({ className, content, type }: IToastBodyProps) => (
+  <div role='alertdialog' className={cx(className, `--type-${type}`)}>
+    <span role='img' className='__icon'>
+      {IconsMap[type]}
+    </span>
+    <div className='__text'>{content}</div>
+    <span className='__cancel-icon'>
       <CancelIcon />
-    </div>
-  );
-};
+    </span>
+  </div>
+);
 
 export default styled(ToastBody, { label: 'houston-toast-body' })`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
-    padding: ${theme.spacing.inset.xs};
+    justify-content: space-around;
     border-style: solid;
+    padding: ${theme.spacing.inset.xs};
     border-radius: ${theme.border.radius.sm};
     border-width: ${theme.border.width.xs};
     box-shadow: ${theme.shadow.level[2]};
+
+    ${theme.breakpoints.down('sm')} {
+      width: calc(100vw - ${theme.pxToRem(GUTTER_WIDTH)}rem);
+    }
+
+    .__icon {
+      line-height: 0;
+      margin-right: ${theme.spacing.inline.xxxs};
+
+      ${theme.breakpoints.down('sm')} {
+        display: none;
+      }
+    }
+
+    .__cancel-icon {
+      line-height: 0;
+      margin-left: ${theme.spacing.inline.xxxs};
+    }
 
     &.--type-informative {
       background-color: ${theme.feedbackColor.informative.light};
@@ -70,13 +87,11 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
     }
 
     .__text {
-      margin: 0 ${theme.spacing.inline.xxxs};
       font-family: ${theme.font.family.base};
       font-weight: ${theme.font.weight.regular};
       font-size: ${theme.font.size.xs};
       line-height: ${theme.line.height.lg};
       color: ${theme.neutralColor.low.pure};
-      max-width: ${theme.pxToRem(MAX_WIDTH)}rem;
     }
   `}
 `;
