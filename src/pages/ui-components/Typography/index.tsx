@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { IHoustonTheme } from '@eduzz/houston-styles';
-import styled, { css, IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { IHoustonTheme, clsx, css, IStyledProp } from '@eduzz/houston-styles';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import nestedComponent from '../utils/nestedComponent';
@@ -11,13 +10,30 @@ import Heading from './Heading';
 import Paragraph from './Paragraph';
 import Subtitle from './Subtitle';
 
-type MountColorVariants<Obj, K extends keyof Obj & string = keyof Obj & string> = `${K}${Obj[K] extends object
-  ? `.${MountColorVariants<Obj[K]>}`
-  : ''}`;
+export type TypographyColors =
+  | 'primary'
+  | 'inherit'
+  | 'neutralColor.low.pure'
+  | 'neutralColor.low.light'
+  | 'neutralColor.low.medium'
+  | 'neutralColor.low.dark'
+  | 'neutralColor.high.pure'
+  | 'neutralColor.high.light'
+  | 'neutralColor.high.medium'
+  | 'neutralColor.high.dark';
 
-type NeutralColor = Pick<HoustonTokens, 'neutralColor'>;
-
-export type TypographyColors = 'primary' | 'inherit' | MountColorVariants<NeutralColor>;
+const SupportedColors: TypographyColors[] = [
+  'primary',
+  'inherit',
+  'neutralColor.low.pure',
+  'neutralColor.low.light',
+  'neutralColor.low.medium',
+  'neutralColor.low.dark',
+  'neutralColor.high.pure',
+  'neutralColor.high.light',
+  'neutralColor.high.medium',
+  'neutralColor.high.dark'
+];
 
 export type TypographyTags =
   | 'h1'
@@ -60,10 +76,25 @@ export interface ITypographyProps extends IStyledProp {
 }
 
 const Typography = React.forwardRef<any, ITypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { size, lineHeight, weight, marginBottom, color, ...forwardProps } = props;
-  return <Tag ref={ref} className={className} {...forwardProps} />;
+  return (
+    <Tag
+      ref={ref}
+      className={clsx(className, {
+        '--margin-bottom': marginBottom,
+        [`--size-${size ?? 'xxs'}`]: true,
+        [`--line-${lineHeight ?? 'md'}`]: true,
+        [`--weight-${weight ?? 'regular'}`]: true,
+        [`--color-${getColorName(color ?? 'neutralColor.low.pure')}`]: true
+      })}
+      {...forwardProps}
+    />
+  );
 });
+
+function getColorName(color: string) {
+  return color.replace(/\./gim, '-');
+}
 
 function getColor(theme: IHoustonTheme, color: TypographyColors) {
   if (color === 'inherit') {
@@ -85,20 +116,47 @@ function getColor(theme: IHoustonTheme, color: TypographyColors) {
 }
 
 const TypographyWrapper = styled(Typography)`
-  ${({ theme, size = 'xxs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
-    return css`
-      margin: 0;
-      font-size: ${theme.font.size[size]};
-      font-weight: ${theme.font.weight[weight]};
-      line-height: ${theme.line.height[lineHeight]};
-      color: ${getColor(theme, color)};
+  ${({ theme }) => css`
+    margin: 0;
+    font-family: ${theme.font.family.base};
+    -webkit-font-smoothing: auto;
 
-      ${marginBottom &&
-      css`
-        margin-bottom: ${theme.spacing.nano};
-      `}
-    `;
-  }}
+    &.--margin-bottom {
+      margin-bottom: ${theme.spacing.nano};
+    }
+
+    ${Object.keys(theme.font.size).map(
+      size => css`
+        &.--size-${size} {
+          font-size: ${theme.font.size[size]};
+        }
+      `
+    )}
+
+    ${Object.keys(theme.line.height).map(
+      lineHeight => css`
+        &.--line-${lineHeight} {
+          line-height: ${theme.line.height[lineHeight]};
+        }
+      `
+    )}
+
+    ${Object.keys(theme.font.weight).map(
+      weight => css`
+        &.--weight-${weight} {
+          font-weight: ${theme.font.weight[weight]};
+        }
+      `
+    )}
+
+    ${SupportedColors.map(
+      color => css`
+        &.--color-${getColorName(color)} {
+          color: ${getColor(theme, color)};
+        }
+      `
+    )}
+  `}
 `;
 
 export default nestedComponent(TypographyWrapper, {
