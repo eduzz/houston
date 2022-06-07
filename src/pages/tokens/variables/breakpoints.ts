@@ -15,7 +15,7 @@ const formatBreakpointValue = (value: string) => {
 };
 
 export const breakpoinstUtils: BreakpointsUtils = {
-  down: (key: keyof Breakpoints) => `@media (max-width:${formatBreakpointValue(breakpoints[key])})px`,
+  down: (key: keyof Breakpoints) => `@media (max-width:${formatBreakpointValue(breakpoints[key])}px)`,
   up: (key: keyof Breakpoints) =>
-    `@media (min-width:${formatBreakpointValue(breakpoints[key]) - DEFAULT_DISTANCE_BETWEEN_BREAKPOINTS / 100})px`
+    `@media (min-width:${formatBreakpointValue(breakpoints[key]) - DEFAULT_DISTANCE_BETWEEN_BREAKPOINTS / 100}px)`
 };
