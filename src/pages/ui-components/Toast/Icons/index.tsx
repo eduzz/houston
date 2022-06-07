@@ -1,5 +1,5 @@
 export const InformativeIcon = () => (
-  <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg width='24' height='24' focusable={false} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
       fillRule='evenodd'
       clipRule='evenodd'
@@ -10,7 +10,7 @@ export const InformativeIcon = () => (
 );
 
 export const PositiveIcon = () => (
-  <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'>
+  <svg width='24' height='24' focusable={false} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
       fillRule='evenodd'
       clipRule='evenodd'
@@ -21,7 +21,7 @@ export const PositiveIcon = () => (
 );
 
 export const WarningIcon = () => (
-  <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg width='24' height='24' focusable={false} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
       fillRule='evenodd'
       clipRule='evenodd'
@@ -32,7 +32,7 @@ export const WarningIcon = () => (
 );
 
 export const AlertIcon = () => (
-  <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg width='24' height='24' focusable={false} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
       fillRule='evenodd'
       clipRule='evenodd'
@@ -43,7 +43,7 @@ export const AlertIcon = () => (
 );
 
 export const CancelIcon = () => (
-  <svg width='192' height='192' viewBox='0 0 192 192' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg width='192' height='192' focusable={false} viewBox='0 0 192 192' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
       fillRule='evenodd'
       clipRule='evenodd'

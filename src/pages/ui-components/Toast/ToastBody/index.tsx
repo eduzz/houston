@@ -42,10 +42,9 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
-    border-style: solid;
     padding: ${theme.spacing.inset.xs};
+    border: ${theme.border.width.xs} solid;
     border-radius: ${theme.border.radius.sm};
-    border-width: ${theme.border.width.xs};
     box-shadow: ${theme.shadow.level[2]};
 
     ${theme.breakpoints.down('sm')} {
