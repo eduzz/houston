@@ -4,7 +4,7 @@ import { IStyledProp } from '@eduzz/houston-styles/styled';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-import Typography, { TypographyColors } from '..';
+import Typography, { ITypographyProps, TypographyColors } from '..';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 type HeadingTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -13,22 +13,12 @@ export type HeadingSizes = 'display' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
 
 export type HeadingColors = TypographyColors;
 
-export interface IHeadingProps extends IStyledProp {
-  id?: string;
+export interface IHeadingProps extends IStyledProp, Omit<ITypographyProps, 'size' | 'as'> {
   size?: HeadingSizes;
-  lineHeight?: keyof HoustonTokens['line']['height'];
-  marginBottom?: boolean;
-  children?: React.ReactNode;
-  onClick?: (e: React.MouseEvent) => void;
   /**
    * Defaults to 'h1'
    */
   as?: HeadingTags;
-  /**
-   * Defaults to 'neutralColor.low.pure'
-   */
-  color?: HeadingColors;
-  ['aria-label']?: string;
 }
 
 type FontProps = 'size' | 'weight';
@@ -88,6 +78,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, IHeadingProps>(
     const isMobile = useMediaQuery(breakpoints.down('sm'));
     const sizesMap = isMobile ? mobileSizesMap : defaultSizesMap;
     const fontSize = sizeProp ? sizesMap[sizeProp] : sizesMap[as];
+
     const fontWeight = sizeProp ? weightsMap[sizeProp] : weightsMap[as];
     return (
       <Typography as={as} ref={ref} size={fontSize} weight={fontWeight} {...props}>

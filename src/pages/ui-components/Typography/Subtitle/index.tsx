@@ -4,35 +4,22 @@ import { IStyledProp } from '@eduzz/houston-styles/styled';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-import Typography, { TypographyColors } from '..';
+import Typography, { ITypographyProps } from '..';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 type SubtitleTags = 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 
 export type SubtitleSizes = 'lg' | 'sm';
 
-export type SubtitleColors = TypographyColors;
-
-export interface ISubtitleProps extends IStyledProp {
-  id?: string;
+export interface ISubtitleProps extends IStyledProp, Omit<ITypographyProps, 'size' | 'as'> {
   /**
    * Defaults to 'lg'
    */
   size?: SubtitleSizes;
-  weight?: keyof HoustonTokens['font']['weight'];
-  lineHeight?: keyof HoustonTokens['line']['height'];
-  marginBottom?: boolean;
-  children?: React.ReactNode;
-  onClick?: (e: React.MouseEvent) => void;
   /**
    * Defaults to 'h2'
    */
   as?: SubtitleTags;
-  /**
-   * Defaults to 'neutralColor.low.pure'
-   */
-  color?: SubtitleColors;
-  ['aria-label']?: string;
 }
 
 type SizesMap = {
@@ -55,6 +42,7 @@ const Subtitle = React.forwardRef<HTMLHeadingElement | HTMLParagraphElement, ISu
     const isMobile = useMediaQuery(breakpoints.down('sm'));
     const sizesMap = isMobile ? mobileSizesMap : defaultSizesMap;
     const fontSize = sizesMap[sizeProp];
+
     return (
       <Typography as={as} ref={ref} size={fontSize} {...props}>
         {children}

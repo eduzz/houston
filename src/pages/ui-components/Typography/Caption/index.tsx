@@ -1,26 +1,14 @@
 import * as React from 'react';
 
 import { IStyledProp } from '@eduzz/houston-styles/styled';
-import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-import Typography, { TypographyColors } from '..';
+import Typography, { ITypographyProps } from '..';
 
-export type CaptionColors = TypographyColors;
-
-export interface ICaptionProps extends IStyledProp {
-  id?: string;
-  lineHeight?: keyof HoustonTokens['line']['height'];
-  children?: React.ReactNode;
-  onClick?: (e: React.MouseEvent) => void;
+export interface ICaptionProps extends IStyledProp, Omit<ITypographyProps, 'size' | 'as'> {
   /**
    * Defaults to 'figcaption'
    */
   as?: 'figcaption' | 'p';
-  /**
-   * Defaults: to 'neutralColor.low.pure'
-   */
-  color?: CaptionColors;
-  ['aria-label']?: string;
 }
 
 const Caption = React.forwardRef<HTMLParagraphElement | HTMLElement, ICaptionProps>(

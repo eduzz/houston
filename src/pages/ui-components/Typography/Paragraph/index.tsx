@@ -4,35 +4,22 @@ import { IStyledProp } from '@eduzz/houston-styles/styled';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-import Typography, { TypographyColors } from '..';
+import Typography, { ITypographyProps } from '..';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 type ParagraphTags = 'p' | 'span' | 'strong';
 
 export type ParagraphSizes = 'lg' | 'sm';
 
-export type ParagraphColors = TypographyColors;
-
-export interface IParagraphProps extends IStyledProp {
-  id?: string;
+export interface IParagraphProps extends IStyledProp, Omit<ITypographyProps, 'size' | 'as'> {
   /**
    * Defaults to 'lg'
    */
   size?: ParagraphSizes;
-  weight?: keyof HoustonTokens['font']['weight'];
-  lineHeight?: keyof HoustonTokens['line']['height'];
-  marginBottom?: boolean;
-  children?: React.ReactNode;
-  onClick?: (e: React.MouseEvent) => void;
   /**
    * Defaults to 'p'
    */
   as?: ParagraphTags;
-  /**
-   * Defaults to 'neutralColor.low.pure'
-   */
-  color?: ParagraphColors;
-  ['aria-label']?: string;
 }
 
 type SizesMap = {
