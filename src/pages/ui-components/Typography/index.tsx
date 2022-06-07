@@ -32,6 +32,8 @@ export type TypographyTags =
   | 'article'
   | 'figcaption';
 
+export type TypographyMargin = keyof Omit<HoustonTokens['spacing'], 'fn' | 'squish' | 'inline' | 'stack' | 'inset'>;
+
 export interface ITypographyProps extends IStyledProp {
   id?: string;
   /**
@@ -46,7 +48,7 @@ export interface ITypographyProps extends IStyledProp {
    * Defaults to 'regular'
    */
   weight?: keyof HoustonTokens['font']['weight'];
-  marginBottom?: boolean;
+  marginBottom?: boolean | TypographyMargin;
   children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
   /**
@@ -95,7 +97,7 @@ const TypographyWrapper = styled(Typography)`
 
       ${marginBottom &&
       css`
-        margin-bottom: ${theme.spacing.nano};
+        margin-bottom: ${typeof marginBottom === 'boolean' ? theme.spacing.nano : theme.spacing[marginBottom]};
       `}
     `;
   }}
