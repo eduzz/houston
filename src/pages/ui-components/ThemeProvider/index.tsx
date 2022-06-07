@@ -42,8 +42,6 @@ function ThemeProvider({
         ${
           !disabledFontBase &&
           `
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700');
-
         body {
           font-family: ${theme.font.family.base};
           font-size: ${theme.font.size.xs};
@@ -53,6 +51,16 @@ function ThemeProvider({
         }
       `
   }));
+
+  React.useEffect(() => {
+    const el = document.createElement('link');
+    el.rel = 'stylesheet';
+    el.href = '//fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700';
+
+    document.head.appendChild(el);
+
+    return () => el.remove();
+  }, []);
 
   React.useEffect(() => setCurrentTheme(theme), [theme]);
 
