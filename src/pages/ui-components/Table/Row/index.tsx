@@ -43,7 +43,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 
   const oneAction = actions.length === 1 ? actions[0] : null;
   const hasActions = actions.length > 0;
-  const hasCollapse = collapse !== undefined;
+  const hasCollapse = !!collapse;
 
   const onClickAction = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
