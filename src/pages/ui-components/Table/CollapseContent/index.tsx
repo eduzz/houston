@@ -18,12 +18,12 @@ const CollapseContent = React.memo<ITableCollapseContentProps>(({ visible }) => 
   const collapse = useContextSelector(TableRowContext, context => context.collapse);
 
   const onCollapseEnter = React.useCallback(
-    () => collapse.onOpen && collapse.onOpen(data, index),
+    () => collapse?.onOpen && collapse.onOpen(data, index),
     [collapse, data, index]
   );
 
   const onCollapseClose = React.useCallback(
-    () => collapse.onClose && collapse.onClose(data, index),
+    () => collapse?.onClose && collapse.onClose(data, index),
     [collapse, data, index]
   );
 
