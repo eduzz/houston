@@ -3,7 +3,6 @@ import * as React from 'react';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import Spinner from '../Spinner';
-import getColorFallback from '../utils/getColorFallback';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
 export type IButtonColor = 'positive' | 'negative' | 'warning' | 'informative' | 'primary';
@@ -38,7 +37,7 @@ const Button: React.FC<IButtonProps> = props => {
   return (
     <button
       role='button'
-      className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth })}
+      className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth }, { '--disabled': disabled })}
       {...rest}
       disabled={disabled || loading}
     >
@@ -55,22 +54,25 @@ const Button: React.FC<IButtonProps> = props => {
   );
 };
 
-export default styled(Button, { label: 'houston-button' })(({ theme, color: colorProp }) => {
-  const color = getColorFallback(theme, colorProp);
+const MIN_HEIGHT = 48;
+const MIN_WIDTH = 140;
 
+export default styled(Button, { label: 'houston-button' })(({ theme }) => {
   return css`
     border: none;
     cursor: pointer;
     text-transform: none;
-    padding: 10px 16px;
-    height: 40px;
+    min-height: ${theme.pxToRem(MIN_HEIGHT)}rem;
+    min-width: ${theme.pxToRem(MIN_WIDTH)}rem;
+    padding: ${theme.spacing.squish.xs};
     border-radius: ${theme.border.radius.xs};
-    font-weight: ${theme.font.weight.bold};
+    font-weight: ${theme.font.weight.semibold};
     font-family: ${theme.font.family.base};
     line-height: ${theme.line.height.default};
-    font-size: ${theme.font.size.xxs};
+    font-size: ${theme.font.size.xs};
+    background-color: ${theme.brandColor.primary.pure};
+    color: ${theme.neutralColor.high.pure};
     position: relative;
-    transition: 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,66 +81,37 @@ export default styled(Button, { label: 'houston-button' })(({ theme, color: colo
       width: 100%;
     }
 
-    &.--contained {
-      background-color: ${color.pure};
-      color: white;
-
-      &:hover:not(:disabled) {
-        background-color: ${color.light};
-      }
-
-      &:active:not(:disabled) {
-        background-color: ${color.dark};
-      }
-
-      &:disabled {
-        background-color: ${theme.neutralColor.high.medium};
-      }
+    &.--disabled {
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+      color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
+      cursor: default;
     }
 
     &.--outlined {
-      background-color: transparent;
-      color: ${color.pure};
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
       border: 1px solid;
-      border-color: ${color.light};
-
-      &:hover:not(:disabled),
-      &:active:not(:disabled) {
-        border-color: ${color.dark};
-        color: ${color.dark};
-      }
+      border-color: ${theme.neutralColor.low.pure};
+      color: ${theme.neutralColor.low.pure};
     }
 
     &.--text {
-      background-color: transparent;
-      color: ${color.pure};
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
+      border: none;
+      color: ${theme.neutralColor.low.pure};
+    }
 
-      &:hover:not(:disabled),
-      &:active:not(:disabled) {
-        background-color: ${theme.neutralColor.high.light};
+    &.--contained {
+      &:hover:not(:disabled) {
+        background-color: ${theme.hexToRgba(theme.brandColor.primary.pure, theme.opacity.level[8])};
+        transition: 0.3s background-color;
+      }
+      &:focus {
+        background-color: ${theme.hexToRgba(theme.brandColor.primary.pure, theme.opacity.level[8])};
       }
     }
 
-    &:disabled {
-      cursor: default;
-      color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
-      border-color: ${theme.neutralColor.high.medium};
-    }
-
-    &:before {
-      content: ' ';
-      position: absolute;
-      left: -4px;
-      right: -4px;
-      top: -4px;
-      bottom: -4px;
-      border: 2px solid transparent;
-      transition: 0.3s;
-      border-radius: ${theme.border.radius.sm};
-    }
-
-    &:focus:not(:active):not(:hover):before {
-      border-color: ${theme.neutralColor.high.medium};
+    :focus {
+      outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
     }
 
     & > .__loader {
