@@ -6,9 +6,9 @@ export type IAvatarSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type IAvatarColor = 'primary' | 'high';
 
-type SizesMap = { [key in IAvatarSize]: string };
+type SizesMap = Record<IAvatarSize, string>;
 
-type FontMap = { [key in IAvatarSize]: string };
+type FontMap = Record<IAvatarSize, string>;
 
 const sizesMap: SizesMap = { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '4rem' };
 

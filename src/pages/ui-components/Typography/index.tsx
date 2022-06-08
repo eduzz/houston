@@ -85,7 +85,7 @@ function getColor(theme: IHoustonTheme, color: TypographyColors) {
 }
 
 const TypographyWrapper = styled(Typography)`
-  ${({ theme, size = 'xxs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
+  ${({ theme, size = 'xs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
     return css`
       margin: 0;
       font-size: ${theme.font.size[size]};

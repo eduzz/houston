@@ -32,6 +32,7 @@ const DatePicker: React.FC<IDatePickerProps> = ({
   disabled,
   displayFormat = 'dd/MM/yyyy',
   defaultView = 'day',
+  placeholder = '',
   ...inputProps
 }) => {
   const isSubmitting = useFormIsSubmitting();
@@ -50,7 +51,7 @@ const DatePicker: React.FC<IDatePickerProps> = ({
   return (
     <DatePickerMUI
       renderInput={RenderInput}
-      InputProps={{ ...inputProps, errorMessage } as any}
+      InputProps={{ ...inputProps, errorMessage, placeholder } as any}
       value={value}
       openTo={defaultView}
       inputFormat={displayFormat}

@@ -14,9 +14,11 @@ import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
 import { setCurrentTheme } from './_state';
+import GlobalStyles from './reset';
 
 export interface IThemeProviderProps extends Pick<ThemeProviderProps, 'children'> {
   theme?: IHoustonTheme;
+  disableResetStyles?: boolean;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
   disableToast?: boolean;
@@ -27,32 +29,27 @@ const defaultTheme = createTheme('orbita');
 function ThemeProvider({
   theme = defaultTheme,
   children,
+  disableResetStyles,
   disableCssBaseline,
   disabledFontBase,
   disableToast
 }: IThemeProviderProps) {
   const [muiTheme] = React.useState(() => generateTheme(theme));
 
-  const [styleContent] = React.useState(() => ({
-    __html: `
-        form { width: 100%; }
-        a { text-decoration: none; }
-        .houston-icon { line-height: 0; }
+  React.useEffect(() => {
+    if (!disabledFontBase) {
+      return undefined;
+    }
 
-        ${
-          !disabledFontBase &&
-          `
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700');
+    const styleElement = document.createElement('link');
 
-        body {
-          font-family: ${theme.font.family.base};
-          font-size: ${theme.font.size.xs};
-          -webkit-font-smoothing: auto;
-        }
-      `
-        }
-      `
-  }));
+    styleElement.rel = 'stylesheet';
+    styleElement.href = '//fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700';
+
+    document.head.appendChild(styleElement);
+
+    return () => styleElement.remove();
+  }, [disabledFontBase]);
 
   React.useEffect(() => setCurrentTheme(theme), [theme]);
 
@@ -61,10 +58,9 @@ function ThemeProvider({
       <MUIThemeProvider theme={muiTheme}>
         <LocalizationProvider locale={ptBR} dateAdapter={AdapterDateFns}>
           <PopoverRoot>
-            <style dangerouslySetInnerHTML={styleContent} />
-
             {!disableToast && <ToastContainer />}
             {!disableCssBaseline && <CssBaseline />}
+            {!disableResetStyles && <GlobalStyles />}
             {children}
           </PopoverRoot>
         </LocalizationProvider>
