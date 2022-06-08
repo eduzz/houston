@@ -53,7 +53,7 @@ const MenuActions = React.memo<IProps>(
           return (
             <MenuItem className='__menuItem' key={option.key} onClick={option.onClick} disabled={option.disabled}>
               <div className='__option'>
-                {option.icon}
+                {option.icon && <div className='__icon'>{option.icon}</div>}
                 {option.content}
               </div>
             </MenuItem>
@@ -65,14 +65,21 @@ const MenuActions = React.memo<IProps>(
 );
 
 export default styled(MenuActions)`
-  & > .__menuItem > .__option {
-    display: flex;
-    align-items: center;
+  .__menuItem {
+    .__option {
+      display: flex;
+      align-items: center;
+      width: 100%;
 
-    & svg,
-    & span {
-      margin-right: 8px;
-      font-size: 24px;
+      .__icon {
+        margin-right: 8px;
+        line-height: 0;
+
+        svg,
+        span {
+          font-size: 24px;
+        }
+      }
     }
   }
 `;

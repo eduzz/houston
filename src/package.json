@@ -1,28 +1,28 @@
 {
-    "name": "@eduzz/docs",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "start": "next dev",
-        "build": "next build && next export"
-    },
-    "dependencies": {
-        "@chakra-ui/react": "latest",
-        "@eduzz/houston-experimental": "*",
-        "@eduzz/houston-forms": "*",
-        "@eduzz/houston-hooks": "*",
-        "@eduzz/houston-icons": "*",
-        "@eduzz/houston-ui": "*",
-        "@emotion/react": "^11",
-        "@emotion/styled": "^11",
-        "dokz": "2.0.9",
-        "framer-motion": "latest",
-        "next": "^12",
-        "react": "^17",
-        "react-dom": "^17"
-    },
-    "devDependencies": {
-        "next-compose-plugins": "^2",
-        "next-transpile-modules": "^9"
-    }
+  "name": "@eduzz/docs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "next dev",
+    "build": "next build && next export"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "1.8.8",
+    "@eduzz/houston-experimental": "*",
+    "@eduzz/houston-forms": "*",
+    "@eduzz/houston-hooks": "*",
+    "@eduzz/houston-icons": "*",
+    "@eduzz/houston-ui": "*",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "dokz": "2.0.9",
+    "framer-motion": "latest",
+    "next": "^12",
+    "react": "^17",
+    "react-dom": "^17"
+  },
+  "devDependencies": {
+    "next-compose-plugins": "^2",
+    "next-transpile-modules": "^9"
+  }
 }
