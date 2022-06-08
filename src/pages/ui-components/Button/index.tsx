@@ -15,6 +15,7 @@ export interface IButtonProps
   loading?: boolean;
   loadingText?: string;
   color?: IButtonColor;
+  onColor?: boolean;
   fullWidth?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
@@ -31,13 +32,20 @@ const Button: React.FC<IButtonProps> = props => {
     loadingText,
     className,
     fullWidth,
+    onColor = false,
     ...rest
   } = props;
 
   return (
     <button
       role='button'
-      className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth }, { '--disabled': disabled })}
+      className={cx(
+        className,
+        `--${variant ?? 'contained'}`,
+        { '--fullWidth': fullWidth },
+        { '--disabled': disabled },
+        { '--onColor': onColor }
+      )}
       {...rest}
       disabled={disabled || loading}
     >
@@ -148,6 +156,24 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
     & > .__endIcon > svg {
       vertical-align: middle;
       font-size: ${theme.pxToRem(ICON_SIZE)}rem;
+    }
+
+    &.--onColor {
+      background-color: ${theme.neutralColor.high.pure};
+      color: ${theme.neutralColor.low.pure};
+
+      &:hover:not(:disabled),
+      &:focus {
+        background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[8])};
+        transition: 0.3s background-color;
+      }
+
+      &.--disabled {
+        border: none;
+        background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[4])};
+        color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[6])};
+        cursor: default;
+      }
     }
   `;
 });
