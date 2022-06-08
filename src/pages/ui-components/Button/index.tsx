@@ -45,8 +45,8 @@ const Button: React.FC<IButtonProps> = props => {
       {!loading && <span className='__text'>{children}</span>}
       {loading && (
         <>
-          <Spinner size={15} color='inherit' className='__loader' />
-          <span className='__text'>{loadingText ?? children}</span>
+          <Spinner size={20} color='inherit' className='__loader' />
+          <span className='__text --hidden'>{loadingText ?? children}</span>
         </>
       )}
       {!!endIcon && <span className='__endIcon'>{endIcon}</span>}
@@ -70,12 +70,49 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
     font-family: ${theme.font.family.base};
     line-height: ${theme.line.height.default};
     font-size: ${theme.font.size.xs};
-    background-color: ${theme.brandColor.primary.pure};
-    color: ${theme.neutralColor.high.pure};
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    :focus {
+      outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
+    }
+
+    &.--contained {
+      background-color: ${theme.brandColor.primary.pure};
+      color: ${theme.neutralColor.high.pure};
+
+      &:hover:not(:disabled),
+      &:focus {
+        background-color: ${theme.hexToRgba(theme.brandColor.primary.pure, theme.opacity.level[8])};
+        transition: 0.3s background-color;
+      }
+    }
+
+    &.--outlined {
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
+      border: ${theme.border.width.xs} solid;
+      border-color: ${theme.neutralColor.low.pure};
+      color: ${theme.neutralColor.low.pure};
+
+      &:hover:not(:disabled),
+      &:focus {
+        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+        transition: 0.3s background-color;
+      }
+    }
+
+    &.--text {
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
+      color: ${theme.neutralColor.low.pure};
+
+      &:hover:not(:disabled),
+      &:focus {
+        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+        transition: 0.3s background-color;
+      }
+    }
 
     &.--fullWidth {
       width: 100%;
@@ -85,37 +122,17 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
       cursor: default;
-    }
-
-    &.--outlined {
-      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
-      border: 1px solid;
-      border-color: ${theme.neutralColor.low.pure};
-      color: ${theme.neutralColor.low.pure};
-    }
-
-    &.--text {
-      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
       border: none;
-      color: ${theme.neutralColor.low.pure};
-    }
-
-    &.--contained {
-      &:hover:not(:disabled) {
-        background-color: ${theme.hexToRgba(theme.brandColor.primary.pure, theme.opacity.level[8])};
-        transition: 0.3s background-color;
-      }
-      &:focus {
-        background-color: ${theme.hexToRgba(theme.brandColor.primary.pure, theme.opacity.level[8])};
-      }
-    }
-
-    :focus {
-      outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
     }
 
     & > .__loader {
-      margin-right: ${theme.spacing.nano};
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+
+    & > .--hidden {
+      visibility: hidden;
     }
 
     & > .__startIcon {
