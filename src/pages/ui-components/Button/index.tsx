@@ -41,7 +41,7 @@ const Button: React.FC<IButtonProps> = props => {
       {...rest}
       disabled={disabled || loading}
     >
-      {!!startIcon && !loading && <span className='__startIcon'>{startIcon}</span>}
+      {!!startIcon && <span className={cx('__startIcon', { '--hidden': loading })}>{startIcon}</span>}
       {!loading && <span className='__text'>{children}</span>}
       {loading && (
         <>
@@ -49,22 +49,23 @@ const Button: React.FC<IButtonProps> = props => {
           <span className='__text --hidden'>{loadingText ?? children}</span>
         </>
       )}
-      {!!endIcon && <span className='__endIcon'>{endIcon}</span>}
+      {!!endIcon && <span className={cx('__endIcon', { '--hidden': loading })}>{endIcon}</span>}
     </button>
   );
 };
 
-const MIN_HEIGHT = 48;
+const HEIGHT = 48;
 const MIN_WIDTH = 140;
+const ICON_SIZE = 24;
 
 export default styled(Button, { label: 'houston-button' })(({ theme }) => {
   return css`
     border: none;
     cursor: pointer;
     text-transform: none;
-    min-height: ${theme.pxToRem(MIN_HEIGHT)}rem;
+    height: ${theme.pxToRem(HEIGHT)}rem;
     min-width: ${theme.pxToRem(MIN_WIDTH)}rem;
-    padding: ${theme.spacing.squish.xs};
+    padding: ${theme.spacing.squish.xxs};
     border-radius: ${theme.border.radius.xs};
     font-weight: ${theme.font.weight.semibold};
     font-family: ${theme.font.family.base};
@@ -114,15 +115,15 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       }
     }
 
-    &.--fullWidth {
-      width: 100%;
-    }
-
     &.--disabled {
+      border: none;
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
       cursor: default;
-      border: none;
+    }
+
+    &.--fullWidth {
+      width: 100%;
     }
 
     & > .__loader {
@@ -136,17 +137,17 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
     }
 
     & > .__startIcon {
-      margin-right: ${theme.spacing.nano};
+      margin-right: ${theme.spacing.inline.nano};
     }
 
     & > .__endIcon {
-      margin-left: ${theme.spacing.nano};
+      margin-left: ${theme.spacing.inline.nano};
     }
 
     & > .__startIcon > svg,
     & > .__endIcon > svg {
       vertical-align: middle;
-      font-size: 17px;
+      font-size: ${theme.pxToRem(ICON_SIZE)}rem;
     }
   `;
 });
