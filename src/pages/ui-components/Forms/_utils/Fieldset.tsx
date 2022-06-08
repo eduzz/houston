@@ -90,7 +90,7 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       position: relative;
       border: ${theme.border.width.xs} solid ${theme.neutralColor.low.light};
       border-radius: ${theme.border.radius.xs};
-      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
+      background-color: ${theme.neutralColor.high.pure};
       transition: 0.3s;
       height: 48px;
       box-shadow: 0 0 0 2px tranparent;
