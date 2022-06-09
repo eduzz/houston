@@ -10,6 +10,8 @@ import * as yup from 'yup';
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import useObservable from '@eduzz/houston-hooks/useObservable';
 
+import { useFormContext } from './context';
+
 export declare type FormikInstance<Values = any> = ReturnType<typeof useForm> & {
   values: Partial<Values>;
   errors: FormikErrors<Values>;
@@ -132,3 +134,5 @@ export default function useForm<Values = Record<string, never>>({
     errors: formik.errors
   };
 }
+
+export { useFormContext };
