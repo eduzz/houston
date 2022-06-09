@@ -35,19 +35,23 @@ import Button from '@eduzz/houston-ui/Button';
   </Row>
 </Playground>
 
-### On Color
+### OnColor
 
 <Playground>
-  <div className='ople'>
+  <div style={{ padding: '30px', backgroundColor: '#0D2772' }}>
     <Row>
       <Column>
         <Button onColor>Contained</Button>
       </Column>
       <Column>
-        <Button onColor>Outlined</Button>
+        <Button variant='outlined' onColor>
+          Outlined
+        </Button>
       </Column>
       <Column>
-        <Button onColor>Text</Button>
+        <Button variant='text' onColor>
+          Text
+        </Button>
       </Column>
     </Row>
   </div>
@@ -74,21 +78,22 @@ import Button from '@eduzz/houston-ui/Button';
       <Button startIcon={<InsertEmoticonIcon />}>Start</Button>
     </Column>
     <Column>
-      <Button endIcon={<InsertEmoticonIcon />}>End</Button>
+      <Button variant='outlined' endIcon={<InsertEmoticonIcon />}>
+        End
+      </Button>
     </Column>
   </Row>
 </Playground>
 
-| prop        | tipo                                                           | obrigatório | padrão      |
-| ----------- | -------------------------------------------------------------- | ----------- | ----------- |
-| disabled    | `boolean`                                                      | `false`     | `false`     |
-| startIcon   | `React.ReactNode`                                              | `false`     | -           |
-| endIcon     | `React.ReactNode`                                              | `false`     | -           |
-| variant     | contained &#124; outlined &#124; text                          | `false`     | `contained` |
-| href        | `string`                                                       | `false`     | -           |
-| endIcon     | `React.ReactNode`                                              | `false`     | -           |
-| fullWidth   | `boolean`                                                      | `false`     | `false`     |
-| loading     | `boolean`                                                      | `false`     | `false`     |
-| loadingText | `string`                                                       | `false`     | -           |
-| onClick     | `function`                                                     | `false`     | -           |
-| color       | primary &#124; success &#124; error &#124; info &#124; warning | `false`     | `primary`   |
+| prop      | tipo                                  | obrigatório | padrão      |
+| --------- | ------------------------------------- | ----------- | ----------- |
+| disabled  | `boolean`                             | `false`     | `false`     |
+| startIcon | `React.ReactNode`                     | `false`     | -           |
+| endIcon   | `React.ReactNode`                     | `false`     | -           |
+| variant   | contained &#124; outlined &#124; text | `false`     | `contained` |
+| href      | `string`                              | `false`     | -           |
+| endIcon   | `React.ReactNode`                     | `false`     | -           |
+| fullWidth | `boolean`                             | `false`     | `false`     |
+| loading   | `boolean`                             | `false`     | `false`     |
+| onClick   | `function`                            | `false`     | -           |
+| onColor   | `boolean`                             | `false`     | `false`     |
