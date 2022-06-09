@@ -35,26 +35,22 @@ import Button from '@eduzz/houston-ui/Button';
   </Row>
 </Playground>
 
-### Cores
+### On Color
 
 <Playground>
-  <Row>
-    <Column>
-      <Button color='primary'>Primary</Button>
-    </Column>
-    <Column>
-      <Button color='positive'>Success</Button>
-    </Column>
-    <Column>
-      <Button color='negative'>Error</Button>
-    </Column>
-    <Column>
-      <Button color='informative'>Info</Button>
-    </Column>
-    <Column>
-      <Button color='warning'>Warning</Button>
-    </Column>
-  </Row>
+  <div className='ople'>
+    <Row>
+      <Column>
+        <Button onColor>Contained</Button>
+      </Column>
+      <Column>
+        <Button onColor>Outlined</Button>
+      </Column>
+      <Column>
+        <Button onColor>Text</Button>
+      </Column>
+    </Row>
+  </div>
 </Playground>
 
 ### Estados
@@ -66,11 +62,6 @@ import Button from '@eduzz/houston-ui/Button';
     </Column>
     <Column>
       <Button loading>loading</Button>
-    </Column>
-    <Column>
-      <Button loading loadingText='Carregando...'>
-        loading
-      </Button>
     </Column>
   </Row>
 </Playground>
