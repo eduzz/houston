@@ -11,12 +11,13 @@ import SelectContext, { ISelectContext, ISelectOption } from './context';
 import SelectOption from './Option';
 
 interface IOwnProperties extends Omit<IFieldsetProps, 'focused' | 'endAdornment'> {
-  value: any;
+  value?: any;
   name?: string;
   placeholder?: string;
   renderValue?: (value: any) => string;
   onChange?: (value: any) => any;
   multiple?: boolean;
+  children?: React.ReactNode;
 
   /**
    * @deprecated Utilizar a nova estrutura de options
@@ -111,7 +112,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
     if (renderValue) return renderValue(value);
 
     if (!multiple) {
-      return options.find(o => (value ?? '') === (o.value ?? ''))?.text ?? placeholder ?? 'Selecione...';
+      return options.find(o => (value ?? '') === (o.value ?? ''))?.text ?? placeholder ?? '';
     }
 
     if (value.length > 3) {
@@ -124,13 +125,13 @@ const SelectField: React.FC<ISelectFieldProps> = ({
         .map(o => o.text)
         .join(', ') ||
       placeholder ||
-      'Selecione...'
+      ''
     );
   }, [multiple, options, placeholder, renderValue, value]);
 
   return (
     <SelectContext.Provider value={contextValue}>
-      <Popover {...popoverProps} fullWidth>
+      <Popover {...popoverProps} placement='bottom' fullWidth>
         {children}
         {!!emptyOption && <SelectOption label={emptyOption} />}
         {optionsProps?.map((option, index) => (

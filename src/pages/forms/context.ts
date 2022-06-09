@@ -6,7 +6,10 @@ import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
 const FormContext = createContext<IFormAdapter<any>>(null);
 
-export default FormContext;
+export function useFormContext() {
+  return useContextSelector(FormContext, context => context);
+}
+
 export function useFormValue(name: string, propValue?: any): any {
   const formValue = useContextSelector(FormContext, context => (name ? context?.getFieldValue(name) : null));
   return propValue ?? formValue;
@@ -32,3 +35,5 @@ export function useFormSetValue(name: string): (value: any) => void {
     [contextSetFieldValue, name]
   );
 }
+
+export default FormContext;
