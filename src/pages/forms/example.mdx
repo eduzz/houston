@@ -148,6 +148,14 @@ passando o formulário via propriedade:
   }}
 </Playground>
 
+### Contexto do formulário
+
+```js
+import useForm, { useFormContext } from '@eduzz/houston-forms/useForm';
+
+const { values, isSubmitting, ... } = useFormContext();
+```
+
 ### Hooks para validação de formulários e máscaras
 
 Veja os hooks do Houston para validar formulários e máscaras em [@eduzz/houston-forms](https://github.com/eduzz/houston/tree/master/src/pages/forms).
