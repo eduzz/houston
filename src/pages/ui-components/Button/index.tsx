@@ -5,7 +5,6 @@ import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 import Spinner from '../Spinner';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
-export type IButtonColor = 'positive' | 'negative' | 'warning' | 'informative' | 'primary';
 
 export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -13,7 +12,6 @@ export interface IButtonProps
     IStyledProp {
   variant?: IButtonVariant;
   loading?: boolean;
-  onColor?: boolean;
   fullWidth?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
@@ -29,20 +27,13 @@ const Button: React.FC<IButtonProps> = props => {
     loading = false,
     className,
     fullWidth,
-    onColor = false,
     ...rest
   } = props;
 
   return (
     <button
       role='button'
-      className={cx(
-        className,
-        `--${variant ?? 'contained'}`,
-        { '--fullWidth': fullWidth },
-        { '--disabled': disabled },
-        { '--onColor': onColor }
-      )}
+      className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth }, { '--disabled': disabled })}
       {...rest}
       disabled={disabled || loading}
     >
@@ -50,7 +41,9 @@ const Button: React.FC<IButtonProps> = props => {
       {!loading && <span className='__text'>{children}</span>}
       {loading && (
         <>
-          <Spinner size={20} color='inherit' className='__loader' />
+          <span className='__loader'>
+            <Spinner size={20} color='inherit' />
+          </span>
           <span className='__text --hidden'>{children}</span>
         </>
       )}
@@ -94,23 +87,6 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
         background-color: ${theme.hexToRgba(theme.brandColor.primary.pure, theme.opacity.level[8])};
         transition: 0.3s background-color;
       }
-
-      &.--onColor {
-        background-color: ${theme.neutralColor.high.pure};
-        color: ${theme.neutralColor.low.pure};
-
-        &:hover:not(:disabled),
-        &:focus {
-          background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[8])};
-          transition: 0.3s background-color;
-        }
-
-        &.--disabled {
-          border: none;
-          background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[4])};
-          color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[6])};
-        }
-      }
     }
 
     &.--outlined {
@@ -124,23 +100,6 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
         transition: 0.3s background-color;
       }
-
-      &.--onColor {
-        border-color: ${theme.neutralColor.high.pure};
-        color: ${theme.neutralColor.high.pure};
-
-        &:hover:not(:disabled),
-        &:focus {
-          background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[4])};
-          transition: 0.3s background-color;
-        }
-
-        &.--disabled {
-          border: none;
-          background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[4])};
-          color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[6])};
-        }
-      }
     }
 
     &.--text {
@@ -151,22 +110,6 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       &:focus {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
         transition: 0.3s background-color;
-      }
-
-      &.--onColor {
-        border-color: ${theme.neutralColor.high.pure};
-        color: ${theme.neutralColor.high.pure};
-
-        &:hover:not(:disabled),
-        &:focus {
-          background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[4])};
-          transition: 0.3s background-color;
-        }
-
-        &.--disabled {
-          background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[4])};
-          color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[6])};
-        }
       }
     }
 
