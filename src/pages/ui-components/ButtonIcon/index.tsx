@@ -1,15 +1,17 @@
 import * as React from 'react';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+
 export interface IIconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     React.RefAttributes<HTMLButtonElement>,
     IStyledProp {
-  size?: 'large' | 'medium';
+  size?: 'large' | 'medium' | 'small';
 }
 
 const IconButton: React.FC<IIconButtonProps> = props => {
   const { className, size, children, disabled = false, ...rest } = props;
+
   return (
     <button
       role='button'
@@ -44,7 +46,7 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
       height: ${theme.pxToRem(LG_SIZE)}rem;
     }
 
-    &.--medium {
+    &.--medium, &.--small {
       width: ${theme.pxToRem(MD_SIZE)}rem;
       height: ${theme.pxToRem(MD_SIZE)}rem;
     }
@@ -72,7 +74,7 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
         }
       }
 
-      &.--medium {
+      &.--medium, &.--small {
         width: ${theme.pxToRem(MD_ICON_SIZE)}rem;
         height: ${theme.pxToRem(MD_ICON_SIZE)}rem;
 
@@ -91,6 +93,5 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       transition: 0.3s background-color;
     }
-  
   `}
 `);
