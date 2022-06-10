@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { ThemeProviderProps } from '@emotion/react/types/theming';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { ptBR } from 'date-fns/locale';
 
 import { IHoustonTheme } from '@eduzz/houston-styles';
