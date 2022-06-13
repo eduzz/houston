@@ -2,22 +2,36 @@ import * as React from 'react';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
+type Size =
+  | 'md'
+  | 'lg'
+
+  /** @deprecated */
+  | 'small'
+
+  /** @deprecated */
+  | 'medium'
+
+  /** @deprecated */
+  | 'large';
+
 export interface IIconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     React.RefAttributes<HTMLButtonElement>,
     IStyledProp {
-  size?: 'large' | 'medium' | 'small';
+  /** use md or lg, the other options are deprecated */
+  size?: Size;
 }
 
 const IconButton = ({ className, size, children, disabled = false, ...rest }: IIconButtonProps) => (
   <button
     role='button'
     disabled={disabled}
-    className={cx(className, `--${size ?? 'large'}`)}
+    className={cx(className, `--${size ?? 'lg'}`)}
     aria-disabled={disabled}
     {...rest}
   >
-    <div className={cx('__icon', `--${size ?? 'large'}`, { '--disabled': disabled })}>{children}</div>
+    <div className={cx('__icon', `--${size ?? 'lg'}`, { '--disabled': disabled })}>{children}</div>
   </button>
 );
 
@@ -38,11 +52,13 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
     justify-content: center;
     transition: 0.3s;
 
+    &.--lg,
     &.--large {
       width: ${theme.pxToRem(LG_SIZE)}rem;
       height: ${theme.pxToRem(LG_SIZE)}rem;
     }
 
+    &.--md,
     &.--medium,
     &.--small {
       width: ${theme.pxToRem(MD_SIZE)}rem;
@@ -62,6 +78,7 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
         color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
       }
 
+      &.--lg,
       &.--large {
         width: ${theme.pxToRem(LG_ICON_SIZE)}rem;
         height: ${theme.pxToRem(LG_ICON_SIZE)}rem;
@@ -72,6 +89,7 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
         }
       }
 
+      &.--md,
       &.--medium,
       &.--small {
         width: ${theme.pxToRem(MD_ICON_SIZE)}rem;
