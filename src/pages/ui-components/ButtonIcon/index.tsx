@@ -1,117 +1,12 @@
-import * as React from 'react';
+import IconButton, { IIconButtonProps } from '../IconButton';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+export interface IButtonIcon extends IIconButtonProps {}
 
-type Size =
-  | 'md'
-  | 'lg'
+/**
+ * @deprecated Migrar para IconButton
+ */
+const ButtonIcon = (props: IButtonIcon) => {
+  return <IconButton {...props} />;
+};
 
-  /** @deprecated */
-  | 'small'
-
-  /** @deprecated */
-  | 'medium'
-
-  /** @deprecated */
-  | 'large';
-
-export interface IIconButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    React.RefAttributes<HTMLButtonElement>,
-    IStyledProp {
-  /** use md or lg, the other options are deprecated */
-  size?: Size;
-}
-
-const IconButton = ({ className, size, children, disabled = false, ...rest }: IIconButtonProps) => (
-  <button
-    role='button'
-    disabled={disabled}
-    className={cx(className, `--${size ?? 'lg'}`)}
-    aria-disabled={disabled}
-    {...rest}
-  >
-    <div className={cx('__icon', `--${size ?? 'lg'}`, { '--disabled': disabled })}>{children}</div>
-  </button>
-);
-
-const LG_SIZE = 48;
-const LG_ICON_SIZE = 24;
-
-const MD_SIZE = 32;
-const MD_ICON_SIZE = 16;
-
-export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
-  ${({ theme }) => css`
-    border: none;
-    background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
-    border-radius: ${theme.border.radius.circular};
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    :not(:focus) {
-      transition: 0.3s;
-    }
-
-    &.--lg,
-    &.--large {
-      width: ${theme.pxToRem(LG_SIZE)}rem;
-      height: ${theme.pxToRem(LG_SIZE)}rem;
-    }
-
-    &.--md,
-    &.--medium,
-    &.--small {
-      width: ${theme.pxToRem(MD_SIZE)}rem;
-      height: ${theme.pxToRem(MD_SIZE)}rem;
-    }
-
-    &:disabled {
-      cursor: default;
-    }
-
-    .__icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &.--disabled {
-        color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
-      }
-
-      &.--lg,
-      &.--large {
-        width: ${theme.pxToRem(LG_ICON_SIZE)}rem;
-        height: ${theme.pxToRem(LG_ICON_SIZE)}rem;
-
-        > svg {
-          vertical-align: middle;
-          font-size: ${theme.pxToRem(LG_ICON_SIZE)}rem;
-        }
-      }
-
-      &.--md,
-      &.--medium,
-      &.--small {
-        width: ${theme.pxToRem(MD_ICON_SIZE)}rem;
-        height: ${theme.pxToRem(MD_ICON_SIZE)}rem;
-
-        > svg {
-          vertical-align: middle;
-          font-size: ${theme.pxToRem(MD_ICON_SIZE)}rem;
-        }
-      }
-    }
-
-    :focus {
-      outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
-    }
-
-    &:hover:not(:disabled),
-    &:focus {
-      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-    }
-  `}
-`);
+export default ButtonIcon;

@@ -6,7 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CancelIcon from '@eduzz/houston-icons/Cancel';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
-import ButtonIcon from '../../../ButtonIcon';
+import IconButton from '../../../IconButton';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
@@ -61,9 +61,9 @@ const Header = React.memo(() => {
       )}
 
       {(size === 'small' || isMobile) && (
-        <ButtonIcon id='modal-default-close' onClick={handleClose} size='small'>
+        <IconButton id='modal-default-close' onClick={handleClose} size='small'>
           <CancelIcon className='close-icon' size={18} />
-        </ButtonIcon>
+        </IconButton>
       )}
     </Typography>
   );

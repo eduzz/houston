@@ -33,6 +33,7 @@ const Button = ({
     className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth }, { '--disabled': disabled })}
     {...rest}
     disabled={disabled || loading}
+    aria-disabled={disabled}
   >
     {!!startIcon && <span className={cx('__startIcon', { '--hidden': loading })}>{startIcon}</span>}
     {!loading && <span className='__text'>{children}</span>}
