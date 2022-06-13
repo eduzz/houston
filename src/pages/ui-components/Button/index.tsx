@@ -17,40 +17,36 @@ export interface IButtonProps
   endIcon?: React.ReactNode;
 }
 
-const Button: React.FC<IButtonProps> = props => {
-  const {
-    children,
-    disabled = false,
-    startIcon,
-    endIcon,
-    variant,
-    loading = false,
-    className,
-    fullWidth,
-    ...rest
-  } = props;
-
-  return (
-    <button
-      role='button'
-      className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth }, { '--disabled': disabled })}
-      {...rest}
-      disabled={disabled || loading}
-    >
-      {!!startIcon && <span className={cx('__startIcon', { '--hidden': loading })}>{startIcon}</span>}
-      {!loading && <span className='__text'>{children}</span>}
-      {loading && (
-        <>
-          <span className='__loader'>
-            <Spinner size={20} color='inherit' />
-          </span>
-          <span className='__text --hidden'>{children}</span>
-        </>
-      )}
-      {!!endIcon && <span className={cx('__endIcon', { '--hidden': loading })}>{endIcon}</span>}
-    </button>
-  );
-};
+const Button = ({
+  children,
+  disabled = false,
+  startIcon,
+  endIcon,
+  variant,
+  loading = false,
+  className,
+  fullWidth,
+  ...rest
+}: IButtonProps) => (
+  <button
+    role='button'
+    className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth }, { '--disabled': disabled })}
+    {...rest}
+    disabled={disabled || loading}
+  >
+    {!!startIcon && <span className={cx('__startIcon', { '--hidden': loading })}>{startIcon}</span>}
+    {!loading && <span className='__text'>{children}</span>}
+    {loading && (
+      <>
+        <span className='__loader'>
+          <Spinner size={20} color='inherit' />
+        </span>
+        <span className='__text --hidden'>{children}</span>
+      </>
+    )}
+    {!!endIcon && <span className={cx('__endIcon', { '--hidden': loading })}>{endIcon}</span>}
+  </button>
+);
 
 const HEIGHT = 48;
 const MIN_WIDTH = 140;
@@ -73,6 +69,7 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.3s;
 
     :focus {
       outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
@@ -85,7 +82,6 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       &:hover:not(:disabled),
       &:focus {
         background-color: ${theme.hexToRgba(theme.brandColor.primary.pure, theme.opacity.level[8])};
-        transition: 0.3s background-color;
       }
     }
 
@@ -98,7 +94,6 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       &:hover:not(:disabled),
       &:focus {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-        transition: 0.3s background-color;
       }
     }
 
@@ -109,7 +104,6 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       &:hover:not(:disabled),
       &:focus {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-        transition: 0.3s background-color;
       }
     }
 

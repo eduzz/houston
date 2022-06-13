@@ -9,21 +9,17 @@ export interface IIconButtonProps
   size?: 'large' | 'medium' | 'small';
 }
 
-const IconButton: React.FC<IIconButtonProps> = props => {
-  const { className, size, children, disabled = false, ...rest } = props;
-
-  return (
-    <button
-      role='button'
-      disabled={disabled}
-      className={cx(className, `--${size ?? 'large'}`)}
-      {...(disabled && { 'aria-disabled': true })}
-      {...rest}
-    >
-      <div className={cx('__icon', `--${size ?? 'large'}`, { '--disabled': disabled })}>{children}</div>
-    </button>
-  );
-};
+const IconButton = ({ className, size, children, disabled = false, ...rest }: IIconButtonProps) => (
+  <button
+    role='button'
+    disabled={disabled}
+    className={cx(className, `--${size ?? 'large'}`)}
+    aria-disabled={disabled}
+    {...rest}
+  >
+    <div className={cx('__icon', `--${size ?? 'large'}`, { '--disabled': disabled })}>{children}</div>
+  </button>
+);
 
 const LG_SIZE = 48;
 const LG_ICON_SIZE = 24;
@@ -40,13 +36,15 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: 0.3s;
 
     &.--large {
       width: ${theme.pxToRem(LG_SIZE)}rem;
       height: ${theme.pxToRem(LG_SIZE)}rem;
     }
 
-    &.--medium, &.--small {
+    &.--medium,
+    &.--small {
       width: ${theme.pxToRem(MD_SIZE)}rem;
       height: ${theme.pxToRem(MD_SIZE)}rem;
     }
@@ -74,7 +72,8 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
         }
       }
 
-      &.--medium, &.--small {
+      &.--medium,
+      &.--small {
         width: ${theme.pxToRem(MD_ICON_SIZE)}rem;
         height: ${theme.pxToRem(MD_ICON_SIZE)}rem;
 
@@ -88,10 +87,10 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
     :focus {
       outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
     }
-  
-    &:hover:not(:disabled), &:focus { {
+
+    &:hover:not(:disabled),
+    &:focus {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-      transition: 0.3s background-color;
     }
   `}
 `);
