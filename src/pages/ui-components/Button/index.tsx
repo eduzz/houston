@@ -69,7 +69,10 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 0.3s;
+
+    :not(:focus) {
+      transition: 0.3s;
+    }
 
     :focus {
       outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};

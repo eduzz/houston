@@ -50,7 +50,10 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: 0.3s;
+
+    :not(:focus) {
+      transition: 0.3s;
+    }
 
     &.--lg,
     &.--large {
