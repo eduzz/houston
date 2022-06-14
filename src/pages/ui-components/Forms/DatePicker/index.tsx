@@ -65,31 +65,8 @@ const DatePicker: React.FC<IDatePickerProps> = ({
   );
 };
 
-const RenderInput: React.FC<TextFieldProps & IInputProps> = ({
-  inputRef,
-  inputProps: { onChange, onBlur, ...inputProps },
-  InputProps
-}) => {
-  const handleChange = React.useCallback(
-    (v: any, e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => onChange(e),
-    [onChange]
-  );
-
-  const handleBlur = React.useCallback(
-    (v: any, e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => onBlur(e),
-    [onBlur]
-  );
-
-  return (
-    <Input
-      ref={inputRef as any}
-      {...(inputProps as any)}
-      {...InputProps}
-      name={null}
-      onChange={handleChange}
-      onBlur={handleBlur}
-    />
-  );
+const RenderInput: React.FC<TextFieldProps & IInputProps> = ({ inputRef, inputProps, InputProps }) => {
+  return <Input ref={inputRef as any} {...(inputProps as any)} {...InputProps} name={null} />;
 };
 
 export default React.memo(DatePicker);
