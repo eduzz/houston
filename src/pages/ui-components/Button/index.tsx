@@ -50,7 +50,7 @@ const Button = ({
 );
 
 const HEIGHT = 48;
-const MIN_WIDTH = 140;
+const MIN_WIDTH = 96;
 const ICON_SIZE = 24;
 
 export default styled(Button, { label: 'houston-button' })(({ theme }) => {
