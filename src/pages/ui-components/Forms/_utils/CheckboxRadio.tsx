@@ -10,7 +10,7 @@ import Typography from '../../Typography';
 interface IOwnProperties extends IStyledProp {
   children?: React.ReactNode;
   errorMessage?: string;
-  helperText?: string;
+  helperText?: React.ReactNode;
   /**
    * @deprecated use children instead
    */

@@ -15,7 +15,7 @@ export interface IFieldsetProps extends IStyledProp {
   startAdornment?: React.ReactNode;
   fullWidth?: boolean;
   errorMessage?: string;
-  helperText?: string;
+  helperText?: React.ReactNode;
 }
 
 interface IInternalFieldsetProps extends IFieldsetProps {
