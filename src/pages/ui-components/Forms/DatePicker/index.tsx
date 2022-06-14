@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { CalendarPickerView } from '@mui/lab';
-import DatePickerMUI, { DatePickerProps } from '@mui/lab/DatePicker';
 import { TextFieldProps } from '@mui/material';
+import { DatePickerProps, DatePicker as DatePickerMUI } from '@mui/x-date-pickers/DatePicker';
 
 import { useFormIsSubmitting, useFormValue, useFormError, useFormSetValue } from '@eduzz/houston-forms/context';
 import CalendarIcon from '@eduzz/houston-icons/Calendar';
@@ -15,7 +15,7 @@ export interface IDatePickerProps
       IInputProps<Date>,
       'mask' | 'endAdornment' | 'onChange' | 'onBlur' | 'onError' | 'rows' | 'type' | 'multiline' | 'disableAutoResize'
     >,
-    Pick<DatePickerProps, IPickDatePickerProps> {
+    Pick<DatePickerProps<any, any>, IPickDatePickerProps> {
   /*
     [Available formats]{@link https://date-fns.org/v2.22.1/docs/format}
   */
@@ -59,8 +59,6 @@ const DatePicker: React.FC<IDatePickerProps> = ({
       onChange={handleChange}
       components={{ OpenPickerIcon: CalendarIcon }}
       showToolbar={false}
-      cancelText='Cancelar'
-      okText='Selecionar'
     />
   );
 };
