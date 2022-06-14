@@ -1,23 +1,35 @@
 import * as React from 'react';
 
-import Grid, { GridProps } from '@mui/material/Grid';
+import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import useMediaQuery from '../../hooks/useMediaQuery';
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
-type IOmitProps =
-  | 'container'
-  | 'item'
-  | 'justify'
-  | 'justifyContent'
-  | 'spacing'
-  | 'zeroMinWidth'
-  | 'alignContent'
-  | 'alignItems'
-  | 'direction'
-  | 'wrap';
+type sizes = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+interface IColumn extends IStyledProp {
+  children: React.ReactNode;
+  xs: sizes;
+  sm: sizes;
+}
 
-export interface IColumnProps extends Omit<GridProps, IOmitProps> {}
+const Column = ({ className, children, xs: xsProp, sm: smProp }: IColumn) => {
+  return <div className={className}>{children}</div>;
+};
 
-const Column = React.forwardRef<HTMLDivElement, IColumnProps>(({ className, ...rest }, ref) => {
-  return <Grid {...rest} item className={className} ref={ref} />;
-});
+const ALLPARTS = 12;
 
-export default Column;
+export default React.memo(
+  styled(Column, { label: 'houston-column' })(({ theme, xs: xsProp, sm: smProp }) => {
+    const { breakpoints } = useHoustonTheme();
+    const isSm = useMediaQuery(breakpoints.down('sm'));
+
+    let part: number;
+    isSm ? (part = xsProp) : (part = smProp);
+
+    const basis = (part / ALLPARTS) * 100;
+    return css`
+      flex-basis: ${basis}%;
+      padding-left: 20px;
+      height: 60px;
+    `;
+  })
+);

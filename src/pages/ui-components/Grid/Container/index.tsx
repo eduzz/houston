@@ -1,77 +1,45 @@
 import * as React from 'react';
 
-import MUIContainer, { ContainerProps } from '@mui/material/Container';
+import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-import { cx } from '@eduzz/houston-styles';
-import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+export type IContainerLayout = 'fluid' | 'solid';
 
-import GridContextProvider from '../context';
-import { IContainerType } from '../interfaces';
+export type IContainerType = 'comfortable' | 'cozy' | 'compact';
 
-const useStyles = createUseStyles({
-  root: {
-    width: '100%',
-    maxWidth: 1062,
-    margin: '0 auto'
-  },
-  comfortable: {
-    padding: '0 18px'
-  },
-  cozy: {
-    padding: '0 28px'
-  },
-  compact: {
-    padding: '0 20px'
-  },
-  fluid: {
-    maxWidth: '100%'
-  }
-});
+export const ContainerSizes = { comfortable: 10, cozy: 4, compact: 2 };
 
-type ContainerPropsExtends = 'id' | 'className' | 'children' | 'style' | 'tabIndex';
-
-export type IContainterLayout = 'fluid' | 'solid';
-
-export interface IContainerProps extends Pick<ContainerProps, ContainerPropsExtends> {
-  /**
-   * Type container
-   *
-   * `comfortable` spacing big
-   * `cozy` spacing medium
-   * `compact` spacing small
-   *
-   *  default `cozy`
-   */
+interface IContainer extends IStyledProp {
+  children: React.ReactNode;
   spacing?: IContainerType;
-  /**
-   * Types layout
-   *
-   * `fluid` max-width ignored
-   * `solid` limited
-   *
-   * default `solid`
-   */
-  layout?: IContainterLayout;
+  layout?: IContainerLayout;
 }
 
-const Container = React.forwardRef<HTMLDivElement, IContainerProps>(
-  ({ children, className, spacing = 'cozy', layout = 'solid', ...rest }, ref) => {
-    const classes = useStyles();
-
-    const contextValue = React.useMemo(() => ({ spacing }), [spacing]);
-
-    return (
-      <GridContextProvider value={contextValue}>
-        <MUIContainer
-          {...rest}
-          ref={ref}
-          className={cx(classes.root, classes[spacing], layout === 'fluid' && classes.fluid, className)}
-        >
-          {children}
-        </MUIContainer>
-      </GridContextProvider>
-    );
-  }
+const Container = ({ className, children, spacing, layout }: IContainer) => (
+  <div className={cx(className, `--${spacing ?? 'cozy'}`, `--${layout ?? 'solid'}`)}>{children}</div>
 );
 
-export default React.memo(Container);
+export default React.memo(styled(Container, { label: 'houston-container' })`
+  ${({ theme }) => css`
+    width: 100%;
+    max-width: 1062px;
+    margin: 0 auto;
+    border: solid;
+    border-color: black;
+
+    &.--solid {
+      max-width: 100%;
+    }
+
+    &.--comfortable {
+      padding: 0 18px;
+    }
+
+    &.--cozy {
+      padding: 0 28px;
+    }
+
+    &.--compact {
+      padding: 0 20px;
+    }
+  `}
+`);

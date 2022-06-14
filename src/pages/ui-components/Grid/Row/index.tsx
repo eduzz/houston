@@ -1,33 +1,26 @@
 import * as React from 'react';
 
-import Grid, { GridProps, GridSpacing } from '@mui/material/Grid';
-import { useContextSelector } from 'use-context-selector';
+import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-import { GridContext } from '../context';
-import { ContainerSizes, IContainerType } from '../interfaces';
+type alignItemsRow = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
 
-type RowPropsExtends =
-  | 'id'
-  | 'className'
-  | 'children'
-  | 'justifyContent'
-  | 'alignItems'
-  | 'style'
-  | 'onClick'
-  | 'onDoubleClick';
-
-export interface IRowProps extends Pick<GridProps, RowPropsExtends> {
-  spacing?: IContainerType;
+type justifyRow = 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
+interface IRow extends IStyledProp {
+  children: React.ReactNode;
+  alignItems?: alignItemsRow;
+  justify?: justifyRow;
 }
 
-const Row = React.forwardRef<HTMLDivElement, IRowProps>(({ className, spacing: spacingProp, ...rest }, ref) => {
-  const spacingContext = useContextSelector(GridContext, context => context.spacing);
+const Row = ({ className, children }: IRow) => <div className={className}>{children}</div>;
 
-  const config = React.useMemo(() => {
-    return ContainerSizes[spacingProp ?? spacingContext ?? 'cozy'] as GridSpacing;
-  }, [spacingContext, spacingProp]);
-
-  return <Grid {...rest} container ref={ref} className={className} spacing={config} />;
-});
-
-export default React.memo(Row);
+export default React.memo(styled(Row, { label: 'houston-row' })`
+  ${({ theme, alignItems, justify }) => css`
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: ${alignItems ?? 'center'};
+    justify-content: ${justify ?? 'center'};
+    border: solid;
+    border-color: purple;
+  `}
+`);
