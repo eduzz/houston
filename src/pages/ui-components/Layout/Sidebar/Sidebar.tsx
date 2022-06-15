@@ -68,7 +68,7 @@ const Sidebar = ({
   const contextValue = React.useMemo<ISidebarContext>(
     () => ({
       currentLocation,
-      menuIsActive: (path: string) => (!path ? false : path === currentLocation || currentLocation?.startsWith(path)),
+      menuIsActive: (path: string) => (!path ? false : path === currentLocation),
       hasToolbar,
       onRequestClose,
       mobileVisible,
