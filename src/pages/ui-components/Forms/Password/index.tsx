@@ -4,7 +4,7 @@ import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import EyeOffOutline from '@eduzz/houston-icons/EyeOffOutline';
 import EyeOnOutline from '@eduzz/houston-icons/EyeOnOutline';
 
-import ButtonIcon from '../../ButtonIcon';
+import IconButton from '../../IconButton';
 import Input, { IInputProps } from '../Input';
 
 export interface IInputPasswordProps
@@ -21,9 +21,9 @@ const InputPassword: React.FC<IInputPasswordProps> = props => {
       {...props}
       type={showPassword ? 'text' : 'password'}
       endAdornment={
-        <ButtonIcon size='small' onClick={toogleShowPassword}>
+        <IconButton size='small' onClick={toogleShowPassword}>
           {showPassword ? <EyeOnOutline size={24} /> : <EyeOffOutline size={24} />}
-        </ButtonIcon>
+        </IconButton>
       }
     />
   );

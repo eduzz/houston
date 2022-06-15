@@ -15,7 +15,7 @@ export interface IFieldsetProps extends IStyledProp {
   startAdornment?: React.ReactNode;
   fullWidth?: boolean;
   errorMessage?: string;
-  helperText?: string;
+  helperText?: React.ReactNode;
 }
 
 interface IInternalFieldsetProps extends IFieldsetProps {
@@ -93,11 +93,7 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       background-color: ${theme.neutralColor.high.pure};
       transition: 0.3s;
       height: 48px;
-      box-shadow: 0 0 0 2px tranparent;
-
-      &:hover {
-        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-      }
+      box-shadow: 0 0 0 2px transparent;
 
       & > .__startAdornment,
       & > .__endAdornment {
@@ -161,6 +157,10 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
     &.--disabled {
       opacity: ${theme.opacity.level[6]};
       cursor: not-allowed;
+    }
+
+    &:not(.--disabled) > .__container:hover {
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
     }
 
     &.--loading {
