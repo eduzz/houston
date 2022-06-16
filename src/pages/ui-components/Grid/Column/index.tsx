@@ -26,40 +26,40 @@ export default React.memo(
       ${xs &&
       css`
         ${theme.breakpoints.up('xs')} {
-          width: calc(${(xs / COLUMNS) * 100}% - ${spacing}px);
-          margin: calc(${spacing}px / 2);
+          width: calc(${(xs / COLUMNS) * 100}% - ${spacing});
+          margin: calc(${spacing} / 2);
         }
       `}
 
       ${sm &&
       css`
         ${theme.breakpoints.up('sm')} {
-          width: calc(${(sm / COLUMNS) * 100}% - ${spacing}px);
-          margin: calc(${spacing}px / 2);
+          width: calc(${(sm / COLUMNS) * 100}% - ${spacing});
+          margin: calc(${spacing} / 2);
         }
       `}
 
       ${md &&
       css`
         ${theme.breakpoints.up('md')} {
-          width: calc(${(md / COLUMNS) * 100}% - ${spacing}px);
-          margin: calc(${spacing}px / 2);
+          width: calc(${(md / COLUMNS) * 100}% - ${spacing});
+          margin: calc(${spacing} / 2);
         }
       `}
       
       ${lg &&
       css`
         ${theme.breakpoints.up('lg')} {
-          width: calc(${(lg / COLUMNS) * 100}% - ${spacing}px);
-          margin: calc(${spacing}px / 2);
+          width: calc(${(lg / COLUMNS) * 100}% - ${spacing});
+          margin: calc(${spacing} / 2);
         }
       `}
 
       ${xlg &&
       css`
         ${theme.breakpoints.up('xlg')} {
-          width: calc(${(xlg / COLUMNS) * 100}% - ${spacing}px);
-          margin: calc(${spacing}px / 2);
+          width: calc(${(xlg / COLUMNS) * 100}% - ${spacing});
+          margin: calc(${spacing} / 2);
         }
       `}
     `;

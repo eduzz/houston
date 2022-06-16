@@ -4,10 +4,13 @@ import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 import { ContainerProvider } from '../context';
 
 export type IContainerLayout = 'fluid' | 'solid';
-
 export type IContainerType = 'comfortable' | 'cozy' | 'compact';
 
-export const ContainerSizes = { comfortable: 40, cozy: 16, compact: 8 };
+import { spacing } from '@eduzz/houston-tokens/variables/spacing';
+
+const { sm, xxxs, nano } = spacing;
+
+export const ContainerSizes = { comfortable: sm, cozy: xxxs, compact: nano };
 
 interface IContainer extends IStyledProp {
   children: React.ReactNode;
@@ -34,15 +37,15 @@ export default React.memo(styled(Container, { label: 'houston-container' })`
     }
 
     &.--comfortable {
-      padding: ${theme.spacing.xxxs};
+      padding: 0 ${theme.spacing.xxxs};
     }
 
     &.--compact {
-      padding: ${theme.spacing.xxs};
+      padding: 0 ${theme.spacing.xxs};
     }
 
     &.--cozy {
-      padding: ${theme.spacing.xs};
+      padding: 0 ${theme.spacing.xs};
     }
   `}
 `);
