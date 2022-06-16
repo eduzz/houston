@@ -1,35 +1,67 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
-import useMediaQuery from '../../hooks/useMediaQuery';
-import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+import styled, { css, IStyledProp } from '@eduzz/houston-styles';
 
-type sizes = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+import { useContainer } from '../context';
+
+type sizes = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+
 interface IColumn extends IStyledProp {
   children: React.ReactNode;
   xs: sizes;
-  sm: sizes;
+  sm?: sizes;
+  md?: sizes;
+  lg?: sizes;
+  xlg?: sizes;
 }
 
-const Column = ({ className, children, xs: xsProp, sm: smProp }: IColumn) => {
-  return <div className={className}>{children}</div>;
-};
+const Column = ({ className, children }: IColumn) => <div className={className}>{children}</div>;
 
-const ALLPARTS = 12;
+const COLUMNS = 12;
 
 export default React.memo(
-  styled(Column, { label: 'houston-column' })(({ theme, xs: xsProp, sm: smProp }) => {
-    const { breakpoints } = useHoustonTheme();
-    const isSm = useMediaQuery(breakpoints.down('sm'));
-
-    let part: number;
-    isSm ? (part = xsProp) : (part = smProp);
-
-    const basis = (part / ALLPARTS) * 100;
+  styled(Column, { label: 'houston-column' })(({ theme, xs, sm, md, lg, xlg }) => {
+    const { spacing } = useContainer();
     return css`
-      flex-basis: ${basis}%;
-      padding-left: 20px;
-      height: 60px;
+      ${xs &&
+      css`
+        ${theme.breakpoints.up('xs')} {
+          width: calc(${(xs / COLUMNS) * 100}% - ${spacing}px);
+          margin: calc(${spacing}px / 2);
+        }
+      `}
+
+      ${sm &&
+      css`
+        ${theme.breakpoints.up('sm')} {
+          width: calc(${(sm / COLUMNS) * 100}% - ${spacing}px);
+          margin: calc(${spacing}px / 2);
+        }
+      `}
+
+      ${md &&
+      css`
+        ${theme.breakpoints.up('md')} {
+          width: calc(${(md / COLUMNS) * 100}% - ${spacing}px);
+          margin: calc(${spacing}px / 2);
+        }
+      `}
+      
+      ${lg &&
+      css`
+        ${theme.breakpoints.up('lg')} {
+          width: calc(${(lg / COLUMNS) * 100}% - ${spacing}px);
+          margin: calc(${spacing}px / 2);
+        }
+      `}
+
+      ${xlg &&
+      css`
+        ${theme.breakpoints.up('xlg')} {
+          width: calc(${(xlg / COLUMNS) * 100}% - ${spacing}px);
+          margin: calc(${spacing}px / 2);
+        }
+      `}
     `;
   })
 );

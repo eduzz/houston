@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import { ContainerProvider } from '../context';
 
 export type IContainerLayout = 'fluid' | 'solid';
 
 export type IContainerType = 'comfortable' | 'cozy' | 'compact';
 
-export const ContainerSizes = { comfortable: 10, cozy: 4, compact: 2 };
+export const ContainerSizes = { comfortable: 40, cozy: 16, compact: 8 };
 
 interface IContainer extends IStyledProp {
   children: React.ReactNode;
@@ -15,31 +16,33 @@ interface IContainer extends IStyledProp {
 }
 
 const Container = ({ className, children, spacing, layout }: IContainer) => (
-  <div className={cx(className, `--${spacing ?? 'cozy'}`, `--${layout ?? 'solid'}`)}>{children}</div>
+  <ContainerProvider spacing={ContainerSizes[spacing] ?? ContainerSizes['cozy']}>
+    <div className={cx(className, `--${spacing ?? 'cozy'}`, `--${layout ?? 'solid'}`)}>{children}</div>
+  </ContainerProvider>
 );
+
+const MAX_WIDTH = 1062;
 
 export default React.memo(styled(Container, { label: 'houston-container' })`
   ${({ theme }) => css`
     width: 100%;
-    max-width: 1062px;
+    max-width: ${theme.pxToRem(MAX_WIDTH)}rem;
     margin: 0 auto;
-    border: solid;
-    border-color: black;
 
-    &.--solid {
+    &.--fluid {
       max-width: 100%;
     }
 
     &.--comfortable {
-      padding: 0 18px;
-    }
-
-    &.--cozy {
-      padding: 0 28px;
+      padding: ${theme.spacing.xxxs};
     }
 
     &.--compact {
-      padding: 0 20px;
+      padding: ${theme.spacing.xxs};
+    }
+
+    &.--cozy {
+      padding: ${theme.spacing.xs};
     }
   `}
 `);
