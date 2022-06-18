@@ -14,7 +14,7 @@ export interface IContainer extends IStyledProp {
 }
 
 const Container = ({ className, children, spacing, layout }: IContainer) => (
-  <ContainerProvider spacing={spacing}>
+  <ContainerProvider spacing={spacing ?? 'cozy'}>
     <div className={cx(className, `--${spacing ?? 'cozy'}`, `--${layout ?? 'solid'}`)}>{children}</div>
   </ContainerProvider>
 );
