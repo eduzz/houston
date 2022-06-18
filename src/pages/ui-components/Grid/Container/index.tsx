@@ -7,7 +7,7 @@ import { ContainerProvider } from '../context';
 export type IContainerLayout = 'fluid' | 'solid';
 export type IContainerType = 'comfortable' | 'cozy' | 'compact';
 
-interface IContainer extends IStyledProp {
+export interface IContainer extends IStyledProp {
   children: React.ReactNode;
   spacing?: IContainerType;
   layout?: IContainerLayout;

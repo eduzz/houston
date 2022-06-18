@@ -7,7 +7,7 @@ import { useContainer } from '../context';
 type alignItemsRow = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
 type justifyRow = 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
 
-interface IRow extends IStyledProp {
+export interface IRow extends IStyledProp {
   children: React.ReactNode;
   alignItems?: alignItemsRow;
   justify?: justifyRow;

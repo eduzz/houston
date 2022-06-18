@@ -9,7 +9,7 @@ type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 type BreakPoints = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
 type Sizes = Partial<Record<BreakPoints, ColumnSize>>;
 
-type IColumn = IStyledProp &
+export type IColumn = IStyledProp &
   Sizes & {
     children: React.ReactNode;
   };
