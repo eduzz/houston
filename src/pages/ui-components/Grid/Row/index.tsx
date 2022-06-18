@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import { useContainer } from '../context';
 
@@ -13,18 +13,33 @@ interface IRow extends IStyledProp {
   justify?: justifyRow;
 }
 
-const Row = ({ className, children }: IRow) => <div className={className}>{children}</div>;
+const Row = ({ className, children }: IRow) => {
+  const { spacing } = useContainer();
+  return <div className={cx(className, `--${spacing}`)}>{children}</div>;
+};
 
 export default React.memo(styled(Row, { label: 'houston-row' })`
-  ${({ alignItems, justify }) => {
-    const { spacing } = useContainer();
+  ${({ theme, alignItems, justify }) => {
     return css`
       display: flex;
       flex-wrap: wrap;
       align-items: ${alignItems ?? 'center'};
       justify-content: ${justify ?? 'center'};
-      width: calc(100% + ${spacing}px);
-      margin: calc(-${spacing}px / 2);
+
+      &.--comfortable {
+        width: calc(100% + ${theme.spacing.sm});
+        margin: calc(-${theme.spacing.sm} / 2);
+      }
+
+      &.--cozy {
+        width: calc(100% + ${theme.spacing.xxxs});
+        margin: calc(-${theme.spacing.xxxs} / 2);
+      }
+
+      &.--compact {
+        width: calc(100% + ${theme.spacing.nano});
+        margin: calc(-${theme.spacing.nano} / 2);
+      }
     `;
   }}
 `);

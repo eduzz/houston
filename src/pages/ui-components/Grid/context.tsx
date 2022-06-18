@@ -1,14 +1,16 @@
 import * as React from 'react';
 
+import { IContainerType } from './Container';
+
 export type ContainerContextProps = {
-  spacing: string;
+  spacing: IContainerType;
 };
 
 const ContainerContext = React.createContext<ContainerContextProps | null>(null);
 
 export type ContainerProviderProps = {
   children: React.ReactNode;
-  spacing: string;
+  spacing: IContainerType;
 };
 
 function ContainerProvider({ children, spacing }: ContainerProviderProps) {
