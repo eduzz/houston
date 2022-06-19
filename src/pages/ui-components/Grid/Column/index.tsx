@@ -14,9 +14,23 @@ export type IColumn = IStyledProp &
     children: React.ReactNode;
   };
 
-const Column = ({ className, children }: IColumn) => {
+const Column = ({ className, children, xs, sm, md, lg, xlg }: IColumn) => {
   const { spacing } = useContainer();
-  return <div className={cx(className, `--${spacing}`)}>{children}</div>;
+  return (
+    <div
+      className={cx(
+        className,
+        `--${spacing}`,
+        xs && `xs-${xs}`,
+        sm && `sm-${sm}`,
+        md && `md-${md}`,
+        lg && `lg-${lg}`,
+        xlg && `xlg-${xlg}`
+      )}
+    >
+      {children}
+    </div>
+  );
 };
 
 const COLUMNS = 12;
@@ -31,25 +45,34 @@ const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: ICon
   return Object.entries(sizes)
     .map(bp => {
       if (typeof bp[1] === 'boolean') {
-        return `${theme.breakpoints.up(bp[0] as keyof Sizes)} {
-          flex-grow: 1;
-          width:auto;
-          margin: calc(${containerType[spacing]} / 2);
+        return `
+        &.${bp[0]}-${bp[1]} {
+          ${theme.breakpoints.up(bp[0] as keyof Sizes)} {
+            flex-grow: 1;
+            width: auto;
+            margin: calc(${containerType[spacing]} / 2);
+          }
         }`;
       }
 
       if (bp[1] === 'auto') {
-        return `${theme.breakpoints.up(bp[0] as keyof Sizes)} { 
-          max-width: none;
-          width: auto;
-          margin: auto;
+        return `
+        &.${bp[0]}-${bp[1]} {
+          ${theme.breakpoints.up(bp[0] as keyof Sizes)} { 
+            max-width: none;
+            width: auto;
+            margin: auto;
+          }
         }`;
       }
 
-      return `${theme.breakpoints.up(bp[0] as keyof Sizes)} { 
+      return `
+      &.${bp[0]}-${bp[1]} {
+        ${theme.breakpoints.up(bp[0] as keyof Sizes)} { 
           width: calc(${(sizes[bp[0]] / COLUMNS) * 100}% - ${containerType[spacing]});
           margin: calc(${containerType[spacing]} / 2);
-        }`;
+        }
+      }`;
     })
     .join('');
 };

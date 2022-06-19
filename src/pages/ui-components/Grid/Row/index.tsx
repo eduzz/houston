@@ -4,13 +4,13 @@ import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import { useContainer } from '../context';
 
-type alignItemsRow = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
-type justifyRow = 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
+type AlignItemsRow = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+type JustifyContentRow = 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
 
 export interface IRow extends IStyledProp {
   children: React.ReactNode;
-  alignItems?: alignItemsRow;
-  justify?: justifyRow;
+  alignItems?: AlignItemsRow;
+  justifyContent?: JustifyContentRow;
 }
 
 const Row = ({ className, children }: IRow) => {
@@ -19,12 +19,12 @@ const Row = ({ className, children }: IRow) => {
 };
 
 export default React.memo(styled(Row, { label: 'houston-row' })`
-  ${({ theme, alignItems, justify }) => {
+  ${({ theme, alignItems, justifyContent }) => {
     return css`
       display: flex;
       flex-wrap: wrap;
-      align-items: ${alignItems ?? 'center'};
-      justify-content: ${justify ?? 'center'};
+      align-items: ${alignItems};
+      justify-content: ${justifyContent};
 
       &.--comfortable {
         width: calc(100% + ${theme.spacing.sm});
