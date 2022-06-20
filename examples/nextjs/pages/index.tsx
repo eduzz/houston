@@ -13,7 +13,7 @@ const IndexPage: NextPage = memo(() => {
   return (
     <div className='app'>
       <Container layout='fluid'>
-        <Row alignItems='center' justifyContent='center'>
+        <Row alignItems='center' justify='center'>
           <Column xs={12}>
             <div className='logo'>
               <Image src='/images/logo.svg' alt='Logo' width={400} height={180} />

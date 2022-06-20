@@ -19,11 +19,7 @@ function ContainerProvider({ children, spacing }: ContainerProviderProps) {
 }
 
 function useContainer() {
-  const ctx = React.useContext(ContainerContext);
-  if (!ctx) {
-    throw new Error('You must provide a `ContainerProvider` in order to use `useContainer`');
-  }
-  return ctx;
+  return React.useContext(ContainerContext);
 }
 
 export { ContainerContext, ContainerProvider, useContainer };

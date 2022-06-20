@@ -5,26 +5,26 @@ import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 import { useContainer } from '../context';
 
 type AlignItemsRow = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
-type JustifyContentRow = 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
+type JustifyRow = 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
 
 export interface IRow extends IStyledProp {
   children: React.ReactNode;
   alignItems?: AlignItemsRow;
-  justifyContent?: JustifyContentRow;
+  justify?: JustifyRow;
 }
 
 const Row = ({ className, children }: IRow) => {
-  const { spacing } = useContainer();
+  const { spacing } = useContainer() ?? { spacing: 'cozy' };
   return <div className={cx(className, `--${spacing}`)}>{children}</div>;
 };
 
 export default React.memo(styled(Row, { label: 'houston-row' })`
-  ${({ theme, alignItems, justifyContent }) => {
+  ${({ theme, alignItems, justify }) => {
     return css`
       display: flex;
       flex-wrap: wrap;
       align-items: ${alignItems};
-      justify-content: ${justifyContent};
+      justify-content: ${justify};
 
       &.--comfortable {
         width: calc(100% + ${theme.spacing.sm});

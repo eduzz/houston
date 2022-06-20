@@ -15,7 +15,7 @@ export type IColumn = IStyledProp &
   };
 
 const Column = ({ className, children, xs, sm, md, lg, xlg }: IColumn) => {
-  const { spacing } = useContainer();
+  const { spacing } = useContainer() ?? { spacing: 'cozy' };
   return (
     <div
       className={cx(
@@ -61,7 +61,7 @@ const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: ICon
           ${theme.breakpoints.up(bp[0] as keyof Sizes)} { 
             max-width: none;
             width: auto;
-            margin: auto;
+            margin: calc(${containerType[spacing]} / 2);
           }
         }`;
       }
@@ -93,6 +93,7 @@ export default React.memo(
       }
 
       &.--cozy {
+        margin: calc(${theme.spacing.xxxs} / 2);
         ${generateBreakAndWidth(theme, sizes, 'cozy')}
       }
 
