@@ -2,45 +2,29 @@ import * as React from 'react';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-import { ContainerProvider } from '../context';
-
 export type IContainerLayout = 'fluid' | 'solid';
-export type IContainerType = 'comfortable' | 'cozy' | 'compact';
-
 export interface IContainer extends IStyledProp {
   children: React.ReactNode;
-  spacing?: IContainerType;
   layout?: IContainerLayout;
 }
 
-const Container = ({ className, children, spacing, layout }: IContainer) => (
-  <ContainerProvider spacing={spacing ?? 'cozy'}>
-    <div className={cx(className, `--${spacing ?? 'cozy'}`, `--${layout ?? 'solid'}`)}>{children}</div>
-  </ContainerProvider>
-);
+const Container = React.forwardRef<HTMLDivElement, IContainer>(({ className, children, layout }, ref) => (
+  <div ref={ref} className={cx(className, `--${layout ?? 'solid'}`)}>
+    {children}
+  </div>
+));
 
-const MAX_WIDTH = 1062;
+const MAX_WIDTH_IN_PX = 1062;
 
-export default React.memo(styled(Container, { label: 'houston-container' })`
+export default React.memo(styled(Container, { label: 'houston-grid-container' })`
   ${({ theme }) => css`
     width: 100%;
-    max-width: ${theme.pxToRem(MAX_WIDTH)}rem;
+    max-width: ${theme.pxToRem(MAX_WIDTH_IN_PX)}rem;
     margin: 0 auto;
+    padding: 0 ${theme.spacing.xs};
 
     &.--fluid {
       max-width: 100%;
-    }
-
-    &.--comfortable {
-      padding: 0 ${theme.spacing.xxxs};
-    }
-
-    &.--cozy {
-      padding: 0 ${theme.spacing.xs};
-    }
-
-    &.--compact {
-      padding: 0 ${theme.spacing.xxs};
     }
   `}
 `);

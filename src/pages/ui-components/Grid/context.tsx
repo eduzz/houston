@@ -1,25 +1,29 @@
 import * as React from 'react';
 
-import { IContainerType } from './Container';
+import { Spacing } from './Row';
 
-export type ContainerContextProps = {
-  spacing: IContainerType;
+export type RowContextProps = {
+  spacing: Spacing;
 };
 
-const ContainerContext = React.createContext<ContainerContextProps | null>(null);
+const RowContext = React.createContext<RowContextProps | null>(null);
 
-export type ContainerProviderProps = {
+export type RowProviderProps = {
   children: React.ReactNode;
-  spacing: IContainerType;
+  spacing: Spacing;
 };
 
-function ContainerProvider({ children, spacing }: ContainerProviderProps) {
+function RowProvider({ children, spacing }: RowProviderProps) {
   const value = React.useMemo(() => ({ spacing }), [spacing]);
-  return <ContainerContext.Provider value={value}>{children}</ContainerContext.Provider>;
+  return <RowContext.Provider value={value}>{children}</RowContext.Provider>;
 }
 
-function useContainer() {
-  return React.useContext(ContainerContext);
+function useRow() {
+  const ctx = React.useContext(RowContext);
+  if (!ctx) {
+    throw new Error('You must provide a `RowProvider` in order to use `useRow`');
+  }
+  return ctx;
 }
 
-export { ContainerContext, ContainerProvider, useContainer };
+export { RowContext, RowProvider, useRow };

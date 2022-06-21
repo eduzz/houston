@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import styled, { css, cx, IStyledProp, IHoustonTheme } from '@eduzz/houston-styles';
 
-import { IContainerType } from '../Container';
-import { useContainer } from '../context';
+import { useRow } from '../context';
+import { Spacing } from '../Row';
 
 type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 'auto' | boolean;
 type BreakPoints = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
@@ -14,13 +14,14 @@ export type IColumn = IStyledProp &
     children: React.ReactNode;
   };
 
-const Column = ({ className, children, xs, sm, md, lg, xlg }: IColumn) => {
-  const { spacing } = useContainer() ?? { spacing: 'cozy' };
+const Column = React.forwardRef<HTMLDivElement, IColumn>(({ className, children, xs, sm, md, lg, xlg }, ref) => {
+  const { spacing = 'xxs' } = useRow();
   return (
     <div
+      ref={ref}
       className={cx(
         className,
-        `--${spacing}`,
+        `--spacing-${spacing}`,
         xs && `xs-${xs}`,
         sm && `sm-${sm}`,
         md && `md-${md}`,
@@ -31,46 +32,43 @@ const Column = ({ className, children, xs, sm, md, lg, xlg }: IColumn) => {
       {children}
     </div>
   );
-};
+});
 
 const COLUMNS = 12;
+const NONE_IN_REM = '0rem';
 
-const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: IContainerType) => {
-  const containerType = {
-    comfortable: theme.spacing.sm,
-    compact: theme.spacing.nano,
-    cozy: theme.spacing.xxxs
-  };
-
+const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: Spacing) => {
   return Object.entries(sizes)
-    .map(bp => {
-      if (typeof bp[1] === 'boolean') {
+    .map(([breakpoint, size]: [BreakPoints, ColumnSize]) => {
+      if (typeof size === 'boolean') {
         return `
-        &.${bp[0]}-${bp[1]} {
-          ${theme.breakpoints.up(bp[0] as keyof Sizes)} {
+        &.${breakpoint}-${size} {
+          ${theme.breakpoints.up(breakpoint)} {
             flex-grow: 1;
             width: auto;
-            margin: calc(${containerType[spacing]} / 2);
+            margin: calc(${theme.spacing.inline[spacing] ?? NONE_IN_REM} / 2);
           }
         }`;
       }
 
-      if (bp[1] === 'auto') {
+      if (size === 'auto') {
         return `
-        &.${bp[0]}-${bp[1]} {
-          ${theme.breakpoints.up(bp[0] as keyof Sizes)} { 
+        &.${breakpoint}-${size} {
+          ${theme.breakpoints.up(breakpoint)} { 
             max-width: none;
             width: auto;
-            margin: calc(${containerType[spacing]} / 2);
+            margin: calc(${theme.spacing.inline[spacing] ?? NONE_IN_REM} / 2);
           }
         }`;
       }
 
       return `
-      &.${bp[0]}-${bp[1]} {
-        ${theme.breakpoints.up(bp[0] as keyof Sizes)} { 
-          width: calc(${(sizes[bp[0]] / COLUMNS) * 100}% - ${containerType[spacing]});
-          margin: calc(${containerType[spacing]} / 2);
+      &.${breakpoint}-${size} {
+        ${theme.breakpoints.up(breakpoint)} { 
+          width: calc(${((sizes[breakpoint] as number) / COLUMNS) * 100}% - ${
+        theme.spacing.inline[spacing] ?? NONE_IN_REM
+      });
+          margin: calc(${theme.spacing.inline[spacing] ?? NONE_IN_REM} / 2);
         }
       }`;
     })
@@ -78,7 +76,7 @@ const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: ICon
 };
 
 export default React.memo(
-  styled(Column, { label: 'houston-column' })(({ theme, xs, sm, md, lg, xlg }) => {
+  styled(Column, { label: 'houston-grid-column' })(({ theme, xs, sm, md, lg, xlg }) => {
     const sizes = {
       ...(xs && { xs }),
       ...(sm && { sm }),
@@ -88,17 +86,32 @@ export default React.memo(
     };
 
     return css`
-      &.--comfortable {
-        ${generateBreakAndWidth(theme, sizes, 'comfortable')}
+      &.--spacing-none {
+        ${generateBreakAndWidth(theme, sizes, 'none')}
       }
 
-      &.--cozy {
-        margin: calc(${theme.spacing.xxxs} / 2);
-        ${generateBreakAndWidth(theme, sizes, 'cozy')}
+      &.--spacing-nano {
+        ${generateBreakAndWidth(theme, sizes, 'nano')}
       }
 
-      &.--compact {
-        ${generateBreakAndWidth(theme, sizes, 'compact')}
+      &.--spacing-xxxs {
+        ${generateBreakAndWidth(theme, sizes, 'xxxs')}
+      }
+
+      &.--spacing-xxs {
+        ${generateBreakAndWidth(theme, sizes, 'xxs')}
+      }
+
+      &.--spacing-xs {
+        ${generateBreakAndWidth(theme, sizes, 'xs')}
+      }
+
+      &.--spacing-md {
+        ${generateBreakAndWidth(theme, sizes, 'md')}
+      }
+
+      &.--spacing-xl {
+        ${generateBreakAndWidth(theme, sizes, 'xl')}
       }
     `;
   })

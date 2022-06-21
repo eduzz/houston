@@ -2,43 +2,42 @@ import * as React from 'react';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-import { useContainer } from '../context';
+import { RowProvider } from '../context';
 
 type AlignItemsRow = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
-type JustifyRow = 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
+type JustifyContentRow = 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
+export type Spacing = 'none' | 'nano' | 'xxxs' | 'xxs' | 'xs' | 'md' | 'xl';
 
 export interface IRow extends IStyledProp {
   children: React.ReactNode;
+  spacing?: Spacing;
   alignItems?: AlignItemsRow;
-  justify?: JustifyRow;
+  justifyContent?: JustifyContentRow;
 }
 
-const Row = ({ className, children }: IRow) => {
-  const { spacing } = useContainer() ?? { spacing: 'cozy' };
-  return <div className={cx(className, `--${spacing}`)}>{children}</div>;
-};
+const Row = React.forwardRef<HTMLDivElement, IRow>(({ className, children, spacing }, ref) => {
+  return (
+    <RowProvider spacing={spacing ?? 'xxxs'}>
+      <div ref={ref} className={cx(className, `--spacing-${spacing ?? 'xxxs'}`)}>
+        {children}
+      </div>
+    </RowProvider>
+  );
+});
 
-export default React.memo(styled(Row, { label: 'houston-row' })`
-  ${({ theme, alignItems, justify }) => {
+const NONE_IN_REM = '0rem';
+
+export default React.memo(styled(Row, { label: 'houston-grid-row' })`
+  ${({ theme, alignItems, justifyContent, spacing }) => {
     return css`
       display: flex;
       flex-wrap: wrap;
       align-items: ${alignItems};
-      justify-content: ${justify};
+      justify-content: ${justifyContent};
 
-      &.--comfortable {
-        width: calc(100% + ${theme.spacing.sm});
-        margin: calc(-${theme.spacing.sm} / 2);
-      }
-
-      &.--cozy {
-        width: calc(100% + ${theme.spacing.xxxs});
-        margin: calc(-${theme.spacing.xxxs} / 2);
-      }
-
-      &.--compact {
-        width: calc(100% + ${theme.spacing.nano});
-        margin: calc(-${theme.spacing.nano} / 2);
+      &.--spacing-${spacing} {
+        width: calc(100% + ${theme.spacing.inline[spacing] ?? NONE_IN_REM});
+        margin: calc(-${theme.spacing.inline[spacing] ?? NONE_IN_REM} / 2);
       }
     `;
   }}
