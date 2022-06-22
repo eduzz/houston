@@ -140,6 +140,11 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       margin-left: ${theme.spacing.inline.nano};
     }
 
+    & > .__startIcon,
+    & > .__endIcon {
+      line-height: 0;
+    }
+
     & > .__startIcon > svg,
     & > .__endIcon > svg {
       vertical-align: middle;
