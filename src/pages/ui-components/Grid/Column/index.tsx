@@ -95,6 +95,7 @@ export default React.memo(
       }
 
       &.--spacing-xxxs {
+        margin: calc(${theme.spacing.xxxs} / 2);
         ${generateBreakAndWidth(theme, sizes, 'xxxs')}
       }
 

@@ -28,7 +28,7 @@ const Row = React.forwardRef<HTMLDivElement, IRow>(({ className, children, spaci
 const NONE_IN_REM = '0rem';
 
 export default React.memo(styled(Row, { label: 'houston-grid-row' })`
-  ${({ theme, alignItems, justifyContent, spacing }) => {
+  ${({ theme, alignItems, justifyContent, spacing = 'xxxs' }) => {
     return css`
       display: flex;
       flex-wrap: wrap;
