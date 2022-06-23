@@ -16,6 +16,7 @@ export interface IFieldsetProps extends IStyledProp {
   fullWidth?: boolean;
   errorMessage?: string;
   helperText?: React.ReactNode;
+  hidden?: boolean;
 }
 
 interface IInternalFieldsetProps extends IFieldsetProps {
@@ -41,7 +42,8 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
       disabled,
       children,
       containerRef,
-      onClickContainer
+      onClickContainer,
+      hidden
     },
     ref
   ) => {
@@ -52,6 +54,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
       <fieldset
         ref={ref}
         className={cx(className, {
+          '--hidden': hidden,
           '--full-width': fullWidth ?? true,
           '--error': !!errorMessage,
           '--disabled': disabled,
@@ -157,6 +160,10 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
     &.--disabled {
       opacity: ${theme.opacity.level[6]};
       cursor: not-allowed;
+    }
+
+    &.--hidden {
+      display: none;
     }
 
     &:not(.--disabled) > .__container:hover {

@@ -6,7 +6,7 @@ import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
 const FormContext = createContext<IFormAdapter<any>>(null);
 
-export function useFormContext() {
+export function useFormContext<T = any>(): IFormAdapter<T> {
   return useContextSelector(FormContext, context => context);
 }
 

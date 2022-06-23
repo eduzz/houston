@@ -30,7 +30,12 @@ const Button = ({
 }: IButtonProps) => (
   <button
     role='button'
-    className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth }, { '--disabled': disabled })}
+    className={cx(
+      className,
+      `--${variant ?? 'contained'}`,
+      { '--fullWidth': fullWidth },
+      { '--disabled': disabled || loading }
+    )}
     {...rest}
     disabled={disabled || loading}
     aria-disabled={disabled}
@@ -138,6 +143,11 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
 
     & > .__endIcon {
       margin-left: ${theme.spacing.inline.nano};
+    }
+
+    & > .__startIcon,
+    & > .__endIcon {
+      line-height: 0;
     }
 
     & > .__startIcon > svg,
