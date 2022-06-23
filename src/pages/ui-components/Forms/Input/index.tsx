@@ -50,6 +50,7 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps<string | number>>(
       onKeyPress,
       helperText,
       disabled = false,
+      type,
       ...props
     },
     ref
@@ -115,6 +116,7 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps<string | number>>(
         startAdornment={startAdornment}
         helperText={helperText}
         disabled={isSubmitting || disabled}
+        hidden={type === 'hidden'}
         className={cx(className, {
           '--multiline': multiline,
           [`--multiline-rows-${rows ?? 4}`]: multiline,
@@ -128,6 +130,7 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps<string | number>>(
             ...props,
             name,
             disabled: isDisabled,
+            type,
             className: '__input __text',
             value: maskedValue ?? '',
             readOnly: readOnly ?? loading,

@@ -30,7 +30,12 @@ const Button = ({
 }: IButtonProps) => (
   <button
     role='button'
-    className={cx(className, `--${variant ?? 'contained'}`, { '--fullWidth': fullWidth }, { '--disabled': disabled })}
+    className={cx(
+      className,
+      `--${variant ?? 'contained'}`,
+      { '--fullWidth': fullWidth },
+      { '--disabled': disabled || loading }
+    )}
     {...rest}
     disabled={disabled || loading}
     aria-disabled={disabled}

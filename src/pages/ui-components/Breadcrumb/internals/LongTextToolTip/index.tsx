@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Tooltip from '@eduzz/houston-ui/Tooltip';
+import Tooltip from '../../../Tooltip';
 
 export interface ILongTextToolTip {
   children: React.ReactNode;
