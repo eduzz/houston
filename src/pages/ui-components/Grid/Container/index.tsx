@@ -14,17 +14,22 @@ const Container = React.forwardRef<HTMLDivElement, IContainer>(({ className, chi
   </div>
 ));
 
-const MAX_WIDTH_IN_PX = 1062;
-
 export default React.memo(styled(Container, { label: 'houston-grid-container' })`
-  ${({ theme }) => css`
-    width: 100%;
-    max-width: ${theme.pxToRem(MAX_WIDTH_IN_PX)}rem;
-    margin: 0 auto;
-    padding: 0 ${theme.spacing.xs};
+  ${({ theme }) => {
+    const MAX_WIDTH_IN_PX = theme.breakpoints.xlg;
+    return css`
+      width: 100%;
+      max-width: ${MAX_WIDTH_IN_PX};
+      margin: 0 auto;
+      padding: 0 ${theme.spacing.xs};
 
-    &.--fluid {
-      max-width: 100%;
-    }
-  `}
+      ${theme.breakpoints.down('sm')} {
+        padding: 0 ${theme.spacing.xxxs};
+      }
+
+      &.--fluid {
+        max-width: 100%;
+      }
+    `;
+  }}
 `);
