@@ -1,12 +1,14 @@
 import * as React from 'react';
 
+import { createContext, useContextSelector } from 'use-context-selector';
+
 import { Spacing } from './Row';
 
 export type RowContextProps = {
   spacing: Spacing;
 };
 
-const RowContext = React.createContext<RowContextProps | null>(null);
+const RowContext = createContext<RowContextProps | null>(null);
 
 export type RowProviderProps = {
   children: React.ReactNode;
@@ -19,7 +21,7 @@ function RowProvider({ children, spacing }: RowProviderProps) {
 }
 
 function useRow() {
-  const ctx = React.useContext(RowContext);
+  const ctx = useContextSelector(RowContext, context => context);
   if (!ctx) {
     throw new Error('You must provide a `RowProvider` in order to use `useRow`');
   }

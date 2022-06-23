@@ -5,7 +5,7 @@ import styled, { css, cx, IStyledProp, IHoustonTheme } from '@eduzz/houston-styl
 import { useRow } from '../context';
 import { Spacing } from '../Row';
 
-type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 'auto' | boolean;
+type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | boolean;
 type BreakPoints = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
 type Sizes = Partial<Record<BreakPoints, ColumnSize>>;
 
@@ -14,7 +14,7 @@ export type IColumn = IStyledProp &
     children: React.ReactNode;
   };
 
-const Column = React.forwardRef<HTMLDivElement, IColumn>(({ className, children, xs, sm, md, lg, xlg }, ref) => {
+const Column = React.forwardRef<HTMLDivElement, IColumn>(({ className, children, xs = 12, sm, md, lg, xlg }, ref) => {
   const { spacing = 'xxs' } = useRow();
   return (
     <div
@@ -22,11 +22,11 @@ const Column = React.forwardRef<HTMLDivElement, IColumn>(({ className, children,
       className={cx(
         className,
         `--spacing-${spacing}`,
-        xs && `xs-${xs}`,
-        sm && `sm-${sm}`,
-        md && `md-${md}`,
-        lg && `lg-${lg}`,
-        xlg && `xlg-${xlg}`
+        xs && `--xs-${xs}`,
+        sm && `--sm-${sm}`,
+        md && `--md-${md}`,
+        lg && `--lg-${lg}`,
+        xlg && `--xlg-${xlg}`
       )}
     >
       {children}
@@ -42,7 +42,7 @@ const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: Spac
     .map(([breakpoint, size]: [BreakPoints, ColumnSize]) => {
       if (typeof size === 'boolean') {
         return `
-        &.${breakpoint}-${size} {
+        &.--${breakpoint}-${size} {
           ${theme.breakpoints.up(breakpoint)} {
             flex-grow: 1;
             width: auto;
@@ -51,19 +51,8 @@ const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: Spac
         }`;
       }
 
-      if (size === 'auto') {
-        return `
-        &.${breakpoint}-${size} {
-          ${theme.breakpoints.up(breakpoint)} { 
-            max-width: none;
-            width: auto;
-            margin: calc(${theme.spacing.inline[spacing] ?? NONE_IN_REM} / 2);
-          }
-        }`;
-      }
-
       return `
-      &.${breakpoint}-${size} {
+      &.--${breakpoint}-${size} {
         ${theme.breakpoints.up(breakpoint)} { 
           width: calc(${((sizes[breakpoint] as number) / COLUMNS) * 100}% - ${
         theme.spacing.inline[spacing] ?? NONE_IN_REM
@@ -76,7 +65,7 @@ const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: Spac
 };
 
 export default React.memo(
-  styled(Column, { label: 'houston-grid-column' })(({ theme, xs, sm, md, lg, xlg }) => {
+  styled(Column, { label: 'houston-grid-column' })(({ theme, xs = 12, sm, md, lg, xlg }) => {
     const sizes = {
       ...(xs && { xs }),
       ...(sm && { sm }),
