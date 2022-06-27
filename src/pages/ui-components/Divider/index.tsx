@@ -8,7 +8,7 @@ export interface IDivider extends IStyledProp {
 
 const Divider = ({ className, vertical }: IDivider) => {
   const ref = React.useRef(null);
-  const [height, setHeight] = React.useState<string | number>(null);
+  const [height, setHeight] = React.useState<number>(null);
 
   React.useEffect(() => {
     if (ref.current && vertical) {
@@ -23,7 +23,7 @@ export default React.memo(styled(Divider, { label: 'houston-divider' })`
   ${({ theme }) => css`
     border-style: solid;
     opacity: ${theme.opacity.level[3]};
-    border-color: ${theme.neutralColor.high.pure}
+    border-color: ${theme.neutralColor.low.pure};
 
     &.--horizontal {
       width: 100%;
