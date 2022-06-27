@@ -6,6 +6,7 @@ import { useBreadcrumb } from '../context';
 import LongTextToolTip from '../internals/LongTextToolTip';
 
 type BreadcrumbLinkProps = {
+  [key: string]: any;
   /**
    * Component that wraps the item.
    * @example NavLink, Link (react-router-dom)
@@ -18,7 +19,6 @@ type BreadcrumbLinkProps = {
   /**
    * Allow to provide more props to the `as` Component
    */
-  [key: string]: any;
   icon?: React.ReactNode;
   children?: React.ReactNode;
 };

@@ -6,11 +6,20 @@ module.exports = {
     '@typescript-eslint/naming-convention': [
       'error',
       {
-        selector: 'interface',
-        format: ['PascalCase'],
-        custom: { regex: '^I[A-Za-z]', match: true }
-      }
+        selector: 'variable',
+        format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+        leadingUnderscore: 'allowSingleOrDouble'
+      },
+      { selector: 'parameter', format: ['camelCase', 'PascalCase'], leadingUnderscore: 'allow' },
+      {
+        selector: 'memberLike',
+        modifiers: ['private'],
+        format: ['camelCase'],
+        leadingUnderscore: 'allowSingleOrDouble'
+      },
+      { selector: 'typeLike', format: ['PascalCase'] }
     ],
+    '@typescript-eslint/member-ordering': ['error'],
     '@typescript-eslint/no-namespace': ['error'],
     '@typescript-eslint/no-require-imports': ['error'],
     '@typescript-eslint/no-object-literal-type-assertion': 'off',
@@ -20,6 +29,6 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'off' }]
+    '@typescript-eslint/explicit-member-accessibility': ['error', { overrides: { constructors: 'no-public' } }]
   }
 };

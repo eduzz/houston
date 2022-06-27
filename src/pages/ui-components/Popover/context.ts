@@ -9,8 +9,8 @@ export interface IPopoverContextState {
 }
 
 export interface IPopoverContext {
-  setState(state: IPopoverContextState): () => void;
   openedTarget: HTMLElement;
+  setState(state: IPopoverContextState): () => void;
 }
 
 const PopoverContext = createContext<IPopoverContext>({
