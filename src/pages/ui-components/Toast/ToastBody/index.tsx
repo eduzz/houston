@@ -1,5 +1,9 @@
+import * as React from 'react';
+
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
+import truncateText from '../../utils/truncateText';
+import warning from '../../utils/warning';
 import { InformativeIcon, PositiveIcon, AlertIcon, CancelIcon, WarningIcon } from '../Icons';
 
 type ToastTypes = 'informative' | 'positive' | 'negative' | 'warning';
@@ -19,18 +23,20 @@ const IconsMap: IIconsMap = {
 };
 
 const GUTTER_WIDTH = 32;
-const MAX_LENGTH = 48;
+const TEXT_MAX_LENGTH = 48;
 
 const ToastBody = ({ className, content, type }: IToastBodyProps) => {
-  if (content.length > MAX_LENGTH) {
-    throw new Error('@eduzz/houston-ui: text limit is 48 characters');
-  }
+  React.useEffect(() => {
+    if (content.length > TEXT_MAX_LENGTH) {
+      warning('Toast', `text limit is ${TEXT_MAX_LENGTH} characters`);
+    }
+  }, [content]);
   return (
     <div role='alertdialog' className={cx(className, `--type-${type}`)}>
       <span role='img' className='__icon'>
         {IconsMap[type]}
       </span>
-      <div className='__text'>{content}</div>
+      <div className='__text'>{truncateText(content, TEXT_MAX_LENGTH)}</div>
       <span className='__cancel-icon'>
         <CancelIcon />
       </span>
