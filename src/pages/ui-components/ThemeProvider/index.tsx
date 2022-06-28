@@ -66,7 +66,7 @@ function ThemeProvider({
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
-        <LocalizationProvider locale={ptBR} dateAdapter={AdapterDateFns}>
+        <LocalizationProvider adapterLocale={ptBR} dateAdapter={AdapterDateFns}>
           <PopoverRoot>
             {!disableToast && <ToastContainer />}
             {!disableCssBaseline && <CssBaseline />}

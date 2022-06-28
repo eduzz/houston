@@ -2,47 +2,44 @@ import * as React from 'react';
 
 import { getConfig } from '../config';
 
-type ExtractPromiseValue<P> = P extends Promise<infer T> ? T : never;
+type OmitIsSubscribedArg<F> = F extends (s: any, ...args: infer P) => infer R ? (...args: P) => R : never;
+
+let callCounter = 0;
 
 /**
  * Return a callback, the promise value and unsubscribed if component unmount
  * @param promiseCallback
  * @param deps
- * @returns [function, value, error, loading]
+ * @returns function
  */
-export default function usePromiseCallback<T, F extends (...args: any[]) => Promise<T>>(
+export default function usePromiseCallback<F extends (isSubscribed: () => boolean, ...args: any[]) => Promise<any>>(
   promiseCallback: F,
   deps: React.DependencyList
-): [(...a: Parameters<F>) => Promise<T>, ExtractPromiseValue<ReturnType<F>>, any, boolean] {
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [result, setResult] = React.useState<ExtractPromiseValue<ReturnType<F>>>();
-  const [error, setError] = React.useState<any>();
+): (...a: Parameters<OmitIsSubscribedArg<F>>) => ReturnType<F> {
+  const isMounted = React.useRef(true);
+  const lastCall = React.useRef<number>();
 
-  const callback = React.useCallback((...args: Parameters<F>) => {
-    const isSubscribed = true;
-    setLoading(true);
-    setResult(undefined);
-    setError(undefined);
+  React.useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
-    const promise = promiseCallback(...args);
+  return React.useCallback<any>((...args: Parameters<OmitIsSubscribedArg<F>>) => {
+    const currentCall = ++callCounter;
+    lastCall.current = currentCall;
 
-    promise
-      .then((result: ExtractPromiseValue<ReturnType<F>>) => {
-        if (!isSubscribed) return;
-        setResult(() => result);
-      })
-      .catch(err => {
-        getConfig().onUnhandledError(err, 'hooks');
-
-        if (!isSubscribed) return;
-        setError(err);
-      })
-      .finally(() => setLoading(false));
+    const promise = promiseCallback(() => {
+      console.log({ currentCall, lastCall: lastCall.current });
+      return isMounted.current && lastCall.current === currentCall;
+    }, ...args);
+    promise.catch(err => {
+      getConfig().onUnhandledError(err, 'hooks');
+      throw err;
+    });
 
     return promise;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
-
-  return [callback, result, error, loading];
 }

@@ -13,10 +13,11 @@ export default function usePromiseEffect<T>(
   deps: React.DependencyList
 ): void {
   React.useEffect(() => {
-    let isSubscribed = false;
+    let isSubscribed = true;
 
     promiseGenerator(() => isSubscribed).catch(err => {
       getConfig().onUnhandledError(err, 'hooks');
+      throw err;
     });
 
     return () => {
