@@ -9,6 +9,7 @@ import SidebarContext from '../context';
 import SubMenuItemContext from '../SubMenuItem/context';
 
 export interface ISidebarMenuItem extends IStyledProp {
+  [key: string]: any;
   id?: string;
   tabIndex?: number;
   icon?: React.ReactNode;
@@ -27,7 +28,6 @@ export interface ISidebarMenuItem extends IStyledProp {
   /**
    * Allow to provide more props to the `as` Component
    */
-  [key: string]: any;
 }
 
 const SidebarMenuItem = ({

@@ -6,19 +6,19 @@ type IToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 interface IToastOptions extends Pick<ToastOptions, IToastPropsExtends> {}
 
 class Toast {
-  static info(content: string, options?: IToastOptions): void {
+  public static info(content: string, options?: IToastOptions): void {
     toast(<ToastBody content={content} type='informative' />, options);
   }
 
-  static success(content: string, options?: IToastOptions): void {
+  public static success(content: string, options?: IToastOptions): void {
     toast(<ToastBody content={content} type='positive' />, options);
   }
 
-  static error(content: string, options?: IToastOptions): void {
+  public static error(content: string, options?: IToastOptions): void {
     toast(<ToastBody content={content} type='negative' />, options);
   }
 
-  static warning(content: string, options?: IToastOptions): void {
+  public static warning(content: string, options?: IToastOptions): void {
     toast(<ToastBody content={content} type='warning' />, options);
   }
 }
