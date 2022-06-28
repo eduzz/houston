@@ -23,7 +23,7 @@
     "@mui/material": "^5",
     "@mui/styles": "^5",
     "@mui/icons-material": "^5",
-    "@mui/lab": "^5.0.0-alpha.49",
+    "@mui/lab": "^5.0.0-alpha.88",
     "tslib": "^2"
   },
   "peerDependencies": {
