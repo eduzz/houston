@@ -7,7 +7,7 @@
     "build": "next build && next export"
   },
   "dependencies": {
-    "@chakra-ui/react": "1.8.8",
+    "@chakra-ui/react": "^1.8.8",
     "@eduzz/houston-experimental": "*",
     "@eduzz/houston-forms": "*",
     "@eduzz/houston-hooks": "*",
