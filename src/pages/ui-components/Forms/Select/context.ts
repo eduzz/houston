@@ -8,19 +8,19 @@ export interface ISelectOption {
 }
 
 export interface ISelectContext {
-  registerOption(option: ISelectOption): () => void;
-  onSelect(value: any): void;
   inputSize: ISelectFieldProps['size'];
   multiple: boolean;
   inputValue: any;
+  registerOption(option: ISelectOption): () => void;
+  onSelect(value: any): void;
 }
 
 const SelectContext = createContext<ISelectContext>({
-  registerOption: () => () => null,
-  onSelect: () => null,
   inputSize: 'default',
   multiple: false,
-  inputValue: null
+  inputValue: null,
+  registerOption: () => () => null,
+  onSelect: () => null
 });
 
 export default SelectContext;
