@@ -10,7 +10,7 @@ import usePromise from '../usePromise';
  * @returns [value, error, loading, refresh]
  */
 export default function usePromiseRefresh<T>(
-  promiseGenerator: () => Promise<T>,
+  promiseGenerator: (isSubscribed: () => boolean) => Promise<T>,
   deps: React.DependencyList
 ): [T, any, boolean, () => void] {
   const [refresh, setRefresh] = React.useState<number>();

@@ -11,7 +11,8 @@ export interface IHoustonHooksConfig {
 }
 
 let _config: IHoustonHooksConfig = {
-  onUnhandledError() {
+  onUnhandledError(err) {
+    console.error(err);
     /*do nothing */
   },
   pagination: { pageStart: 1, perPage: 25 }
