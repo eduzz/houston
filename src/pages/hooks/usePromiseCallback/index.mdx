@@ -2,7 +2,7 @@
 name: usePromiseCallback
 ---
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 import { Playground } from 'dokz';
 
@@ -19,29 +19,53 @@ unsubscribe, diminuindo assim o risco de Memory Leak. **Como useEffect que retor
 ## Como usar
 
 ```tsx
-const [callback, value, error, loading] = usePromiseCallback(() => userService.get(), []);
+const [loading, setLoading] = useState();
+const callback = usePromiseCallback(async isSubscribe => {
+  setLoading(true);
+  await userService.get();
+  // Se for setar um estado sempre verifique o isSubscribe, para evitar Memory Leak, e subsequentes chamadas
+  // farão que chamadas anteriores não alterem estados.
+  if (isSubscribe()) setLoading(false);
+}, []);
 
 return (
   <div>
     {loading ? 'Carregando' : ''}
-    {value}
     <button onClick={callback}>iniciar</button>
   </div>
 );
 ```
 
+Veja o exemplo abaixo:
+
 <Playground>
   {() => {
+    const callCounter = useRef(0);
     const [reset, setReset] = useState();
-    const [callback, value, error, loading] = usePromiseCallback(
-      () => new Promise(resolve => setTimeout(() => resolve('olá'), 2000)),
+    const [loading, setLoading] = useState(false);
+    const [completed, setCompleted] = useState([]);
+    const [ignored, setIgnored] = useState([]);
+    const callback = usePromiseCallback(
+      isSubscribe => {
+        const currentCall = ++callCounter.current;
+        setLoading(true);
+        return new Promise(resolve => setTimeout(() => resolve('olá'), 2000)).then(() => {
+          if (isSubscribe()) {
+            setLoading(false);
+            setCompleted(completed => [...completed, currentCall]);
+          } else {
+            setIgnored(ignored => [...ignored, currentCall]);
+          }
+        });
+      },
       [reset]
     );
     return (
       <div>
-        <Typography>Value: {value}</Typography>
-        <Typography marginBottom>Loading: {loading.toString()}</Typography>
-        <Button onClick={callback}>Iniciar</Button>
+        <p>Loading: {loading.toString()}</p>
+        <p>cliques completos: {JSON.stringify(completed)}</p>
+        <p>cliques ignorados: {JSON.stringify(ignored)}</p>
+        <Button onClick={callback}>Iniciar (Tente clicar mais de uma vez)</Button>
       </div>
     );
   }}
@@ -51,7 +75,6 @@ return (
 
 - **Erros** ocorridos serão automaticamentes logados e as o **onUnhandledError** no **setHoustonHooksConfig**
   for setado.
-- O valor inicial será **undefined**, lembre-se de tratar isso quando estiver usando.
 
 ## Parâmetros e Retorno
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { getConfig } from '../config';
-import usePromise from '../usePromise';
+import usePromiseEffect from '../usePromiseEffect';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const isEqual = require('lodash/isEqual');
@@ -33,7 +33,7 @@ export interface IUsePaginatedOptions<P, T> {
   initialParams?: P;
   /** set if the date will be cumulative or not */
   infintyScroll?: boolean;
-  onChangeParams: (params: P) => Promise<IPaginationResponse<T>>;
+  onChangeParams: (params: P, isSubscribed: () => boolean) => Promise<IPaginationResponse<T>>;
 }
 
 export interface IUsePromisePaginated<P, R> {
@@ -68,6 +68,7 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
   const { infintyScroll, initialParams: initialParamsOption, onChangeParams } = options;
 
   const [data, setData] = React.useState<IDataState<R>>({ total: 0, result: [], hasMore: true });
+  const [error, setError] = React.useState<any>();
   const [isLoading, setIsLoading] = React.useState(true);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 
@@ -103,34 +104,38 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
     [data.hasMore, initialParams, isLoading, isLoadingMore]
   );
 
-  const [, error] = usePromise(async () => {
-    try {
-      setIsLoading(!infintyScroll || params.page === initialParams.page);
-      setIsLoadingMore(params.page !== initialParams.page);
+  usePromiseEffect(
+    async isSubscribed => {
+      try {
+        setIsLoading(!infintyScroll || params.page === initialParams.page);
+        setIsLoadingMore(params.page !== initialParams.page);
 
-      const sendParams = { ...params } as P & { _refresh?: number };
-      delete sendParams._refresh;
-      const response = await onChangeParams(sendParams);
+        const sendParams = { ...params } as P & { _refresh?: number };
+        delete sendParams._refresh;
+        const response = await onChangeParams(sendParams, isSubscribed);
 
-      setIsLoading(false);
-      setIsLoadingMore(false);
+        setIsLoading(false);
+        setIsLoadingMore(false);
 
-      setData(data => {
-        const total = response.total ?? data.total;
-        const result =
-          (params.page === initialParams.page || !infintyScroll
-            ? response.result
-            : [...data.result, ...response.result]) ?? [];
+        setData(data => {
+          const total = response.total ?? data.total;
+          const result =
+            (params.page === initialParams.page || !infintyScroll
+              ? response.result
+              : [...data.result, ...response.result]) ?? [];
 
-        return { total, result, hasMore: result.length < total };
-      });
-    } catch (err) {
-      setIsLoading(false);
-      setIsLoadingMore(false);
-      throw err;
-    }
+          return { total, result, hasMore: result.length < total };
+        });
+      } catch (err) {
+        getConfig().onUnhandledError(err, 'hooks');
+        setIsLoading(false);
+        setIsLoadingMore(false);
+        setError(err);
+      }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params, ...deps]);
+    [params, ...deps]
+  );
 
   const refresh = React.useCallback(() => {
     setIsLoading(true);

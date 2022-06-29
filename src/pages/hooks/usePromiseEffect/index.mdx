@@ -13,8 +13,8 @@ import usePromiseEffect from '.';
 
 # usePromiseEffect
 
-Dá Subscribe e retorna o resultado de uma promise e quando o componente desmonta (unmount) também dá unsubscribe,
-diminuindo assim o risco de Memory Leak. **Como useEffect que retorna o valor da Promise**
+Dá Subscribe em uma promise e quando o componente desmonta (unmount) também dá unsubscribe,
+diminuindo assim o risco de Memory Leak. **Como um useEffect** ele não gerá estado diminuindo o número de renders.
 
 ## Como usar
 
@@ -37,11 +37,14 @@ return (
 
 <Playground>
   {() => {
-    usePromiseEffect(async isSubscribed => {
-      await new Promise(resolve => setTimeout(() => resolve('olá'), 2000));
-      console.log({ isSubscribed: isSubscribed() });
+    const [loading, setLoading] = useState(false);
+    usePromiseEffect(isSubscribed => {
+      setLoading(true);
+      return new Promise(resolve => setTimeout(() => resolve('olá'), 2000)).then(() => {
+        if (isSubscribed()) setLoading(false);
+      });
     }, []);
-    return <div />;
+    return <div>Loading: {loading.toString()}</div>;
   }}
 </Playground>
 
