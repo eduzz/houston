@@ -1,7 +1,8 @@
 /* eslint-disable react/no-children-prop */
 import * as React from 'react';
 
-import TooltipMUI, { TooltipProps } from '@mui/material/Tooltip';
+import Popover from '../Popover';
+import usePopover from '../Popover/usePopover';
 
 type ITooltipPlacement =
   | 'bottom-end'
@@ -17,39 +18,27 @@ type ITooltipPlacement =
   | 'top-start'
   | 'top';
 
-type ITooltipExtends = 'open' | 'onOpen' | 'onClose' | 'id';
-
-export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
-  title: React.ReactNode;
+export interface ITooltipProps {
+  title?: React.ReactNode;
   placement?: ITooltipPlacement;
   disabled?: boolean;
   children: React.ReactNode;
   className?: string;
 }
 
-const Tooltip: React.FC<ITooltipProps> = ({ placement = 'top', children, disabled = false, className, ...rest }) => {
+const Tooltip = ({ children }: ITooltipProps) => {
+  const { openPopover, closePopover, popoverTargetProps, popoverProps } = usePopover();
+
   return (
-    <TooltipMUI
-      {...rest}
-      disableTouchListener={disabled}
-      disableHoverListener={disabled}
-      disableFocusListener={disabled}
-      placement={placement}
-      arrow
-    >
-      <Content children={children} className={className} />
-    </TooltipMUI>
+    <>
+      <Popover {...popoverProps} placement='bottom-start'>
+        <div>Eu sou o tooltip</div>
+      </Popover>
+      <span {...popoverTargetProps} onMouseEnter={openPopover} onMouseLeave={closePopover}>
+        {children}
+      </span>
+    </>
   );
 };
-
-const Content = React.forwardRef<HTMLDivElement, { children: React.ReactNode; className?: string }>(
-  ({ children, className, ...rest }, ref) => {
-    return (
-      <div className={className} {...rest} ref={ref} style={{ display: 'inline-flex' }}>
-        {children}
-      </div>
-    );
-  }
-);
 
 export default React.memo(Tooltip);
