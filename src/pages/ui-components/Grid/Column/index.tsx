@@ -5,7 +5,7 @@ import styled, { css, cx, IStyledProp, IHoustonTheme } from '@eduzz/houston-styl
 import { useRow } from '../context';
 import { Spacing } from '../Row';
 
-type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | boolean;
+type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | true;
 type BreakPoints = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
 type Sizes = Partial<Record<BreakPoints, ColumnSize>>;
 

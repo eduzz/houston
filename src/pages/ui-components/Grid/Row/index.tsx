@@ -10,15 +10,18 @@ export type Spacing = 'none' | 'nano' | 'xxxs' | 'xxs' | 'xs' | 'md' | 'xl';
 
 export interface IRow extends IStyledProp {
   children: React.ReactNode;
+  /**
+   * Defaults to 'xxxs'
+   */
   spacing?: Spacing;
   alignItems?: AlignItemsRow;
   justifyContent?: JustifyContentRow;
 }
 
-const Row = React.forwardRef<HTMLDivElement, IRow>(({ className, children, spacing }, ref) => {
+const Row = React.forwardRef<HTMLDivElement, IRow>(({ className, children, spacing = 'xxxs' }, ref) => {
   return (
-    <RowProvider spacing={spacing ?? 'xxxs'}>
-      <div ref={ref} className={cx(className, `--spacing-${spacing ?? 'xxxs'}`)}>
+    <RowProvider spacing={spacing}>
+      <div ref={ref} className={cx(className, `--spacing-${spacing}`)}>
         {children}
       </div>
     </RowProvider>
