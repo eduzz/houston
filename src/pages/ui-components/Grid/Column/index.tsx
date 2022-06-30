@@ -14,7 +14,7 @@ export type IColumn = IStyledProp &
     children: React.ReactNode;
   };
 
-const Column = React.forwardRef<HTMLDivElement, IColumn>(({ className, children, xs, sm, md, lg, xlg }, ref) => {
+const Column = React.forwardRef<HTMLDivElement, IColumn>(({ className, children, xs = true, sm, md, lg, xlg }, ref) => {
   const { spacing = 'xxs' } = useRow();
   return (
     <div
@@ -65,7 +65,7 @@ const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: Spac
 };
 
 export default React.memo(
-  styled(Column, { label: 'houston-grid-column' })(({ theme, xs, sm, md, lg, xlg }) => {
+  styled(Column, { label: 'houston-grid-column' })(({ theme, xs = true, sm, md, lg, xlg }) => {
     const sizes = {
       ...(xs && { xs }),
       ...(sm && { sm }),
