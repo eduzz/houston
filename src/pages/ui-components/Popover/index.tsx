@@ -78,8 +78,6 @@ export default styled(Popover, { label: 'houston-popover' })(
     & > .__container {
       width: 100%;
       max-height: 50vh;
-      overflow-y: auto;
-      overflow-x: hidden;
       background-color: white;
       box-shadow: ${theme.shadow.level[1]};
       border-radius: ${theme.border.radius.xs};
