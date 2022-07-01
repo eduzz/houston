@@ -49,6 +49,29 @@ return (
   }}
 </Playground>
 
+## Setando um estado extra
+
+Quando necessário setar um estado extra sempre verique a função **isSubscribe**, ele retornará se o componente ainda está
+montado e assim evitará **Memory Leak**.
+
+```tsx
+const [other, setOther] = useState();
+const [value, error, loading] = usePromise(async isSubscribe => {
+  const result = await userService.get();
+  if (isSubscribe()) {
+    setOther(result.otherValue);
+  }
+  return result;
+}, []);
+
+return (
+  <div>
+    {loading ? 'Carregando' : ''}
+    {value}
+  </div>
+);
+```
+
 ## Cuidados
 
 - **Erros** ocorridos serão automaticamentes logados e as o **onUnhandledError** no **setHoustonHooksConfig**

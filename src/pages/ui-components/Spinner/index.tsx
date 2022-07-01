@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import styled, { IStyledProp, keyframes } from '@eduzz/houston-styles/styled';
+import styled, { IStyledProp, keyframes, css } from '@eduzz/houston-styles';
 
-import { getColorFallback } from '../Helpers/functions';
+import getColorFallback from '../utils/getColorFallback';
 
 export interface ILoaderProps extends IStyledProp {
   size?: number;
@@ -12,9 +12,8 @@ export interface ILoaderProps extends IStyledProp {
 const SIZE_BASE = 65;
 const CIRCLE_SIZE_BASE = 30;
 
-const Spinner: React.FC<ILoaderProps> = ({ className, size }) => {
-  size = size ?? 65;
-  const round = ((size ?? 65) / SIZE_BASE) * CIRCLE_SIZE_BASE;
+const Spinner: React.FC<ILoaderProps> = ({ className, size = SIZE_BASE }) => {
+  const round = (size / SIZE_BASE) * CIRCLE_SIZE_BASE;
 
   return (
     <svg className={className} width={`${size}px`} height={`${size}px`} viewBox={`0 0 ${size + 1} ${size + 1}`}>
@@ -28,22 +27,24 @@ const rotationAnimation = keyframes`
   100% { transform: rotate(270deg); }
 `;
 
-const circleAnimation = (props: ILoaderProps) => keyframes`
-  0% { stroke-dashoffset: ${((props.size ?? 65) / SIZE_BASE) * 187}; }
-  50% { stroke-dashoffset: ${((props.size ?? 65) / SIZE_BASE) * 46.75}; transform: rotate(135deg); }
-  100% { stroke-dashoffset: ${((props.size ?? 65) / SIZE_BASE) * 187}; transform: rotate(450deg); }
+const circleAnimation = (size: number) => keyframes`
+  0% { stroke-dashoffset: ${(size / SIZE_BASE) * 187}; }
+  50% { stroke-dashoffset: ${(size / SIZE_BASE) * 46.75}; transform: rotate(135deg); }
+  100% { stroke-dashoffset: ${(size / SIZE_BASE) * 187}; transform: rotate(450deg); }
 `;
 
 export default styled(Spinner, { label: 'houston-loader' })`
-  animation: ${rotationAnimation} 1.4s linear infinite;
-  color: ${props => (props.color === 'inherit' ? 'inherit' : getColorFallback(props.theme, props.color).pure)};
+  ${({ theme, color, size = SIZE_BASE }) => css`
+    animation: ${rotationAnimation} 1.4s linear infinite;
+    color: ${color === 'inherit' ? 'inherit' : getColorFallback(theme, color).pure};
 
-  & > circle {
-    stroke: currentColor;
-    stroke-width: ${props => ((props.size ?? 65) / SIZE_BASE) * 6};
-    stroke-dasharray: ${props => ((props.size ?? 65) / SIZE_BASE) * 187};
-    stroke-dashoffset: 0;
-    transform-origin: center;
-    animation: ${props => circleAnimation(props)} 1.4s ease-in-out infinite;
-  }
+    & > circle {
+      stroke: currentColor;
+      stroke-width: ${(size / SIZE_BASE) * 6};
+      stroke-dasharray: ${(size / SIZE_BASE) * 187};
+      stroke-dashoffset: 0;
+      transform-origin: center;
+      animation: ${circleAnimation(size)} 1.4s ease-in-out infinite;
+    }
+  `}
 `;

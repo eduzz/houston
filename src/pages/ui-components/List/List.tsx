@@ -5,7 +5,7 @@ import ListMUI, { ListProps as ListPropsMUI } from '@mui/material/List';
 import { cx } from '@eduzz/houston-styles';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
-import nestedComponent from '../Helpers/nestedComponent';
+import nestedComponent from '../utils/nestedComponent';
 import Item from './Item';
 import Left from './Left';
 import Right from './Right';

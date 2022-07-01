@@ -1,4 +1,4 @@
-import { FeedbackColor } from '../types';
+import type { FeedbackColor } from '../types';
 
 export const feedbackColor: FeedbackColor = {
   positive: {

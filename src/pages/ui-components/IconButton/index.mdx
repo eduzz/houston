@@ -1,0 +1,45 @@
+---
+name: Icon Button
+---
+
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import { Playground } from 'dokz';
+
+import IconButton from './';
+
+# Icon Button
+
+Botões permitem que os usuários tomem ações e decisões com um simples toque.
+
+### Importação
+
+```js
+import IconButton from '@eduzz/houston-ui/IconButton';
+```
+
+### Exemplos
+
+<Playground>
+  <IconButton>
+    <InsertEmoticonIcon />
+  </IconButton>
+  <IconButton disabled>
+    <InsertEmoticonIcon />
+  </IconButton>
+</Playground>
+
+### Tamanho
+
+<Playground>
+  <IconButton size='md'>
+    <InsertEmoticonIcon />
+  </IconButton>
+  <IconButton size='lg'>
+    <InsertEmoticonIcon />
+  </IconButton>
+</Playground>
+
+| prop     | tipo       | obrigatório | padrão  | descrição |
+| -------- | ---------- | ----------- | ------- | --------- |
+| disabled | `boolean`  | `false`     | `false` | -         |
+| size     | `md`, `lg` | `false`     | `lg`    | -         |

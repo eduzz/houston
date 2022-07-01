@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-ui",
   "description": "Eduzz Houston Components UI",
-  "version": "0.44.1",
+  "version": "0.51.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -16,26 +16,28 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "dependencies": {
-    "@eduzz/houston-core": "0.44.1",
-    "@eduzz/houston-hooks": "0.44.1",
-    "@eduzz/houston-icons": "0.44.1",
-    "@eduzz/houston-styles": "0.44.1",
+    "@eduzz/houston-core": "0.51.0",
+    "@eduzz/houston-hooks": "0.51.0",
+    "@eduzz/houston-icons": "0.51.0",
+    "@eduzz/houston-styles": "0.51.0",
     "@emotion/css": "^11",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@emotion/cache": "^11",
     "@mui/icons-material": "^5",
-    "@mui/lab": "^5.0.0-alpha.54",
+    "@mui/lab": "^5.0.0-alpha.88",
     "@mui/material": "^5",
+    "@popperjs/core": "^2.11.5",
     "date-fns": "^2",
     "lodash": "^4",
     "react-colorful": "^5",
-    "react-toastify": "^8",
+    "react-toastify": "^9",
     "tslib": "^2",
-    "use-context-selector": "^1"
+    "use-context-selector": "^1",
+    "@mui/x-date-pickers": "5.0.0-alpha.7"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.44.1",
+    "@eduzz/houston-core": "0.51.0",
     "@material-ui/core": "^4",
     "@material-ui/icons": "^4",
     "@material-ui/lab": "^4"

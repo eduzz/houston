@@ -35,15 +35,19 @@ import Content from '@eduzz/houston-ui/Layout/Content';
 Para simplificar a escrita do código, você pode desestruturar os componentes.
 
 ```jsx
-import Layout from '@eduzz/houston-ui/Layout';
+import Layout, { ISidebarProps } from '@eduzz/houston-ui/Layout';
+// ou
+import { ISidebarProps } from '@eduzz/houston-ui/Layout/Sidebar';
 
 const { Sidebar, Content } = Layout;
 const { Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
 
 function CustomLayout() {
+  const sidebarProps: ISidebarProps = {...};
+
   return (
     <Layout>
-      <Sidebar {...props}>
+      <Sidebar {...sidebarProps}>
         {...}
       </Sidebar>
 

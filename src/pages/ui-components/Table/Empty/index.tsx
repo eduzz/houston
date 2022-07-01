@@ -4,8 +4,8 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { IStyledProp, cx } from '@eduzz/houston-styles/styled';
 
-import Typography from '../../Typography';
-import TableContext from '../context';
+import Typography, { ITypographyProps } from '../../Typography';
+import TableContext, { TableSize } from '../context';
 
 export interface ITableEmptyProps extends IStyledProp {
   count: number;
@@ -13,16 +13,22 @@ export interface ITableEmptyProps extends IStyledProp {
 }
 const TableEmpty = React.memo<ITableEmptyProps>(({ children, count, className }) => {
   const columnsLen = useContextSelector(TableContext, context => context.columns.length);
+  const tableSize = useContextSelector(TableContext, context => context.size);
 
   if (count) return null;
 
   children = children ?? 'Nenhum dado encontrado';
 
+  const fontSizeMap: Record<TableSize, ITypographyProps['size']> = {
+    small: 'xxs',
+    medium: 'xs'
+  };
+
   return (
     <tr className={cx(className, 'table-empty-message')}>
       <td align='center' colSpan={columnsLen}>
         {typeof children === 'string' ? (
-          <Typography size='xs' fontWeight='regular' lineHeight='xl' className='__text'>
+          <Typography size={fontSizeMap[tableSize]} weight='regular' lineHeight='xl' className='__text'>
             {children}
           </Typography>
         ) : (

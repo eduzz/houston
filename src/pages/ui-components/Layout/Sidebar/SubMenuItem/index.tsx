@@ -35,7 +35,6 @@ const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
   const [items, setItems] = React.useState<{ active: boolean }[]>([]);
 
   const expanded = useContextSelector(MenuContext, context => context.expanded);
-
   const handleClickExpand = useContextSelector(MenuContext, context => context.handleClickExpand);
 
   const handleClickItem = React.useCallback(() => handleClickExpand(ref), [handleClickExpand, ref]);

@@ -5,10 +5,9 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { breakpoints, IStyledProp } from '@eduzz/houston-styles/styled';
 
-import SelectField from '../../Forms/Select';
-import TextField from '../../Forms/Text';
+import Input from '../../Forms/Input';
+import Select from '../../Forms/Select';
 import Column from '../../Grid/Column';
-import Container from '../../Grid/Container';
 import Row from '../../Grid/Row';
 import Typography from '../../Typography';
 import TableContext from '../context';
@@ -57,7 +56,7 @@ const Pagination = React.memo<ITablePagination>(
 
     const handlePageInputChange = React.useCallback(
       (
-        valueOrEvent: string | React.KeyboardEvent<HTMLDivElement>,
+        valueOrEvent: string | number | React.KeyboardEvent<HTMLDivElement>,
         event?:
           | React.KeyboardEvent<HTMLDivElement>
           | React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -71,7 +70,7 @@ const Pagination = React.memo<ITablePagination>(
           enterPressed = valueOrEvent.key?.toLowerCase() === 'enter';
           value = (valueOrEvent.target as any).value;
         } else {
-          value = valueOrEvent;
+          value = valueOrEvent.toString();
         }
 
         setPageInput(value);
@@ -120,58 +119,52 @@ const Pagination = React.memo<ITablePagination>(
       <tfoot className={className}>
         <tr>
           <td colSpan={1000} className='__td'>
-            <Container layout='fluid'>
-              <Row>
-                <Column xs={12} sm='auto'>
-                  <Row justifyContent='center'>
-                    <Column xs='auto' className='__perPage'>
-                      <Typography size='xxs' fontWeight='semibold'>
-                        {labelItensPerPage ?? 'Itens por página:'}
-                      </Typography>
+            <Row>
+              <Column xs={12} sm='auto'>
+                <Row justifyContent='center'>
+                  <Column xs='auto' className='__perPage'>
+                    <Typography size='xxs' weight='semibold'>
+                      {labelItensPerPage ?? 'Itens por página:'}
+                    </Typography>
 
-                      <SelectField
-                        disabled={loading}
-                        size='small'
-                        margin='none'
-                        options={optionsPerPage}
-                        value={perPage}
-                        onChange={handleChangePerPage}
-                      />
-                    </Column>
+                    <Select disabled={loading} size='sm' value={perPage} onChange={handleChangePerPage}>
+                      {optionsPerPage.map(({ value, label }) => (
+                        <Select.Option key={value} value={value} label={label} />
+                      ))}
+                    </Select>
+                  </Column>
 
-                    <Column xs='auto' className='__labels'>
-                      <Typography size='xxs' fontWeight='semibold'>
-                        {labelGoToPage ?? 'Ir para:'}
-                      </Typography>
+                  <Column xs='auto' className='__labels'>
+                    <Typography size='xxs' weight='semibold'>
+                      {labelGoToPage ?? 'Ir para:'}
+                    </Typography>
 
-                      <TextField
-                        margin='none'
-                        size='small'
-                        disabled={loading}
-                        value={pageInput}
-                        className='__input'
-                        onChange={handlePageInputChange}
-                        onKeyUp={handlePageInputChange}
-                        onBlur={handlePageInputChange}
-                      />
-                    </Column>
-                  </Row>
-                </Column>
-
-                <Column xs={12} sm={true}>
-                  <div className='__pages'>
-                    <PaginationMUI
-                      count={Math.ceil(total / perPage)}
-                      page={page ?? 1}
+                    <Input
+                      size='sm'
                       disabled={loading}
-                      shape='rounded'
-                      size='medium'
-                      onChange={handleChangePage}
+                      value={pageInput}
+                      className='__input'
+                      onChange={handlePageInputChange}
+                      onKeyUp={handlePageInputChange}
+                      onBlur={handlePageInputChange}
                     />
-                  </div>
-                </Column>
-              </Row>
-            </Container>
+                  </Column>
+                </Row>
+              </Column>
+
+              <Column xs={12} sm={true}>
+                <div className='__pages'>
+                  <PaginationMUI
+                    count={Math.ceil(total / perPage)}
+                    page={page ?? 1}
+                    disabled={loading}
+                    shape='rounded'
+                    size='medium'
+                    onChange={handleChangePage}
+                  />
+                </div>
+              </Column>
+            </Row>
           </td>
         </tr>
       </tfoot>
@@ -186,7 +179,7 @@ export default styled(Pagination)`
     }
 
     .__perPage {
-      width: 240px;
+      width: 220px;
       display: inline-flex;
       align-items: center;
 

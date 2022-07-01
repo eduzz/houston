@@ -1,17 +1,18 @@
 export interface IHoustonHooksConfig {
   /**
+   * Set the first page of pagination hooks
+   */
+  pagination?: { pageStart: number; perPage: number };
+  /**
    * Set a function to be called when a unhandled error ocurrs,
    * if rxjs onUnhandledError is not already set it will also set this
    */
   onUnhandledError(err: any, origin: 'rxjs' | 'hooks'): void;
-  /**
-   * Set the first page of pagination hooks
-   */
-  pagination?: { pageStart: number; perPage: number };
 }
 
 let _config: IHoustonHooksConfig = {
-  onUnhandledError() {
+  onUnhandledError(err) {
+    console.error(err);
     /*do nothing */
   },
   pagination: { pageStart: 1, perPage: 25 }

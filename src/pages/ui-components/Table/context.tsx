@@ -15,10 +15,12 @@ export interface ITableActionShow {
   actions: ITableAction[];
 }
 
+export type TableSize = 'small' | 'medium';
+
 export interface ITableContext {
   loading: boolean;
   loadingText?: React.ReactNode;
-  size: 'small' | 'medium';
+  size: TableSize;
 
   sort?: ITableSort;
   onSort: (param: ITableSort) => void;

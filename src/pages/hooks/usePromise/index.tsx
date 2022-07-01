@@ -9,7 +9,7 @@ import { getConfig } from '../config';
  * @returns [value, error, loading]
  */
 export default function usePromise<T>(
-  promiseGenerator: () => Promise<T>,
+  promiseGenerator: (isSubscribed: () => boolean) => Promise<T>,
   deps: React.DependencyList
 ): [T, any, boolean] {
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -20,7 +20,7 @@ export default function usePromise<T>(
     let isSubscribed = true;
     setLoading(true);
 
-    promiseGenerator()
+    promiseGenerator(() => isSubscribed)
       .then(result => {
         if (!isSubscribed) return;
         setResult(() => result);

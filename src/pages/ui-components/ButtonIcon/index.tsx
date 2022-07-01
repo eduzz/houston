@@ -1,19 +1,12 @@
-import * as React from 'react';
+import IconButton, { IIconButtonProps } from '../IconButton';
 
-import IconButtonMUI, { IconButtonProps } from '@mui/material/IconButton';
+export interface IButtonIcon extends IIconButtonProps {}
 
-type ButtonPropsExtends = 'id' | 'disabled' | 'children' | 'onClick' | 'className' | 'size' | 'color';
+/**
+ * @deprecated Migrar para IconButton
+ */
+const ButtonIcon = (props: IButtonIcon) => {
+  return <IconButton {...props} />;
+};
 
-export interface IButtonProps extends Pick<IconButtonProps, ButtonPropsExtends> {}
-
-const IconButton = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => {
-  const { children, color = 'default', ...rest } = props;
-
-  return (
-    <IconButtonMUI {...rest} color={color} disableTouchRipple ref={ref}>
-      {children}
-    </IconButtonMUI>
-  );
-});
-
-export default React.memo(IconButton);
+export default ButtonIcon;

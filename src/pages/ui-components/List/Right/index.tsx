@@ -5,7 +5,7 @@ import ListItemIconMUI from '@mui/material/ListItemIcon';
 import { cx } from '@eduzz/houston-styles';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
-import IconButton from '../../ButtonIcon';
+import IconButton from '../../IconButton';
 import Typography from '../../Typography';
 
 const useStyles = createUseStyles(theme => ({

@@ -119,13 +119,12 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
 
       & > tbody > tr {
         display: flex;
-        width: ${({ theme }) => `calc(100% - ${theme.spacing.xxxs})`};
+        width: 100%;
         flex-wrap: wrap;
         position: relative;
         box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
-        border-radius: 3px;
-        margin: ${({ theme }) => theme.spacing.nano};
-        margin-top: 0;
+        border-radius: ${({ theme }) => theme.border.radius.xs};
+        margin-bottom: ${({ theme }) => theme.spacing.nano};
         border: 1px solid ${({ theme }) => theme.neutralColor.high.light};
         padding: ${({ theme }) => theme.spacing.xxxs};
         padding-bottom: ${({ theme }) => theme.spacing.quarck};
@@ -134,7 +133,7 @@ export default (Component: React.FC<ITableProps>) => styled(Component)`
 
       & > tbody > tr.houston-table-collapse {
         padding: 0;
-        margin-top: ${({ theme }) => (Number(theme.spacing.nano.toString().replace('px', '')) + 2) * -1}px;
+        margin-top: ${({ theme }) => (Number(theme.spacing.nano.replace('rem', '')) * 16 + 2) * -1}px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         box-shadow: none;

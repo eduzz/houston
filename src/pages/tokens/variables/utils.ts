@@ -1,13 +1,26 @@
-import { PxToRem, HexToRgba } from '../types';
+const PIXELS_IN_ONE_REM = 16;
 
-export const pxToRem: PxToRem = (value: number, rate = 16): string => {
-  return `${value / rate}rem`;
-};
+export function pxToRem(value: number, rate = PIXELS_IN_ONE_REM) {
+  return value / rate;
+}
 
-export const hexToRgba: HexToRgba = (hexColor: string, opacity?: number) => {
-  const r = parseInt(hexColor.slice(1, 3), 16);
-  const g = parseInt(hexColor.slice(3, 5), 16);
-  const b = parseInt(hexColor.slice(5, 7), 16);
+export function remToPx(value: number, rate = PIXELS_IN_ONE_REM) {
+  return value * rate;
+}
 
-  return `rgba(${r}, ${g}, ${b}, ${opacity ?? 1})`;
-};
+const HEXADECIMAL_BASE = 16;
+
+export function decimalToHexadecimal(value: string) {
+  return parseInt(value, HEXADECIMAL_BASE);
+}
+
+export function hexToRgba(hexColor: string, opacity = 1) {
+  const twoLettersRegex = /\w\w/g;
+  const [r, g, b] = hexColor.match(twoLettersRegex).map(decimalToHexadecimal);
+
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}
+
+export function cleanUnit(value: string) {
+  return parseFloat(value.replace(/[a-zA-Z]/g, ''));
+}

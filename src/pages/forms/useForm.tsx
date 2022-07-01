@@ -137,3 +137,5 @@ export default function useForm<Values = Record<string, never>>({
     errors: errors
   };
 }
+
+export { useFormContext };

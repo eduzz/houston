@@ -22,38 +22,25 @@ const SidebarLogo: React.FC<ISidebarLogoProps> = ({ className, image, imageColla
   const collapsed = useContextSelector(SidebarContext, context => context.collapsed);
   const inside = useContextSelector(SidebarContext, context => context.insideComponent);
 
-  const mainImage = React.useMemo(
-    () => (
-      <figure className='main-image'>
-        <Image image={image} alt={alt} />
-      </figure>
-    ),
-    [alt, image]
-  );
-
-  const collapsedImage = React.useMemo(
-    () =>
-      imageCollapsed && (
-        <figure className='collapsed-image'>
-          <Image image={imageCollapsed} alt={alt} />
-        </figure>
-      ),
-    [alt, imageCollapsed]
-  );
-
   return (
     <div
       {...rest}
-      className={cx(
-        className,
-        inside && '--inside',
-        collapsed && !inside && '--collapsed',
-        imageCollapsed && '--has-image-collapsed'
-      )}
+      className={cx(className, {
+        '--inside': inside,
+        '--collapsed': collapsed && !inside,
+        '--has-collapsed-image': !!imageCollapsed
+      })}
     >
-      <div className='wrapper'>
-        {mainImage}
-        {collapsedImage}
+      <div className='__wrapper'>
+        <figure className='__main-image'>
+          <Image image={image} alt={alt} />
+        </figure>
+
+        {!!imageCollapsed && (
+          <figure className='__collapsed-image'>
+            <Image image={imageCollapsed} alt={alt} />
+          </figure>
+        )}
       </div>
     </div>
   );
@@ -65,53 +52,68 @@ export default styled(React.memo(SidebarLogo), { label: 'houston-sidebar-logo' }
   min-height: 70px;
   max-height: 70px;
   position: relative;
+  transition-delay: 0s;
+  transition-property: padding;
 
-  &.--inside {
-    width: 100%;
-    padding: 16px;
-  }
-
-  &.--collapsed {
-    padding: 16px 4px;
-    text-align: center;
-    width: 56px;
-  }
-
-  &.--collapsed.--has-image-collapsed {
-    .main-image {
-      opacity: 0;
-    }
-
-    .collapsed-image {
-      opacity: 1;
-    }
-
-    ${({ theme }) => theme.breakpoints.down('md')} {
-      .main-image {
-        opacity: 1;
-      }
-
-      .collapsed-image {
-        opacity: 0;
-      }
-    }
-  }
-
-  .wrapper {
+  & > .__wrapper {
     max-height: 80px;
     position: relative;
 
-    .collapsed-image {
+    & > .__collapsed-image {
       opacity: 0;
       width: 100%;
       position: absolute;
       top: 0;
       left: 0;
+      text-align: center;
     }
 
     img {
       max-width: 108px;
       max-height: 80px;
+    }
+
+    & > .__main-image,
+    & > .__collapsed-image {
+      transition: 0s 0s ease-in;
+    }
+  }
+
+  &.--inside {
+    width: 100%;
+    padding: 16px;
+    transition: 0s 0.3s ease-in;
+
+    & > .__wrapper {
+      & > .__main-image,
+      & > .__collapsed-image {
+        transition: 0s 0.3s ease-in;
+      }
+    }
+  }
+
+  &.--collapsed {
+    padding: 16px 4px;
+    width: 56px;
+  }
+
+  &.--collapsed.--has-collapsed-image {
+    .__main-image {
+      opacity: 0;
+    }
+
+    .__collapsed-image {
+      opacity: 1;
+    }
+
+    ${({ theme }) => theme.breakpoints.down('md')} {
+      .__main-image {
+        opacity: 1;
+      }
+
+      .__collapsed-image {
+        opacity: 0;
+      }
     }
   }
 

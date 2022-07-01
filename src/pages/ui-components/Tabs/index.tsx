@@ -1,4 +1,4 @@
-import nestedComponent from '../Helpers/nestedComponent';
+import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import Tabs from './Tabs';
 

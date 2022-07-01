@@ -4,35 +4,37 @@ import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } 
 
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
+import useMediaQuery from '../hooks/useMediaQuery';
 import styles from './styles';
 
 const ToastContainer: React.FC<ToastContainerProps> = props => {
   const theme = useHoustonTheme();
-  const styleContent = React.useMemo(
-    () => ({
-      __html: `
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const styleContent = {
+    __html: `
         ${styles}
 
         .Toastify__toast {
-          border-radius: 4px;
-          margin-bottom: 16px;
-          padding: 8px 16px;
+          width: max-content;
+          ${isMobile ? 'margin: auto' : 'margin-left: auto'};
+          margin-bottom: ${isMobile ? theme.spacing.stack.xxxs : theme.spacing.stack.nano};
+          min-height: ${theme.pxToRem(10)}rem;
+          max-height: ${theme.pxToRem(800)}rem;
+          border-radius: ${theme.border.radius.sm};
+          box-shadow: ${theme.shadow.level[2]};          
         }
 
-        .Toastify__toast-body {
-          font-family: ${theme?.font?.family ?? 'Open Sans'};
-          font-weight: 600;
-          padding-right: 8px;
-          line-height: 1.45;
+        .Toastify__toast-container--top-right {
+          top: ${theme.spacing.stack.nano};
+          right: ${theme.spacing.inline.xxxs};
         }
 
-        .Toastify__close-button {
-          align-self: center;
+        .Toastify__toast-container--bottom-center {
+          bottom: 0;
         }
       `
-    }),
-    [theme?.font?.family]
-  );
+  };
 
   return (
     <>
@@ -41,17 +43,14 @@ const ToastContainer: React.FC<ToastContainerProps> = props => {
       <ToastContainerToastify
         {...props}
         transition={Slide}
-        position='top-right'
+        position={isMobile ? 'bottom-center' : 'top-right'}
         autoClose={4000}
-        hideProgressBar={false}
-        newestOnTop={false}
+        hideProgressBar
         closeOnClick
-        rtl={false}
         draggable={false}
-        pauseOnFocusLoss
-        pauseOnHover
         icon={false}
         limit={4}
+        closeButton={false}
       />
     </>
   );

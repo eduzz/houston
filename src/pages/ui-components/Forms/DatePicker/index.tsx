@@ -1,21 +1,21 @@
 import * as React from 'react';
 
 import { CalendarPickerView } from '@mui/lab';
-import DatePicker, { DatePickerProps } from '@mui/lab/DatePicker';
-import TextField from '@mui/material/TextField';
-import { useContextSelector } from 'use-context-selector';
+import { TextFieldProps } from '@mui/material';
+import { DatePickerProps, DatePicker as DatePickerMUI } from '@mui/x-date-pickers/DatePicker';
 
+import { useFormIsSubmitting, useFormValue, useFormError, useFormSetValue } from '@eduzz/houston-forms/context';
 import CalendarIcon from '@eduzz/houston-icons/Calendar';
-import { cx } from '@eduzz/houston-styles';
 
-import { FormFieldsContext } from '../Form';
-import { ITextFieldProps } from '../Text';
-import { IDateFormat, IOmitTextFieldProps, IPickDatePickerProps } from './types';
+import Input, { IInputProps } from '../Input';
+import { IDateFormat, IPickDatePickerProps } from './types';
 
 export interface IDatePickerProps
-  extends Omit<ITextFieldProps, IOmitTextFieldProps>,
-    Pick<DatePickerProps, IPickDatePickerProps> {
-  value?: Date;
+  extends Omit<
+      IInputProps<Date>,
+      'mask' | 'endAdornment' | 'onChange' | 'onBlur' | 'onError' | 'rows' | 'type' | 'multiline' | 'disableAutoResize'
+    >,
+    Pick<DatePickerProps<any, any>, IPickDatePickerProps> {
   /*
     [Available formats]{@link https://date-fns.org/v2.22.1/docs/format}
   */
@@ -24,59 +24,34 @@ export interface IDatePickerProps
   defaultView?: CalendarPickerView;
 }
 
-const DatePickerField: React.FC<IDatePickerProps> = ({
+const DatePicker: React.FC<IDatePickerProps> = ({
   name,
-  value = '',
+  value: valueProp,
   errorMessage: errorMessageProp,
-  helperText,
-  fullWidth,
   onChange,
-  className,
-  size,
-  margin = 'normal',
   disabled,
   displayFormat = 'dd/MM/yyyy',
   defaultView = 'day',
-  placeholder,
-  ...rest
+  placeholder = '',
+  ...inputProps
 }) => {
-  const isSubmitting = useContextSelector(FormFieldsContext, context => context?.isSubmitting);
-  const formValue = useContextSelector(FormFieldsContext, context => context?.getFieldValue(name));
-  const formError = useContextSelector(FormFieldsContext, context => context?.getFieldError(name));
-  const setFieldValue = useContextSelector(FormFieldsContext, context => context?.setFieldValue);
-
-  if (!name && setFieldValue) {
-    throw new Error('@eduzz/houston-ui: to use form prop you need provide a name for the field');
-  }
-
-  value = formValue ?? value;
+  const isSubmitting = useFormIsSubmitting();
+  const value = useFormValue(name, valueProp);
+  const errorMessage = useFormError(name, errorMessageProp);
+  const setFormValue = useFormSetValue(name);
 
   const handleChange = React.useCallback(
     (value: Date) => {
       onChange && onChange(value);
-      setFieldValue && setFieldValue(name, value);
+      setFormValue && setFormValue(value);
     },
-    [onChange, setFieldValue, name]
-  );
-
-  const errorMessage = errorMessageProp ?? formError;
-  const hasError = !!errorMessage;
-
-  const inputProps = React.useMemo(
-    () => ({
-      error: hasError,
-      helperText: errorMessage || helperText,
-      className: cx(className, size === 'small' && 'input-size-small'),
-      margin,
-      fullWidth: fullWidth ?? true,
-      placeholder
-    }),
-    [className, errorMessage, fullWidth, hasError, placeholder, helperText, margin, size]
+    [onChange, setFormValue]
   );
 
   return (
-    <DatePicker
-      renderInput={props => <TextField {...props} {...inputProps} />}
+    <DatePickerMUI
+      renderInput={RenderInput}
+      InputProps={{ ...inputProps, errorMessage, placeholder } as any}
       value={value}
       openTo={defaultView}
       inputFormat={displayFormat}
@@ -84,11 +59,12 @@ const DatePickerField: React.FC<IDatePickerProps> = ({
       onChange={handleChange}
       components={{ OpenPickerIcon: CalendarIcon }}
       showToolbar={false}
-      cancelText='Cancelar'
-      okText='Selecionar'
-      {...rest}
     />
   );
 };
 
-export default React.memo(DatePickerField);
+const RenderInput: React.FC<TextFieldProps & IInputProps> = ({ inputRef, inputProps, InputProps }) => {
+  return <Input ref={inputRef as any} {...(inputProps as any)} {...InputProps} name={null} />;
+};
+
+export default React.memo(DatePicker);

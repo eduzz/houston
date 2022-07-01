@@ -114,7 +114,7 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
             },
 
             '& label': {
-              transform: `translate(${theme.spacing.xxxs}px, ${theme.spacing.nano + 2}px) scale(1)`
+              transform: `translate(${theme.spacing.xxxs}, ${theme.spacing.nano}) scale(1)`
             }
           }
         }
@@ -152,14 +152,12 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
             padding: '8px 32px 8px 12px'
           }
         },
-        // selectMenu: {
-        //   height: 45
-        // },
         iconOutlined: {
           right: 4
         },
         icon: {
-          top: 'calc(50% - 14px)'
+          top: '50%',
+          transform: 'translate(0, -50%)'
         }
       }
     },
@@ -248,7 +246,7 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
           height: 45,
           boxSizing: 'border-box',
           fontSize: theme.font.size.xs,
-          padding: `${theme.spacing.xxxs}px ${theme.spacing.xxxs}px`
+          padding: `${theme.spacing.xxxs} ${theme.spacing.xxxs}`
         },
         inputMultiline: {
           minHeight: 96
@@ -260,7 +258,7 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
       styleOverrides: {
         root: {
           fontFamily: theme.font.family.base,
-          fontSize: theme.font.size.xxs,
+          fontSize: theme.font.size.xxxs,
           lineHeight: theme.line.height.sm
         },
         contained: {
@@ -518,7 +516,7 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
           fontSize: theme.font.size.xxs,
           fontWeight: theme.font.weight.semibold,
           textTransform: 'none',
-          padding: `0px ${theme.spacing.xxxs}px`
+          padding: `0 ${theme.spacing.xxxs}`
         },
         labelIcon: {
           minHeight: 40,
@@ -536,7 +534,7 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
           transition: '0.3s',
           border: '2px solid transparent',
           borderBottom: 'none',
-          borderRadius: `${theme.border.radius.xs}px ${theme.border.radius.xs}px 0 0`,
+          borderRadius: `${theme.border.radius.xs} ${theme.border.radius.xs} 0 0`,
           '& svg': {
             fill: palette.grey[500],
             transition: '0.3s'
@@ -575,7 +573,7 @@ export default function components(palette: Partial<Palette>, theme: IHoustonThe
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          fontSize: theme.font.size.xxs,
+          fontSize: theme.font.size.xxxs,
           backgroundColor: palette.grey[600],
           letterSpacing: 0.5
         },

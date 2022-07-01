@@ -9,6 +9,7 @@ import SidebarContext from '../context';
 import SubMenuItemContext from '../SubMenuItem/context';
 
 export interface ISidebarMenuItem extends IStyledProp {
+  [key: string]: any;
   id?: string;
   tabIndex?: number;
   icon?: React.ReactNode;
@@ -24,14 +25,12 @@ export interface ISidebarMenuItem extends IStyledProp {
    * Redirect path.
    */
   to?: string;
-
   /**
    * Allow to provide more props to the `as` Component
    */
-  [key: string]: any;
 }
 
-const SidebarMenuItem: React.FC<ISidebarMenuItem> = ({
+const SidebarMenuItem = ({
   className,
   children,
   icon,
@@ -40,7 +39,7 @@ const SidebarMenuItem: React.FC<ISidebarMenuItem> = ({
   as: Component,
   to,
   ...rest
-}) => {
+}: ISidebarMenuItem) => {
   const refSubMenu = useContextSelector(SubMenuItemContext, context => !!context.ref);
   const registerItem = useContextSelector(SubMenuItemContext, context => context.registerItem);
   const menuIsActive = useContextSelector(SidebarContext, context => context.menuIsActive);

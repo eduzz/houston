@@ -5,6 +5,8 @@ import { DokzProvider, GithubLink } from 'dokz';
 import Head from 'next/head';
 import theme from 'prism-react-renderer/themes/nightOwl';
 
+import createTheme from '@eduzz/houston-styles/createTheme';
+import ThemeProvider from '@eduzz/houston-styles/ThemeProvider';
 import ToastContainer from '@eduzz/houston-ui/Toast/Container';
 
 import './_app.page.css';
@@ -16,9 +18,10 @@ const sidebarOrdering = {
   'ui-components': { 'README.mdx': true }
 };
 
+const houstonTheme = createTheme('orbita');
+
 export default function App(props) {
   const { Component, pageProps } = props;
-
   return (
     <ChakraProvider resetCSS>
       <Head>
@@ -27,7 +30,9 @@ export default function App(props) {
         <link href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700' rel='stylesheet' />
       </Head>
 
-      <ToastContainer />
+      <ThemeProvider theme={houstonTheme}>
+        <ToastContainer />
+      </ThemeProvider>
 
       <DokzProvider
         animate

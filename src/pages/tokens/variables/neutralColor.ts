@@ -1,4 +1,4 @@
-import { NeutralColor } from '../types';
+import type { NeutralColor } from '../types';
 
 export const neutralColor: NeutralColor = {
   low: {

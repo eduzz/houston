@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
-import nestedComponent from '../../Helpers/nestedComponent';
+import nestedComponent from '../../utils/nestedComponent';
 import SidebarContext, { ISidebarContext } from './context';
 import Logo from './Logo';
 import Menu from './Menu';
@@ -36,10 +36,10 @@ export interface ISidebarProps {
   collapsible?: boolean;
   initialCollapsed?: boolean;
   onCollapse?: (collapsed: boolean) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const Sidebar: React.FC<ISidebarProps> = ({
+const Sidebar = ({
   currentLocation,
   hasToolbar = true,
   children,
@@ -50,7 +50,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
   collapsed: collapsedProp,
   collapsible = true,
   ...rest
-}) => {
+}: ISidebarProps) => {
   const [insideComponent, , setInsideComponentTrue, setInsideComponentFalse] = useBoolean(false);
   const [collapsed, setCollapsed] = React.useState(initialCollapsed ?? false);
 
@@ -59,15 +59,16 @@ const Sidebar: React.FC<ISidebarProps> = ({
 
   const handleCollapse = React.useCallback(() => {
     if (!isControlled) {
-      setCollapsed(v => !v);
+      setCollapsed(collapsed => !collapsed);
     }
+
     onCollapse?.(!isCollapsed);
-  }, [onCollapse, isControlled, isCollapsed]);
+  }, [isControlled, onCollapse, isCollapsed]);
 
   const contextValue = React.useMemo<ISidebarContext>(
     () => ({
       currentLocation,
-      menuIsActive: (path: string) => (!path ? false : path === currentLocation || currentLocation?.startsWith(path)),
+      menuIsActive: (path: string) => (!path ? false : path === currentLocation),
       hasToolbar,
       onRequestClose,
       mobileVisible,
@@ -97,6 +98,10 @@ const Sidebar: React.FC<ISidebarProps> = ({
     onRequestClose && onRequestClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLocation]);
+
+  React.useEffect(() => {
+    if (isCollapsed) setInsideComponentFalse();
+  }, [isCollapsed, setInsideComponentFalse]);
 
   return (
     <SidebarContext.Provider value={contextValue}>

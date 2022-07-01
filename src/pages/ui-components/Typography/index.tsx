@@ -1,46 +1,111 @@
 import * as React from 'react';
 
-import { cx } from '@eduzz/houston-styles';
-import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
-import { HoustonTokens } from '@eduzz/houston-tokens';
+import { IHoustonTheme } from '@eduzz/houston-styles';
+import styled, { css, IStyledProp } from '@eduzz/houston-styles/styled';
+import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-export type ITypographyVariant = 'secondary';
+import nestedComponent from '../utils/nestedComponent';
+import warning from '../utils/warning';
+import Caption from './Caption';
+import Heading from './Heading';
+import Paragraph from './Paragraph';
+import Subtitle from './Subtitle';
 
-export type ITypographyComponent = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div';
+type MountColorVariants<Obj, K extends keyof Obj & string = keyof Obj & string> = `${K}${Obj[K] extends object
+  ? `.${MountColorVariants<Obj[K]>}`
+  : ''}`;
+
+type NeutralColor = Pick<HoustonTokens, 'neutralColor'>;
+
+export type TypographyColors = 'primary' | 'inherit' | MountColorVariants<NeutralColor>;
+
+export type TypographyTags =
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'p'
+  | 'span'
+  | 'strong'
+  | 'article'
+  | 'figcaption';
+
+export type TypographyMargin = keyof Omit<HoustonTokens['spacing'], 'fn' | 'squish' | 'inline' | 'stack' | 'inset'>;
 
 export interface ITypographyProps extends IStyledProp {
   id?: string;
+  /**
+   * Defaults to 'xxs'
+   */
   size?: keyof HoustonTokens['font']['size'];
+  /**
+   * Defaults to 'md'
+   */
   lineHeight?: keyof HoustonTokens['line']['height'];
-  fontWeight?: keyof HoustonTokens['font']['weight'];
-  marginBottom?: boolean;
+  /**
+   * Defaults to 'regular'
+   */
+  weight?: keyof HoustonTokens['font']['weight'];
+  marginBottom?: boolean | TypographyMargin;
   children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
-  variant?: ITypographyVariant;
-  component?: ITypographyComponent;
+  /**
+   * Defaults to 'neutralColor.low.pure'
+   */
+  color?: TypographyColors;
+  /**
+   * Defaults to 'p'
+   */
+  as?: TypographyTags;
 }
 
-const Typography: React.FC<ITypographyProps> = ({ className, variant, id, children, component, onClick }) => {
-  return React.createElement(
-    component ?? 'p',
-    {
-      id: id,
-      onClick: onClick,
-      className: cx(className, className, variant && `--variant-${variant}`)
-    },
-    children
-  );
-};
+const Typography = React.forwardRef<any, ITypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { size, lineHeight, weight, marginBottom, color, ...forwardProps } = props;
+  return <Tag ref={ref} className={className} {...forwardProps} />;
+});
 
-export default styled(Typography)`
-  margin: 0;
-  font-size: ${({ theme, size }) => theme.font.size[size] ?? theme.font.size['xs']};
-  font-weight: ${({ theme, fontWeight }) => theme.font.weight[fontWeight ?? 'regular']};
-  line-height: ${({ theme, lineHeight }) => theme.line.height[lineHeight ?? 'md']};
-  margin-bottom: ${({ theme, marginBottom }) => (marginBottom ? theme.spacing.nano : null)};
-
-  &.--variant-secondary {
-    color: ${({ theme }) => theme.neutralColor.high.dark};
-    font-size: ${({ theme }) => theme.font.size.xxs};
+function getColor(theme: IHoustonTheme, color: TypographyColors) {
+  if (color === 'inherit') {
+    return 'inherit';
   }
+
+  if (color === 'primary') {
+    return theme.brandColor.primary.pure;
+  }
+
+  const [themeColor, level, variable] = color.split('.');
+  const result = theme[themeColor]?.[level]?.[variable];
+
+  if (!result) {
+    warning('Typography', `invalid color ${color}`);
+  }
+
+  return result;
+}
+
+const TypographyWrapper = styled(Typography)`
+  ${({ theme, size = 'xs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
+    return css`
+      margin: 0;
+      font-size: ${theme.font.size[size]};
+      font-weight: ${theme.font.weight[weight]};
+      line-height: ${theme.line.height[lineHeight]};
+      color: ${getColor(theme, color)};
+
+      ${marginBottom &&
+      css`
+        margin-bottom: ${typeof marginBottom === 'boolean' ? theme.spacing.nano : theme.spacing[marginBottom]};
+      `}
+    `;
+  }}
 `;
+
+export default nestedComponent(TypographyWrapper, {
+  Caption,
+  Heading,
+  Paragraph,
+  Subtitle
+});

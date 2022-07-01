@@ -10,13 +10,13 @@ import useObservable from '../useObservable';
 const isEqual = require('lodash/isEqual');
 
 export interface IPaginationParams {
+  [key: string]: any;
   page: number;
   perPage: number;
   sort?: {
     field: string;
     direction: 'asc' | 'desc';
   };
-  [key: string]: any;
 }
 
 export interface IPaginationResponse<T> {

@@ -1,7 +1,10 @@
 import * as React from 'react';
 
-import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
+import { useContextSelector } from 'use-context-selector';
 
+import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
+
+import SidebarContext from '../context';
 import MenuContext, { ISidebarMenuContext } from './context';
 
 export interface ISidebarMenu extends IStyledProp {
@@ -10,6 +13,7 @@ export interface ISidebarMenu extends IStyledProp {
 }
 
 const SidebarMenu: React.FC<ISidebarMenu> = ({ className, children, ...rest }) => {
+  const inside = useContextSelector(SidebarContext, context => context.insideComponent);
   const [expanded, setExpanded] = React.useState('');
 
   const handleClickExpand = React.useCallback((key: string, forceActive: boolean) => {
@@ -23,7 +27,7 @@ const SidebarMenu: React.FC<ISidebarMenu> = ({ className, children, ...rest }) =
 
   return (
     <MenuContext.Provider value={contextValue}>
-      <nav {...rest} className={className}>
+      <nav {...rest} className={cx(className, { '--inside': inside })}>
         <ul>{children}</ul>
       </nav>
     </MenuContext.Provider>
@@ -31,8 +35,17 @@ const SidebarMenu: React.FC<ISidebarMenu> = ({ className, children, ...rest }) =
 };
 
 export default styled(React.memo(SidebarMenu), { label: 'houston-sidebar-menu' })`
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
+
+  & > ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  &.--inside {
+    overflow-y: auto;
+  }
 
   &::-webkit-scrollbar {
     width: 3px;
