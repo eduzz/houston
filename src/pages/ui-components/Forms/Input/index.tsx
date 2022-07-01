@@ -1,7 +1,13 @@
 import * as React from 'react';
 
 import IFormMask from '@eduzz/houston-core/maskAdapter';
-import { useFormIsSubmitting, useFormValue, useFormError, useFormSetValue } from '@eduzz/houston-forms/context';
+import {
+  useFormIsSubmitting,
+  useFormValue,
+  useFormError,
+  useFormSetValue,
+  useFormRegister
+} from '@eduzz/houston-forms/context';
 import styled, { css, cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
@@ -61,6 +67,8 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps<string | number>>(
     const value = useFormValue(name, valueProp);
     const errorMessage = useFormError(name, errorMessageProp);
     const setFormValue = useFormSetValue(name);
+    const register = useFormRegister();
+    console.log({ register });
 
     const { maskClean, maskedValue } = useMask(mask, value);
 
@@ -132,12 +140,13 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps<string | number>>(
             disabled: isDisabled,
             type,
             className: '__input __text',
-            value: maskedValue ?? '',
+            value: register ? undefined : maskedValue ?? '',
             readOnly: readOnly ?? loading,
             onChange: handleChange,
             onFocus: handleFocus,
             onBlur: handleBlur,
-            onKeyPress: onPressEnter ? handlePressEnter : onKeyPress
+            onKeyPress: onPressEnter ? handlePressEnter : onKeyPress,
+            ...(register ? register(name) : {})
           })}
         </div>
       </Fieldset>

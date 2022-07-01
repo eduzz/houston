@@ -36,4 +36,8 @@ export function useFormSetValue(name: string): (value: any) => void {
   );
 }
 
+export function useFormRegister(): any {
+  return useContextSelector(FormContext, context => context?.register);
+}
+
 export default FormContext;

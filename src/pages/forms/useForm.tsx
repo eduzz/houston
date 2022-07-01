@@ -1,96 +1,62 @@
 import './yupLocale';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm as useFormHook } from 'react-hook-form';
-import { Observable, of, Subject } from 'rxjs';
-import { catchError, share, switchMap } from 'rxjs/operators';
+import {
+  DeepMap,
+  DeepPartial,
+  FieldError,
+  SubmitErrorHandler,
+  SubmitHandler,
+  UnpackNestedValue,
+  useForm as useFormHook
+} from 'react-hook-form';
 import * as yup from 'yup';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
-import useObservable from '@eduzz/houston-hooks/useObservable';
+import IFormAdapter, { FormErrors } from '@eduzz/houston-core/formAdapter';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const get = require('lodash/get');
-
-export declare type FormikInstance<Values = any> = ReturnType<typeof useForm> & {
-  values: Partial<Values>;
-  errors: FormikErrors<Values>;
-  touched: FormikTouched<Values>;
-};
-
-export declare type FormikConfigResolver<Values> = {
-  [K in Exclude<keyof FormikConfig<Values>, 'onSubmit' | 'initialValues'>]?: FormikConfig<Values>[K];
-};
 
 type Yup = typeof yup;
 
 export interface IUseFormParams<Values> {
   initialValues?: Partial<Values>;
   validationSchema?: (yup: Yup) => yup.AnyObjectSchema;
-  onSubmitWithErrors?: (errors: FormikErrors<Values>, values: Partial<Values>) => void;
-  onSubmit: (values: Values) => void | Promise<any> | Observable<any>;
+  onSubmitWithErrors?: (errors: FormErrors<Values>, values: Partial<Values>) => void;
+  onSubmit: (values: Values) => void | Promise<any>;
+}
+
+function formatHooksErrors<Values>(errors: DeepMap<DeepPartial<Values>, FieldError>): FormErrors<Values> {
+  return Object.keys(errors).reduce((acc, key) => ({ ...acc, [key]: errors[key].message }), {} as FormErrors<Values>);
 }
 
 /**
  * Hook implemation of IFormAdapter
  * @param IUseFormParams
  */
-export default function useForm<Values = Record<string, never>>({
-  onSubmit,
-  onSubmitWithErrors,
+export default function useForm<Values>({
+  onSubmit: onSubmitProp,
+  onSubmitWithErrors: onSubmitWithErrorsProp,
   validationSchema,
-  initialValues
+  initialValues: initialValuesProp
 }: IUseFormParams<Values>): IFormAdapter<Values> {
-  const promiseRef = useRef<{ promise?: Promise<any> }>({}).current;
   const handlers = useRef<{ [key: string]: (value: any) => void }>({}).current;
-
-  const submitData = useRef(new Subject<{ model: Partial<Values>; formikHelpers: FormikHelpers<Values> }>()).current;
-  const onSubmitRef = useRef<typeof onSubmit>(onSubmit);
-
-  useObservable(() => {
-    return submitData.pipe(
-      switchMap(({ model, formikHelpers }) => {
-        const result$ = onSubmitRef?.current?.(model as Values, formikHelpers);
-
-        const result = of(true).pipe(
-          switchMap(() => (!result$ ? of(null) : result$)),
-          catchError(() => of(null)),
-          share()
-        );
-
-        promiseRef.promise = result.toPromise();
-
-        return result;
-      })
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [initialValues] = useState<UnpackNestedValue<DeepPartial<Values>>>(() => initialValuesProp ?? ({} as any));
 
   const {
     setValue,
     getFieldState,
     getValues,
+    register,
     reset: formReset,
     handleSubmit: formHandleSubmit,
-    formState: { submitCount, isValid, isSubmitting }
-  } = useFormHook<Partial<Values>>({
-    // validateOnMount,
-    defaultValues: initialValues ?? ({} as any),
+    formState: { submitCount, isValid, isSubmitting, errors: errorsHooks }
+  } = useFormHook<Values>({
+    defaultValues: initialValues,
     resolver: validationSchema ? yupResolver(validationSchema(yup)) : null
-    // onSubmit: (model, formikHelpers) => {
-    //   onSubmitRef.current = onSubmit;
-    //   submitData.next({ model, formikHelpers });
-    //   return new Promise(resolve => setTimeout(() => resolve(promiseRef.promise), 500));
-    // }
   });
-
-  useEffect(() => {
-    if (!submitCount || isValid) return;
-    onSubmitWithErrors && onSubmitWithErrors(errors, formik.values);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitCount]);
 
   const handleChange = useRef((field: string) => {
     if (!handlers[field]) {
@@ -102,7 +68,17 @@ export default function useForm<Values = Record<string, never>>({
     return handlers[field];
   }).current;
 
-  const handleSubmit = useCallback(e => formHandleSubmit(onSubmit, onSubmitWithErrors)(e), [formHandleSubmit]);
+  const onSubmit: SubmitHandler<Values> = useCallback(values => onSubmitProp(values as Values), [onSubmitProp]);
+
+  const onSubmitWithErrors: SubmitErrorHandler<Values> = useCallback(
+    err => onSubmitWithErrorsProp(formatHooksErrors(err), getValues() as Values),
+    [getValues, onSubmitWithErrorsProp]
+  );
+
+  const handleSubmit = useCallback(
+    e => formHandleSubmit(onSubmit, onSubmitWithErrors)(e),
+    [formHandleSubmit, onSubmit, onSubmitWithErrors]
+  );
 
   const getFieldValue = useCallback((name: string) => get(getValues(), name), [getValues]);
   const setFieldValue = useCallback(
@@ -119,23 +95,28 @@ export default function useForm<Values = Record<string, never>>({
     },
     [getFieldState, submitCount]
   );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleReset = useCallback(() => formReset(initialValues as any), []);
+
+  const handleReset = useCallback(() => formReset(initialValues), [formReset, initialValues]);
+  const reset = useCallback(
+    (values?: Values) => formReset(values === undefined ? initialValues : (values as any)),
+    [formReset, initialValues]
+  );
+
+  const errors = useMemo(() => formatHooksErrors(errorsHooks), [errorsHooks]);
 
   return {
     handleSubmit,
     handleChange,
     handleReset,
-    getFieldValue: getFieldValue,
-    setFieldValue: setFieldValue,
-    getFieldError: getFieldError,
-    reset: values => formReset(values === undefined ? initialValues : (values as any)),
-    initialValues: initialValues,
-    values: form.values,
-    isSubmitting: isSubmitting,
-    isValid: isValid,
-    errors: errors
+    getFieldValue,
+    setFieldValue,
+    getFieldError,
+    register,
+    reset,
+    initialValues: initialValues as any,
+    values: null, //form.values,
+    isSubmitting,
+    isValid,
+    errors
   };
 }
-
-export { useFormContext };
