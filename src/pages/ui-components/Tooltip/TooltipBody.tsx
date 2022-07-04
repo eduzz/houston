@@ -3,11 +3,15 @@ import * as React from 'react';
 import styled, { css, IStyledProp } from '@eduzz/houston-styles';
 import Caption from '@eduzz/houston-ui/Typography/Caption';
 
-const TooltipBody = ({ className }: IStyledProp) => {
+export interface ITooltipBody extends IStyledProp {
+  title: React.ReactNode;
+}
+
+const TooltipBody = ({ className, title }: ITooltipBody) => {
   return (
-    <div className={className}>
+    <div role='tooltip' className={className}>
       <div id='arrow' data-popper-arrow></div>
-      <Caption color='neutralColor.high.pure'>Eu sou o tooltip </Caption>
+      <Caption color='neutralColor.high.pure'>{title}</Caption>
     </div>
   );
 };
@@ -15,7 +19,6 @@ const TooltipBody = ({ className }: IStyledProp) => {
 export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.xxs};
-    border: ${theme.border.width.xs} solid;
     border-radius: ${theme.border.radius.xs};
     min-width: ${theme.spacing.xl};
     background-color: ${theme.neutralColor.low.pure};

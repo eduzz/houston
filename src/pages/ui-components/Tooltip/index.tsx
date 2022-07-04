@@ -21,7 +21,7 @@ type ITooltipPlacement =
   | 'top';
 
 export interface ITooltipProps extends IStyledProp {
-  title?: React.ReactNode;
+  title: React.ReactNode;
   placement?: ITooltipPlacement;
   disabled?: boolean;
   children: React.ReactNode;
@@ -30,10 +30,10 @@ export interface ITooltipProps extends IStyledProp {
   onClose?(): void;
 }
 
-const Tooltip = ({ children, placement = 'top', id: idProp, disabled, onOpen, onClose }: ITooltipProps) => {
+const Tooltip = ({ children, title, placement = 'top', id: idProp, disabled, onOpen, onClose }: ITooltipProps) => {
   const { openPopover, closePopover, popoverTargetProps, popoverProps } = usePopover();
 
-  const [id] = React.useState(idProp ?? `${Math.floor(Math.random() * 100)}`);
+  const [id] = React.useState(idProp ?? `${Math.floor(Math.random() * 1000)}`);
 
   const onOpenPopover = React.useCallback(() => {
     onOpen && onOpen();
@@ -50,7 +50,7 @@ const Tooltip = ({ children, placement = 'top', id: idProp, disabled, onOpen, on
       <>
         {!disabled && (
           <Popover {...popoverProps} placement={placement}>
-            <TooltipBody className={`--placement-${placement}`} />
+            <TooltipBody className={`--placement-${placement}`} title={title} />
           </Popover>
         )}
         <span id={id} tabIndex={0} {...popoverTargetProps} onMouseEnter={onOpenPopover} onMouseLeave={onClosePopover}>
