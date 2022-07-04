@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import styled, { css, IStyledProp } from '@eduzz/houston-styles';
-import Caption from '@eduzz/houston-ui/Typography/Caption';
+import { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import Popover from '../Popover';
 import usePopover from '../Popover/usePopover';
+import TooltipBody from './TooltipBody';
 
 type ITooltipPlacement =
   | 'bottom-end'
@@ -20,92 +20,43 @@ type ITooltipPlacement =
   | 'top-start'
   | 'top';
 
-export interface ITooltipProps {
+export interface ITooltipProps extends IStyledProp {
   title?: React.ReactNode;
   placement?: ITooltipPlacement;
   disabled?: boolean;
   children: React.ReactNode;
-  className?: string;
+  id?: string;
+  onOpen?(): void;
+  onClose?(): void;
 }
 
-const TooltipBody = ({ className }: IStyledProp) => {
-  return (
-    <div className={className}>
-      <div id='arrow' data-popper-arrow></div>
-      <Caption color='neutralColor.high.pure'>Eu sou o tooltip </Caption>
-    </div>
-  );
-};
-
-const StyledTooltipBody = React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
-  ${({ theme }) => css`
-    padding: ${theme.spacing.inset.xxs};
-    border: ${theme.border.width.xs} solid;
-    border-radius: ${theme.border.radius.xs};
-    min-width: ${theme.spacing.xl};
-    background-color: ${theme.neutralColor.low.pure};
-
-    #arrow,
-    #arrow::before {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background: inherit;
-      color: inherit;
-    }
-
-    #arrow {
-      visibility: hidden;
-    }
-
-    #arrow::before {
-      visibility: visible;
-      content: '';
-      transform: rotate(45deg);
-    }
-
-    &.--placement-top {
-      > #arrow {
-        bottom: -4px;
-      }
-    }
-
-    &.--placement-bottom {
-      > #arrow {
-        top: -4px;
-      }
-    }
-
-    &.--placement-left {
-      > #arrow {
-        right: -4px;
-      }
-    }
-
-    &.--placement-right {
-      > #arrow {
-        left: -4px;
-      }
-    }
-  `}
-`);
-
-const Tooltip = ({ children, placement }: ITooltipProps) => {
+const Tooltip = ({ children, placement = 'top', id: idProp, disabled, onOpen, onClose }: ITooltipProps) => {
   const { openPopover, closePopover, popoverTargetProps, popoverProps } = usePopover();
+
+  const [id] = React.useState(idProp ?? `${Math.floor(Math.random() * 100)}`);
+
+  const onOpenPopover = React.useCallback(() => {
+    onOpen && onOpen();
+    openPopover();
+  }, [onOpen, openPopover]);
+
+  const onClosePopover = React.useCallback(() => {
+    onClose && onClose();
+    closePopover();
+  }, [onClose, closePopover]);
 
   return (
     <>
-      <Popover {...popoverProps} placement={placement}>
-        <StyledTooltipBody className={`--placement-${placement}`} />
-      </Popover>
-      <div
-        {...popoverTargetProps}
-        tabIndex={0}
-        onMouseEnter={openPopover}
-        /* onMouseLeave={closePopover}*/
-      >
-        {children}
-      </div>
+      <>
+        {!disabled && (
+          <Popover {...popoverProps} placement={placement}>
+            <TooltipBody className={`--placement-${placement}`} />
+          </Popover>
+        )}
+        <span id={id} tabIndex={0} {...popoverTargetProps} onMouseEnter={onOpenPopover} onMouseLeave={onClosePopover}>
+          {children}
+        </span>
+      </>
     </>
   );
 };
