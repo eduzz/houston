@@ -18,10 +18,9 @@
   "dependencies": {
     "@eduzz/houston-core": "0.51.0",
     "@eduzz/houston-hooks": "0.51.0",
-    "@types/yup": "^0.29",
     "react-hook-form": "^7",
     "@hookform/resolvers": "^2",
-    "yup": "^0.32",
+    "zod": "^3.17.3",
     "lodash": "^4"
   },
   "peerDependencies": {

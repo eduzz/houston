@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 export interface ITableCollapse {
-  onOpen: (data: unknown, index?: number) => void;
-  onClose: (data: unknown, index?: number) => void;
+  onOpen?: (data: unknown, index: number) => void;
+  onClose?: (data: unknown, index: number) => void;
   content: React.ReactNode;
   disabled?: boolean;
   disabledPadding?: boolean;

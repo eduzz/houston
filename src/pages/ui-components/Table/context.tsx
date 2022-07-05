@@ -23,7 +23,7 @@ export interface ITableContext {
   size: TableSize;
 
   sort?: ITableSort;
-  onSort: (param: ITableSort) => void;
+  onSort?: (param: ITableSort) => void;
 
   columns: string[];
   registerColumn: (isCollapse?: boolean) => () => void;

@@ -2,49 +2,29 @@ import * as React from 'react';
 
 import { HexColorPicker } from 'react-colorful';
 
-import { useFormValue, useFormError, useFormSetValue, useFormIsSubmitting } from '@eduzz/houston-forms/context';
 import styled, { IStyledProp } from '@eduzz/houston-styles';
 
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
-import Input, { IInputProps } from '../Input';
+import withForm from '../Form/withForm';
+import Input, { InputProps } from '../Input';
 
 export interface IColorProps
   extends IStyledProp,
-    Omit<IInputProps<string>, 'type' | 'multiline' | 'mask' | 'rows' | 'disableAutoResize' | 'onChange'> {
+    Omit<InputProps<string>, 'type' | 'multiline' | 'mask' | 'rows' | 'disableAutoResize' | 'onChange'> {
   onChange(value: string): void;
 }
 
-const Color: React.FC<IColorProps> = ({
-  className,
-  name,
-  value: valueProp,
-  errorMessage: errorMessageProp,
-  disabled,
-  loading,
-  onChange,
-  ...props
-}) => {
+const Color: React.FC<IColorProps> = ({ className, value, errorMessage, disabled, loading, onChange, ...props }) => {
   const { openPopover, popoverTargetProps, popoverProps } = usePopover();
 
-  const isSubmitting = useFormIsSubmitting();
-  const value = useFormValue(name, valueProp);
-  const errorMessage = useFormError(name, errorMessageProp);
-  const setFormValue = useFormSetValue(name);
-
-  const handleChange = React.useCallback(
-    (value: string) => {
-      onChange && onChange(value);
-      setFormValue && setFormValue(value);
-    },
-    [onChange, setFormValue]
-  );
+  const handleChange = React.useCallback((value: string) => onChange && onChange(value), [onChange]);
 
   return (
     <div>
       <Popover {...popoverProps} placement='bottom-start'>
         <div className={className}>
-          <HexColorPicker color={value} onChange={handleChange} />
+          <HexColorPicker color={value ?? ''} onChange={handleChange} />
         </div>
       </Popover>
 
@@ -56,13 +36,13 @@ const Color: React.FC<IColorProps> = ({
         loading={loading}
         errorMessage={errorMessage}
         onChange={handleChange}
-        onClick={!disabled && !loading && !isSubmitting ? openPopover : null}
+        onClick={!disabled && !loading ? openPopover : undefined}
       />
     </div>
   );
 };
 
-export default styled(React.memo(Color))`
+export default styled(withForm(React.memo(Color)))`
   & .react-colorful {
     width: 170px;
     height: 170px;

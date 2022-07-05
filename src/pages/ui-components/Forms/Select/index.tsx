@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { useFormIsSubmitting, useFormValue, useFormError, useFormSetValue } from '@eduzz/houston-forms/context';
 import ChevronDown from '@eduzz/houston-icons/ChevronDown';
 
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
 import nestedComponent from '../../utils/nestedComponent';
 import Fieldset, { IFieldsetProps } from '../_utils/Fieldset';
+import withForm from '../Form/withForm';
 import SelectContext, { ISelectContext, ISelectOption } from './context';
 import SelectOption from './Option';
 
@@ -42,8 +42,7 @@ export interface ISelectFieldOption {
 
 const SelectField: React.FC<ISelectFieldProps> = ({
   label,
-  value: valueProp,
-  name,
+  value,
   size,
   placeholder,
   loading,
@@ -52,7 +51,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   onChange,
   disabled,
   startAdornment,
-  errorMessage: errorMessageProp,
+  errorMessage,
   fullWidth,
   helperText,
   className,
@@ -62,11 +61,6 @@ const SelectField: React.FC<ISelectFieldProps> = ({
 }) => {
   const { openPopover, closePopover, isPopoverOpened, popoverTargetProps, popoverProps } = usePopover();
   const [options, setOptions] = React.useState<ISelectOption[]>([]);
-
-  const isSubmitting = useFormIsSubmitting();
-  let value = useFormValue(name, valueProp);
-  const errorMessage = useFormError(name, errorMessageProp);
-  const setFormValue = useFormSetValue(name);
 
   value = !multiple ? value : Array.isArray(value) ? value : [];
 
@@ -79,7 +73,6 @@ const SelectField: React.FC<ISelectFieldProps> = ({
     (selected: any) => {
       if (!multiple) {
         onChange && onChange(selected);
-        setFormValue && setFormValue(selected);
         closePopover();
         return;
       }
@@ -92,9 +85,8 @@ const SelectField: React.FC<ISelectFieldProps> = ({
         : [...value, selected];
 
       onChange && onChange(newValue);
-      setFormValue && setFormValue(newValue);
     },
-    [multiple, onChange, value, setFormValue, closePopover]
+    [multiple, onChange, value, closePopover]
   );
 
   const contextValue = React.useMemo<ISelectContext>(
@@ -102,7 +94,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
       registerOption: contextRegisterOption,
       onSelect: contextOnSelect,
       inputSize: size,
-      multiple,
+      multiple: multiple ?? false,
       inputValue: value
     }),
     [contextOnSelect, contextRegisterOption, multiple, size, value]
@@ -156,8 +148,8 @@ const SelectField: React.FC<ISelectFieldProps> = ({
         endAdornment={<ChevronDown />}
         startAdornment={startAdornment}
         helperText={helperText}
-        disabled={isSubmitting || disabled}
-        onClickContainer={!disabled && !loading && !isSubmitting ? openPopover : null}
+        disabled={disabled}
+        onClickContainer={!disabled && !loading ? openPopover : undefined}
       >
         <div className='__text'>{text}</div>
       </Fieldset>
@@ -165,6 +157,6 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   );
 };
 
-export default nestedComponent(React.memo(SelectField), {
+export default nestedComponent(withForm(React.memo(SelectField)), {
   Option: SelectOption
 });
