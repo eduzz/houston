@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+import { flushSync } from 'react-dom';
+
+import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import { IStyledProp } from '@eduzz/houston-styles/styled';
 
 import Popover from '../Popover';
@@ -26,34 +29,39 @@ export interface ITooltipProps extends IStyledProp {
   disabled?: boolean;
   children: React.ReactNode;
   id?: string;
-  onOpen?(): void;
-  onClose?(): void;
+  onClose?: () => void;
+  onOpen?: () => void;
 }
 
 const Tooltip = ({ children, title, placement = 'top', id: idProp, disabled, onOpen, onClose }: ITooltipProps) => {
   const { openPopover, closePopover, popoverTargetProps, popoverProps } = usePopover();
+  const [isPopoverCreated, , createPopover, deletePopover] = useBoolean();
 
   const [id] = React.useState(idProp ?? `${Math.floor(Math.random() * 1000)}`);
 
   const onOpenPopover = React.useCallback(() => {
-    onOpen && onOpen();
+    flushSync(() => {
+      createPopover();
+    });
     openPopover();
-  }, [onOpen, openPopover]);
+    onOpen && onOpen();
+  }, [onOpen, openPopover, createPopover]);
 
   const onClosePopover = React.useCallback(() => {
     onClose && onClose();
     closePopover();
-  }, [onClose, closePopover]);
+    deletePopover();
+  }, [onClose, closePopover, deletePopover]);
 
   return (
     <>
       <>
-        {!disabled && (
-          <Popover {...popoverProps} placement={placement}>
+        {!disabled && isPopoverCreated && (
+          <Popover id={id} {...popoverProps} placement={placement} variant='tooltip'>
             <TooltipBody className={`--placement-${placement}`} title={title} />
           </Popover>
         )}
-        <span id={id} tabIndex={0} {...popoverTargetProps} onMouseEnter={onOpenPopover} onMouseLeave={onClosePopover}>
+        <span tabIndex={0} {...popoverTargetProps} onMouseEnter={onOpenPopover} onMouseLeave={onClosePopover}>
           {children}
         </span>
       </>

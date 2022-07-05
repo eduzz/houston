@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { Placement } from '@popperjs/core';
 import { useContextSelector } from 'use-context-selector';
 
-import { IStyledProp } from '@eduzz/houston-styles';
+import { IStyledProp, cx } from '@eduzz/houston-styles';
 
 import PopoverContext from './context';
 
@@ -14,6 +14,8 @@ export interface IPopoverProps extends IStyledProp {
   children?: React.ReactNode;
   fullWidth?: boolean;
   placement?: Placement;
+  id?: string;
+  variant?: 'tooltip';
 }
 
 export interface IPopoverRef {
@@ -22,7 +24,7 @@ export interface IPopoverRef {
 }
 
 const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
-  ({ targetRef, children, className, fullWidth, placement }, ref) => {
+  ({ targetRef, children, className, fullWidth, placement, id, variant }, ref) => {
     const setState = useContextSelector(PopoverContext, context => context.setState);
     const contentRef = React.useRef<HTMLDivElement>();
     const closeRef = React.useRef<() => void>();
@@ -48,8 +50,8 @@ const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
     );
 
     return (
-      <div ref={contentRef} className={className}>
-        <div className='__container'>{children}</div>
+      <div id={id} ref={contentRef} className={className}>
+        <div className={cx('__container', { [`--${variant}`]: !!variant })}>{children}</div>
       </div>
     );
   }
@@ -78,6 +80,8 @@ export default styled(Popover, { label: 'houston-popover' })(
     & > .__container {
       width: 100%;
       max-height: 50vh;
+      overflow-y: auto;
+      overflow-x: hidden;
       background-color: white;
       box-shadow: ${theme.shadow.level[1]};
       border-radius: ${theme.border.radius.xs};
@@ -86,6 +90,11 @@ export default styled(Popover, { label: 'houston-popover' })(
       animation-duration: 0.2s;
       animation-name: ${hideAnimation};
       animation-fill-mode: forwards;
+
+      &.--tooltip {
+        overflow-y: unset;
+        overflow-x: unset;
+      }
     }
 
     &.--opened {

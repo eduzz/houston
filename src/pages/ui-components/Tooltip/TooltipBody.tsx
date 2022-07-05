@@ -10,7 +10,7 @@ export interface ITooltipBody extends IStyledProp {
 const TooltipBody = ({ className, title }: ITooltipBody) => {
   return (
     <div role='tooltip' className={className}>
-      <div id='arrow' data-popper-arrow></div>
+      <div id='houston-tooltip-arrow' data-popper-arrow />
       <Caption color='neutralColor.high.pure'>{title}</Caption>
     </div>
   );
@@ -23,8 +23,8 @@ export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
     min-width: ${theme.spacing.xl};
     background-color: ${theme.neutralColor.low.pure};
 
-    #arrow,
-    #arrow::before {
+    #houston-tooltip-arrow,
+    #houston-tooltip-arrow::before {
       position: absolute;
       width: 8px;
       height: 8px;
@@ -32,11 +32,11 @@ export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
       color: inherit;
     }
 
-    #arrow {
+    #houston-tooltip-arrow {
       visibility: hidden;
     }
 
-    #arrow::before {
+    #houston-tooltip-arrow::before {
       visibility: visible;
       content: '';
       transform: rotate(45deg);
@@ -45,7 +45,7 @@ export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
     &.--placement-top,
     &.--placement-top-start,
     &.--placement-top-end {
-      > #arrow {
+      > #houston-tooltip-arrow {
         bottom: -4px;
       }
     }
@@ -53,7 +53,7 @@ export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
     &.--placement-bottom,
     &.--placement-bottom-start,
     &.--placement-bottom-end {
-      > #arrow {
+      > #houston-tooltip-arrow {
         top: -4px;
       }
     }
@@ -61,7 +61,7 @@ export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
     &.--placement-left,
     &.--placement-left-start,
     &.--placement-left-end {
-      > #arrow {
+      > #houston-tooltip-arrow {
         right: -4px;
       }
     }
@@ -69,7 +69,7 @@ export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
     &.--placement-right,
     &.--placement-right-start,
     &.--placement-right-end {
-      > #arrow {
+      > #houston-tooltip-arrow {
         left: -4px;
       }
     }
