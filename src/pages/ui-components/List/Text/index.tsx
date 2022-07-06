@@ -9,18 +9,18 @@ export interface IListTitleProps extends Pick<ITypographyProps, ListTitleProps> 
   subtitle?: string | React.ReactNode;
 }
 
-const ListText: React.FC<IListTitleProps> = ({ title, subtitle, ...props }) => {
+const ListText = ({ title, subtitle }: IListTitleProps) => {
   return (
-    <div className='list-item-text'>
+    <div>
       {typeof title === 'string' ? (
-        <Typography {...props} size='xs' weight='regular' lineHeight='xs'>
+        <Typography size='xs' weight='semibold' lineHeight='lg'>
           {title}
         </Typography>
       ) : (
         title
       )}
       {typeof subtitle === 'string' ? (
-        <Typography {...props} size='xxs' weight='regular' lineHeight='xs'>
+        <Typography size='xxs' weight='regular' lineHeight='md'>
           {subtitle}
         </Typography>
       ) : (
