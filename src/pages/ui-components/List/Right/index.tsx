@@ -12,7 +12,7 @@ const ListRight = ({ className, icon }: IListRightProps) => {
 };
 
 export default React.memo(
-  styled(ListRight, { label: 'houston-list-item-Right' })(({ theme }) => {
+  styled(ListRight, { label: 'houston-list-item-right' })(() => {
     return css`
       margin-left: auto;
     `;

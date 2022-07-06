@@ -10,9 +10,9 @@ export interface IListItemProps extends IStyledProp {
 
 const ListItem = ({ children, className, disabled, isActive }: IListItemProps) => {
   return (
-    <div tabIndex={0} className={cx(className, { '--disabled': disabled }, { '--active': isActive })}>
+    <li role='listitem' tabIndex={0} className={cx(className, { '--disabled': disabled }, { '--active': isActive })}>
       {children}
-    </div>
+    </li>
   );
 };
 
@@ -21,6 +21,7 @@ export default React.memo(
     return css`
       display: flex;
       align-items: center;
+      line-height: 0;
       padding: ${theme.spacing.inset.xs};
 
       &.--disabled {
