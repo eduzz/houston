@@ -25,7 +25,7 @@ const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
   ({ targetRef, children, className, fullWidth, placement }, ref) => {
     const setState = useContextSelector(PopoverContext, context => context.setState);
     const contentRef = React.useRef<HTMLDivElement>(null);
-    const closeRef = React.useRef<() => void>(null);
+    const closeRef = React.useRef<() => void>();
 
     React.useImperativeHandle(
       ref,

@@ -16,7 +16,7 @@ export interface IDatePickerProps
       'mask' | 'endAdornment' | 'onChange' | 'onBlur' | 'onError' | 'rows' | 'type' | 'multiline' | 'disableAutoResize'
     >,
     Pick<DatePickerProps<any, any>, IPickDatePickerProps>,
-    Omit<WithFormProps, 'value'> {
+    Omit<WithFormProps<HTMLInputElement>, 'value'> {
   /*
     [Available formats]{@link https://date-fns.org/v2.22.1/docs/format}
   */
@@ -53,7 +53,14 @@ const DatePicker: React.FC<IDatePickerProps> = ({
 };
 
 const RenderInput = ({ inputRef, inputProps, InputProps }: TextFieldProps) => {
-  return <Input ref={inputRef as any} {...(inputProps as any)} {...InputProps} name={null} />;
+  const handleChange = React.useCallback(
+    (v: string, e: React.ChangeEvent<HTMLInputElement>) => {
+      inputProps?.onChange && inputProps.onChange(e);
+    },
+    [inputProps]
+  );
+
+  return <Input ref={inputRef as any} {...(inputProps as any)} {...InputProps} onChange={handleChange} name={null} />;
 };
 
 export default withForm(React.memo(DatePicker));

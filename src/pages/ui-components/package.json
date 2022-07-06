@@ -20,6 +20,7 @@
     "@eduzz/houston-hooks": "0.51.0",
     "@eduzz/houston-icons": "0.51.0",
     "@eduzz/houston-styles": "0.51.0",
+    "@eduzz/houston-forms": "0.51.0",
     "@emotion/css": "^11",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",

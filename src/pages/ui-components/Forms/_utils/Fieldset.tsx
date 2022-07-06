@@ -17,6 +17,7 @@ export interface IFieldsetProps extends IStyledProp {
   errorMessage?: string;
   helperText?: React.ReactNode;
   hidden?: boolean;
+  disableMargin?: boolean;
 }
 
 interface IInternalFieldsetProps extends IFieldsetProps {
@@ -43,6 +44,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
       children,
       containerRef,
       onClickContainer,
+      disableMargin,
       hidden
     },
     ref
@@ -61,6 +63,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
           '--loading': loading,
           '--focused': focused,
           '--clickable': !!onClickContainer,
+          '--no-margin': disableMargin,
           [`--size-${size ?? 'default'}`]: true
         })}
       >
@@ -85,6 +88,13 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
     padding: 0;
     min-width: auto;
     transition: 0.3s;
+    display: inline-block;
+    vertical-align: top;
+
+    &:not(.--no-margin) {
+      margin-top: ${theme.spacing.quarck};
+      margin-bottom: ${theme.spacing.xxxs};
+    }
 
     & > .__container {
       display: flex;
@@ -94,8 +104,6 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       border: ${theme.border.width.xs} solid ${theme.neutralColor.low.light};
       border-radius: ${theme.border.radius.xs};
       background-color: ${theme.neutralColor.high.pure};
-      margin-top: ${theme.spacing.quarck};
-      margin-bottom: ${theme.spacing.xxxs};
       transition: 0.3s;
       height: 48px;
       box-shadow: 0 0 0 2px transparent;
@@ -211,6 +219,10 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       & > .__label {
         font-size: ${theme.font.size.xxs};
       }
+    }
+
+    &:not(.--full-width) + &:not(.--full-width) {
+      margin-left: ${theme.spacing.inline.xxxs};
     }
   `
 );

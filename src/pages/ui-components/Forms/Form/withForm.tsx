@@ -1,30 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
+import * as React from 'react';
+
 import { Controller, useFormContext } from 'react-hook-form';
 
-export interface WithFormProps {
+export interface WithFormProps<R> {
   name?: string;
   errorMessage?: string;
   disabled?: boolean;
+  genericRef?: R;
 }
 
-const withForm =
-  <P extends WithFormProps>(Component: React.ComponentType<P>): React.FC<P> =>
-  ({ name, errorMessage, ...props }) => {
+const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P>) =>
+  React.forwardRef<P['genericRef'], Omit<P, 'genericRef'>>(({ name, errorMessage, disabled, ...props }, ref) => {
     const form = useFormContext();
 
     if (!form || !name) {
-      return <Component {...(props as any)} name={name} errorMessage={errorMessage} />;
+      return <Component {...(props as any)} name={name} errorMessage={errorMessage} ref={ref} />;
     }
 
     return (
       <Controller
         control={form.control}
         name={name}
-        render={({ field, fieldState }) => (
-          <Component {...(props as any)} {...field} errorMessage={errorMessage ?? fieldState.error?.message} />
+        render={({ field, fieldState, formState }) => (
+          <Component
+            {...(props as any)}
+            {...field}
+            disabled={disabled || formState?.isSubmitting}
+            errorMessage={errorMessage ?? fieldState?.error?.message}
+            ref={ref}
+          />
         )}
       />
     );
-  };
+  });
 
 export default withForm;

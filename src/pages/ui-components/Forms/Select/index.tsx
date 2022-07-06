@@ -55,6 +55,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   fullWidth,
   helperText,
   className,
+  disableMargin,
   emptyOption,
   options: optionsProps,
   children
@@ -149,6 +150,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
         startAdornment={startAdornment}
         helperText={helperText}
         disabled={disabled}
+        disableMargin={disableMargin}
         onClickContainer={!disabled && !loading ? openPopover : undefined}
       >
         <div className='__text'>{text}</div>

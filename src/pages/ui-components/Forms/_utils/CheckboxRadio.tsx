@@ -7,7 +7,7 @@ import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 import Typography from '../../Typography';
 import withForm, { WithFormProps } from '../Form/withForm';
 
-interface IOwnProperties extends IStyledProp, WithFormProps {
+interface IOwnProperties extends IStyledProp, WithFormProps<never> {
   children?: React.ReactNode;
   errorMessage?: string;
   helperText?: React.ReactNode;

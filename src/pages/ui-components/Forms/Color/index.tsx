@@ -6,19 +6,22 @@ import styled, { IStyledProp } from '@eduzz/houston-styles';
 
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
-import withForm from '../Form/withForm';
+import withForm, { WithFormProps } from '../Form/withForm';
 import Input, { InputProps } from '../Input';
 
 export interface IColorProps
   extends IStyledProp,
-    Omit<InputProps<string>, 'type' | 'multiline' | 'mask' | 'rows' | 'disableAutoResize' | 'onChange'> {
-  onChange(value: string): void;
+    Omit<InputProps<string>, 'type' | 'multiline' | 'mask' | 'rows' | 'disableAutoResize' | 'onChange'>,
+    WithFormProps<HTMLInputElement> {
+  onChange?(value: string): void;
 }
 
 const Color: React.FC<IColorProps> = ({ className, value, errorMessage, disabled, loading, onChange, ...props }) => {
   const { openPopover, popoverTargetProps, popoverProps } = usePopover();
 
   const handleChange = React.useCallback((value: string) => onChange && onChange(value), [onChange]);
+
+  console.log({ r: popoverTargetProps.ref.current });
 
   return (
     <div>
@@ -31,7 +34,7 @@ const Color: React.FC<IColorProps> = ({ className, value, errorMessage, disabled
       <Input
         {...props}
         value={value}
-        {...popoverTargetProps}
+        ref={popoverTargetProps.ref}
         disabled={disabled}
         loading={loading}
         errorMessage={errorMessage}

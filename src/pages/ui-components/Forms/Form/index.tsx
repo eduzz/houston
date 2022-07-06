@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 export interface IFormProps {
   id?: string;
   className?: string;
   children?: React.ReactNode;
-  context: ReturnType<typeof useForm>;
+  context: UseFormReturn<any, any>;
   onSubmit: (data: any) => void | Promise<any>;
 }
 

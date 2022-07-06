@@ -24,8 +24,7 @@ interface OwnProperties<V = any> extends IFieldsetProps {
 export interface InputProps<V = any>
   extends OwnProperties<V>,
     Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof OwnProperties>,
-    React.RefAttributes<HTMLInputElement>,
-    WithFormProps {}
+    WithFormProps<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
@@ -52,6 +51,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onKeyPress,
       helperText,
       disabled = false,
+      disableMargin,
       type,
       ...props
     },
@@ -63,7 +63,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
         const cleanValue = maskClean(e.currentTarget.value);
-        onChange && onChange(cleanValue, e);
+        onChange && onChange(cleanValue === '' ? null : cleanValue, e);
       },
       [onChange, maskClean]
     );
@@ -109,6 +109,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         helperText={helperText}
         disabled={disabled}
         hidden={type === 'hidden'}
+        disableMargin={disableMargin}
         className={cx(className, {
           '--multiline': multiline,
           [`--multiline-rows-${rows ?? 4}`]: multiline,

@@ -20,7 +20,9 @@
     "@eduzz/houston-hooks": "0.51.0",
     "react-hook-form": "^7",
     "@hookform/resolvers": "^2",
+    "@hookform/error-message": "^2.0.0",
     "zod": "^3.17.3",
+    "yup": "^0.32.11",
     "lodash": "^4"
   },
   "peerDependencies": {
