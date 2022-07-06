@@ -8,15 +8,15 @@ import Left from './Left';
 import Right from './Right';
 import Text from './Text';
 
-export interface IListProps extends IStyledProp {
+export interface IListProps extends IStyledProp, React.HTMLAttributes<HTMLUListElement> {
   id?: string;
   stripedRows?: boolean;
   children: React.ReactNode;
 }
 
-const List = ({ children, id, className }: IListProps) => {
+const List = ({ children, ...rest }: IListProps) => {
   return (
-    <ul role='list' className={className} id={id}>
+    <ul role='list' {...rest}>
       {children}
     </ul>
   );

@@ -2,15 +2,20 @@ import * as React from 'react';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-export interface IListItemProps extends IStyledProp {
-  children?: React.ReactNode;
+export interface IListItemProps extends IStyledProp, React.HTMLAttributes<HTMLLIElement> {
+  children: React.ReactNode;
   disabled?: true;
   isActive?: true;
 }
 
-const ListItem = ({ children, className, disabled, isActive }: IListItemProps) => {
+const ListItem = ({ children, className, disabled, isActive, ...rest }: IListItemProps) => {
   return (
-    <li role='listitem' tabIndex={0} className={cx(className, { '--disabled': disabled }, { '--active': isActive })}>
+    <li
+      role='listitem'
+      tabIndex={0}
+      className={cx(className, { '--disabled': disabled }, { '--active': isActive })}
+      {...rest}
+    >
       {children}
     </li>
   );
