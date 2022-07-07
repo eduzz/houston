@@ -48,8 +48,6 @@ export default styled(React.memo(SearchResult), { label: 'houston-form-search-op
     }
 
     & > .__text {
-      display: flex;
-      align-items: center;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

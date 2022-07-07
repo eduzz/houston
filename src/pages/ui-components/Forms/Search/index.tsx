@@ -26,7 +26,11 @@ type OwnProperties = Omit<IFieldsetProps, 'focused' | 'endAdornment' | 'startAdo
   onChange?: (value: string, e?: React.ChangeEvent<HTMLInputElement>) => any;
   onSelect?: (value: string, e?: React.MouseEvent<HTMLDivElement>) => any;
   onEnter?: (value: string, e?: React.KeyboardEvent<HTMLInputElement>) => any;
-  children?: React.ReactNode;
+  /**
+   * If the result should be listed, ensure it returns true based on the filter strategy
+   */
+  filterStrategy?: (result: string, index?: number, results?: string[]) => boolean;
+  children?: React.ReactElement[];
 };
 
 export type SearchFieldProps = OwnProperties & React.RefAttributes<HTMLSelectElement> & IStyledProp;
@@ -39,13 +43,14 @@ const SearchField = ({
   loading,
   disabled,
   errorMessage: errorMessageProp,
-  fullWidth,
+  fullWidth = true,
   helperText,
   className,
   children,
   onChange,
   onSelect,
-  onEnter
+  onEnter,
+  filterStrategy
 }: SearchFieldProps) => {
   const { openPopover, closePopover, isPopoverOpened, popoverTargetProps, popoverProps } = usePopover();
 
@@ -93,6 +98,14 @@ const SearchField = ({
 
   const shouldHideCleanBtn = !value;
 
+  const results = React.useMemo(() => {
+    if (filterStrategy) {
+      const arrayChildren = React.Children.toArray(children) as React.ReactElement[];
+      return arrayChildren.filter(child => filterStrategy(child.props.children));
+    }
+    return children;
+  }, [children, filterStrategy]);
+
   return (
     <SearchContextProvider
       value={value}
@@ -102,7 +115,7 @@ const SearchField = ({
       onSelect={onSelect}
     >
       <Popover {...popoverProps} placement='bottom' fullWidth>
-        {children}
+        {results}
       </Popover>
 
       <Fieldset
