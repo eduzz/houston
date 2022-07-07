@@ -26,13 +26,13 @@ export interface ITableCellProps extends IStyledProp {
 const TableCell = React.memo<ITableCellProps>(
   ({ children, className, mobileSize, mobileAlign, columnLabel, onClick, onDoubleClick, align, ...props }) => {
     const [cellKey] = React.useState(() => `cell-${++cellKeyIncremeter}`);
-    const cellRef = React.useRef<HTMLTableCellElement>();
+    const cellRef = React.useRef<HTMLTableCellElement>(null);
 
     const label = useContextSelector(TableContext, context => context.rowMapLabel[cellKey]);
     const tableSize = useContextSelector(TableContext, context => context.size);
 
     React.useEffect(() => {
-      cellRef.current.setAttribute('cell-key', cellKey);
+      cellRef.current?.setAttribute('cell-key', cellKey);
     }, [cellKey]);
 
     return (

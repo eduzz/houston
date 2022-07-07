@@ -32,14 +32,14 @@ export function bindMutationObserver(table: HTMLTableElement, callback: ICallbac
 function getTableHeaderLabels(table: HTMLTableElement): IRowMap {
   const rows = Array.from(table.rows);
 
-  const columns = Array.from(rows.shift()?.cells).reduce((acc, column) => {
+  const columns = Array.from(rows.shift()?.cells ?? []).reduce((acc, column) => {
     if (column.tagName.toLowerCase() !== 'th') {
       return acc;
     }
 
-    acc.push(column.textContent);
+    acc.push(column.textContent ?? '');
     return acc;
-  }, []);
+  }, [] as string[]);
 
   return rows.reduce((acc, row) => {
     Array.from(row.cells).forEach((cell, index) => {

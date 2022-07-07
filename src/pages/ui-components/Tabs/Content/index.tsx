@@ -15,15 +15,15 @@ export interface ITabsContentProps {
   disablePadding?: boolean;
 }
 
-const Content: React.FC<ITabsContentProps> = ({ icon, id, className, children, ...rest }) => {
+const Content: React.FC<ITabsContentProps> = ({ icon, id, className, children, disablePadding, ...rest }) => {
   const registerTabs = useContextSelector(TabsContext, context => context.registerTabs);
 
   React.useEffect(() => {
-    const unregister = registerTabs({ id, children, className });
+    const unregister = registerTabs({ id, children, className, disablePadding });
     return () => unregister();
-  }, [children, className, id, registerTabs]);
+  }, [children, className, disablePadding, id, registerTabs]);
 
-  return <MUITab disableRipple icon={icon as React.ReactElement} id={id ? `tab-${id}` : null} {...rest} />;
+  return <MUITab disableRipple icon={icon as any} id={id ? `tab-${id}` : undefined} {...rest} />;
 };
 
 export default React.memo(Content);

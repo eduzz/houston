@@ -89,7 +89,7 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
           newParams = newParams(params);
         }
 
-        if (newParams.page > params.page && (!data.hasMore || isLoading || isLoadingMore)) {
+        if ((newParams.page ?? 0) > params.page && (!data.hasMore || isLoading || isLoadingMore)) {
           newParams.page = params.page;
         }
 

@@ -24,21 +24,26 @@ export interface IPopoverRef {
 const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
   ({ targetRef, children, className, fullWidth, placement }, ref) => {
     const setState = useContextSelector(PopoverContext, context => context.setState);
-    const contentRef = React.useRef<HTMLDivElement>();
+    const contentRef = React.useRef<HTMLDivElement>(null);
     const closeRef = React.useRef<() => void>();
 
     React.useImperativeHandle(
       ref,
       () => ({
         open() {
+          if (!targetRef.current || !contentRef.current) {
+            console.warn('Houston: Popover needs a targetRef and contentRef', { contentRef, targetRef });
+            return;
+          }
+
           closeRef.current = setState({
             opened: true,
             target: targetRef.current,
             content: contentRef.current,
-            placement
+            placement: placement ?? 'auto'
           });
 
-          contentRef.current.style.width = fullWidth ? `${targetRef.current.offsetWidth}px` : 'auto';
+          contentRef.current.style.width = fullWidth ? `${targetRef.current?.offsetWidth}px` : 'auto';
         },
         close() {
           closeRef.current && closeRef.current();

@@ -30,6 +30,11 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
       return undefined;
     }
 
+    if (!state.target || !state.content) {
+      console.warn('Houston: popover needs target and content', { state });
+      return;
+    }
+
     const instance = createPopper(state.target, state.content, {
       placement: state.placement ?? 'auto',
       modifiers: [
