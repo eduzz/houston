@@ -17,7 +17,7 @@ module.exports = {
         format: ['camelCase'],
         leadingUnderscore: 'allowSingleOrDouble'
       },
-      { selector: 'typeLike', format: ['PascalCase'] }
+      { selector: 'typeLike', format: ['camelCase', 'PascalCase'] }
     ],
     '@typescript-eslint/member-ordering': ['error'],
     '@typescript-eslint/no-namespace': ['error'],

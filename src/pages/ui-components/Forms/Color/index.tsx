@@ -21,8 +21,6 @@ const Color: React.FC<IColorProps> = ({ className, value, errorMessage, disabled
 
   const handleChange = React.useCallback((value: string) => onChange && onChange(value), [onChange]);
 
-  console.log({ r: popoverTargetProps.ref.current });
-
   return (
     <div>
       <Popover {...popoverProps} placement='bottom-start'>

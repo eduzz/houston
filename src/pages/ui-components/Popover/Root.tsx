@@ -3,6 +3,7 @@ import * as React from 'react';
 import { createPopper } from '@popperjs/core';
 
 import useOnClickOutside from '../hooks/useClickOutside';
+import warning from '../utils/warning';
 import PopoverContext, { IPopoverContext, IPopoverContextState } from './context';
 
 export interface IPopoverProps {
@@ -31,7 +32,7 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     }
 
     if (!state.target || !state.content) {
-      console.warn('Houston: popover needs target and content', { state });
+      warning('Popover Root', 'needs target and content');
       return;
     }
 

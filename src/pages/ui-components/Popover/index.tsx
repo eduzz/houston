@@ -7,6 +7,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import { IStyledProp } from '@eduzz/houston-styles';
 
+import warning from '../utils/warning';
 import PopoverContext from './context';
 
 export interface IPopoverProps extends IStyledProp {
@@ -32,7 +33,7 @@ const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
       () => ({
         open() {
           if (!targetRef.current || !contentRef.current) {
-            console.warn('Houston: Popover needs a targetRef and contentRef', { contentRef, targetRef });
+            warning('Popover', 'needs a targetRef and contentRef');
             return;
           }
 
