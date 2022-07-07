@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { createPopper } from '@popperjs/core';
 
-import useOnClickOutside from '../hooks/useClickOutside';
+import useOnClickOutside from '../hooks/useOnClickOutside';
 import PopoverContext, { IPopoverContext, IPopoverContextState } from './context';
 
 export interface IPopoverProps {
@@ -24,13 +24,19 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     placement: 'auto'
   });
 
+  const popoverContent = React.useRef(state.content);
+
+  React.useLayoutEffect(() => {
+    popoverContent.current = state.content;
+  }, [state.content]);
+
   React.useEffect(() => {
     if (!state.opened) {
-      state.content?.classList?.remove('--opened');
+      popoverContent.current?.classList?.remove('--opened');
       return undefined;
     }
 
-    const instance = createPopper(state.target, state.content, {
+    const instance = createPopper(state.target, popoverContent.current, {
       placement: state.placement ?? 'auto',
       modifiers: [
         {
@@ -41,28 +47,24 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
         }
       ]
     });
-    state.content?.classList?.add('--opened');
+    popoverContent.current?.classList?.add('--opened');
 
     return () => {
-      state.content?.classList?.remove('--opened');
+      popoverContent.current?.classList?.remove('--opened');
       setTimeout(() => instance.destroy(), 100);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.opened]);
 
-  useOnClickOutside(
-    state.content,
-    () => {
-      const justOpened = (Date.now() - state.timestamp ?? 0) < 100;
-      if (!state.opened || justOpened) return;
+  useOnClickOutside(popoverContent, () => {
+    const justOpened = (Date.now() - state.timestamp ?? 0) < 100;
+    if (!state.opened || justOpened) return;
 
-      setState(currentState => ({ ...currentState, opened: false, closedTarget: currentState.target }));
-      setTimeout(() => {
-        setState(currentState => ({ ...currentState, closedTarget: null }));
-      }, 300);
-    },
-    [state.opened]
-  );
+    setState(currentState => ({ ...currentState, opened: false, closedTarget: currentState.target }));
+    setTimeout(() => {
+      setState(currentState => ({ ...currentState, closedTarget: null }));
+    }, 300);
+  });
 
   const contextSetValue = React.useCallback<IPopoverContext['setState']>(newState => {
     setTimeout(() => {
