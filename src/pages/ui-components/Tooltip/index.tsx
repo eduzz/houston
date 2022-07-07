@@ -58,7 +58,7 @@ const Tooltip = ({ children, title, placement = 'top', id: idProp, disabled, onO
       <>
         {!disabled && isPopoverCreated && (
           <Popover id={id} {...popoverProps} placement={placement} variant='tooltip'>
-            <TooltipBody className={`--placement-${placement}`} title={title} />
+            <TooltipBody title={title} />
           </Popover>
         )}
         <span tabIndex={0} {...popoverTargetProps} onMouseEnter={onOpenPopover} onMouseLeave={onClosePopover}>

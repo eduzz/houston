@@ -50,7 +50,7 @@ const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
     );
 
     return (
-      <div id={id} ref={contentRef} className={className}>
+      <div id={id} ref={contentRef} className={cx(className, 'popover')}>
         <div className={cx('__container', { [`--${variant}`]: !!variant })}>{children}</div>
       </div>
     );

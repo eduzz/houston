@@ -7,10 +7,31 @@ export interface ITooltipBody extends IStyledProp {
   title: React.ReactNode;
 }
 
+const styleContent = {
+  __html: `
+      .popover[data-popper-placement^='top'] #houston-tooltip-arrow {
+        bottom: -4px;
+      }
+
+     .popover[data-popper-placement^='bottom'] #houston-tooltip-arrow {
+        top: -4px;
+      }
+
+      .popover[data-popper-placement^='left'] #houston-tooltip-arrow {
+        right: -4px;
+      }
+
+      .popover[data-popper-placement^='right'] #houston-tooltip-arrow {
+        left: -4px;
+      }
+    `
+};
+
 const TooltipBody = ({ className, title }: ITooltipBody) => {
   return (
     <div role='tooltip' className={className}>
       <div id='houston-tooltip-arrow' data-popper-arrow />
+      <style dangerouslySetInnerHTML={styleContent} />
       <Caption color='neutralColor.high.pure'>{title}</Caption>
     </div>
   );
@@ -40,38 +61,6 @@ export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
       visibility: visible;
       content: '';
       transform: rotate(45deg);
-    }
-
-    &.--placement-top,
-    &.--placement-top-start,
-    &.--placement-top-end {
-      > #houston-tooltip-arrow {
-        bottom: -4px;
-      }
-    }
-
-    &.--placement-bottom,
-    &.--placement-bottom-start,
-    &.--placement-bottom-end {
-      > #houston-tooltip-arrow {
-        top: -4px;
-      }
-    }
-
-    &.--placement-left,
-    &.--placement-left-start,
-    &.--placement-left-end {
-      > #houston-tooltip-arrow {
-        right: -4px;
-      }
-    }
-
-    &.--placement-right,
-    &.--placement-right-start,
-    &.--placement-right-end {
-      > #houston-tooltip-arrow {
-        left: -4px;
-      }
     }
   `}
 `);
