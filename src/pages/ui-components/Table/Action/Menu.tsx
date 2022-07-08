@@ -8,11 +8,11 @@ import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
 import { ITableAction } from '../interface';
 
 interface IProps extends MenuProps, IStyledProp {
-  anchorEl: HTMLElement;
+  anchorEl: HTMLElement | undefined;
   onClose: () => void;
-  options: ITableAction[];
+  options: ITableAction[] | undefined;
   rowData: unknown;
-  rowIndex: number;
+  rowIndex: number | undefined;
 }
 
 const MenuActions = React.memo<IProps>(

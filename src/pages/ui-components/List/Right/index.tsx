@@ -44,7 +44,7 @@ const ListRight: React.FC<IListRightProps> = ({ icon, text, onClick, ...rest }) 
 
   const componentProps = {
     className: cx([classes.rightRoot, classes.iconRootRight, onClick && classes.clickable]),
-    onClick: !!onClick && onClick
+    onClick
   };
 
   if (icon && onClick) {

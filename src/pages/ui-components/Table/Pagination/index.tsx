@@ -75,7 +75,7 @@ const Pagination = React.memo<ITablePagination>(
 
         setPageInput(value);
 
-        if (event.type === 'change' || (event.type === 'keyup' && !enterPressed)) {
+        if (event?.type === 'change' || (event?.type === 'keyup' && !enterPressed)) {
           return;
         }
 
@@ -106,7 +106,7 @@ const Pagination = React.memo<ITablePagination>(
     const handleChangePerPage = React.useCallback((value: any) => onChangePerPage(Number(value)), [onChangePerPage]);
 
     const handleChangePage = React.useCallback(
-      (e: React.SyntheticEvent, page: number) => onChangePage(page),
+      (e: React.ChangeEvent<unknown>, page: number) => onChangePage(page),
       [onChangePage]
     );
 
@@ -134,7 +134,7 @@ const Pagination = React.memo<ITablePagination>(
                       value={perPage}
                       onChange={handleChangePerPage}
                     >
-                      {optionsPerPage.map(({ value, label }) => (
+                      {optionsPerPage?.map(({ value, label }) => (
                         <Select.Option key={value} value={value} label={label} />
                       ))}
                     </Select>
@@ -150,9 +150,9 @@ const Pagination = React.memo<ITablePagination>(
                       disabled={loading}
                       value={pageInput}
                       className='__input'
-                      onChange={handlePageInputChange}
+                      onChange={handlePageInputChange as any}
                       onKeyUp={handlePageInputChange}
-                      onBlur={handlePageInputChange}
+                      onBlur={handlePageInputChange as any}
                     />
                   </Column>
                 </Row>

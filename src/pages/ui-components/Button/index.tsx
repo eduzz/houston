@@ -26,16 +26,16 @@ const Button = ({
   loading = false,
   className,
   fullWidth,
+  type = 'button',
   ...rest
 }: IButtonProps) => (
   <button
     role='button'
-    className={cx(
-      className,
-      `--${variant ?? 'contained'}`,
-      { '--fullWidth': fullWidth },
-      { '--disabled': disabled || loading }
-    )}
+    className={cx(className, `--${variant ?? 'contained'}`, {
+      '--full-width': fullWidth,
+      '--disabled': disabled || loading
+    })}
+    type={type}
     {...rest}
     disabled={disabled || loading}
     aria-disabled={disabled}
@@ -72,7 +72,7 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
     line-height: ${theme.line.height.default};
     font-size: ${theme.font.size.xs};
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
@@ -123,7 +123,7 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       cursor: default;
     }
 
-    &.--fullWidth {
+    &.--full-width {
       width: 100%;
     }
 
@@ -154,6 +154,10 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
     & > .__endIcon > svg {
       vertical-align: middle;
       font-size: ${theme.pxToRem(ICON_SIZE)}rem;
+    }
+
+    &:not(.--full-width) + &:not(.--full-width) {
+      margin-left: ${theme.spacing.inline.nano};
     }
   `;
 });

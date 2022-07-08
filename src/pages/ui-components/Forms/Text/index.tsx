@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import Input, { IInputProps } from '../Input';
+import Input, { InputProps } from '../Input';
 
-export interface IText extends IInputProps {}
+export interface IText extends InputProps {}
 
 /**
  * @deprecated Migrar para o Input
