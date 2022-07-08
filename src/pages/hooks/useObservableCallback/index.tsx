@@ -15,8 +15,8 @@ type ExtractObservableValue<P> = P extends Observable<infer T> ? T : never;
 export default function useObservableCallback<T, F extends (...args: any[]) => Observable<T>>(
   observableCallback: F,
   deps: React.DependencyList
-): [(...a: Parameters<F>) => void, ExtractObservableValue<ReturnType<F>>, any, boolean, boolean] {
-  const [value, setValue] = React.useState<ExtractObservableValue<ReturnType<F>>>(undefined);
+): [(...a: Parameters<F>) => void, ExtractObservableValue<ReturnType<F>> | undefined, any, boolean, boolean] {
+  const [value, setValue] = React.useState<ExtractObservableValue<ReturnType<F>> | undefined>(undefined);
   const [error, setError] = React.useState();
   const [loading, setLoading] = React.useState(false);
   const [completed, setCompleted] = React.useState(false);
@@ -36,14 +36,14 @@ export default function useObservableCallback<T, F extends (...args: any[]) => O
           return callback(...args);
         }),
         tap({
-          next: (data: ExtractObservableValue<ReturnType<F>>) => {
-            setValue(() => data);
+          next: data => {
+            setValue(() => data as any);
             setError(undefined);
             setLoading(false);
           },
           error: err => {
             getConfig().onUnhandledError(err, 'hooks');
-            setValue(null);
+            setValue(undefined);
             setError(err);
             setLoading(false);
           },
