@@ -16,6 +16,7 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "dependencies": {
+    "formik": "^2.2.9",
     "@eduzz/houston-core": "0.52.0-beta.0",
     "@eduzz/houston-hooks": "0.52.0-beta.0",
     "react-hook-form": "^7",
