@@ -31,13 +31,13 @@ import Row from '@eduzz/houston-ui/Grid/Row';
 <Playground>
   <Container>
     <Row>
-      <Column xs={12} sm={4}>
+      <Column sm>
         <div style={{ width: '100%', height: 150, background: '#eee', borderRadius: 4 }} />
       </Column>
-      <Column xs={12} sm={4}>
+      <Column xs={12} sm={5}>
         <div style={{ width: '100%', height: 150, background: '#eee', borderRadius: 4 }} />
       </Column>
-      <Column xs={12} sm={4}>
+      <Column xs={12} sm={5}>
         <div style={{ width: '100%', height: 150, background: '#eee', borderRadius: 4 }} />
       </Column>
       <Column xs={12} sm={4}>
@@ -55,44 +55,42 @@ import Row from '@eduzz/houston-ui/Grid/Row';
 
 ### Alinhamento
 
-Alinhamento vertical `alignItems`, alinhamento horizontal `justify`.
+Alinhamento vertical `alignItems`, alinhamento horizontal `justifyContent`, espaçamento `spacing`
 
 <Playground>
-  <Container>
-    <Row alignItems='flex-end'>
-      <Column xs={12} sm={4}>
-        <div style={{ width: '100%', height: 150, background: '#eee', borderRadius: 4 }} />
-      </Column>
-      <Column xs={12} sm={4}>
-        <div style={{ width: '100%', height: 120, background: '#eee', borderRadius: 4 }} />
-      </Column>
-      <Column xs={12} sm={4}>
-        <div style={{ width: '100%', height: 90, background: '#eee', borderRadius: 4 }} />
-      </Column>
-    </Row>
-  </Container>
+  <Row alignItems='flex-end' justifyContent='center' spacing='md'>
+    <Column xs={12} sm={4}>
+      <div style={{ width: '100%', height: 150, background: '#eee', borderRadius: 4 }} />
+    </Column>
+    <Column xs={12} sm={4}>
+      <div style={{ width: '100%', height: 120, background: '#eee', borderRadius: 4 }} />
+    </Column>
+    <Column xs={12} sm={4}>
+      <div style={{ width: '100%', height: 90, background: '#eee', borderRadius: 4 }} />
+    </Column>
+  </Row>
 </Playground>
 
 ### Container Props
 
-| prop    | tipo                | obrigatório | padrão  | descrição                                                       |
-| ------- | ------------------- | ----------- | ------- | --------------------------------------------------------------- |
-| spacing | `IContainerType`    | `false`     | `cozy`  | -                                                               |
-| layout  | `IContainterLayout` | `false`     | `solid` | Se `fluid`, o valor da propriedade CSS `max-width` será `100%`. |
+| prop   | tipo             | obrigatório | padrão  | descrição                                                       |
+| ------ | ---------------- | ----------- | ------- | --------------------------------------------------------------- |
+| layout | `solid`, `fluid` | `false`     | `solid` | Se `fluid`, o valor da propriedade CSS `max-width` será `100%`. |
 
 ### Row Props
 
-| prop       | tipo                 | obrigatório | padrão |
-| ---------- | -------------------- | ----------- | ------ |
-| alignItems | `GridItemsAlignment` | `false`     | -      |
-| justify    | `GridJustification`  | `false`     | -      |
+| prop           | tipo                 | obrigatório | padrão |
+| -------------- | -------------------- | ----------- | ------ |
+| spacing        | `Spacing`            | `false`     | `xxs`  |
+| alignItems     | `GridItemsAlignment` | `false`     | -      |
+| justifyContent | `GridJustification`  | `false`     | -      |
 
 ### Column Props
 
-| prop | tipo       | obrigatório | padrão |
-| ---- | ---------- | ----------- | ------ |
-| xs   | `GridSize` | `false`     | `auto` |
-| sm   | `GridSize` | `false`     | -      |
-| md   | `GridSize` | `false`     | -      |
-| lg   | `GridSize` | `false`     | -      |
-| xl   | `GridSize` | `false`     | -      |
+| prop | tipo       | obrigatório | padrão | descrição                                      |
+| ---- | ---------- | ----------- | ------ | ---------------------------------------------- |
+| xs   | `GridSize` | `false`     | `12`   | Se `true`, a coluna ocupará o espaço restante. |
+| sm   | `GridSize` | `false`     | -      | -                                              |
+| md   | `GridSize` | `false`     | -      | -                                              |
+| lg   | `GridSize` | `false`     | -      | -                                              |
+| xlg  | `GridSize` | `false`     | -      | -                                              |

@@ -120,21 +120,27 @@ const Pagination = React.memo<ITablePagination>(
         <tr>
           <td colSpan={1000} className='__td'>
             <Row>
-              <Column xs={12} sm='auto'>
+              <Column xs={12} sm>
                 <Row justifyContent='center'>
-                  <Column xs='auto' className='__perPage'>
+                  <Column xs className='__perPage'>
                     <Typography size='xxs' weight='semibold'>
                       {labelItensPerPage ?? 'Itens por página:'}
                     </Typography>
 
-                    <Select disabled={loading} size='sm' value={perPage} onChange={handleChangePerPage}>
+                    <Select
+                      className='__options'
+                      disabled={loading}
+                      size='sm'
+                      value={perPage}
+                      onChange={handleChangePerPage}
+                    >
                       {optionsPerPage.map(({ value, label }) => (
                         <Select.Option key={value} value={value} label={label} />
                       ))}
                     </Select>
                   </Column>
 
-                  <Column xs='auto' className='__labels'>
+                  <Column xs className='__labels'>
                     <Typography size='xxs' weight='semibold'>
                       {labelGoToPage ?? 'Ir para:'}
                     </Typography>
@@ -176,12 +182,14 @@ export default styled(Pagination)`
   & > tr {
     & .__td {
       padding: 12px 0;
+      overflow-x: hidden;
     }
 
     .__perPage {
       width: 220px;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
 
       & > p {
         white-space: nowrap;
@@ -207,6 +215,10 @@ export default styled(Pagination)`
 
     .__input {
       max-width: 50px;
+    }
+
+    .__options {
+      width: 80px;
     }
 
     .__pages {
