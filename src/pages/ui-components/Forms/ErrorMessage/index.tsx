@@ -10,6 +10,7 @@ export interface ErrorMessageProps {
   name: string;
   className?: string;
 }
+
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ name, className }) => {
   const formState = useFormState({ name, exact: true });
 

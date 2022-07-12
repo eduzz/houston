@@ -155,9 +155,5 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       vertical-align: middle;
       font-size: ${theme.pxToRem(ICON_SIZE)}rem;
     }
-
-    &:not(.--full-width) + &:not(.--full-width) {
-      margin-left: ${theme.spacing.inline.nano};
-    }
   `;
 });

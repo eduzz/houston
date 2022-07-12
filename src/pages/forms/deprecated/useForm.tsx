@@ -1,4 +1,4 @@
-import './yupLocale';
+import '../locale';
 
 import { useCallback, useEffect, useRef } from 'react';
 

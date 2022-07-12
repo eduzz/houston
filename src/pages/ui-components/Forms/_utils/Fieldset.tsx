@@ -220,9 +220,5 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
         font-size: ${theme.font.size.xxs};
       }
     }
-
-    &:not(.--full-width) + &:not(.--full-width) {
-      margin-left: ${theme.spacing.inline.xxxs};
-    }
   `
 );

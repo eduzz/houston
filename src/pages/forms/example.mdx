@@ -6,13 +6,12 @@ import { Playground } from 'dokz';
 
 import moneyMask from '@eduzz/houston-forms/masks/money';
 import useForm, { useFieldArray } from '@eduzz/houston-forms/useForm';
-import useFormYup from '@eduzz/houston-forms/yup/useForm';
 import TrashOutline from '@eduzz/houston-icons/TrashOutline';
 import Button from '@eduzz/houston-ui/Button';
 import ErrorMessage from '@eduzz/houston-ui/Forms/ErrorMessage';
 import Form from '@eduzz/houston-ui/Forms/Form';
 import Input from '@eduzz/houston-ui/Forms/Input';
-import SelectField from '@eduzz/houston-ui/Forms/Select';
+import Select from '@eduzz/houston-ui/Forms/Select';
 import IconButton from '@eduzz/houston-ui/IconButton';
 
 # Exemplo de Validação
@@ -35,16 +34,14 @@ import Form from '@eduzz/houston-ui/Forms/Form';
   {() => {
     const form = useForm({
       defaultValues: { money: 5 }, //estado inicial, não precisa passar todas as propriedades
-      validationSchema: zod => {
-        return zod.object({
-          name: zod.string(),
-          money: zod.number().min(10),
-          option: zod.number().min(3)
-        });
-      }
+      validationSchema: yup =>
+        yup.object().shape({
+          name: yup.string().required(),
+          money: yup.number().required().min(10),
+          option: yup.number().required().min(3)
+        })
     });
-    // O FormModel é útil caso tenha criado uma schema nova no validationSchema
-    // do contrário o ideal é o infer do zod.
+    // Pode tipar o data com FormModel<typeof form>
     const onSubmit = React.useCallback(data => {
       // onSubmit pode retornar uma promise, desse jeito ele irá
       // setar corretamente o isSubmitting
@@ -54,7 +51,7 @@ import Form from '@eduzz/houston-ui/Forms/Form';
           resolve(null);
         }, 3000);
       });
-    });
+    }, []);
     const [options] = React.useState(() => [
       { value: 1, label: 'Option 1' },
       { value: 2, label: 'Option 2' },
@@ -69,7 +66,7 @@ import Form from '@eduzz/houston-ui/Forms/Form';
         <Input label='Name' name='name' />
         {/* você passar uma função de mascara, você pode importar uma pronta ou criar a sua */}
         <Input label='Money' name='money' mask={moneyMask} />
-        <SelectField label='Options' name='option' options={options} />
+        <Select label='Options' name='option' options={options} />
         <Button type='submit' loading={form.formState.isSubmitting}>
           Submit
         </Button>
@@ -90,19 +87,18 @@ import Form from '@eduzz/houston-ui/Forms/Form';
       defaultValues: {
         users: [{ id: Date.now() }]
       },
-      validationSchema: zod => {
-        return zod.object({
-          users: zod
+      validationSchema: yup =>
+        yup.object().shape({
+          users: yup
             .array(
-              zod.object({
-                id: zod.number(),
-                name: zod.string(),
-                age: zod.number()
+              yup.object().shape({
+                id: yup.number().required(),
+                name: yup.string().required(),
+                age: yup.number().required()
               })
             )
             .min(1)
-        });
-      }
+        })
     });
     const { fields, append, remove } = useFieldArray({
       control: form.control,

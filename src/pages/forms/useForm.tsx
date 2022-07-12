@@ -1,30 +1,36 @@
 import './locale';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
+  DefaultValues,
   useForm as useFormHook,
   UseFormProps,
-  UseFormReturn,
-  useFieldArray as useFieldArrayHook
+  useFieldArray as useFieldArrayHook,
+  UseFormReturn
 } from 'react-hook-form';
-import { z } from 'zod';
+import * as yup from 'yup';
 
-type Zod = typeof z;
+type Yup = typeof yup;
 
 export interface IUseFormParams<T> extends UseFormProps<T> {
-  validationSchema: z.Schema<T> | ((z: Zod) => z.Schema<T>);
+  /**
+   * @deprecated Utilizar defaultValues
+   */
+  initialValues?: DefaultValues<T>;
+  validationSchema: yup.AnyObjectSchema | ((yup: Yup) => yup.AnyObjectSchema);
 }
 
-export type FormModel<T> = T extends UseFormReturn<infer M> ? M : T;
+export type FormModel<Form> = Form extends UseFormReturn<infer M> ? M : Form;
 
 /**
- * Hook implemation of react-hook-form with Zod
+ * Hook implemation of react-hook-form with Yup
  * @param IUseFormParams
  */
-export default function useForm<T>({ validationSchema, ...params }: IUseFormParams<T>) {
+export default function useForm<T>({ validationSchema, defaultValues, initialValues, ...params }: IUseFormParams<T>) {
   return useFormHook<T>({
     ...params,
-    resolver: zodResolver(typeof validationSchema === 'function' ? validationSchema(z) : validationSchema)
+    defaultValues: defaultValues ?? initialValues,
+    resolver: yupResolver(typeof validationSchema === 'function' ? validationSchema(yup) : validationSchema)
   });
 }
 
