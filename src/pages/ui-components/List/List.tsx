@@ -9,8 +9,6 @@ import Right from './Right';
 import Text from './Text';
 
 export interface IListProps extends IStyledProp, React.HTMLAttributes<HTMLUListElement> {
-  id?: string;
-  stripedRows?: boolean;
   children: React.ReactNode;
 }
 

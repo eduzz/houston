@@ -3,15 +3,16 @@ import * as React from 'react';
 import styled, { cx, css, IStyledProp } from '@eduzz/houston-styles';
 
 export interface IListRightProps extends IStyledProp, React.HTMLAttributes<HTMLDivElement> {
-  id?: string;
   icon?: React.ReactNode;
   onClick?: () => void;
+  children?: React.ReactNode;
 }
 
-const ListRight = ({ className, icon, onClick, ...rest }: IListRightProps) => {
+const ListRight = ({ className, icon, children, onClick, ...rest }: IListRightProps) => {
   return (
     <div onClick={onClick} className={cx(className)} {...rest}>
       {icon && <span>{icon}</span>}
+      {children}
     </div>
   );
 };
