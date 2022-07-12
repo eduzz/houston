@@ -1,13 +1,30 @@
-import { memo } from 'react';
+import Icon, { IconProps } from '../Icon';
 
-import { IconWebBase } from '../interfaces';
-import IconBase from '../utils/wrapperWeb';
-import Icon from './svg';
+const DashboardRoundSolid = (props: IconProps) => {
+  return (
+    <Icon {...props}>
+      <path
+        fillRule='evenodd'
+        clipRule='evenodd'
+        d='M88.5 33.5425H88.5001H100.5V93.3675H156.502V105.368H156.394C154.411 141.143 124.772 169.542 88.5 169.542C50.9446 169.542 20.5 139.098 20.5 101.542C20.5 63.9871 50.9446 33.5425 88.5 33.5425Z'
+      />
+      <path
+        fillRule='evenodd'
+        clipRule='evenodd'
+        d='M20 101.542C20 63.711 50.6685 33.0425 88.5 33.0425H101V92.8675H157.002V105.868H156.866C154.634 141.684 124.879 170.042 88.5 170.042C50.6685 170.042 20 139.374 20 101.542ZM88.5 34.0425C51.2208 34.0425 21 64.2633 21 101.542C21 138.822 51.2208 169.042 88.5 169.042C124.505 169.042 153.926 140.852 155.895 105.34L155.921 104.868H156.002V93.8675H100V34.0425H88.5Z'
+      />
+      <path
+        fillRule='evenodd'
+        clipRule='evenodd'
+        d='M112.291 34.3827V22.7977L112.501 22.5425C116.56 23.2464 120.5 24.2951 124.291 25.6574C145.624 33.3232 162.222 50.9174 168.513 72.8674C169.606 76.68 170.387 80.6241 170.829 84.6703L170.659 84.8674H159.256H158.769H124.291H112.291V72.8674V34.7156V34.3827Z'
+      />
+      <path
+        fillRule='evenodd'
+        clipRule='evenodd'
+        d='M112.3 22L112.587 22.0497C116.674 22.7586 120.642 23.8148 124.46 25.1867C145.943 32.9066 162.658 50.624 168.994 72.7295C170.094 76.5693 170.881 80.5412 171.326 84.6159L171.35 84.8324L170.887 85.3673H111.791V22.6182L112.3 22ZM112.791 23.1011V84.3673H170.292C169.847 80.4745 169.085 76.6783 168.032 73.0051C161.786 51.2105 145.304 33.7396 124.122 26.1278C120.475 24.8173 116.689 23.799 112.791 23.1011Z'
+      />
+    </Icon>
+  );
+};
 
-const IconDashboardRoundSolid = memo<IconWebBase>(({ ...rest }) => (
-  <IconBase {...rest}>
-    <Icon />
-  </IconBase>
-));
-
-export default IconDashboardRoundSolid;
+export default DashboardRoundSolid;

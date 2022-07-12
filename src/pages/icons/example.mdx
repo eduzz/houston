@@ -2,17 +2,20 @@
 name: Ícones
 ---
 
+import { Playground } from 'dokz';
+
 import Input from '@eduzz/houston-ui/Forms/Input';
 import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
 import Toast from '@eduzz/houston-ui/Toast';
 import Tooltip from '@eduzz/houston-ui/Tooltip';
 import Typography from '@eduzz/houston-ui/Typography';
+import Caption from '@eduzz/houston-ui/Typography/Caption';
 
 import * as Icon from './';
 
 export const Example = () => {
   const initialIcons = Object.entries(Icon).map(([name, CurrentIcon]) => ({
-    icon: <CurrentIcon size={'large'} />,
+    icon: <CurrentIcon size='lg' />,
     name
   }));
   const [currentIcons, setCurrentIcons] = React.useState([]);
@@ -35,7 +38,7 @@ export const Example = () => {
   );
   const handleIconClick = React.useCallback(iconName => {
     const textArea = document.createElement('textarea');
-    const textToCopy = `import ${iconName} from '@eduzz/houston-icons/${iconName}';`;
+    const textToCopy = `import ${iconName}Icon from '@eduzz/houston-icons/${iconName}';`;
     textArea.innerText = textToCopy;
     document.body.appendChild(textArea);
     textArea.select();
@@ -67,6 +70,71 @@ export const Example = () => {
 # Ícones
 
 Coleção de ícones do Houston.
+
+### Tamanhos
+
+O nosso ícones possuem 3 tamanhos: lg, md e sm.
+
+<Playground>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <div style={{ display: 'flex', gap: 16, alignItems: 'flex-end', textAlign: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceHappyOutline size='lg' />
+        <Caption>lg</Caption>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceHappyOutline size='md' />
+        <Caption>md</Caption>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceHappyOutline size='sm' />
+        <Caption>sm</Caption>
+      </div>
+    </div>
+    <div style={{ display: 'flex', gap: 16, alignItems: 'flex-end', textAlign: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceSadOutline size='lg' />
+        <Caption>lg</Caption>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceSadOutline size='md' />
+        <Caption>md</Caption>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceSadOutline size='sm' />
+        <Caption>sm</Caption>
+      </div>
+    </div>
+    <div style={{ display: 'flex', gap: 16, alignItems: 'flex-end', textAlign: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceHappySolid size='lg' />
+        <Caption>lg</Caption>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceHappySolid size='md' />
+        <Caption>md</Caption>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceHappySolid size='sm' />
+        <Caption>sm</Caption>
+      </div>
+    </div>
+    <div style={{ display: 'flex', gap: 16, alignItems: 'flex-end', textAlign: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceSadSolid size='lg' />
+        <Caption>lg</Caption>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceSadSolid size='md' />
+        <Caption>md</Caption>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Icon.FaceSadSolid size='sm' />
+        <Caption>sm</Caption>
+      </div>
+    </div>
+  </div>
+</Playground>
 
 ### Lista de ícones
 
