@@ -4,9 +4,9 @@ import { createContext, useContextSelector } from 'use-context-selector';
 
 import IFormAdapter from '@eduzz/houston-core/formAdapter';
 
-const FormContext = createContext<IFormAdapter<any>>(null);
+const FormContext = createContext<IFormAdapter<any> | null>(null);
 
-export function useFormContext<T = any>(): IFormAdapter<T> {
+export function useFormContext<T = any>(): IFormAdapter<T> | null {
   return useContextSelector(FormContext, context => context);
 }
 
@@ -15,12 +15,12 @@ export function useFormValue(name: string, propValue?: any): any {
   return propValue ?? formValue;
 }
 
-export function useFormError(name: string, propError?: string): string {
+export function useFormError(name: string, propError?: string): string | undefined {
   const formError = useContextSelector(FormContext, context => (name ? context?.getFieldError(name) : null));
-  return propError ?? formError;
+  return propError ?? formError ?? undefined;
 }
 
-export function useFormIsSubmitting(): boolean {
+export function useFormIsSubmitting(): boolean | undefined {
   return useContextSelector(FormContext, context => context?.isSubmitting);
 }
 

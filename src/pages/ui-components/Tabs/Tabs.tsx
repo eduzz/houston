@@ -5,17 +5,12 @@ import MUITabs from '@mui/material/Tabs';
 import { cx } from '@eduzz/houston-styles';
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
-import { ITabsContentProps } from './Content';
 import TabsContext, { ITabsContext } from './context';
 
 export interface ITabsProps {
   value?: number;
   onChange?: (position: number) => void;
   children?: any;
-}
-
-interface ITabsContentPropsAndKey extends ITabsContentProps {
-  key: string;
 }
 
 const useStyles = createUseStyles(theme => ({
@@ -30,7 +25,7 @@ const Tabs: React.FC<ITabsProps> = ({ value, onChange, children }) => {
   const classes = useStyles();
 
   const [position, setPosition] = React.useState(0);
-  const [tabs, setTabs] = React.useState<ITabsContentPropsAndKey[]>(() => []);
+  const [tabs, setTabs] = React.useState<ITabsContext['tabs']>(() => []);
 
   const controlled = value !== undefined;
   const currentValue = controlled ? value : position;
@@ -47,7 +42,7 @@ const Tabs: React.FC<ITabsProps> = ({ value, onChange, children }) => {
     [controlled, onChange]
   );
 
-  const registerTabs = React.useCallback((tab: Omit<ITabsContentProps, 'key'>) => {
+  const registerTabs: ITabsContext['registerTabs'] = React.useCallback(tab => {
     const key = `tab-${++tabsKeyIncrementer}`;
     setTabs(tabs => [...tabs, { key, ...tab }]);
     return () => setTabs(tabs => tabs.filter(t => t.key !== key));

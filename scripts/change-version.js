@@ -65,6 +65,10 @@ async function init() {
   packages = [
     {
       name: 'workspace',
+      folder: `${__dirname}/../src/dev`
+    },
+    {
+      name: 'dev',
       folder: `${__dirname}/../`
     },
     ...packages.filter(file => file.isDirectory() && !foldersBlackList.includes(file.name)).map(file => ({

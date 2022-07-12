@@ -2285,10 +2285,96 @@
     "@emotion/styled" "^11"
     react "^17"
 
+"@eduzz/houston-core@0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-core/-/houston-core-0.51.0.tgz#05ef81d8a1e264087e00e61bd1890114ed98eb5c"
+  integrity sha512-ilAcUsK+ziw5npIfp7hnEMfv+n3GfaMRLXbQKvbqwkdx0rqGY/xtwjSAjV581wG0VLnHlvC6Pp0Jjd4ewvQqAg==
+
+"@eduzz/houston-experimental@*":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-experimental/-/houston-experimental-0.51.0.tgz#1351c782741568f89e97bbeeb320b74ac36d636b"
+  integrity sha512-RS6x2uRnuTWSQNnqaTNlKwKBfCQmCrn5iobzujjrQ4Jl+mK2nExfS6jiD4T6HqK93RxJ4pM1VrCqC4pbu9Ntmg==
+  dependencies:
+    "@eduzz/houston-hooks" "0.51.0"
+    "@eduzz/houston-icons" "0.51.0"
+    "@eduzz/houston-ui" "0.51.0"
+    "@emotion/css" "^11"
+    "@mui/icons-material" "^5"
+    "@mui/lab" "^5.0.0-alpha.88"
+    "@mui/material" "^5"
+    "@mui/styles" "^5"
+    tslib "^2"
+
+"@eduzz/houston-forms@*":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-forms/-/houston-forms-0.51.0.tgz#cc10fbbd72e4cdc4004d443fd3d50b43f70d574d"
+  integrity sha512-tIQtfiAUPdektTOVehYldepDRuqhY+TgQgkCi9FMfhoqGJOh5tGqiZ0EP90/X/2yAJEy/wKFlW3S4FDYDBmZmg==
+  dependencies:
+    "@eduzz/houston-core" "0.51.0"
+    "@eduzz/houston-hooks" "0.51.0"
+    "@types/yup" "^0.29"
+    formik "^2"
+    rxjs "^7"
+    yup "^0.32"
+
+"@eduzz/houston-hooks@*", "@eduzz/houston-hooks@0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-hooks/-/houston-hooks-0.51.0.tgz#7a69d2233de45a30f093a631eab4b2c9d9783312"
+  integrity sha512-w/qXihq+nCK/BaXFalLDmxlaaXe0Z/KHwFithdIc9SOtX66H//xTHh/onGaqBLu+PzDeTIQqKvv9MeBnkpfRuQ==
+  dependencies:
+    "@eduzz/houston-core" "0.51.0"
+    lodash "^4"
+
+"@eduzz/houston-icons@*", "@eduzz/houston-icons@0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-icons/-/houston-icons-0.51.0.tgz#f33ebfbeaa336888a9f0356959908c149f1440ea"
+  integrity sha512-l7FvmNfbdB+e4MWPWuhAtJIUWpD6Us2+x3CPAV4zs1clT7vfx2IOd4Y5jDwctY6k2Q3PsaB9ProP4gg4mmvAFw==
+
 "@eduzz/houston-icons@^0.42.3":
   version "0.42.7"
   resolved "https://registry.yarnpkg.com/@eduzz/houston-icons/-/houston-icons-0.42.7.tgz#53f039a759cc4ab6556bbe37b31448eb3c4eb2ef"
   integrity sha512-yUdRvIR2bdnKoA2DcMeQ6KUuFcOjE3llixu9OtVDAN+9if/svJa5hNtoly1gmlCArBObiYh1BSIQaXzCgzZsCA==
+
+"@eduzz/houston-styles@0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-styles/-/houston-styles-0.51.0.tgz#a6ee78e501764a1d97cea3a6acb3f2ee19e41350"
+  integrity sha512-cZbtCIbQS6WuIRofCI72z45QJIsu22iZCqZu+9y3OPLpJMF91RAHQ1OGiM08xYbK37Qc86w7md07KeBxNtPqww==
+  dependencies:
+    "@eduzz/houston-tokens" "0.51.0"
+    "@emotion/cache" "^11"
+    "@emotion/css" "^11"
+    "@emotion/react" "^11"
+    "@emotion/styled" "^11"
+
+"@eduzz/houston-tokens@0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-tokens/-/houston-tokens-0.51.0.tgz#5a157d1f63e62ef5e21cb458fbcfbc54a98a2ac9"
+  integrity sha512-jH2Yyr2HlzITDp2tiPhTs2Mkc2sDrPBipmR6SpSozD3UvNBC2r3BDrKaSHNnbeGZ6LSK4VdtLhJTuTddUoNs2w==
+
+"@eduzz/houston-ui@*", "@eduzz/houston-ui@0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-ui/-/houston-ui-0.51.0.tgz#7ac1e9b20d80f4ba50dac821a053176f9e892e41"
+  integrity sha512-sOk+rUev7cmZ135l20HnNr/sp1Wyr4GZ7sh0tZzUtWDA5MnPFL9aPfxgwwKk8t+9CAU/R5+0cTkmc1zsjF9o3w==
+  dependencies:
+    "@eduzz/houston-core" "0.51.0"
+    "@eduzz/houston-hooks" "0.51.0"
+    "@eduzz/houston-icons" "0.51.0"
+    "@eduzz/houston-styles" "0.51.0"
+    "@emotion/cache" "^11"
+    "@emotion/css" "^11"
+    "@emotion/react" "^11"
+    "@emotion/styled" "^11"
+    "@mui/icons-material" "^5"
+    "@mui/lab" "^5.0.0-alpha.88"
+    "@mui/material" "^5"
+    "@mui/x-date-pickers" "5.0.0-alpha.7"
+    "@popperjs/core" "^2.11.5"
+    date-fns "^2"
+    lodash "^4"
+    react-colorful "^5"
+    react-toastify "^9"
+    tslib "^2"
+    use-context-selector "^1"
 
 "@emotion/babel-plugin-jsx-pragmatic@^0.1.5":
   version "0.1.5"
@@ -2465,6 +2551,16 @@
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-7.3.0.tgz#a508df35ded585c4e071cb5d9d7c89623c837fae"
   integrity sha512-1W0PZezq2rxlAssoWemi9gFRD8IQxvf0FPL5Km3TOmGHFG7ib0TbFBJ0yC7D/1NsxunjNTK6WjUXV8ao/mKZ5w==
+
+"@hookform/error-message@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@hookform/error-message/-/error-message-2.0.0.tgz#9b1b037fd816ea9b1531c06aa7fab5f5154aa740"
+  integrity sha512-Y90nHzjgL2MP7GFy75kscdvxrCTjtyxGmOLLxX14nd08OXRIh9lMH/y9Kpdo0p1IPowJBiZMHyueg7p+yrqynQ==
+
+"@hookform/resolvers@^2":
+  version "2.8.8"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.8.8.tgz#17cf806485435877fdafce9f3bee6ff68f7f87b6"
+  integrity sha512-meAEDur1IJBfKyTo9yPYAuzjIfrxA7m9Ov+1nxaW/YupsqMeseWifoUjWK03+hz/RJizsVQAaUjVxFEkyu0GWg==
 
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
@@ -4027,9 +4123,9 @@
     "@types/yargs-parser" "*"
 
 "@types/yup@^0.29":
-  version "0.29.13"
-  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.29.13.tgz#21b137ba60841307a3c8a1050d3bf4e63ad561e9"
-  integrity sha512-qRyuv+P/1t1JK1rA+elmK1MmCL1BapEzKKfbEhDBV/LMMse4lmhZ/XbgETI39JveDJRpLjmToOI6uFtMW/WR2g==
+  version "0.29.14"
+  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.29.14.tgz#754f1dccedcc66fc2bbe290c27f5323b407ceb00"
+  integrity sha512-Ynb/CjHhE/Xp/4bhHmQC4U1Ox+I2OpfRYF3dnNgQqn1cHa6LK3H1wJMNPT02tSVZA6FYuXE2ITORfbnb6zBCSA==
 
 "@typescript-eslint/eslint-plugin@5.30.0":
   version "5.30.0"
@@ -7185,7 +7281,7 @@ format@^0.2.0:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formik@^2:
+formik@^2, formik@^2.2.9:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/formik/-/formik-2.2.9.tgz#8594ba9c5e2e5cf1f42c5704128e119fc46232d0"
   integrity sha512-LQLcISMmf1r5at4/gyJigGn0gOwFbeEAlji+N9InZF6LIMXnFNkO42sCI8Jt84YZggpD4cPWObAZaxpEFtSzNA==
@@ -10989,6 +11085,11 @@ react-frame-component@^4.1.1:
   resolved "https://registry.yarnpkg.com/react-frame-component/-/react-frame-component-4.1.3.tgz#64c09dd29574720879c5f43ee36c17d8ae74d4ec"
   integrity sha512-4PurhctiqnmC1F5prPZ+LdsalH7pZ3SFA5xoc0HBe8mSHctdLLt4Cr2WXfXOoajHBYq/yiipp9zOgx+vy8GiEA==
 
+react-hook-form@^7:
+  version "7.31.1"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.31.1.tgz#16c357dd366bc226172e6acbb5a1672873bbfb28"
+  integrity sha512-QjtjZ8r8KtEBWWpcXLyQordCraTFxILtyQpaz5KLLxN2YzcC+FZ9LLtOnNGuOnzZo9gCoB+viK3ZHV9Mb2htmQ==
+
 react-icons@^3.9.0:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.11.0.tgz#2ca2903dfab8268ca18ebd8cc2e879921ec3b254"
@@ -12531,7 +12632,7 @@ toidentifier@1.0.1:
 toposort@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/toposort/-/toposort-2.0.2.tgz#ae21768175d1559d48bef35420b2f4962f09c330"
-  integrity sha1-riF2gXXRVZ1IvvNUILL0li8JwzA=
+  integrity sha512-0a5EOkAUp8D4moMi2W8ZF8jcga7BgZd91O/yabJCFY8az+XSzeGyTKs0Aoo897iV1Nj6guFq8orWDS96z91oGg==
 
 tough-cookie@^4.0.0:
   version "4.0.0"
@@ -13555,7 +13656,7 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-yup@^0.32:
+yup@^0.32, yup@^0.32.11:
   version "0.32.11"
   resolved "https://registry.yarnpkg.com/yup/-/yup-0.32.11.tgz#d67fb83eefa4698607982e63f7ca4c5ed3cf18c5"
   integrity sha512-Z2Fe1bn+eLstG8DRR6FTavGD+MeAwyfmouhHsIUgaADz8jvFKbO/fXc2trJKZg+5EBjh4gGm3iU/t3onKlXHIg==
@@ -13567,6 +13668,11 @@ yup@^0.32:
     nanoclone "^0.2.1"
     property-expr "^2.0.4"
     toposort "^2.0.2"
+
+zod@^3.17.3:
+  version "3.17.3"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.17.3.tgz#86abbc670ff0063a4588d85a4dcc917d6e4af2ba"
+  integrity sha512-4oKP5zvG6GGbMlqBkI5FESOAweldEhSOZ6LI6cG+JzUT7ofj1ZOC0PJudpQOpT1iqOFpYYtX5Pw0+o403y4bcg==
 
 zwitch@^1.0.0:
   version "1.0.5"

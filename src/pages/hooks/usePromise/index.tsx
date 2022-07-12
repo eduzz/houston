@@ -11,9 +11,9 @@ import { getConfig } from '../config';
 export default function usePromise<T>(
   promiseGenerator: (isSubscribed: () => boolean) => Promise<T>,
   deps: React.DependencyList
-): [T, any, boolean] {
+): [T | undefined, any, boolean] {
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [result, setResult] = React.useState<T>();
+  const [result, setResult] = React.useState<T | undefined>();
   const [error, setError] = React.useState<any>();
 
   React.useEffect(() => {
