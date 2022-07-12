@@ -3,35 +3,26 @@ import * as React from 'react';
 import styled, { css, IStyledProp } from '@eduzz/houston-styles';
 import Caption from '@eduzz/houston-ui/Typography/Caption';
 
+import { styleContent } from './styles';
+
 export interface ITooltipBody extends IStyledProp {
   title: React.ReactNode;
 }
 
-const styleContent = {
-  __html: `
-      .popover[data-popper-placement^='top'] #houston-tooltip-arrow {
-        bottom: -4px;
-      }
-
-     .popover[data-popper-placement^='bottom'] #houston-tooltip-arrow {
-        top: -4px;
-      }
-
-      .popover[data-popper-placement^='left'] #houston-tooltip-arrow {
-        right: -4px;
-      }
-
-      .popover[data-popper-placement^='right'] #houston-tooltip-arrow {
-        left: -4px;
-      }
-    `
-};
-
 const TooltipBody = ({ className, title }: ITooltipBody) => {
+  const ref = React.useRef<any>();
+  const [width, setWidth] = React.useState();
+  const [height, setHeight] = React.useState();
+
+  React.useEffect(() => {
+    setWidth(ref?.current?.offsetWidth);
+    setHeight(ref?.current?.offsetHeight);
+  }, []);
+
   return (
-    <div role='tooltip' className={className}>
+    <div ref={ref} role='tooltip' className={className}>
       <div id='houston-tooltip-arrow' data-popper-arrow />
-      <style dangerouslySetInnerHTML={styleContent} />
+      <style dangerouslySetInnerHTML={styleContent(width, height)} />
       <Caption color='neutralColor.high.pure'>{title}</Caption>
     </div>
   );
