@@ -4,8 +4,9 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { IStyledProp, css, cx } from '@eduzz/houston-styles';
 
+import { SIDEBAR_WIDTH, SIDEBAR_WIDTH_COLLAPSED, TOOLBAR_HEIGHT } from '../../context';
 import Collapse from '../Collapse';
-import SidebarContext, { SIDEBAR_WIDTH, TOOLBAR_HEIGHT, SIDEBAR_WIDTH_COLLAPSED } from '../context';
+import SidebarContext from '../context';
 
 export interface ISidebarWrapperProps extends IStyledProp {
   id?: string;

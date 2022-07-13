@@ -1,9 +1,5 @@
 import { createContext, useContext } from 'use-context-selector';
 
-export const SIDEBAR_WIDTH = 300;
-export const SIDEBAR_WIDTH_COLLAPSED = 56;
-export const TOOLBAR_HEIGHT = 48;
-
 export interface ISidebarContext {
   currentLocation: string;
   menuIsActive: (to: string) => boolean;

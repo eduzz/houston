@@ -33,7 +33,6 @@ export default React.memo(styled(Divider, { label: 'houston-divider' })`
     &.--vertical {
       border-width: 0 0 0 ${theme.border.width.xs};
       display: inline-flex;
-      }
     }
   `}
 `);

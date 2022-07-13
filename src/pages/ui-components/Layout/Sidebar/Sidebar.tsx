@@ -1,8 +1,11 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import nestedComponent from '../../utils/nestedComponent';
+import LayoutContext from '../context';
 import SidebarContext, { ISidebarContext } from './context';
 import Logo from './Logo';
 import Menu from './Menu';
@@ -17,10 +20,6 @@ export interface ISidebarProps {
    * Current location path, if you are using react-router-dom use useLocation
    */
   currentLocation?: string;
-  /**
-   * Applies a margin to the top of the Sidebar.
-   */
-  hasToolbar?: boolean;
   /**
    * Mobile display control.
    */
@@ -41,7 +40,6 @@ export interface ISidebarProps {
 
 const Sidebar = ({
   currentLocation,
-  hasToolbar = true,
   children,
   mobileVisible = false,
   onRequestClose,
@@ -51,6 +49,7 @@ const Sidebar = ({
   collapsible = true,
   ...rest
 }: ISidebarProps) => {
+  const hasToolbar = useContextSelector(LayoutContext, context => context.hasToolbar);
   const [insideComponent, , setInsideComponentTrue, setInsideComponentFalse] = useBoolean(false);
   const [collapsed, setCollapsed] = React.useState(initialCollapsed ?? false);
 

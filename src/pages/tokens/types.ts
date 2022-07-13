@@ -6,6 +6,16 @@ export type Color = {
   dark: string;
 };
 
+export type BeltColor = {
+  white: '#f3f3f3';
+  whiteForeground: '#444';
+  red: '#B61818';
+  orange: '#E66023';
+  green: '#247B3B';
+  black: '#000000';
+  golden: '#CE8826';
+};
+
 export type Spacing = {
   /**
    * A helper function that returns a value following
@@ -290,6 +300,7 @@ export type HoustonTokens = {
   shadow: Shadow;
   font: Font;
   line: Line;
+  beltColor: BeltColor;
   neutralColor: NeutralColor;
   feedbackColor: FeedbackColor;
   brandColor: BrandColor;

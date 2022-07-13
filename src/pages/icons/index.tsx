@@ -10,6 +10,7 @@ export { default as ArrowUp } from './ArrowUp';
 export { default as AvatarOutline } from './AvatarOutline';
 export { default as AvatarSolid } from './AvatarSolid';
 export { default as Banksplip } from './Bankslip';
+export { default as Belt } from './Belt';
 export { default as BetaTester } from './BetaTester';
 export { default as BoxOutline } from './BoxOutline';
 export { default as BoxSolid } from './BoxSolid';
