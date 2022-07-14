@@ -12,7 +12,7 @@ import usePromise from '../usePromise';
 export default function usePromiseRefresh<T>(
   promiseGenerator: (isSubscribed: () => boolean) => Promise<T>,
   deps: React.DependencyList
-): [T, any, boolean, () => void] {
+): [T | undefined, any, boolean, () => void] {
   const [refresh, setRefresh] = React.useState<number>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

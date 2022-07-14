@@ -30,7 +30,6 @@ export default function usePromiseCallback<F extends (isSubscribed: () => boolea
     lastCall.current = currentCall;
 
     const promise = promiseCallback(() => {
-      console.log({ currentCall, lastCall: lastCall.current });
       return isMounted.current && lastCall.current === currentCall;
     }, ...args);
     promise.catch(err => {

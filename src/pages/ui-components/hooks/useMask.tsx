@@ -7,7 +7,7 @@ export interface IMaskFunction {
   clean(value: string): string | number;
 }
 
-export default function useMask(mask: IFormMaskAdapter, value: any) {
+export default function useMask(mask: IFormMaskAdapter | undefined, value: any) {
   const { apply: maskApply, clean: maskClean } = React.useMemo(() => {
     return mask ?? { apply: (v: string) => v, clean: (v: string) => v };
   }, [mask]);

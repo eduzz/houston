@@ -57,7 +57,7 @@ const Table: React.FC<ITableProps> = props => {
 
   const isCollapseContent = useContextSelector(TableCollapseContext, context => context.isCollapseContent);
 
-  const tableRef = React.useRef<HTMLTableElement>();
+  const tableRef = React.useRef<HTMLTableElement>(null);
   const mediaQueryMobile = useMediaQuery(`(max-width: ${props.mobileWidth ?? 600}px)`);
   const responsive = typeof props.mobileWidth === 'boolean' ? props.mobileWidth : mediaQueryMobile;
 
@@ -96,7 +96,9 @@ const Table: React.FC<ITableProps> = props => {
   const hasActionInRows = React.useMemo(() => rows?.some(r => r.hasActions), [rows]);
 
   React.useEffect(() => {
-    const unbind = bindMutationObserver(tableRef?.current, rowMap => setRowMapLabel(rowMap));
+    if (!tableRef.current) return () => null;
+
+    const unbind = bindMutationObserver(tableRef.current, rowMap => setRowMapLabel(rowMap));
     return () => unbind();
   }, []);
 
@@ -112,7 +114,7 @@ const Table: React.FC<ITableProps> = props => {
       columns,
       rows,
       registerRow,
-      stripedRows,
+      stripedRows: stripedRows ?? false,
       columnActionTitle,
       size: isCollapseContent ? 'small' : size,
       hasCollapseInRows,
