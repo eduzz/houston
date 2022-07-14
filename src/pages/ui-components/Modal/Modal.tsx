@@ -38,7 +38,7 @@ const Modal = ({
   }
 
   return (
-    <Portal wrapperId='houston-modal'>
+    <Portal target='houston-modal'>
       <Overlay visible={visible}>
         <ModalContextProvider value={{ onClose, closeIcon, hasHeader, hasFooter }}>
           <div role='dialog' aria-modal={true} className={cx(className, `--modal-size-${size}`)} {...rest}>

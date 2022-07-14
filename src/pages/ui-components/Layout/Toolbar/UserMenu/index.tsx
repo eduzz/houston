@@ -2,14 +2,13 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import useOnClickOutside from '../../../hooks/useClickOutside';
 import { useEscapeKey } from '../../../hooks/useEscapeKey';
 import Typography from '../../../Typography';
-import { TOOLBAR_HEIGHT } from '../../context';
+import LayoutContext, { TOOLBAR_HEIGHT } from '../../context';
 import ToolbarContext from '../context';
 import Avatar from './Avatar';
 import Belt from './Belt';
@@ -17,8 +16,10 @@ import Belt from './Belt';
 const User = React.memo<IStyledProp>(({ className, children }) => {
   const wrapperMenuUser = React.useRef<HTMLDivElement>(null);
   const user = useContextSelector(ToolbarContext, context => context.user);
-
-  const [opened, toogleOpened, , falseOpened] = useBoolean(false);
+  const userMenuRef = useContextSelector(LayoutContext, context => context.userMenu.container);
+  const opened = useContextSelector(LayoutContext, context => context.userMenu.opened);
+  const toogleOpened = useContextSelector(LayoutContext, context => context.userMenu.toogleOpened);
+  const falseOpened = useContextSelector(LayoutContext, context => context.userMenu.falseOpened);
 
   const hasMenu = React.useMemo(() => !!React.Children.count(children), [children]);
 
@@ -48,9 +49,7 @@ const User = React.memo<IStyledProp>(({ className, children }) => {
           )}
         </div>
 
-        <UserMenu opened={opened} onClose={falseOpened}>
-          {children}
-        </UserMenu>
+        <div ref={userMenuRef} />
       </div>
     </>
   );

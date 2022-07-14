@@ -8,17 +8,37 @@ export const SIDEBAR_WIDTH = 300;
 
 export interface LayoutContextType {
   hasToolbar: boolean;
-  registerToolbar: () => () => void;
   hasSidebar: boolean;
-  registerSidebar: () => () => void;
+  userMenu: {
+    exists: boolean;
+    opened: boolean;
+    container: React.Ref<HTMLDivElement> | undefined;
+    setExists(): () => void;
+    toogleOpened(): void;
+    trueOpened(): void;
+    falseOpened(): void;
+  };
+
+  registerToolbar(): () => void;
+  registerSidebar(): () => void;
 }
 
 const LayoutContext = createContext<LayoutContextType>({
   hasToolbar: false,
-  registerToolbar: () => () => null,
-
   hasSidebar: false,
-  registerSidebar: () => () => null
+
+  userMenu: {
+    exists: false,
+    opened: false,
+    container: undefined,
+    setExists: () => () => null,
+    toogleOpened: () => null,
+    trueOpened: () => null,
+    falseOpened: () => null
+  },
+
+  registerSidebar: () => () => null,
+  registerToolbar: () => () => null
 });
 
 export default LayoutContext;

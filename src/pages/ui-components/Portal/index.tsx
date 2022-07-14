@@ -4,40 +4,48 @@ import { createPortal } from 'react-dom';
 
 export interface PortalProps {
   children: React.ReactNode;
-  wrapperId: string;
+  /**
+   * HTMLElement or id, if there is no element with id will create a new element on body
+   */
+  target: string | HTMLElement;
 }
 
-function createWrapper(wrapperId: string) {
+function createWrapper(id: string) {
   const element = document.createElement('div');
-  element.setAttribute('id', wrapperId);
+  element.setAttribute('id', id);
   document.body.appendChild(element);
   return element;
 }
 
-const Portal = ({ children, wrapperId }: PortalProps) => {
-  const [wrapperElement, setWrapperElement] = React.useState(null);
+const Portal = ({ children, target }: PortalProps) => {
+  const [wrapperElement, setWrapperElement] = React.useState<HTMLElement | null>(() =>
+    typeof target !== 'string' ? target : null
+  );
 
   React.useLayoutEffect(() => {
-    let element = document.getElementById(wrapperId);
+    if (typeof target !== 'string') {
+      return;
+    }
+
+    let element = document.getElementById(target);
     let created = false;
 
     if (!element) {
       created = true;
-      element = createWrapper(wrapperId);
+      element = createWrapper(target);
     }
 
     setWrapperElement(element);
 
     return () => {
-      if (created && element.parentNode) {
+      if (created && element?.parentNode) {
         element.parentNode.removeChild(element);
       }
     };
-  }, [wrapperId]);
+  }, [target]);
 
-  if (wrapperElement === null) return null;
-
-  return createPortal(children, document.getElementById(wrapperId));
+  if (!wrapperElement) return null;
+  return createPortal(children, wrapperElement);
 };
 
 export default Portal;
