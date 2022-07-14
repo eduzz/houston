@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {} from 'react-dom';
 
 import { ErrorMessage as ErrorMessageHook } from '@hookform/error-message';
 import { useFormState } from 'react-hook-form';
