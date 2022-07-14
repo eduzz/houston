@@ -13,6 +13,8 @@ const ModalContent = ({ ...rest }: ModalContentProps & React.HTMLAttributes<HTML
 const ModalContentStyle = styled(ModalContent, { label: 'houston-modal-content' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.sm};
+    overflow: auto;
+    flex: 1 1 0%;
   `}
 `;
 

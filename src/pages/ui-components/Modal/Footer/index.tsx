@@ -12,16 +12,16 @@ const ModalFooter = ({ children, ...rest }: ModalFooterProps & React.HTMLAttribu
   return (
     <footer {...rest}>
       <Divider />
-      <div className='modal-footer__content'>{children}</div>
+      <div className='modal-footer__wrapper'>{children}</div>
     </footer>
   );
 };
 
-const ModalFooterStyle = styled(ModalFooter, { label: 'houston-modal-header' })`
+const ModalFooterStyle = styled(ModalFooter, { label: 'houston-modal-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
 
-    .modal-footer__content {
+    .modal-footer__wrapper {
       padding: ${theme.spacing.squish.xs};
       display: flex;
       align-items: center;

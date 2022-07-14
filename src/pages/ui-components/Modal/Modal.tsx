@@ -4,6 +4,7 @@ import styled, { IStyledProp, css, cx, CSSInterpolation } from '@eduzz/houston-s
 
 import Overlay from '../Overlay';
 import Portal from '../Portal';
+import { getReactChildrenProps } from '../utils/children';
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import ModalContextProvider from './context';
@@ -26,8 +27,12 @@ const Modal = ({
   size = 'sm',
   onClose,
   closeIcon = true,
+  children,
   ...rest
 }: ModalProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => {
+  const hasHeader = !!getReactChildrenProps(children, Header).length;
+  const hasFooter = !!getReactChildrenProps(children, Footer).length;
+
   if (!visible) {
     return null;
   }
@@ -35,8 +40,10 @@ const Modal = ({
   return (
     <Portal wrapperId='houston-modal'>
       <Overlay visible={visible}>
-        <ModalContextProvider value={{ onClose, closeIcon }}>
-          <div role='dialog' aria-modal={true} className={cx(className, `--modal-size-${size}`)} {...rest} />
+        <ModalContextProvider value={{ onClose, closeIcon, hasHeader, hasFooter }}>
+          <div role='dialog' aria-modal={true} className={cx(className, `--modal-size-${size}`)} {...rest}>
+            {children}
+          </div>
         </ModalContextProvider>
       </Overlay>
     </Portal>
@@ -66,11 +73,18 @@ const ModalStyle = styled(Modal, { label: 'houston-modal' })`
     }
 
     return css`
+      display: flex;
+      flex-direction: column;
       background-color: ${theme.neutralColor.high.pure};
       border-radius: ${theme.border.radius.sm};
       box-shadow: ${theme.shadow.level[3]};
-      max-width: calc(100vw - ${theme.spacing.inset.sm});
-      overflow-y: auto;
+      max-width: calc(100vw - ${theme.spacing.inset.md});
+      max-height: calc(100vh - ${theme.spacing.inset.md});
+
+      ${theme.breakpoints.down('sm')} {
+        max-width: calc(100vw - ${theme.spacing.inset.xs});
+        max-height: calc(100vh - ${theme.spacing.inset.xs});
+      }
 
       ${modifiersSizes}
     `;

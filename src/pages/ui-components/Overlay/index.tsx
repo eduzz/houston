@@ -1,15 +1,23 @@
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
+export type OverlayColor = 'low' | 'high';
+
 export interface OverlayProps {
   children?: React.ReactNode;
   visible: boolean;
+  color?: OverlayColor;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-interface OverlayPropsComponent extends OverlayProps, IStyledProp {}
-
-const Overlay = ({ className, visible, ...rest }: OverlayPropsComponent) => {
-  return <div aria-hidden='true' tabIndex={-1} className={cx(className, { '--visible': visible })} {...rest} />;
+const Overlay = ({ className, visible, color = 'low', ...rest }: OverlayProps & IStyledProp) => {
+  return (
+    <div
+      aria-hidden='true'
+      tabIndex={-1}
+      className={cx(className, { '--overlay-visible': visible }, { '--overlay-color-high': color === 'high' })}
+      {...rest}
+    />
+  );
 };
 
 export default styled(Overlay, { label: 'houston-overlay' })`
@@ -23,16 +31,19 @@ export default styled(Overlay, { label: 'houston-overlay' })`
     z-index: 1000;
     opacity: ${theme.opacity.level[0]};
     visibility: hidden;
-    user-select: none;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(${theme.pxToRem(8)}rem);
 
-    &.--visible {
+    &.--overlay-color-high {
+      background: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[6])};
+    }
+
+    &.--overlay-visible {
       opacity: 1;
       visibility: visible;
-      user-select: auto;
     }
   `}
 `;

@@ -30,7 +30,7 @@ const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttribu
 
   return (
     <header {...rest}>
-      <div className='modal-header__content'>
+      <div className='modal-header__wrapper'>
         <div className='modal-header__title'>
           {typeof children === 'string' && (
             <Typography.Heading as='h6' size='sm'>
@@ -57,9 +57,10 @@ const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttribu
 
 const ModalHeaderStyle = styled(ModalHeader, { label: 'houston-modal-header' })`
   ${({ theme }) => css`
+    flex: 0 1 0%;
     border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
 
-    .modal-header__content {
+    .modal-header__wrapper {
       padding: ${theme.spacing.inset.sm};
       display: flex;
       align-items: center;
