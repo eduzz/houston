@@ -21,7 +21,7 @@ export interface ISelectOptionProps extends IStyledProp {
 }
 
 const SelectOption: React.FC<ISelectOptionProps> = ({ children, value, label, className, disabled }) => {
-  const divRef = React.useRef<HTMLDivElement>();
+  const divRef = React.useRef<HTMLDivElement>(null);
   const { registerOption, onSelect, inputSize, inputValue, multiple } = useContext(SelectContext);
   const isSelected = inputValue && (Array.isArray(inputValue) ? inputValue.includes(value) : inputValue === value);
 

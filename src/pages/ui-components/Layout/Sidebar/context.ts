@@ -5,11 +5,11 @@ export const SIDEBAR_WIDTH_COLLAPSED = 56;
 export const TOOLBAR_HEIGHT = 48;
 
 export interface ISidebarContext {
-  currentLocation: string;
-  menuIsActive: (to: string) => boolean;
+  currentLocation?: string;
+  menuIsActive: (to?: string) => boolean;
 
   hasToolbar: boolean;
-  onRequestClose: () => void;
+  onRequestClose?: () => void;
 
   mobileVisible: boolean;
 

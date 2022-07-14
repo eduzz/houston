@@ -15,7 +15,7 @@ function createWrapper(wrapperId: string) {
 }
 
 const Portal = ({ children, wrapperId }: PortalProps) => {
-  const [wrapperElement, setWrapperElement] = React.useState(null);
+  const [wrapperElement, setWrapperElement] = React.useState<HTMLElement | null>(null);
 
   React.useLayoutEffect(() => {
     let element = document.getElementById(wrapperId);
@@ -29,15 +29,17 @@ const Portal = ({ children, wrapperId }: PortalProps) => {
     setWrapperElement(element);
 
     return () => {
-      if (created && element.parentNode) {
+      if (created && element?.parentNode) {
         element.parentNode.removeChild(element);
       }
     };
   }, [wrapperId]);
 
-  if (wrapperElement === null) return null;
+  if (wrapperElement === null) {
+    return null;
+  }
 
-  return createPortal(children, document.getElementById(wrapperId));
+  return createPortal(children, document.getElementById(wrapperId) as HTMLElement);
 };
 
 export default Portal;

@@ -39,11 +39,11 @@ const NONE_IN_REM = '0rem';
 
 const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: Spacing) => {
   return Object.entries(sizes)
-    .map(([breakpoint, size]: [BreakPoints, ColumnSize]) => {
+    .map(([breakpoint, size]) => {
       if (typeof size === 'boolean') {
         return `
         &.--${breakpoint}-${size} {
-          ${theme.breakpoints.up(breakpoint)} {
+          ${theme.breakpoints.up(breakpoint as BreakPoints)} {
             flex-grow: 1;
             width: auto;
             margin: calc(${theme.spacing.inline[spacing] ?? NONE_IN_REM} / 2);
@@ -53,7 +53,7 @@ const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: Spac
 
       return `
       &.--${breakpoint}-${size} {
-        ${theme.breakpoints.up(breakpoint)} { 
+        ${theme.breakpoints.up(breakpoint as BreakPoints)} { 
           width: calc(${((sizes[breakpoint] as number) / COLUMNS) * 100}% - ${
         theme.spacing.inline[spacing] ?? NONE_IN_REM
       });

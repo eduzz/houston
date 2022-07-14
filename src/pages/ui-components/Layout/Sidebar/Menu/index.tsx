@@ -16,7 +16,7 @@ const SidebarMenu: React.FC<ISidebarMenu> = ({ className, children, ...rest }) =
   const inside = useContextSelector(SidebarContext, context => context.insideComponent);
   const [expanded, setExpanded] = React.useState('');
 
-  const handleClickExpand = React.useCallback((key: string, forceActive: boolean) => {
+  const handleClickExpand: ISidebarMenuContext['handleClickExpand'] = React.useCallback((key, forceActive) => {
     setExpanded(value => (value === key && !forceActive ? '' : key));
   }, []);
 

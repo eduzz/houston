@@ -38,7 +38,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   const [showCollapse, toogleShowCollapse] = useBoolean(false);
   const [actionLoading, setActionLoading] = React.useState(false);
 
-  const [collapse, setCollapse] = React.useState<ITableCollapse>(null);
+  const [collapse, setCollapse] = React.useState<ITableCollapse>();
   const [actions, setActions] = React.useState<ITableAction[]>([]);
 
   const oneAction = actions.length === 1 ? actions[0] : null;
@@ -139,7 +139,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 export default styled(TableRow)`
   .houston-table-action-cell {
     padding: 6px 12px;
-    border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light}};
+    border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light};
     font-size: ${({ theme }) => theme.font.size.xs};
 
     &.--small {
@@ -149,7 +149,7 @@ export default styled(TableRow)`
 
   .houston-houston-table-collapse-cell {
     padding-right: 8px;
-    border-top: 1px solid  ${({ theme }) => theme.neutralColor.high.light};
+    border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light};
     font-size: ${({ theme }) => theme.font.size.xs};
 
     &.--small {

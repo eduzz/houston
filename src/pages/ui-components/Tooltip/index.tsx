@@ -24,7 +24,7 @@ type ITooltipPlacement =
   | 'top';
 
 export interface ITooltipProps extends IStyledProp {
-  title: React.ReactNode;
+  title: NonNullable<React.ReactNode>;
   placement?: ITooltipPlacement;
   disabled?: boolean;
   children: React.ReactNode;

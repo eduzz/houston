@@ -8,7 +8,7 @@ import DefaultDialogTransition from './DefaultDialogTransition';
 const SWITCH_MEDIUM_HEIGHT = 20;
 const SWITCH_SMALL_HEIGHT = 16;
 
-export default function components(palette: Partial<Palette>, theme: IHoustonTheme): Components {
+export default function components(palette: Palette, theme: IHoustonTheme): Components {
   return {
     MuiDialog: {
       defaultProps: {

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { createPopper } from '@popperjs/core';
 
 import useOnClickOutside from '../hooks/useClickOutside';
+import warning from '../utils/warning';
 import PopoverContext, { IPopoverContext, IPopoverContextState } from './context';
 
 export interface IPopoverProps {
@@ -28,6 +29,11 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     if (!state.opened) {
       state.content?.classList?.remove('--opened');
       return undefined;
+    }
+
+    if (!state.target || !state.content) {
+      warning('Popover Root', 'needs target and content');
+      return;
     }
 
     const instance = createPopper(state.target, state.content, {

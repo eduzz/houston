@@ -16,7 +16,7 @@ export function decimalToHexadecimal(value: string) {
 
 export function hexToRgba(hexColor: string, opacity = 1) {
   const twoLettersRegex = /\w\w/g;
-  const [r, g, b] = hexColor.match(twoLettersRegex).map(decimalToHexadecimal);
+  const [r, g, b] = hexColor.match(twoLettersRegex)?.map(decimalToHexadecimal) ?? [];
 
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }

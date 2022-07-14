@@ -5,7 +5,7 @@ interface ModalContextProps {
   closeIcon?: boolean;
 }
 
-const ModalContext = createContext<ModalContextProps>(null);
+const ModalContext = createContext<ModalContextProps>({} as ModalContextProps);
 const ModalContextProvider = ModalContext.Provider;
 
 export { ModalContext };
