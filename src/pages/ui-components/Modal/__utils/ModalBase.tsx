@@ -17,5 +17,10 @@ export default styled(ModalBase)`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    ${theme.breakpoints.down('sm')} {
+      max-width: calc(100vw - ${theme.spacing.inset.xs});
+      max-height: calc(100vh - ${theme.spacing.inset.xs});
+    }
   `}
 `;

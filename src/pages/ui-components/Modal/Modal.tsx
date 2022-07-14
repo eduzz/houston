@@ -85,11 +85,6 @@ const ModalStyle = styled(Modal, { label: 'houston-modal' })`
       max-width: calc(100vw - ${theme.spacing.inset.md});
       max-height: calc(100vh - ${theme.spacing.inset.md});
 
-      ${theme.breakpoints.down('sm')} {
-        max-width: calc(100vw - ${theme.spacing.inset.xs});
-        max-height: calc(100vh - ${theme.spacing.inset.xs});
-      }
-
       ${modifiersSizes}
     `;
   }}
