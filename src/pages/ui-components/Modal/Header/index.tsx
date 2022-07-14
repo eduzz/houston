@@ -42,11 +42,9 @@ const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttribu
         </div>
 
         {closeIcon && (
-          <div className='modal-header__close-icon'>
-            <IconButton aria-label='Close' size='md' onClick={onClose}>
-              <IconClose />
-            </IconButton>
-          </div>
+          <IconButton className='modal-header__close-icon' aria-label='Close' size='md' onClick={onClose}>
+            <IconClose />
+          </IconButton>
         )}
       </div>
 

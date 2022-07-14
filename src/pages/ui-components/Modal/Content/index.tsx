@@ -6,9 +6,9 @@ export interface ModalContentProps {
   children?: React.ReactNode;
 }
 
-const ModalContent = ({ ...rest }: ModalContentProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => {
-  return <div {...rest} />;
-};
+const ModalContent = ({ ...rest }: ModalContentProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => (
+  <div {...rest} />
+);
 
 const ModalContentStyle = styled(ModalContent, { label: 'houston-modal-content' })`
   ${({ theme }) => css`
