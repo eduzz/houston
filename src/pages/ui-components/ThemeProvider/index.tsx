@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { ThemeProviderProps } from '@emotion/react/types/theming';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { ptBR } from 'date-fns/locale';
 
