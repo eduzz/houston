@@ -15,6 +15,10 @@ const ModalContentStyle = styled(ModalContent, { label: 'houston-modal-content' 
     padding: ${theme.spacing.inset.sm};
     overflow: auto;
     flex: 1 1 0%;
+
+    ${theme.breakpoints.down('sm')} {
+      padding: ${theme.spacing.inset.xs};
+    }
   `}
 `;
 

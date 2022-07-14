@@ -28,13 +28,10 @@ export default styled(Overlay, { label: 'houston-overlay' })`
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 106;
     opacity: ${theme.opacity.level[0]};
     visibility: hidden;
     inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     backdrop-filter: blur(${theme.pxToRem(8)}rem);
 
     &.--overlay-color-high {

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import styled, { IStyledProp, css, cx, CSSInterpolation } from '@eduzz/houston-styles';
 
+import { useEscapeKey } from '../hooks/useEscapeKey';
 import Overlay from '../Overlay';
 import Portal from '../Portal';
 import nestedComponent from '../utils/nestedComponent';
@@ -18,6 +19,7 @@ export interface ModalProps {
   size?: ModalSize;
   children?: React.ReactNode;
   closeIcon?: boolean;
+  disableEscapeKey?: boolean;
 }
 
 const Modal = ({
@@ -27,8 +29,17 @@ const Modal = ({
   onClose,
   closeIcon = true,
   children,
+  disableEscapeKey,
   ...rest
 }: ModalProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => {
+  const handlePressEscapeKey = React.useCallback(() => {
+    if (!disableEscapeKey) {
+      onClose && onClose();
+    }
+  }, [disableEscapeKey, onClose]);
+
+  useEscapeKey(handlePressEscapeKey);
+
   if (!visible) {
     return null;
   }
@@ -69,6 +80,18 @@ const ModalStyle = styled(Modal, { label: 'houston-modal' })`
       box-shadow: ${theme.shadow.level[3]};
       max-width: calc(100vw - ${theme.spacing.inset.md});
       max-height: calc(100vh - ${theme.spacing.inset.md});
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      .modal__backdrop {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
       ${theme.breakpoints.down('sm')} {
         max-width: calc(100vw - ${theme.spacing.inset.xs});

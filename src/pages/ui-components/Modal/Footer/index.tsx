@@ -30,6 +30,20 @@ const ModalFooterStyle = styled(ModalFooter, { label: 'houston-modal-footer' })`
       button + button {
         margin-left: ${theme.spacing.inline.xxxs};
       }
+
+      ${theme.breakpoints.down('sm')} {
+        flex-direction: column-reverse;
+        padding: ${theme.spacing.inset.xs};
+
+        button {
+          width: 100%;
+        }
+
+        button + button {
+          margin-left: 0;
+          margin-bottom: ${theme.spacing.stack.nano};
+        }
+      }
     }
   `}
 `;

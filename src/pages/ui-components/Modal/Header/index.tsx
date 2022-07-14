@@ -66,6 +66,10 @@ const ModalHeaderStyle = styled(ModalHeader, { label: 'houston-modal-header' })`
       align-items: center;
       justify-content: space-between;
 
+      ${theme.breakpoints.down('sm')} {
+        padding: ${theme.spacing.inset.xs};
+      }
+
       .modal-header__close-icon {
         margin-left: ${theme.spacing.inline.xxs};
       }
