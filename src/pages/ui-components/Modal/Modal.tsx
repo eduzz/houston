@@ -4,7 +4,6 @@ import styled, { IStyledProp, css, cx, CSSInterpolation } from '@eduzz/houston-s
 
 import Overlay from '../Overlay';
 import Portal from '../Portal';
-import { getReactChildrenProps } from '../utils/children';
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import ModalContextProvider from './context';
@@ -30,9 +29,6 @@ const Modal = ({
   children,
   ...rest
 }: ModalProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => {
-  const hasHeader = !!getReactChildrenProps(children, Header).length;
-  const hasFooter = !!getReactChildrenProps(children, Footer).length;
-
   if (!visible) {
     return null;
   }
@@ -40,7 +36,7 @@ const Modal = ({
   return (
     <Portal wrapperId='houston-modal'>
       <Overlay visible={visible}>
-        <ModalContextProvider value={{ onClose, closeIcon, hasHeader, hasFooter }}>
+        <ModalContextProvider value={{ onClose, closeIcon }}>
           <div role='dialog' aria-modal={true} className={cx(className, `--modal-size-${size}`)} {...rest}>
             {children}
           </div>
@@ -53,14 +49,7 @@ const Modal = ({
 const ModalStyle = styled(Modal, { label: 'houston-modal' })`
   ${({ theme }) => {
     const modifiersSizes: CSSInterpolation[] = [];
-
-    const sizesInPx: Record<ModalSize, number> = {
-      xs: 400,
-      sm: 560,
-      md: 640,
-      lg: 800,
-      xl: 1200
-    };
+    const sizesInPx: Record<ModalSize, number> = { xs: 400, sm: 560, md: 640, lg: 800, xl: 1200 };
 
     {
       Object.entries(sizesInPx).forEach(([key, value]) =>
