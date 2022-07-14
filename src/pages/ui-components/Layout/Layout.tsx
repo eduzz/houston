@@ -14,15 +14,21 @@ export interface ILayoutProps extends IStyledProp {
 
 const Layout = ({ className, children }: ILayoutProps) => {
   const [hasToolbar, setHasToolbar] = React.useState(false);
+  const [hasSidebar, setHasSidebar] = React.useState(false);
 
   const registerToolbar = React.useCallback(() => {
     setHasToolbar(true);
     return () => setHasToolbar(false);
   }, []);
 
+  const registerSidebar = React.useCallback(() => {
+    setHasSidebar(true);
+    return () => setHasSidebar(false);
+  }, []);
+
   const contextValue = React.useMemo<LayoutContextType>(
-    () => ({ hasToolbar, registerToolbar }),
-    [hasToolbar, registerToolbar]
+    () => ({ hasToolbar, registerToolbar, hasSidebar, registerSidebar }),
+    [hasSidebar, hasToolbar, registerSidebar, registerToolbar]
   );
 
   return (

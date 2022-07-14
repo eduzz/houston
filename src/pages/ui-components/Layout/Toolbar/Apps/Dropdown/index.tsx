@@ -11,8 +11,8 @@ import Typography from '../../../../Typography';
 import { TOOLBAR_DROPDOWN_WIDTH, TOOLBAR_HEIGHT } from '../../../context';
 
 export interface AppsDropdownProps extends IStyledProp {
-  currentApplication: string;
-  applications: ToolbarApplication[];
+  currentApplication: string | undefined;
+  applications: ToolbarApplication[] | undefined;
   opened: boolean;
   onClose: () => void;
 }
@@ -22,8 +22,11 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
     const [expanded, toggleExpanded, , closeExpanded] = useBoolean();
 
     React.useEffect(() => {
-      document.body.style.overflow = expanded ? 'hidden' : null;
-      return () => (document.body.style.overflow = null);
+      const oldValue = document.body.style.overflow;
+      document.body.style.overflow = expanded ? 'hidden' : oldValue;
+      return () => {
+        document.body.style.overflow = oldValue;
+      };
     }, [expanded]);
 
     React.useEffect(() => {

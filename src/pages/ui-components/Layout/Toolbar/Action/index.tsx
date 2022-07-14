@@ -15,7 +15,7 @@ export interface ActionProps extends IStyledProp {
 const Action: React.FC<ActionProps> = ({ active, icon, label, ...rest }) => {
   return (
     <div {...rest}>
-      <div className={cx('houston-toolbar-action__button', active && '--active', icon && '--has-icon')}>
+      <div className={cx('houston-toolbar-action__button', { '--active': active, '--has-icon': !!icon })}>
         {icon && <div className='houston-toolbar-action__icon'>{icon}</div>}
         {label && <div className='houston-toolbar-action__label'>{label}</div>}
       </div>

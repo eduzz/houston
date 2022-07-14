@@ -4,7 +4,7 @@ export interface UserMenuContextType {
   close: () => void;
 }
 
-const UserMenuContext = createContext({
+const UserMenuContext = createContext<UserMenuContextType>({
   close: () => null
 });
 

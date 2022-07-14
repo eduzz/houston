@@ -33,6 +33,7 @@
     "lodash": "^4",
     "react-colorful": "^5",
     "react-toastify": "^9",
+    "react-useportal": "^1.0.17",
     "tslib": "^2",
     "use-context-selector": "^1",
     "@mui/x-date-pickers": "5.0.0-alpha.7"

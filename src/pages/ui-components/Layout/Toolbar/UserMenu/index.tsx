@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
+import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
@@ -12,36 +13,17 @@ import { TOOLBAR_HEIGHT } from '../../context';
 import ToolbarContext from '../context';
 import Avatar from './Avatar';
 import Belt from './Belt';
-import UserMenu from './Menu';
 
 const User = React.memo<IStyledProp>(({ className, children }) => {
   const wrapperMenuUser = React.useRef<HTMLDivElement>(null);
   const user = useContextSelector(ToolbarContext, context => context.user);
 
-  const [dropdown, setDropdown] = React.useState<HTMLDivElement>(null);
+  const [opened, toogleOpened, , falseOpened] = useBoolean(false);
 
   const hasMenu = React.useMemo(() => !!React.Children.count(children), [children]);
 
-  const handleClickOpenDropdown = React.useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!hasMenu) {
-        return;
-      }
-
-      if (dropdown) {
-        setDropdown(null);
-        return;
-      }
-
-      setDropdown(e.currentTarget);
-    },
-    [dropdown, hasMenu]
-  );
-
-  const handleClearDropdown = React.useCallback(() => setDropdown(null), []);
-
-  useOnClickOutside(wrapperMenuUser, () => hasMenu && setDropdown(null), [hasMenu]);
-  useEscapeKey(() => hasMenu && setDropdown(null), [hasMenu]);
+  useOnClickOutside(wrapperMenuUser, () => hasMenu && falseOpened(), [hasMenu]);
+  useEscapeKey(() => hasMenu && falseOpened(), [hasMenu]);
 
   if (!user) {
     return null;
@@ -49,24 +31,24 @@ const User = React.memo<IStyledProp>(({ className, children }) => {
 
   return (
     <>
-      <Belt belt={user?.belt} />
+      <Belt belt={user.belt} />
 
-      <div ref={wrapperMenuUser} className={cx(className, { '--active': !!dropdown, '--has-menu': hasMenu })}>
-        <div className='houston-toolbar-user__label' onClick={handleClickOpenDropdown}>
-          <Avatar name={user?.name} avatar={user?.avatar} />
+      <div ref={wrapperMenuUser} className={cx(className, { '--active': hasMenu && opened, '--has-menu': hasMenu })}>
+        <div className='houston-toolbar-user__label' onClick={toogleOpened}>
+          <Avatar name={user.name} avatar={user.avatar} />
 
           <Typography size='xxs' color='inherit' className='houston-toolbar-user__name'>
-            {user?.name}
+            {user.name}
           </Typography>
 
           {hasMenu && (
-            <div className={cx('houston-toolbar-user__menu-arrow', dropdown && '--open')}>
+            <div className='houston-toolbar-user__menu-arrow'>
               <IconChevronDown size={18} />
             </div>
           )}
         </div>
 
-        <UserMenu opened={!!dropdown} onClose={handleClearDropdown}>
+        <UserMenu opened={opened} onClose={falseOpened}>
           {children}
         </UserMenu>
       </div>
@@ -92,7 +74,7 @@ export default styled(User, { label: 'houston-toolbar-user' })(
       }
     }
 
-    .houston-toolbar-user__label {
+    & .houston-toolbar-user__label {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -103,7 +85,7 @@ export default styled(User, { label: 'houston-toolbar-user' })(
         padding: 0 ${theme.spacing.nano};
       }
 
-      .houston-toolbar-user__name {
+      & .houston-toolbar-user__name {
         max-width: 200px;
         white-space: nowrap;
         overflow: hidden;
@@ -122,7 +104,7 @@ export default styled(User, { label: 'houston-toolbar-user' })(
         }
       }
 
-      .houston-toolbar-user__menu-arrow {
+      & .houston-toolbar-user__menu-arrow {
         margin-left: ${theme.spacing.quarck};
         transition: 0.15s ease-out;
 
@@ -130,15 +112,15 @@ export default styled(User, { label: 'houston-toolbar-user' })(
           display: none;
         }
 
-        &.--open {
-          transform: rotate(-180deg);
-        }
-
         span.houston-icon {
           line-height: 0;
           position: relative;
           top: 2px;
         }
+      }
+
+      &.--active .houston-toolbar-user__menu-arrow {
+        transform: rotate(-180deg);
       }
     }
   `

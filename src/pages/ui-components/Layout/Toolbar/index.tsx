@@ -36,26 +36,15 @@ const Toolbar = React.memo<ToolbarProps>(({ children, currentApplication, logo, 
   const theme = useHoustonTheme();
   const registerToolbar = useContextSelector(LayoutContext, context => context.registerToolbar);
 
-  const contentClicked = React.useRef({ clicked: false }).current;
-
   React.useEffect(() => {
     const unregister = registerToolbar();
     return () => unregister();
   }, [registerToolbar]);
 
-  const handleDocumentClick = React.useCallback(() => {
-    setTimeout(() => {
-      if (contentClicked.clicked) {
-        contentClicked.clicked = false;
-      }
-    }, 100);
-  }, [contentClicked]);
-
   React.useEffect(() => {
     document.body.classList.add('houston-toolbar-applied');
-    document.body.addEventListener('click', handleDocumentClick);
 
-    let oldThemeColor: string = null;
+    let oldThemeColor: string | null = null;
     let metaThemeColor = document.querySelector<HTMLMetaElement>('meta[name=theme-color]');
 
     if (metaThemeColor) {
@@ -70,12 +59,9 @@ const Toolbar = React.memo<ToolbarProps>(({ children, currentApplication, logo, 
 
     return () => {
       document.body.classList.remove('houston-toolbar-applied');
-      document.body.removeEventListener('click', handleDocumentClick);
-      metaThemeColor.content = oldThemeColor;
+      if (metaThemeColor && oldThemeColor) metaThemeColor.content = oldThemeColor;
     };
-  }, [handleDocumentClick, theme]);
-
-  const handleClickContainer = React.useCallback(() => (contentClicked.clicked = true), [contentClicked]);
+  }, [theme]);
 
   const contextValue = React.useMemo<ToolbarContextType>(
     () => ({ currentApplication, user }),
@@ -85,7 +71,7 @@ const Toolbar = React.memo<ToolbarProps>(({ children, currentApplication, logo, 
   return (
     <ToolbarContext.Provider value={contextValue}>
       <div className={className}>
-        <header className='houston-toolbar__header' onClick={handleClickContainer}>
+        <header className='houston-toolbar__header'>
           <div className='houston-toolbar__start'>
             <div
               className='houston-toolbar__icon-menu'
