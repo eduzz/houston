@@ -85,14 +85,6 @@ const ModalStyle = styled(Modal, { label: 'houston-modal' })`
       left: 50%;
       transform: translate(-50%, -50%);
 
-      .modal__backdrop {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
       ${theme.breakpoints.down('sm')} {
         max-width: calc(100vw - ${theme.spacing.inset.xs});
         max-height: calc(100vh - ${theme.spacing.inset.xs});
