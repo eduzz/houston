@@ -6,7 +6,7 @@ export function useEscapeKey(callback: () => void) {
   useEffect(() => {
     function handlePressKey(event: KeyboardEvent) {
       if (event.key === ESCAPE_KEY) {
-        callback && callback();
+        callback();
       }
     }
 

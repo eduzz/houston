@@ -42,10 +42,10 @@ const Modal = ({
   ...rest
 }: ModalProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => {
   const handlePressEscapeKey = React.useCallback(() => {
-    if (!disableEscapeKey) {
+    if (visible && !disableEscapeKey) {
       onClose && onClose();
     }
-  }, [disableEscapeKey, onClose]);
+  }, [disableEscapeKey, onClose, visible]);
 
   useEscapeKey(handlePressEscapeKey);
 
