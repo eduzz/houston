@@ -53,7 +53,7 @@ const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttribu
   );
 };
 
-const ModalHeaderStyle = styled(ModalHeader, { label: 'houston-modal-header' })`
+export default React.memo(styled(ModalHeader, { label: 'houston-modal-header' })`
   ${({ theme }) => css`
     flex: 0 1 0%;
     border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
@@ -73,6 +73,4 @@ const ModalHeaderStyle = styled(ModalHeader, { label: 'houston-modal-header' })`
       }
     }
   `}
-`;
-
-export default React.memo(ModalHeaderStyle);
+`);

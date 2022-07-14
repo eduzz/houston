@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import styled, { IStyledProp, css } from '@eduzz/houston-styles';
 
 export interface ModalBaseProps {
@@ -8,7 +10,7 @@ const ModalBase = ({ ...rest }: ModalBaseProps & IStyledProp & React.HTMLAttribu
   return <div role='dialog' {...rest} />;
 };
 
-export default styled(ModalBase)`
+export default React.memo(styled(ModalBase)`
   ${({ theme }) => css`
     background-color: ${theme.neutralColor.high.pure};
     border-radius: ${theme.border.radius.sm};
@@ -18,4 +20,4 @@ export default styled(ModalBase)`
     left: 50%;
     transform: translate(-50%, -50%);
   `}
-`;
+`);

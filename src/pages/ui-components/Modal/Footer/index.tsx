@@ -17,7 +17,7 @@ const ModalFooter = ({ children, ...rest }: ModalFooterProps & React.HTMLAttribu
   );
 };
 
-const ModalFooterStyle = styled(ModalFooter, { label: 'houston-modal-footer' })`
+export default React.memo(styled(ModalFooter, { label: 'houston-modal-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
 
@@ -46,6 +46,4 @@ const ModalFooterStyle = styled(ModalFooter, { label: 'houston-modal-footer' })`
       }
     }
   `}
-`;
-
-export default React.memo(ModalFooterStyle);
+`);

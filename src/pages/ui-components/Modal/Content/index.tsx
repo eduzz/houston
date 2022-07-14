@@ -10,7 +10,7 @@ const ModalContent = ({ ...rest }: ModalContentProps & React.HTMLAttributes<HTML
   <div {...rest} />
 );
 
-const ModalContentStyle = styled(ModalContent, { label: 'houston-modal-content' })`
+export default React.memo(styled(ModalContent, { label: 'houston-modal-content' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.sm};
     overflow: auto;
@@ -20,6 +20,4 @@ const ModalContentStyle = styled(ModalContent, { label: 'houston-modal-content' 
       padding: ${theme.spacing.inset.xs};
     }
   `}
-`;
-
-export default React.memo(ModalContentStyle);
+`);
