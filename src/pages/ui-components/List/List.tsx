@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled, { IStyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
+import ListContextProvider from './context';
 import Item from './Item';
 import Left from './Left';
 import Right from './Right';
@@ -10,13 +11,16 @@ import Text from './Text';
 
 export interface IListProps extends IStyledProp, React.HTMLAttributes<HTMLUListElement> {
   children: React.ReactNode;
+  dividers?: true;
 }
 
-const List = ({ children, ...rest }: IListProps) => {
+const List = ({ children, dividers, ...rest }: IListProps) => {
   return (
-    <ul role='list' {...rest}>
-      {children}
-    </ul>
+    <ListContextProvider value={{ dividers }}>
+      <ul role='list' {...rest}>
+        {children}
+      </ul>
+    </ListContextProvider>
   );
 };
 

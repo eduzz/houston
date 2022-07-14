@@ -71,7 +71,7 @@ import List from '@eduzz/houston-ui/List';
     } = form;
     return (
       <Form context={form}>
-        <List>
+        <List dividers>
           <List.Item isActive={checkbox1} disabled>
             <List.Left>
               <Checkbox name='checkbox1' disabled={!checkbox1} />
@@ -80,15 +80,12 @@ import List from '@eduzz/houston-ui/List';
               <Thumbnail src='https://picsum.photos/80' size='md' />
             </List.Left>
             <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
-            <List.Right
-              icon={
-                <IconButton disabled>
-                  <InsertEmoticonIcon />
-                </IconButton>
-              }
-            />
+            <List.Right>
+              <IconButton>
+                <InsertEmoticonIcon />
+              </IconButton>
+            </List.Right>
           </List.Item>
-          <Divider />
           <List.Item isActive={checkbox2}>
             <List.Left>
               <Checkbox name='checkbox2' />
@@ -97,15 +94,12 @@ import List from '@eduzz/houston-ui/List';
               <Thumbnail src='https://picsum.photos/80' size='md' />
             </List.Left>
             <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
-            <List.Right
-              icon={
-                <IconButton>
-                  <InsertEmoticonIcon />
-                </IconButton>
-              }
-            />
+            <List.Right>
+              <IconButton>
+                <InsertEmoticonIcon />
+              </IconButton>
+            </List.Right>
           </List.Item>
-          <Divider />
           <List.Item isActive={checkbox3}>
             <List.Left>
               <Checkbox name='checkbox3' />
@@ -114,15 +108,12 @@ import List from '@eduzz/houston-ui/List';
               <Thumbnail src='https://picsum.photos/80' size='md' />
             </List.Left>
             <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
-            <List.Right
-              icon={
-                <IconButton>
-                  <InsertEmoticonIcon />
-                </IconButton>
-              }
-            />
+            <List.Right>
+              <IconButton>
+                <InsertEmoticonIcon />
+              </IconButton>
+            </List.Right>
           </List.Item>
-          <Divider />
           <List.Item isActive={checkbox4}>
             <List.Left>
               <Checkbox name='checkbox4' />
@@ -131,20 +122,23 @@ import List from '@eduzz/houston-ui/List';
               <Thumbnail src='https://picsum.photos/80' size='md' />
             </List.Left>
             <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
-            <List.Right
-              icon={
-                <IconButton>
-                  <InsertEmoticonIcon />
-                </IconButton>
-              }
-            />
+            <List.Right>
+              <IconButton>
+                <InsertEmoticonIcon />
+              </IconButton>
+            </List.Right>
           </List.Item>
-          <Divider />
         </List>
       </Form>
     );
   }}
 </Playground>
+
+### List props
+
+| prop     | tipo      | obrigatório | padrão | descrição |
+| -------- | --------- | ----------- | ------ | --------- |
+| dividers | `boolean` | `false`     | -      | -         |
 
 ### List.Item props
 
@@ -156,7 +150,6 @@ import List from '@eduzz/houston-ui/List';
 
 | prop     | tipo              | obrigatório | padrão | descrição |
 | -------- | ----------------- | ----------- | ------ | --------- |
-| icon     | `React.ReactNode` | `false`     | -      | -         |
 | children | `React.ReactNode` | `true`      | -      | -         |
 
 ### List.Text props
@@ -170,6 +163,5 @@ import List from '@eduzz/houston-ui/List';
 
 | prop     | tipo              | obrigatório | padrão | descrição |
 | -------- | ----------------- | ----------- | ------ | --------- |
-| icon     | `React.ReactNode` | false       | -      | -         |
 | onClick  | `function`        | false       | -      | -         |
 | children | `React.ReactNode` | `true`      | -      | -         |

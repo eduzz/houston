@@ -1,21 +1,13 @@
 import * as React from 'react';
 
-import styled, { cx, css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, IStyledProp } from '@eduzz/houston-styles';
 
-export interface IListRightProps extends IStyledProp, React.HTMLAttributes<HTMLDivElement> {
-  icon?: React.ReactNode;
+export interface ListRightProps extends IStyledProp, React.HTMLAttributes<HTMLDivElement> {
   onClick?: () => void;
   children?: React.ReactNode;
 }
 
-const ListRight = ({ className, icon, children, onClick, ...rest }: IListRightProps) => {
-  return (
-    <div onClick={onClick} className={cx(className)} {...rest}>
-      {icon && <span>{icon}</span>}
-      {children}
-    </div>
-  );
-};
+const ListRight = ({ onClick, ...rest }: ListRightProps) => <div onClick={onClick} {...rest} />;
 
 export default React.memo(
   styled(ListRight, { label: 'houston-list-item-right' })(() => {

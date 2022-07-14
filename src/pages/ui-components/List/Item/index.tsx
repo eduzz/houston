@@ -1,23 +1,30 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-export interface IListItemProps extends IStyledProp, React.HTMLAttributes<HTMLLIElement> {
+import Divider from '../../Divider';
+import { ListContext } from '../context';
+
+export interface ListItemProps extends IStyledProp, React.HTMLAttributes<HTMLLIElement> {
   children: React.ReactNode;
   disabled?: true;
   isActive?: true;
 }
 
-const ListItem = ({ children, className, disabled, isActive, ...rest }: IListItemProps) => {
+const ListItem = ({ className, disabled, isActive, ...rest }: ListItemProps) => {
+  const dividers = useContextSelector(ListContext, context => context.dividers);
   return (
-    <li
-      role='listitem'
-      tabIndex={0}
-      className={cx(className, { '--disabled': disabled }, { '--active': isActive })}
-      {...rest}
-    >
-      {children}
-    </li>
+    <>
+      <li
+        role='listitem'
+        tabIndex={0}
+        className={cx(className, { '--disabled': disabled }, { '--active': isActive })}
+        {...rest}
+      />
+      {dividers && <Divider />}
+    </>
   );
 };
 
