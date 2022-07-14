@@ -13,8 +13,8 @@ import { getConfig } from '../config';
 export default function useObservable<T>(
   observableGenerator: () => Observable<T>,
   deps: React.DependencyList
-): [T, any, boolean, boolean] {
-  const [value, setValue] = React.useState<T>(undefined);
+): [T | undefined, any | undefined, boolean, boolean] {
+  const [value, setValue] = React.useState<T | undefined>(undefined);
   const [error, setError] = React.useState();
   const [loading, setLoading] = React.useState(true);
   const [complete, setComplete] = React.useState<boolean>(false);
@@ -36,7 +36,7 @@ export default function useObservable<T>(
       },
       error: err => {
         getConfig().onUnhandledError(err, 'hooks');
-        setValue(null);
+        setValue(undefined);
         setError(err);
         setLoading(false);
       },

@@ -1,11 +1,11 @@
 import { createContext, useContext } from 'use-context-selector';
 
 export interface ISidebarContext {
-  currentLocation: string;
-  menuIsActive: (to: string) => boolean;
+  currentLocation?: string;
+  menuIsActive: (to?: string) => boolean;
 
   hasToolbar: boolean;
-  onRequestClose: () => void;
+  onRequestClose?: () => void;
 
   mobileVisible: boolean;
 
