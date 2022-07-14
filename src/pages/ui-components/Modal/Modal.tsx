@@ -6,6 +6,7 @@ import { useEscapeKey } from '../hooks/useEscapeKey';
 import Overlay from '../Overlay';
 import Portal from '../Portal';
 import nestedComponent from '../utils/nestedComponent';
+import ModalBase from './__utils/ModalBase';
 import Content from './Content';
 import ModalContextProvider from './context';
 import Footer from './Footer';
@@ -15,10 +16,19 @@ export type ModalSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface ModalProps {
   visible: boolean;
-  onClose?: () => void;
-  size?: ModalSize;
   children?: React.ReactNode;
+  onClose?: () => void;
+  /**
+   * Default `sm`
+   */
+  size?: ModalSize;
+  /**
+   * Default `true`
+   */
   closeIcon?: boolean;
+  /**
+   * Default `false`
+   */
   disableEscapeKey?: boolean;
 }
 
@@ -28,7 +38,6 @@ const Modal = ({
   size = 'sm',
   onClose,
   closeIcon = true,
-  children,
   disableEscapeKey,
   ...rest
 }: ModalProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => {
@@ -48,9 +57,7 @@ const Modal = ({
     <Portal wrapperId='houston-modal'>
       <Overlay visible={visible}>
         <ModalContextProvider value={{ onClose, closeIcon }}>
-          <div role='dialog' aria-modal={true} className={cx(className, `--modal-size-${size}`)} {...rest}>
-            {children}
-          </div>
+          <ModalBase className={cx(className, `--modal-size-${size}`)} aria-modal={true} {...rest} />
         </ModalContextProvider>
       </Overlay>
     </Portal>
@@ -75,15 +82,8 @@ const ModalStyle = styled(Modal, { label: 'houston-modal' })`
     return css`
       display: flex;
       flex-direction: column;
-      background-color: ${theme.neutralColor.high.pure};
-      border-radius: ${theme.border.radius.sm};
-      box-shadow: ${theme.shadow.level[3]};
       max-width: calc(100vw - ${theme.spacing.inset.md});
       max-height: calc(100vh - ${theme.spacing.inset.md});
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
 
       ${theme.breakpoints.down('sm')} {
         max-width: calc(100vw - ${theme.spacing.inset.xs});
