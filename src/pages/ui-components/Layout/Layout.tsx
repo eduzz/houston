@@ -31,9 +31,9 @@ const Layout = ({ className, children }: ILayoutProps) => {
     return () => setHasSidebar(false);
   }, []);
 
-  const setHasUserMenu = React.useCallback(() => {
-    setHasSidebar(true);
-    return () => setHasSidebar(false);
+  const registerUserMenu = React.useCallback(() => {
+    setHasUserMenu(true);
+    return () => setHasUserMenu(false);
   }, []);
 
   const contextValue = React.useMemo<LayoutContextType>(
@@ -45,8 +45,8 @@ const Layout = ({ className, children }: ILayoutProps) => {
       userMenu: {
         opened: userMenuOpened,
         container: userMenuContainerRef,
-exists: hasUserMenu,
-setExists: sethas
+        exists: hasUserMenu,
+        register: registerUserMenu,
         toogleOpened: toogleUserMenuOpened,
         trueOpened: trueUserMenuOpened,
         falseOpened: falseUserMenuOpened
@@ -56,8 +56,10 @@ setExists: sethas
       falseUserMenuOpened,
       hasSidebar,
       hasToolbar,
+      hasUserMenu,
       registerSidebar,
       registerToolbar,
+      registerUserMenu,
       toogleUserMenuOpened,
       trueUserMenuOpened,
       userMenuContainerRef,

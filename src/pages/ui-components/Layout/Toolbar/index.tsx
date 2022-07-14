@@ -12,9 +12,9 @@ import Action from './Action';
 import Apps from './Apps';
 import ToolbarContext, { ToolbarContextType } from './context';
 import User from './User';
-import UserMenuDivider from './User/Menu/Divider';
-import UserMenuItem from './User/Menu/Item';
-import UserMenuContext from './User/Menu/ItemContext';
+import UserMenuDivider from './UserMenu/Divider';
+import UserMenuItem from './UserMenu/Item';
+import UserMenuContext from './UserMenu/ItemContext';
 
 export interface ToolbarProps extends IStyledProp {
   children: React.ReactNode;

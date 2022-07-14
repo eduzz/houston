@@ -4,8 +4,8 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { IStyledProp, css, cx } from '@eduzz/houston-styles';
 
-import Typography from '../../../../../Typography';
-import UserMenuContext from '../context';
+import Typography from '../../../../Typography';
+import LayoutContext from '../../../context';
 
 export interface UserMenuItemProps extends IStyledProp {
   icon?: React.ReactNode;
@@ -14,7 +14,7 @@ export interface UserMenuItemProps extends IStyledProp {
 }
 
 const UserMenuItem: React.FC<UserMenuItemProps> = ({ className, icon = null, disabled, onClick, children }) => {
-  const close = useContextSelector(UserMenuContext, context => context.close);
+  const close = useContextSelector(LayoutContext, context => context.userMenu.falseOpened);
 
   const handleClick = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

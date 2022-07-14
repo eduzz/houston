@@ -13,7 +13,7 @@ export interface LayoutContextType {
     exists: boolean;
     opened: boolean;
     container: React.Ref<HTMLDivElement> | undefined;
-    setExists(): () => void;
+    register(): () => void;
     toogleOpened(): void;
     trueOpened(): void;
     falseOpened(): void;
@@ -31,7 +31,7 @@ const LayoutContext = createContext<LayoutContextType>({
     exists: false,
     opened: false,
     container: undefined,
-    setExists: () => () => null,
+    register: () => () => null,
     toogleOpened: () => null,
     trueOpened: () => null,
     falseOpened: () => null
