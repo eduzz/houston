@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { IStyledProp } from '@eduzz/houston-styles';
+import styled, { cx, IStyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
 import ListContextProvider from './context';
@@ -11,20 +11,29 @@ import Text from './Text';
 
 export interface IListProps extends IStyledProp, React.HTMLAttributes<HTMLUListElement> {
   children: React.ReactNode;
+  /**
+   * Default `false`
+   */
   dividers?: boolean;
 }
 
-const List = ({ children, dividers = false, ...rest }: IListProps) => {
+const List = ({ children, className, dividers = false, ...rest }: IListProps) => {
   return (
     <ListContextProvider dividers={dividers}>
-      <ul role='list' {...rest}>
+      <ul role='list' className={cx(className, { '--dividers': dividers })} {...rest}>
         {children}
       </ul>
     </ListContextProvider>
   );
 };
 
-const ListWrapper = React.memo(styled(List, { label: 'houston-list' })());
+const ListWrapper = React.memo(styled(List, { label: 'houston-list' })`
+  &.--dividers {
+    hr:last-of-type {
+      display: none;
+    }
+  }
+`);
 
 export default nestedComponent(ListWrapper, {
   Item,

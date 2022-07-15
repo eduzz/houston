@@ -2,10 +2,10 @@
 name: List
 ---
 
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import { Playground } from 'dokz';
 
 import useForm from '@eduzz/houston-forms/useForm';
+import IconHomeOutline from '@eduzz/houston-icons/HomeOutline';
 import Divider from '@eduzz/houston-ui/Divider';
 import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
 import Form from '@eduzz/houston-ui/Forms/Form';
@@ -29,31 +29,31 @@ import List from '@eduzz/houston-ui/List';
 <Playground>
   <List>
     <List.Item>
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+      <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
-            <InsertEmoticonIcon />
+            <IconHomeOutline />
           </IconButton>
         }
       />
     </List.Item>
     <List.Item>
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+      <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
-            <InsertEmoticonIcon />
+            <IconHomeOutline />
           </IconButton>
         }
       />
     </List.Item>
     <List.Item>
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+      <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
-            <InsertEmoticonIcon />
+            <IconHomeOutline />
           </IconButton>
         }
       />
@@ -79,10 +79,10 @@ import List from '@eduzz/houston-ui/List';
             <List.Left>
               <Thumbnail src='https://picsum.photos/80' size='md' />
             </List.Left>
-            <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+            <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
             <List.Right>
               <IconButton>
-                <InsertEmoticonIcon />
+                <IconHomeOutline />
               </IconButton>
             </List.Right>
           </List.Item>
@@ -93,10 +93,10 @@ import List from '@eduzz/houston-ui/List';
             <List.Left>
               <Thumbnail src='https://picsum.photos/80' size='md' />
             </List.Left>
-            <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+            <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
             <List.Right>
               <IconButton>
-                <InsertEmoticonIcon />
+                <IconHomeOutline />
               </IconButton>
             </List.Right>
           </List.Item>
@@ -107,10 +107,10 @@ import List from '@eduzz/houston-ui/List';
             <List.Left>
               <Thumbnail src='https://picsum.photos/80' size='md' />
             </List.Left>
-            <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+            <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
             <List.Right>
               <IconButton>
-                <InsertEmoticonIcon />
+                <IconHomeOutline />
               </IconButton>
             </List.Right>
           </List.Item>
@@ -121,10 +121,10 @@ import List from '@eduzz/houston-ui/List';
             <List.Left>
               <Thumbnail src='https://picsum.photos/80' size='md' />
             </List.Left>
-            <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+            <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
             <List.Right>
               <IconButton>
-                <InsertEmoticonIcon />
+                <IconHomeOutline />
               </IconButton>
             </List.Right>
           </List.Item>
@@ -154,14 +154,14 @@ import List from '@eduzz/houston-ui/List';
 
 ### List.Text props
 
-| prop     | tipo     | obrigatório | padrão | descrição |
-| -------- | -------- | ----------- | ------ | --------- |
-| title    | `string` | `true`      | -      | -         |
-| subtitle | `string` | `fase`      | -      | -         |
+| prop              | tipo              | obrigatório | padrão  | descrição                                                  |
+| ----------------- | ----------------- | ----------- | ------- | ---------------------------------------------------------- |
+| title             | `React.ReactNode` | `true`      | -       | -                                                          |
+| description       | `React.ReactNode` | `false`     | -       | -                                                          |
+| disableTypography | `boolean`         | `false`     | `false` | Se `true`, o componente `Typography` não será renderizado. |
 
 ### List.Right props
 
 | prop     | tipo              | obrigatório | padrão | descrição |
 | -------- | ----------------- | ----------- | ------ | --------- |
-| onClick  | `function`        | false       | -      | -         |
 | children | `React.ReactNode` | `true`      | -      | -         |

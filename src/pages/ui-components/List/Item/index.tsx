@@ -15,6 +15,7 @@ export interface ListItemProps extends IStyledProp, React.HTMLAttributes<HTMLLIE
 
 const ListItem = ({ children, className, disabled, isActive, ...rest }: ListItemProps) => {
   const dividers = useContextSelector(ListContext, context => context.dividers);
+
   return (
     <>
       <li
@@ -25,6 +26,7 @@ const ListItem = ({ children, className, disabled, isActive, ...rest }: ListItem
       >
         {children}
       </li>
+
       {dividers && <Divider />}
     </>
   );
@@ -39,6 +41,7 @@ export default styled(ListItem, { label: 'houston-list-item' })(({ theme }) => {
 
     &.--disabled {
       opacity: ${theme.opacity.level[6]};
+      pointer-events: none;
     }
 
     &.--active {
