@@ -13,7 +13,8 @@ const MIN_WIDTH_IN_PIXELS = 64;
 const MAX_WIDTH_IN_PIXELS = 248;
 
 const TooltipBody = ({ className, title }: ITooltipBody) => {
-  const ref = React.useRef<HTMLDivElement>();
+  const ref = React.useRef<HTMLDivElement | null>(null);
+
   const [config, setConfig] = React.useState({
     width: 0,
     height: 0
@@ -21,6 +22,7 @@ const TooltipBody = ({ className, title }: ITooltipBody) => {
 
   React.useEffect(() => {
     if (!ref.current) return;
+
     setConfig({
       width: ref.current.offsetWidth,
       height: ref.current.offsetHeight
@@ -30,7 +32,9 @@ const TooltipBody = ({ className, title }: ITooltipBody) => {
   return (
     <div ref={ref} role='tooltip' className={className}>
       <div id='houston-tooltip-arrow' data-popper-arrow />
+
       <style dangerouslySetInnerHTML={styleContent(config.width, config.height)} />
+
       <Caption
         color='neutralColor.high.pure'
         style={{ textAlign: config.width >= MAX_WIDTH_IN_PIXELS ? 'left' : 'center' }}

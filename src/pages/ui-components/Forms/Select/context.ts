@@ -4,7 +4,7 @@ import { ISelectFieldProps } from '.';
 
 export interface ISelectOption {
   value: any;
-  text: string;
+  text: string | undefined | null;
 }
 
 export interface ISelectContext {

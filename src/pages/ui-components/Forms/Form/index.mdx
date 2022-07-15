@@ -25,11 +25,23 @@ Exemplo de uso [aqui](https://eduzz.github.io/houston/form/example).
 Utilizado internamente no componente `<Form />`. Recomendado o uso apenas para compartilhar o estado do formulário com os componentes filhos.
 
 ```js
-import Form, { useFormContext } from '@eduzz/houston-ui/Forms/Form';
+import Form from '@eduzz/houston-ui/Forms/Form';
+import useForm from '@eduzz/houston-forms/useForm';
 
 const Component = () => {
+const form = useForm({
+    validationSchema: yup =>
+      yup.object().shape({
+        name: yup.string().required()
+      })
+  });
+
+  const onSubmit = React.useCallback((data: FormModel<typeof form>) => {
+    console.log({ data })
+  }, []);
+
   return (
-    <Form {...props}>
+    <Form context={form}>
       <SubComponent />
     </Form>
   );
@@ -41,8 +53,9 @@ const SubComponent = () => {
 };
 ```
 
-| prop      | tipo                | obrigatório | padrão | descrição |
-| --------- | ------------------- | ----------- | ------ | --------- |
-| id        | `string`            | `false`     | -      |           |
-| className | `string`            | `false`     | -      |           |
-| context   | `IFormAdapter<any>` | `true`      | -      | -         |
+| prop      | tipo                             | obrigatório | padrão | descrição |
+| --------- | -------------------------------- | ----------- | ------ | --------- |
+| id        | `string`                         | `false`     | -      |           |
+| className | `string`                         | `false`     | -      |           |
+| context   | `react-hook-form useForm return` | `true`      | -      | -         |
+| onSubmit  | `function`                       | `true`      | -      | -         |

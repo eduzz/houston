@@ -19,7 +19,18 @@ export interface IButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
   (
-    { children, disabled = false, startIcon, endIcon, variant, loading = false, className, fullWidth, ...rest },
+    {
+      children,
+      disabled = false,
+      startIcon,
+      endIcon,
+      variant,
+      loading = false,
+      className,
+      fullWidth,
+      type = 'button',
+      ...rest
+    },
     ref
   ) => (
     <button
@@ -31,6 +42,7 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
         { '--fullWidth': fullWidth },
         { '--disabled': disabled || loading }
       )}
+      type={type}
       {...rest}
       disabled={disabled || loading}
       aria-disabled={disabled}
@@ -119,7 +131,7 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       cursor: default;
     }
 
-    &.--fullWidth {
+    &.--full-width {
       width: 100%;
     }
 

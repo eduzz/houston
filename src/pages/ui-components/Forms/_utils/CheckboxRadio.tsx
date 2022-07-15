@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { useFormError, useFormIsSubmitting, useFormSetValue, useFormValue } from '@eduzz/houston-forms/context';
 import Bullet from '@eduzz/houston-icons/Bullet';
 import Done from '@eduzz/houston-icons/Done';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
 import Typography from '../../Typography';
+import withForm, { WithFormProps } from '../Form/withForm';
 
-interface IOwnProperties extends IStyledProp {
+interface IOwnProperties extends IStyledProp, WithFormProps<never> {
   children?: React.ReactNode;
   errorMessage?: string;
   helperText?: React.ReactNode;
@@ -43,11 +43,11 @@ interface IInternalCheckboxRadioProps extends ICheckboxRadioProps {
 }
 
 const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
-  name,
+  value,
   label,
   children,
   value: checkedValue,
-  errorMessage: errorMessageProp,
+  errorMessage,
   helperText,
   description,
   disabled,
@@ -58,15 +58,8 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   className,
   ...props
 }) => {
-  const isSubmitting = useFormIsSubmitting();
-
-  let value = useFormValue(name, checkedProp);
-  const errorMessage = useFormError(name, errorMessageProp);
-  const setFieldValue = useFormSetValue(name);
-
   value = !multiple ? value : Array.isArray(value) ? value : [];
 
-  disabled = disabled || isSubmitting;
   checkedValue = checkedValue ?? true;
   multiple = type === 'checkbox' ? multiple : false;
   children = children ?? label;
@@ -84,7 +77,6 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
     const returnValue = justChecked ? checkedValue ?? true : checkedValue ? null : false;
 
     if (!multiple) {
-      setFieldValue && setFieldValue(returnValue);
       onChange && onChange(returnValue);
       return;
     }
@@ -97,9 +89,8 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
       setValue.delete(checkedValue);
     }
 
-    setFieldValue && setFieldValue(Array.from(setValue));
     onChange && onChange(Array.from(setValue));
-  }, [checkedValue, disabled, isChecked, multiple, onChange, setFieldValue, value]);
+  }, [checkedValue, disabled, isChecked, multiple, onChange, value]);
 
   const message = errorMessage ?? helperText;
 
@@ -137,7 +128,7 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   );
 };
 
-export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-checkbox-radio' })(
+export default styled(withForm(React.memo(CheckboxRadioField)), { label: 'houston-form-checkbox-radio' })(
   ({ theme }) => css`
     display: flex;
     margin-top: ${theme.spacing.quarck};

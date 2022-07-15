@@ -3,13 +3,13 @@ import { createContext } from 'use-context-selector';
 
 export interface IPopoverContextState {
   opened: boolean;
-  target: HTMLElement;
-  content: HTMLElement;
-  placement: Placement;
+  target: HTMLElement | null;
+  content: HTMLElement | null;
+  placement: Placement | null;
 }
 
 export interface IPopoverContext {
-  openedTarget: HTMLElement;
+  openedTarget: HTMLElement | null;
   setState(state: IPopoverContextState): () => void;
 }
 
