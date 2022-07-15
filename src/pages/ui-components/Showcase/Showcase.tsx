@@ -198,7 +198,7 @@ const Showcase: React.FC<IShowcaseProps> = props => {
   );
 
   return (
-    <ModalMUI {...rest} open={modalState} onClose={handleClose}>
+    <ModalMUI {...rest} open={modalState} onClose={handleClose as any}>
       <ShowcaseContextProvider value={contextValue}>
         <div className={cx(className, size && classes[size], classes.modalContent)}>
           <CardMUI className='card-mui'>

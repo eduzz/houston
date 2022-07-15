@@ -31,13 +31,13 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
   const tableSize = useContextSelector(TableContext, context => context.size);
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
-  const cellRef = React.useRef<HTMLTableCellElement>();
+  const cellRef = React.useRef<HTMLTableCellElement>(null);
 
   const isSorted = sort?.field === sortableField;
 
   const handleSort = React.useCallback(() => {
-    if (!onSort) {
-      throw new Error('@eduzz/houston-ui: add the onSort prop to the Table to filter the fields');
+    if (!onSort || !sortableField) {
+      throw new Error('@eduzz/houston-ui: add the onSort and sortableField prop to the Table to filter the fields');
     }
 
     onSort({

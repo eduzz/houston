@@ -34,7 +34,7 @@ export type TypographyTags =
 
 export type TypographyMargin = keyof Omit<HoustonTokens['spacing'], 'fn' | 'squish' | 'inline' | 'stack' | 'inset'>;
 
-export interface ITypographyProps extends IStyledProp {
+export interface ITypographyProps extends IStyledProp, React.HTMLAttributes<HTMLElement> {
   id?: string;
   /**
    * Defaults to 'xxs'
