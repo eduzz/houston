@@ -9,7 +9,11 @@ interface ModalContextProps {
   hasFooter: boolean;
 }
 
-const ModalContext = createContext<ModalContextProps>(null);
+const ModalContext = createContext<ModalContextProps>({
+  hasHeader: false,
+  hasFooter: false
+});
+
 const ModalContextProvider = ModalContext.Provider;
 
 export { ModalContext };

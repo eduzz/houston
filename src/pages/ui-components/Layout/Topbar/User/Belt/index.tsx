@@ -38,15 +38,15 @@ const Belt = React.memo<BeltProps>(({ className, belt }) => {
 
   return (
     <div className={cx(className, `--${beltClass}`)}>
-      <div className='houston-toolbar-belt__badge'>
-        <BeltIcon size={25} className='houston-toolbar-belt__icon' />
-        <span className='houston-toolbar-belt__text'>{beltColor}</span>
+      <div className='houston-topbar-belt__badge'>
+        <BeltIcon size={25} className='houston-topbar-belt__icon' />
+        <span className='houston-topbar-belt__text'>{beltColor}</span>
       </div>
     </div>
   );
 });
 
-export default styled(Belt, { label: 'houston-toolbar-belt' })(
+export default styled(Belt, { label: 'houston-topbar-belt' })(
   ({ theme }) => css`
     color: white;
     display: flex;
@@ -67,7 +67,7 @@ export default styled(Belt, { label: 'houston-toolbar-belt' })(
       background-color: ${theme.beltColor.white};
       color: ${theme.beltColor.white};
 
-      & > .houston-toolbar-belt__badge {
+      & > .houston-topbar-belt__badge {
         color: ${theme.beltColor.whiteForeground};
 
         & > svg > path,
@@ -102,12 +102,12 @@ export default styled(Belt, { label: 'houston-toolbar-belt' })(
       color: ${theme.beltColor.golden};
     }
 
-    .houston-toolbar-belt__badge {
+    .houston-topbar-belt__badge {
       color: white;
       display: flex;
       align-items: center;
 
-      & > .houston-toolbar-belt__text {
+      & > .houston-topbar-belt__text {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -125,7 +125,7 @@ export default styled(Belt, { label: 'houston-toolbar-belt' })(
       }
     }
 
-    .houston-toolbar-belt__icon {
+    .houston-topbar-belt__icon {
       min-width: 32px;
       display: flex;
       align-items: center;

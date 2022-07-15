@@ -8,21 +8,20 @@ import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 import useOnClickOutside from '../../../hooks/useClickOutside';
 import { useEscapeKey } from '../../../hooks/useEscapeKey';
 import Typography from '../../../Typography';
-import LayoutContext, { TOOLBAR_HEIGHT } from '../../context';
-import ToolbarContext from '../context';
+import LayoutContext, { TOPBAR_HEIGHT } from '../../context';
+import TopbarContext from '../context';
 import Avatar from './Avatar';
 import Belt from './Belt';
 
-const User = React.memo<IStyledProp>(({ className, children }) => {
+const User = React.memo<IStyledProp>(({ className }) => {
   const wrapperMenuUser = React.useRef<HTMLDivElement>(null);
-  const user = useContextSelector(ToolbarContext, context => context.user);
+  const user = useContextSelector(TopbarContext, context => context.user);
 
-  const userMenuRef = useContextSelector(LayoutContext, context => context.userMenu.container);
   const opened = useContextSelector(LayoutContext, context => context.userMenu.opened);
+  const hasMenu = useContextSelector(LayoutContext, context => context.userMenu.exists);
   const toogleOpened = useContextSelector(LayoutContext, context => context.userMenu.toogleOpened);
   const falseOpened = useContextSelector(LayoutContext, context => context.userMenu.falseOpened);
-
-  const hasMenu = React.useMemo(() => !!React.Children.count(children), [children]);
+  const registerContainer = useContextSelector(LayoutContext, context => context.userMenu.registerContainer);
 
   useOnClickOutside(wrapperMenuUser, () => hasMenu && falseOpened(), [hasMenu]);
   useEscapeKey(() => hasMenu && falseOpened(), [hasMenu]);
@@ -36,27 +35,27 @@ const User = React.memo<IStyledProp>(({ className, children }) => {
       <Belt belt={user.belt} />
 
       <div ref={wrapperMenuUser} className={cx(className, { '--active': hasMenu && opened, '--has-menu': hasMenu })}>
-        <div className='houston-toolbar-user__label' onClick={toogleOpened}>
+        <div className='houston-topbar-user__label' onClick={toogleOpened}>
           <Avatar name={user.name} avatar={user.avatar} />
 
-          <Typography size='xxs' color='inherit' className='houston-toolbar-user__name'>
+          <Typography size='xxs' color='inherit' className='houston-topbar-user__name'>
             {user.name}
           </Typography>
 
           {hasMenu && (
-            <div className='houston-toolbar-user__menu-arrow'>
+            <div className='houston-topbar-user__menu-arrow'>
               <IconChevronDown size={18} />
             </div>
           )}
         </div>
 
-        <div ref={userMenuRef} />
+        <div ref={registerContainer} />
       </div>
     </>
   );
 });
 
-export default styled(User, { label: 'houston-toolbar-user' })(
+export default styled(User, { label: 'houston-topbar-user' })(
   ({ theme }) => css`
     position: relative;
     z-index: 1100;
@@ -74,18 +73,18 @@ export default styled(User, { label: 'houston-toolbar-user' })(
       }
     }
 
-    & .houston-toolbar-user__label {
+    & .houston-topbar-user__label {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0 ${theme.spacing.xxxs};
-      height: ${TOOLBAR_HEIGHT}px;
+      height: ${TOPBAR_HEIGHT}px;
 
       ${theme.breakpoints.down('sm')} {
         padding: 0 ${theme.spacing.nano};
       }
 
-      & .houston-toolbar-user__name {
+      & .houston-topbar-user__name {
         max-width: 200px;
         white-space: nowrap;
         overflow: hidden;
@@ -104,7 +103,7 @@ export default styled(User, { label: 'houston-toolbar-user' })(
         }
       }
 
-      & .houston-toolbar-user__menu-arrow {
+      & .houston-topbar-user__menu-arrow {
         margin-left: ${theme.spacing.quarck};
         transition: 0.15s ease-out;
 
@@ -119,7 +118,7 @@ export default styled(User, { label: 'houston-toolbar-user' })(
         }
       }
 
-      &.--active .houston-toolbar-user__menu-arrow {
+      &.--active .houston-topbar-user__menu-arrow {
         transform: rotate(-180deg);
       }
     }

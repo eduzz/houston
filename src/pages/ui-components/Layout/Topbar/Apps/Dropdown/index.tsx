@@ -3,16 +3,16 @@ import * as React from 'react';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import CancelIcon from '@eduzz/houston-icons/Cancel';
 import ExpandIcon from '@eduzz/houston-icons/Expand';
-import styled, { css, IStyledProp, cx } from '@eduzz/houston-styles';
+import styled, { css, IStyledProp, cx, keyframes } from '@eduzz/houston-styles';
 
-import { ToolbarApplication } from '..';
+import { TopbarApplication } from '..';
 import Spinner from '../../../../Spinner';
 import Typography from '../../../../Typography';
-import { TOOLBAR_DROPDOWN_WIDTH, TOOLBAR_HEIGHT } from '../../../context';
+import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT } from '../../../context';
 
 export interface AppsDropdownProps extends IStyledProp {
   currentApplication: string | undefined;
-  applications: ToolbarApplication[] | undefined;
+  applications: TopbarApplication[] | undefined;
   opened: boolean;
   onClose: () => void;
 }
@@ -37,17 +37,17 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
 
     return (
       <div className={cx(className, { '--opened': opened, '--expanded': expanded })}>
-        <div className='houston-toolbar-apps-dropdown__header'>
-          <div className='houston-toolbar-apps-dropdown__title'>Lista de Apps</div>
+        <div className='houston-topbar-apps-dropdown__header'>
+          <div className='houston-topbar-apps-dropdown__title'>Lista de Apps</div>
 
-          <div className='houston-toolbar-apps-dropdown__button-close' onClick={toggleExpanded}>
+          <div className='houston-topbar-apps-dropdown__button-close' onClick={toggleExpanded}>
             Esc <CancelIcon />
           </div>
         </div>
 
-        <div className='houston-toolbar-apps-dropdown__list-apps'>
+        <div className='houston-topbar-apps-dropdown__list-apps'>
           {!applications?.length && (
-            <div className='houston-toolbar-apps-dropdown__loader'>
+            <div className='houston-topbar-apps-dropdown__loader'>
               <Spinner size={40} />
             </div>
           )}
@@ -56,14 +56,14 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
 
             return (
               <a
-                className={cx('houston-toolbar-apps-dropdown__item', isCurrent && '--current')}
+                className={cx('houston-topbar-apps-dropdown__item', isCurrent && '--current')}
                 key={app.application}
                 href={isCurrent ? undefined : app.url}
                 rel='noopener noreferrer'
                 target='_blank'
                 onClick={isCurrent ? onClose : undefined}
               >
-                <img src={app.icon} className='houston-toolbar-apps-dropdown__icon' />
+                <img src={app.icon} className='houston-topbar-apps-dropdown__icon' />
 
                 <Typography size={expanded ? 'xs' : 'xxs'} marginBottom={expanded}>
                   {app.label}
@@ -72,7 +72,7 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
                   size='xxs'
                   color='neutralColor.low.medium'
                   lineHeight='lg'
-                  className='houston-toolbar-apps-dropdown__description'
+                  className='houston-topbar-apps-dropdown__description'
                 >
                   {app.description}
                 </Typography>
@@ -82,7 +82,7 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
         </div>
 
         {!!applications?.length && (
-          <div className='houston-toolbar-apps-dropdown__expand'>
+          <div className='houston-topbar-apps-dropdown__expand'>
             <span onClick={toggleExpanded}>
               <ExpandIcon /> Expandir
             </span>
@@ -93,18 +93,23 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
   }
 );
 
-export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
+const descriptionAnimation = keyframes`
+0% { text-indent: -1000px; }
+  100% {  text-indent: 0px; }
+`;
+
+export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
   ({ theme }) => css`
-    width: ${TOOLBAR_DROPDOWN_WIDTH}px;
+    width: ${TOPBAR_DROPDOWN_WIDTH}px;
     position: fixed;
     padding: ${theme.spacing.nano};
     background: #fff;
     box-shadow: ${theme.shadow.level[1]};
-    top: ${TOOLBAR_HEIGHT}px;
+    top: ${TOPBAR_HEIGHT}px;
     left: 0;
     border-radius: 0 0 ${theme.spacing.nano} ${theme.spacing.nano};
-    z-index: 1099;
-    transition: 0.3s ease-in-out;
+    z-index: 105;
+    transition: 0.15s ease-in-out;
     opacity: 0;
     visibility: hidden;
     user-select: none;
@@ -124,11 +129,11 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
       user-select: initial;
     }
 
-    .houston-toolbar-apps-dropdown__header {
+    .houston-topbar-apps-dropdown__header {
       display: none;
     }
 
-    .houston-toolbar-apps-dropdown__list-apps {
+    .houston-topbar-apps-dropdown__list-apps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: ${theme.spacing.nano};
@@ -136,7 +141,7 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
       justify-items: center;
       box-sizing: border-box;
 
-      .houston-toolbar-apps-dropdown__loader {
+      .houston-topbar-apps-dropdown__loader {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -146,7 +151,7 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
         padding: ${theme.spacing.md};
       }
 
-      .houston-toolbar-apps-dropdown__item {
+      .houston-topbar-apps-dropdown__item {
         width: 100%;
         text-align: center;
         transition: 0.15s ease-out;
@@ -157,14 +162,17 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
         padding: ${theme.spacing.xxxs} ${theme.spacing.nano};
         display: block;
 
-        .houston-toolbar-apps-dropdown__icon {
+        .houston-topbar-apps-dropdown__icon {
           max-width: 40px;
           max-height: 40px;
           margin-bottom: ${theme.spacing.quarck};
         }
 
-        .houston-toolbar-apps-dropdown__description {
+        .houston-topbar-apps-dropdown__description {
           display: none;
+          overflow: hidden;
+          animation-delay: 0.15s;
+          animation: ${descriptionAnimation} 0.15s ease-in-out;
         }
 
         &.--current {
@@ -177,7 +185,7 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
       }
     }
 
-    .houston-toolbar-apps-dropdown__expand {
+    .houston-topbar-apps-dropdown__expand {
       text-align: center;
 
       span:not(.houston-icon) {
@@ -204,7 +212,8 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
 
     &.--expanded {
       width: 100%;
-      height: calc(100% - ${TOOLBAR_HEIGHT}px);
+      left: 0;
+      height: calc(100% - ${TOPBAR_HEIGHT}px);
       padding: ${theme.spacing.sm};
       overflow-x: auto;
 
@@ -216,7 +225,7 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
         padding: ${theme.spacing.nano};
       }
 
-      .houston-toolbar-apps-dropdown__header {
+      .houston-topbar-apps-dropdown__header {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -231,12 +240,12 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
           padding-bottom: ${theme.spacing.quarck};
         }
 
-        .houston-toolbar-apps-dropdown__title {
+        .houston-topbar-apps-dropdown__title {
           color: #37474f;
           font-weight: 500;
         }
 
-        .houston-toolbar-apps-dropdown__button-close {
+        .houston-topbar-apps-dropdown__button-close {
           color: ${theme.brandColor.primary.pure};
           font-weight: 500;
           display: flex;
@@ -256,7 +265,7 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
         }
       }
 
-      .houston-toolbar-apps-dropdown__list-apps {
+      .houston-topbar-apps-dropdown__list-apps {
         grid-template-columns: repeat(4, 1fr);
         grid-gap: ${theme.spacing.sm};
 
@@ -278,11 +287,11 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
         }
       }
 
-      .houston-toolbar-apps-dropdown__item {
+      .houston-topbar-apps-dropdown__item {
         text-align: left;
         padding: ${theme.spacing.xxs};
 
-        .houston-toolbar-apps-dropdown__icon {
+        .houston-topbar-apps-dropdown__icon {
           margin: auto;
           margin-bottom: ${theme.spacing.nano};
           text-align: center;
@@ -291,12 +300,12 @@ export default styled(AppsDropdown, { label: 'houston-toolbar-apps-dropdown' })(
           display: block;
         }
 
-        .houston-toolbar-apps-dropdown__description {
+        .houston-topbar-apps-dropdown__description {
           display: block;
         }
       }
 
-      .houston-toolbar-apps-dropdown__expand {
+      .houston-topbar-apps-dropdown__expand {
         display: none;
       }
     }

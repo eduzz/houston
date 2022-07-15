@@ -1,10 +1,10 @@
 import Content from './Content';
 import Layout from './Layout';
 import Sidebar, { SidebarProps as SidebarPropsExport } from './Sidebar';
-import Toolbar, { ToolbarProps as ToolbarPropsExport } from './Toolbar';
+import Topbar, { TopbarProps as TopbarPropsExport } from './Topbar';
 
-export { Sidebar, Content, Toolbar };
+export { Sidebar, Content, Topbar };
 export type SidebarProps = SidebarPropsExport;
-export type ToolbarProps = ToolbarPropsExport;
+export type TopbarProps = TopbarPropsExport;
 
 export default Layout;

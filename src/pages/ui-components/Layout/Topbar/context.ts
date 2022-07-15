@@ -1,6 +1,6 @@
 import { createContext } from 'use-context-selector';
 
-export interface HoustonToolbarUser {
+export interface HoustonTopbarUser {
   id?: number;
   name: string;
   email?: string;
@@ -9,16 +9,16 @@ export interface HoustonToolbarUser {
   isSupport?: boolean;
   supportId?: number;
   /*
-    If `true`, the toolbar will have a black background.
+    If `true`, the topbar will have a black background.
   */
   isClubeBlack?: boolean;
 }
 
-export interface ToolbarContextType {
-  user?: HoustonToolbarUser;
+export interface TopbarContextType {
+  user?: HoustonTopbarUser;
   currentApplication?: string;
 }
 
-const ToolbarContext = createContext<ToolbarContextType>({});
+const TopbarContext = createContext<TopbarContextType>({});
 
-export default ToolbarContext;
+export default TopbarContext;

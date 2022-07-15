@@ -1,17 +1,13 @@
-import { createContext, useContext } from 'use-context-selector';
+import { createContext } from 'use-context-selector';
 
-export interface ISidebarContext {
-  currentLocation?: string;
-  menuIsActive: (to?: string) => boolean;
-  onRequestClose?: () => void;
-
-  mobileVisible: boolean;
+export interface SidebarContextType {
+  isActiveItem: (to?: string) => boolean;
+  onRequestClose: () => void;
 }
 
-const SidebarContext = createContext<ISidebarContext>({} as ISidebarContext);
-
-export function useSidebarContext() {
-  return useContext(SidebarContext);
-}
+const SidebarContext = createContext<SidebarContextType>({
+  isActiveItem: () => false,
+  onRequestClose: () => null
+});
 
 export default SidebarContext;

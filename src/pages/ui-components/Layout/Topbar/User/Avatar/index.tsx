@@ -12,7 +12,7 @@ const UserAvatar = React.memo<UserAvatarProps>(({ className, name, avatar }) => 
   return <div className={className}>{!avatar && firstLetter}</div>;
 });
 
-export default styled(UserAvatar, { label: 'houston-toolbar-user-avatar' })(
+export default styled(UserAvatar, { label: 'houston-topbar-user-avatar' })(
   ({ theme, avatar }) => css`
     width: 30px;
     height: 30px;

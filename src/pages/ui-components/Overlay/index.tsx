@@ -6,6 +6,7 @@ export interface OverlayProps {
   children?: React.ReactNode;
   visible: boolean;
   color?: OverlayColor;
+  underTopbar?: boolean;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
@@ -14,27 +15,27 @@ const Overlay = ({ className, visible, color = 'low', ...rest }: OverlayProps & 
     <div
       aria-hidden='true'
       tabIndex={-1}
-      className={cx(className, { '--overlay-visible': visible }, { '--overlay-color-high': color === 'high' })}
+      className={cx(className, { '--overlay-visible': visible, '--overlay-color-high': color === 'high' })}
       {...rest}
     />
   );
 };
 
-export default styled(Overlay, { label: 'houston-overlay' })`
-  ${({ theme }) => css`
+export default styled(Overlay, {
+  label: 'houston-overlay',
+  shouldForwardProp: propName => propName !== 'underTopbar'
+})(
+  ({ theme, underTopbar }) => css`
     background: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
     width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: ${underTopbar ? 104 : 106};
     opacity: ${theme.opacity.level[0]};
     visibility: hidden;
     inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     backdrop-filter: blur(${theme.pxToRem(8)}rem);
 
     &.--overlay-color-high {
@@ -45,5 +46,5 @@ export default styled(Overlay, { label: 'houston-overlay' })`
       opacity: 1;
       visibility: visible;
     }
-  `}
-`;
+  `
+);

@@ -2,14 +2,14 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { breakpoints, css, cx, IStyledProp } from '@eduzz/houston-styles';
 
+import Overlay from '../../Overlay';
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { SIDEBAR_WIDTH, TOOLBAR_HEIGHT } from '../context';
-import SidebarContext, { ISidebarContext } from './context';
-import Menu from './Menu';
-import MenuItem from './MenuItem';
-import SubMenuItem from './SubMenuItem';
+import LayoutContext, { MENU_WIDTH, TOPBAR_HEIGHT } from '../context';
+import SidebarContext, { SidebarContextType } from './context';
+import Group from './Group';
+import Item from './Item';
 
 export interface SidebarProps extends IStyledProp {
   /**
@@ -20,58 +20,52 @@ export interface SidebarProps extends IStyledProp {
 }
 
 const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
-  const hasToolbar = useContextSelector(LayoutContext, context => context.hasToolbar);
-  const registerSidebar = useContextSelector(LayoutContext, context => context.registerSidebar);
+  const hasTopbar = useContextSelector(LayoutContext, context => context.topbar.exists);
+  const register = useContextSelector(LayoutContext, context => context.sidebar.register);
+  const opened = useContextSelector(LayoutContext, context => context.sidebar.opened);
 
   React.useEffect(() => {
-    const unregister = registerSidebar();
+    const unregister = register();
     return () => unregister();
-  }, [registerSidebar]);
+  }, [register]);
 
-  const visible = true;
   const onRequestClose = () => null;
 
-  const contextValue = React.useMemo<ISidebarContext>(
+  const contextValue = React.useMemo<SidebarContextType>(
     () => ({
-      currentLocation,
-      menuIsActive: (path?: string) => (!path ? false : path === currentLocation),
-      onRequestClose,
-      mobileVisible: false
+      isActiveItem: (path?: string) => (!path ? false : path === currentLocation),
+      onRequestClose
     }),
     [currentLocation]
   );
 
   return (
     <SidebarContext.Provider value={contextValue}>
-      <div
-        className={cx(className, {
-          '--visible': visible,
-          '--has-toolbar': hasToolbar
-        })}
-      >
-        <aside className='__sidebar'>{children}</aside>
+      <div className={cx(className, { '--visible': opened, '--has-topbar': hasTopbar })}>
+        <Overlay visible={opened} color='high' onClick={onRequestClose} underTopbar />
 
-        <div
-          onClick={onRequestClose}
-          className={cx('__overlay', { '--visible': visible, '--has-toolbar': hasToolbar })}
-        />
+        <aside className='houston-menu__container'>
+          <nav>
+            <ul>{children}</ul>
+          </nav>
+        </aside>
       </div>
     </SidebarContext.Provider>
   );
 };
 
-const SidebarStyled = styled(Sidebar, { label: 'houston-sidebar' })`
-  ${() => css`
-    width: ${SIDEBAR_WIDTH}px;
+const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
+  ${({ theme }) => css`
+    width: ${MENU_WIDTH}px;
     height: auto;
     position: relative;
 
-    & > .__sidebar {
+    & .houston-menu__container {
+      padding: ${theme.spacing.stack.xs} 0;
       background: #fff;
       display: inline-flex;
       flex-direction: column;
-      width: ${SIDEBAR_WIDTH}px;
-      border-right: 1px solid #e0e0e0;
+      width: ${MENU_WIDTH}px;
       transition: 0.2s ease-out, top 0s;
       z-index: 104;
       flex-grow: 1;
@@ -84,58 +78,55 @@ const SidebarStyled = styled(Sidebar, { label: 'houston-sidebar' })`
       a {
         text-decoration: none;
       }
-    }
 
-    & > .__overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: -1;
-      transition: 0.1s linear, top 0s;
-      opacity: 0;
-      visibility: hidden;
-      user-select: none;
-    }
+      & > nav {
+        overflow-y: auto;
+        overflow-x: hidden;
 
-    &.--has-toolbar {
-      & > .__sidebar,
-      & > .__overlay {
-        top: ${TOOLBAR_HEIGHT}px;
+        & > ul {
+          margin: 0;
+          padding: 0;
+        }
+
+        &::-webkit-scrollbar {
+          width: 3px;
+          background: white;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: ${theme.neutralColor.high.medium};
+          border-radius: 4px;
+        }
+
+        ul {
+          list-style-type: none;
+        }
       }
     }
 
-    // i'm not using breakpoint do be equal to the app toolbar menu icon
-    @media screen and (max-width: 900px) {
+    &.--has-topbar .houston-menu__container {
+      top: ${TOPBAR_HEIGHT}px;
+    }
+
+    ${breakpoints.down('md')} {
       width: 0;
 
-      & > .__sidebar {
-        left: -${SIDEBAR_WIDTH}px;
+      & .houston-menu__container {
+        left: -${MENU_WIDTH}px;
         border: 0;
         opacity: 0;
+        box-shadow: ${theme.shadow.level[1]};
       }
 
-      &.--visible {
-        & > .__sidebar {
-          left: 0;
-          opacity: 1;
-        }
-
-        & > .__overlay {
-          opacity: 1;
-          visibility: visible;
-          user-select: auto;
-          z-index: 102;
-        }
+      &.--visible .houston-menu__container {
+        left: 0;
+        opacity: 1;
       }
     }
   `}
 `;
 
 export default nestedComponent(SidebarStyled, {
-  Menu,
-  MenuItem,
-  SubMenuItem
+  Item,
+  Group
 });

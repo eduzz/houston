@@ -2,21 +2,23 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
+import CancelIcon from '@eduzz/houston-icons/Cancel';
 import MenuIcon from '@eduzz/houston-icons/DragAndDrop';
 import styled, { css, IStyledProp, breakpoints } from '@eduzz/houston-styles';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { TOOLBAR_HEIGHT } from '../context';
+import LayoutContext, { TOPBAR_HEIGHT } from '../context';
 import Action from './Action';
 import Apps from './Apps';
-import ToolbarContext, { ToolbarContextType } from './context';
+import TopbarContext, { TopbarContextType } from './context';
 import User from './User';
+import UserMenu from './UserMenu';
 import UserMenuDivider from './UserMenu/Divider';
 import UserMenuItem from './UserMenu/Item';
 import UserMenuContext from './UserMenu/ItemContext';
 
-export interface ToolbarProps extends IStyledProp {
+export interface TopbarProps extends IStyledProp {
   children: React.ReactNode;
   logo?: string;
   logoMobile?: string;
@@ -32,17 +34,19 @@ export interface ToolbarProps extends IStyledProp {
   };
 }
 
-const Toolbar = React.memo<ToolbarProps>(({ children, currentApplication, logo, logoMobile, className, user }) => {
+const Topbar = React.memo<TopbarProps>(({ children, currentApplication, logo, logoMobile, className, user }) => {
   const theme = useHoustonTheme();
-  const registerToolbar = useContextSelector(LayoutContext, context => context.registerToolbar);
+  const register = useContextSelector(LayoutContext, context => context.topbar.register);
+  const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
+  const sidebarOpened = useContextSelector(LayoutContext, context => context.sidebar.opened);
 
   React.useEffect(() => {
-    const unregister = registerToolbar();
+    const unregister = register();
     return () => unregister();
-  }, [registerToolbar]);
+  }, [register]);
 
   React.useEffect(() => {
-    document.body.classList.add('houston-toolbar-applied');
+    document.body.classList.add('houston-topbar-applied');
 
     let oldThemeColor: string | null = null;
     let metaThemeColor = document.querySelector<HTMLMetaElement>('meta[name=theme-color]');
@@ -58,56 +62,57 @@ const Toolbar = React.memo<ToolbarProps>(({ children, currentApplication, logo, 
     }
 
     return () => {
-      document.body.classList.remove('houston-toolbar-applied');
+      document.body.classList.remove('houston-topbar-applied');
       if (metaThemeColor && oldThemeColor) metaThemeColor.content = oldThemeColor;
     };
   }, [theme]);
 
-  const contextValue = React.useMemo<ToolbarContextType>(
+  const contextValue = React.useMemo<TopbarContextType>(
     () => ({ currentApplication, user }),
     [currentApplication, user]
   );
 
   return (
-    <ToolbarContext.Provider value={contextValue}>
+    <TopbarContext.Provider value={contextValue}>
       <div className={className}>
-        <header className='houston-toolbar__header'>
-          <div className='houston-toolbar__start'>
-            <div
-              className='houston-toolbar__icon-menu'
-              // onClick={iconMenuProps.onClick}
-            >
-              <MenuIcon size={24} />
-            </div>
+        <header className='houston-topbar__header'>
+          <div className='houston-topbar__start'>
+            <Action
+              icon={sidebarOpened ? <CancelIcon size={24} /> : <MenuIcon size={24} />}
+              onClick={sidebarToogleOpened}
+            />
 
             <Apps />
 
-            <div className='houston-toolbar__logo'>
+            <div className='houston-topbar__logo'>
               <img
-                className='houston-toolbar__logo-default'
-                src={logo ?? '//eduzz-houston.s3.amazonaws.com/toolbar/logos/eduzz.svg'}
+                className='houston-topbar__logo-default'
+                src={logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz.svg'}
               />
               <img
-                className='houston-toolbar__logo-mobile'
-                src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/toolbar/logos/eduzz-mobile.svg'}
+                className='houston-topbar__logo-mobile'
+                src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz-mobile.svg'}
               />
             </div>
 
-            {user?.isSupport && <span className='houston-toolbar__support'>SUPORTE</span>}
+            {user?.isSupport && <span className='houston-topbar__support'>SUPORTE</span>}
           </div>
 
-          <div className='houston-toolbar__quick-access'>{children}</div>
+          <div className='houston-topbar__quick-access'>
+            {children}
+            <User />
+          </div>
         </header>
       </div>
-    </ToolbarContext.Provider>
+    </TopbarContext.Provider>
   );
 });
 
-const ToolbarStyled = styled(Toolbar, { label: 'houston-toolbar' })(
+const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
   ({ theme }) => css`
-    height: ${TOOLBAR_HEIGHT}px;
+    height: ${TOPBAR_HEIGHT}px;
 
-    & > .houston-toolbar__header {
+    & > .houston-topbar__header {
       font-family: ${theme.font.family.base};
       background-color: ${theme.brandColor.primary.pure};
       color: white;
@@ -115,17 +120,17 @@ const ToolbarStyled = styled(Toolbar, { label: 'houston-toolbar' })(
       top: 0;
       left: 0;
       right: 0;
-      height: ${TOOLBAR_HEIGHT}px;
+      height: ${TOPBAR_HEIGHT}px;
       display: flex;
       justify-content: space-between;
       z-index: 105;
       transition: 0.15s ease-out;
 
-      & > .houston-toolbar__start {
+      & > .houston-topbar__start {
         display: flex;
         align-items: center;
 
-        .houston-toolbar__icon-menu {
+        .houston-topbar__icon-menu {
           margin-right: ${theme.spacing.xxxs};
           line-height: 0;
           cursor: pointer;
@@ -136,7 +141,7 @@ const ToolbarStyled = styled(Toolbar, { label: 'houston-toolbar' })(
           }
         }
 
-        .houston-toolbar__logo {
+        .houston-topbar__logo {
           height: 70%;
           width: auto;
 
@@ -148,15 +153,15 @@ const ToolbarStyled = styled(Toolbar, { label: 'houston-toolbar' })(
           & > img {
             max-width: 100%;
             max-height: 100%;
-            height: ${TOOLBAR_HEIGHT}px;
+            height: ${TOPBAR_HEIGHT}px;
           }
 
-          & > .houston-toolbar__logo-mobile {
+          & > .houston-topbar__logo-mobile {
             display: none;
           }
         }
 
-        .houston-toolbar__support {
+        .houston-topbar__support {
           font-size: 12px;
           font-weight: 600;
           color: #fbcd02;
@@ -170,7 +175,7 @@ const ToolbarStyled = styled(Toolbar, { label: 'houston-toolbar' })(
         }
       }
 
-      & > .houston-toolbar__quick-access {
+      & > .houston-topbar__quick-access {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -179,9 +184,9 @@ const ToolbarStyled = styled(Toolbar, { label: 'houston-toolbar' })(
   `
 );
 
-export default nestedComponent(ToolbarStyled, {
+export default nestedComponent(TopbarStyled, {
   Action,
-  User,
+  UserMenu,
   UserMenuItem,
   UserMenuDivider,
   UserMenuContext

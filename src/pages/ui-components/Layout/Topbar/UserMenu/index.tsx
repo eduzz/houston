@@ -4,7 +4,8 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
-import LayoutContext, { TOOLBAR_HEIGHT, TOOLBAR_MENU_WIDTH } from '../../context';
+import Portal from '../../../Portal';
+import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_MENU_WIDTH } from '../../context';
 
 export interface UserMenuProps extends IStyledProp {
   children: React.ReactNode;
@@ -13,20 +14,27 @@ export interface UserMenuProps extends IStyledProp {
 const UserMenu: React.FC<UserMenuProps> = ({ className, children }) => {
   const opened = useContextSelector(LayoutContext, context => context.userMenu.opened);
   const register = useContextSelector(LayoutContext, context => context.userMenu.register);
+  const container = useContextSelector(LayoutContext, context => context.userMenu.container);
 
   React.useEffect(() => {
     const unregister = register();
     return () => unregister();
   }, [register]);
 
-  return <div className={cx(className, opened && '--opened')}>{children}</div>;
+  if (!container) return null;
+
+  return (
+    <Portal target={container}>
+      <div className={cx(className, opened && '--opened')}>{children}</div>
+    </Portal>
+  );
 };
 
-export default styled(UserMenu, { label: 'houston-toolbar-user-menu' })(
+export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
   ({ theme }) => css`
-    width: ${TOOLBAR_MENU_WIDTH}px;
+    width: ${TOPBAR_MENU_WIDTH}px;
     position: fixed;
-    top: ${TOOLBAR_HEIGHT}px;
+    top: ${TOPBAR_HEIGHT}px;
     right: 0;
     box-shadow: ${theme.shadow.level[1]};
     padding: ${theme.spacing.nano};

@@ -51,16 +51,6 @@ function ThemeProvider({
     return () => styleElement.remove();
   }, [disabledFontBase]);
 
-  React.useEffect(() => {
-    const el = document.createElement('link');
-    el.rel = 'stylesheet';
-    el.href = '//fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700';
-
-    document.head.appendChild(el);
-
-    return () => el.remove();
-  }, []);
-
   React.useEffect(() => setCurrentTheme(theme), [theme]);
 
   return (
