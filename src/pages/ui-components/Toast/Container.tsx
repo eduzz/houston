@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } from 'react-toastify';
 
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
@@ -7,7 +5,7 @@ import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import useMediaQuery from '../hooks/useMediaQuery';
 import styles from './styles';
 
-const ToastContainer: React.FC<ToastContainerProps> = props => {
+const ToastContainer = (props: ToastContainerProps) => {
   const theme = useHoustonTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 

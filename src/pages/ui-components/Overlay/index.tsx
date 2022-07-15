@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import useScrollBlock from '../hooks/useScrollBlock';
 
@@ -16,7 +16,7 @@ export interface OverlayProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const Overlay = ({ className, visible, color = 'low', ...rest }: OverlayProps & IStyledProp) => {
+const Overlay = ({ className, visible, color = 'low', children, ...rest }: OverlayProps & StyledProp) => {
   const { disableScroll, enableScroll } = useScrollBlock();
 
   React.useEffect(() => {
@@ -35,7 +35,9 @@ const Overlay = ({ className, visible, color = 'low', ...rest }: OverlayProps & 
       tabIndex={-1}
       className={cx(className, { '--overlay-visible': visible }, { '--overlay-color-high': color === 'high' })}
       {...rest}
-    />
+    >
+      {children}
+    </div>
   );
 };
 

@@ -6,7 +6,7 @@ import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
 import ComponentDev from './components';
 
 declare module '@eduzz/houston-styles' {
-  interface IHoustonThemeCustomVariables {
+  interface HoustonThemePropsCustomVariables {
     customVar: string;
     customObject: {
       prop: number;

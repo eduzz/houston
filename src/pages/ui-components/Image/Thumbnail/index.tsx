@@ -2,15 +2,15 @@ import * as React from 'react';
 
 import styled, { css, cx } from '@eduzz/houston-styles';
 
-import Image, { IImageProps } from '..';
+import Image, { ImageProps } from '..';
 
 export type ThumbnailSizes = 'sm' | 'md' | 'lg' | 'xl';
 
-export interface IThumbnailProps extends IImageProps {
+export interface ThumbnailProps extends ImageProps {
   size?: ThumbnailSizes;
 }
 
-const Thumbnail = React.forwardRef<HTMLImageElement, IThumbnailProps>(({ size = 'md', className, ...props }, ref) => {
+const Thumbnail = React.forwardRef<HTMLImageElement, ThumbnailProps>(({ size = 'md', className, ...props }, ref) => {
   return <Image ref={ref} className={cx(className, size && `--${size}`)} {...props} />;
 });
 

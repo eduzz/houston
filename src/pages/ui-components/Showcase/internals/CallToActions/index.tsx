@@ -10,16 +10,16 @@ import Button from '../../../Button';
 import { useFirstChildrenProps } from '../../../hooks/useChildrenProps';
 import ShowcaseCloseButton from '../../CloseButton';
 import { useShowcaseContext } from '../../context';
-import ShowcaseLastStep, { IShowcaseLastStepProps } from '../../LastButton';
-import ShowcaseNextStep, { IShowcaseNextStepProps } from '../../NextButton';
-import ShowcasePreviousStep, { IShowcasePreviousStepProps } from '../../PreviousButton';
+import ShowcaseLastStep, { ShowcaseLastStepProps } from '../../LastButton';
+import ShowcaseNextStep, { ShowcaseNextStepProps } from '../../NextButton';
+import ShowcasePreviousStep, { ShowcasePreviousStepProps } from '../../PreviousButton';
 
-interface IStyleProps {
+interface StyleProps {
   size?: 'small' | 'medium' | 'large';
 }
 
 const useStyles = createUseStyles(theme => ({
-  ctas: (props: IStyleProps) => ({
+  ctas: (props: StyleProps) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -103,10 +103,10 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
   const theme = useTheme();
   const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('sm'));
 
-  const lastButton = useFirstChildrenProps<IShowcaseLastStepProps>(buttons, ShowcaseLastStep);
-  const nextButton = useFirstChildrenProps<IShowcaseNextStepProps>(buttons, ShowcaseNextStep);
-  const previousButton = useFirstChildrenProps<IShowcasePreviousStepProps>(buttons, ShowcasePreviousStep);
-  const closeButton = useFirstChildrenProps<IShowcasePreviousStepProps>(buttons, ShowcaseCloseButton);
+  const lastButton = useFirstChildrenProps<ShowcaseLastStepProps>(buttons, ShowcaseLastStep);
+  const nextButton = useFirstChildrenProps<ShowcaseNextStepProps>(buttons, ShowcaseNextStep);
+  const previousButton = useFirstChildrenProps<ShowcasePreviousStepProps>(buttons, ShowcasePreviousStep);
+  const closeButton = useFirstChildrenProps<ShowcasePreviousStepProps>(buttons, ShowcaseCloseButton);
   const isFirstStep = currentStep === 1;
   const isLastStep = currentStep === steps.length;
   const isSingleStep = steps.length === 1;

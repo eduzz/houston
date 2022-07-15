@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { createContext, useContextSelector } from 'use-context-selector';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
+import FormAdapter from '@eduzz/houston-core/formAdapter';
 
-const FormContext = createContext<IFormAdapter<any> | null>(null);
+const FormContext = createContext<FormAdapter<any> | null>(null);
 
-export function useFormContext<T = any>(): IFormAdapter<T> | null {
+export function useFormContext<T = any>(): FormAdapter<T> | null {
   return useContextSelector(FormContext, context => context);
 }
 

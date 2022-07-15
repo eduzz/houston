@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import CheckboxRadio, { ICheckboxRadioProps } from '../_utils/CheckboxRadio';
+import CheckboxRadio, { CheckboxRadioProps } from '../_utils/CheckboxRadio';
 
-export interface ICheckboxProps extends ICheckboxRadioProps {}
+export interface CheckboxProps extends CheckboxRadioProps {}
 
-const Checkbox: React.FC<ICheckboxProps> = props => {
+const Checkbox: React.FC<CheckboxProps> = props => {
   return <CheckboxRadio {...props} type='checkbox' />;
 };
 

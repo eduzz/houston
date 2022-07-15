@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Divider from '../../Divider';
 import { ListContext } from '../context';
 
-export interface ListItemProps extends IStyledProp, React.HTMLAttributes<HTMLLIElement> {
+export interface ListItemProps extends StyledProp, React.HTMLAttributes<HTMLLIElement> {
   children: React.ReactNode;
   disabled?: boolean;
   isActive?: boolean;

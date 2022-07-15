@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { IHoustonTheme } from '@eduzz/houston-styles';
-import styled, { css, IStyledProp } from '@eduzz/houston-styles/styled';
+import { HoustonThemeProps } from '@eduzz/houston-styles';
+import styled, { css, StyledProp } from '@eduzz/houston-styles/styled';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import nestedComponent from '../utils/nestedComponent';
@@ -34,7 +34,7 @@ export type TypographyTags =
 
 export type TypographyMargin = keyof Omit<HoustonTokens['spacing'], 'fn' | 'squish' | 'inline' | 'stack' | 'inset'>;
 
-export interface ITypographyProps extends IStyledProp, React.HTMLAttributes<HTMLElement> {
+export interface TypographyProps extends StyledProp, React.HTMLAttributes<HTMLElement> {
   id?: string;
   /**
    * Defaults to 'xxs'
@@ -61,13 +61,13 @@ export interface ITypographyProps extends IStyledProp, React.HTMLAttributes<HTML
   as?: TypographyTags;
 }
 
-const Typography = React.forwardRef<any, ITypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
+const Typography = React.forwardRef<any, TypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { size, lineHeight, weight, marginBottom, color, ...forwardProps } = props;
   return <Tag ref={ref} className={className} {...forwardProps} />;
 });
 
-function getColor(theme: IHoustonTheme, color: TypographyColors) {
+function getColor(theme: HoustonThemeProps, color: TypographyColors) {
   if (color === 'inherit') {
     return 'inherit';
   }

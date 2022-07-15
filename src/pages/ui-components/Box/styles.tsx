@@ -1,9 +1,9 @@
 import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 
-import { IBoxProps } from '.';
+import { BoxProps } from '.';
 
 const useStyles = createUseStyles(theme => ({
-  box: ({ xs, sm, md, lg, xl }: IBoxProps) => ({
+  box: ({ xs, sm, md, lg, xl }: BoxProps) => ({
     [theme.breakpoints.up('xs')]: {
       padding: xs?.padding,
       margin: xs?.margin

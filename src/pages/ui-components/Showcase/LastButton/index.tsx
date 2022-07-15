@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-export interface IShowcaseLastStepProps {
+export interface ShowcaseLastStepProps {
   label?: string;
 }
 
-export default (() => null) as React.FC<IShowcaseLastStepProps>;
+export default (() => null) as React.FC<ShowcaseLastStepProps>;

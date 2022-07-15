@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import truncateText from '../../utils/truncateText';
 import warning from '../../utils/warning';
@@ -8,14 +8,14 @@ import { InformativeIcon, PositiveIcon, AlertIcon, CancelIcon, WarningIcon } fro
 
 type ToastTypes = 'informative' | 'positive' | 'negative' | 'warning';
 
-interface IToastBodyProps extends IStyledProp {
+interface ToastBodyProps extends StyledProp {
   content: string;
   type: ToastTypes;
 }
 
-type IIconsMap = Record<ToastTypes, JSX.Element>;
+type IconsMap = Record<ToastTypes, JSX.Element>;
 
-const IconsMap: IIconsMap = {
+const IconsMap: IconsMap = {
   informative: <InformativeIcon />,
   positive: <PositiveIcon />,
   negative: <AlertIcon />,
@@ -25,7 +25,7 @@ const IconsMap: IIconsMap = {
 const GUTTER_WIDTH = 32;
 const TEXT_MAX_LENGTH = 48;
 
-const ToastBody = ({ className, content, type }: IToastBodyProps) => {
+const ToastBody = ({ className, content, type }: ToastBodyProps) => {
   React.useEffect(() => {
     if (content.length > TEXT_MAX_LENGTH) {
       warning('Toast', `text limit is ${TEXT_MAX_LENGTH} characters`);

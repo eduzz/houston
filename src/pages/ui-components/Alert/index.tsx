@@ -1,5 +1,5 @@
-import Alert, { IAlertProps, AlertTypes, AlertAction, IAlertInterface } from './Alert';
+import Alert, { AlertProps, AlertTypes, AlertAction, AlertInterface } from './Alert';
 
-export type { IAlertProps, AlertTypes, AlertAction, IAlertInterface };
+export type { AlertProps, AlertTypes, AlertAction, AlertInterface };
 
 export default Alert;

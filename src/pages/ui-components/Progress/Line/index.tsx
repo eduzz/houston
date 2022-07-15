@@ -19,7 +19,7 @@ const useStyles = createUseStyles({
   }
 });
 
-interface IStep {
+interface StepProps {
   label?: string;
   icon?: React.ReactNode;
   error?: boolean;
@@ -27,12 +27,12 @@ interface IStep {
 
 export type ProgressLinePropsExtends = 'id' | 'className';
 
-export interface IProgressLineProps extends Pick<StepperProps, ProgressLinePropsExtends> {
-  steps: IStep[];
+export interface ProgressLineProps extends Pick<StepperProps, ProgressLinePropsExtends> {
+  steps: StepProps[];
   currentStep?: number;
 }
 
-const ProgressLine: React.FC<IProgressLineProps> = ({ steps, currentStep = 0, ...props }) => {
+const ProgressLine: React.FC<ProgressLineProps> = ({ steps, currentStep = 0, ...props }) => {
   const classes = useStyles();
   const progress = ((currentStep + 1) / steps.length) * 100;
 

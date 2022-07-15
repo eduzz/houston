@@ -1,18 +1,18 @@
 import * as React from 'react';
 
-import styled, { css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 import Caption from '@eduzz/houston-ui/Typography/Caption';
 
 import { styleContent } from './styles';
 
-export interface ITooltipBody extends IStyledProp {
+export interface TooltipBody extends StyledProp {
   title: React.ReactNode;
 }
 
 const MIN_WIDTH_IN_PIXELS = 64;
 const MAX_WIDTH_IN_PIXELS = 248;
 
-const TooltipBody = ({ className, title }: ITooltipBody) => {
+const TooltipBody = ({ className, title }: TooltipBody) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
 
   const [config, setConfig] = React.useState({

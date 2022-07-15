@@ -1,11 +1,11 @@
-import styled, { IStyledProp, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 export interface ModalContentProps {
   children?: React.ReactNode;
 }
 
-const ModalContent = ({ ...rest }: ModalContentProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => (
-  <div {...rest} />
+const ModalContent = ({ children, ...rest }: ModalContentProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => (
+  <div {...rest}>{children}</div>
 );
 
 export default styled(ModalContent, { label: 'houston-modal-content' })`

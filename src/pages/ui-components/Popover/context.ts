@@ -1,19 +1,19 @@
 import { Placement } from '@popperjs/core';
 import { createContext } from 'use-context-selector';
 
-export interface IPopoverContextState {
+export interface PopoverContextState {
   opened: boolean;
   target: HTMLElement | null;
   content: HTMLElement | null;
   placement: Placement | null;
 }
 
-export interface IPopoverContext {
+export interface PopoverContextProps {
   openedTarget: HTMLElement | null;
-  setState(state: IPopoverContextState): () => void;
+  setState(state: PopoverContextState): () => void;
 }
 
-const PopoverContext = createContext<IPopoverContext>({
+const PopoverContext = createContext<PopoverContextProps>({
   setState: () => () => null,
   openedTarget: null
 });

@@ -4,7 +4,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
 import { cx } from '@eduzz/houston-styles';
-import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { StyledProp } from '@eduzz/houston-styles/styled';
 
 import Collapse from '../../../Collapse';
 import MenuContext from '../Menu/context';
@@ -12,7 +12,7 @@ import SubMenuItemContext, { ISidebarSubMenuItemContext } from './context';
 
 let refCounter = 0;
 
-export interface ISidebarSubMenuItem extends IStyledProp {
+export interface ISidebarSubMenuItem extends StyledProp {
   id?: string;
   label: React.ReactNode;
   icon?: React.ReactNode;

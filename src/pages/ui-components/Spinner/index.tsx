@@ -1,10 +1,8 @@
-import * as React from 'react';
-
-import styled, { IStyledProp, keyframes, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, keyframes, css } from '@eduzz/houston-styles';
 
 import getColorFallback from '../utils/getColorFallback';
 
-export interface ILoaderProps extends IStyledProp {
+export interface LoaderProps extends StyledProp {
   size?: number;
   color?: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'inherit';
 }
@@ -12,7 +10,7 @@ export interface ILoaderProps extends IStyledProp {
 const SIZE_BASE = 65;
 const CIRCLE_SIZE_BASE = 30;
 
-const Spinner: React.FC<ILoaderProps> = ({ className, size = SIZE_BASE }) => {
+const Spinner = ({ className, size = SIZE_BASE }: LoaderProps) => {
   const round = (size / SIZE_BASE) * CIRCLE_SIZE_BASE;
 
   return (

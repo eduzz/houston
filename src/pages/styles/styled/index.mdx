@@ -8,13 +8,13 @@ Padrão styled, é possível receber o _theme_ e as _props_ juntos na função d
 
 ```tsx
 import * as React from 'react';
-import styled, { IStyledProp } from '@eduzz/houston-styles';
+import styled, { StyledProp } from '@eduzz/houston-styles';
 
-interface IProps extends IStyledProp {
+interface Props extends StyledProp {
   success: boolean;
 }
 
-const ComponentsDev: React.FC<IProps> = ({ className }) => {
+const ComponentsDev = ({ className }: Props) => {
   return (
     <div className={className}>
       <span className='__text'>Teste</span>
@@ -39,9 +39,9 @@ Basta importar o breakpoints e utilizar os [tamanhos pré-definidos no tokens](.
 
 ```tsx
 import * as React from 'react';
-import styled, { IStyledProp, breakpoints } from '@eduzz/houston-styles';
+import styled, { StyledProp, breakpoints } from '@eduzz/houston-styles';
 
-const ComponentsDev: React.FC<IStyledProp> = ({ className }) => {
+const ComponentsDev: React.FC<StyledProp> = ({ className }) => {
   return <div className={className} />;
 };
 
@@ -61,9 +61,9 @@ Utilize o [cx](https://emotion.sh/docs/@emotion/css#cx) para facilitar na hora d
 
 ```tsx
 import * as React from 'react';
-import styled, { IStyledProp, clsx } from '@eduzz/houston-styles';
+import styled, { StyledProp, clsx } from '@eduzz/houston-styles';
 
-const ComponentsDev: React.FC<IStyledProp> = ({ className }) => {
+const ComponentsDev: React.FC<StyledProp> = ({ className }) => {
   return <div className={clsx(className, 'outra-classe', { 'classe-condicional': true })} />;
 };
 
@@ -78,13 +78,13 @@ Para criar animações utilize o keyframes conforme o exemplo abaixo.
 
 ```tsx
 import * as React from 'react';
-import styled, { IStyledProp, keyframes, IHoustonTheme } from '@eduzz/houston-styles';
+import styled, { StyledProp, keyframes, HoustonThemeProps } from '@eduzz/houston-styles';
 
-interface IProps extends IStyledProp {
+interface Props extends StyledProp {
   size: number;
 }
 
-const ComponentsDev: React.FC<IStyledProp> = ({ className }) => {
+const ComponentsDev: React.FC<StyledProp> = ({ className }) => {
   return (
     <div className={className}>
       <div className='__circle' />
@@ -99,7 +99,7 @@ const rotationAnimation = keyframes`
 `;
 
 // usando props, não é possível interpolar as props/theme, é preciso receber eles via parametro.
-const circleAnimation = (props: ILoaderProps & { theme: IHoustonTheme }) => keyframes`
+const circleAnimation = (props: ILoaderProps & { theme: HoustonThemeProps }) => keyframes`
   0% { stroke-dashoffset: ${props.size}
   50% { stroke-dashoffset: ${props.size}; transform: rotate(135deg); }
   100% { stroke-dashoffset: ${props.size}; transform: rotate(450deg); }
@@ -120,9 +120,9 @@ Se estiver usando muita interpolação, ou precisar fazer algum calculo é poss�
 
 ```tsx
 import * as React from 'react';
-import styled, { IStyledProp, clsx, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, clsx, css } from '@eduzz/houston-styles';
 
-interface IProps extends IStyledProp {
+interface Props extends StyledProp {
   size?: numberl;
 }
 

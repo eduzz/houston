@@ -2,23 +2,23 @@ import * as React from 'react';
 
 import CollapseMUI from '@mui/material/Collapse';
 
-interface ICollapseProps {
+interface CollapseProps {
   visibled: boolean;
-  children?: any;
+  children?: React.ReactNode;
   onEnter?: () => void;
   destroyOnClose?: boolean;
   mountOnEnter?: boolean;
   timeout?: number;
 }
 
-const Collapse: React.FC<ICollapseProps> = ({
+const Collapse = ({
   children,
   visibled,
   destroyOnClose = false,
   onEnter,
   mountOnEnter = false,
   timeout = 500
-}) => {
+}: CollapseProps) => {
   return (
     <CollapseMUI
       in={visibled}

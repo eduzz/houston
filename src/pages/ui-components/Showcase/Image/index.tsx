@@ -1,8 +1,6 @@
-import * as React from 'react';
-
-export interface IShowcaseImageProps {
+export interface ShowcaseImageProps {
   src: string;
   alt: string;
 }
 
-export default (() => null) as React.FC<IShowcaseImageProps>;
+export default (() => null) as React.FC<ShowcaseImageProps>;

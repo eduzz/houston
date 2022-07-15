@@ -1,10 +1,10 @@
 import { cx } from '@eduzz/houston-styles';
 
-import Typography, { ITypographyProps } from '../../Typography';
+import Typography, { TypographyProps } from '../../Typography';
 
-type ListTitleProps = 'id' | 'className';
-
-export interface IListTitleProps extends Pick<ITypographyProps, ListTitleProps> {
+export interface ListTitleProps
+  extends Pick<TypographyProps, 'className'>,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   title: React.ReactNode;
   description?: React.ReactNode;
   /**
@@ -13,7 +13,7 @@ export interface IListTitleProps extends Pick<ITypographyProps, ListTitleProps> 
   disableTypography?: boolean;
 }
 
-const ListText = ({ title, description, disableTypography = false, className, ...rest }: IListTitleProps) => (
+const ListText = ({ title, description, disableTypography = false, className, ...rest }: ListTitleProps) => (
   <div className={cx('houston-list-item-text', className)} {...rest}>
     {!disableTypography ? (
       <Typography size='xs' weight='semibold' lineHeight='lg'>

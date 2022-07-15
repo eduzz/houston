@@ -5,11 +5,11 @@ import { useContextSelector } from 'use-context-selector';
 import TableContext from '../context';
 import TableLoading from '../Loading';
 
-export interface ITableBodyProps {
+export interface TableBodyProps {
   children: React.ReactNode;
 }
 
-const TableBody = React.memo<ITableBodyProps>(({ children }) => {
+const TableBody = React.memo<TableBodyProps>(({ children }) => {
   const loading = useContextSelector(TableContext, context => context.loading);
   const loadingText = useContextSelector(TableContext, context => context.loadingText);
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 import Divider from '../../Divider';
 import IconButton from '../../IconButton';
@@ -11,6 +11,7 @@ import { ModalContext } from '../context';
 
 export interface ModalHeaderProps {
   children?: React.ReactNode;
+  disableTypography?: boolean;
 }
 
 const IconClose = () => (
@@ -24,7 +25,11 @@ const IconClose = () => (
   </svg>
 );
 
-const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => {
+const ModalHeader = ({
+  children,
+  disableTypography,
+  ...rest
+}: ModalHeaderProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   const closeIcon = useContextSelector(ModalContext, context => context.closeIcon);
   const onClose = useContextSelector(ModalContext, context => context.onClose);
 
@@ -32,13 +37,13 @@ const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttribu
     <header {...rest}>
       <div className='modal-header__wrapper'>
         <div className='modal-header__title'>
-          {typeof children === 'string' && (
-            <Typography.Heading as='h6' size='sm'>
+          {!disableTypography ? (
+            <Typography as='h6' size='sm'>
               {children}
-            </Typography.Heading>
+            </Typography>
+          ) : (
+            children
           )}
-
-          {typeof children !== 'string' && children}
         </div>
 
         {closeIcon && (

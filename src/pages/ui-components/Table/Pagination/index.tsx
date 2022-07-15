@@ -3,7 +3,7 @@ import * as React from 'react';
 import PaginationMUI from '@mui/material/Pagination';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { breakpoints, IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { breakpoints, StyledProp } from '@eduzz/houston-styles/styled';
 
 import Input from '../../Forms/Input';
 import Select from '../../Forms/Select';
@@ -12,11 +12,11 @@ import Row from '../../Grid/Row';
 import Typography from '../../Typography';
 import TableContext from '../context';
 
-type ITablePaginationExtends = 'id' | 'className' | 'children';
+type TablePaginationExtends = 'id' | 'className' | 'children';
 
-export interface ITablePagination
-  extends Pick<React.HTMLAttributes<HTMLTableRowElement>, ITablePaginationExtends>,
-    IStyledProp {
+export interface TablePagination
+  extends Pick<React.HTMLAttributes<HTMLTableRowElement>, TablePaginationExtends>,
+    StyledProp {
   page: number;
   perPage: number;
   total: number;
@@ -27,7 +27,7 @@ export interface ITablePagination
   onChangePerPage: (rowsPerPage: number) => void;
 }
 
-const Pagination = React.memo<ITablePagination>(
+const Pagination = React.memo<TablePagination>(
   ({
     page,
     optionsPerPage: optionsPerPageProp,

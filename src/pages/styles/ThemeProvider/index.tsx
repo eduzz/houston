@@ -2,14 +2,14 @@ import * as React from 'react';
 
 import { ThemeProvider as ThemeProviderEmotion } from '@emotion/react';
 
-import { IHoustonTheme } from '..';
+import { HoustonThemeProps } from '..';
 
-export interface IThemeProvider {
-  theme: IHoustonTheme;
+export interface ThemeProviderProps {
+  theme: HoustonThemeProps;
   children?: React.ReactNode;
 }
 
-const ThemeProvider: React.FC<IThemeProvider> = ({ theme, children }) => {
+const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme, children }) => {
   return <ThemeProviderEmotion theme={theme}>{children}</ThemeProviderEmotion>;
 };
 

@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import Bullet from '@eduzz/houston-icons/Bullet';
 import Done from '@eduzz/houston-icons/Done';
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Typography from '../../Typography';
 import withForm, { WithFormProps } from '../Form/withForm';
 
-interface IOwnProperties extends IStyledProp, WithFormProps<never> {
+interface OwnProperties extends StyledProp, WithFormProps<never> {
   children?: React.ReactNode;
   errorMessage?: string;
   helperText?: React.ReactNode;
@@ -34,15 +34,15 @@ interface IOwnProperties extends IStyledProp, WithFormProps<never> {
   onChange?: (checked: any) => any;
 }
 
-export interface ICheckboxRadioProps
-  extends IOwnProperties,
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof IOwnProperties | 'type'> {}
+export interface CheckboxRadioProps
+  extends OwnProperties,
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof OwnProperties | 'type'> {}
 
-interface IInternalCheckboxRadioProps extends ICheckboxRadioProps {
+interface InternalCheckboxRadioProps extends CheckboxRadioProps {
   type: 'checkbox' | 'radio';
 }
 
-const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
+const CheckboxRadioField = ({
   value,
   label,
   children,
@@ -57,7 +57,7 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   onChange,
   className,
   ...props
-}) => {
+}: InternalCheckboxRadioProps) => {
   value = !multiple ? value : Array.isArray(value) ? value : [];
 
   checkedValue = checkedValue ?? true;

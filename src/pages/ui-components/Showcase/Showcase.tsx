@@ -12,10 +12,10 @@ import { useFirstChildrenProps } from '../hooks/useChildrenProps';
 import { getReactChildrenComponent, getReactFirstChildrenProps } from '../utils/children';
 import nestedComponent from '../utils/nestedComponent';
 import ShowcaseCloseButton from './CloseButton';
-import ShowcaseContextProvider, { IShowcaseContext } from './context';
+import ShowcaseContextProvider, { ShowcaseContextProps } from './context';
 import ShowcaseGenericButtons from './GenericButtons';
-import ShowcaseImage, { IShowcaseImageProps } from './Image';
-import { IShowcaseProps, IShowcaseStep, IShowcaseButtons } from './interfaces';
+import ShowcaseImage, { ShowcaseImageProps } from './Image';
+import { ShowcaseProps, ShowcaseButtons, ShowcaseStepPropsInternal } from './interfaces';
 import CallToActions from './internals/CallToActions';
 import Header from './internals/Header';
 import Steps from './internals/Steps';
@@ -24,8 +24,8 @@ import ShowcaseNextButton from './NextButton';
 import ShowcasePreviousButton from './PreviousButton';
 import ShowcaseStep from './Step';
 import ShowcaseStepButtons from './StepButtons';
-import ShowcaseText, { IShowcaseTextProps } from './Text';
-import ShowcaseTitle, { IShowcaseTitleProps } from './Title';
+import ShowcaseText, { ShowcaseTextProps } from './Text';
+import ShowcaseTitle, { ShowcaseTitleProps } from './Title';
 import useShowcase from './useShowcase';
 
 const modalSizes = {
@@ -94,7 +94,7 @@ const useStyles = createUseStyles(theme => ({
   }
 }));
 
-const Showcase: React.FC<IShowcaseProps> = props => {
+const Showcase = (props: ShowcaseProps) => {
   const {
     open,
     size,
@@ -115,22 +115,22 @@ const Showcase: React.FC<IShowcaseProps> = props => {
   const { currentStep, setCurrentStep, nextStep, previousStep } = useShowcase(initialStep);
   const [modalState, setModalState] = React.useState<boolean>(true);
 
-  const title = useFirstChildrenProps<IShowcaseTitleProps>(children, ShowcaseTitle);
+  const title = useFirstChildrenProps<ShowcaseTitleProps>(children, ShowcaseTitle);
 
   const genericButtons = getReactChildrenComponent(children, ShowcaseGenericButtons).map(child => ({
     ...child.props,
-    lastButton: getReactFirstChildrenProps<IShowcaseImageProps>(child?.props?.children, ShowcaseLastButton),
-    nextButton: getReactFirstChildrenProps<IShowcaseTextProps>(child?.props?.children, ShowcaseNextButton),
-    previousButton: getReactFirstChildrenProps<IShowcaseTextProps>(child?.props?.children, ShowcasePreviousButton),
-    closeButton: getReactFirstChildrenProps<IShowcaseImageProps>(child?.props?.children, ShowcaseCloseButton)
-  }))?.[0] as IShowcaseButtons;
+    lastButton: getReactFirstChildrenProps<ShowcaseImageProps>(child?.props?.children, ShowcaseLastButton),
+    nextButton: getReactFirstChildrenProps<ShowcaseTextProps>(child?.props?.children, ShowcaseNextButton),
+    previousButton: getReactFirstChildrenProps<ShowcaseTextProps>(child?.props?.children, ShowcasePreviousButton),
+    closeButton: getReactFirstChildrenProps<ShowcaseImageProps>(child?.props?.children, ShowcaseCloseButton)
+  }))?.[0] as ShowcaseButtons;
 
   const steps = getReactChildrenComponent(children, ShowcaseStep).map(child => ({
     ...child?.props,
-    image: getReactFirstChildrenProps<IShowcaseImageProps>(child?.props?.children, ShowcaseImage),
-    text: getReactFirstChildrenProps<IShowcaseTextProps>(child?.props?.children, ShowcaseText),
-    stepButtons: getReactFirstChildrenProps<IShowcaseButtons>(child?.props?.children, ShowcaseStepButtons)
-  })) as IShowcaseStep[];
+    image: getReactFirstChildrenProps<ShowcaseImageProps>(child?.props?.children, ShowcaseImage),
+    text: getReactFirstChildrenProps<ShowcaseTextProps>(child?.props?.children, ShowcaseText),
+    stepButtons: getReactFirstChildrenProps<ShowcaseButtons>(child?.props?.children, ShowcaseStepButtons)
+  })) as ShowcaseStepPropsInternal[];
 
   const onNextStep = React.useCallback(() => {
     onNext && onNext(currentStep);
@@ -166,7 +166,7 @@ const Showcase: React.FC<IShowcaseProps> = props => {
     setModalState(open);
   }, [open]);
 
-  const contextValue = React.useMemo<IShowcaseContext>(
+  const contextValue = React.useMemo<ShowcaseContextProps>(
     () => ({
       title,
       stepCounter,

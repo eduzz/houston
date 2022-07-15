@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp, css, cx } from '@eduzz/houston-styles';
+import styled, { StyledProp, css, cx } from '@eduzz/houston-styles';
 
 import Collapse from '../Collapse';
 import SidebarContext, { SIDEBAR_WIDTH, TOOLBAR_HEIGHT, SIDEBAR_WIDTH_COLLAPSED } from '../context';
 
-export interface ISidebarWrapperProps extends IStyledProp {
+export interface ISidebarWrapperProps extends StyledProp {
   id?: string;
   children: React.ReactNode;
 }

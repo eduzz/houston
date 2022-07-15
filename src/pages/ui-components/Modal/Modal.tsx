@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { IStyledProp, css, cx, CSSInterpolation } from '@eduzz/houston-styles';
+import styled, { StyledProp, css, cx, CSSInterpolation } from '@eduzz/houston-styles';
 
 import { useEscapeKey } from '../hooks/useEscapeKey';
 import Overlay from '../Overlay';
@@ -39,8 +39,9 @@ const Modal = ({
   onClose,
   closeIcon = true,
   disableEscapeKey,
+  children,
   ...rest
-}: ModalProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => {
+}: ModalProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   const handlePressEscapeKey = React.useCallback(() => {
     if (visible && !disableEscapeKey) {
       onClose && onClose();
@@ -57,7 +58,9 @@ const Modal = ({
     <Portal target='houston-modal'>
       <Overlay visible={visible}>
         <ModalContextProvider value={{ onClose, closeIcon }}>
-          <ModalBase className={cx(className, `--modal-size-${size}`)} aria-modal={true} {...rest} />
+          <ModalBase className={cx(className, `--modal-size-${size}`)} aria-modal={true} {...rest}>
+            {children}
+          </ModalBase>
         </ModalContextProvider>
       </Overlay>
     </Portal>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-export interface IShowcaseCloseButtonProps {
+export interface ShowcaseCloseButtonProps {
   label?: string;
 }
 
-export default (() => null) as React.FC<IShowcaseCloseButtonProps>;
+export default (() => null) as React.FC<ShowcaseCloseButtonProps>;

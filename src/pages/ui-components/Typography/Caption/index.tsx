@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import { IStyledProp } from '@eduzz/houston-styles/styled';
+import { StyledProp } from '@eduzz/houston-styles/styled';
 
-import Typography, { ITypographyProps } from '..';
+import Typography, { TypographyProps } from '..';
 
-export interface ICaptionProps extends IStyledProp, Omit<ITypographyProps, 'size' | 'as'> {
+export interface CaptionProps extends StyledProp, Omit<TypographyProps, 'size' | 'as'> {
   /**
    * Defaults to 'figcaption'
    */
   as?: 'figcaption' | 'p';
 }
 
-const Caption = React.forwardRef<HTMLParagraphElement | HTMLElement, ICaptionProps>(
+const Caption = React.forwardRef<HTMLParagraphElement | HTMLElement, CaptionProps>(
   ({ as = 'figcaption', children, ...props }, ref) => {
     return (
       <Typography as={as} ref={ref} size='xxs' {...props}>
