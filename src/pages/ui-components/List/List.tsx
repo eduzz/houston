@@ -11,10 +11,10 @@ import Text from './Text';
 
 export interface IListProps extends IStyledProp, React.HTMLAttributes<HTMLUListElement> {
   children: React.ReactNode;
-  dividers?: true;
+  dividers?: boolean;
 }
 
-const List = ({ children, dividers, ...rest }: IListProps) => {
+const List = ({ children, dividers = false, ...rest }: IListProps) => {
   return (
     <ListContextProvider dividers={dividers}>
       <ul role='list' {...rest}>
