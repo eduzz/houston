@@ -20,7 +20,6 @@
     "prepare": "sh ./scripts/prepare.sh",
     "publish": "NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN node ./scripts/publish-all.js",
     "change-version": "node ./scripts/change-version.js",
-    "create-icons": "node ./scripts/create-icons.js",
     "clean": "sh ./scripts/clean.sh",
     "lint": "yarn eslint \"./**/*.ts\" \"./**/*.tsx\" \"./**/*.mdx\"",
     "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -f yarn.lock && yarn install",

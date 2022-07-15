@@ -127,7 +127,7 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
               {currentStep}/{steps.length}
             </span>
             {isLastStep ? (
-              <FinishIcon className='finish-button' size={24} onClick={handleFinish} />
+              <FinishIcon className='finish-button' size='md' onClick={handleFinish} />
             ) : (
               <div className='arrow arrow-right' onClick={onNextStep} />
             )}
