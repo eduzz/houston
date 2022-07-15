@@ -115,7 +115,7 @@ const CheckboxRadioField = ({
       />
 
       <div className='__check'>
-        {type === 'checkbox' ? <Done size={18} className='__icon' /> : <Bullet size={16} className='__icon' />}
+        {type === 'checkbox' ? <Done size='sm' className='__icon' /> : <Bullet size='sm' className='__icon' />}
       </div>
 
       {!!children && (

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import CollapseMUI from '@mui/material/Collapse';
 
-interface CollapseProps {
+export interface CollapseProps {
   visibled: boolean;
   children?: React.ReactNode;
   onEnter?: () => void;

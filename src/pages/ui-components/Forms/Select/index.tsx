@@ -40,7 +40,7 @@ export interface SelectFieldOption {
   disabled?: boolean;
 }
 
-const SelectField: React.FC<SelectFieldProps> = ({
+const SelectField = ({
   label,
   value,
   size,
@@ -59,7 +59,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   emptyOption,
   options: optionsProps,
   children
-}) => {
+}: SelectFieldProps) => {
   const { openPopover, closePopover, isPopoverOpened, popoverTargetProps, popoverProps } = usePopover();
   const [options, setOptions] = React.useState<SelectOptionProps[]>([]);
 

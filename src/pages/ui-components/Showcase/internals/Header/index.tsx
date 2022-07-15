@@ -62,7 +62,7 @@ const Header = React.memo(() => {
 
       {(size === 'small' || isMobile) && (
         <IconButton id='modal-default-close' onClick={handleClose} size='small'>
-          <CancelIcon className='close-icon' size={18} />
+          <CancelIcon className='close-icon' size='md' />
         </IconButton>
       )}
     </Typography>

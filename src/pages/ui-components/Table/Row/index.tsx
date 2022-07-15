@@ -94,7 +94,7 @@ const TableRow = React.memo<TableRowProps>(({ data, index, children, className, 
           <td align='right' className={cx('houston-table-action-cell', tableSize === 'small' && '--small')}>
             {hasActions && !actionLoading && (
               <div onClick={onClickAction} className='houston-table-icon-action'>
-                {oneAction?.icon ?? <IconDotsHorizontal size={24} />}
+                {oneAction?.icon ?? <IconDotsHorizontal size='md' />}
               </div>
             )}
             {actionLoading && <CircularProgress size={18} variant='indeterminate' />}
@@ -115,7 +115,7 @@ const TableRow = React.memo<TableRowProps>(({ data, index, children, className, 
                 showCollapse && 'houston-table-collapse-button-opened'
               )}
             >
-              <IconChevronDown size={24} />
+              <IconChevronDown size='md' />
             </div>
           </td>
         )}

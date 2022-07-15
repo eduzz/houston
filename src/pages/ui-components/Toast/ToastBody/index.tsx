@@ -13,9 +13,9 @@ interface ToastBodyProps extends StyledProp {
   type: ToastTypes;
 }
 
-type IconsMap = Record<ToastTypes, JSX.Element>;
+type IconsMapType = Record<ToastTypes, JSX.Element>;
 
-const IconsMap: IconsMap = {
+const IconsMap: IconsMapType = {
   informative: <InformativeIcon />,
   positive: <PositiveIcon />,
   negative: <AlertIcon />,

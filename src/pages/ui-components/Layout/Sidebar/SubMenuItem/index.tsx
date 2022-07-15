@@ -73,7 +73,7 @@ const SidebarSubMenuItem: React.FC<ISidebarSubMenuItem> = ({
           </div>
 
           <div className={cx('arrow', isExpanded && '--rotate')}>
-            <ChevronDownIcon size={16} />
+            <ChevronDownIcon size='sm' />
           </div>
         </div>
 
