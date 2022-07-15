@@ -1,33 +1,36 @@
-import * as React from 'react';
+import { cx } from '@eduzz/houston-styles';
 
 import Typography, { ITypographyProps } from '../../Typography';
 
 type ListTitleProps = 'id' | 'className';
 
 export interface IListTitleProps extends Pick<ITypographyProps, ListTitleProps> {
-  title: string | React.ReactNode;
-  subtitle?: string | React.ReactNode;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  /**
+   * Default `false`
+   */
+  disableTypography?: boolean;
 }
 
-const ListText: React.FC<IListTitleProps> = ({ title, subtitle, ...props }) => {
-  return (
-    <div className='list-item-text'>
-      {typeof title === 'string' ? (
-        <Typography {...props} size='xs' weight='regular' lineHeight='xs'>
-          {title}
-        </Typography>
-      ) : (
-        title
-      )}
-      {typeof subtitle === 'string' ? (
-        <Typography {...props} size='xxs' weight='regular' lineHeight='xs'>
-          {subtitle}
-        </Typography>
-      ) : (
-        subtitle
-      )}
-    </div>
-  );
-};
+const ListText = ({ title, description, disableTypography = false, className, ...rest }: IListTitleProps) => (
+  <div className={cx('houston-list-item-text', className)} {...rest}>
+    {!disableTypography ? (
+      <Typography size='xs' weight='semibold' lineHeight='lg'>
+        {title}
+      </Typography>
+    ) : (
+      title
+    )}
 
-export default React.memo(ListText);
+    {!disableTypography && !!description ? (
+      <Typography size='xxs' weight='regular' lineHeight='md'>
+        {description}
+      </Typography>
+    ) : (
+      description
+    )}
+  </div>
+);
+
+export default ListText;
