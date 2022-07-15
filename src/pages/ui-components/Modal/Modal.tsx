@@ -23,6 +23,7 @@ export interface ModalProps {
    */
   size?: ModalSize;
   /**
+   * Display close icon
    * Default `true`
    */
   closeIcon?: boolean;
