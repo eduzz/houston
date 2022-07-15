@@ -13,7 +13,7 @@ export type Spacing = {
    *
    * Example: If you provide 1 we'll return 0.25rem
    */
-  fn: (mult?: number) => string;
+  fn: (mult: number) => string;
   quarck: '0.25rem';
   nano: '0.5rem';
   xxxs: '1rem';

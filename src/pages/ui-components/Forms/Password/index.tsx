@@ -5,11 +5,11 @@ import EyeOffOutline from '@eduzz/houston-icons/EyeOffOutline';
 import EyeOnOutline from '@eduzz/houston-icons/EyeOnOutline';
 
 import IconButton from '../../IconButton';
-import Input, { IInputProps } from '../Input';
+import Input, { InputProps } from '../Input';
 
 export interface IInputPasswordProps
   extends Omit<
-    IInputProps<string>,
+    InputProps<string>,
     'mask' | 'type' | 'multiline' | 'rows' | 'disableAutoResize' | 'fieldEndAdornment'
   > {}
 

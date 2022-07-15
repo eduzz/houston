@@ -20,7 +20,6 @@ let _config: IHoustonHooksConfig = {
 
 export default function setHoustonHooksConfig(config: IHoustonHooksConfig) {
   _config = {
-    onUnhandledError: () => null,
     ..._config,
     ...config,
     pagination: {

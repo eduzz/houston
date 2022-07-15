@@ -70,13 +70,14 @@ import useForm from '@eduzz/houston-forms/useForm';
 <Playground>
   {() => {
     const form = useForm({
-      initialValues: { value: true }, //estado inicial, não precisa passar todas as propriedades
+      defaultValues: { switch: true }, //estado inicial, não precisa passar todas as propriedades
       onSubmit: () => {}
     });
+    const value = form.watch('switch');
     return (
       <Form context={form}>
-        <Typography>Valor atual do switch: {String(form.values.value)}</Typography>
-        <Switch name='value' />
+        <Typography>Valor atual do switch: {String(value)}</Typography>
+        <Switch name='switch' />
       </Form>
     );
   }}
