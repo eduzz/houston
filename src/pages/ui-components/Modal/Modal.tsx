@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled, { StyledProp, css, cx, CSSInterpolation } from '@eduzz/houston-styles';
 
-import { useEscapeKey } from '../hooks/useEscapeKey';
+import useEscapeKey from '../hooks/useEscapeKey';
 import Overlay from '../Overlay';
 import Portal from '../Portal';
 import nestedComponent from '../utils/nestedComponent';

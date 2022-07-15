@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export function useEscapeKey(callback: () => void) {
+export default function useEscapeKey(callback: () => void) {
   const ESCAPE_KEY = 'Escape';
 
   useEffect(() => {
