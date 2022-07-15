@@ -17,41 +17,49 @@ export interface IButtonProps
   endIcon?: React.ReactNode;
 }
 
-const Button = ({
-  children,
-  disabled = false,
-  startIcon,
-  endIcon,
-  variant,
-  loading = false,
-  className,
-  fullWidth,
-  type = 'button',
-  ...rest
-}: IButtonProps) => (
-  <button
-    role='button'
-    className={cx(className, `--${variant ?? 'contained'}`, {
-      '--full-width': fullWidth,
-      '--disabled': disabled || loading
-    })}
-    type={type}
-    {...rest}
-    disabled={disabled || loading}
-    aria-disabled={disabled}
-  >
-    {!!startIcon && <span className={cx('__startIcon', { '--hidden': loading })}>{startIcon}</span>}
-    {!loading && <span className='__text'>{children}</span>}
-    {loading && (
-      <>
-        <span className='__loader'>
-          <Spinner size={20} color='inherit' />
-        </span>
-        <span className='__text --hidden'>{children}</span>
-      </>
-    )}
-    {!!endIcon && <span className={cx('__endIcon', { '--hidden': loading })}>{endIcon}</span>}
-  </button>
+const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
+  (
+    {
+      children,
+      disabled = false,
+      startIcon,
+      endIcon,
+      variant,
+      loading = false,
+      className,
+      fullWidth,
+      type = 'button',
+      ...rest
+    },
+    ref
+  ) => (
+    <button
+      ref={ref}
+      role='button'
+      className={cx(
+        className,
+        `--${variant ?? 'contained'}`,
+        { '--fullWidth': fullWidth },
+        { '--disabled': disabled || loading }
+      )}
+      type={type}
+      {...rest}
+      disabled={disabled || loading}
+      aria-disabled={disabled}
+    >
+      {!!startIcon && <span className={cx('__startIcon', { '--hidden': loading })}>{startIcon}</span>}
+      {!loading && <span className='__text'>{children}</span>}
+      {loading && (
+        <>
+          <span className='__loader'>
+            <Spinner size={20} color='inherit' />
+          </span>
+          <span className='__text --hidden'>{children}</span>
+        </>
+      )}
+      {!!endIcon && <span className={cx('__endIcon', { '--hidden': loading })}>{endIcon}</span>}
+    </button>
+  )
 );
 
 const HEIGHT = 48;
