@@ -38,7 +38,7 @@ const Portal = ({ children, target }: PortalProps) => {
     setWrapperElement(element);
 
     return () => {
-      if (created && element?.parentNode) {
+      if (created && element??.parentNode) {
         element.parentNode.removeChild(element);
       }
     };

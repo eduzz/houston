@@ -1,16 +1,35 @@
+import * as React from 'react';
+
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+
+import useScrollBlock from '../hooks/useScrollBlock';
 
 export type OverlayColor = 'low' | 'high';
 
 export interface OverlayProps {
   children?: React.ReactNode;
   visible: boolean;
+  /**
+   * Default `low`
+   */
   color?: OverlayColor;
   underTopbar?: boolean;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const Overlay = ({ className, visible, color = 'low', ...rest }: OverlayProps & IStyledProp) => {
+  const { disableScroll, enableScroll } = useScrollBlock();
+
+  React.useEffect(() => {
+    if (visible) {
+      disableScroll();
+    }
+
+    return () => {
+      enableScroll();
+    };
+  }, [enableScroll, disableScroll, visible]);
+
   return (
     <div
       aria-hidden='true'

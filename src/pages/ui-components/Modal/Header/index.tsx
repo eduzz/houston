@@ -42,11 +42,9 @@ const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttribu
         </div>
 
         {closeIcon && (
-          <div className='modal-header__close-icon'>
-            <IconButton aria-label='Close' size='md' onClick={onClose}>
-              <IconClose />
-            </IconButton>
-          </div>
+          <IconButton className='modal-header__close-icon' aria-label='Fechar Modal' size='md' onClick={onClose}>
+            <IconClose />
+          </IconButton>
         )}
       </div>
 
@@ -55,9 +53,11 @@ const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttribu
   );
 };
 
-const ModalHeaderStyle = styled(ModalHeader, { label: 'houston-modal-header' })`
+export default React.memo(styled(ModalHeader, { label: 'houston-modal-header' })`
   ${({ theme }) => css`
-    flex: 0 1 0%;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 0%;
     border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
 
     .modal-header__wrapper {
@@ -66,11 +66,13 @@ const ModalHeaderStyle = styled(ModalHeader, { label: 'houston-modal-header' })`
       align-items: center;
       justify-content: space-between;
 
+      ${theme.breakpoints.down('sm')} {
+        padding: ${theme.spacing.inset.xs};
+      }
+
       .modal-header__close-icon {
         margin-left: ${theme.spacing.inline.xxs};
       }
     }
   `}
-`;
-
-export default React.memo(ModalHeaderStyle);
+`);
