@@ -54,7 +54,7 @@ const Modal = ({
   }
 
   return (
-    <Portal wrapperId='houston-modal'>
+    <Portal target='houston-modal'>
       <Overlay visible={visible}>
         <ModalContextProvider value={{ onClose, closeIcon }}>
           <ModalBase className={cx(className, `--modal-size-${size}`)} aria-modal={true} {...rest} />
