@@ -42,7 +42,7 @@ const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttribu
         </div>
 
         {closeIcon && (
-          <IconButton className='modal-header__close-icon' aria-label='Close' size='md' onClick={onClose}>
+          <IconButton className='modal-header__close-icon' aria-label='Fechar Modal' size='md' onClick={onClose}>
             <IconClose />
           </IconButton>
         )}
@@ -55,7 +55,9 @@ const ModalHeader = ({ children, ...rest }: ModalHeaderProps & React.HTMLAttribu
 
 export default React.memo(styled(ModalHeader, { label: 'houston-modal-header' })`
   ${({ theme }) => css`
-    flex: 0 1 0%;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 0%;
     border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
 
     .modal-header__wrapper {

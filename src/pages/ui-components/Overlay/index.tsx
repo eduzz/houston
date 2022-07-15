@@ -5,6 +5,9 @@ export type OverlayColor = 'low' | 'high';
 export interface OverlayProps {
   children?: React.ReactNode;
   visible: boolean;
+  /**
+   * Default `low`
+   */
   color?: OverlayColor;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
