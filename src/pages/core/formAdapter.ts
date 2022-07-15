@@ -19,6 +19,9 @@ type FormikErrors<Values> = {
     : string;
 };
 
+/**
+ * @deprecated
+ */
 export default interface IFormAdapter<V extends { [key: string]: any }> {
   handleSubmit?: (event: any) => void;
   handleChange?: (name: string) => (value: any) => void;
@@ -26,7 +29,7 @@ export default interface IFormAdapter<V extends { [key: string]: any }> {
   setErrors?: (errors: FormikErrors<Partial<V>>) => void;
   handleReset?: () => void;
   getFieldValue: (name: string) => any;
-  getFieldError: (name: string) => string;
+  getFieldError: (name: string) => string | undefined;
   setFieldValue: (name: string, value: any) => void;
   setFieldTouched?: (name: string, isTouched?: boolean, shouldValidate?: boolean) => void;
   initialValues: Partial<V>;

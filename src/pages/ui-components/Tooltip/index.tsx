@@ -1,7 +1,13 @@
-/* eslint-disable react/no-children-prop */
 import * as React from 'react';
 
-import TooltipMUI, { TooltipProps } from '@mui/material/Tooltip';
+import { flushSync } from 'react-dom';
+
+import useBoolean from '@eduzz/houston-hooks/useBoolean';
+import { IStyledProp } from '@eduzz/houston-styles/styled';
+
+import Popover from '../Popover';
+import usePopover from '../Popover/usePopover';
+import TooltipBody from './TooltipBody';
 
 type ITooltipPlacement =
   | 'bottom-end'
@@ -17,39 +23,58 @@ type ITooltipPlacement =
   | 'top-start'
   | 'top';
 
-type ITooltipExtends = 'open' | 'onOpen' | 'onClose' | 'id';
-
-export interface ITooltipProps extends Pick<TooltipProps, ITooltipExtends> {
-  title: React.ReactNode;
+export interface ITooltipProps extends IStyledProp {
+  title: NonNullable<React.ReactNode>;
   placement?: ITooltipPlacement;
   disabled?: boolean;
   children: React.ReactNode;
-  className?: string;
+  id?: string;
+  onClose?: () => void;
+  onOpen?: () => void;
 }
 
-const Tooltip: React.FC<ITooltipProps> = ({ placement = 'top', children, disabled = false, className, ...rest }) => {
+const Tooltip = ({ children, title, placement = 'top', id: idProp, disabled, onOpen, onClose }: ITooltipProps) => {
+  const { openPopover, closePopover, popoverTargetProps, popoverProps } = usePopover();
+  const [isPopoverCreated, , createPopover, deletePopover] = useBoolean();
+
+  const [id] = React.useState(idProp ?? `${Math.floor(Math.random() * 1000)}`);
+
+  const onOpenPopover = React.useCallback(() => {
+    flushSync(() => {
+      createPopover();
+    });
+    openPopover();
+    onOpen && onOpen();
+  }, [onOpen, openPopover, createPopover]);
+
+  const onClosePopover = React.useCallback(() => {
+    onClose && onClose();
+    closePopover();
+    deletePopover();
+  }, [onClose, closePopover, deletePopover]);
+
+  const props = {
+    tabIndex: 0,
+    onMouseEnter: onOpenPopover,
+    onMouseLeave: onClosePopover,
+    ref: popoverTargetProps.ref
+  };
+
   return (
-    <TooltipMUI
-      {...rest}
-      disableTouchListener={disabled}
-      disableHoverListener={disabled}
-      disableFocusListener={disabled}
-      placement={placement}
-      arrow
-    >
-      <Content children={children} className={className} />
-    </TooltipMUI>
+    <>
+      {typeof children === 'string' ? (
+        <span {...props}>{children}</span>
+      ) : (
+        React.cloneElement(children as React.ReactElement, props)
+      )}
+
+      {!disabled && isPopoverCreated && (
+        <Popover id={id} {...popoverProps} placement={placement} variant='tooltip'>
+          <TooltipBody title={title} />
+        </Popover>
+      )}
+    </>
   );
 };
-
-const Content = React.forwardRef<HTMLDivElement, { children: React.ReactNode; className?: string }>(
-  ({ children, className, ...rest }, ref) => {
-    return (
-      <div className={className} {...rest} ref={ref} style={{ display: 'inline-flex' }}>
-        {children}
-      </div>
-    );
-  }
-);
 
 export default React.memo(Tooltip);
