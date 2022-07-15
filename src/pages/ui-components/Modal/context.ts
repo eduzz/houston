@@ -5,16 +5,7 @@ interface ModalContextProps {
   closeIcon?: boolean;
 }
 
-<<<<<<< HEAD
-const ModalContext = createContext<ModalContextProps>({
-  hasHeader: false,
-  hasFooter: false
-});
-
-const ModalContext = createContext<ModalContextProps>({
-  hasHeader: false,
-  hasFooter: false
-});
+const ModalContext = createContext<ModalContextProps>({});
 
 const ModalContextProvider = ModalContext.Provider;
 
