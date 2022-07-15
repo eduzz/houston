@@ -7,12 +7,14 @@ export interface ListRightProps extends IStyledProp, React.HTMLAttributes<HTMLDi
   children?: React.ReactNode;
 }
 
-const ListRight = ({ onClick, ...rest }: ListRightProps) => <div onClick={onClick} {...rest} />;
-
-export default React.memo(
-  styled(ListRight, { label: 'houston-list-item-right' })(() => {
-    return css`
-      margin-left: auto;
-    `;
-  })
+const ListRight = ({ children, onClick, ...rest }: ListRightProps) => (
+  <div onClick={onClick} {...rest}>
+    {children}
+  </div>
 );
+
+export default styled(ListRight, { label: 'houston-list-item-right' })(() => {
+  return css`
+    margin-left: auto;
+  `;
+});

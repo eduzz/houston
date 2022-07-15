@@ -16,7 +16,7 @@ export interface IListProps extends IStyledProp, React.HTMLAttributes<HTMLUListE
 
 const List = ({ children, dividers, ...rest }: IListProps) => {
   return (
-    <ListContextProvider value={{ dividers }}>
+    <ListContextProvider dividers={dividers}>
       <ul role='list' {...rest}>
         {children}
       </ul>
@@ -26,7 +26,7 @@ const List = ({ children, dividers, ...rest }: IListProps) => {
 
 const ListWrapper = React.memo(styled(List, { label: 'houston-list' })());
 
-export default nestedComponent(React.memo(ListWrapper), {
+export default nestedComponent(ListWrapper, {
   Item,
   Text,
   Left,
