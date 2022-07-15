@@ -69,15 +69,13 @@ const ModalStyle = styled(Modal, { label: 'houston-modal' })`
     const modifiersSizes: CSSInterpolation[] = [];
     const sizesInPx: Record<ModalSize, number> = { xs: 400, sm: 560, md: 640, lg: 800, xl: 1200 };
 
-    {
-      Object.entries(sizesInPx).forEach(([key, value]) =>
-        modifiersSizes.push(css`
-          &.--modal-size-${key} {
-            width: ${theme.pxToRem(value)}rem;
-          }
-        `)
-      );
-    }
+    Object.entries(sizesInPx).forEach(([key, value]) =>
+      modifiersSizes.push(css`
+        &.--modal-size-${key} {
+          width: ${theme.pxToRem(value)}rem;
+        }
+      `)
+    );
 
     return css`
       display: flex;

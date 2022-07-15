@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import styled, { IStyledProp, css } from '@eduzz/houston-styles';
 
 import Divider from '../../Divider';
@@ -17,7 +15,7 @@ const ModalFooter = ({ children, ...rest }: ModalFooterProps & React.HTMLAttribu
   );
 };
 
-export default React.memo(styled(ModalFooter, { label: 'houston-modal-footer' })`
+export default styled(ModalFooter, { label: 'houston-modal-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
 
@@ -46,4 +44,4 @@ export default React.memo(styled(ModalFooter, { label: 'houston-modal-footer' })
       }
     }
   `}
-`);
+`;

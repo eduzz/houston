@@ -10,7 +10,7 @@ const ModalBase = ({ ...rest }: ModalBaseProps & IStyledProp & React.HTMLAttribu
   return <div role='dialog' {...rest} />;
 };
 
-export default React.memo(styled(ModalBase)`
+export default styled(ModalBase)`
   ${({ theme }) => css`
     background-color: ${theme.neutralColor.high.pure};
     border-radius: ${theme.border.radius.sm};
@@ -20,4 +20,4 @@ export default React.memo(styled(ModalBase)`
     left: 50%;
     transform: translate(-50%, -50%);
   `}
-`);
+`;
