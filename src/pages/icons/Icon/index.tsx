@@ -1,24 +1,27 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+export type IconSizes = 'sm' | 'md' | 'lg';
 
-export type IconSizes = 'lg' | 'md' | 'sm';
-
-export type IconProps = Omit<React.SVGAttributes<SVGElement>, 'width'> &
-  IStyledProp & {
-    /**
-     * Defaults to 'md' (24px or 1.5rem)
-     */
-    size?: IconSizes;
-  };
+export type IconProps = Omit<React.SVGAttributes<SVGElement>, 'width' | 'height'> & {
+  /**
+   * Defaults to 'md' (24px or 1.5rem)
+   */
+  size?: IconSizes | number;
+};
 
 const Icon = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ focusable = false, children, className, size = 'md', ...rest }, ref) => {
+  ({ focusable = false, children, size = 'md', ...rest }, ref) => {
+    const sizesMap: Record<IconSizes, number> = {
+      lg: 32,
+      md: 24,
+      sm: 16
+    };
+
     return (
       <svg
         ref={ref}
+        width={sizesMap[size] ?? size}
         viewBox='0 0 192 192'
-        className={cx(className, `--${size}`)}
         focusable={focusable}
         fill='currentColor'
         {...rest}
@@ -29,19 +32,4 @@ const Icon = React.forwardRef<SVGSVGElement, IconProps>(
   }
 );
 
-export default styled(Icon, { label: 'houston-icon' })`
-  ${({ theme }) => {
-    const sizesMap: Record<IconSizes, number> = {
-      lg: 32,
-      md: 24,
-      sm: 16
-    };
-    return Object.entries(sizesMap).map(
-      ([sizeKey, sizeValueInPx]) => css`
-        &.--${sizeKey} {
-          width: ${theme.pxToRem(sizeValueInPx)}rem;
-        }
-      `
-    );
-  }}
-`;
+export default Icon;
