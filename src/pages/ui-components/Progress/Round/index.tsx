@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import CircularProgressMUI from '@mui/material/CircularProgress';
 
 import { cx } from '@eduzz/houston-styles';
@@ -43,14 +41,14 @@ const useStyles = createUseStyles(theme => ({
   }
 }));
 
-interface ICircularProgressProps {
+interface CircularProgressProps {
   maxSteps: number;
   currentStep?: number;
   type?: 'numeric' | 'percentage';
   error?: boolean;
 }
 
-const ProgressRound: React.FC<ICircularProgressProps> = ({ currentStep = 0, maxSteps, type, error }) => {
+const ProgressRound = ({ currentStep = 0, maxSteps, type, error }: CircularProgressProps) => {
   const classes = useStyles();
   const value = (currentStep / maxSteps) * 100;
   const progress = type === 'percentage' ? `${value}%` : `${currentStep}/${maxSteps}`;

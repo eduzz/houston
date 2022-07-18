@@ -5,13 +5,13 @@ import createGenerateClassName from '@material-ui/styles/createGenerateClassName
 // @ts-ignore
 import StylesProvider from '@material-ui/styles/StylesProvider';
 
-import ThemeProvider, { IThemeProviderProps } from '.';
+import ThemeProvider, { ThemeProviderProps } from '.';
 
 const generateClassName = createGenerateClassName({ disableGlobal: true });
 
-interface IProps extends IThemeProviderProps {}
+interface MuiV4Props extends ThemeProviderProps {}
 
-const MuiV4Compat: React.FC<IProps> = React.memo(({ children, ...props }) => {
+const MuiV4Compat = React.memo(({ children, ...props }: MuiV4Props) => {
   return (
     <ThemeProvider {...props}>
       <StylesProvider generateClassName={generateClassName}>{children}</StylesProvider>

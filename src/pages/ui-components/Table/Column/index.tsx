@@ -8,7 +8,7 @@ import styled from '@eduzz/houston-styles/styled';
 import TableContext from '../context';
 import SortLabel from './SortLabel';
 
-export interface ITableColumnProps {
+export interface TableColumnProps {
   id?: string;
   className?: string;
   children?: React.ReactNode;
@@ -23,7 +23,7 @@ export interface ITableColumnProps {
    */
   sortableField?: string;
 }
-const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, className, align, ...rest }) => {
+const TableColumn = React.memo<TableColumnProps>(({ sortableField, children, className, align, ...rest }) => {
   const registerColumn = useContextSelector(TableContext, context => context.registerColumn);
   const onSort = useContextSelector(TableContext, context => context.onSort);
   const sort = useContextSelector(TableContext, context => context.sort);
@@ -31,13 +31,13 @@ const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, cl
   const tableSize = useContextSelector(TableContext, context => context.size);
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
-  const cellRef = React.useRef<HTMLTableCellElement>();
+  const cellRef = React.useRef<HTMLTableCellElement>(null);
 
   const isSorted = sort?.field === sortableField;
 
   const handleSort = React.useCallback(() => {
-    if (!onSort) {
-      throw new Error('@eduzz/houston-ui: add the onSort prop to the Table to filter the fields');
+    if (!onSort || !sortableField) {
+      throw new Error('@eduzz/houston-ui: add the onSort and sortableField prop to the Table to filter the fields');
     }
 
     onSort({

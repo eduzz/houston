@@ -5,11 +5,14 @@ name: Exemplo
 import { Playground } from 'dokz';
 
 import moneyMask from '@eduzz/houston-forms/masks/money';
-import useForm from '@eduzz/houston-forms/useForm';
+import useForm, { useFieldArray } from '@eduzz/houston-forms/useForm';
+import TrashOutline from '@eduzz/houston-icons/TrashOutline';
 import Button from '@eduzz/houston-ui/Button';
+import ErrorMessage from '@eduzz/houston-ui/Forms/ErrorMessage';
 import Form from '@eduzz/houston-ui/Forms/Form';
 import Input from '@eduzz/houston-ui/Forms/Input';
-import SelectField from '@eduzz/houston-ui/Forms/Select';
+import Select from '@eduzz/houston-ui/Forms/Select';
+import IconButton from '@eduzz/houston-ui/IconButton';
 
 # Exemplo de Validação
 
@@ -21,7 +24,7 @@ podendo ser utilizado através de um contexto ou hook.
 ### Importação
 
 ```js
-import useForm from '@eduzz/houston-forms/useForm';
+import useForm, { FormModel } from '@eduzz/houston-forms/useForm';
 import Form from '@eduzz/houston-ui/Forms/Form';
 ```
 
@@ -30,23 +33,25 @@ import Form from '@eduzz/houston-ui/Forms/Form';
 <Playground>
   {() => {
     const form = useForm({
-      initialValues: { money: 5 }, //estado inicial, não precisa passar todas as propriedades
-      validationSchema: yup => {
-        // não é necessário importar o yup ele será passado como argumento
-        return yup.object().shape({
+      defaultValues: { money: 5 }, //estado inicial, não precisa passar todas as propriedades
+      validationSchema: yup =>
+        yup.object().shape({
           name: yup.string().required(),
-          money: yup.number().min(10),
-          option: yup.number().min(3)
-        });
-      },
-      onSubmit: () => {
-        // onSubmit pode retornar uma promise ou um observable de rxjs, desse jeito ele irá
-        // setar corretamente o isSubmitting
-        return new Promise(resolve => {
-          setTimeout(() => resolve(null), 3000);
-        });
-      }
+          money: yup.number().required().min(10),
+          option: yup.number().required().min(3)
+        })
     });
+    // Pode tipar o data com FormModel<typeof form>
+    const onSubmit = React.useCallback(data => {
+      // onSubmit pode retornar uma promise, desse jeito ele irá
+      // setar corretamente o isSubmitting
+      return new Promise(resolve => {
+        setTimeout(() => {
+          console.log('saved!');
+          resolve(null);
+        }, 3000);
+      });
+    }, []);
     const [options] = React.useState(() => [
       { value: 1, label: 'Option 1' },
       { value: 2, label: 'Option 2' },
@@ -55,37 +60,22 @@ import Form from '@eduzz/houston-ui/Forms/Form';
       { value: 5, label: 'Option 5' }
     ]);
     return (
-      //Criando o contexto do form não é preciso passar para os components filhos
-      <Form context={form}>
+      //Criando o contexto do form não é preciso usar o register para os componentes filhos
+      <Form context={form} onSubmit={onSubmit}>
         {/* a prop name que irá dizer o campo que receberá o valor */}
         <Input label='Name' name='name' />
         {/* você passar uma função de mascara, você pode importar uma pronta ou criar a sua */}
         <Input label='Money' name='money' mask={moneyMask} />
-        <SelectField label='Options' name='option' options={options} />
-        {/* Por ser um type submit não precisa passar o form.handleSubmit */}
-        <Button type='submit' loading={form.isSubmitting}>
+        <Select label='Options' name='option' options={options} />
+        <Button type='submit' loading={form.formState.isSubmitting}>
           Submit
         </Button>
         {/* Por ser um type reset não precisa passar o form.handleReset */}
-        <Button variant='text' type='reset' disabled={form.isSubmitting}>
+        <Button variant='text' type='reset' disabled={form.formState.isSubmitting}>
           Reset
         </Button>
       </Form>
     );
-  }}
-</Playground>
-
-### Sem o contexto de formulário
-
-Também é possível utilizar o componente de formulário sem utilizá-lo como um contexto,
-passando o formulário via propriedade:
-
-<Playground>
-  {() => {
-    const form = useForm({
-      onSubmit: () => {}
-    });
-    return <Input label='Name' name='name' form={form} />;
   }}
 </Playground>
 
@@ -94,51 +84,41 @@ passando o formulário via propriedade:
 <Playground>
   {() => {
     const form = useForm({
-      initialValues: {
-        users: [{ id: '', age: '', name: '' }]
+      defaultValues: {
+        users: [{ id: Date.now() }]
       },
-      validationSchema: yup => {
-        return yup.object().shape({
+      validationSchema: yup =>
+        yup.object().shape({
           users: yup
-            .array()
-            .of(
+            .array(
               yup.object().shape({
-                id: yup.number().required('Por favor, preencha o campo ID.'),
+                id: yup.number().required(),
                 name: yup.string().required(),
                 age: yup.number().required()
               })
             )
             .min(1)
-            .required()
-        });
-      },
-      onSubmitWithErrors: err => console.log('failed', err),
-      onSubmit: values => console.log('success', values)
+        })
     });
-    const values = React.useMemo(() => form.getFieldValue('users'), [form]);
-    const handleClickAdd = React.useCallback(() => {
-      form.setFieldValue(`users[${values.length}]`, {});
-      setTimeout(() => form.setErrors({}), 50);
-    }, [form, values.length]);
-    const handleClickRemove = React.useCallback(
-      index => {
-        const newUsers = values.filter((_, i) => i !== index);
-        form.setFieldValue('users', newUsers);
-      },
-      [form, values]
-    );
+    const { fields, append, remove } = useFieldArray({
+      control: form.control,
+      name: 'users'
+    });
+    const handleClickAdd = React.useCallback(() => append({ id: Date.now() }), [append]);
+    const handleClickRemove = React.useCallback(index => remove(index), [remove]);
+    const onSubmit = React.useCallback(data => console.log({ data }), []);
     return (
-      <Form context={form}>
-        {values.map((_, index) => (
-          <div style={{ borderBottom: '1px solid #ccc', paddingBottom: 10, marginBottom: 20 }} key={index}>
-            <Input name={`users.${index}.id`} label='ID' />
-            <Input name={`users.${index}.name`} label='Nome' />
-            <Input name={`users.${index}.age`} label='Idade' />
-            <Button variant='text' onClick={() => handleClickRemove(index)}>
-              Remover linha
-            </Button>
+      <Form context={form} onSubmit={onSubmit}>
+        {fields.map((user, index) => (
+          <div key={user.id}>
+            <Input name={`users.${index}.name`} label='Nome' fullWidth={false} />
+            <Input name={`users.${index}.age`} label='Idade' fullWidth={false} />
+            <IconButton style={{ marginTop: 30 }} onClick={() => handleClickRemove(index)}>
+              <TrashOutline />
+            </IconButton>
           </div>
         ))}
+        <ErrorMessage name='users' />
         <Button variant='text' onClick={handleClickAdd}>
           Adicionar linha
         </Button>
@@ -148,29 +128,14 @@ passando o formulário via propriedade:
   }}
 </Playground>
 
-### Contexto do formulário
-
-```js
-import useForm, { useFormContext } from '@eduzz/houston-forms/useForm';
-
-const { values, isSubmitting, ... } = useFormContext<IFormValues>();
-```
-
 ### Hooks para validação de formulários e máscaras
 
 Veja os hooks do Houston para validar formulários e máscaras em [@eduzz/houston-forms](https://github.com/eduzz/houston/tree/master/src/pages/forms).
 
-### Form props
-
-| prop    | tipo           | obrigatório | padrão |
-| ------- | -------------- | ----------- | ------ |
-| context | `IFormAdapter` | `true`      | -      |
-
 ### useForm props
 
-| prop               | tipo                                          | obrigatório | descrição                                                                                                         |
-| ------------------ | --------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
-| initialValues      | `Partial<any>`                                | `false`     | Estado inicial do formulário, não sendo necessário passar todas as propriedades                                   |
-| validationSchema   | `function`                                    | `false`     | Utilizado para validação do formulário, não sendo necessário importar o yup, pois ele será passado como argumento |
-| onSubmitWithErrors | `function`                                    | `false`     | É possível passar os erros do `Formik` como argumento                                                             |
-| onSubmit           | `function`, `Promise<any>`, `Observable<any>` | `true`      | Pode retornar uma `Promise` ou um `Observable` em RxJS, definindo corretamente o `isSubmitting`                   |
+O único parametro especifico é o validationSchema, o resto é configuração padrão do [react-hook-form](https://react-hook-form.com/api/useform).
+
+| prop             | tipo       | obrigatório | descrição                              |
+| ---------------- | ---------- | ----------- | -------------------------------------- |
+| validationSchema | `function` | `true`      | Utilizado para validação do formulário |

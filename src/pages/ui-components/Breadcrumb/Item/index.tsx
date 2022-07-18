@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import { useBreadcrumb } from '../context';
 import LongTextToolTip from '../internals/LongTextToolTip';
 
-export interface IBreadcrumbItemProps extends IStyledProp {
+export interface BreadcrumbItemProps extends StyledProp {
   isActive?: boolean;
   onClick?: () => void;
   children?: React.ReactNode;
@@ -17,7 +17,7 @@ const SeparatorIcon = () => (
   </svg>
 );
 
-const BreadcrumbItem = ({ children, className, isActive }: IBreadcrumbItemProps) => {
+const BreadcrumbItem = ({ children, className, isActive }: BreadcrumbItemProps) => {
   const { separator } = useBreadcrumb();
 
   return (

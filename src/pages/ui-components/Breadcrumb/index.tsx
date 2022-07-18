@@ -1,18 +1,18 @@
 import * as React from 'react';
 
-import styled, { css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
 import { BreadcrumbProvider } from './context';
 import Item from './Item';
 import Link from './Link';
 
-export interface IBreadcrumbProps extends IStyledProp {
+export interface BreadcrumbProps extends StyledProp {
   separator?: React.ReactNode;
   children: React.ReactNode;
 }
 
-const Breadcrumb = ({ children, className, separator }: IBreadcrumbProps) => {
+const Breadcrumb = ({ children, className, separator }: BreadcrumbProps) => {
   return (
     <BreadcrumbProvider separator={separator}>
       <nav aria-label='breadcrumb' className={className}>

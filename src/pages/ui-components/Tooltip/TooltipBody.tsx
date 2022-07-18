@@ -1,38 +1,46 @@
 import * as React from 'react';
 
-import styled, { css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 import Caption from '@eduzz/houston-ui/Typography/Caption';
 
-export interface ITooltipBody extends IStyledProp {
+import { styleContent } from './styles';
+
+export interface TooltipBody extends StyledProp {
   title: React.ReactNode;
 }
 
-const styleContent = {
-  __html: `
-      .popover[data-popper-placement^='top'] #houston-tooltip-arrow {
-        bottom: -4px;
-      }
+const MIN_WIDTH_IN_PIXELS = 64;
+const MAX_WIDTH_IN_PIXELS = 248;
 
-     .popover[data-popper-placement^='bottom'] #houston-tooltip-arrow {
-        top: -4px;
-      }
+const TooltipBody = ({ className, title }: TooltipBody) => {
+  const ref = React.useRef<HTMLDivElement | null>(null);
 
-      .popover[data-popper-placement^='left'] #houston-tooltip-arrow {
-        right: -4px;
-      }
+  const [config, setConfig] = React.useState({
+    width: 0,
+    height: 0
+  });
 
-      .popover[data-popper-placement^='right'] #houston-tooltip-arrow {
-        left: -4px;
-      }
-    `
-};
+  React.useEffect(() => {
+    if (!ref.current) return;
 
-const TooltipBody = ({ className, title }: ITooltipBody) => {
+    setConfig({
+      width: ref.current.offsetWidth,
+      height: ref.current.offsetHeight
+    });
+  }, []);
+
   return (
-    <div role='tooltip' className={className}>
+    <div ref={ref} role='tooltip' className={className}>
       <div id='houston-tooltip-arrow' data-popper-arrow />
-      <style dangerouslySetInnerHTML={styleContent} />
-      <Caption color='neutralColor.high.pure'>{title}</Caption>
+
+      <style dangerouslySetInnerHTML={styleContent(config.width, config.height)} />
+
+      <Caption
+        color='neutralColor.high.pure'
+        style={{ textAlign: config.width >= MAX_WIDTH_IN_PIXELS ? 'left' : 'center' }}
+      >
+        {title}
+      </Caption>
     </div>
   );
 };
@@ -41,7 +49,8 @@ export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.xxs};
     border-radius: ${theme.border.radius.xs};
-    min-width: ${theme.spacing.xl};
+    min-width: ${theme.pxToRem(MIN_WIDTH_IN_PIXELS)}rem;
+    max-width: ${theme.pxToRem(MAX_WIDTH_IN_PIXELS)}rem;
     background-color: ${theme.neutralColor.low.pure};
 
     #houston-tooltip-arrow,

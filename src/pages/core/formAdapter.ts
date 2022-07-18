@@ -1,14 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-type IFormikErrors<Values> = {
-  [K in keyof Values]?: Values[K] extends any[]
-    ? Values[K][number] extends object
-      ? IFormikErrors<Values[K][number]>[] | string | string[]
-      : string | string[]
-    : Values[K] extends object
-    ? IFormikErrors<Values[K]>
-    : string;
-};
-
 type FormikErrors<Values> = {
   [K in keyof Values]?: Values[K] extends any[]
     ? Values[K][number] extends object
@@ -19,14 +8,17 @@ type FormikErrors<Values> = {
     : string;
 };
 
-export default interface IFormAdapter<V extends { [key: string]: any }> {
+/**
+ * @deprecated
+ */
+export default interface FormAdapter<V extends { [key: string]: any }> {
   handleSubmit?: (event: any) => void;
   handleChange?: (name: string) => (value: any) => void;
   setValues?: (value: Partial<V>, shouldValidate?: boolean) => void;
   setErrors?: (errors: FormikErrors<Partial<V>>) => void;
   handleReset?: () => void;
   getFieldValue: (name: string) => any;
-  getFieldError: (name: string) => string;
+  getFieldError: (name: string) => string | undefined;
   setFieldValue: (name: string, value: any) => void;
   setFieldTouched?: (name: string, isTouched?: boolean, shouldValidate?: boolean) => void;
   initialValues: Partial<V>;
@@ -34,5 +26,5 @@ export default interface IFormAdapter<V extends { [key: string]: any }> {
   isSubmitting: boolean;
   isValid: boolean;
   reset: (values?: V) => void;
-  errors?: IFormikErrors<Partial<V>>;
+  errors?: FormikErrors<Partial<V>>;
 }

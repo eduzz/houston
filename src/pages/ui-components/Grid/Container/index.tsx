@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-export type IContainerLayout = 'fluid' | 'solid';
-export interface IContainer extends IStyledProp {
+export type ContainerLayout = 'fluid' | 'solid';
+export interface ContainerProps extends StyledProp {
   children: React.ReactNode;
-  layout?: IContainerLayout;
+  layout?: ContainerLayout;
 }
 
-const Container = React.forwardRef<HTMLDivElement, IContainer>(({ className, children, layout }, ref) => (
+const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({ className, children, layout }, ref) => (
   <div ref={ref} className={cx(className, `--${layout ?? 'solid'}`)}>
     {children}
   </div>

@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-export type IAvatarSize = 'xs' | 'sm' | 'md' | 'lg';
+export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg';
 
-export type IAvatarColor = 'primary' | 'high';
+export type AvatarColor = 'primary' | 'high';
 
-type SizesMap = Record<IAvatarSize, string>;
+type SizesMap = Record<AvatarSize, string>;
 
-type FontMap = Record<IAvatarSize, string>;
+type FontMap = Record<AvatarSize, string>;
 
 const sizesMap: SizesMap = { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '4rem' };
 
@@ -19,21 +19,21 @@ const Icon = () => (
   </svg>
 );
 
-export interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement>, IStyledProp {
+export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, StyledProp {
   src?: string;
   alt?: string;
   /**
    * Default `primary`
    */
-  color?: IAvatarColor;
+  color?: AvatarColor;
   /**
    * Default `md`
    */
-  size?: IAvatarSize;
+  size?: AvatarSize;
   children?: React.ReactNode;
 }
 
-const Avatar = ({ src, alt, children, className, color = 'primary', size = 'md', ...rest }: IAvatarProps) => {
+const Avatar = ({ src, alt, children, className, color = 'primary', size = 'md', ...rest }: AvatarProps) => {
   const imageProps = { src, alt };
 
   const hasImage = !!src;

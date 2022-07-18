@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-import { useFormIsSubmitting, useFormValue, useFormError, useFormSetValue } from '@eduzz/houston-forms/context';
 import ChevronDown from '@eduzz/houston-icons/ChevronDown';
 
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
 import nestedComponent from '../../utils/nestedComponent';
-import Fieldset, { IFieldsetProps } from '../_utils/Fieldset';
-import SelectContext, { ISelectContext, ISelectOption } from './context';
+import Fieldset, { FieldsetProps } from '../_utils/Fieldset';
+import withForm from '../Form/withForm';
+import SelectContext, { SelectContextProps, SelectOptionProps } from './context';
 import SelectOption from './Option';
 
-interface IOwnProperties extends Omit<IFieldsetProps, 'focused' | 'endAdornment'> {
+interface OwnProperties extends Omit<FieldsetProps, 'focused' | 'endAdornment'> {
   value?: any;
   name?: string;
   placeholder?: string;
@@ -26,24 +26,23 @@ interface IOwnProperties extends Omit<IFieldsetProps, 'focused' | 'endAdornment'
   /**
    * @deprecated Utilizar a nova estrutura de options
    */
-  options?: ISelectFieldOption[];
+  options?: SelectFieldOption[];
 }
 
-export interface ISelectFieldProps extends IOwnProperties, React.RefAttributes<HTMLSelectElement> {}
+export interface SelectFieldProps extends OwnProperties, React.RefAttributes<HTMLSelectElement> {}
 
 /**
  * @deprecated Utilizar a nova estrutura de options
  */
-export interface ISelectFieldOption {
+export interface SelectFieldOption {
   value: string | number;
   label: string;
   disabled?: boolean;
 }
 
-const SelectField: React.FC<ISelectFieldProps> = ({
+const SelectField = ({
   label,
-  value: valueProp,
-  name,
+  value,
   size,
   placeholder,
   loading,
@@ -52,34 +51,29 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   onChange,
   disabled,
   startAdornment,
-  errorMessage: errorMessageProp,
+  errorMessage,
   fullWidth,
   helperText,
   className,
+  disableMargin,
   emptyOption,
   options: optionsProps,
   children
-}) => {
+}: SelectFieldProps) => {
   const { openPopover, closePopover, isPopoverOpened, popoverTargetProps, popoverProps } = usePopover();
-  const [options, setOptions] = React.useState<ISelectOption[]>([]);
-
-  const isSubmitting = useFormIsSubmitting();
-  let value = useFormValue(name, valueProp);
-  const errorMessage = useFormError(name, errorMessageProp);
-  const setFormValue = useFormSetValue(name);
+  const [options, setOptions] = React.useState<SelectOptionProps[]>([]);
 
   value = !multiple ? value : Array.isArray(value) ? value : [];
 
-  const contextRegisterOption = React.useCallback<ISelectContext['registerOption']>(option => {
+  const contextRegisterOption = React.useCallback<SelectContextProps['registerOption']>(option => {
     setOptions(options => [...options, option]);
     return () => setOptions(options => options.filter(op => op !== option));
   }, []);
 
-  const contextOnSelect = React.useCallback<ISelectContext['onSelect']>(
+  const contextOnSelect = React.useCallback<SelectContextProps['onSelect']>(
     (selected: any) => {
       if (!multiple) {
         onChange && onChange(selected);
-        setFormValue && setFormValue(selected);
         closePopover();
         return;
       }
@@ -92,17 +86,16 @@ const SelectField: React.FC<ISelectFieldProps> = ({
         : [...value, selected];
 
       onChange && onChange(newValue);
-      setFormValue && setFormValue(newValue);
     },
-    [multiple, onChange, value, setFormValue, closePopover]
+    [multiple, onChange, value, closePopover]
   );
 
-  const contextValue = React.useMemo<ISelectContext>(
+  const contextValue = React.useMemo<SelectContextProps>(
     () => ({
       registerOption: contextRegisterOption,
       onSelect: contextOnSelect,
       inputSize: size,
-      multiple,
+      multiple: multiple ?? false,
       inputValue: value
     }),
     [contextOnSelect, contextRegisterOption, multiple, size, value]
@@ -156,8 +149,9 @@ const SelectField: React.FC<ISelectFieldProps> = ({
         endAdornment={<ChevronDown />}
         startAdornment={startAdornment}
         helperText={helperText}
-        disabled={isSubmitting || disabled}
-        onClickContainer={!disabled && !loading && !isSubmitting ? openPopover : null}
+        disabled={disabled}
+        disableMargin={disableMargin}
+        onClickContainer={!disabled && !loading ? openPopover : undefined}
       >
         <div className='__text'>{text}</div>
       </Fieldset>
@@ -165,6 +159,6 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   );
 };
 
-export default nestedComponent(React.memo(SelectField), {
+export default nestedComponent(withForm(React.memo(SelectField)), {
   Option: SelectOption
 });

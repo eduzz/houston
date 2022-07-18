@@ -4,7 +4,7 @@ import emotionStyled from '@emotion/styled';
 
 import { breakpoinstUtils } from '@eduzz/houston-tokens/variables/breakpoints';
 
-export interface IStyledProp {
+export interface StyledProp {
   className?: string;
 }
 

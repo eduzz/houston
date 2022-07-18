@@ -2,8 +2,14 @@
 name: List
 ---
 
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import { Playground } from 'dokz';
+
+import useForm from '@eduzz/houston-forms/useForm';
+import IconHomeOutline from '@eduzz/houston-icons/HomeOutline';
+import Divider from '@eduzz/houston-ui/Divider';
+import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
+import Form from '@eduzz/houston-ui/Forms/Form';
+import Thumbnail from '@eduzz/houston-ui/Image/Thumbnail';
 
 import IconButton from '../IconButton';
 import List from './';
@@ -23,51 +29,31 @@ import List from '@eduzz/houston-ui/List';
 <Playground>
   <List>
     <List.Item>
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+      <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
-            <InsertEmoticonIcon />
+            <IconHomeOutline />
           </IconButton>
         }
       />
     </List.Item>
     <List.Item>
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+      <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
-            <InsertEmoticonIcon />
+            <IconHomeOutline />
           </IconButton>
         }
       />
     </List.Item>
     <List.Item>
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
+      <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
       <List.Right
         icon={
           <IconButton>
-            <InsertEmoticonIcon />
-          </IconButton>
-        }
-      />
-    </List.Item>
-    <List.Item>
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
-      <List.Right
-        icon={
-          <IconButton>
-            <InsertEmoticonIcon />
-          </IconButton>
-        }
-      />
-    </List.Item>
-    <List.Item>
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
-      <List.Right
-        icon={
-          <IconButton>
-            <InsertEmoticonIcon />
+            <IconHomeOutline />
           </IconButton>
         }
       />
@@ -75,69 +61,84 @@ import List from '@eduzz/houston-ui/List';
   </List>
 </Playground>
 
-### Listrado
-
-Prop `stripedRows`.
+### Com checkbox, divider e thumbnail
 
 <Playground>
-  <List stripedRows>
-    <List.Item>
-      <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
-      <List.Right
-        icon={
-          <IconButton size='small'>
-            <InsertEmoticonIcon />
-          </IconButton>
-        }
-      />
-    </List.Item>
-    <List.Item>
-      <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Text title='Lorem Ipsum Dolor' />
-      <List.Right
-        icon={
-          <IconButton size='small'>
-            <InsertEmoticonIcon />
-          </IconButton>
-        }
-      />
-    </List.Item>
-    <List.Item>
-      <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
-      <List.Right text='lorem ipsum' />
-    </List.Item>
-    <List.Item>
-      <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Text title='Lorem Ipsum Dolor' />
-      <List.Right
-        icon={
-          <IconButton size='small'>
-            <InsertEmoticonIcon />
-          </IconButton>
-        }
-      />
-    </List.Item>
-    <List.Item>
-      <List.Left icon={<InsertEmoticonIcon />} />
-      <List.Text title='Lorem Ipsum Dolor' subtitle='Lorem Ipsum Dolor' />
-      <List.Right
-        icon={
-          <IconButton size='small'>
-            <InsertEmoticonIcon />
-          </IconButton>
-        }
-      />
-    </List.Item>
-  </List>
+  {() => {
+    const form = useForm({ onSubmit: null });
+    const {
+      values: { checkbox1, checkbox2, checkbox3, checkbox4 }
+    } = form;
+    return (
+      <Form context={form}>
+        <List dividers>
+          <List.Item isActive={checkbox1} disabled>
+            <List.Left>
+              <Checkbox name='checkbox1' disabled={!checkbox1} />
+            </List.Left>
+            <List.Left>
+              <Thumbnail src='https://picsum.photos/80' size='md' />
+            </List.Left>
+            <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
+            <List.Right>
+              <IconButton>
+                <IconHomeOutline />
+              </IconButton>
+            </List.Right>
+          </List.Item>
+          <List.Item isActive={checkbox2}>
+            <List.Left>
+              <Checkbox name='checkbox2' />
+            </List.Left>
+            <List.Left>
+              <Thumbnail src='https://picsum.photos/80' size='md' />
+            </List.Left>
+            <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
+            <List.Right>
+              <IconButton>
+                <IconHomeOutline />
+              </IconButton>
+            </List.Right>
+          </List.Item>
+          <List.Item isActive={checkbox3}>
+            <List.Left>
+              <Checkbox name='checkbox3' />
+            </List.Left>
+            <List.Left>
+              <Thumbnail src='https://picsum.photos/80' size='md' />
+            </List.Left>
+            <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
+            <List.Right>
+              <IconButton>
+                <IconHomeOutline />
+              </IconButton>
+            </List.Right>
+          </List.Item>
+          <List.Item isActive={checkbox4}>
+            <List.Left>
+              <Checkbox name='checkbox4' />
+            </List.Left>
+            <List.Left>
+              <Thumbnail src='https://picsum.photos/80' size='md' />
+            </List.Left>
+            <List.Text title='Lorem Ipsum Dolor' description='Lorem Ipsum Dolor' />
+            <List.Right>
+              <IconButton>
+                <IconHomeOutline />
+              </IconButton>
+            </List.Right>
+          </List.Item>
+        </List>
+      </Form>
+    );
+  }}
 </Playground>
 
 ### List props
 
-| prop        | tipo      | obrigatório | padrão  | descrição |
-| ----------- | --------- | ----------- | ------- | --------- |
-| stripedRows | `boolean` | `false`     | `false` | -         |
+| prop     | tipo      | obrigatório | padrão  | descrição |
+| -------- | --------- | ----------- | ------- | --------- |
+| dividers | `boolean` | `false`     | `false` | -         |
 
 ### List.Item props
 
@@ -147,22 +148,20 @@ Prop `stripedRows`.
 
 ### List.Left props
 
-| prop  | tipo              | obrigatório | padrão | descrição                                           |
-| ----- | ----------------- | ----------- | ------ | --------------------------------------------------- |
-| icon  | `React.ReactNode` | `false`     | -      | -                                                   |
-| image | `React.ReactNode` | `false`     | -      | Só será exibido se a prop `icon` não possuir valor. |
+| prop     | tipo              | obrigatório | padrão | descrição |
+| -------- | ----------------- | ----------- | ------ | --------- |
+| children | `React.ReactNode` | `true`      | -      | -         |
 
 ### List.Text props
 
-| prop     | tipo                        | obrigatório | padrão | descrição |
-| -------- | --------------------------- | ----------- | ------ | --------- |
-| title    | `string or React.ReactNode` | `true`      | -      | -         |
-| subtitle | `string or React.ReactNode` | `fase`      | -      | -         |
+| prop              | tipo              | obrigatório | padrão  | descrição                                                  |
+| ----------------- | ----------------- | ----------- | ------- | ---------------------------------------------------------- |
+| title             | `React.ReactNode` | `true`      | -       | -                                                          |
+| description       | `React.ReactNode` | `false`     | -       | -                                                          |
+| disableTypography | `boolean`         | `false`     | `false` | Se `true`, o componente `Typography` não será renderizado. |
 
 ### List.Right props
 
-| prop    | tipo              | obrigatório | padrão | descrição                                           |
-| ------- | ----------------- | ----------- | ------ | --------------------------------------------------- |
-| icon    | `React.ReactNode` | false       | -      | -                                                   |
-| onClick | `function`        | false       | -      | -                                                   |
-| text    | `string`          | false       | -      | Só será exibido se a prop `icon` não possuir valor. |
+| prop     | tipo              | obrigatório | padrão | descrição |
+| -------- | ----------------- | ----------- | ------ | --------- |
+| children | `React.ReactNode` | `true`      | -      | -         |

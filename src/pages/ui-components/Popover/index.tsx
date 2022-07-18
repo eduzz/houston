@@ -5,11 +5,12 @@ import styled from '@emotion/styled';
 import { Placement } from '@popperjs/core';
 import { useContextSelector } from 'use-context-selector';
 
-import { IStyledProp, cx } from '@eduzz/houston-styles';
+import { StyledProp, cx } from '@eduzz/houston-styles';
 
+import warning from '../utils/warning';
 import PopoverContext from './context';
 
-export interface IPopoverProps extends IStyledProp {
+export interface PopoverProps extends StyledProp {
   targetRef: React.RefObject<HTMLElement>;
   children?: React.ReactNode;
   fullWidth?: boolean;
@@ -18,29 +19,34 @@ export interface IPopoverProps extends IStyledProp {
   variant?: 'tooltip';
 }
 
-export interface IPopoverRef {
+export interface PopoverRef {
   open(): void;
   close(): void;
 }
 
-const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
+const Popover = React.forwardRef<PopoverRef, PopoverProps>(
   ({ targetRef, children, className, fullWidth, placement, id, variant }, ref) => {
     const setState = useContextSelector(PopoverContext, context => context.setState);
-    const contentRef = React.useRef<HTMLDivElement>();
+    const contentRef = React.useRef<HTMLDivElement>(null);
     const closeRef = React.useRef<() => void>();
 
     React.useImperativeHandle(
       ref,
       () => ({
         open() {
+          if (!targetRef.current || !contentRef.current) {
+            warning('Popover', 'needs a targetRef and contentRef');
+            return;
+          }
+
           closeRef.current = setState({
             opened: true,
             target: targetRef.current,
             content: contentRef.current,
-            placement
+            placement: placement ?? 'auto'
           });
 
-          contentRef.current.style.width = fullWidth ? `${targetRef.current.offsetWidth}px` : 'auto';
+          contentRef.current.style.width = fullWidth ? `${targetRef.current?.offsetWidth}px` : 'auto';
         },
         close() {
           closeRef.current && closeRef.current();

@@ -1,22 +1,21 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-export interface IDivider extends IStyledProp {
+export interface Divider extends StyledProp {
   vertical?: boolean;
 }
 
-const Divider = ({ className, vertical }: IDivider) => {
-  const ref = React.useRef(null);
-  const [height, setHeight] = React.useState<number>(null);
+const Divider = ({ className, vertical }: Divider) => {
+  const ref = React.useRef<HTMLHRElement>(null);
 
   React.useEffect(() => {
     if (ref.current && vertical) {
-      setHeight(ref.current.parentElement.clientHeight);
+      ref.current.style.height = `${ref.current.parentElement?.clientHeight}px`;
     }
   }, [vertical]);
 
-  return <hr ref={ref} style={{ height }} className={cx(className, `--${vertical ? 'vertical' : 'horizontal'}`)} />;
+  return <hr ref={ref} className={cx(className, `--${vertical ? 'vertical' : 'horizontal'}`)} />;
 };
 
 export default React.memo(styled(Divider, { label: 'houston-divider' })`
@@ -33,7 +32,6 @@ export default React.memo(styled(Divider, { label: 'houston-divider' })`
     &.--vertical {
       border-width: 0 0 0 ${theme.border.width.xs};
       display: inline-flex;
-      }
     }
   `}
 `);

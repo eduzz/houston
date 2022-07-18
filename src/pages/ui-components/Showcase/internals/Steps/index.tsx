@@ -6,21 +6,21 @@ import createUseStyles from '@eduzz/houston-styles/createUseStyles';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
-interface IWidthSizes {
+interface WidthSizes {
   large: number;
   medium: number;
   small: number;
 }
 
-interface IStyleProps {
+interface StyleProps {
   margin: number;
-  imageSizes: IWidthSizes;
-  modalSizes: IWidthSizes;
+  imageSizes: WidthSizes;
+  modalSizes: WidthSizes;
   size: 'small' | 'medium' | 'large';
 }
 
 const useStyles = createUseStyles(theme => ({
-  root: ({ margin, modalSizes, size }: IStyleProps) => ({
+  root: ({ margin, modalSizes, size }: StyleProps) => ({
     overflow: 'hidden',
 
     '& .steps': {
@@ -49,7 +49,7 @@ const useStyles = createUseStyles(theme => ({
     }
   },
 
-  contentImage: (props: IStyleProps) => ({
+  contentImage: (props: StyleProps) => ({
     width: props.imageSizes.large,
     marginBottom: 24,
     display: 'flex',
@@ -69,7 +69,7 @@ const useStyles = createUseStyles(theme => ({
     }
   }),
 
-  contentText: ({ imageSizes }: IStyleProps) => ({
+  contentText: ({ imageSizes }: StyleProps) => ({
     width: imageSizes.large,
     alignSelf: 'baseline',
     fontWeight: 400,
@@ -94,11 +94,11 @@ const useStyles = createUseStyles(theme => ({
     padding: '12px 16px'
   },
 
-  small: (props: IStyleProps) => ({
+  small: (props: StyleProps) => ({
     width: props.imageSizes.small
   }),
 
-  medium: (props: IStyleProps) => ({
+  medium: (props: StyleProps) => ({
     width: props.imageSizes.medium
   })
 }));

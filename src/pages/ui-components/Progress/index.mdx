@@ -198,17 +198,17 @@ import ProgressLine from '@eduzz/houston-ui/Progress/Line';
 </Playground>
 
 ```ts
-interface IStep {
+interface Step {
   icon?: React.ReactNode;
   label?: string;
   error?: boolean;
 }
 ```
 
-| prop        | tipo      | obrigatório | padrão |
-| ----------- | --------- | ----------- | ------ |
-| steps       | `IStep[]` | `true`      | -      |
-| currentStep | `number`  | `false`     | 0      |
+| prop        | tipo     | obrigatório | padrão |
+| ----------- | -------- | ----------- | ------ |
+| steps       | `Step[]` | `true`      | -      |
+| currentStep | `number` | `false`     | 0      |
 
 ## Round
 

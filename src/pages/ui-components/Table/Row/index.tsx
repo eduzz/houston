@@ -11,12 +11,12 @@ import styled from '@eduzz/houston-styles/styled';
 
 import CollapseContent from '../CollapseContent';
 import TableContext from '../context';
-import { ITableAction, ITableCollapse } from '../interface';
-import TableRowContext, { ITableRowContext } from './context';
+import { TableAction, TableCollapse } from '../interface';
+import TableRowContext, { TableRowContextProps } from './context';
 
 let tableActionIncremeter = 0;
 
-export interface ITableRowProps {
+export interface TableRowProps {
   id?: string;
   className?: string;
   data: unknown;
@@ -26,7 +26,7 @@ export interface ITableRowProps {
   onDoubleClick?: () => void;
 }
 
-const TableRow = React.memo<ITableRowProps>(({ data, index, children, className, ...props }) => {
+const TableRow = React.memo<TableRowProps>(({ data, index, children, className, ...props }) => {
   const stripedRows = useContextSelector(TableContext, context => context.stripedRows);
   const onShowAction = useContextSelector(TableContext, context => context.onShowAction);
   const registerRow = useContextSelector(TableContext, context => context.registerRow);
@@ -38,8 +38,8 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
   const [showCollapse, toogleShowCollapse] = useBoolean(false);
   const [actionLoading, setActionLoading] = React.useState(false);
 
-  const [collapse, setCollapse] = React.useState<ITableCollapse>(null);
-  const [actions, setActions] = React.useState<ITableAction[]>([]);
+  const [collapse, setCollapse] = React.useState<TableCollapse>();
+  const [actions, setActions] = React.useState<TableAction[]>([]);
 
   const oneAction = actions.length === 1 ? actions[0] : null;
   const hasActions = actions.length > 0;
@@ -57,12 +57,12 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     [oneAction, onShowAction, data, index, actions]
   );
 
-  const registerCollapse = React.useCallback((content: ITableCollapse) => {
+  const registerCollapse = React.useCallback((content: TableCollapse) => {
     setCollapse(content);
     return () => setCollapse(undefined);
   }, []);
 
-  const registerAction = React.useCallback((action: Omit<ITableAction, 'key'>) => {
+  const registerAction = React.useCallback((action: Omit<TableAction, 'key'>) => {
     const key = `table-action-option-${++tableActionIncremeter}`;
     setActions(actions => [...actions, { key, ...action }]);
     return () => setActions(actions => actions.filter(o => o.key !== key));
@@ -73,7 +73,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
     return () => unregister();
   }, [hasActions, hasCollapse, registerRow]);
 
-  const contextValue = React.useMemo<ITableRowContext>(
+  const contextValue = React.useMemo<TableRowContextProps>(
     () => ({ registerAction, registerCollapse, registerActionLoading: setActionLoading, data, index, collapse }),
     [collapse, data, index, registerAction, registerCollapse]
   );
@@ -94,7 +94,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
           <td align='right' className={cx('houston-table-action-cell', tableSize === 'small' && '--small')}>
             {hasActions && !actionLoading && (
               <div onClick={onClickAction} className='houston-table-icon-action'>
-                {oneAction?.icon ?? <IconDotsHorizontal size={24} />}
+                {oneAction?.icon ?? <IconDotsHorizontal size='md' />}
               </div>
             )}
             {actionLoading && <CircularProgress size={18} variant='indeterminate' />}
@@ -115,7 +115,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
                 showCollapse && 'houston-table-collapse-button-opened'
               )}
             >
-              <IconChevronDown size={24} />
+              <IconChevronDown size='md' />
             </div>
           </td>
         )}
@@ -139,7 +139,7 @@ const TableRow = React.memo<ITableRowProps>(({ data, index, children, className,
 export default styled(TableRow)`
   .houston-table-action-cell {
     padding: 6px 12px;
-    border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light}};
+    border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light};
     font-size: ${({ theme }) => theme.font.size.xs};
 
     &.--small {
@@ -149,7 +149,7 @@ export default styled(TableRow)`
 
   .houston-houston-table-collapse-cell {
     padding-right: 8px;
-    border-top: 1px solid  ${({ theme }) => theme.neutralColor.high.light};
+    border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light};
     font-size: ${({ theme }) => theme.font.size.xs};
 
     &.--small {

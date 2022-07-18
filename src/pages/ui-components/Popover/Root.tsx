@@ -3,19 +3,20 @@ import * as React from 'react';
 import { createPopper } from '@popperjs/core';
 
 import useOnClickOutside from '../hooks/useClickOutside';
-import PopoverContext, { IPopoverContext, IPopoverContextState } from './context';
+import warning from '../utils/warning';
+import PopoverContext, { PopoverContextProps, PopoverContextState } from './context';
 
-export interface IPopoverProps {
+export interface PopoverProps {
   children?: React.ReactNode;
 }
 
-interface IState extends IPopoverContextState {
-  closedTarget: IPopoverContextState['target'];
+interface State extends PopoverContextState {
+  closedTarget: PopoverContextState['target'];
   timestamp: number;
 }
 
-const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
-  const [state, setState] = React.useState<IState>({
+const PopoverRoot = ({ children }: PopoverProps) => {
+  const [state, setState] = React.useState<State>({
     opened: false,
     target: null,
     content: null,
@@ -28,6 +29,11 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     if (!state.opened) {
       state.content?.classList?.remove('--opened');
       return undefined;
+    }
+
+    if (!state.target || !state.content) {
+      warning('Popover Root', 'needs target and content');
+      return;
     }
 
     const instance = createPopper(state.target, state.content, {
@@ -64,9 +70,9 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     [state.opened]
   );
 
-  const contextSetValue = React.useCallback<IPopoverContext['setState']>(newState => {
+  const contextSetValue = React.useCallback<PopoverContextProps['setState']>(newState => {
     setTimeout(() => {
-      const resolveNewState = (currentState: IState) => ({
+      const resolveNewState = (currentState: State) => ({
         ...currentState,
         ...newState,
         timestamp: Date.now(),
@@ -92,7 +98,7 @@ const PopoverRoot: React.FC<IPopoverProps> = ({ children }) => {
     };
   }, []);
 
-  const contextValue = React.useMemo<IPopoverContext>(
+  const contextValue = React.useMemo<PopoverContextProps>(
     () => ({ setState: contextSetValue, openedTarget: state.opened ? state.target : null }),
     [contextSetValue, state.opened, state.target]
   );

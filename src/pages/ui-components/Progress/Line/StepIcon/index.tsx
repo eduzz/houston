@@ -33,14 +33,14 @@ const useStyles = createUseStyles(theme => ({
   }
 }));
 
-interface IStepIconProps {
+interface StepIconProps {
   icon: React.ReactNode;
   active: boolean;
   completed: boolean;
   error: boolean;
 }
 
-const StepIcon: React.FC<IStepIconProps> = ({ icon, active, completed, error }) => {
+const StepIcon = ({ icon, active, completed, error }: StepIconProps) => {
   const classes = useStyles();
 
   return (
@@ -53,6 +53,7 @@ const StepIcon: React.FC<IStepIconProps> = ({ icon, active, completed, error }) 
           })}
         >
           {completed && <Check className={classes.check} />}
+
           {!completed && icon}
         </div>
       )}

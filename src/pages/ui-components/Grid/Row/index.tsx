@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import { RowProvider } from '../context';
 
@@ -8,7 +8,7 @@ type AlignItemsRow = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretc
 type JustifyContentRow = 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
 export type Spacing = 'none' | 'nano' | 'xxxs' | 'xxs' | 'xs' | 'md' | 'xl';
 
-export interface IRow extends IStyledProp {
+export interface RowProps extends StyledProp {
   children: React.ReactNode;
   /**
    * Defaults to 'xxxs'
@@ -18,7 +18,7 @@ export interface IRow extends IStyledProp {
   justifyContent?: JustifyContentRow;
 }
 
-const Row = React.forwardRef<HTMLDivElement, IRow>(({ className, children, spacing = 'xxxs' }, ref) => {
+const Row = React.forwardRef<HTMLDivElement, RowProps>(({ className, children, spacing = 'xxxs' }, ref) => {
   return (
     <RowProvider spacing={spacing}>
       <div ref={ref} className={cx(className, `--spacing-${spacing}`)}>

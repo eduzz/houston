@@ -1,0 +1,18 @@
+import Add from '@eduzz/houston-icons/Add';
+import styled from '@eduzz/houston-styles/styled';
+
+function Component({ className }: any) {
+  return (
+    <div className={className}>
+      <Add />
+    </div>
+  );
+}
+
+export default styled(Component)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+`;

@@ -3,12 +3,12 @@ import * as React from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import { cx } from '@eduzz/houston-styles';
-import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { StyledProp } from '@eduzz/houston-styles/styled';
 
 import SidebarContext from '../context';
 import Image from './Image';
 
-export interface ISidebarLogoProps extends IStyledProp {
+export interface ISidebarLogoProps extends StyledProp {
   id?: string;
   image: React.ReactNode;
   /**
