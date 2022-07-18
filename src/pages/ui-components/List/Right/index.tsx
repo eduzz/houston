@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import styled, { css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
-export interface ListRightProps extends IStyledProp, React.HTMLAttributes<HTMLDivElement> {
+export interface ListRightProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
 

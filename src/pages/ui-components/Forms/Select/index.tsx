@@ -5,12 +5,12 @@ import ChevronDown from '@eduzz/houston-icons/ChevronDown';
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
 import nestedComponent from '../../utils/nestedComponent';
-import Fieldset, { IFieldsetProps } from '../_utils/Fieldset';
+import Fieldset, { FieldsetProps } from '../_utils/Fieldset';
 import withForm from '../Form/withForm';
-import SelectContext, { ISelectContext, ISelectOption } from './context';
+import SelectContext, { SelectContextProps, SelectOptionProps } from './context';
 import SelectOption from './Option';
 
-interface IOwnProperties extends Omit<IFieldsetProps, 'focused' | 'endAdornment'> {
+interface OwnProperties extends Omit<FieldsetProps, 'focused' | 'endAdornment'> {
   value?: any;
   name?: string;
   placeholder?: string;
@@ -26,21 +26,21 @@ interface IOwnProperties extends Omit<IFieldsetProps, 'focused' | 'endAdornment'
   /**
    * @deprecated Utilizar a nova estrutura de options
    */
-  options?: ISelectFieldOption[];
+  options?: SelectFieldOption[];
 }
 
-export interface ISelectFieldProps extends IOwnProperties, React.RefAttributes<HTMLSelectElement> {}
+export interface SelectFieldProps extends OwnProperties, React.RefAttributes<HTMLSelectElement> {}
 
 /**
  * @deprecated Utilizar a nova estrutura de options
  */
-export interface ISelectFieldOption {
+export interface SelectFieldOption {
   value: string | number;
   label: string;
   disabled?: boolean;
 }
 
-const SelectField: React.FC<ISelectFieldProps> = ({
+const SelectField = ({
   label,
   value,
   size,
@@ -59,18 +59,18 @@ const SelectField: React.FC<ISelectFieldProps> = ({
   emptyOption,
   options: optionsProps,
   children
-}) => {
+}: SelectFieldProps) => {
   const { openPopover, closePopover, isPopoverOpened, popoverTargetProps, popoverProps } = usePopover();
-  const [options, setOptions] = React.useState<ISelectOption[]>([]);
+  const [options, setOptions] = React.useState<SelectOptionProps[]>([]);
 
   value = !multiple ? value : Array.isArray(value) ? value : [];
 
-  const contextRegisterOption = React.useCallback<ISelectContext['registerOption']>(option => {
+  const contextRegisterOption = React.useCallback<SelectContextProps['registerOption']>(option => {
     setOptions(options => [...options, option]);
     return () => setOptions(options => options.filter(op => op !== option));
   }, []);
 
-  const contextOnSelect = React.useCallback<ISelectContext['onSelect']>(
+  const contextOnSelect = React.useCallback<SelectContextProps['onSelect']>(
     (selected: any) => {
       if (!multiple) {
         onChange && onChange(selected);
@@ -90,7 +90,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
     [multiple, onChange, value, closePopover]
   );
 
-  const contextValue = React.useMemo<ISelectContext>(
+  const contextValue = React.useMemo<SelectContextProps>(
     () => ({
       registerOption: contextRegisterOption,
       onSelect: contextOnSelect,

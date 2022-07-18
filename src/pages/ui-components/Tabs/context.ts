@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { createContext } from 'use-context-selector';
 
-export interface ITabsContext {
+export interface TabsContextProps {
   tabs: Array<{ id?: string; children: React.ReactNode; className?: string; disablePadding?: boolean; key: string }>;
   registerTabs: (tab: {
     id?: string;
@@ -12,6 +12,6 @@ export interface ITabsContext {
   }) => () => void;
 }
 
-const TabsContext = createContext<ITabsContext>({} as ITabsContext);
+const TabsContext = createContext<TabsContextProps>({} as TabsContextProps);
 
 export default TabsContext;

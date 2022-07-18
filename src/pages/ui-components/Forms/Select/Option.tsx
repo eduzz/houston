@@ -3,13 +3,13 @@ import * as React from 'react';
 import { useContext } from 'use-context-selector';
 
 import Cancel from '@eduzz/houston-icons/Cancel';
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Typography from '../../Typography';
 import Checkbox from '../Checkbox';
 import SelectContext from './context';
 
-export interface ISelectOptionProps extends IStyledProp {
+export interface SelectOptionProps extends StyledProp {
   disabled?: boolean;
   value?: any;
   /**
@@ -20,7 +20,7 @@ export interface ISelectOptionProps extends IStyledProp {
   children?: React.ReactNode;
 }
 
-const SelectOption: React.FC<ISelectOptionProps> = ({ children, value, label, className, disabled }) => {
+const SelectOption = ({ children, value, label, className, disabled }: SelectOptionProps) => {
   const divRef = React.useRef<HTMLDivElement>(null);
   const { registerOption, onSelect, inputSize, inputValue, multiple } = useContext(SelectContext);
   const isSelected = inputValue && (Array.isArray(inputValue) ? inputValue.includes(value) : inputValue === value);

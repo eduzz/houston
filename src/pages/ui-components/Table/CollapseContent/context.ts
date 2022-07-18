@@ -1,9 +1,9 @@
 import { createContext } from 'use-context-selector';
 
-export interface ITableCollapseContext {
+export interface TableCollapseContextProps {
   isCollapseContent: boolean;
 }
 
-const TableCollapseContext = createContext<ITableCollapseContext>({} as ITableCollapseContext);
+const TableCollapseContext = createContext<TableCollapseContextProps>({} as TableCollapseContextProps);
 
 export default TableCollapseContext;

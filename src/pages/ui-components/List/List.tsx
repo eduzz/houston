@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { cx, StyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
 import ListContextProvider from './context';
@@ -9,7 +9,7 @@ import Left from './Left';
 import Right from './Right';
 import Text from './Text';
 
-export interface IListProps extends IStyledProp, React.HTMLAttributes<HTMLUListElement> {
+export interface ListProps extends StyledProp, React.HTMLAttributes<HTMLUListElement> {
   children: React.ReactNode;
   /**
    * Default `false`
@@ -17,7 +17,7 @@ export interface IListProps extends IStyledProp, React.HTMLAttributes<HTMLUListE
   dividers?: boolean;
 }
 
-const List = ({ children, className, dividers = false, ...rest }: IListProps) => {
+const List = ({ children, className, dividers = false, ...rest }: ListProps) => {
   return (
     <ListContextProvider dividers={dividers}>
       <ul role='list' className={cx(className, { '--dividers': dividers })} {...rest}>

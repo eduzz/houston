@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import { IStyledProp } from '@eduzz/houston-styles/styled';
+import { StyledProp } from '@eduzz/houston-styles/styled';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-import Typography, { ITypographyProps } from '..';
+import Typography, { TypographyProps } from '..';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 type ParagraphTags = 'p' | 'span' | 'strong';
 
 export type ParagraphSizes = 'lg' | 'sm';
 
-export interface IParagraphProps extends IStyledProp, Omit<ITypographyProps, 'size' | 'as'> {
+export interface ParagraphProps extends StyledProp, Omit<TypographyProps, 'size' | 'as'> {
   /**
    * Defaults to 'lg'
    */
@@ -36,7 +36,7 @@ const mobileSizesMap: SizesMap = {
   sm: 'xs'
 };
 
-const Paragraph = React.forwardRef<HTMLParagraphElement | HTMLSpanElement | HTMLElement, IParagraphProps>(
+const Paragraph = React.forwardRef<HTMLParagraphElement | HTMLSpanElement | HTMLElement, ParagraphProps>(
   ({ as = 'p', children, size: sizeProp = 'lg', ...props }, ref) => {
     const { breakpoints } = useHoustonTheme();
     const isMobile = useMediaQuery(breakpoints.down('sm'));

@@ -2,7 +2,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 import styled from '@eduzz/houston-styles/styled';
 
-interface IProgressBarProps {
+interface ProgressBarProps {
   progress: number;
 }
 
@@ -19,7 +19,7 @@ const Bar = styled(LinearProgress)(({ theme }) => ({
   }
 }));
 
-const ProgressBar = ({ progress }: IProgressBarProps) => {
+const ProgressBar = ({ progress }: ProgressBarProps) => {
   return <Bar variant='determinate' value={progress > 100 ? 100 : progress} />;
 };
 

@@ -6,7 +6,7 @@ import usePromiseEffect from '../usePromiseEffect';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const isEqual = require('lodash/isEqual');
 
-export interface IPaginationParams {
+export interface PaginationParams {
   [key: string]: any;
   page: number;
   perPage: number;
@@ -16,12 +16,12 @@ export interface IPaginationParams {
   };
 }
 
-export interface IPaginationResponse<T> {
+export interface PaginationResponse<T> {
   total: number;
   result: T[];
 }
 
-interface IDataState<T> extends IPaginationResponse<T> {
+interface DataState<T> extends PaginationResponse<T> {
   hasMore: boolean;
 }
 
@@ -29,11 +29,11 @@ export type PaginationMergeParams<P> =
   | Partial<P & { _refresh?: number }>
   | ((currenteParams: Partial<P & { _refresh?: number }>) => Partial<P & { _refresh?: number }>);
 
-export interface IUsePaginatedOptions<P, T> {
+export interface UsePaginatedOptions<P, T> {
   initialParams?: P;
   /** set if the date will be cumulative or not */
   infintyScroll?: boolean;
-  onChangeParams: (params: P, isSubscribed: () => boolean) => Promise<IPaginationResponse<T>>;
+  onChangeParams: (params: P, isSubscribed: () => boolean) => Promise<PaginationResponse<T>>;
 }
 
 export interface IUsePromisePaginated<P, R> {
@@ -52,22 +52,22 @@ export interface IUsePromisePaginated<P, R> {
   /** Sintax sugar for `mergeParams` to change perPage  */
   handleChangePerPage: (perPage: number) => void;
   /** Sintax sugar for `mergeParams` to change the sort  */
-  handleSort: (sort: IPaginationParams['sort']) => void;
+  handleSort: (sort: PaginationParams['sort']) => void;
 }
 
 /**
  * Hooks to simplify the use of an observable paginated
- * @param options `IUsePaginatedOptions`
+ * @param options `UsePaginatedOptions`
  * @param deps React deps
  * @returns `IUsePaginatedPromise`
  */
-export default function usePromisePaginated<P extends IPaginationParams, R>(
-  options: IUsePaginatedOptions<P, R>,
+export default function usePromisePaginated<P extends PaginationParams, R>(
+  options: UsePaginatedOptions<P, R>,
   deps: React.DependencyList
 ): IUsePromisePaginated<P, R> {
   const { infintyScroll, initialParams: initialParamsOption, onChangeParams } = options;
 
-  const [data, setData] = React.useState<IDataState<R>>({ total: 0, result: [], hasMore: true });
+  const [data, setData] = React.useState<DataState<R>>({ total: 0, result: [], hasMore: true });
   const [error, setError] = React.useState<any>();
   const [isLoading, setIsLoading] = React.useState(true);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
@@ -145,7 +145,7 @@ export default function usePromisePaginated<P extends IPaginationParams, R>(
   const handleChangePage = React.useCallback((page: number) => mergeParams({ page } as P), [mergeParams]);
   const handleChangePerPage = React.useCallback((perPage: number) => mergeParams({ perPage } as P), [mergeParams]);
   const handleSort = React.useCallback(
-    (sort: IPaginationParams['sort']) => mergeParams({ sort, page: initialParams.page } as P),
+    (sort: PaginationParams['sort']) => mergeParams({ sort, page: initialParams.page } as P),
     [initialParams.page, mergeParams]
   );
 

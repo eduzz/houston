@@ -2,16 +2,17 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp, cx } from '@eduzz/houston-styles/styled';
+import styled, { StyledProp, cx } from '@eduzz/houston-styles/styled';
 
-import Typography, { ITypographyProps } from '../../Typography';
+import Typography, { TypographyProps } from '../../Typography';
 import TableContext, { TableSize } from '../context';
 
-export interface ITableEmptyProps extends IStyledProp {
+export interface TableEmptyProps extends StyledProp {
   count: number;
   children?: React.ReactNode;
 }
-const TableEmpty = React.memo<ITableEmptyProps>(({ children, count, className }) => {
+
+const TableEmpty = React.memo<TableEmptyProps>(({ children, count, className }) => {
   const columnsLen = useContextSelector(TableContext, context => context.columns.length);
   const tableSize = useContextSelector(TableContext, context => context.size);
 
@@ -19,7 +20,7 @@ const TableEmpty = React.memo<ITableEmptyProps>(({ children, count, className })
 
   children = children ?? 'Nenhum dado encontrado';
 
-  const fontSizeMap: Record<TableSize, ITypographyProps['size']> = {
+  const fontSizeMap: Record<TableSize, TypographyProps['size']> = {
     small: 'xxs',
     medium: 'xs'
   };

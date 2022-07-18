@@ -1,36 +1,36 @@
 import { CardProps } from '@mui/material/Card';
 
-import { IShowcaseCloseButtonProps } from './CloseButton';
-import { IShowcaseButtonsProps } from './GenericButtons';
-import { IShowcaseImageProps } from './Image';
-import { IShowcaseLastStepProps } from './LastButton';
-import { IShowcaseNextStepProps } from './NextButton';
-import { IShowcasePreviousStepProps } from './PreviousButton';
-import { IShowcaseStepProps } from './Step';
-import { IShowcaseTextProps } from './Text';
+import { ShowcaseCloseButtonProps } from './CloseButton';
+import { ShowcaseButtonsProps } from './GenericButtons';
+import { ShowcaseImageProps } from './Image';
+import { ShowcaseLastStepProps } from './LastButton';
+import { ShowcaseNextStepProps } from './NextButton';
+import { ShowcasePreviousStepProps } from './PreviousButton';
+import { ShowcaseStepProps } from './Step';
+import { ShowcaseTextProps } from './Text';
 
 type ShowcasePropsExtends = 'id' | 'className' | 'children';
 
-export interface IWidthSizes {
+export interface WidthSizes {
   small: number;
   medium: number;
   large: number;
 }
 
-export interface IShowcaseButtons extends IShowcaseButtonsProps {
-  lastButton?: IShowcaseLastStepProps;
-  nextButton?: IShowcaseNextStepProps;
-  previousButton?: IShowcasePreviousStepProps;
-  closeButton?: IShowcaseCloseButtonProps;
+export interface ShowcaseButtons extends ShowcaseButtonsProps {
+  lastButton?: ShowcaseLastStepProps;
+  nextButton?: ShowcaseNextStepProps;
+  previousButton?: ShowcasePreviousStepProps;
+  closeButton?: ShowcaseCloseButtonProps;
 }
 
-export interface IShowcaseStep extends IShowcaseStepProps {
-  image?: IShowcaseImageProps;
-  text?: IShowcaseTextProps;
-  stepButtons?: IShowcaseButtons;
+export interface ShowcaseStepPropsInternal extends ShowcaseStepProps {
+  image?: ShowcaseImageProps;
+  text?: ShowcaseTextProps;
+  stepButtons?: ShowcaseButtons;
 }
 
-export interface IShowcaseProps extends Pick<CardProps, ShowcasePropsExtends> {
+export interface ShowcaseProps extends Pick<CardProps, ShowcasePropsExtends> {
   disableBackdropClick?: boolean;
   initialStep?: number;
   open?: boolean;

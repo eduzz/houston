@@ -8,7 +8,7 @@ import styled from '@eduzz/houston-styles/styled';
 import TableContext from '../context';
 import SortLabel from './SortLabel';
 
-export interface ITableColumnProps {
+export interface TableColumnProps {
   id?: string;
   className?: string;
   children?: React.ReactNode;
@@ -23,7 +23,7 @@ export interface ITableColumnProps {
    */
   sortableField?: string;
 }
-const TableColumn = React.memo<ITableColumnProps>(({ sortableField, children, className, align, ...rest }) => {
+const TableColumn = React.memo<TableColumnProps>(({ sortableField, children, className, align, ...rest }) => {
   const registerColumn = useContextSelector(TableContext, context => context.registerColumn);
   const onSort = useContextSelector(TableContext, context => context.onSort);
   const sort = useContextSelector(TableContext, context => context.sort);

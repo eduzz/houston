@@ -4,15 +4,15 @@ import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { cx, StyledProp } from '@eduzz/houston-styles/styled';
 
 import Typography from '../../Typography';
 import TableContext from '../context';
 
-export interface ITableLoadingProps extends IStyledProp {
+export interface TableLoadingProps extends StyledProp {
   text: React.ReactNode;
 }
-const TableLoading = React.memo<ITableLoadingProps>(({ text, className }) => {
+const TableLoading = React.memo<TableLoadingProps>(({ text, className }) => {
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
   return (

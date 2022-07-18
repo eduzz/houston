@@ -5,12 +5,12 @@ import { useContextSelector } from 'use-context-selector';
 import TableColumn from '../Column';
 import TableContext from '../context';
 
-export interface ITableHeadProps {
+export interface TableHeadProps {
   children: React.ReactNode;
   disabledActionsColumn?: boolean;
 }
 
-const TableHeader = React.memo<ITableHeadProps>(({ children, disabledActionsColumn }) => {
+const TableHeader = React.memo<TableHeadProps>(({ children, disabledActionsColumn }) => {
   const hasActions = useContextSelector(TableContext, context => context.rows.some(r => r.hasActions));
   const hasCollapse = useContextSelector(TableContext, context => context.rows.some(r => r.hasCollapse));
   const columnActionTitle = useContextSelector(TableContext, context => context.columnActionTitle);

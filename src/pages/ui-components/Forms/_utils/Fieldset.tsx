@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Spinner from '../../Spinner';
 
-export interface IFieldsetProps extends IStyledProp {
+export interface FieldsetProps extends StyledProp {
   label?: string;
   loading?: boolean;
   size?: 'sm' | 'default';
@@ -20,14 +20,14 @@ export interface IFieldsetProps extends IStyledProp {
   disableMargin?: boolean;
 }
 
-interface IInternalFieldsetProps extends IFieldsetProps {
+interface InternalFieldsetProps extends FieldsetProps {
   focused?: boolean;
   onClickContainer?: () => void;
   containerRef?: React.RefObject<HTMLDivElement>;
   children: React.ReactNode;
 }
 
-const Fieldset = React.forwardRef<HTMLFieldSetElement, IInternalFieldsetProps>(
+const Fieldset = React.forwardRef<HTMLFieldSetElement, InternalFieldsetProps>(
   (
     {
       label,

@@ -1,39 +1,39 @@
 import { createContext } from 'use-context-selector';
 
-import { ITableSort, ITableAction } from './interface';
+import { TableSort, TableAction } from './interface';
 
-export interface ITableRow {
+export interface TableRow {
   key: string;
   hasActions: boolean;
   hasCollapse: boolean;
 }
 
-export interface ITableActionShow {
+export interface TableActionShow {
   anchorEl: HTMLElement;
   rowData: unknown;
   rowIndex?: number;
-  actions: ITableAction[];
+  actions: TableAction[];
 }
 
 export type TableSize = 'small' | 'medium';
 
-export interface ITableContext {
+export interface TableContextProps {
   loading: boolean;
   loadingText?: React.ReactNode;
   size: TableSize;
 
-  sort?: ITableSort;
-  onSort?: (param: ITableSort) => void;
+  sort?: TableSort;
+  onSort?: (param: TableSort) => void;
 
   columns: string[];
   registerColumn: (isCollapse?: boolean) => () => void;
 
-  rows: ITableRow[];
-  registerRow: (param: Omit<ITableRow, 'key'>) => () => void;
+  rows: TableRow[];
+  registerRow: (param: Omit<TableRow, 'key'>) => () => void;
 
   rowMapLabel: { [rowKey: string]: string };
 
-  onShowAction: (param: ITableActionShow) => void;
+  onShowAction: (param: TableActionShow) => void;
 
   stripedRows: boolean;
   columnActionTitle?: string;
@@ -44,6 +44,6 @@ export interface ITableContext {
   isCollapseContent: boolean;
 }
 
-const TableContext = createContext<ITableContext>({} as ITableContext);
+const TableContext = createContext<TableContextProps>({} as TableContextProps);
 
 export default TableContext;

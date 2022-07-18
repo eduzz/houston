@@ -10,12 +10,12 @@ import IconButton from '../../../IconButton';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
-interface IStyleProps {
+interface StyleProps {
   size?: 'small' | 'medium' | 'large';
 }
 
 const useStyles = createUseStyles(theme => ({
-  header: (props: IStyleProps) => ({
+  header: (props: StyleProps) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',

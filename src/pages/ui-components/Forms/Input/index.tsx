@@ -1,18 +1,18 @@
 import * as React from 'react';
 
-import IFormMaskAdapter from '@eduzz/houston-core/maskAdapter';
+import FormMaskAdapter from '@eduzz/houston-core/maskAdapter';
 import styled, { css, cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
-import Fieldset, { IFieldsetProps } from '../_utils/Fieldset';
+import Fieldset, { FieldsetProps } from '../_utils/Fieldset';
 import withForm, { WithFormProps } from '../Form/withForm';
 
 type Rows = 2 | 4 | 6 | 8 | 10 | 14 | 18 | 24;
 const ROWS: Array<Rows> = [2, 4, 6, 8, 10, 14, 18, 24];
 
-interface OwnProperties<V = any> extends IFieldsetProps {
+interface OwnProperties<V = any> extends FieldsetProps {
   value?: V | null | undefined;
-  mask?: IFormMaskAdapter;
+  mask?: FormMaskAdapter;
   multiline?: boolean;
   rows?: Rows;
   disableAutoResize?: boolean;

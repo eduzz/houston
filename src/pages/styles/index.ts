@@ -6,13 +6,12 @@ export * from './styled';
 
 export default styled;
 
-export interface IHoustonThemeCustomVariables {}
+export interface HoustonThemeCustomVariables {}
 
-export interface IHoustonTheme extends HoustonTokens {
-  variables?: IHoustonThemeCustomVariables;
+export interface HoustonThemeProps extends HoustonTokens {
+  variables?: HoustonThemeCustomVariables;
 }
 
 declare module '@emotion/react' {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  interface Theme extends IHoustonTheme {}
+  interface Theme extends HoustonThemeProps {}
 }

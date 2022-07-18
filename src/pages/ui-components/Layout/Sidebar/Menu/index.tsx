@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { cx, StyledProp } from '@eduzz/houston-styles/styled';
 
 import SidebarContext from '../context';
 import MenuContext, { ISidebarMenuContext } from './context';
 
-export interface ISidebarMenu extends IStyledProp {
+export interface ISidebarMenu extends StyledProp {
   id?: string;
   children: React.ReactNode;
 }

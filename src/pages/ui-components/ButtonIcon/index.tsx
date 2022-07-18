@@ -1,11 +1,11 @@
-import IconButton, { IIconButtonProps } from '../IconButton';
+import IconButton, { IconButtonProps } from '../IconButton';
 
-export interface IButtonIcon extends IIconButtonProps {}
+export interface ButtonIcon extends IconButtonProps {}
 
 /**
  * @deprecated Migrar para IconButton
  */
-const ButtonIcon = (props: IButtonIcon) => {
+const ButtonIcon = (props: ButtonIcon) => {
   return <IconButton {...props} />;
 };
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface ITableCollapse {
+export interface TableCollapse {
   onOpen?: (data: unknown, index: number) => void;
   onClose?: (data: unknown, index: number) => void;
   content: React.ReactNode;
@@ -9,7 +9,7 @@ export interface ITableCollapse {
   disableBackground?: boolean;
 }
 
-export interface ITableAction {
+export interface TableAction {
   key: string;
   onClick: (data: unknown, index?: number) => void;
   content: React.ReactNode;
@@ -18,22 +18,22 @@ export interface ITableAction {
   order?: number;
 }
 
-export interface ITableItem<T> {
+export interface TableItem<T> {
   data: T;
   index: number;
   striped: boolean;
 }
 
-export interface ITableSort {
+export interface TableSort {
   field: string;
   direction: 'asc' | 'desc';
 }
 
-export interface ITableActionCallback<T> {
+export interface TableActionCallback<T> {
   data: T;
   index?: number;
 }
 
-export type ITableSize = 'small' | 'medium';
+export type TableSize = 'small' | 'medium';
 
-export type ITableAlign = 'inherit' | 'left' | 'center' | 'right' | 'justify';
+export type TableAlign = 'inherit' | 'left' | 'center' | 'right' | 'justify';

@@ -2,21 +2,21 @@ import * as React from 'react';
 
 import { HexColorPicker } from 'react-colorful';
 
-import styled, { IStyledProp } from '@eduzz/houston-styles';
+import styled, { StyledProp } from '@eduzz/houston-styles';
 
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
 import withForm, { WithFormProps } from '../Form/withForm';
 import Input, { InputProps } from '../Input';
 
-export interface IColorProps
-  extends IStyledProp,
+export interface ColorProps
+  extends StyledProp,
     Omit<InputProps<string>, 'type' | 'multiline' | 'mask' | 'rows' | 'disableAutoResize' | 'onChange'>,
     WithFormProps<HTMLInputElement> {
   onChange?(value: string): void;
 }
 
-const Color: React.FC<IColorProps> = ({ className, value, errorMessage, disabled, loading, onChange, ...props }) => {
+const Color = ({ className, value, errorMessage, disabled, loading, onChange, ...props }: ColorProps) => {
   const { openPopover, popoverTargetProps, popoverProps } = usePopover();
 
   const handleChange = React.useCallback((value: string) => onChange && onChange(value), [onChange]);
