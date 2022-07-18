@@ -11,23 +11,7 @@ import { shadow } from './variables/shadow';
 import { spacing } from './variables/spacing';
 import { pxToRem, hexToRgba, remToPx, cleanUnit } from './variables/utils';
 
-export type {
-  Color,
-  Spacing,
-  Border,
-  Opacity,
-  Shadow,
-  Font,
-  Line,
-  NeutralColor,
-  FeedbackColor,
-  BrandColor,
-  BrandColors,
-  Brands,
-  Breakpoints,
-  BreakpointsUtils,
-  HoustonTokens
-} from './types';
+export * from './types';
 
 export default function createTokens(brand: Brands | BrandColor): HoustonTokens {
   return {
