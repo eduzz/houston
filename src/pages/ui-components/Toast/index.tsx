@@ -6,7 +6,7 @@ type ToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 
 interface ToastProps extends Pick<ToastOptions, ToastPropsExtends> {}
 
-class Toast {
+export default class Toast {
   public static info(content: string, options?: ToastProps): void {
     toast(<ToastBody content={content} type='informative' />, options);
   }
@@ -23,5 +23,3 @@ class Toast {
     toast(<ToastBody content={content} type='warning' />, options);
   }
 }
-
-export default Toast;
