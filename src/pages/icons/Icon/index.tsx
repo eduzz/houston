@@ -20,7 +20,7 @@ const Icon = React.forwardRef<SVGSVGElement, IconProps>(
     return (
       <svg
         ref={ref}
-        width={sizesMap[size] ?? size}
+        width={sizesMap[size] ?? (size as number)}
         viewBox='0 0 192 192'
         focusable={focusable}
         fill='currentColor'
