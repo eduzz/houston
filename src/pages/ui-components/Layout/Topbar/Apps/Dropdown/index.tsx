@@ -11,7 +11,7 @@ import Divider from '../../../../Divider';
 import IconButton from '../../../../IconButton';
 import Spinner from '../../../../Spinner';
 import Typography from '../../../../Typography';
-import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT } from '../../../context';
+import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT, TOPBAR_HEIGHT_MOBILE } from '../../../context';
 
 export interface AppsDropdownProps extends StyledProp {
   currentApplication: string | undefined;
@@ -130,6 +130,7 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
     ${theme.breakpoints.down('sm')} {
       width: 100%;
       left: 0;
+      top: ${TOPBAR_HEIGHT_MOBILE}px;
     }
 
     &.--opened {

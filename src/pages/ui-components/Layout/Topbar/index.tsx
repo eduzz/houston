@@ -10,7 +10,7 @@ import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
 import Typography from '../../Typography';
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { TOPBAR_HEIGHT } from '../context';
+import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_HEIGHT_MOBILE } from '../context';
 import Action from './Action';
 import Apps from './Apps';
 import TopbarContext, { TopbarContextType } from './context';
@@ -53,22 +53,8 @@ const Topbar = React.memo<TopbarProps>(
     React.useEffect(() => {
       document.body.classList.add('houston-topbar-applied');
 
-      let oldThemeColor: string | null = null;
-      let metaThemeColor = document.querySelector<HTMLMetaElement>('meta[name=theme-color]');
-
-      if (metaThemeColor) {
-        oldThemeColor = metaThemeColor.content;
-        metaThemeColor.content = theme.brandColor.primary.pure;
-      } else {
-        metaThemeColor = document.createElement('meta');
-        metaThemeColor.name = 'theme-color';
-        metaThemeColor.content = theme.brandColor.primary.pure;
-        document.getElementsByTagName('head')[0].appendChild(metaThemeColor);
-      }
-
       return () => {
         document.body.classList.remove('houston-topbar-applied');
-        if (metaThemeColor && oldThemeColor) metaThemeColor.content = oldThemeColor;
       };
     }, [theme]);
 
@@ -136,7 +122,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
         ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
       box-sizing: border-box;
       position: fixed;
-      padding: ${theme.spacing.inline.nano};
+      padding: ${theme.spacing.inset.xs};
       top: 0;
       left: 0;
       right: 0;
@@ -145,6 +131,11 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
       justify-content: space-between;
       z-index: 105;
       transition: 0.15s ease-out;
+
+      ${theme.breakpoints.down('sm')} {
+        padding: ${theme.spacing.inset.xxs};
+        height: ${TOPBAR_HEIGHT_MOBILE}px;
+      }
 
       & > .houston-topbar__start {
         display: flex;
@@ -160,7 +151,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
         }
 
         & .houston-topbar__logo {
-          height: 70%;
+          height: 80%;
           width: auto;
           margin-right: ${theme.spacing.inline.nano};
 
@@ -178,7 +169,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
             display: none;
           }
 
-          ${breakpoints.down('md')} {
+          ${breakpoints.down('sm')} {
             width: 44px;
             min-width: 40px;
 
@@ -194,7 +185,6 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
 
         .houston-topbar__flag {
           text-transform: capitalize;
-          margin-top: 5px;
           padding: ${theme.spacing.quarck};
           letter-spacing: 0.5px;
           display: none;

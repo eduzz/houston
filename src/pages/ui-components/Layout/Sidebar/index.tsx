@@ -7,7 +7,7 @@ import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles'
 import useMediaQuery from '../../hooks/useMediaQuery';
 import Overlay from '../../Overlay';
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { MENU_WIDTH, TOPBAR_HEIGHT } from '../context';
+import LayoutContext, { MENU_WIDTH, TOPBAR_HEIGHT, TOPBAR_HEIGHT_MOBILE } from '../context';
 import SidebarContext, { SidebarContextType } from './context';
 import Group from './Group';
 import Item from './Item';
@@ -26,18 +26,16 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
   const hasTopbar = useContextSelector(LayoutContext, context => context.topbar.exists);
   const register = useContextSelector(LayoutContext, context => context.sidebar.register);
   const opened = useContextSelector(LayoutContext, context => context.sidebar.opened);
+  const closeMenu = useContextSelector(LayoutContext, context => context.sidebar.falseOpened);
 
   React.useEffect(() => {
     const unregister = register();
     return () => unregister();
   }, [register]);
 
-  const onRequestClose = () => null;
-
   const contextValue = React.useMemo<SidebarContextType>(
     () => ({
-      isActiveItem: (path?: string) => (!path ? false : path === currentLocation),
-      onRequestClose
+      isActiveItem: (path?: string) => (!path ? false : path === currentLocation)
     }),
     [currentLocation]
   );
@@ -45,7 +43,7 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
   return (
     <SidebarContext.Provider value={contextValue}>
       <div className={cx(className, { '--visible': opened && isMobile, '--has-topbar': hasTopbar })}>
-        <Overlay visible={opened && isMobile} color='high' onClick={onRequestClose} underTopbar />
+        <Overlay visible={opened && isMobile} color='high' onClick={closeMenu} underTopbar />
 
         <aside className='houston-menu__container'>
           <nav>
@@ -104,6 +102,10 @@ const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
 
     &.--has-topbar .houston-menu__container {
       top: ${TOPBAR_HEIGHT}px;
+
+      ${breakpoints.down('sm')} {
+        top: ${TOPBAR_HEIGHT_MOBILE}px;
+      }
     }
 
     ${breakpoints.down('md')} {

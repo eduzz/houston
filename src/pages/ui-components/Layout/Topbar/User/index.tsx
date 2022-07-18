@@ -84,12 +84,6 @@ export default styled(User, { label: 'houston-topbar-user' })(
       display: none;
     }
 
-    & .houston-topbar-user__mobile {
-      border-left: ${theme.border.width.xs} solid
-        ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
-      padding-left: ${theme.spacing.nano};
-    }
-
     ${theme.breakpoints.up('md')} {
       & .houston-topbar-user__default {
         display: block;
