@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import BeltIcon from '@eduzz/houston-icons/Belt';
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 const supportedBelts = ['white', 'red', 'orange', 'green', 'black', 'golden'];
 
-export interface BeltProps extends IStyledProp {
+export interface BeltProps extends StyledProp {
   belt: string | undefined;
 }
 

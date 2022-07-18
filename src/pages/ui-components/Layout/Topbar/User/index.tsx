@@ -3,17 +3,17 @@ import * as React from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Button from '../../../Button';
 import useOnClickOutside from '../../../hooks/useClickOutside';
-import { useEscapeKey } from '../../../hooks/useEscapeKey';
+import useEscapeKey from '../../../hooks/useEscapeKey';
 import IconButton from '../../../IconButton';
 import LayoutContext from '../../context';
 import TopbarContext from '../context';
 import Avatar from './Avatar';
 
-const User = React.memo<IStyledProp>(({ className }) => {
+const User = React.memo<StyledProp>(({ className }) => {
   const wrapperMenuUser = React.useRef<HTMLDivElement>(null);
   const user = useContextSelector(TopbarContext, context => context.user);
 

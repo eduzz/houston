@@ -7,7 +7,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, share, switchMap } from 'rxjs/operators';
 import * as yup from 'yup';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
+import FormAdapter from '@eduzz/houston-core/formAdapter';
 import useObservable from '@eduzz/houston-hooks/useObservable';
 
 import { useFormContext } from './context';
@@ -24,7 +24,7 @@ export declare type FormikConfigResolver<Values> = {
 
 type Yup = typeof yup;
 
-export interface IUseFormParams<Values> {
+export interface UseFormParams<Values> {
   validateOnMount?: boolean;
   initialValues?: Partial<Values>;
   validationSchema?: (yup: Yup) => any;
@@ -33,8 +33,8 @@ export interface IUseFormParams<Values> {
 }
 
 /**
- * Hook implemation of IFormAdapter
- * @param IUseFormParams
+ * Hook implemation of FormAdapter
+ * @param UseFormParams
  */
 export default function useForm<Values = Record<string, never>>({
   onSubmit,
@@ -42,7 +42,7 @@ export default function useForm<Values = Record<string, never>>({
   validationSchema,
   initialValues,
   validateOnMount = true
-}: IUseFormParams<Values>): IFormAdapter<Values> {
+}: UseFormParams<Values>): FormAdapter<Values> {
   const promiseRef = useRef<{ promise?: Promise<any> }>({}).current;
   const handlers = useRef<{ [key: string]: (value: any) => void }>({}).current;
 

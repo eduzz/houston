@@ -4,13 +4,13 @@ import { GridSize } from '@mui/material/Grid';
 import { useContextSelector } from 'use-context-selector';
 
 import { cx } from '@eduzz/houston-styles';
-import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { StyledProp } from '@eduzz/houston-styles/styled';
 
 import TableContext from '../context';
 
 let cellKeyIncremeter = 0;
 
-export interface ITableCellProps extends IStyledProp {
+export interface TableCellProps extends StyledProp {
   id?: string;
   className?: string;
   colSpan?: number;
@@ -23,7 +23,7 @@ export interface ITableCellProps extends IStyledProp {
   align?: React.TdHTMLAttributes<HTMLTableCellElement>['align'];
 }
 
-const TableCell = React.memo<ITableCellProps>(
+const TableCell = React.memo<TableCellProps>(
   ({ children, className, mobileSize, mobileAlign, columnLabel, onClick, onDoubleClick, align, ...props }) => {
     const [cellKey] = React.useState(() => `cell-${++cellKeyIncremeter}`);
     const cellRef = React.useRef<HTMLTableCellElement>(null);

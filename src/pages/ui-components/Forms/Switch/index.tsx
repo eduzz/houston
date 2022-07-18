@@ -6,11 +6,11 @@ import withForm from '../Form/withForm';
 
 type FieldSwitchPropsExtends = 'id' | 'className' | 'checked' | 'defaultChecked' | 'disabled' | 'size' | 'onChange';
 
-export interface ISwitchFieldProps extends Pick<SwitchProps, FieldSwitchPropsExtends> {
+export interface SwitchFieldProps extends Pick<SwitchProps, FieldSwitchPropsExtends> {
   name?: string;
 }
 
-const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, ISwitchFieldProps>(
+const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, SwitchFieldProps>(
   ({ name, onChange, checked, disabled, ...props }, ref) => {
     return (
       <SwitchMUI

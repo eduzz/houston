@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp, CSSInterpolation } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp, CSSInterpolation } from '@eduzz/houston-styles';
 
-import Button, { IButtonProps } from '../Button';
+import Button, { ButtonProps } from '../Button';
 import Typography from '../Typography';
 import Icon from './icons';
 
@@ -12,9 +12,9 @@ export type IconMap = Record<AlertTypes, JSX.Element>;
 
 export type AlertTag = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>;
 
-export type AlertAction = Omit<IButtonProps, 'children'> & { text: React.ReactNode };
+export type AlertAction = Omit<ButtonProps, 'children'> & { text: React.ReactNode };
 
-export interface IAlertProps {
+export interface AlertProps {
   /**
    * Alert status
    * Default `informative`
@@ -38,7 +38,7 @@ export interface IAlertProps {
   onClose?: (ev: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
-export interface IAlertInterface extends IAlertProps, AlertTag, IStyledProp {}
+export interface AlertInterface extends AlertProps, AlertTag, StyledProp {}
 
 const IconMap: IconMap = {
   informative: <Icon.Informative />,
@@ -49,7 +49,7 @@ const IconMap: IconMap = {
 
 const CLOSE_ICON_SIZE = 16;
 
-const Alert = React.forwardRef<HTMLDivElement, IAlertInterface>(
+const Alert = React.forwardRef<HTMLDivElement, AlertInterface>(
   (
     {
       className,

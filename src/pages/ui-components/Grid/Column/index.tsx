@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp, IHoustonTheme } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp, HoustonThemeProps } from '@eduzz/houston-styles';
 
 import { useRow } from '../context';
 import { Spacing } from '../Row';
@@ -9,35 +9,37 @@ type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | true;
 type BreakPoints = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
 type Sizes = Partial<Record<BreakPoints, ColumnSize>>;
 
-export type IColumn = IStyledProp &
+export type ColumnProps = StyledProp &
   Sizes & {
     children: React.ReactNode;
   };
 
-const Column = React.forwardRef<HTMLDivElement, IColumn>(({ className, children, xs = true, sm, md, lg, xlg }, ref) => {
-  const { spacing = 'xxs' } = useRow();
-  return (
-    <div
-      ref={ref}
-      className={cx(
-        className,
-        `--spacing-${spacing}`,
-        xs && `--xs-${xs}`,
-        sm && `--sm-${sm}`,
-        md && `--md-${md}`,
-        lg && `--lg-${lg}`,
-        xlg && `--xlg-${xlg}`
-      )}
-    >
-      {children}
-    </div>
-  );
-});
+const Column = React.forwardRef<HTMLDivElement, ColumnProps>(
+  ({ className, children, xs = true, sm, md, lg, xlg }, ref) => {
+    const { spacing = 'xxs' } = useRow();
+    return (
+      <div
+        ref={ref}
+        className={cx(
+          className,
+          `--spacing-${spacing}`,
+          xs && `--xs-${xs}`,
+          sm && `--sm-${sm}`,
+          md && `--md-${md}`,
+          lg && `--lg-${lg}`,
+          xlg && `--xlg-${xlg}`
+        )}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 const COLUMNS = 12;
 const NONE_IN_REM = '0rem';
 
-const generateBreakAndWidth = (theme: IHoustonTheme, sizes: Sizes, spacing: Spacing) => {
+const generateBreakAndWidth = (theme: HoustonThemeProps, sizes: Sizes, spacing: Spacing) => {
   return Object.entries(sizes)
     .map(([breakpoint, size]) => {
       if (typeof size === 'boolean') {

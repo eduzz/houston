@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-export interface IDivider extends IStyledProp {
+export interface Divider extends StyledProp {
   vertical?: boolean;
 }
 
-const Divider = ({ className, vertical }: IDivider) => {
+const Divider = ({ className, vertical }: Divider) => {
   const ref = React.useRef<HTMLHRElement>(null);
 
   React.useEffect(() => {

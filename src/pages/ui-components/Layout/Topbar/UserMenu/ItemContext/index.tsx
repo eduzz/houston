@@ -1,8 +1,8 @@
-import styled, { IStyledProp, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 import Typography from '../../../../Typography';
 
-export interface UserMenuContextProps extends IStyledProp {
+export interface UserMenuContextProps extends StyledProp {
   children: string;
 }
 

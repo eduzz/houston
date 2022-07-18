@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 
-export function useEscapeKey(callback: () => void, deps: React.DependencyList) {
+export default function useEscapeKey(callback: () => void, deps: React.DependencyList) {
   const ESCAPE_KEY = 'Escape';
 
   useEffect(() => {
     function handlePressKey(event: KeyboardEvent) {
       if (event.key === ESCAPE_KEY) {
-        callback && callback();
+        callback();
       }
     }
 

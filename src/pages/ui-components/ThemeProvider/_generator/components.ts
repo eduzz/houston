@@ -1,14 +1,14 @@
 /* eslint-disable max-lines */
 import { Components, Palette } from '@mui/material/styles';
 
-import { IHoustonTheme } from '@eduzz/houston-styles';
+import { HoustonThemeProps } from '@eduzz/houston-styles';
 
 import DefaultDialogTransition from './DefaultDialogTransition';
 
 const SWITCH_MEDIUM_HEIGHT = 20;
 const SWITCH_SMALL_HEIGHT = 16;
 
-export default function components(palette: Palette, theme: IHoustonTheme): Components {
+export default function components(palette: Palette, theme: HoustonThemeProps): Components {
   return {
     MuiDialog: {
       defaultProps: {

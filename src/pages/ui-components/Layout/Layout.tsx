@@ -1,7 +1,9 @@
 import * as React from 'react';
 
+import styled from '@emotion/styled';
+
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import styled, { IStyledProp, cx } from '@eduzz/houston-styles/styled';
+import { cx, StyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
@@ -9,11 +11,11 @@ import LayoutContext, { LayoutContextType, TOPBAR_HEIGHT } from './context';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
-export interface ILayoutProps extends IStyledProp {
+export interface LayoutProps extends StyledProp {
   children?: React.ReactNode;
 }
 
-const Layout = ({ className, children }: ILayoutProps) => {
+const Layout = ({ className, children }: LayoutProps) => {
   const [hasTopbar, setHasTopbar] = React.useState(false);
   const [hasSidebar, setHasSidebar] = React.useState(false);
   const [hasUserMenu, setHasUserMenu] = React.useState(false);

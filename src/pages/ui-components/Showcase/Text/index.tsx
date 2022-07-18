@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-export interface IShowcaseTextProps {
+export interface ShowcaseTextProps {
   content?: string;
   children?: React.ReactNode;
 }
 
-export default (() => null) as React.FC<IShowcaseTextProps>;
+export default (() => null) as React.FC<ShowcaseTextProps>;

@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import Tooltip from '../../../Tooltip';
 
-export interface ILongTextToolTip {
+export interface LongTextToolTip {
   children: React.ReactNode;
 }
 
-const LongTextToolTip = ({ children }: ILongTextToolTip) => {
+const LongTextToolTip = ({ children }: LongTextToolTip) => {
   if (typeof children === 'string' && children.length > 32) {
     return (
       <Tooltip placement='bottom' title={children}>

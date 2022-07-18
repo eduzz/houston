@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { IStyledProp } from '@eduzz/houston-styles';
+import styled, { StyledProp } from '@eduzz/houston-styles';
 
 import Button from '../../../../Button';
 import Typography from '../../../../Typography';
 import LayoutContext from '../../../context';
 
-export interface UserMenuItemProps extends IStyledProp {
+export interface UserMenuItemProps extends StyledProp {
   icon?: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;

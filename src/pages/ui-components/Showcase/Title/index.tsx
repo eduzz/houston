@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-export interface IShowcaseTitleProps {
+export interface ShowcaseTitleProps {
   children: React.ReactNode;
 }
 
-export default (() => null) as React.FC<IShowcaseTitleProps>;
+export default (() => null) as React.FC<ShowcaseTitleProps>;

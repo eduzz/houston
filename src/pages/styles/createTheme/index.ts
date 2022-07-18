@@ -1,10 +1,10 @@
 import createTokens, { BrandColor, Brands } from '@eduzz/houston-tokens';
 
-import { IHoustonTheme, IHoustonThemeCustomVariables } from '..';
+import { HoustonThemeProps, HoustonThemeCustomVariables } from '..';
 
 export default function createTheme(
   brand: Brands | BrandColor,
-  variables?: IHoustonThemeCustomVariables
-): IHoustonTheme {
+  variables?: HoustonThemeCustomVariables
+): HoustonThemeProps {
   return { ...createTokens(brand), variables };
 }

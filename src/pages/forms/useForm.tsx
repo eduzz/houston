@@ -12,7 +12,7 @@ import * as yup from 'yup';
 
 type Yup = typeof yup;
 
-export interface IUseFormParams<T> extends UseFormProps<T> {
+export interface UseFormParams<T> extends UseFormProps<T> {
   /**
    * @deprecated Utilizar defaultValues
    */
@@ -24,9 +24,9 @@ export type FormModel<Form> = Form extends UseFormReturn<infer M> ? M : Form;
 
 /**
  * Hook implemation of react-hook-form with Yup
- * @param IUseFormParams
+ * @param UseFormParams
  */
-export default function useForm<T>({ validationSchema, defaultValues, initialValues, ...params }: IUseFormParams<T>) {
+export default function useForm<T>({ validationSchema, defaultValues, initialValues, ...params }: UseFormParams<T>) {
   return useFormHook<T>({
     ...params,
     defaultValues: defaultValues ?? initialValues,

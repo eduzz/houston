@@ -4,7 +4,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import CancelIcon from '@eduzz/houston-icons/Cancel';
 import MenuLeft from '@eduzz/houston-icons/MenuLeft';
-import styled, { css, IStyledProp, breakpoints } from '@eduzz/houston-styles';
+import styled, { css, StyledProp, breakpoints } from '@eduzz/houston-styles';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
 import nestedComponent from '../../utils/nestedComponent';
@@ -18,7 +18,7 @@ import UserMenuDivider from './UserMenu/Divider';
 import UserMenuItem from './UserMenu/Item';
 import UserMenuContext from './UserMenu/ItemContext';
 
-export interface TopbarProps extends IStyledProp {
+export interface TopbarProps extends StyledProp {
   children: React.ReactNode;
   logo?: string;
   logoMobile?: string;

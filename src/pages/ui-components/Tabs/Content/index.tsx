@@ -5,7 +5,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import TabsContext from '../context';
 
-export interface ITabsContentProps {
+export interface TabsContentProps {
   id?: string;
   className?: string;
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export interface ITabsContentProps {
   disablePadding?: boolean;
 }
 
-const Content: React.FC<ITabsContentProps> = ({ icon, id, className, children, disablePadding, ...rest }) => {
+const Content: React.FC<TabsContentProps> = ({ icon, id, className, children, disablePadding, ...rest }) => {
   const registerTabs = useContextSelector(TabsContext, context => context.registerTabs);
 
   React.useEffect(() => {

@@ -3,13 +3,13 @@ import * as React from 'react';
 import { flushSync } from 'react-dom';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import { IStyledProp } from '@eduzz/houston-styles/styled';
+import { StyledProp } from '@eduzz/houston-styles/styled';
 
 import Popover from '../Popover';
 import usePopover from '../Popover/usePopover';
 import TooltipBody from './TooltipBody';
 
-type ITooltipPlacement =
+export type TooltipPlacement =
   | 'bottom-end'
   | 'bottom-start'
   | 'bottom'
@@ -23,9 +23,9 @@ type ITooltipPlacement =
   | 'top-start'
   | 'top';
 
-export interface ITooltipProps extends IStyledProp {
+export interface TooltipProps extends StyledProp {
   title: NonNullable<React.ReactNode>;
-  placement?: ITooltipPlacement;
+  placement?: TooltipPlacement;
   disabled?: boolean;
   children: React.ReactNode;
   id?: string;
@@ -33,7 +33,7 @@ export interface ITooltipProps extends IStyledProp {
   onOpen?: () => void;
 }
 
-const Tooltip = ({ children, title, placement = 'top', id: idProp, disabled, onOpen, onClose }: ITooltipProps) => {
+const Tooltip = ({ children, title, placement = 'top', id: idProp, disabled, onOpen, onClose }: TooltipProps) => {
   const { openPopover, closePopover, popoverTargetProps, popoverProps } = usePopover();
   const [isPopoverCreated, , createPopover, deletePopover] = useBoolean();
 

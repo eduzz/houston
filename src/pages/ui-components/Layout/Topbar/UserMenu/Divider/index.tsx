@@ -1,8 +1,8 @@
-import styled, { IStyledProp, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 import Divider from '../../../../Divider';
 
-const UserMenuDivider: React.FC<IStyledProp> = ({ className }) => {
+const UserMenuDivider: React.FC<StyledProp> = ({ className }) => {
   return <Divider className={className} />;
 };
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { breakpoints, css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Overlay from '../../Overlay';
 import nestedComponent from '../../utils/nestedComponent';
@@ -11,7 +11,7 @@ import SidebarContext, { SidebarContextType } from './context';
 import Group from './Group';
 import Item from './Item';
 
-export interface SidebarProps extends IStyledProp {
+export interface SidebarProps extends StyledProp {
   /**
    * Current location path, if you are using `react-router-dom` use `useLocation`
    */

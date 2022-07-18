@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Portal from '../../../Portal';
 import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_MENU_WIDTH } from '../../context';
 
-export interface UserMenuProps extends IStyledProp {
+export interface UserMenuProps extends StyledProp {
   children: React.ReactNode;
 }
 

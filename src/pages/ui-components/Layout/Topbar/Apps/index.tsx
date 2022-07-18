@@ -5,10 +5,10 @@ import { useContextSelector } from 'use-context-selector';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import usePromise from '@eduzz/houston-hooks/usePromise';
 import AppsIcon from '@eduzz/houston-icons/Apps';
-import styled, { IStyledProp } from '@eduzz/houston-styles';
+import styled, { StyledProp } from '@eduzz/houston-styles';
 
 import useOnClickOutside from '../../../hooks/useClickOutside';
-import { useEscapeKey } from '../../../hooks/useEscapeKey';
+import useEscapeKey from '../../../hooks/useEscapeKey';
 import Action from '../Action';
 import TopbarContext from '../context';
 import Dropdown from './Dropdown';
@@ -22,7 +22,7 @@ export interface TopbarApplication {
   url: string;
 }
 
-const TopbarApps = React.memo<IStyledProp>(({ className }) => {
+const TopbarApps = React.memo<StyledProp>(({ className }) => {
   const isSupport = useContextSelector(TopbarContext, context => context.user?.isSupport ?? false);
   const currentApplication = useContextSelector(TopbarContext, context => context.currentApplication);
 

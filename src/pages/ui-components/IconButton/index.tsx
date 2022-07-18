@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 type Size =
   | 'md'
@@ -15,10 +15,10 @@ type Size =
   /** @deprecated */
   | 'large';
 
-export interface IIconButtonProps
+export interface IconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     React.RefAttributes<HTMLButtonElement>,
-    IStyledProp {
+    StyledProp {
   /** use md or lg, the other options are deprecated */
   size?: Size;
   /**
@@ -27,7 +27,7 @@ export interface IIconButtonProps
   active?: boolean;
 }
 
-const IconButton = ({ className, size, children, disabled = false, active, ...rest }: IIconButtonProps) => (
+const IconButton = ({ className, size, children, disabled = false, active, ...rest }: IconButtonProps) => (
   <button
     role='button'
     disabled={disabled}

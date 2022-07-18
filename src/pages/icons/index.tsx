@@ -15,7 +15,7 @@ export { default as BetaTester } from './BetaTester';
 export { default as BoxOutline } from './BoxOutline';
 export { default as BoxSolid } from './BoxSolid';
 export { default as Bullet } from './Bullet';
-export { default as CadsSolid } from './CadsSolid';
+export { default as CadsSolid } from './CardsSolid';
 export { default as Calendar } from './Calendar';
 export { default as CameraFrontOutline } from './CameraFrontOutline';
 export { default as CameraFrontSolid } from './CameraFrontSolid';

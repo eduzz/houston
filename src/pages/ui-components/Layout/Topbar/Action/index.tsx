@@ -1,9 +1,9 @@
-import styled, { IStyledProp, css, cx } from '@eduzz/houston-styles';
+import styled, { StyledProp, css, cx } from '@eduzz/houston-styles';
 
 import Button from '../../../Button';
 import IconButton from '../../../IconButton';
 
-export interface ActionProps extends IStyledProp {
+export interface ActionProps extends StyledProp {
   /**
    * If `true`, the item will be highlighted.
    */

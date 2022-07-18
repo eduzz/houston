@@ -8,11 +8,11 @@ import { cx } from '@eduzz/houston-styles';
 import TableRowContext from '../Row/context';
 import TableCollapseContext from './context';
 
-export interface ITableCollapseContentProps {
+export interface TableCollapseContentProps {
   visible: boolean;
 }
 
-const CollapseContent = React.memo<ITableCollapseContentProps>(({ visible }) => {
+const CollapseContent = React.memo<TableCollapseContentProps>(({ visible }) => {
   const data = useContextSelector(TableRowContext, context => context.data);
   const index = useContextSelector(TableRowContext, context => context.index);
   const collapse = useContextSelector(TableRowContext, context => context.collapse);

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import styled, { css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
-export interface UserAvatarProps extends IStyledProp {
+export interface UserAvatarProps extends StyledProp {
   name: string | undefined;
   avatar: string | undefined;
 }

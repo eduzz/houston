@@ -7,7 +7,7 @@ import Thumbnail from './Thumbnail';
 
 export type ImageFits = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
 
-export interface IImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackSrc?: string;
   src: string;
   /**
@@ -16,7 +16,7 @@ export interface IImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fit?: ImageFits;
 }
 
-const ImageComponent = React.forwardRef<HTMLImageElement, IImageProps>(
+const ImageComponent = React.forwardRef<HTMLImageElement, ImageProps>(
   ({ fallbackSrc, src: srcProp, className, fit = 'cover', ...props }, ref) => {
     const [src, setSrc] = React.useState(fallbackSrc || srcProp);
 

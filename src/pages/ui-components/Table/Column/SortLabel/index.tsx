@@ -4,11 +4,11 @@ import { useContextSelector } from 'use-context-selector';
 
 import IconArrowUp from '@eduzz/houston-icons/ArrowUp';
 import { cx } from '@eduzz/houston-styles';
-import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { StyledProp } from '@eduzz/houston-styles/styled';
 
 import TableContext from '../../context';
 
-interface ISortLabelProps extends IStyledProp {
+interface SortLabelProps extends StyledProp {
   sortable?: boolean;
   active?: boolean;
   disabled?: boolean;
@@ -17,7 +17,7 @@ interface ISortLabelProps extends IStyledProp {
   children?: React.ReactNode;
 }
 
-const SortLabel: React.FC<ISortLabelProps> = ({
+const SortLabel: React.FC<SortLabelProps> = ({
   children,
   sortable,
   active,

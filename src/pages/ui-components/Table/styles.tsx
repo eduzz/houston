@@ -4,9 +4,9 @@ import { css } from '@emotion/react';
 
 import styled from '@eduzz/houston-styles/styled';
 
-import { ITableProps } from './Table';
+import { TableProps } from './Table';
 
-export default (Component: React.FC<ITableProps>) => styled(Component)`
+export default (Component: React.FC<TableProps>) => styled(Component)`
   position: relative;
 
   & > .__houston-table {

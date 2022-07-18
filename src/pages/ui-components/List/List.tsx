@@ -1,58 +1,41 @@
 import * as React from 'react';
 
-import ListMUI, { ListProps as ListPropsMUI } from '@mui/material/List';
-
-import { cx } from '@eduzz/houston-styles';
-import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+import styled, { cx, StyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
+import ListContextProvider from './context';
 import Item from './Item';
 import Left from './Left';
 import Right from './Right';
 import Text from './Text';
 
-type ListProps = 'id' | 'className' | 'children';
-
-export interface IListProps extends Pick<ListPropsMUI, ListProps> {
-  stripedRows?: boolean;
+export interface ListProps extends StyledProp, React.HTMLAttributes<HTMLUListElement> {
+  children: React.ReactNode;
+  /**
+   * Default `false`
+   */
+  dividers?: boolean;
 }
 
-const useStyles = createUseStyles(theme => ({
-  root: {
-    '& > li': {
-      padding: '12px 16px',
-      borderRadius: 4
-    },
-    '& > li > div': {
-      display: 'flex',
-      alignItems: 'flex-start',
-      width: '100%'
-    },
-    '& > li > div > .list-item-text': {
-      display: 'flex',
-      flexDirection: 'column',
-      alignSelf: 'center',
-      flex: 1
-    }
-  },
-  stripedRows: {
-    '& > li:nth-child(even)': {
-      backgroundColor: theme.neutralColor.high.pure
-    }
-  }
-}));
-
-const List: React.FC<IListProps> = ({ children, stripedRows, ...props }) => {
-  const classes = useStyles();
-
+const List = ({ children, className, dividers = false, ...rest }: ListProps) => {
   return (
-    <ListMUI component='ul' {...props} className={cx([classes.root, stripedRows && classes.stripedRows])}>
-      {children}
-    </ListMUI>
+    <ListContextProvider dividers={dividers}>
+      <ul role='list' className={cx(className, { '--dividers': dividers })} {...rest}>
+        {children}
+      </ul>
+    </ListContextProvider>
   );
 };
 
-export default nestedComponent(React.memo(List), {
+const ListWrapper = React.memo(styled(List, { label: 'houston-list' })`
+  &.--dividers {
+    hr:last-of-type {
+      display: none;
+    }
+  }
+`);
+
+export default nestedComponent(ListWrapper, {
   Item,
   Text,
   Left,

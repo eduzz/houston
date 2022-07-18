@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { IShowcaseStep, IShowcaseButtons, IWidthSizes } from './interfaces';
-import { IShowcaseTitleProps } from './Title';
+import { ShowcaseStepPropsInternal, ShowcaseButtons, WidthSizes } from './interfaces';
+import { ShowcaseTitleProps } from './Title';
 
-export interface IShowcaseContext {
-  title: IShowcaseTitleProps;
+export interface ShowcaseContextProps {
+  title: ShowcaseTitleProps;
   stepCounter: boolean;
-  steps: IShowcaseStep[];
-  genericButtons: IShowcaseButtons;
-  modalSizes: IWidthSizes;
-  imageSizes: IWidthSizes;
+  steps: ShowcaseStepPropsInternal[];
+  genericButtons: ShowcaseButtons;
+  modalSizes: WidthSizes;
+  imageSizes: WidthSizes;
   currentStep: number;
   size?: 'small' | 'medium' | 'large';
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
@@ -19,7 +19,7 @@ export interface IShowcaseContext {
   handleClose: () => void;
 }
 
-export const ShowcaseContext = React.createContext<IShowcaseContext>({} as IShowcaseContext);
+export const ShowcaseContext = React.createContext<ShowcaseContextProps>({} as ShowcaseContextProps);
 export const ShowcaseContextProvider = ShowcaseContext.Provider;
 
 export const useShowcaseContext = () => {

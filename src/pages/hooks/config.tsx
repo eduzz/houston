@@ -1,4 +1,4 @@
-export interface IHoustonHooksConfig {
+export interface HoustonHooksConfig {
   /**
    * Set the first page of pagination hooks
    */
@@ -10,7 +10,7 @@ export interface IHoustonHooksConfig {
   onUnhandledError(err: any, origin: 'rxjs' | 'hooks'): void;
 }
 
-let _config: IHoustonHooksConfig = {
+let _config: HoustonHooksConfig = {
   onUnhandledError(err) {
     console.error(err);
     /*do nothing */
@@ -18,7 +18,7 @@ let _config: IHoustonHooksConfig = {
   pagination: { pageStart: 1, perPage: 25 }
 };
 
-export default function setHoustonHooksConfig(config: IHoustonHooksConfig) {
+export default function setHoustonHooksConfig(config: HoustonHooksConfig) {
   _config = {
     ..._config,
     ...config,

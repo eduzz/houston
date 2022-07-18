@@ -12,12 +12,12 @@ Utilizado para criação do tema padrão.
 > pois causará conflito de contexto.
 
 ```tsx
-import createTheme, { IHoustonTheme } from '@eduzz/houston-styles/createTheme';
+import createTheme, { HoustonThemeProps } from '@eduzz/houston-styles/createTheme';
 import ThemeProvider from '@eduzz/houston-styles/ThemeProvider';
 
-const theme: IHoustonTheme = createTheme('orbita');
+const theme: HoustonThemeProps = createTheme('orbita');
 // ou
-const theme: IHoustonTheme = createTheme({
+const theme: HoustonThemeProps = createTheme({
   primary: {
     pure: '#0D47A1',
     light: '#9EB5D9',

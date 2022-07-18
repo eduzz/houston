@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
-import styled, { cx, css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
 
 import Collapse from '../../../Collapse';
 import Typography from '../../../Typography';
 import SidebarGroupContext, { SidebarGroupContextType } from './context';
 
-export interface SidebarGroupProps extends IStyledProp {
+export interface SidebarGroupProps extends StyledProp {
   label: React.ReactNode;
   children: React.ReactNode;
   tabIndex?: number;

@@ -7,22 +7,22 @@ import EyeOnOutline from '@eduzz/houston-icons/EyeOnOutline';
 import IconButton from '../../IconButton';
 import Input, { InputProps } from '../Input';
 
-export interface IInputPasswordProps
+export interface InputPasswordProps
   extends Omit<
     InputProps<string>,
     'mask' | 'type' | 'multiline' | 'rows' | 'disableAutoResize' | 'fieldEndAdornment'
   > {}
 
-const InputPassword: React.FC<IInputPasswordProps> = props => {
-  const [showPassword, toogleShowPassword] = useBoolean(false);
+const InputPassword = (props: InputPasswordProps) => {
+  const [showPassword, toggleShowPassword] = useBoolean(false);
 
   return (
     <Input
       {...props}
       type={showPassword ? 'text' : 'password'}
       endAdornment={
-        <IconButton size='small' onClick={toogleShowPassword}>
-          {showPassword ? <EyeOnOutline size={24} /> : <EyeOffOutline size={24} />}
+        <IconButton size='small' onClick={toggleShowPassword}>
+          {showPassword ? <EyeOnOutline size='md' /> : <EyeOffOutline size='md' />}
         </IconButton>
       }
     />

@@ -2,30 +2,30 @@ import * as React from 'react';
 
 import { CalendarPickerView } from '@mui/lab';
 import { TextFieldProps } from '@mui/material';
-import { DatePickerProps, DatePicker as DatePickerMUI } from '@mui/x-date-pickers/DatePicker';
+import { DatePickerProps as DatePickerPropsMui, DatePicker as DatePickerMUI } from '@mui/x-date-pickers/DatePicker';
 
 import CalendarIcon from '@eduzz/houston-icons/Calendar';
 
 import withForm, { WithFormProps } from '../Form/withForm';
 import Input, { InputProps } from '../Input';
-import { IDateFormat, IPickDatePickerProps } from './types';
+import { DateFormat, PickDatePickerProps } from './types';
 
-export interface IDatePickerProps
+export interface DatePickerProps
   extends Omit<
       InputProps<Date>,
       'mask' | 'endAdornment' | 'onChange' | 'onBlur' | 'onError' | 'rows' | 'type' | 'multiline' | 'disableAutoResize'
     >,
-    Pick<DatePickerProps<any, any>, IPickDatePickerProps>,
+    Pick<DatePickerPropsMui<any, any>, PickDatePickerProps>,
     Omit<WithFormProps<HTMLInputElement>, 'value'> {
   /*
     [Available formats]{@link https://date-fns.org/v2.22.1/docs/format}
   */
-  displayFormat?: IDateFormat;
+  displayFormat?: DateFormat;
   onChange?: (date: Date | null) => void;
   defaultView?: CalendarPickerView;
 }
 
-const DatePicker: React.FC<IDatePickerProps> = ({
+const DatePicker = ({
   value,
   errorMessage,
   onChange,
@@ -34,7 +34,7 @@ const DatePicker: React.FC<IDatePickerProps> = ({
   defaultView = 'day',
   placeholder = '',
   ...inputProps
-}) => {
+}: DatePickerProps) => {
   const handleChange = React.useCallback((date: Date | null) => onChange && onChange(date), [onChange]);
 
   return (

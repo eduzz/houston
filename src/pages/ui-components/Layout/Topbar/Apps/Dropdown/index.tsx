@@ -3,7 +3,7 @@ import * as React from 'react';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import CancelIcon from '@eduzz/houston-icons/Cancel';
 import ExpandIcon from '@eduzz/houston-icons/Expand';
-import styled, { css, IStyledProp, cx, keyframes } from '@eduzz/houston-styles';
+import styled, { css, StyledProp, cx, keyframes } from '@eduzz/houston-styles';
 
 import { TopbarApplication } from '..';
 import Button from '../../../../Button';
@@ -13,7 +13,7 @@ import Typography from '../../../../Typography';
 import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT } from '../../../context';
 import Divider from '../../UserMenu/Divider';
 
-export interface AppsDropdownProps extends IStyledProp {
+export interface AppsDropdownProps extends StyledProp {
   currentApplication: string | undefined;
   applications: TopbarApplication[] | undefined;
   opened: boolean;

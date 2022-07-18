@@ -1,13 +1,17 @@
 import * as React from 'react';
 
-import styled, { IStyledProp, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 export interface ModalBaseProps {
   children?: React.ReactNode;
 }
 
-const ModalBase = ({ ...rest }: ModalBaseProps & IStyledProp & React.HTMLAttributes<HTMLDivElement>) => {
-  return <div role='dialog' {...rest} />;
+const ModalBase = ({ children, ...rest }: ModalBaseProps & StyledProp & React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div role='dialog' {...rest}>
+      {children}
+    </div>
+  );
 };
 
 export default styled(ModalBase)`

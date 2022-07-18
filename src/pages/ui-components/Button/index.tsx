@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Spinner from '../Spinner';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
 
-export interface IButtonProps
+export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     React.RefAttributes<HTMLButtonElement>,
-    IStyledProp {
+    StyledProp {
   variant?: IButtonVariant;
   loading?: boolean;
   fullWidth?: boolean;
@@ -21,7 +21,7 @@ export interface IButtonProps
   active?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,

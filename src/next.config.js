@@ -14,6 +14,9 @@ module.exports = withPlugins([withTM, withDokz], {
     pageExtensions: ['page.js', 'page.jsx', 'md', 'mdx', 'page.ts', 'page.tsx'],
     eslint: {
         ignoreDuringBuilds: true,
+    },
+    typescript: {
+        ignoreBuildErrors: true
     }
 })
 

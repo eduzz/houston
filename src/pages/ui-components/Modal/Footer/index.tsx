@@ -1,4 +1,4 @@
-import styled, { IStyledProp, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 import Divider from '../../Divider';
 
@@ -6,7 +6,7 @@ export interface ModalFooterProps {
   children?: React.ReactNode;
 }
 
-const ModalFooter = ({ children, ...rest }: ModalFooterProps & React.HTMLAttributes<HTMLDivElement> & IStyledProp) => {
+const ModalFooter = ({ children, ...rest }: ModalFooterProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   return (
     <footer {...rest}>
       <Divider />

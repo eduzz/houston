@@ -1,6 +1,6 @@
-import IFormMaskAdapter from '@eduzz/houston-core/maskAdapter';
+import FormMaskAdapter from '@eduzz/houston-core/maskAdapter';
 
-const moneyMask: IFormMaskAdapter = {
+const moneyMask: FormMaskAdapter = {
   apply: (value: number | string) => {
     if (value === null || value === undefined || value === '') return '';
 

@@ -3,13 +3,13 @@ import * as React from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import Bullet from '@eduzz/houston-icons/Bullet';
-import styled, { cx, css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
 
 import Typography from '../../../Typography';
 import SidebarContext from '../context';
 import SidebarGroupContext from '../Group/context';
 
-export interface SidebarItemProps extends IStyledProp {
+export interface SidebarItemProps extends StyledProp {
   [key: string]: any;
   id?: string;
   tabIndex?: number;
