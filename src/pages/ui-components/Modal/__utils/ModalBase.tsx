@@ -6,8 +6,12 @@ export interface ModalBaseProps {
   children?: React.ReactNode;
 }
 
-const ModalBase = ({ ...rest }: ModalBaseProps & StyledProp & React.HTMLAttributes<HTMLDivElement>) => {
-  return <div role='dialog' {...rest} />;
+const ModalBase = ({ children, ...rest }: ModalBaseProps & StyledProp & React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div role='dialog' {...rest}>
+      {children}
+    </div>
+  );
 };
 
 export default styled(ModalBase)`
