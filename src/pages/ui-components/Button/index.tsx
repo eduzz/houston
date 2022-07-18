@@ -15,6 +15,10 @@ export interface IButtonProps
   fullWidth?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  /**
+   * If button should be on active state
+   */
+  active?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
@@ -28,6 +32,7 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
       loading = false,
       className,
       fullWidth,
+      active,
       type = 'button',
       ...rest
     },
@@ -36,12 +41,11 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
     <button
       ref={ref}
       role='button'
-      className={cx(
-        className,
-        `--${variant ?? 'contained'}`,
-        { '--fullWidth': fullWidth },
-        { '--disabled': disabled || loading }
-      )}
+      className={cx(className, `--${variant ?? 'contained'}`, {
+        '--fullWidth': fullWidth,
+        '--disabled': disabled || loading,
+        '--active': active
+      })}
       type={type}
       {...rest}
       disabled={disabled || loading}
@@ -88,7 +92,12 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       transition: 0.3s;
     }
 
-    :focus {
+    &.--fullWidth {
+      width: 100%;
+    }
+
+    :focus,
+    .--active {
       outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
     }
 
@@ -97,7 +106,8 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       color: ${theme.neutralColor.high.pure};
 
       &:hover:not(:disabled),
-      &:focus {
+      &:focus,
+      &.--active {
         background-color: ${theme.hexToRgba(theme.brandColor.primary.pure, theme.opacity.level[8])};
       }
     }
@@ -109,7 +119,8 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       color: ${theme.neutralColor.low.pure};
 
       &:hover:not(:disabled),
-      &:focus {
+      &:focus,
+      &.--active {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       }
     }
@@ -119,7 +130,8 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       color: ${theme.neutralColor.low.pure};
 
       &:hover:not(:disabled),
-      &:focus {
+      &:focus,
+      &.--active {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       }
     }
@@ -128,7 +140,7 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       border: none;
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
-      cursor: default;
+      cursor: not-allowed;
     }
 
     &.--full-width {

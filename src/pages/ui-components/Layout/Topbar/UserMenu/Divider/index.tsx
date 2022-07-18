@@ -8,6 +8,9 @@ const UserMenuDivider: React.FC<IStyledProp> = ({ className }) => {
 
 export default styled(UserMenuDivider, { label: 'houston-topbar-user-menu-divider' })(
   ({ theme }) => css`
-    margin: ${theme.spacing.quarck} 0;
+    &.--horizontal {
+      margin: ${theme.spacing.nano} -8px;
+      width: calc(100% + 16px);
+    }
   `
 );

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import CancelIcon from '@eduzz/houston-icons/Cancel';
-import MenuIcon from '@eduzz/houston-icons/DragAndDrop';
+import MenuLeft from '@eduzz/houston-icons/MenuLeft';
 import styled, { css, IStyledProp, breakpoints } from '@eduzz/houston-styles';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
@@ -78,7 +78,8 @@ const Topbar = React.memo<TopbarProps>(({ children, currentApplication, logo, lo
         <header className='houston-topbar__header'>
           <div className='houston-topbar__start'>
             <Action
-              icon={sidebarOpened ? <CancelIcon size={24} /> : <MenuIcon size={24} />}
+              className='houston-topbar__mobile-menu'
+              icon={sidebarOpened ? <CancelIcon size={24} /> : <MenuLeft size={24} />}
               onClick={sidebarToogleOpened}
             />
 
@@ -87,7 +88,7 @@ const Topbar = React.memo<TopbarProps>(({ children, currentApplication, logo, lo
             <div className='houston-topbar__logo'>
               <img
                 className='houston-topbar__logo-default'
-                src={logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz.svg'}
+                src={logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz-colored.svg'}
               />
               <img
                 className='houston-topbar__logo-mobile'
@@ -95,7 +96,12 @@ const Topbar = React.memo<TopbarProps>(({ children, currentApplication, logo, lo
               />
             </div>
 
-            {user?.isSupport && <span className='houston-topbar__support'>SUPORTE</span>}
+            {user?.isSupport && (
+              <div className='houston-topbar__flag'>
+                <span>Unity</span>
+                SUPORTE
+              </div>
+            )}
           </div>
 
           <div className='houston-topbar__quick-access'>
@@ -114,9 +120,13 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
 
     & > .houston-topbar__header {
       font-family: ${theme.font.family.base};
-      background-color: ${theme.brandColor.primary.pure};
-      color: white;
+      background-color: white;
+      color: ${theme.neutralColor.low.pure};
+      border-bottom: ${theme.border.width.xs} solid
+        ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
+      box-sizing: border-box;
       position: fixed;
+      padding: ${theme.spacing.inline.nano};
       top: 0;
       left: 0;
       right: 0;
@@ -130,24 +140,22 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
         display: flex;
         align-items: center;
 
-        .houston-topbar__icon-menu {
-          margin-right: ${theme.spacing.xxxs};
-          line-height: 0;
+        & .houston-topbar__mobile-menu {
           cursor: pointer;
-          display: none;
+          margin: 0 -10px 0 -5px;
 
-          ${breakpoints.down('lg')} {
-            display: block;
+          ${breakpoints.up('md')} {
+            display: none;
           }
         }
 
-        .houston-topbar__logo {
+        & .houston-topbar__logo {
           height: 70%;
           width: auto;
+          margin-right: ${theme.spacing.inline.nano};
 
-          ${breakpoints.down('sm')} {
-            width: 44px;
-            min-width: 40px;
+          ${theme.breakpoints.up('md')} {
+            margin: 0 ${theme.spacing.inline.nano};
           }
 
           & > img {
@@ -159,17 +167,29 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
           & > .houston-topbar__logo-mobile {
             display: none;
           }
+
+          ${breakpoints.down('md')} {
+            width: 44px;
+            min-width: 40px;
+
+            & .houston-topbar__logo-default {
+              display: none;
+            }
+
+            & .houston-topbar__logo-mobile {
+              display: block;
+            }
+          }
         }
 
-        .houston-topbar__support {
+        .houston-topbar__flag {
           font-size: 12px;
           font-weight: 600;
           color: #fbcd02;
           position: relative;
           top: 2px;
-          margin-left: 16px;
 
-          ${breakpoints.down('sm')} {
+          ${breakpoints.down('md')} {
             display: none;
           }
         }

@@ -67,4 +67,5 @@ export default styled(TopbarApps, { label: 'houston-topbar-apps' })`
   width: auto;
   position: relative;
   box-sizing: border-box;
+  height: 100%;
 `;

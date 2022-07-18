@@ -83,11 +83,6 @@ const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
         overflow-y: auto;
         overflow-x: hidden;
 
-        & > ul {
-          margin: 0;
-          padding: 0;
-        }
-
         &::-webkit-scrollbar {
           width: 3px;
           background: white;

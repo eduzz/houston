@@ -15,7 +15,11 @@ const UserAvatar = React.memo<UserAvatarProps>(({ className, name, avatar }) => 
 export default styled(UserAvatar, { label: 'houston-topbar-user-avatar' })(
   ({ theme, avatar }) => css`
     width: 30px;
+    min-width: 30px;
+    max-width: 30px;
     height: 30px;
+    min-height: 30px;
+    max-height: 30px;
     border-radius: 100%;
     background: #fff;
     display: flex;
@@ -23,7 +27,6 @@ export default styled(UserAvatar, { label: 'houston-topbar-user-avatar' })(
     justify-content: center;
     color: ${theme.brandColor.primary.pure};
     font-weight: 600;
-    margin-right: ${theme.spacing.nano};
     font-size: 14px;
     line-height: 0;
     background-size: cover;

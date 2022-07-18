@@ -35,8 +35,8 @@ export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
     width: ${TOPBAR_MENU_WIDTH}px;
     position: fixed;
     top: ${TOPBAR_HEIGHT}px;
-    right: 0;
-    box-shadow: ${theme.shadow.level[1]};
+    right: ${theme.spacing.inline.nano};
+    box-shadow: ${theme.shadow.level[2]};
     padding: ${theme.spacing.nano};
     transition: 0.15s ease-out;
     transform: scale(0.1);
@@ -46,7 +46,7 @@ export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
     opacity: 0;
     user-select: none;
     background: white;
-    border-radius: 0 0 ${theme.spacing.quarck} ${theme.spacing.quarck};
+    border-radius: ${theme.border.radius.sm};
 
     &.--opened {
       visibility: visible;

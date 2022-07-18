@@ -11,9 +11,10 @@ import SidebarGroupContext, { SidebarGroupContextType } from './context';
 export interface SidebarGroupProps extends IStyledProp {
   label: React.ReactNode;
   children: React.ReactNode;
+  tabIndex?: number;
 }
 
-const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label }) => {
+const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label, tabIndex }) => {
   const [isExpanded, toogleExpanded, trueExpanded] = useBoolean(true);
 
   const contextValue = React.useMemo<SidebarGroupContextType>(() => {
@@ -23,9 +24,9 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label 
   return (
     <SidebarGroupContext.Provider value={contextValue}>
       <li className={className}>
-        <div className='houston-sidebar-group__item' onClick={toogleExpanded}>
+        <div className='houston-sidebar-group__item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
           <div className={cx('houston-sidebar-group__arrow', isExpanded && '--rotate')}>
-            <ChevronDownIcon size={16} />
+            <ChevronDownIcon size={14} />
           </div>
 
           <div className='houston-sidebar-group__content'>
@@ -41,7 +42,7 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label 
           </div>
         </div>
 
-        <ul>
+        <ul className='houston-sidebar-group__items'>
           <Collapse timeout={350} visibled={isExpanded}>
             {children}
           </Collapse>
@@ -62,9 +63,15 @@ export default styled(React.memo(SidebarGroup), { label: 'houston-sidebar-group'
       cursor: pointer;
       transition: 0.15s linear;
       min-height: ${theme.pxToRem(48)}rem;
+      outline: none;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+      }
+
+      &:focus {
+        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+        box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
       }
 
       &:active {
@@ -93,6 +100,12 @@ export default styled(React.memo(SidebarGroup), { label: 'houston-sidebar-group'
           text-overflow: ellipsis;
         }
       }
+    }
+
+    & .houston-sidebar-group__items {
+      margin: 0;
+      padding: 0;
+      margin-bottom: ${theme.spacing.stack.xxxs};
     }
   `
 );

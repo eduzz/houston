@@ -16,7 +16,8 @@ const UserMenuContext: React.FC<UserMenuContextProps> = ({ className, children }
 
 export default styled(UserMenuContext, { label: 'houston-topbar-user-menu-context' })(
   ({ theme }) => css`
-    padding: ${theme.spacing.nano};
+    margin-top: ${theme.spacing.nano};
+    padding: ${theme.spacing.squish.xxs};
     cursor: default;
   `
 );

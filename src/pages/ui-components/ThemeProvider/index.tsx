@@ -24,7 +24,7 @@ export interface IThemeProviderProps extends Pick<ThemeProviderProps, 'children'
   disableToast?: boolean;
 }
 
-const defaultTheme = createTheme('orbita');
+const defaultTheme = createTheme('eduzz');
 
 function ThemeProvider({
   theme = defaultTheme,

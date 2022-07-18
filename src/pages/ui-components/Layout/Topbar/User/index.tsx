@@ -5,13 +5,13 @@ import { useContextSelector } from 'use-context-selector';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
 
+import Button from '../../../Button';
 import useOnClickOutside from '../../../hooks/useClickOutside';
 import { useEscapeKey } from '../../../hooks/useEscapeKey';
-import Typography from '../../../Typography';
-import LayoutContext, { TOPBAR_HEIGHT } from '../../context';
+import IconButton from '../../../IconButton';
+import LayoutContext from '../../context';
 import TopbarContext from '../context';
 import Avatar from './Avatar';
-import Belt from './Belt';
 
 const User = React.memo<IStyledProp>(({ className }) => {
   const wrapperMenuUser = React.useRef<HTMLDivElement>(null);
@@ -32,21 +32,27 @@ const User = React.memo<IStyledProp>(({ className }) => {
 
   return (
     <>
-      <Belt belt={user.belt} />
+      {/* <Belt belt={user.belt} /> */}
 
       <div ref={wrapperMenuUser} className={cx(className, { '--active': hasMenu && opened, '--has-menu': hasMenu })}>
-        <div className='houston-topbar-user__label' onClick={toogleOpened}>
-          <Avatar name={user.name} avatar={user.avatar} />
+        <div className='houston-topbar-user__label'>
+          <div className='houston-topbar-user__default'>
+            <Button
+              variant='text'
+              color='inherit'
+              startIcon={<Avatar name={user.name} avatar={user.avatar} />}
+              endIcon={hasMenu && <IconChevronDown className='houston-topbar-user__menu-arrow' size={16} />}
+              onClick={toogleOpened}
+            >
+              {user.name}
+            </Button>
+          </div>
 
-          <Typography size='xxs' color='inherit' className='houston-topbar-user__name'>
-            {user.name}
-          </Typography>
-
-          {hasMenu && (
-            <div className='houston-topbar-user__menu-arrow'>
-              <IconChevronDown size={18} />
-            </div>
-          )}
+          <div className='houston-topbar-user__mobile'>
+            <IconButton onClick={toogleOpened}>
+              <Avatar name={user.name} avatar={user.avatar} />
+            </IconButton>
+          </div>
         </div>
 
         <div ref={registerContainer} />
@@ -59,67 +65,34 @@ export default styled(User, { label: 'houston-topbar-user' })(
   ({ theme }) => css`
     position: relative;
     z-index: 1100;
+    margin-left: ${theme.spacing.inline.nano};
 
-    &.--has-menu {
-      cursor: pointer;
-
-      &:hover,
-      &.--active {
-        background: rgba(0, 0, 0, 0.15);
-      }
-
-      &:focus {
-        background: none;
-      }
+    & .houston-topbar-user__menu-arrow {
+      display: block;
+      transition: 0.15s ease-out;
     }
 
-    & .houston-topbar-user__label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 ${theme.spacing.xxxs};
-      height: ${TOPBAR_HEIGHT}px;
+    &.--active .houston-topbar-user__menu-arrow {
+      transform: rotate(-180deg);
+    }
 
-      ${theme.breakpoints.down('sm')} {
-        padding: 0 ${theme.spacing.nano};
+    & .houston-topbar-user__default {
+      display: none;
+    }
+
+    & .houston-topbar-user__mobile {
+      border-left: ${theme.border.width.xs} solid
+        ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
+      padding-left: ${theme.spacing.nano};
+    }
+
+    ${theme.breakpoints.up('md')} {
+      & .houston-topbar-user__default {
+        display: block;
       }
 
-      & .houston-topbar-user__name {
-        max-width: 200px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        ${theme.breakpoints.down('md')} {
-          max-width: 120px;
-        }
-
-        ${theme.breakpoints.down('sm')} {
-          display: none;
-        }
-
-        &::selection {
-          background: none;
-        }
-      }
-
-      & .houston-topbar-user__menu-arrow {
-        margin-left: ${theme.spacing.quarck};
-        transition: 0.15s ease-out;
-
-        ${theme.breakpoints.down('sm')} {
-          display: none;
-        }
-
-        span.houston-icon {
-          line-height: 0;
-          position: relative;
-          top: 2px;
-        }
-      }
-
-      &.--active .houston-topbar-user__menu-arrow {
-        transform: rotate(-180deg);
+      & .houston-topbar-user__mobile {
+        display: none;
       }
     }
   `

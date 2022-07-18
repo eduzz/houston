@@ -15,6 +15,7 @@ export interface SidebarItemProps extends IStyledProp {
   tabIndex?: number;
   isActive?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
   children: React.ReactNode;
   /**
    * Component that wraps the item.
@@ -31,8 +32,9 @@ const SidebarItem = ({
   className,
   children,
   isActive: isActiveProp,
-  tabIndex = 1,
+  tabIndex,
   as: Component,
+  disabled,
   to,
   ...rest
 }: SidebarItemProps) => {
@@ -47,10 +49,10 @@ const SidebarItem = ({
   }, [active, onItemActive]);
 
   return React.createElement(
-    Component ?? 'div',
-    { ...rest, to },
-    <li tabIndex={tabIndex} className={cx(className, active && '--active')}>
-      <Bullet className='houston-sidebar-item__icon' />
+    Component ?? 'a',
+    { ...rest, to, tabIndex: tabIndex ?? 1, className: cx(className, { '--active': active, '--disabled': disabled }) },
+    <li>
+      <Bullet className='houston-sidebar-item__icon' size={18} />
       <Typography
         className='houston-sidebar-item__label'
         size='xs'
@@ -66,40 +68,61 @@ const SidebarItem = ({
 
 export default styled(React.memo(SidebarItem), { label: 'houston-sidebar-item' })(
   ({ theme }) => css`
-    padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.xxxs};
-    display: flex;
-    align-items: center;
-    line-height: 1.2;
-    cursor: pointer;
     transition: 0.15s linear;
-    display: grid;
-    grid-template-columns: 1.5rem 1fr;
-    text-decoration: none;
-    outline-color: ${theme.brandColor.primary.pure};
-    white-space: nowrap;
+    display: block;
+    outline: none;
+
+    &:focus {
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+      box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
+    }
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
     }
 
     &:active {
       background-color: rgba(0, 0, 0, 0.12);
     }
 
-    &.--active {
-      &::before {
-        background: ${theme.brandColor.primary.pure};
+    & > li {
+      padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.xxxs};
+      display: flex;
+      align-items: center;
+      line-height: 1.2;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 1.5rem 1fr;
+      text-decoration: none;
+      white-space: nowrap;
+
+      & .houston-sidebar-item__label {
+        grid-column: 2;
+        transition: 0.15s ease-in;
+      }
+
+      & .houston-sidebar-item__icon {
+        transform: scale(0);
+        opacity: 0;
+        transition: 0.15s ease-in;
+        color: ${theme.brandColor.secondary.pure};
       }
     }
 
-    & .houston-sidebar-item__label {
-      grid-column: 2;
-      transition: 0.15s ease-in;
+    &.--active > li {
+      &::before {
+        background: ${theme.brandColor.secondary.pure};
+      }
+
+      & .houston-sidebar-item__icon {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
-    & .houston-sidebar-item__icon {
-      transform: scale(0);
-      opacity: 0;
+    &.--disabled {
+      opacity: ${theme.opacity.level[6]};
+      pointer-events: none;
     }
   `
 );
