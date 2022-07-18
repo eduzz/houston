@@ -4,7 +4,7 @@ import ToastBody from './ToastBody';
 
 type ToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 
-interface ToastProps extends Pick<ToastOptions, ToastPropsExtends> {}
+export interface ToastProps extends Pick<ToastOptions, ToastPropsExtends> {}
 
 export default class Toast {
   public static info(content: string, options?: ToastProps): void {

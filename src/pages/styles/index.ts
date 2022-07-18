@@ -2,7 +2,8 @@ import { HoustonTokens } from '@eduzz/houston-tokens';
 
 import styled from './styled';
 
-export * from './styled';
+export { clsx, cx, css, keyframes, breakpoints } from './styled';
+export type { IStyledProp } from './styled';
 
 export default styled;
 
