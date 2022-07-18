@@ -39,7 +39,7 @@ const User = React.memo<StyledProp>(({ className }) => {
           <div className='houston-topbar-user__default'>
             <Button
               variant='text'
-              color='inherit'
+              className='houston-topbar-user__button'
               startIcon={<Avatar name={user.name} avatar={user.avatar} />}
               endIcon={hasMenu && <IconChevronDown className='houston-topbar-user__menu-arrow' size={16} />}
               onClick={toogleOpened}
@@ -66,6 +66,10 @@ export default styled(User, { label: 'houston-topbar-user' })(
     position: relative;
     z-index: 1100;
     margin-left: ${theme.spacing.inline.nano};
+
+    & .houston-topbar-user__button.--text {
+      color: inherit;
+    }
 
     & .houston-topbar-user__menu-arrow {
       display: block;

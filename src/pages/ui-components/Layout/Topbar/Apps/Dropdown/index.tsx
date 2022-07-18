@@ -7,11 +7,11 @@ import styled, { css, StyledProp, cx, keyframes } from '@eduzz/houston-styles';
 
 import { TopbarApplication } from '..';
 import Button from '../../../../Button';
+import Divider from '../../../../Divider';
 import IconButton from '../../../../IconButton';
 import Spinner from '../../../../Spinner';
 import Typography from '../../../../Typography';
 import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT } from '../../../context';
-import Divider from '../../UserMenu/Divider';
 
 export interface AppsDropdownProps extends StyledProp {
   currentApplication: string | undefined;
@@ -182,9 +182,12 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
         .houston-topbar-apps-dropdown__description {
           display: none;
           overflow: hidden;
-          text-indent: -1000px;
-          animation: ${descriptionAnimation} 0.2s ease-in-out forwards;
-          animation-delay: 0s;
+
+          ${theme.breakpoints.up('md')} {
+            text-indent: -1000px;
+            animation: ${descriptionAnimation} 0.2s ease-in-out forwards;
+            animation-delay: 0s;
+          }
         }
 
         &.--current {

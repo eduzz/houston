@@ -20,7 +20,6 @@ const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className
         <Button
           startIcon={icon}
           variant='text'
-          color='inherit'
           fullWidth
           active={active}
           className='houston-topbar-action__text-button'
@@ -38,6 +37,11 @@ const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className
 
 export default styled(Action, { label: 'houston-topbar-action' })(
   ({ theme }) => css`
+    & .houston-topbar-action__icon-button,
+    & .houston-topbar-action__text-button.--text {
+      color: inherit;
+    }
+
     ${theme.breakpoints.up('lg')} {
       &.--has-label .houston-topbar-action__icon-button {
         display: none;

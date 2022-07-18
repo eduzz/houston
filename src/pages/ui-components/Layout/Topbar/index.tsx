@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import CancelIcon from '@eduzz/houston-icons/Cancel';
@@ -7,6 +8,7 @@ import MenuLeft from '@eduzz/houston-icons/MenuLeft';
 import styled, { css, StyledProp, breakpoints } from '@eduzz/houston-styles';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
+import Typography from '../../Typography';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { TOPBAR_HEIGHT } from '../context';
 import Action from './Action';
@@ -23,96 +25,104 @@ export interface TopbarProps extends StyledProp {
   logo?: string;
   logoMobile?: string;
   currentApplication?: string;
+  blackMode?: boolean;
   user?: {
     id?: number;
     name: string;
     email?: string;
     avatar?: string;
     belt?: string;
+    tag?: 'lite' | 'pro' | 'unity' | 'partner';
     isSupport?: boolean;
     supportId?: number;
   };
 }
 
-const Topbar = React.memo<TopbarProps>(({ children, currentApplication, logo, logoMobile, className, user }) => {
-  const theme = useHoustonTheme();
-  const register = useContextSelector(LayoutContext, context => context.topbar.register);
-  const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
-  const sidebarOpened = useContextSelector(LayoutContext, context => context.sidebar.opened);
+const Topbar = React.memo<TopbarProps>(
+  ({ children, currentApplication, logo, logoMobile, className, blackMode, user }) => {
+    const theme = useHoustonTheme();
+    const register = useContextSelector(LayoutContext, context => context.topbar.register);
+    const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
+    const sidebarOpened = useContextSelector(LayoutContext, context => context.sidebar.opened);
 
-  React.useEffect(() => {
-    const unregister = register();
-    return () => unregister();
-  }, [register]);
+    React.useEffect(() => {
+      const unregister = register();
+      return () => unregister();
+    }, [register]);
 
-  React.useEffect(() => {
-    document.body.classList.add('houston-topbar-applied');
+    React.useEffect(() => {
+      document.body.classList.add('houston-topbar-applied');
 
-    let oldThemeColor: string | null = null;
-    let metaThemeColor = document.querySelector<HTMLMetaElement>('meta[name=theme-color]');
+      let oldThemeColor: string | null = null;
+      let metaThemeColor = document.querySelector<HTMLMetaElement>('meta[name=theme-color]');
 
-    if (metaThemeColor) {
-      oldThemeColor = metaThemeColor.content;
-      metaThemeColor.content = theme.brandColor.primary.pure;
-    } else {
-      metaThemeColor = document.createElement('meta');
-      metaThemeColor.name = 'theme-color';
-      metaThemeColor.content = theme.brandColor.primary.pure;
-      document.getElementsByTagName('head')[0].appendChild(metaThemeColor);
-    }
+      if (metaThemeColor) {
+        oldThemeColor = metaThemeColor.content;
+        metaThemeColor.content = theme.brandColor.primary.pure;
+      } else {
+        metaThemeColor = document.createElement('meta');
+        metaThemeColor.name = 'theme-color';
+        metaThemeColor.content = theme.brandColor.primary.pure;
+        document.getElementsByTagName('head')[0].appendChild(metaThemeColor);
+      }
 
-    return () => {
-      document.body.classList.remove('houston-topbar-applied');
-      if (metaThemeColor && oldThemeColor) metaThemeColor.content = oldThemeColor;
-    };
-  }, [theme]);
+      return () => {
+        document.body.classList.remove('houston-topbar-applied');
+        if (metaThemeColor && oldThemeColor) metaThemeColor.content = oldThemeColor;
+      };
+    }, [theme]);
 
-  const contextValue = React.useMemo<TopbarContextType>(
-    () => ({ currentApplication, user }),
-    [currentApplication, user]
-  );
+    const contextValue = React.useMemo<TopbarContextType>(
+      () => ({ currentApplication, user }),
+      [currentApplication, user]
+    );
 
-  return (
-    <TopbarContext.Provider value={contextValue}>
-      <div className={className}>
-        <header className='houston-topbar__header'>
-          <div className='houston-topbar__start'>
-            <Action
-              className='houston-topbar__mobile-menu'
-              icon={sidebarOpened ? <CancelIcon size={24} /> : <MenuLeft size={24} />}
-              onClick={sidebarToogleOpened}
-            />
-
-            <Apps />
-
-            <div className='houston-topbar__logo'>
-              <img
-                className='houston-topbar__logo-default'
-                src={logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz-colored.svg'}
+    return (
+      <TopbarContext.Provider value={contextValue}>
+        <div className={cx(className, { '--black-mode': blackMode })}>
+          <header className='houston-topbar__header'>
+            <div className='houston-topbar__start'>
+              <Action
+                className='houston-topbar__mobile-menu'
+                icon={sidebarOpened ? <CancelIcon size={24} /> : <MenuLeft size={24} />}
+                onClick={sidebarToogleOpened}
               />
-              <img
-                className='houston-topbar__logo-mobile'
-                src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz-mobile.svg'}
-              />
+
+              <Apps />
+
+              <div className='houston-topbar__logo'>
+                <img
+                  className='houston-topbar__logo-default'
+                  src={logo ?? `//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz${blackMode ? '' : '-colored'}.svg`}
+                />
+                <img
+                  className='houston-topbar__logo-mobile'
+                  src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz-mobile.svg'}
+                />
+              </div>
+
+              {!!user?.tag && (
+                <Typography
+                  lineHeight='default'
+                  color='inherit'
+                  className={cx('houston-topbar__flag', `--${user.tag}`)}
+                  size='xxs'
+                >
+                  {user.tag}
+                </Typography>
+              )}
             </div>
 
-            {user?.isSupport && (
-              <div className='houston-topbar__flag'>
-                <span>Unity</span>
-                SUPORTE
-              </div>
-            )}
-          </div>
-
-          <div className='houston-topbar__quick-access'>
-            {children}
-            <User />
-          </div>
-        </header>
-      </div>
-    </TopbarContext.Provider>
-  );
-});
+            <div className='houston-topbar__quick-access'>
+              {children}
+              <User />
+            </div>
+          </header>
+        </div>
+      </TopbarContext.Provider>
+    );
+  }
+);
 
 const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
   ({ theme }) => css`
@@ -183,14 +193,28 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
         }
 
         .houston-topbar__flag {
-          font-size: 12px;
-          font-weight: 600;
-          color: #fbcd02;
-          position: relative;
-          top: 2px;
+          text-transform: capitalize;
+          margin-top: 5px;
+          padding: ${theme.spacing.quarck};
+          letter-spacing: 0.5px;
+          display: none;
 
-          ${breakpoints.down('md')} {
-            display: none;
+          ${theme.breakpoints.up('sm')} {
+            display: block;
+          }
+
+          &.--pro {
+            border: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
+          }
+
+          &.--unity {
+            border: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
+            background: ${theme.neutralColor.low.pure};
+            color: white;
+          }
+
+          &.--partner {
+            background: ${theme.neutralColor.high.medium};
           }
         }
       }
@@ -200,6 +224,11 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
         align-items: center;
         justify-content: center;
       }
+    }
+
+    &.--black-mode > .houston-topbar__header {
+      background-color: #272727;
+      color: white;
     }
   `
 );

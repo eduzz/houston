@@ -4,6 +4,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles';
 
+import useMediaQuery from '../../hooks/useMediaQuery';
 import Overlay from '../../Overlay';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { MENU_WIDTH, TOPBAR_HEIGHT } from '../context';
@@ -20,6 +21,8 @@ export interface SidebarProps extends StyledProp {
 }
 
 const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
+  const isMobile = useMediaQuery(breakpoints.down('md'));
+
   const hasTopbar = useContextSelector(LayoutContext, context => context.topbar.exists);
   const register = useContextSelector(LayoutContext, context => context.sidebar.register);
   const opened = useContextSelector(LayoutContext, context => context.sidebar.opened);
@@ -41,8 +44,8 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
 
   return (
     <SidebarContext.Provider value={contextValue}>
-      <div className={cx(className, { '--visible': opened, '--has-topbar': hasTopbar })}>
-        <Overlay visible={opened} color='high' onClick={onRequestClose} underTopbar />
+      <div className={cx(className, { '--visible': opened && isMobile, '--has-topbar': hasTopbar })}>
+        <Overlay visible={opened && isMobile} color='high' onClick={onRequestClose} underTopbar />
 
         <aside className='houston-menu__container'>
           <nav>
