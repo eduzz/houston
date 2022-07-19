@@ -1,4 +1,5 @@
 import type { BrandColor, Brands, HoustonTokens } from './types';
+import { beltColor } from './variables/beltColor';
 import { border } from './variables/border';
 import { createBrandColors } from './variables/brand';
 import { breakpoinstUtils, breakpoints } from './variables/breakpoints';
@@ -18,6 +19,7 @@ export default function createTokens(brand: Brands | BrandColor): HoustonTokens 
     spacing,
     border,
     brandColor: createBrandColors(brand),
+    beltColor,
     breakpoints: {
       ...breakpoints,
       ...breakpoinstUtils
