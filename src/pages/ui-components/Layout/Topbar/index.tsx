@@ -93,8 +93,8 @@ const Topbar = React.memo<TopbarProps>(
                 <Typography
                   lineHeight='default'
                   color='inherit'
-                  className={cx('houston-topbar__flag', `--${user.tag}`)}
-                  size='xxs'
+                  className={cx('houston-topbar__tag', `--${user.tag}`)}
+                  size='xs'
                 >
                   {user.tag}
                 </Typography>
@@ -187,12 +187,14 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
           }
         }
 
-        .houston-topbar__flag {
+        .houston-topbar__tag {
           text-transform: capitalize;
           padding: ${theme.spacing.quarck};
           margin-top: 5px;
           letter-spacing: 0.5px;
           display: none;
+          border-radius: 3px;
+          margin-left: ${theme.spacing.nano};
 
           ${theme.breakpoints.up('sm')} {
             display: block;

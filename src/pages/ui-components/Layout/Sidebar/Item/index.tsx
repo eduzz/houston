@@ -92,10 +92,14 @@ export default styled(React.memo(SidebarItem), { label: 'houston-sidebar-item' }
       grid-gap: ${theme.spacing.inline.nano};
       text-decoration: none;
       white-space: nowrap;
+      margin-bottom: ${theme.spacing.stack.xxxs};
 
       & .houston-sidebar-item__label {
         grid-column: 2;
         transition: 0.15s ease-in;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
       }
 
       & .houston-sidebar-item__icon {

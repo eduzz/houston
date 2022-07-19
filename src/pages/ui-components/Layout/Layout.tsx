@@ -3,11 +3,11 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import { cx, StyledProp } from '@eduzz/houston-styles';
+import { breakpoints, cx, StyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
-import LayoutContext, { LayoutContextType, TOPBAR_HEIGHT } from './context';
+import LayoutContext, { LayoutContextType, TOPBAR_HEIGHT, TOPBAR_HEIGHT_MOBILE } from './context';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
@@ -101,6 +101,10 @@ const LayoutWrapper = styled(Layout, { label: 'houston-layout' })`
 
   &.--hasTopbar {
     padding-top: ${TOPBAR_HEIGHT}px;
+
+    ${breakpoints.down('sm')} {
+      padding-top: ${TOPBAR_HEIGHT_MOBILE}px;
+    }
   }
 `;
 

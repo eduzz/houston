@@ -34,7 +34,7 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label,
               className='houston-sidebar-group__label'
               color='neutralColor.low.medium'
               weight='regular'
-              size='xs'
+              size='xxs'
               lineHeight='lg'
             >
               {label}
@@ -54,6 +54,8 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label,
 
 export default styled(React.memo(SidebarGroup), { label: 'houston-sidebar-group' })(
   ({ theme }) => css`
+    margin-bottom: ${theme.spacing.stack.xxxs};
+
     .houston-sidebar-group__item {
       padding: ${theme.spacing.squish.xxs};
       display: grid;
@@ -106,7 +108,10 @@ export default styled(React.memo(SidebarGroup), { label: 'houston-sidebar-group'
     & .houston-sidebar-group__items {
       margin: 0;
       padding: 0;
-      margin-bottom: ${theme.spacing.stack.xxxs};
+
+      & li {
+        margin-bottom: 0;
+      }
     }
   `
 );

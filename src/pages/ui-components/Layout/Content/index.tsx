@@ -1,15 +1,32 @@
 import * as React from 'react';
 
-import styled, { StyledProp } from '@eduzz/houston-styles/styled';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-export interface ISidebarContentProps extends StyledProp {
+export interface LayoutContentProps extends StyledProp {
   children?: React.ReactNode;
+  disablePadding?: boolean;
 }
 
-const SidebarContent = ({ ...rest }: ISidebarContentProps) => <div {...rest} />;
+const LayoutContent = ({ children, className, disablePadding }: LayoutContentProps) => {
+  return <div className={cx(className, { '--disable-padding': disablePadding })}>{children}</div>;
+};
 
-export default styled(SidebarContent, { label: 'houston-sidebar-content' })`
-  flex: 1;
-  overflow-x: hidden;
-  overflow-y: auto;
-`;
+export default styled(LayoutContent, { label: 'houston-sidebar-content' })(
+  ({ theme }) => css`
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &:not(.--disable-padding) {
+      padding: ${theme.spacing.stack.lg} 0;
+
+      ${theme.breakpoints.down('md')} {
+        padding: ${theme.spacing.stack.sm} 0;
+      }
+
+      ${theme.breakpoints.down('sm')} {
+        padding: ${theme.spacing.stack.xxxs} 0;
+      }
+    }
+  `
+);

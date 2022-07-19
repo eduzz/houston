@@ -60,7 +60,8 @@ export default styled(Belt, { label: 'houston-topbar-belt' })(
     border-radius: 20px;
     border-top-left-radius: 0;
     border-bottom-right-radius: 0;
-    margin-right: ${theme.spacing.inline.nano};
+    margin-right: ${theme.spacing.inline.xxs};
+    height: ${theme.pxToRem(32)}rem;
 
     ${theme.breakpoints.down('md')} {
       display: none;
