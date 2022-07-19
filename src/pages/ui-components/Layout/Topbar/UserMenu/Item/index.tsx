@@ -12,6 +12,7 @@ export interface UserMenuItemProps extends StyledProp {
   icon?: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
+  children: string;
 }
 
 const UserMenuItem: React.FC<UserMenuItemProps> = ({ className, icon, disabled, onClick, children }) => {
@@ -27,7 +28,7 @@ const UserMenuItem: React.FC<UserMenuItemProps> = ({ className, icon, disabled, 
 
   return (
     <Button startIcon={icon} fullWidth variant='text' onClick={handleClick} className={className} disabled={disabled}>
-      {typeof children === 'string' ? <Typography color='inherit'>{children}</Typography> : children}
+      <Typography color='inherit'>{children}</Typography>
     </Button>
   );
 };

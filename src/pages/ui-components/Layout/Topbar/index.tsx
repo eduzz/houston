@@ -13,7 +13,9 @@ import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_HEIGHT_MOBILE } from '../context';
 import Action from './Action';
 import Apps from './Apps';
+import Belt from './Belt';
 import TopbarContext, { TopbarContextType } from './context';
+import SupportChat from './SupportChat';
 import User from './User';
 import UserMenu from './UserMenu';
 import UserMenuDivider from './UserMenu/Divider';
@@ -100,6 +102,8 @@ const Topbar = React.memo<TopbarProps>(
             </div>
 
             <div className='houston-topbar__quick-access'>
+              <Belt />
+
               {children}
               <User />
             </div>
@@ -186,6 +190,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
         .houston-topbar__flag {
           text-transform: capitalize;
           padding: ${theme.spacing.quarck};
+          margin-top: 5px;
           letter-spacing: 0.5px;
           display: none;
 
@@ -225,6 +230,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
 
 export default nestedComponent(TopbarStyled, {
   Action,
+  SupportChat,
   UserMenu,
   UserMenuItem,
   UserMenuDivider,

@@ -1,15 +1,18 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import BeltIcon from '@eduzz/houston-icons/Belt';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
+import Typography from '../../../Typography';
+import TopbarContext from '../context';
+
 const supportedBelts = ['white', 'red', 'orange', 'green', 'black', 'golden'];
 
-export interface BeltProps extends StyledProp {
-  belt: string | undefined;
-}
+const Belt = React.memo<StyledProp>(({ className }) => {
+  const belt = useContextSelector(TopbarContext, context => context.user?.belt);
 
-const Belt = React.memo<BeltProps>(({ className, belt }) => {
   const [beltColor, setBeltColor] = React.useState('');
   const [beltClass, setBeltClass] = React.useState('');
 
@@ -40,7 +43,9 @@ const Belt = React.memo<BeltProps>(({ className, belt }) => {
     <div className={cx(className, `--${beltClass}`)}>
       <div className='houston-topbar-belt__badge'>
         <BeltIcon size={25} className='houston-topbar-belt__icon' />
-        <span className='houston-topbar-belt__text'>{beltColor}</span>
+        <Typography color='inherit' className='houston-topbar-belt__text'>
+          {beltColor}
+        </Typography>
       </div>
     </div>
   );
@@ -51,12 +56,20 @@ export default styled(Belt, { label: 'houston-topbar-belt' })(
     color: white;
     display: flex;
     align-items: center;
-    padding: ${theme.spacing.quarck} ${theme.spacing.xxxs};
+    padding: ${theme.spacing.squish.xxs};
     border-radius: 20px;
-    margin: 0 ${theme.spacing.nano};
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: ${theme.spacing.inline.nano};
 
     ${theme.breakpoints.down('md')} {
       display: none;
+    }
+
+    ${theme.breakpoints.down('lg')} {
+      & .houston-topbar-belt__text {
+        display: none;
+      }
     }
 
     &.none {
@@ -66,15 +79,6 @@ export default styled(Belt, { label: 'houston-topbar-belt' })(
     &.--white {
       background-color: ${theme.beltColor.white};
       color: ${theme.beltColor.white};
-
-      & > .houston-topbar-belt__badge {
-        color: ${theme.beltColor.whiteForeground};
-
-        & > svg > path,
-        & > svg > circle {
-          fill: ${theme.beltColor.whiteForeground};
-        }
-      }
     }
 
     &.--red {
@@ -111,17 +115,9 @@ export default styled(Belt, { label: 'houston-topbar-belt' })(
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 150px;
-        font-size: 14px;
-        margin-left: 4px;
-
-        ${theme.breakpoints.down('md')} {
-          max-width: 75px;
-        }
-
-        ${theme.breakpoints.down('sm')} {
-          display: none;
-        }
+        text-transform: uppercase;
+        font-style: italic;
+        margin-left: ${theme.spacing.nano};
       }
     }
 

@@ -26,7 +26,7 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label,
       <li className={className}>
         <div className='houston-sidebar-group__item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
           <div className={cx('houston-sidebar-group__arrow', isExpanded && '--rotate')}>
-            <ChevronDownIcon size={14} />
+            <ChevronDownIcon size='md' />
           </div>
 
           <div className='houston-sidebar-group__content'>

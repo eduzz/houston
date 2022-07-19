@@ -22,10 +22,6 @@ export interface SidebarItemProps extends StyledProp {
    * @example NavLink, Link (react-router-dom)
    */
   as?: React.ElementType;
-  /**
-   * Redirect path.
-   */
-  to?: string;
 }
 
 const SidebarItem = ({
