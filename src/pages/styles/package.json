@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-styles",
   "description": "Eduzz Houston Style",
-  "version": "0.54.0-beta.1",
+  "version": "v0.54.0-beta.2",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -16,7 +16,7 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "dependencies": {
-    "@eduzz/houston-tokens": "0.54.0-beta.1",
+    "@eduzz/houston-tokens": "v0.54.0-beta.2",
     "@emotion/css": "^11",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
