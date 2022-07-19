@@ -39,7 +39,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className={cx(
         className,
         `--${variant ?? 'contained'}`,
-        { '--fullWidth': fullWidth },
+        { '--full-width': fullWidth },
         { '--disabled': disabled || loading }
       )}
       type={type}
