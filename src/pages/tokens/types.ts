@@ -6,6 +6,15 @@ export type Color = {
   dark: string;
 };
 
+export type BeltColor = {
+  white: '#D6D6D6';
+  red: '#FF4141';
+  orange: '#FFA439';
+  green: '#33DB7A';
+  black: '#000000';
+  golden: '#FFCE00';
+};
+
 export type Spacing = {
   /**
    * A helper function that returns a value following
@@ -193,6 +202,7 @@ export type FeedbackColor = {
 
 export type BrandColor = {
   primary: Color;
+  secondary: Color;
 };
 
 export type BrandColors = {
@@ -217,9 +227,21 @@ export type BrandColors = {
       medium: '#8E66FF';
       dark: '#440087';
     };
+    secondary: {
+      pure: '#6200EE';
+      light: '#D4CCFF';
+      medium: '#8E66FF';
+      dark: '#440087';
+    };
   };
   blinket: {
     primary: {
+      pure: '#D81B60';
+      light: '#F48FB1 ';
+      medium: '#EC407A';
+      dark: '#AD1457';
+    };
+    secondary: {
       pure: '#D81B60';
       light: '#F48FB1 ';
       medium: '#EC407A';
@@ -233,9 +255,21 @@ export type BrandColors = {
       medium: '#3479AF';
       dark: '#002F6C';
     };
+    secondary: {
+      pure: '#01579B';
+      light: '#99BCD7';
+      medium: '#3479AF';
+      dark: '#002F6C';
+    };
   };
   nutror: {
     primary: {
+      pure: '#00A526';
+      light: '#99E9BA';
+      medium: '#00C853';
+      dark: '#00801D';
+    };
+    secondary: {
       pure: '#00A526';
       light: '#99E9BA';
       medium: '#00C853';
@@ -249,6 +283,12 @@ export type BrandColors = {
       medium: '#265AAB';
       dark: '#072D83';
     };
+    secondary: {
+      pure: '#FFBC00';
+      light: '#FFF4BF';
+      medium: '#FFDB4D';
+      dark: '#996600';
+    };
   };
   safevideo: {
     primary: {
@@ -257,9 +297,21 @@ export type BrandColors = {
       medium: '#F5B431';
       dark: '#804306';
     };
+    secondary: {
+      pure: '#E39837';
+      light: '#FEC92D';
+      medium: '#F5B431';
+      dark: '#804306';
+    };
   };
   telescope: {
     primary: {
+      pure: '#8E24AA';
+      light: '#D2A7DD';
+      medium: '#9A3AB3';
+      dark: '#560877';
+    };
+    secondary: {
       pure: '#8E24AA';
       light: '#D2A7DD';
       medium: '#9A3AB3';
@@ -290,6 +342,7 @@ export type HoustonTokens = {
   shadow: Shadow;
   font: Font;
   line: Line;
+  beltColor: BeltColor;
   neutralColor: NeutralColor;
   feedbackColor: FeedbackColor;
   brandColor: BrandColor;
