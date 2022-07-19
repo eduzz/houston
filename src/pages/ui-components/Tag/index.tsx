@@ -1,9 +1,8 @@
-import Avatar from './Avatar';
-import CloseIcon from './CloseIcon';
-import Label from './Label';
-import PlusIcon from './PlusIcon';
+import Left from './Left';
+import Right from './Right';
 import Tag from './Tag';
+import Text from './Text';
 
-export { PlusIcon, Label, CloseIcon, Avatar };
+export { Text, Left, Right };
 
 export default Tag;
