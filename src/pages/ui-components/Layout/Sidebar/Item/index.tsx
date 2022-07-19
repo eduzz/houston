@@ -41,7 +41,7 @@ const SidebarItem = ({
 
   React.useEffect(() => {
     if (!active) return;
-    return onItemActive();
+    onItemActive();
   }, [active, onItemActive]);
 
   return React.createElement(
