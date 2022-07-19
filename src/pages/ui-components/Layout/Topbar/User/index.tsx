@@ -5,13 +5,13 @@ import { useContextSelector } from 'use-context-selector';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
+import Avatar from '../../../Avatar';
 import Button from '../../../Button';
 import useOnClickOutside from '../../../hooks/useClickOutside';
 import useEscapeKey from '../../../hooks/useEscapeKey';
 import IconButton from '../../../IconButton';
 import LayoutContext from '../../context';
 import TopbarContext from '../context';
-import Avatar from './Avatar';
 
 const User = React.memo<StyledProp>(({ className }) => {
   const wrapperMenuUser = React.useRef<HTMLDivElement>(null);
@@ -38,7 +38,11 @@ const User = React.memo<StyledProp>(({ className }) => {
             <Button
               variant='text'
               className='houston-topbar-user__button'
-              startIcon={<Avatar name={user.name} avatar={user.avatar} />}
+              startIcon={
+                <Avatar src={user.avatar} size='sm'>
+                  {user.name}
+                </Avatar>
+              }
               endIcon={hasMenu && <IconChevronDown className='houston-topbar-user__menu-arrow' size='md' />}
               onClick={toogleOpened}
             >
@@ -48,7 +52,9 @@ const User = React.memo<StyledProp>(({ className }) => {
 
           <div className='houston-topbar-user__mobile'>
             <IconButton onClick={toogleOpened}>
-              <Avatar name={user.name} avatar={user.avatar} />
+              <Avatar src={user.avatar} size='sm'>
+                {user.name}
+              </Avatar>
             </IconButton>
           </div>
         </div>

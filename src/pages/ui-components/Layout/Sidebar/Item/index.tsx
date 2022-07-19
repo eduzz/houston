@@ -48,7 +48,7 @@ const SidebarItem = ({
     Component ?? 'a',
     { ...rest, to, tabIndex: tabIndex ?? 1, className: cx(className, { '--active': active, '--disabled': disabled }) },
     <li>
-      <Bullet className='houston-sidebar-item__icon' size={18} />
+      <Bullet className='houston-sidebar-item__icon' size='md' />
       <Typography
         className='houston-sidebar-item__label'
         size='xs'
@@ -88,7 +88,8 @@ export default styled(React.memo(SidebarItem), { label: 'houston-sidebar-item' }
       line-height: 1.2;
       cursor: pointer;
       display: grid;
-      grid-template-columns: 1.5rem 1fr;
+      grid-template-columns: ${theme.pxToRem(26)}rem 1fr;
+      grid-gap: ${theme.spacing.inline.nano};
       text-decoration: none;
       white-space: nowrap;
 

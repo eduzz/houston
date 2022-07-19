@@ -57,7 +57,8 @@ export default styled(React.memo(SidebarGroup), { label: 'houston-sidebar-group'
     .houston-sidebar-group__item {
       padding: ${theme.spacing.squish.xxs};
       display: grid;
-      grid-template-columns: 1.5rem 1fr;
+      grid-template-columns: ${theme.pxToRem(26)}rem 1fr;
+      grid-gap: ${theme.spacing.inline.nano};
       align-items: center;
       line-height: 1.15;
       cursor: pointer;
@@ -80,7 +81,7 @@ export default styled(React.memo(SidebarGroup), { label: 'houston-sidebar-group'
 
       & .houston-sidebar-group__arrow {
         line-height: 0;
-        margin-right: ${theme.spacing.inline.nano};
+
         transition: 0.15s linear;
         text-align: center;
 
