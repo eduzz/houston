@@ -21,13 +21,17 @@ export interface IconButtonProps
     StyledProp {
   /** use md or lg, the other options are deprecated */
   size?: Size;
+  /**
+   * If button should be on active state
+   */
+  active?: boolean;
 }
 
-const IconButton = ({ className, size, children, disabled = false, ...rest }: IconButtonProps) => (
+const IconButton = ({ className, size, children, disabled = false, active, ...rest }: IconButtonProps) => (
   <button
     role='button'
     disabled={disabled}
-    className={cx(className, `--${size ?? 'lg'}`)}
+    className={cx(className, `--${size ?? 'lg'}`, { '--active': active })}
     aria-disabled={disabled}
     {...rest}
   >
@@ -105,12 +109,13 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
       }
     }
 
-    :focus {
+    &:focus {
       outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
     }
 
     &:hover:not(:disabled),
-    &:focus {
+    &:focus,
+    &.--active {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
     }
   `}

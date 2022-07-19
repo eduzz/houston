@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export default function useEscapeKey(callback: () => void) {
+export default function useEscapeKey(callback: () => void, deps: React.DependencyList) {
   const ESCAPE_KEY = 'Escape';
 
   useEffect(() => {
@@ -15,5 +15,6 @@ export default function useEscapeKey(callback: () => void) {
     return () => {
       window.removeEventListener('keydown', handlePressKey);
     };
-  }, [callback]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deps]);
 }
