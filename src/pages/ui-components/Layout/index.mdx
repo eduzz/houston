@@ -2,51 +2,56 @@
 name: Layout
 ---
 
+import { Playground } from 'dokz';
+
+import InfoChatOutline from '@eduzz/houston-icons/InfoChatOutline';
+import NotificationOutline from '@eduzz/houston-icons/NotificationOutline';
+
+import Layout from '.';
+
 # Layout
 
 Estrutura padrão das aplicações.
 
-### Importação
+## Importação
 
 ```ts
 import Layout from '@eduzz/houston-ui/Layout';
 
 // ou
+import Layout from '@eduzz/houston-ui/Layout';
 import Sidebar from '@eduzz/houston-ui/Layout/Sidebar';
+import Topbar from '@eduzz/houston-ui/Layout/Topbar';
 import Content from '@eduzz/houston-ui/Layout/Content';
 ```
 
-### Estrutura base
+## Estrutura base
 
 ```jsx
 <Layout>
-  <Layout.Sidebar {...props}>
-    {...}
-  </Layout.Sidebar>
-
-  <Layout.Content>
-    {...}
-  </Layout.Content>
+  <Layout.Topbar />
+  <Layout.Sidebar />
+  <Layout.Content />
 </Layout>
 ```
 
-### Desestruturando
+## Desestruturando
 
 Para simplificar a escrita do código, você pode desestruturar os componentes.
 
 ```jsx
-import Layout, { ISidebarProps } from '@eduzz/houston-ui/Layout';
-// ou
-import { ISidebarProps } from '@eduzz/houston-ui/Layout/Sidebar';
+import Layout from '@eduzz/houston-ui/Layout';
 
-const { Sidebar, Content } = Layout;
-const { Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
+const { Sidebar, Topbar, Content } = Layout;
+const { Item, Group } = Sidebar;
 
 function CustomLayout() {
-  const sidebarProps: ISidebarProps = {...};
-
   return (
     <Layout>
+      <Topbar {...topbarProps}>
+        {...}
+      </Topbar>
+
       <Sidebar {...sidebarProps}>
         {...}
       </Sidebar>
@@ -61,115 +66,132 @@ function CustomLayout() {
 export default CustomLayout;
 ```
 
-### Exemplo
+## Exemplo
 
 ```jsx
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
-const { Sidebar, Content } = Layout;
-const { Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
+const { Sidebar, Topbar, Content } = Layout;
+const { Item, Group } = Sidebar;
 
-<Layout>
-  <Sidebar>
-    <Logo image={...} />
-
-    <Menu>
-      <MenuItem as={NavLink} to='/dashboard' icon={<Icon />}>Dashboard</MenuItem>
-
-      <SubMenuItem id='sales' icon={<Icon />} label='Vendas'>
-        <MenuItem as={NavLink} to='/sales'>Minhas Vendas</MenuItem>
-        <MenuItem as={NavLink} to='/delivery'>Minhas Entregas</MenuItem>
-      </SubMenuItem>
-
-      <MenuItem as={NavLink} icon={<Icon />} to='/financial'>Financeiro</MenuItem>
-
-      <MenuItem as={NavLink} icon={<Icon />} to='/utils'>Utilitários</MenuItem>
-
-      <SubMenuItem id='advanced' label='Avançado' icon={<SettingsOutline />}>
-        <MenuItem onClick={...}>Whitelist</MenuItem>
-        <MenuItem onClick={...}>Configurações da API</MenuItem>
-        <MenuItem onClick={...}>Central de Documentos Fiscais</MenuItem>
-      </SubMenuItem>
-    </Menu>
-  </Sidebar>
-
-  <Content>
-    {/* Your App Here */}
-  </Content>
-</Layout>
-```
-
-### Controlável
-
-Há possibilidade de você controlar quando a Sidebar é recolhida/expandida.
-
-```jsx
-import Layout from '@eduzz/houston-ui/Layout';
-import Button from '@eduzz/houston-ui/Button';
-
-const { Sidebar, Content } = Layout;
-const { Logo, Menu, MenuItem, SubMenuItem } = Sidebar;
-
-function CustomLayout() {
-  const [collapsed, setCollapsed] = useState(false);
-
-  function toggle() {
-    setCollapsed(state => !state)
-  }
+function MyComponent() {
+  const location = useLocation();
 
   return (
     <Layout>
-      <Sidebar collapsed={collapsed} onCollapse={toggle}>
-        {...}
+      <Topbar
+        currentApplication='orbita'
+        user={{
+          name: 'Houston User',
+          belt: 'Black Belt',
+          avatar: 'https://picsum.photos/200',
+          tag: 'unity'
+        }}
+      >
+        <Topbar.SupportChat />
+
+        <Topbar.Action icon={<NotificationOutline size={25} />} label='Notificações' />
+        <Topbar.Action icon={<InfoChatOutline size={25} />} />
+
+        <Topbar.UserMenu>
+          <Topbar.UserMenuItem>Meus Dados</Topbar.UserMenuItem>
+          <Topbar.UserMenuItem>Minhas Compras</Topbar.UserMenuItem>
+
+          <Topbar.UserMenuContext>Contas:</Topbar.UserMenuContext>
+          <Topbar.UserMenuItem>John Doe</Topbar.UserMenuItem>
+          <Topbar.UserMenuItem disabled>John Doe 2</Topbar.UserMenuItem>
+
+          <Topbar.UserMenuDivider />
+
+          <Topbar.UserMenuItem>Sair</Topbar.UserMenuItem>
+        </Topbar.UserMenu>
+      </Topbar>
+
+      <Sidebar currentLocation={location.pathname}>
+        <Item href='/agendamento'>Resumo</Item>
+
+        <Group label='Agendamento'>
+          <Item as={NavLink} to='/agendamento'>
+            Evento
+          </Item>
+          <Item as={NavLink} to='/agendamento'>
+            MasterMind
+          </Item>
+          <Item as={NavLink} to='/agendamento'>
+            Lançamento
+          </Item>
+        </Group>
+
+        <Item disabled>Marketplace</Item>
       </Sidebar>
 
-      <Content>
-        <Button onClick={toggle}>Toggle collapsed</Button>
-        {...}
-      </Content>
+      <Content>{/*Your content here*/}</Content>
     </Layout>
   );
 }
-
-export default CustomLayout;
 ```
+
+## Props
+
+### Topbar props
+
+| prop               | tipo     | obrigatório | padrão | descrição                                                   |
+| ------------------ | -------- | ----------- | ------ | ----------------------------------------------------------- |
+| logo               | `url`    | `false`     | -      | Url para o logo padrao.                                     |
+| logoMobile         | `url`    | `false`     | -      | Url para o logo na versão mobile.                           |
+| currentApplication | `string` | `false`     | -      | Aplicação que está sendo usada, para marcar no menu de apps |
+| user               | `object` | `false`     | -      | Se existe um usuário logado, sem ele não terá o menu User   |
+
+### Topbar.Action props
+
+| prop     | tipo        | obrigatório | padrão  | descrição                                            |
+| -------- | ----------- | ----------- | ------- | ---------------------------------------------------- |
+| icon     | `ReactNode` | `true`      | -       | Icone, tamanho ideal 25                              |
+| label    | `string`    | `false`     | -       |                                                      |
+| isActive | `boolean`   | `false`     | `false` | Se o icone deve manter o estado de pressionado/ativo |
+| onClick  | `function`  | `false`     | -       |                                                      |
+
+### Topbar.UserMenuItem props
+
+| prop     | tipo        | obrigatório | padrão | descrição               |
+| -------- | ----------- | ----------- | ------ | ----------------------- |
+| icon     | `ReactNode` | `true`      | -      | Icone, tamanho ideal 25 |
+| children | `string`    | `false`     | -      | Deve ser uma string     |
+| disabled | `boolean`   | `false`     | -      |                         |
+| onClick  | `function`  | `false`     | -      |                         |
+
+### Topbar.UserMenuContext props
+
+| prop     | tipo     | obrigatório | padrão | descrição           |
+| -------- | -------- | ----------- | ------ | ------------------- |
+| children | `string` | `false`     | -      | Deve ser uma string |
 
 ### Sidebar props
 
-| prop             | tipo       | obrigatório | padrão  | descrição                                                           |
-| ---------------- | ---------- | ----------- | ------- | ------------------------------------------------------------------- |
-| currentLocation  | `string`   | `false`     | -       | Caminho de localização atual (pathname).                            |
-| hasToolbar       | `boolean`  | `false`     | `true`  | Aplica uma margem à parte superior da Sidebar.                      |
-| mobileVisible    | `boolean`  | `true`      | `false` | Controle de exibição no mobile.                                     |
-| onRequestClose   | `function` | `false`     | `false` | Função chamada ao clicar no elemento externo no mobile.             |
-| collapsed        | `boolean`  | `false`     | `false` | Se preenchido, você deve controlar quando será recolhido/expandido. |
-| initialCollapsed | `boolean`  | `false`     | `false` | -                                                                   |
-| collapsible      | `boolean`  | `false`     | `true`  | -                                                                   |
-| onCollapse       | `function` | `false`     | -       | -                                                                   |
+| prop            | tipo     | obrigatório | padrão | descrição                                |
+| --------------- | -------- | ----------- | ------ | ---------------------------------------- |
+| currentLocation | `string` | `false`     | -      | Caminho de localização atual (pathname). |
 
-### Sidebar.Logo props
+### Sidebar.Item props
 
-| prop           | tipo              | obrigatório | padrão | descrição |
-| -------------- | ----------------- | ----------- | ------ | --------- |
-| image          | `React.ReactNode` | `true`      | -      | -         |
-| imageCollapsed | `React.ReactNode` | `false`     | -      | -         |
-| alt            | `string`          | `false`     | -      | -         |
+| prop     | tipo                | obrigatório | padrão  | descrição                                                                   |
+| -------- | ------------------- | ----------- | ------- | --------------------------------------------------------------------------- |
+| as       | `React.ElementType` | `false`     | -       | Componente que envolve o item.                                              |
+| `any`    | `any`               | `false`     | -       | Qualquer prop que o `as` receba                                             |
+| isActive | `boolean`           | `false`     | `false` | Irá usar o `currentLocation` fornecido para tentar ver se está ativo ou não |
+| tabIndex | `number`            | `false`     | -       |                                                                             |
+| disabled | `boolean`           | `false`     | -       |                                                                             |
+| onClick  | `function`          | `false`     | -       |                                                                             |
 
-### Sidebar.MenuItem props
+### Sidebar.Group props
 
-| prop     | tipo                | obrigatório | padrão  | descrição                                            |
-| -------- | ------------------- | ----------- | ------- | ---------------------------------------------------- |
-| icon     | `React.ReactNode`   | `false`     | -       | -                                                    |
-| isActive | `boolean`           | `false`     | `false` | -                                                    |
-| as       | `React.ElementType` | `false`     | -       | Componente que envolve o item.                       |
-| to       | `string`            | `false`     | -       | Caminho de redirecionamento (se houver a prop `as`). |
+| prop     | tipo              | obrigatório | padrão | descrição |
+| -------- | ----------------- | ----------- | ------ | --------- |
+| label    | `React.ReactNode` | `false`     | -      | -         |
+| tabIndex | `number`          | `false`     | -      |           |
 
-### Sidebar.SubMenuItem props
+### Content props
 
-| prop            | tipo              | obrigatório | padrão  | descrição                                     |
-| --------------- | ----------------- | ----------- | ------- | --------------------------------------------- |
-| id              | `string`          | `true`      | -       | Chave única usada internamente (não repetir). |
-| label           | `React.ReactNode` | `false`     | -       | -                                             |
-| icon            | `React.ReactNode` | `false`     | -       | -                                             |
-| isActive        | `boolean`         | `false`     | `false` | -                                             |
-| startedExpanded | `boolean`         | `false`     | -       | -                                             |
+| prop           | tipo      | obrigatório | padrão | descrição        |
+| -------------- | --------- | ----------- | ------ | ---------------- |
+| disablePadding | `boolean` | `false`     | -      | Remove o padding |
