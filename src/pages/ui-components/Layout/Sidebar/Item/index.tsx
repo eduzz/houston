@@ -83,7 +83,6 @@ export default styled(React.memo(SidebarItem), { label: 'houston-sidebar-item' }
 
     & > li {
       padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.xxxs};
-      display: flex;
       align-items: center;
       line-height: 1.2;
       cursor: pointer;

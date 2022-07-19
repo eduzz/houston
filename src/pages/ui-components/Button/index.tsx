@@ -42,7 +42,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       role='button'
       className={cx(className, `--${variant ?? 'contained'}`, {
-        '--fullWidth': fullWidth,
+        '--full-width': fullWidth,
         '--disabled': disabled || loading,
         '--active': active
       })}
@@ -90,10 +90,6 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
 
     :not(:focus) {
       transition: 0.3s;
-    }
-
-    &.--fullWidth {
-      width: 100%;
     }
 
     :focus,

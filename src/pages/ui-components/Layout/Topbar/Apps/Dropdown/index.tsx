@@ -168,7 +168,6 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
         text-align: center;
         transition: 0.15s ease-out;
         border-radius: ${theme.border.radius.xs};
-        text-decoration: none;
         cursor: pointer;
         text-decoration: none;
         padding: ${theme.spacing.xxxs} ${theme.spacing.nano};
