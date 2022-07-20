@@ -62,7 +62,6 @@ const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
     position: relative;
 
     & .houston-menu__container {
-      padding: ${theme.spacing.stack.xs} 0;
       background: #fff;
       display: inline-flex;
       flex-direction: column;
@@ -83,6 +82,7 @@ const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
       & > nav {
         overflow-y: auto;
         overflow-x: hidden;
+        padding: ${theme.spacing.stack.xs} 0;
 
         &::-webkit-scrollbar {
           width: 3px;
