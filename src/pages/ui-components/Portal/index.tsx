@@ -44,10 +44,7 @@ const Portal = ({ children, target }: PortalProps) => {
     };
   }, [target]);
 
-  if (!wrapperElement) {
-    return null;
-  }
-
+  if (!wrapperElement) return null;
   return createPortal(children, wrapperElement);
 };
 

@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-ui",
   "description": "Eduzz Houston Components UI",
-  "version": "0.53.2",
+  "version": "0.54.0-beta.4",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -16,11 +16,11 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "dependencies": {
-    "@eduzz/houston-core": "0.53.2",
-    "@eduzz/houston-hooks": "0.53.2",
-    "@eduzz/houston-icons": "0.53.2",
-    "@eduzz/houston-styles": "0.53.2",
-    "@eduzz/houston-forms": "0.53.2",
+    "@eduzz/houston-core": "0.54.0-beta.4",
+    "@eduzz/houston-hooks": "0.54.0-beta.4",
+    "@eduzz/houston-icons": "0.54.0-beta.4",
+    "@eduzz/houston-styles": "0.54.0-beta.4",
+    "@eduzz/houston-forms": "0.54.0-beta.4",
     "@emotion/css": "^11",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
@@ -33,12 +33,13 @@
     "lodash": "^4",
     "react-colorful": "^5",
     "react-toastify": "^9",
+    "react-useportal": "^1.0.17",
     "tslib": "^2",
     "use-context-selector": "^1",
     "@mui/x-date-pickers": "5.0.0-alpha.7"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.53.2",
+    "@eduzz/houston-core": "0.54.0-beta.4",
     "@material-ui/core": "^4",
     "@material-ui/icons": "^4",
     "@material-ui/lab": "^4"
