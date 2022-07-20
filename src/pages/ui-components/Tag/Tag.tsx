@@ -40,16 +40,13 @@ const TagWrapper = styled(Tag, { label: 'houston-tag' })(({ theme }) => {
   return css`
     display: inline-flex;
     align-items: center;
+    gap: ${theme.spacing.inline.nano};
     outline: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
     border-radius: ${theme.border.radius.pill};
     padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.nano};
     line-height: 0;
-    transition: 0.5s background-color;
+    transition: 0.5s all;
     min-height: ${theme.pxToRem(MIN_HEIGHT_IN_PX)}rem;
-
-    span:first-of-type + span:not(.houston-tag-text) {
-      margin-left: ${theme.spacing.stack.quarck};
-    }
 
     :hover,
     &.--active {
