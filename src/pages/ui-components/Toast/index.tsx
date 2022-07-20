@@ -4,9 +4,9 @@ import ToastBody from './ToastBody';
 
 type ToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 
-interface ToastProps extends Pick<ToastOptions, ToastPropsExtends> {}
+export interface ToastProps extends Pick<ToastOptions, ToastPropsExtends> {}
 
-class Toast {
+export class Toast {
   public static info(content: string, options?: ToastProps): void {
     toast(<ToastBody content={content} type='informative' />, options);
   }
