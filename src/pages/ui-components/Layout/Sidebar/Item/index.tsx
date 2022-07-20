@@ -125,4 +125,5 @@ export default styled(React.memo(SidebarItem), { label: 'houston-sidebar-item' }
       pointer-events: none;
     }
   `
-);
+  // Por causa da prop `[key: string]` estava perdendo as outras props definidas
+) as typeof SidebarItem;

@@ -44,7 +44,9 @@ function App() {
               <Topbar.UserMenuItem>Minhas Compras</Topbar.UserMenuItem>
 
               <Topbar.UserMenuContext>Contas:</Topbar.UserMenuContext>
-              <Topbar.UserMenuItem>John Doe</Topbar.UserMenuItem>
+              <Topbar.UserMenuItem href='http://google.com' target='_blank'>
+                John Doe
+              </Topbar.UserMenuItem>
               <Topbar.UserMenuItem disabled>John Doe 2</Topbar.UserMenuItem>
 
               <Topbar.UserMenuDivider />
