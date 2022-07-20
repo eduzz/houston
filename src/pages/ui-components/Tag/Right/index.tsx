@@ -24,7 +24,6 @@ const TagRight = ({ children, onClick: onClickProp, ...rest }: TagRightProps) =>
 
 export default styled(TagRight, { label: 'houston-tag-right' })(({ theme }) => {
   return css`
-    margin-left: ${theme.spacing.stack.quarck};
     border-radius: ${theme.border.radius.circular};
     padding: ${theme.spacing.stack.quarck};
     transition: 0.5s background-color;

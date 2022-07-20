@@ -19,6 +19,7 @@ const Tag = ({ children, disabled, isActive, className, onClose, ...rest }: TagP
   return (
     <span
       aria-disabled={disabled}
+      role='button'
       className={cx(className, { '--disabled': disabled }, { '--active': isActive })}
       tabIndex={0}
       {...rest}
@@ -45,7 +46,10 @@ const TagWrapper = styled(Tag, { label: 'houston-tag' })(({ theme }) => {
     line-height: 0;
     transition: 0.5s background-color;
     min-height: ${theme.pxToRem(MIN_HEIGHT_IN_PX)}rem;
-    cursor: pointer;
+
+    span:first-of-type + span:not(.houston-tag-text) {
+      margin-left: ${theme.spacing.stack.quarck};
+    }
 
     :hover,
     &.--active {
