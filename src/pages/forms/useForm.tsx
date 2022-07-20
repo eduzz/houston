@@ -31,12 +31,13 @@ export default function useForm<T>({ validationSchema, defaultValues, initialVal
     ...params,
     defaultValues: defaultValues ?? initialValues
   };
+
   if (validationSchema) {
     Object.assign(hookParams, {
       resolver: yupResolver(typeof validationSchema === 'function' ? validationSchema(yup) : validationSchema)
     });
   }
-  console.log(hookParams);
+
   return useFormHook<T>(hookParams);
 }
 
