@@ -12,7 +12,9 @@ import ModalContextProvider from './context';
 import Footer from './Footer';
 import Header from './Header';
 
-export type ModalSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export const modalSizesInPx: Record<ModalSizes, number> = { xs: 400, sm: 560, md: 640, lg: 800, xl: 1200 };
+
+export type ModalSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface ModalProps {
   visible: boolean;
@@ -21,7 +23,7 @@ export interface ModalProps {
   /**
    * Default `sm`
    */
-  size?: ModalSize;
+  size?: ModalSizes;
   /**
    * Display close icon
    * Default `true`
@@ -43,6 +45,8 @@ const Modal = ({
   children,
   ...rest
 }: ModalProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+  const contextValue = React.useMemo(() => ({ onClose, closeIcon }), [closeIcon, onClose]);
+
   const handlePressEscapeKey = React.useCallback(() => {
     if (visible && !disableEscapeKey) {
       onClose && onClose();
@@ -58,7 +62,7 @@ const Modal = ({
   return (
     <Portal target='houston-modal'>
       <Overlay visible={visible}>
-        <ModalContextProvider value={{ onClose, closeIcon }}>
+        <ModalContextProvider value={contextValue}>
           <ModalBase className={cx(className, `--modal-size-${size}`)} aria-modal={true} {...rest}>
             {children}
           </ModalBase>
@@ -71,9 +75,8 @@ const Modal = ({
 const ModalStyle = styled(Modal, { label: 'houston-modal' })`
   ${({ theme }) => {
     const modifiersSizes: CSSInterpolation[] = [];
-    const sizesInPx: Record<ModalSize, number> = { xs: 400, sm: 560, md: 640, lg: 800, xl: 1200 };
 
-    Object.entries(sizesInPx).forEach(([key, value]) =>
+    Object.entries(modalSizesInPx).forEach(([key, value]) =>
       modifiersSizes.push(css`
         &.--modal-size-${key} {
           width: ${theme.pxToRem(value)}rem;
