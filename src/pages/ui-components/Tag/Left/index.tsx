@@ -6,10 +6,34 @@ export interface TagLeftProps extends StyledProp, React.HTMLAttributes<HTMLSpanE
   children?: React.ReactNode;
 }
 
-const TagLeft = ({ children, ...rest }: TagLeftProps) => <span {...rest}>{children}</span>;
+const TagLeft = ({ children, onClick: onClickProp, ...rest }: TagLeftProps) => {
+  const handleOnClick = React.useCallback(
+    (e: React.MouseEvent<HTMLSpanElement>) => {
+      e.stopPropagation();
+      onClickProp && onClickProp(e);
+    },
+    [onClickProp]
+  );
+  return (
+    <span role='button' tabIndex={0} onClick={handleOnClick} {...rest}>
+      {children}
+    </span>
+  );
+};
 
-export default styled(TagLeft, { label: 'houston-tag-item-left' })(({ theme }) => {
+export default styled(TagLeft, { label: 'houston-tag-left' })(({ theme }) => {
   return css`
-    margin-right: ${theme.spacing.inline.nano};
+    margin: 0 ${theme.spacing.stack.quarck};
+    border-radius: ${theme.border.radius.circular};
+    padding: ${theme.spacing.stack.quarck};
+    transition: 0.5s background-color;
+
+    :hover {
+      background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[4])};
+    }
+
+    :focus {
+      outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
+    }
   `;
 });
