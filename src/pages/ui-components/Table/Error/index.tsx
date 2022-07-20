@@ -2,19 +2,19 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { cx, IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { cx, StyledProp } from '@eduzz/houston-styles/styled';
 
 import Button from '../../Button';
-import Typography, { ITypographyProps } from '../../Typography';
+import Typography, { TypographyProps } from '../../Typography';
 import TableContext, { TableSize } from '../context';
 
-export interface ITableEErrorProps extends IStyledProp {
+export interface TableErrorProps extends StyledProp {
   error?: any;
   formater?: (error: any) => string;
   onRetry?: () => void;
   children?: React.ReactNode;
 }
-const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, formater, className }) => {
+const TableError = React.memo<TableErrorProps>(({ children, error, onRetry, formater, className }) => {
   const tableSize = useContextSelector(TableContext, context => context.size);
 
   const errorMessage = React.useMemo(() => {
@@ -27,7 +27,7 @@ const TableError = React.memo<ITableEErrorProps>(({ children, error, onRetry, fo
     return typeof error === 'string' ? error : 'Algo inesperado aconteceu...';
   }, [error, formater]);
 
-  const fontSizeMap: Record<TableSize, ITypographyProps['size']> = {
+  const fontSizeMap: Record<TableSize, TypographyProps['size']> = {
     small: 'xxs',
     medium: 'xs'
   };

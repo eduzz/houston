@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-import styled, { css, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
 import Typography from '../../Typography';
 import { useSearch } from './context';
 
-export type SearchResultProps = IStyledProp & {
+export type SearchResultProps = StyledProp & {
   children: string;
 };
 
 const SearchResult = ({ className, children }: SearchResultProps) => {
-  const divRef = React.useRef<HTMLDivElement>();
+  const divRef = React.useRef<HTMLDivElement>(null);
   const { onSelect } = useSearch();
 
   function handleClick() {

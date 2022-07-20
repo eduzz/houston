@@ -3,11 +3,11 @@ import * as React from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import ChevronLeftIcon from '@eduzz/houston-icons/ChevronLeft';
-import styled, { IStyledProp, cx } from '@eduzz/houston-styles/styled';
+import styled, { StyledProp, cx } from '@eduzz/houston-styles/styled';
 
 import SidebarContext from '../context';
 
-interface ISidebarCollapseProps extends IStyledProp {}
+interface ISidebarCollapseProps extends StyledProp {}
 
 const SidebarCollapse: React.FC<ISidebarCollapseProps> = ({ className }) => {
   const collapsed = useContextSelector(SidebarContext, context => context.collapsed);
@@ -18,7 +18,7 @@ const SidebarCollapse: React.FC<ISidebarCollapseProps> = ({ className }) => {
   return (
     <div className={cx(className, { '--collapsed': collapsed, '--inside': inside })} onClick={onClickCollapse}>
       <div className='icon'>
-        <ChevronLeftIcon size={14} />
+        <ChevronLeftIcon size='sm' />
       </div>
     </div>
   );

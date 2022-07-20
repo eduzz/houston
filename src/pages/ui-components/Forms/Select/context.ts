@@ -1,21 +1,21 @@
 import { createContext } from 'use-context-selector';
 
-import { ISelectFieldProps } from '.';
+import { SelectFieldProps } from '.';
 
-export interface ISelectOption {
+export interface SelectOptionProps {
   value: any;
-  text: string;
+  text: string | undefined | null;
 }
 
-export interface ISelectContext {
-  inputSize: ISelectFieldProps['size'];
+export interface SelectContextProps {
+  inputSize: SelectFieldProps['size'];
   multiple: boolean;
   inputValue: any;
-  registerOption(option: ISelectOption): () => void;
+  registerOption(option: SelectOptionProps): () => void;
   onSelect(value: any): void;
 }
 
-const SelectContext = createContext<ISelectContext>({
+const SelectContext = createContext<SelectContextProps>({
   inputSize: 'default',
   multiple: false,
   inputValue: null,

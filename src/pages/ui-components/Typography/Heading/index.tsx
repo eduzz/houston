@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { IStyledProp } from '@eduzz/houston-styles/styled';
+import { StyledProp } from '@eduzz/houston-styles/styled';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-import Typography, { ITypographyProps, TypographyColors } from '..';
+import Typography, { TypographyProps, TypographyColors } from '..';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 type HeadingTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -13,7 +13,7 @@ export type HeadingSizes = 'display' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
 
 export type HeadingColors = TypographyColors;
 
-export interface IHeadingProps extends IStyledProp, Omit<ITypographyProps, 'size' | 'as'> {
+export interface HeadingProps extends StyledProp, Omit<TypographyProps, 'size' | 'as'> {
   size?: HeadingSizes;
   /**
    * Defaults to 'h1'
@@ -72,7 +72,7 @@ const weightsMap: FontPropMap<'weight'> = {
   xs: 'bold'
 };
 
-const Heading = React.forwardRef<HTMLHeadingElement, IHeadingProps>(
+const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ as = 'h1', children, size: sizeProp, ...props }, ref) => {
     const { breakpoints } = useHoustonTheme();
     const isMobile = useMediaQuery(breakpoints.down('sm'));

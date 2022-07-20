@@ -3,7 +3,7 @@ import * as React from 'react';
 import PaginationMUI from '@mui/material/Pagination';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { breakpoints, IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { breakpoints, StyledProp } from '@eduzz/houston-styles/styled';
 
 import Input from '../../Forms/Input';
 import Select from '../../Forms/Select';
@@ -12,11 +12,11 @@ import Row from '../../Grid/Row';
 import Typography from '../../Typography';
 import TableContext from '../context';
 
-type ITablePaginationExtends = 'id' | 'className' | 'children';
+type TablePaginationExtends = 'id' | 'className' | 'children';
 
-export interface ITablePagination
-  extends Pick<React.HTMLAttributes<HTMLTableRowElement>, ITablePaginationExtends>,
-    IStyledProp {
+export interface TablePagination
+  extends Pick<React.HTMLAttributes<HTMLTableRowElement>, TablePaginationExtends>,
+    StyledProp {
   page: number;
   perPage: number;
   total: number;
@@ -27,7 +27,7 @@ export interface ITablePagination
   onChangePerPage: (rowsPerPage: number) => void;
 }
 
-const Pagination = React.memo<ITablePagination>(
+const Pagination = React.memo<TablePagination>(
   ({
     page,
     optionsPerPage: optionsPerPageProp,
@@ -75,7 +75,7 @@ const Pagination = React.memo<ITablePagination>(
 
         setPageInput(value);
 
-        if (event.type === 'change' || (event.type === 'keyup' && !enterPressed)) {
+        if (event?.type === 'change' || (event?.type === 'keyup' && !enterPressed)) {
           return;
         }
 
@@ -106,7 +106,7 @@ const Pagination = React.memo<ITablePagination>(
     const handleChangePerPage = React.useCallback((value: any) => onChangePerPage(Number(value)), [onChangePerPage]);
 
     const handleChangePage = React.useCallback(
-      (e: React.SyntheticEvent, page: number) => onChangePage(page),
+      (e: React.ChangeEvent<unknown>, page: number) => onChangePage(page),
       [onChangePage]
     );
 
@@ -120,21 +120,27 @@ const Pagination = React.memo<ITablePagination>(
         <tr>
           <td colSpan={1000} className='__td'>
             <Row>
-              <Column xs={12} sm='auto'>
+              <Column xs={12} sm>
                 <Row justifyContent='center'>
-                  <Column xs='auto' className='__perPage'>
+                  <Column xs className='__perPage'>
                     <Typography size='xxs' weight='semibold'>
                       {labelItensPerPage ?? 'Itens por página:'}
                     </Typography>
 
-                    <Select disabled={loading} size='sm' value={perPage} onChange={handleChangePerPage}>
-                      {optionsPerPage.map(({ value, label }) => (
+                    <Select
+                      className='__options'
+                      disabled={loading}
+                      size='sm'
+                      value={perPage}
+                      onChange={handleChangePerPage}
+                    >
+                      {optionsPerPage?.map(({ value, label }) => (
                         <Select.Option key={value} value={value} label={label} />
                       ))}
                     </Select>
                   </Column>
 
-                  <Column xs='auto' className='__labels'>
+                  <Column xs className='__labels'>
                     <Typography size='xxs' weight='semibold'>
                       {labelGoToPage ?? 'Ir para:'}
                     </Typography>
@@ -144,9 +150,9 @@ const Pagination = React.memo<ITablePagination>(
                       disabled={loading}
                       value={pageInput}
                       className='__input'
-                      onChange={handlePageInputChange}
+                      onChange={handlePageInputChange as any}
                       onKeyUp={handlePageInputChange}
-                      onBlur={handlePageInputChange}
+                      onBlur={handlePageInputChange as any}
                     />
                   </Column>
                 </Row>
@@ -176,12 +182,14 @@ export default styled(Pagination)`
   & > tr {
     & .__td {
       padding: 12px 0;
+      overflow-x: hidden;
     }
 
     .__perPage {
       width: 220px;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
 
       & > p {
         white-space: nowrap;
@@ -207,6 +215,10 @@ export default styled(Pagination)`
 
     .__input {
       max-width: 50px;
+    }
+
+    .__options {
+      width: 80px;
     }
 
     .__pages {

@@ -5,40 +5,48 @@ import styled from '@emotion/styled';
 import { Placement } from '@popperjs/core';
 import { useContextSelector } from 'use-context-selector';
 
-import { IStyledProp } from '@eduzz/houston-styles';
+import { StyledProp, cx } from '@eduzz/houston-styles';
 
+import warning from '../utils/warning';
 import PopoverContext from './context';
 
-export interface IPopoverProps extends IStyledProp {
+export interface PopoverProps extends StyledProp {
   targetRef: React.RefObject<HTMLElement>;
   children?: React.ReactNode;
   fullWidth?: boolean;
   placement?: Placement;
+  id?: string;
+  variant?: 'tooltip';
 }
 
-export interface IPopoverRef {
+export interface PopoverRef {
   open(): void;
   close(): void;
 }
 
-const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
-  ({ targetRef, children, className, fullWidth, placement }, ref) => {
+const Popover = React.forwardRef<PopoverRef, PopoverProps>(
+  ({ targetRef, children, className, fullWidth, placement, id, variant }, ref) => {
     const setState = useContextSelector(PopoverContext, context => context.setState);
-    const contentRef = React.useRef<HTMLDivElement>();
+    const contentRef = React.useRef<HTMLDivElement>(null);
     const closeRef = React.useRef<() => void>();
 
     React.useImperativeHandle(
       ref,
       () => ({
         open() {
+          if (!targetRef.current || !contentRef.current) {
+            warning('Popover', 'needs a targetRef and contentRef');
+            return;
+          }
+
           closeRef.current = setState({
             opened: true,
             target: targetRef.current,
             content: contentRef.current,
-            placement
+            placement: placement ?? 'auto'
           });
 
-          contentRef.current.style.width = fullWidth ? `${targetRef.current.offsetWidth}px` : 'auto';
+          contentRef.current.style.width = fullWidth ? `${targetRef.current?.offsetWidth}px` : 'auto';
         },
         close() {
           closeRef.current && closeRef.current();
@@ -48,8 +56,8 @@ const Popover = React.forwardRef<IPopoverRef, IPopoverProps>(
     );
 
     return (
-      <div ref={contentRef} className={className}>
-        <div className='__container'>{children}</div>
+      <div id={id} ref={contentRef} className={cx(className, 'popover')}>
+        <div className={cx('__container', { [`--${variant}`]: !!variant })}>{children}</div>
       </div>
     );
   }
@@ -88,6 +96,11 @@ export default styled(Popover, { label: 'houston-popover' })(
       animation-duration: 0.2s;
       animation-name: ${hideAnimation};
       animation-fill-mode: forwards;
+
+      &.--tooltip {
+        overflow-y: unset;
+        overflow-x: unset;
+      }
     }
 
     &.--opened {

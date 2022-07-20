@@ -1,63 +1,15 @@
 import * as React from 'react';
 
-import AvatarMUI from '@mui/material/Avatar';
-import ListItemIconMUI from '@mui/material/ListItemIcon';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
-import { cx } from '@eduzz/houston-styles';
-import createUseStyles from '@eduzz/houston-styles/createUseStyles';
-
-const useStyles = createUseStyles(theme => ({
-  iconRoot: {
-    color: theme.neutralColor.high.dark,
-    minWidth: 20,
-    lineHeight: 1.5,
-    marginRight: 8,
-    '& > svg': {
-      width: 20,
-      height: 20
-    }
-  },
-  imageRoot: {
-    color: theme.neutralColor.low.light,
-    backgroundColor: theme.neutralColor.high.light,
-    marginRight: 8,
-    '& > svg': {
-      width: 20,
-      height: 20
-    }
-  },
-  striped: {
-    backgroundColor: '#fff'
-  }
-}));
-
-export interface IListLeftProps {
-  id?: string;
-  className?: string;
-  icon?: React.ReactNode;
-  image?: React.ReactNode;
-  striped?: boolean;
+export interface ListLeftProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
 }
-const ListLeft: React.FC<IListLeftProps> = ({ icon, image, striped = false, ...rest }) => {
-  const classes = useStyles();
 
-  if (icon) {
-    return (
-      <ListItemIconMUI {...rest} className={classes.iconRoot}>
-        {icon}
-      </ListItemIconMUI>
-    );
-  }
+const ListLeft = ({ children, ...rest }: ListLeftProps) => <div {...rest}>{children}</div>;
 
-  if (typeof image === 'string') {
-    return <AvatarMUI {...rest} src={image} className={cx([classes.imageRoot, striped && classes.striped])} />;
-  }
-
-  return (
-    <AvatarMUI {...rest} className={cx([classes.imageRoot, striped && classes.striped])}>
-      {image}
-    </AvatarMUI>
-  );
-};
-
-export default React.memo(ListLeft);
+export default styled(ListLeft, { label: 'houston-list-item-left' })(({ theme }) => {
+  return css`
+    margin-right: ${theme.spacing.inline.xxxs};
+  `;
+});

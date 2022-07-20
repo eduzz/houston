@@ -1,12 +1,12 @@
-interface IRowMap {
+interface RowMap {
   [rowKey: string]: string;
 }
 
-interface ICallback {
-  (rowMap: IRowMap): void;
+interface Callback {
+  (rowMap: RowMap): void;
 }
 
-export function bindMutationObserver(table: HTMLTableElement, callback: ICallback) {
+export function bindMutationObserver(table: HTMLTableElement, callback: Callback) {
   let timeout: any;
 
   const handleMutation = () => {
@@ -29,17 +29,17 @@ export function bindMutationObserver(table: HTMLTableElement, callback: ICallbac
   return () => observer.disconnect();
 }
 
-function getTableHeaderLabels(table: HTMLTableElement): IRowMap {
+function getTableHeaderLabels(table: HTMLTableElement): RowMap {
   const rows = Array.from(table.rows);
 
-  const columns = Array.from(rows.shift()?.cells).reduce((acc, column) => {
+  const columns = Array.from(rows.shift()?.cells ?? []).reduce((acc, column) => {
     if (column.tagName.toLowerCase() !== 'th') {
       return acc;
     }
 
-    acc.push(column.textContent);
+    acc.push(column.textContent ?? '');
     return acc;
-  }, []);
+  }, [] as string[]);
 
   return rows.reduce((acc, row) => {
     Array.from(row.cells).forEach((cell, index) => {
@@ -50,5 +50,5 @@ function getTableHeaderLabels(table: HTMLTableElement): IRowMap {
     });
 
     return acc;
-  }, {} as IRowMap);
+  }, {} as RowMap);
 }

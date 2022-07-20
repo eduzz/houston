@@ -1,13 +1,13 @@
+import { Palette } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-import { IHoustonTheme } from '@eduzz/houston-styles';
+import { HoustonThemeProps } from '@eduzz/houston-styles';
 
 import components from './components';
 import palette from './palette';
 import typography from './typography';
 
 declare module '@mui/material/styles' {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   interface BreakpointOverrides {
     xs: true;
     sm: true;
@@ -17,12 +17,12 @@ declare module '@mui/material/styles' {
   }
 }
 
-export default function generateTheme(theme?: IHoustonTheme) {
+export default function generateTheme(theme: HoustonThemeProps) {
   const newPalette = palette(theme);
 
   const muiTheme = createTheme({
     palette: newPalette,
-    components: components(newPalette, theme),
+    components: components(newPalette as Palette, theme),
     typography: typography(theme),
     spacing: theme.spacing.fn,
     breakpoints: {

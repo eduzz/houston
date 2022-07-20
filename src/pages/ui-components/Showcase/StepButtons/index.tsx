@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-export interface IShowcaseButtonsProps {
+export interface ShowcaseButtonsProps {
   hideCloseButton?: boolean;
   children?: React.ReactNode;
 }
 
-export default (() => null) as React.FC<IShowcaseButtonsProps>;
+export default (() => null) as React.FC<ShowcaseButtonsProps>;

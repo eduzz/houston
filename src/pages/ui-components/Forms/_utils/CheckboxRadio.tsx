@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { useFormError, useFormIsSubmitting, useFormSetValue, useFormValue } from '@eduzz/houston-forms/context';
 import Bullet from '@eduzz/houston-icons/Bullet';
 import Done from '@eduzz/houston-icons/Done';
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Typography from '../../Typography';
+import withForm, { WithFormProps } from '../Form/withForm';
 
-interface IOwnProperties extends IStyledProp {
+interface OwnProperties extends StyledProp, WithFormProps<never> {
   children?: React.ReactNode;
   errorMessage?: string;
   helperText?: React.ReactNode;
@@ -34,20 +34,20 @@ interface IOwnProperties extends IStyledProp {
   onChange?: (checked: any) => any;
 }
 
-export interface ICheckboxRadioProps
-  extends IOwnProperties,
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof IOwnProperties | 'type'> {}
+export interface CheckboxRadioProps
+  extends OwnProperties,
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof OwnProperties | 'type'> {}
 
-interface IInternalCheckboxRadioProps extends ICheckboxRadioProps {
+interface InternalCheckboxRadioProps extends CheckboxRadioProps {
   type: 'checkbox' | 'radio';
 }
 
-const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
-  name,
+const CheckboxRadioField = ({
+  value,
   label,
   children,
   value: checkedValue,
-  errorMessage: errorMessageProp,
+  errorMessage,
   helperText,
   description,
   disabled,
@@ -57,16 +57,9 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   onChange,
   className,
   ...props
-}) => {
-  const isSubmitting = useFormIsSubmitting();
-
-  let value = useFormValue(name, checkedProp);
-  const errorMessage = useFormError(name, errorMessageProp);
-  const setFieldValue = useFormSetValue(name);
-
+}: InternalCheckboxRadioProps) => {
   value = !multiple ? value : Array.isArray(value) ? value : [];
 
-  disabled = disabled || isSubmitting;
   checkedValue = checkedValue ?? true;
   multiple = type === 'checkbox' ? multiple : false;
   children = children ?? label;
@@ -84,7 +77,6 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
     const returnValue = justChecked ? checkedValue ?? true : checkedValue ? null : false;
 
     if (!multiple) {
-      setFieldValue && setFieldValue(returnValue);
       onChange && onChange(returnValue);
       return;
     }
@@ -97,9 +89,8 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
       setValue.delete(checkedValue);
     }
 
-    setFieldValue && setFieldValue(Array.from(setValue));
     onChange && onChange(Array.from(setValue));
-  }, [checkedValue, disabled, isChecked, multiple, onChange, setFieldValue, value]);
+  }, [checkedValue, disabled, isChecked, multiple, onChange, value]);
 
   const message = errorMessage ?? helperText;
 
@@ -124,7 +115,7 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
       />
 
       <div className='__check'>
-        {type === 'checkbox' ? <Done size={18} className='__icon' /> : <Bullet size={16} className='__icon' />}
+        {type === 'checkbox' ? <Done size='sm' className='__icon' /> : <Bullet size='sm' className='__icon' />}
       </div>
 
       {!!children && (
@@ -137,7 +128,7 @@ const CheckboxRadioField: React.FC<IInternalCheckboxRadioProps> = ({
   );
 };
 
-export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-checkbox-radio' })(
+export default styled(withForm(React.memo(CheckboxRadioField)), { label: 'houston-form-checkbox-radio' })(
   ({ theme }) => css`
     display: flex;
     margin-top: ${theme.spacing.quarck};
@@ -159,6 +150,9 @@ export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-che
     }
 
     & > .__check {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 16px;
       height: 16px;
       line-height: 0;
@@ -172,7 +166,6 @@ export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-che
       }
 
       & > .__icon {
-        position: absolute;
         transition: 0.5s;
         transform: scale(0);
         opacity: 0;
@@ -200,11 +193,6 @@ export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-che
     &.--type-checkbox {
       & > .__check {
         border-radius: ${theme.border.radius.xs};
-
-        & > .__icon {
-          top: -2px;
-          left: -2px;
-        }
       }
 
       &.--checked > .__check {
@@ -233,11 +221,6 @@ export default styled(React.memo(CheckboxRadioField), { label: 'houston-form-che
       & > .__check {
         border-radius: 50%;
         box-shadow: 0 0 0 1px transparent;
-
-        & > .__icon {
-          top: -1px;
-          left: -1px;
-        }
       }
 
       &.--checked > .__check {

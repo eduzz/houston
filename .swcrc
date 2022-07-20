@@ -5,7 +5,7 @@
     "type": "commonjs"
   },
   "jsc": {
-    "externalHelpers": true,
+    "externalHelpers": false,
     "target": "es5",
     "parser": {
       "syntax": "typescript",

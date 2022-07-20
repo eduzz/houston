@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-interface ICache<F extends (...args: any[]) => any> {
+interface Cache<F extends (...args: any[]) => any> {
   [key: string]: {
-    args: Parameters<F>;
+    args: ParametersOptional<F>;
     func: () => ReturnType<F>;
   };
 }
@@ -19,14 +19,14 @@ export default function useCallbackGenerator<F extends (...args: any[]) => any>(
   generator: F,
   deps: React.DependencyList
 ): (key: string, ...args: ParametersOptional<F>) => (...callArgs: any) => ReturnType<F> {
-  const [cache] = React.useState<ICache<F>>(() => ({}));
+  const [cache] = React.useState<Cache<F>>(() => ({}));
 
   /**
    * Function generator
    * @param key: unique key for cahce
    * @param args: args curried to the generator function
    */
-  const result = React.useCallback((key: string, ...args: Parameters<F>) => {
+  const result = React.useCallback((key: string, ...args: ParametersOptional<F>) => {
     if (!cache[key]) {
       cache[key] = { args, func: (...callArgs: any[]) => generator(...args, ...callArgs) };
     }

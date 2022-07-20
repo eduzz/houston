@@ -4,11 +4,11 @@ import { useContextSelector } from 'use-context-selector';
 
 import TableRowContext from '../Row/context';
 
-export interface ITableActionOptionProp {
+export interface TableActionOptionProp {
   show: boolean;
 }
 
-const TableActionLoading = React.memo<ITableActionOptionProp>(({ show }) => {
+const TableActionLoading = React.memo<TableActionOptionProp>(({ show }) => {
   const registerActionLoading = useContextSelector(TableRowContext, context => context.registerActionLoading);
 
   React.useEffect(() => {

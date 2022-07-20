@@ -10,12 +10,12 @@ import IconButton from '../../../IconButton';
 import Typography from '../../../Typography';
 import { useShowcaseContext } from '../../context';
 
-interface IStyleProps {
+interface StyleProps {
   size?: 'small' | 'medium' | 'large';
 }
 
 const useStyles = createUseStyles(theme => ({
-  header: (props: IStyleProps) => ({
+  header: (props: StyleProps) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
@@ -62,7 +62,7 @@ const Header = React.memo(() => {
 
       {(size === 'small' || isMobile) && (
         <IconButton id='modal-default-close' onClick={handleClose} size='small'>
-          <CancelIcon className='close-icon' size={18} />
+          <CancelIcon className='close-icon' size='md' />
         </IconButton>
       )}
     </Typography>

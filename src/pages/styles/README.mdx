@@ -17,12 +17,12 @@ yarn add @eduzz/houston-styles
 No arquivo raiz de seu projeto, defina sua paleta de cores e adicione o provedor da seguinte maneira:
 
 ```tsx
-import createTheme, { IHoustonTheme } from '@eduzz/houston-styles/createTheme';
+import createTheme, { HoustonThemeProps } from '@eduzz/houston-styles/createTheme';
 import ThemeProvider from '@eduzz/houston-styles/ThemeProvider';
 
-const theme: IHoustonTheme = createTheme('orbita');
+const theme: HoustonThemeProps = createTheme('orbita');
 // ou
-const theme: IHoustonTheme = createTheme({
+const theme: HoustonThemeProps = createTheme({
   primary: {
     pure: '#0D47A1',
     light: '#9EB5D9',
@@ -42,9 +42,9 @@ gosto, mas recomendamos o styled para padronizar:
 - [styled](/houston/styles/styled) (_Recomendado_): estilar os componentes no estilo styled-components.
 
 ```js
-import styled, { IStyledProp } from '@eduzz/houston-styles';
+import styled, { StyledProp } from '@eduzz/houston-styles';
 
-const Component: React.FC<IStyledProp> = ({ className }) => {
+const Component: React.FC<StyledProp> = ({ className }) => {
   return <div className={className} />;
 };
 
@@ -86,6 +86,6 @@ const ComponentsDev = memo<IProps>(props => {
 });
 ```
 
-### Objeto Tema (IHoustonTheme)
+### Objeto Tema (HoustonThemeProps)
 
 Veja [aqui os tokens](/houston/tokens/tokens)

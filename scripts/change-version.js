@@ -67,6 +67,14 @@ async function init() {
       name: 'workspace',
       folder: `${__dirname}/../`
     },
+    {
+      name: 'dev',
+      folder: `${__dirname}/../src/dev`
+    },
+    {
+      name: 'docs',
+      folder: `${__dirname}/../src`
+    },
     ...packages.filter(file => file.isDirectory() && !foldersBlackList.includes(file.name)).map(file => ({
       name: require(`${__dirname}/../src/pages/${file.name}/package.json`).name,
       folder: `${__dirname}/../src/pages/${file.name}`

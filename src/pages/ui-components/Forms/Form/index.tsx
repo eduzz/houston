@@ -1,21 +1,23 @@
 import * as React from 'react';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
-import FormContext from '@eduzz/houston-forms/context';
+import { FormProvider, UseFormReturn } from 'react-hook-form';
 
-export interface IFormProps {
+export interface FormProps {
   id?: string;
   className?: string;
-  context: IFormAdapter<any>;
   children?: React.ReactNode;
+  context: UseFormReturn<any, any>;
+  onSubmit: (data: any) => void | Promise<any>;
 }
 
-const Form: React.FC<IFormProps> = ({ context, ...rest }) => {
+const Form = ({ context, onSubmit, ...rest }: FormProps) => {
+  const handleReset = React.useCallback(() => context.reset(), [context]);
+
   return (
-    <FormContext.Provider value={context}>
-      <form {...rest} onReset={context.handleReset} onSubmit={context.handleSubmit} />
-    </FormContext.Provider>
+    <FormProvider {...context}>
+      <form {...rest} onReset={handleReset} onSubmit={context.handleSubmit(onSubmit)} noValidate />
+    </FormProvider>
   );
 };
 
-export default React.memo(Form);
+export default Form;

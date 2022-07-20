@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import { IStyledProp } from '@eduzz/houston-styles/styled';
+import { StyledProp } from '@eduzz/houston-styles/styled';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-import Typography, { ITypographyProps } from '..';
+import Typography, { TypographyProps } from '..';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 type SubtitleTags = 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 
 export type SubtitleSizes = 'lg' | 'sm';
 
-export interface ISubtitleProps extends IStyledProp, Omit<ITypographyProps, 'size' | 'as'> {
+export interface SubtitleProps extends StyledProp, Omit<TypographyProps, 'size' | 'as'> {
   /**
    * Defaults to 'lg'
    */
@@ -36,7 +36,7 @@ const mobileSizesMap: SizesMap = {
   sm: 'sm'
 };
 
-const Subtitle = React.forwardRef<HTMLHeadingElement | HTMLParagraphElement, ISubtitleProps>(
+const Subtitle = React.forwardRef<HTMLHeadingElement | HTMLParagraphElement, SubtitleProps>(
   ({ as = 'h2', children, size: sizeProp = 'lg', ...props }, ref) => {
     const { breakpoints } = useHoustonTheme();
     const isMobile = useMediaQuery(breakpoints.down('sm'));

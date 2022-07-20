@@ -4,7 +4,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import TableRowContext from '../Row/context';
 
-export interface ITableCollapseProps {
+export interface TableCollapseProps {
   onOpen?: (data: unknown, index: number) => void;
   onClose?: (data: unknown, index: number) => void;
   disabled?: boolean;
@@ -13,7 +13,7 @@ export interface ITableCollapseProps {
   disableBackground?: boolean;
 }
 
-const TableCollapse = React.memo<ITableCollapseProps>(
+const TableCollapse = React.memo<TableCollapseProps>(
   ({ onOpen, onClose, disabled, disableBackground, disabledPadding, children }) => {
     const registerCollapse = useContextSelector(TableRowContext, context => context.registerCollapse);
 

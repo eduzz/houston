@@ -1,13 +1,15 @@
-import { memo } from 'react';
+import Icon, { IconProps } from '../Icon';
 
-import { IconWebBase } from '../interfaces';
-import IconBase from '../utils/wrapperWeb';
-import Icon from './svg';
+const PinSolid = (props: IconProps) => {
+  return (
+    <Icon {...props}>
+      <path
+        fillRule='evenodd'
+        clipRule='evenodd'
+        d='M37 72C37 41.04 62.04 16 93 16C123.96 16 149 41.04 149 72C149 114 93 176 93 176C93 176 37 114 37 72ZM93 92C105.15 92 115 82.1503 115 70C115 57.8497 105.15 48 93 48C80.8497 48 71 57.8497 71 70C71 82.1503 80.8497 92 93 92Z'
+      />
+    </Icon>
+  );
+};
 
-const IconPinSolid = memo<IconWebBase>(({ ...rest }) => (
-  <IconBase {...rest}>
-    <Icon />
-  </IconBase>
-));
-
-export default IconPinSolid;
+export default PinSolid;

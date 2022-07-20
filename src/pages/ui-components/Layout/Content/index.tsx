@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { StyledProp } from '@eduzz/houston-styles/styled';
 
-export interface ISidebarContentProps extends IStyledProp {
+export interface ISidebarContentProps extends StyledProp {
   children?: React.ReactNode;
 }
 

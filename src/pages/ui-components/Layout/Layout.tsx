@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import styled from '@emotion/styled';
 
-import { IStyledProp } from '@eduzz/houston-styles/styled';
+import { StyledProp } from '@eduzz/houston-styles/styled';
 
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import Sidebar from './Sidebar';
 
-export interface ILayoutProps extends IStyledProp {
+export interface ILayoutProps extends StyledProp {
   children?: React.ReactNode;
 }
 

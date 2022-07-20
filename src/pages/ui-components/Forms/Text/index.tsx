@@ -1,13 +1,11 @@
-import * as React from 'react';
+import Input, { InputProps } from '../Input';
 
-import Input, { IInputProps } from '../Input';
-
-export interface IText extends IInputProps {}
+export interface TextProps extends InputProps {}
 
 /**
  * @deprecated Migrar para o Input
  */
-const Text: React.FC<IText> = props => {
+const Text = (props: TextProps) => {
   return <Input {...props} />;
 };
 

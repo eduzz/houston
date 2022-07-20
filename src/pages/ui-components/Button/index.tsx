@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import styled, { css, cx, IStyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Spinner from '../Spinner';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
 
-export interface IButtonProps
+export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     React.RefAttributes<HTMLButtonElement>,
-    IStyledProp {
+    StyledProp {
   variant?: IButtonVariant;
   loading?: boolean;
   fullWidth?: boolean;
@@ -17,41 +17,49 @@ export interface IButtonProps
   endIcon?: React.ReactNode;
 }
 
-const Button = ({
-  children,
-  disabled = false,
-  startIcon,
-  endIcon,
-  variant,
-  loading = false,
-  className,
-  fullWidth,
-  ...rest
-}: IButtonProps) => (
-  <button
-    role='button'
-    className={cx(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      disabled = false,
+      startIcon,
+      endIcon,
+      variant,
+      loading = false,
       className,
-      `--${variant ?? 'contained'}`,
-      { '--fullWidth': fullWidth },
-      { '--disabled': disabled || loading }
-    )}
-    {...rest}
-    disabled={disabled || loading}
-    aria-disabled={disabled}
-  >
-    {!!startIcon && <span className={cx('__startIcon', { '--hidden': loading })}>{startIcon}</span>}
-    {!loading && <span className='__text'>{children}</span>}
-    {loading && (
-      <>
-        <span className='__loader'>
-          <Spinner size={20} color='inherit' />
-        </span>
-        <span className='__text --hidden'>{children}</span>
-      </>
-    )}
-    {!!endIcon && <span className={cx('__endIcon', { '--hidden': loading })}>{endIcon}</span>}
-  </button>
+      fullWidth,
+      type = 'button',
+      ...rest
+    },
+    ref
+  ) => (
+    <button
+      ref={ref}
+      role='button'
+      className={cx(
+        className,
+        `--${variant ?? 'contained'}`,
+        { '--fullWidth': fullWidth },
+        { '--disabled': disabled || loading }
+      )}
+      type={type}
+      {...rest}
+      disabled={disabled || loading}
+      aria-disabled={disabled}
+    >
+      {!!startIcon && <span className={cx('__startIcon', { '--hidden': loading })}>{startIcon}</span>}
+      {!loading && <span className='__text'>{children}</span>}
+      {loading && (
+        <>
+          <span className='__loader'>
+            <Spinner size={20} color='inherit' />
+          </span>
+          <span className='__text --hidden'>{children}</span>
+        </>
+      )}
+      {!!endIcon && <span className={cx('__endIcon', { '--hidden': loading })}>{endIcon}</span>}
+    </button>
+  )
 );
 
 const HEIGHT = 48;
@@ -72,7 +80,7 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
     line-height: ${theme.line.height.default};
     font-size: ${theme.font.size.xs};
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
@@ -123,7 +131,7 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
       cursor: default;
     }
 
-    &.--fullWidth {
+    &.--full-width {
       width: 100%;
     }
 

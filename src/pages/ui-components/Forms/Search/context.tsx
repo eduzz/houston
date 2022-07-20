@@ -9,29 +9,20 @@ export type SearchContextProps = {
 const SearchContext = createContext<SearchContextProps | null>(null);
 
 export type SearchContextProviderProps = {
-  value: string;
   children: React.ReactNode;
   closePopover: () => void;
-  onChange?: (value: string) => string;
-  setFormValue?: (value: string) => void;
-  onSelect?: (value: string) => any;
+  onChange?: (value: string | number | readonly string[] | undefined, e?: React.ChangeEvent<HTMLInputElement>) => any;
+  onSelect?: (value: string | number | readonly string[] | undefined, e?: React.MouseEvent<HTMLDivElement>) => any;
 };
 
-function SearchContextProvider({
-  children,
-  onChange,
-  setFormValue,
-  closePopover,
-  onSelect
-}: SearchContextProviderProps) {
+function SearchContextProvider({ children, onChange, closePopover, onSelect }: SearchContextProviderProps) {
   const handleSelect = React.useCallback<SearchContextProps['onSelect']>(
     (selected: string) => {
-      onChange?.(selected);
-      setFormValue?.(selected);
-      onSelect?.(selected);
+      onChange && onChange(selected);
+      onSelect && onSelect(selected);
       closePopover();
     },
-    [closePopover, onChange, setFormValue, onSelect]
+    [closePopover, onChange, onSelect]
   );
 
   const contextValue = React.useMemo<SearchContextProps>(

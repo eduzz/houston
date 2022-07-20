@@ -1,10 +1,8 @@
-import * as React from 'react';
+import Input, { InputProps } from '../Input';
 
-import Input, { IInputProps } from '../Input';
+export interface TextareaProps extends Omit<InputProps, 'multiline'> {}
 
-export interface ITextarea extends Omit<IInputProps, 'multiline'> {}
-
-const Textarea: React.FC<ITextarea> = props => {
+const Textarea = (props: TextareaProps) => {
   return <Input {...props} multiline />;
 };
 

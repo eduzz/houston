@@ -1,4 +1,4 @@
-export type IOmitTextFieldProps =
+export type OmitTextFieldProps =
   | 'mask'
   | 'endAdornment'
   | 'maxLength'
@@ -11,6 +11,6 @@ export type IOmitTextFieldProps =
   | 'loading'
   | 'multiline';
 
-export type IPickDatePickerProps = 'maxDate' | 'minDate' | 'disableFuture';
+export type PickDatePickerProps = 'maxDate' | 'minDate' | 'disableFuture';
 
-export type IDateFormat = 'dd/MM/yyyy' | 'MM/dd/yyyy' | 'yyyy-MM-dd' | 'dd-MM-yyyy' | string;
+export type DateFormat = 'dd/MM/yyyy' | 'MM/dd/yyyy' | 'yyyy-MM-dd' | 'dd-MM-yyyy' | string;

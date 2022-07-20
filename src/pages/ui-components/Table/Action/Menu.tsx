@@ -3,19 +3,19 @@ import * as React from 'react';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import styled, { IStyledProp } from '@eduzz/houston-styles/styled';
+import styled, { StyledProp } from '@eduzz/houston-styles/styled';
 
-import { ITableAction } from '../interface';
+import { TableAction } from '../interface';
 
-interface IProps extends MenuProps, IStyledProp {
-  anchorEl: HTMLElement;
+interface TableActionMenuProps extends MenuProps, StyledProp {
+  anchorEl: HTMLElement | undefined;
   onClose: () => void;
-  options: ITableAction[];
+  options: TableAction[] | undefined;
   rowData: unknown;
-  rowIndex: number;
+  rowIndex: number | undefined;
 }
 
-const MenuActions = React.memo<IProps>(
+const MenuActions = React.memo<TableActionMenuProps>(
   ({ open, onClose, options: optionsProp, anchorEl, rowData, rowIndex, className }) => {
     const options = React.useMemo(() => {
       return (optionsProp || []).map(option => ({

@@ -7,14 +7,14 @@ name: useStyles
 Esse hook utiliza o padrão JSS e cria as classes para a estilização, cada key do json pode ser um json simples ou uma função
 que recebe o theme e as props do componente que irá utilizá-lo.
 
-_Por causa de uma limitação do Typescript não é possível passar o IProps como generic sem peder a inferência do retorno,_
+_Por causa de uma limitação do Typescript não é possível passar o Props como generic sem peder a inferência do retorno,_
 _perdendo assim o autocomplete dos nomes das classes criadas, por isso sugerimos tipar a função os parametros da função com_
-_o seu IProps conforme o exemplo abaixo:_
+_o seu Props conforme o exemplo abaixo:_
 
 ```tsx
 import createUseStyle from '@eduzz/houston-styles/createUseStyles';
 
-interface IProps {
+interface Props {
   success: boolean;
 }
 
@@ -22,14 +22,14 @@ const useStyle = createUseStyle(theme => ({
   simple: {
     color: 'red'
   },
-  content: (props: IProps) => {
+  content: (props: Props) => {
     return {
       backgroundColor: props.success ? theme.feedbackColor.positive.pure : theme.feedbackColor.negative.pure
     };
   }
 }));
 
-const ComponentsDev = memo<IProps>(props => {
+const ComponentsDev = memo<Props>(props => {
   const styles = useStyle(props);
 
   return (
@@ -57,7 +57,7 @@ const useStyle = createUseStyle(theme => ({
   }
 }));
 
-const ComponentsDev = memo<IProps>(props => {
+const ComponentsDev = memo<Props>(props => {
   const styles = useStyle(props);
 
   return (
@@ -83,7 +83,7 @@ const useStyle = createUseStyle(theme => ({
   }
 }));
 
-const ComponentsDev = memo<IProps>(props => {
+const ComponentsDev = memo<Props>(props => {
   const styles = useStyle(props);
 
   return (
