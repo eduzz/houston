@@ -10,7 +10,7 @@ import Typography from '../../Typography';
 import { ModalContext } from '../context';
 
 export interface ModalHeaderProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   disableTypography?: boolean;
 }
 

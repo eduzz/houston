@@ -1,7 +1,7 @@
 import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 export interface ModalContentProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const ModalContent = ({ children, ...rest }: ModalContentProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => (
