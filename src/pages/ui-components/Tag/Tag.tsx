@@ -15,13 +15,13 @@ export interface TagProps extends StyledProp, React.HTMLAttributes<HTMLSpanEleme
   onClose?: () => void;
 }
 
-const Tag = ({ children, disabled, isActive, className, onClose, ...rest }: TagProps) => {
+const Tag = ({ children, disabled, isActive, onClick: onClickProp, className, onClose, ...rest }: TagProps) => {
   return (
     <span
       aria-disabled={disabled}
-      role='button'
       className={cx(className, { '--disabled': disabled }, { '--active': isActive })}
-      tabIndex={0}
+      {...(onClickProp && { role: 'button', tabIndex: 0 })}
+      onClick={onClickProp}
       {...rest}
     >
       {children}

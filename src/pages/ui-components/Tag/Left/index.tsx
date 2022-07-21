@@ -15,7 +15,7 @@ const TagLeft = ({ children, onClick: onClickProp, ...rest }: TagLeftProps) => {
     [onClickProp]
   );
   return (
-    <span role='button' tabIndex={0} onClick={handleOnClick} {...rest}>
+    <span {...(onClickProp && { role: 'button', tabIndex: 0 })} onClick={handleOnClick} {...rest}>
       {children}
     </span>
   );
@@ -25,6 +25,7 @@ export default styled(TagLeft, { label: 'houston-tag-left' })(({ theme }) => {
   return css`
     border-radius: ${theme.border.radius.circular};
     padding: ${theme.spacing.stack.quarck};
+    transition: 0.5s background-color;
 
     :hover {
       background-color: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[4])};

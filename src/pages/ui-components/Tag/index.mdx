@@ -47,7 +47,7 @@ import Tag from '@eduzz/houston-ui/Tag';
               <Add size='sm' />
             </Tag.Left>
             <Tag.Text>Avatar</Tag.Text>
-            <Tag.Right>
+            <Tag.Right onClick={() => console.log('click on TagRight')}>
               <Cancel size='sm' />
             </Tag.Right>
           </Tag>
@@ -59,11 +59,11 @@ import Tag from '@eduzz/houston-ui/Tag';
         </Column>
         <Column>
           <Tag isActive={isActive} onClick={() => setIsActive(prev => !prev)}>
-            <Tag.Left>
+            <Tag.Left onClick={() => console.log('click on TagLeft')}>
               <Add size='sm' />
             </Tag.Left>
             <Tag.Text>Active</Tag.Text>
-            <Tag.Right>
+            <Tag.Right onClick={() => console.log('click on TagRight')}>
               <Cancel size='sm' />
             </Tag.Right>
           </Tag>
@@ -91,9 +91,9 @@ import Tag from '@eduzz/houston-ui/Tag';
 
 ### Tag.Text props
 
-| prop     | tipo              | obrigatório | padrão | descrição |
-| -------- | ----------------- | ----------- | ------ | --------- |
-| children | `React.ReactNode` | `true`      | -      | -         |
+| prop     | tipo     | obrigatório | padrão | descrição |
+| -------- | -------- | ----------- | ------ | --------- |
+| children | `string` | `true`      | -      | -         |
 
 ### Tag.Right props
 

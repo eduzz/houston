@@ -16,7 +16,7 @@ const TagRight = ({ children, onClick: onClickProp, ...rest }: TagRightProps) =>
   );
 
   return (
-    <span role='button' tabIndex={0} onClick={handleOnClick} {...rest}>
+    <span {...(onClickProp && { role: 'button', tabIndex: 0 })} onClick={handleOnClick} {...rest}>
       {children}
     </span>
   );
