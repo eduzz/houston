@@ -76,9 +76,9 @@ const ModalStyle = styled(Modal, { label: 'houston-modal' })`
   ${({ theme }) => {
     const modifiersSizes: CSSInterpolation[] = [];
 
-    Object.entries(modalSizesInPx).forEach(([key, value]) =>
+    Object.entries(modalSizesInPx).forEach(([size, value]) =>
       modifiersSizes.push(css`
-        &.--modal-size-${key} {
+        &.--modal-size-${size} {
           width: ${theme.pxToRem(value)}rem;
         }
       `)

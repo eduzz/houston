@@ -64,21 +64,21 @@ const DialogStyle = styled(Dialog, { label: 'houston-dialog' })`
     const modifiersSizes: CSSInterpolation[] = [];
     const modifiersTypes: CSSInterpolation[] = [];
 
-    Object.entries(modalSizesInPx).forEach(([key, value]) =>
+    Object.entries(modalSizesInPx).forEach(([size, value]) =>
       modifiersSizes.push(css`
-        &.--dialog-size-${key} {
+        &.--dialog-size-${size} {
           width: ${theme.pxToRem(value)}rem;
         }
       `)
     );
 
-    Object.keys(theme.feedbackColor).forEach(key =>
+    Object.keys(theme.feedbackColor).forEach(color =>
       modifiersTypes.push(css`
-        &.--dialog-type-${key} {
+        &.--dialog-type-${color} {
           .dialog-header__wrapper {
             .dialog-header__icon {
               svg {
-                fill: ${theme.feedbackColor[key].pure};
+                fill: ${theme.feedbackColor[color].pure};
               }
             }
           }
