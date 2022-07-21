@@ -45,7 +45,8 @@ const TagWrapper = styled(Tag, { label: 'houston-tag' })(({ theme }) => {
     border-radius: ${theme.border.radius.pill};
     padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.nano};
     line-height: 0;
-    transition: 0.5s all;
+    transition-duration: 0.5s;
+    transition-property: background-color, color;
     min-height: ${theme.pxToRem(MIN_HEIGHT_IN_PX)}rem;
 
     :hover,
