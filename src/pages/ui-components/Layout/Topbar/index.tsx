@@ -20,7 +20,7 @@ import User from './User';
 import UserMenu from './UserMenu';
 import UserMenuDivider from './UserMenu/Divider';
 import UserMenuItem from './UserMenu/Item';
-import UserMenuContext from './UserMenu/ItemContext';
+import UserMenuGroup from './UserMenu/ItemGroup';
 
 export interface TopbarProps extends StyledProp {
   children: React.ReactNode;
@@ -236,5 +236,5 @@ export default nestedComponent(TopbarStyled, {
   UserMenu,
   UserMenuItem,
   UserMenuDivider,
-  UserMenuContext
+  UserMenuGroup
 });
