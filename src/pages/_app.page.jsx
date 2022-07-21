@@ -36,7 +36,7 @@ export default function App(props) {
 
       <DokzProvider
         animate
-        footer={<footer className='houston-footer'>Houston - Feito com ❤️ pela Eduzz.</footer>}
+        footer={<footer className='houston-footer'>Houston - Feito com ❤️ pela Eduzz</footer>}
         headTitlePrefix='Houston | '
         fontFamily='Open Sans'
         initialColorMode='light'

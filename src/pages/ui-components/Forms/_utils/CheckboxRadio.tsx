@@ -150,6 +150,9 @@ export default styled(withForm(React.memo(CheckboxRadioField)), { label: 'housto
     }
 
     & > .__check {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 16px;
       height: 16px;
       line-height: 0;
@@ -163,7 +166,6 @@ export default styled(withForm(React.memo(CheckboxRadioField)), { label: 'housto
       }
 
       & > .__icon {
-        position: absolute;
         transition: 0.5s;
         transform: scale(0);
         opacity: 0;
@@ -191,11 +193,6 @@ export default styled(withForm(React.memo(CheckboxRadioField)), { label: 'housto
     &.--type-checkbox {
       & > .__check {
         border-radius: ${theme.border.radius.xs};
-
-        & > .__icon {
-          top: -2px;
-          left: -2px;
-        }
       }
 
       &.--checked > .__check {
@@ -224,11 +221,6 @@ export default styled(withForm(React.memo(CheckboxRadioField)), { label: 'housto
       & > .__check {
         border-radius: 50%;
         box-shadow: 0 0 0 1px transparent;
-
-        & > .__icon {
-          top: -1px;
-          left: -1px;
-        }
       }
 
       &.--checked > .__check {

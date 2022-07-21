@@ -34,8 +34,6 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, Style
 }
 
 const Avatar = ({ src, alt, children, className, color = 'primary', size = 'md', ...rest }: AvatarProps) => {
-  const imageProps = { src, alt };
-
   const hasImage = !!src;
   const hasText = typeof children === 'string';
 
@@ -43,12 +41,10 @@ const Avatar = ({ src, alt, children, className, color = 'primary', size = 'md',
 
   return (
     <span className={cx(className, `--${color}`, `--${size}`)} {...rest}>
-      {hasImage && <img {...imageProps} />}
-
-      {!hasImage && hasText && <span className='__text'>{firstLetter}</span>}
-
+      {hasImage && <img src={src} alt={alt} />}
+      {!hasImage && hasText && <span className='houston-avatar__text'>{firstLetter}</span>}
       {!hasImage && !hasText && (
-        <span className='__icon' role='img' aria-label='usuário'>
+        <span className='houston-avatar__icon' role='img' aria-label='usuário'>
           <Icon />
         </span>
       )}
@@ -83,8 +79,12 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme 
     &.--xs {
       width: ${sizesMap.xs};
       height: ${sizesMap.xs};
+      min-width: ${sizesMap.xs};
+      min-height: ${sizesMap.xs};
+      max-width: ${sizesMap.xs};
+      max-height: ${sizesMap.xs};
 
-      .__text {
+      .houston-avatar__text {
         font-size: ${fontMap.xs};
         line-height: ${fontMap.xs};
       }
@@ -93,8 +93,12 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme 
     &.--sm {
       width: ${sizesMap.sm};
       height: ${sizesMap.sm};
+      min-width: ${sizesMap.sm};
+      min-height: ${sizesMap.sm};
+      max-width: ${sizesMap.sm};
+      max-height: ${sizesMap.sm};
 
-      .__text {
+      .houston-avatar__text {
         font-size: ${fontMap.sm};
         line-height: ${fontMap.sm};
       }
@@ -103,8 +107,12 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme 
     &.--md {
       width: ${sizesMap.md};
       height: ${sizesMap.md};
+      min-width: ${sizesMap.md};
+      min-height: ${sizesMap.md};
+      max-width: ${sizesMap.md};
+      max-height: ${sizesMap.md};
 
-      .__text {
+      .houston-avatar__text {
         font-size: ${fontMap.md};
         line-height: ${fontMap.md};
       }
@@ -113,8 +121,12 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme 
     &.--lg {
       width: ${sizesMap.lg};
       height: ${sizesMap.lg};
+      min-width: ${sizesMap.lg};
+      min-height: ${sizesMap.lg};
+      max-width: ${sizesMap.lg};
+      max-height: ${sizesMap.lg};
 
-      .__text {
+      .houston-avatar__text {
         font-size: ${fontMap.lg};
         line-height: ${fontMap.lg};
       }
@@ -124,12 +136,12 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme 
       color: ${theme.brandColor.primary.pure};
       background-color: ${theme.neutralColor.high.pure};
 
-      .__icon svg {
+      .houston-avatar__icon svg {
         fill: ${theme.brandColor.primary.pure};
       }
     }
 
-    .__text {
+    .houston-avatar__text {
       width: 100%;
       height: 100%;
       display: flex;
@@ -140,7 +152,7 @@ export default styled(React.memo(Avatar), { label: 'houston-avatar' })(({ theme 
       user-select: none;
     }
 
-    .__icon {
+    .houston-avatar__icon {
       width: 100%;
       height: 100%;
       display: flex;

@@ -47,13 +47,11 @@ const Modal = ({
 }: ModalProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   const contextValue = React.useMemo(() => ({ onClose, closeIcon }), [closeIcon, onClose]);
 
-  const handlePressEscapeKey = React.useCallback(() => {
+  useEscapeKey(() => {
     if (visible && !disableEscapeKey) {
       onClose && onClose();
     }
   }, [disableEscapeKey, onClose, visible]);
-
-  useEscapeKey(handlePressEscapeKey);
 
   if (!visible) {
     return null;
