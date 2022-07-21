@@ -3,7 +3,7 @@ import styled, { StyledProp, css } from '@eduzz/houston-styles';
 import Divider from '../../Divider';
 
 export interface DialogFooterProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const DialogFooter = ({ children, ...rest }: DialogFooterProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {

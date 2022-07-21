@@ -1,7 +1,7 @@
 import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 export interface DialogContentProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const DialogContent = ({

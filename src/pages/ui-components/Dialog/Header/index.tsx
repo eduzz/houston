@@ -11,7 +11,7 @@ import { DialogTypes } from '../Dialog';
 import Icon from './icons';
 
 export interface DialogHeaderProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   disableTypography?: boolean;
 }
 
