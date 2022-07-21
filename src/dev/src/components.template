@@ -1,9 +1,18 @@
 import React, { memo } from 'react';
 
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 import Button from '@eduzz/houston-ui/Button';
 
-const ComponentsDev = memo(() => {
-  return <Button>Teste</Button>;
+const ComponentsDev = memo<StyledProp>(({ className }) => {
+  return (
+    <div className={className}>
+      <Button>Button</Button>
+    </div>
+  );
 });
 
-export default ComponentsDev;
+export default styled(ComponentsDev)(
+  ({ theme }) => css`
+    padding: ${theme.spacing.xxxs};
+  `
+);
