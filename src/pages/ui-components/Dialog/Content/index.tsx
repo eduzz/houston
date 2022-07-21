@@ -1,14 +1,15 @@
 import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
-export interface ModalContentProps {
+export interface DialogContentProps {
   children: React.ReactNode;
 }
 
-const ModalContent = ({ children, ...rest }: ModalContentProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => (
-  <div {...rest}>{children}</div>
-);
+const DialogContent = ({
+  children,
+  ...rest
+}: DialogContentProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => <div {...rest}>{children}</div>;
 
-export default styled(ModalContent, { label: 'houston-modal-content' })`
+export default styled(DialogContent, { label: 'houston-dialog-content' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.sm};
     overflow: auto;
