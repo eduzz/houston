@@ -72,7 +72,7 @@ const Modal = ({
   );
 };
 
-const ModalStyle = styled(Modal, { label: 'houston-modal' })`
+const ModalWrapper = styled(Modal, { label: 'houston-modal' })`
   ${({ theme }) => {
     const modifiersSizes: CSSInterpolation[] = [];
 
@@ -100,7 +100,7 @@ const ModalStyle = styled(Modal, { label: 'houston-modal' })`
   }}
 `;
 
-export default nestedComponent(React.memo(ModalStyle), {
+export default nestedComponent(React.memo(ModalWrapper), {
   Header,
   Content,
   Footer

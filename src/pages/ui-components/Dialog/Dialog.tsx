@@ -59,7 +59,7 @@ const Dialog = ({
   );
 };
 
-const DialogStyle = styled(Dialog, { label: 'houston-dialog' })`
+const DialogWrapper = styled(Dialog, { label: 'houston-dialog' })`
   ${({ theme }) => {
     const modifiersSizes: CSSInterpolation[] = [];
     const modifiersTypes: CSSInterpolation[] = [];
@@ -103,7 +103,7 @@ const DialogStyle = styled(Dialog, { label: 'houston-dialog' })`
   }}
 `;
 
-export default nestedComponent(React.memo(DialogStyle), {
+export default nestedComponent(React.memo(DialogWrapper), {
   Header,
   Content,
   Footer
