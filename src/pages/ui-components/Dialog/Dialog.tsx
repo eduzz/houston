@@ -19,6 +19,11 @@ export interface DialogProps extends Omit<ModalProps, 'closeIcon' | 'disableEsca
    * Default `informative`
    */
   type?: DialogTypes;
+  /**
+   * Type icon display.
+   * Default `true`
+   */
+  showTypeIcon?: boolean;
 }
 
 const Dialog = ({
@@ -26,11 +31,12 @@ const Dialog = ({
   className,
   onClose,
   children,
+  showTypeIcon = true,
   size = 'sm',
   type = 'informative',
   ...rest
 }: DialogProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
-  const contextValue = React.useMemo(() => ({ onClose, type }), [onClose, type]);
+  const contextValue = React.useMemo(() => ({ onClose, type, showTypeIcon }), [onClose, type, showTypeIcon]);
 
   if (!visible) {
     return null;

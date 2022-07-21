@@ -4,6 +4,7 @@ import { DialogTypes } from './Dialog';
 
 interface DialogContextProps {
   type: DialogTypes;
+  showTypeIcon: boolean;
   onClose?: () => void;
 }
 

@@ -30,13 +30,16 @@ const DialogHeader = ({
   ...rest
 }: DialogHeaderProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   const type = useContextSelector(DialogContext, context => context.type);
+  const showTypeIcon = useContextSelector(DialogContext, context => context.showTypeIcon);
 
   return (
     <header {...rest}>
       <div className='dialog-header__wrapper'>
-        <span role='img' className='dialog-header__icon'>
-          {IconMap[type]}
-        </span>
+        {showTypeIcon && (
+          <span role='img' className='dialog-header__icon'>
+            {IconMap[type]}
+          </span>
+        )}
 
         <span className='dialog-header__title'>
           {!disableTypography ? (
