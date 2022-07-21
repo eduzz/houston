@@ -70,7 +70,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, InternalFieldsetProps>(
         {!!label && <label className='__label'>{label}</label>}
 
         <div className='__container' ref={containerRef} onClick={onClickContainer}>
-          {!!startAdornment && !loading && <span className='__startAdornment'>{startAdornment}</span>}
+          {!!startAdornment && <span className='__startAdornment'>{startAdornment}</span>}
           <div className='__content'>{children}</div>
           {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
         </div>

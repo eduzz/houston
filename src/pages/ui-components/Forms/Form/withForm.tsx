@@ -39,6 +39,10 @@ const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P
           <Component
             {...(props as any)}
             {...field}
+            onBlur={() => {
+              field.onBlur();
+              (props as any)?.onBlur?.();
+            }}
             disabled={disabled || formState?.isSubmitting}
             errorMessage={errorMessage ?? fieldState?.error?.message}
             ref={ref}

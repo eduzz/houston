@@ -17,7 +17,7 @@ export interface UseFormParams<T> extends UseFormProps<T> {
    * @deprecated Utilizar defaultValues
    */
   initialValues?: DefaultValues<T>;
-  validationSchema: yup.AnyObjectSchema | ((yup: Yup) => yup.AnyObjectSchema);
+  validationSchema?: yup.AnyObjectSchema | ((yup: Yup) => yup.AnyObjectSchema) | undefined;
 }
 
 export type FormModel<Form> = Form extends UseFormReturn<infer M> ? M : Form;
@@ -27,11 +27,18 @@ export type FormModel<Form> = Form extends UseFormReturn<infer M> ? M : Form;
  * @param UseFormParams
  */
 export default function useForm<T>({ validationSchema, defaultValues, initialValues, ...params }: UseFormParams<T>) {
-  return useFormHook<T>({
+  const hookParams = {
     ...params,
-    defaultValues: defaultValues ?? initialValues,
-    resolver: yupResolver(typeof validationSchema === 'function' ? validationSchema(yup) : validationSchema)
-  });
+    defaultValues: defaultValues ?? initialValues
+  };
+
+  if (validationSchema) {
+    Object.assign(hookParams, {
+      resolver: yupResolver(typeof validationSchema === 'function' ? validationSchema(yup) : validationSchema)
+    });
+  }
+
+  return useFormHook<T>(hookParams);
 }
 
 export const useFieldArray = useFieldArrayHook;
