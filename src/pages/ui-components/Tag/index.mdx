@@ -1,0 +1,103 @@
+---
+name: Tag
+---
+
+import { Playground } from 'dokz';
+
+import Add from '@eduzz/houston-icons/Add';
+import Cancel from '@eduzz/houston-icons/Cancel';
+
+import Avatar from '../Avatar';
+import Column from '../Grid/Column';
+import Row from '../Grid/Row';
+import Tag from './';
+
+# Tag
+
+O componente Tag é usado para itens que precisam ser rotulados, categorizados ou organizados usando palavras-chave. Também pode ser usado como um botão que controla estados.
+
+### Importação
+
+```js
+import Tag from '@eduzz/houston-ui/Tag';
+```
+
+### Exemplo
+
+<Playground>
+  <Tag onClick={() => console.log('click on the Tag')} onClose={() => console.log('click on X')}>
+    <Tag.Left onClick={() => console.log('click on TagLeft')}>
+      <Add size='sm' />
+    </Tag.Left>
+    <Tag.Text>Tag</Tag.Text>
+  </Tag>
+</Playground>
+
+### Com avatar, disabled e isActive
+
+<Playground>
+  {() => {
+    const [isActive, setIsActive] = React.useState(true);
+    return (
+      <Row>
+        <Column>
+          <Tag>
+            <Avatar size='xs' src='https://www.fillmurray.com/100/100' />
+            <Tag.Left onClick={() => console.log('click on TagLeft')}>
+              <Add size='sm' />
+            </Tag.Left>
+            <Tag.Text>Avatar</Tag.Text>
+            <Tag.Right onClick={() => console.log('click on TagRight')}>
+              <Cancel size='sm' />
+            </Tag.Right>
+          </Tag>
+        </Column>
+        <Column>
+          <Tag disabled>
+            <Tag.Text>Disabled</Tag.Text>
+          </Tag>
+        </Column>
+        <Column>
+          <Tag isActive={isActive} onClick={() => setIsActive(prev => !prev)}>
+            <Tag.Left onClick={() => console.log('click on TagLeft')}>
+              <Add size='sm' />
+            </Tag.Left>
+            <Tag.Text>Active</Tag.Text>
+            <Tag.Right onClick={() => console.log('click on TagRight')}>
+              <Cancel size='sm' />
+            </Tag.Right>
+          </Tag>
+        </Column>
+      </Row>
+    );
+  }}
+</Playground>
+
+### Tag props
+
+| prop     | tipo       | obrigatório | padrão  | descrição                                         |
+| -------- | ---------- | ----------- | ------- | ------------------------------------------------- |
+| disabled | `boolean`  | `false`     | `false` | -                                                 |
+| isActive | `boolean`  | `false`     | `false` | -                                                 |
+| onClose  | `Function` | `false`     | `false` | Se passado o componente vai renderizar um ícone X |
+| onClick  | `Function` | `false`     | `false` | -                                                 |
+
+### Tag.Left props
+
+| prop     | tipo              | obrigatório | padrão  | descrição |
+| -------- | ----------------- | ----------- | ------- | --------- |
+| children | `React.ReactNode` | `true`      | -       | -         |
+| onClick  | `Function`        | `false`     | `false` | -         |
+
+### Tag.Text props
+
+| prop     | tipo     | obrigatório | padrão | descrição |
+| -------- | -------- | ----------- | ------ | --------- |
+| children | `string` | `true`      | -      | -         |
+
+### Tag.Right props
+
+| prop     | tipo              | obrigatório | padrão  | descrição |
+| -------- | ----------------- | ----------- | ------- | --------- |
+| children | `React.ReactNode` | `true`      | -       | -         |
+| onClick  | `Function`        | `false`     | `false` | -         |
