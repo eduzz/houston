@@ -5,6 +5,9 @@ import warning from '../utils/warning';
 export interface TagHighlightProps extends StyledProp, React.HTMLAttributes<HTMLSpanElement> {
   children: string;
   color?: string;
+  /**
+   * Defaults to 'filled'
+   */
   variant?: 'outlined' | 'filled';
 }
 
@@ -35,7 +38,7 @@ function getColor(theme: HoustonThemeProps, color: string) {
   return result;
 }
 
-const MAX_HEIGHT_IN_PIX = 22;
+const MAX_HEIGHT_IN_PX = 22;
 
 export default styled(TagHighlight, { label: 'houston-tag-highlight' })(
   ({ theme, color = 'neutralColor.high.medium' }) => {
@@ -47,10 +50,12 @@ export default styled(TagHighlight, { label: 'houston-tag-highlight' })(
       padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.xxxs};
       display: inline-flex;
       align-items: center;
-      font-size: ${theme.font.size.xxs};
       color: ${color === 'brandColor.primary.pure' ? theme.neutralColor.high.pure : theme.neutralColor.low.pure};
       line-height: ${theme.line.height.default};
-      max-height: ${theme.pxToRem(MAX_HEIGHT_IN_PIX)}rem;
+      font-size: ${theme.font.size.xxs};
+      font-weight: ${theme.font.weight.regular};
+      font-family: ${theme.font.family.base};
+      max-height: ${theme.pxToRem(MAX_HEIGHT_IN_PX)}rem;
 
       &.--outlined {
         border: ${theme.border.width.xs} solid;
