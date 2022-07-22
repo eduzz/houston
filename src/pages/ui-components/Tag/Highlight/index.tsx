@@ -1,6 +1,6 @@
 import styled, { css, cx, HoustonThemeProps, StyledProp } from '@eduzz/houston-styles';
 
-import warning from '../utils/warning';
+import warning from '../../utils/warning';
 
 export interface TagHighlightProps extends StyledProp, React.HTMLAttributes<HTMLSpanElement> {
   children: string;
