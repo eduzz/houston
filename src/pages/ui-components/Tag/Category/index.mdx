@@ -1,0 +1,43 @@
+---
+name: Category
+---
+
+import { FaceHappyOutline } from '@eduzz/houston-icons';
+
+import { Playground } from 'dokz';
+
+import Column from '../../Grid/Column';
+import Row from '../../Grid/Row';
+import TagCategory from './';
+
+# TagCategory
+
+A Tag Category serve para categorizar um determinado conteúdo, deixando claro que ele pertence a um entre vários tipos.
+
+### Importação
+
+```js
+import TagCategory from '@eduzz/houston-ui/Tag/Category';
+```
+
+### Exemplo
+
+<Playground>
+  <Row>
+    <Column>
+      <TagCategory>
+        <FaceHappyOutline size='sm' />
+        TagCategory
+      </TagCategory>
+    </Column>
+    <Column>
+      <TagCategory>TagCategory</TagCategory>
+    </Column>
+  </Row>
+</Playground>
+
+### TagCategory props
+
+| prop     | tipo              | obrigatório | padrão | descrição |
+| -------- | ----------------- | ----------- | ------ | --------- |
+| children | `React.ReactNode` | `true`      | -      | -         |
