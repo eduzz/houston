@@ -1,0 +1,61 @@
+---
+name: Link
+---
+
+import { Playground } from 'dokz';
+
+import ArrowRight from '@eduzz/houston-icons/ArrowRight';
+import Cancel from '@eduzz/houston-icons/Cancel';
+import Paragraph from '@eduzz/houston-ui/Typography/Paragraph';
+
+import Avatar from '../Avatar';
+import Column from '../Grid/Column';
+import Row from '../Grid/Row';
+import Link from './';
+
+# Link
+
+O componente Link é usado usado para navegação.
+
+### Importação
+
+```js
+import Link from '@eduzz/houston-ui/Link';
+```
+
+### Exemplo
+
+<Playground>
+  <Link href='https://eduzz.github.io/houston/ui-components/Link'>
+    Houston <ArrowRight size='sm' />
+  </Link>
+</Playground>
+
+### Em parágrafo
+
+<Playground>
+  <Paragraph>
+    Houston is a React library that <Link href='https://chakra-ui.com/docs/components/badge'>helps</Link> you build a
+    beautiful user interface. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eu
+    consectetur consectetur.
+  </Paragraph>
+</Playground>
+
+### Exemplo com componentes externos (Link, NavLink, ...).
+
+```jsx
+import { NavLink } from 'react-router-dom';
+
+<Link as={NavLink} to='/home'>
+  Home
+</Link>;
+```
+
+### Link props
+
+| prop       | tipo                | obrigatório | padrão | descrição                                     |
+| ---------- | ------------------- | ----------- | ------ | --------------------------------------------- |
+| children   | `React.ReactNode`   | true        | -      |                                               |
+| isExternal | `boolean`           | false       | false  | Se true o link vai ser aberto em uma nova aba |
+| as         | `React.ElementType` | `false`     | `a`    |
+| href       | `string`            | `false`     | -      |
