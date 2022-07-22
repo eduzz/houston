@@ -1,14 +1,10 @@
-import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
 export interface CategoryProps extends StyledProp, React.HTMLAttributes<HTMLSpanElement> {
   children: React.ReactNode;
 }
 
-const Category = ({ children, className, ...rest }: CategoryProps) => (
-  <span className={cx(className)} {...rest}>
-    {children}
-  </span>
-);
+const Category = ({ children, ...rest }: CategoryProps) => <span {...rest}>{children}</span>;
 
 export default styled(Category, { label: 'houston-tag-category' })(({ theme }) => {
   return css`
