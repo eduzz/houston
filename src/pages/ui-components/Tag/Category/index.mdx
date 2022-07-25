@@ -25,10 +25,7 @@ import TagCategory from '@eduzz/houston-ui/Tag/Category';
 <Playground>
   <Row>
     <Column>
-      <TagCategory>
-        <FaceHappyOutline size='sm' />
-        TagCategory
-      </TagCategory>
+      <TagCategory icon={<FaceHappyOutline size='sm' />}>TagCategory</TagCategory>
     </Column>
     <Column>
       <TagCategory>TagCategory</TagCategory>
@@ -40,4 +37,5 @@ import TagCategory from '@eduzz/houston-ui/Tag/Category';
 
 | prop     | tipo              | obrigatório | padrão | descrição |
 | -------- | ----------------- | ----------- | ------ | --------- |
-| children | `React.ReactNode` | `true`      | -      | -         |
+| children | `string`          | `true`      | -      | -         |
+| icon     | `React.ReactNode` | `false`     | -      | -         |
