@@ -26,8 +26,8 @@ import Link from '@eduzz/houston-ui/Link';
 ### Exemplo
 
 <Playground>
-  <Link href='https://eduzz.github.io/houston/ui-components/Link'>
-    Houston <ArrowRight size='sm' />
+  <Link href='https://eduzz.github.io/houston/ui-components/Link' showIcon>
+    Houston
   </Link>
 </Playground>
 
@@ -35,8 +35,8 @@ import Link from '@eduzz/houston-ui/Link';
 
 <Playground>
   <Paragraph>
-    Houston is a React library that <Link href='https://chakra-ui.com/docs/components/badge'>helps</Link> you build a
-    beautiful user interface. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eu
+    Houston is a React library that <Link href='https://eduzz.github.io/houston/ui-components/Link'>helps</Link> you
+    build a beautiful user interface. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eu
     consectetur consectetur.
   </Paragraph>
 </Playground>
@@ -53,9 +53,10 @@ import { NavLink } from 'react-router-dom';
 
 ### Link props
 
-| prop       | tipo                | obrigatório | padrão | descrição                                     |
-| ---------- | ------------------- | ----------- | ------ | --------------------------------------------- |
-| children   | `React.ReactNode`   | true        | -      |                                               |
-| isExternal | `boolean`           | false       | false  | Se true o link vai ser aberto em uma nova aba |
-| as         | `React.ElementType` | `false`     | `a`    |
-| href       | `string`            | `false`     | -      |
+| prop     | tipo                | obrigatório | padrão  | descrição |
+| -------- | ------------------- | ----------- | ------- | --------- |
+| children | `React.ReactNode`   | true        | -       |           |
+| as       | `React.ElementType` | `false`     | `a`     |           |
+| href     | `string`            | `false`     | -       |           |
+| showIcon | `boolean`           | `false`     | -       |           |
+| size     | sm, md, inherit     | `false`     | inherit |           |

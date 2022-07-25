@@ -1,6 +1,7 @@
-import styled, { css, StyledProp } from '@eduzz/houston-styles';
+import ArrowRight from '@eduzz/houston-icons/ArrowRight';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-export interface LinkProps extends StyledProp, React.HTMLAttributes<HTMLElement> {
+export interface LinkProps extends StyledProp, React.HTMLAttributes<HTMLAnchorElement> {
   /**
    * Allow to provide more props to the `as` Component
    */
@@ -14,13 +15,18 @@ export interface LinkProps extends StyledProp, React.HTMLAttributes<HTMLElement>
    * Redirect path.
    */
   href?: string;
-  isExternal?: boolean;
+  showIcon?: boolean;
+  /**
+   * Defaults to 'inherit'
+   */
+  size?: 'sm' | 'md' | 'inherit';
   children: React.ReactNode;
 }
 
-const Link = ({ as: Tag = 'a', isExternal: isExternalProp, children, ...rest }: LinkProps) => (
-  <Tag tabIndex={0} {...(isExternalProp && { target: '_blank' })} {...rest}>
+const Link = ({ as: Tag = 'a', className, showIcon, size = 'inherit', children, ...rest }: LinkProps) => (
+  <Tag tabIndex={0} className={cx(className, `--${size}`)} {...rest}>
     {children}
+    {showIcon && <ArrowRight size={size === 'inherit' ? 'sm' : size} />}
   </Tag>
 );
 
@@ -33,8 +39,19 @@ export default styled(Link, { label: 'houston-tag-link' })(({ theme }) => {
     text-decoration: underline;
     gap: ${theme.spacing.inline.nano};
     border-radius: ${theme.border.radius.xs};
-    padding: ${theme.spacing.inset.xxxs};
     cursor: pointer;
+
+    &.--sm {
+      font-size: ${theme.font.size.xs};
+    }
+
+    &.--md {
+      font-size: ${theme.font.size.sm};
+    }
+
+    &.--inherit {
+      font-size: inherit;
+    }
 
     :not(:focus) {
       transition: 0.3s;
@@ -50,6 +67,7 @@ export default styled(Link, { label: 'houston-tag-link' })(({ theme }) => {
 
     :focus {
       outline: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
+      outline-offset: ${theme.spacing.inset.xxxs};
     }
   `;
 });
