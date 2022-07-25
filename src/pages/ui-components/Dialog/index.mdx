@@ -1,0 +1,63 @@
+---
+name: Dialog
+---
+
+import { Playground } from 'dokz';
+
+import Button from '../Button';
+import Select from '../Forms/Select';
+import Image from '../Image';
+import Dialog from './';
+
+# Dialog
+
+Uma janela ou caixa de diálogo modal é um elemento da interface de usuário que exige uma resposta do operador do software, não permitindo nenhuma outra ação até que essa resposta seja dada. Um exemplo clássico são os diálogos de salvamento: ou você salva o arquivo, ou cancela a operação de salvamento. Enquanto o usuário não fizer uma dessas ações, a caixa de diálogo não é fechada, impedindo qualquer outra ação.
+
+### Importação
+
+```js
+import Dialog from '@eduzz/houston-ui/Dialog';
+```
+
+### Exemplo
+
+É possível usar o Dialog sem o cabeçalho e rodapé.
+
+<Playground>
+  {() => {
+    const [visible, setVisible] = React.useState(false);
+    const onOpen = () => setVisible(true);
+    const onClose = () => setVisible(false);
+    return (
+      <>
+        <Dialog visible={visible} onClose={onClose}>
+          <Dialog.Header>Confirme sua ação</Dialog.Header>
+          <Dialog.Content>Deseja realmente remover esse produto? Esta ação é irreversível.</Dialog.Content>
+          <Dialog.Footer>
+            <Button variant='text' onClick={onClose}>
+              Cancelar
+            </Button>
+            <Button>Continuar</Button>
+          </Dialog.Footer>
+        </Dialog>
+        <Button onClick={onOpen}>Abrir</Button>
+      </>
+    );
+  }}
+</Playground>
+
+### Dialog props
+
+| prop         | tipo          | obrigatório | padrão        | descrição                               |
+| ------------ | ------------- | ----------- | ------------- | --------------------------------------- |
+| visible      | `boolean`     | `true`      | `-`           | Controle de exibição.                   |
+| type         | `DialogTypes` | `false`     | `informative` | -                                       |
+| size         | `ModalSize`   | `false`     | `sm`          | -                                       |
+| showTypeIcon | `boolean`     | `false`     | `true`        | Controla a exibição do ícone no Header. |
+| onClose      | `function`    | `true`      | -             | -                                       |
+
+### Dialog Header props
+
+| prop              | tipo      | obrigatório | padrão  | descrição                                                  |
+| ----------------- | --------- | ----------- | ------- | ---------------------------------------------------------- |
+| disableTypography | `boolean` | `false`     | `false` | Se `true`, o componente `Typography` não será renderizado. |

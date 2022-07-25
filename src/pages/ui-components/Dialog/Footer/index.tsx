@@ -2,24 +2,24 @@ import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 import Divider from '../../Divider';
 
-export interface ModalFooterProps {
+export interface DialogFooterProps {
   children: React.ReactNode;
 }
 
-const ModalFooter = ({ children, ...rest }: ModalFooterProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+const DialogFooter = ({ children, ...rest }: DialogFooterProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   return (
     <footer {...rest}>
       <Divider />
-      <div className='modal-footer__wrapper'>{children}</div>
+      <div className='dialog-footer__wrapper'>{children}</div>
     </footer>
   );
 };
 
-export default styled(ModalFooter, { label: 'houston-modal-footer' })`
+export default styled(DialogFooter, { label: 'houston-dialog-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
 
-    .modal-footer__wrapper {
+    .dialog-footer__wrapper {
       padding: ${theme.spacing.squish.xs};
       display: flex;
       align-items: center;

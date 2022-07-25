@@ -10,4 +10,5 @@ const ModalContext = createContext<ModalContextProps>({});
 const ModalContextProvider = ModalContext.Provider;
 
 export { ModalContext };
+
 export default ModalContextProvider;
