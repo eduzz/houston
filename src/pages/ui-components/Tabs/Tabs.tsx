@@ -1,85 +1,53 @@
 import * as React from 'react';
 
-import MUITabs from '@mui/material/Tabs';
+import styled, { StyledProp } from '@eduzz/houston-styles';
 
-import { cx } from '@eduzz/houston-styles';
-import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+import { useChildrenProps } from '../hooks/useChildrenProps';
+import { getReactChildrenComponent } from '../utils/children';
+import Tab from './Tab';
 
-import TabsContext, { TabsContextProps } from './context';
-
-export interface TabsProps {
-  value?: number;
-  onChange?: (position: number) => void;
-  children?: any;
+export interface TabsProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
 }
 
-const useStyles = createUseStyles(theme => ({
-  containerPadding: {
-    padding: theme.spacing.nano
-  }
-}));
+const Tabs = ({ children, ...rest }: TabsProps) => {
+  const propsChildren = useChildrenProps(children, Tab);
+  const labels = propsChildren.map(({ label }) => label);
 
-let tabsKeyIncrementer = 0;
+  const tabs = getReactChildrenComponent(children, Tab);
 
-const Tabs = ({ value, onChange, children }: TabsProps) => {
-  const classes = useStyles();
+  const [activeTab, setActiveTab] = React.useState(0);
 
-  const [position, setPosition] = React.useState(0);
-  const [tabs, setTabs] = React.useState<TabsContextProps['tabs']>(() => []);
-
-  const controlled = value !== undefined;
-  const currentValue = controlled ? value : position;
-
-  const handleChange = React.useCallback(
-    (_: React.SyntheticEvent, value: number) => {
-      if (controlled) {
-        onChange && onChange(value);
-        return;
-      }
-
-      setPosition(value);
+  const handleTabClick = React.useCallback(
+    (index: number) => (e: React.MouseEvent<HTMLSpanElement>) => {
+      setActiveTab(index);
     },
-    [controlled, onChange]
+    []
   );
 
-  const registerTabs: TabsContextProps['registerTabs'] = React.useCallback(tab => {
-    const key = `tab-${++tabsKeyIncrementer}`;
-    setTabs(tabs => [...tabs, { key, ...tab }]);
-    return () => setTabs(tabs => tabs.filter(t => t.key !== key));
-  }, []);
-
-  const contextValue = React.useMemo<TabsContextProps>(() => ({ tabs, registerTabs }), [tabs, registerTabs]);
-
   return (
-    <TabsContext.Provider value={contextValue}>
-      <MUITabs
-        scrollButtons='auto'
-        variant='scrollable'
-        textColor='primary'
-        indicatorColor='primary'
-        value={currentValue}
-        onChange={handleChange}
-      >
-        {children}
-      </MUITabs>
-
-      {tabs?.map(({ id, className, children, disablePadding }, index) => {
-        const currentId = id ? id : `content-tab-${index}`;
-
-        return (
-          <div
-            role='tabpanel'
-            id={currentId}
-            className={cx(!disablePadding && classes.containerPadding, className)}
-            hidden={index !== currentValue}
-            key={currentId}
-          >
-            {children}
+    <div {...rest}>
+      <div className='__labels'>
+        {labels?.map((label, index) => (
+          <div onClick={handleTabClick(index)} key={label}>
+            {label}
           </div>
-        );
-      })}
-    </TabsContext.Provider>
+        ))}
+      </div>
+      <div className='__content'>{tabs[activeTab].props.children}</div>
+    </div>
   );
 };
 
-export default React.memo(Tabs);
+const TabsWrapper = React.memo(styled(Tabs, { label: 'houston-tabs' })`
+  .__labels {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .__content {
+  }
+`);
+
+export default TabsWrapper;
