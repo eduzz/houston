@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getReactChildrenProps, getReactFirstChildrenProps } from '../utils/children';
+import { getReactChildrenProps, getReactFirstChildrenProps, getReactChildrenComponent } from '../utils/children';
 
 export type ReactChildrenOrNode = React.ReactChildren | React.ReactNode;
 export type ReactChild = React.ReactElement;
@@ -17,5 +17,11 @@ export function useChildrenProps<T = any>(
 export function useFirstChildrenProps<T>(children: ReactChildrenOrNode, componentType: React.ReactElement['type']): T {
   return React.useMemo(() => {
     return getReactFirstChildrenProps<T>(children, componentType);
+  }, [children, componentType]);
+}
+
+export function useChildrenComponent(children: any, componentType: React.ReactElement['type']) {
+  return React.useMemo(() => {
+    return getReactChildrenComponent(children, componentType);
   }, [children, componentType]);
 }

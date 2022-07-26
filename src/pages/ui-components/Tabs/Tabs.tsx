@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import styled, { StyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-import { useChildrenProps } from '../hooks/useChildrenProps';
-import { getReactChildrenComponent } from '../utils/children';
+import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
 import Tab from './Tab';
 
 export interface TabsProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
@@ -11,10 +10,26 @@ export interface TabsProps extends StyledProp, React.HTMLAttributes<HTMLDivEleme
 }
 
 const Tabs = ({ children, ...rest }: TabsProps) => {
-  const propsChildren = useChildrenProps(children, Tab);
-  const labels = propsChildren.map(({ label }) => label);
+  const childrenProps = useChildrenProps(children, Tab);
+  const tabs = useChildrenComponent(children, Tab);
 
-  const tabs = getReactChildrenComponent(children, Tab);
+  const tabsRefs = React.useRef<any>([]);
+
+  const [steps, setSteps] = React.useState<number[]>([]);
+  const [widths, setWidths] = React.useState<number[]>([]);
+
+  React.useEffect(() => {
+    const widths = tabsRefs.current.map((tab: any) => tab.offsetWidth);
+    setWidths(widths);
+
+    let sum = 0;
+    const steps = widths.map((width: any) => {
+      sum = sum + width;
+      return sum;
+    });
+
+    setSteps([0, ...steps]);
+  }, []);
 
   const [activeTab, setActiveTab] = React.useState(0);
 
@@ -28,26 +43,82 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
   return (
     <div {...rest}>
       <div className='__labels'>
-        {labels?.map((label, index) => (
-          <div onClick={handleTabClick(index)} key={label}>
-            {label}
+        {childrenProps?.map(({ label, icon, disabled }, index) => (
+          <div
+            ref={el => (tabsRefs.current[index] = el)}
+            tabIndex={0}
+            className={cx('__tab', { '--disabled': disabled })}
+            onClick={handleTabClick(index)}
+            key={label}
+          >
+            {icon && <span>{icon}</span>}
+            {label && <span>{label}</span>}
           </div>
         ))}
       </div>
+      <span
+        className='__slider'
+        style={{
+          width: widths[activeTab],
+          left: steps[activeTab],
+          borderBottom: 'solid'
+        }}
+      />
       <div className='__content'>{tabs[activeTab].props.children}</div>
     </div>
   );
 };
 
-const TabsWrapper = React.memo(styled(Tabs, { label: 'houston-tabs' })`
-  .__labels {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-  }
+export default React.memo(
+  styled(Tabs, { label: 'houston-tabs' })(({ theme }) => {
+    return css`
+      position: relative;
 
-  .__content {
-  }
-`);
+      .__labels {
+        display: flex;
+        width: 100%;
+      }
 
-export default TabsWrapper;
+      .__slider {
+        position: absolute;
+        transition: all 300ms;
+      }
+
+      .__tab {
+        display: flex;
+        align-items: center;
+        line-height: 0;
+        gap: ${theme.spacing.inline.nano};
+        padding: ${theme.spacing.squish.xxs};
+        border-bottom: solid;
+        border-width: ${theme.border.width.xs};
+        border-color: rgba(0, 0, 0, 0.12);
+        border-radius: ${theme.border.radius.xs} ${theme.border.radius.xs} 0 0;
+        transition-duration: 0.5s;
+        transition-property: background-color, color;
+
+        :hover {
+          background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+        }
+
+        &.--active {
+          border-color: ${theme.brandColor.primary.pure};
+          border-width: ${theme.border.width.sm};
+        }
+
+        :focus {
+          outline: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
+        }
+
+        &.--disabled {
+          background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+          opacity: ${theme.opacity.level[6]};
+          pointer-events: none;
+        }
+      }
+
+      .__content {
+      }
+    `;
+  })
+);
