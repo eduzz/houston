@@ -4,6 +4,7 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
 import Tab from './Tab';
+import useTabSteps from './useTabSteps';
 
 export interface TabsProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -13,23 +14,21 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
-  const tabsRefs = React.useRef<any>([]);
+  const [isOverflowed, setIsOverflowed] = React.useState(false);
 
-  const [steps, setSteps] = React.useState<number[]>([]);
-  const [widths, setWidths] = React.useState<number[]>([]);
+  const labelsRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const widths = tabsRefs.current.map((tab: any) => tab.offsetWidth);
-    setWidths(widths);
+    const labelsFullWidth = labelsRef?.current?.scrollWidth as number;
 
-    let sum = 0;
-    const steps = widths.map((width: any) => {
-      sum = sum + width;
-      return sum;
-    });
+    const parentWidth = labelsRef?.current?.parentElement?.offsetWidth as number;
 
-    setSteps([0, ...steps]);
+    if (labelsFullWidth > parentWidth) {
+      setIsOverflowed(true);
+    }
   }, []);
+
+  const { tabsRefs, steps, widths } = useTabSteps();
 
   const [activeTab, setActiveTab] = React.useState(0);
 
@@ -42,26 +41,26 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
 
   return (
     <div {...rest}>
-      <div className='__labels'>
+      <div ref={labelsRef} className='__labels'>
         {childrenProps?.map(({ label, icon, disabled }, index) => (
           <div
             ref={el => (tabsRefs.current[index] = el)}
             tabIndex={0}
             className={cx('__tab', { '--disabled': disabled })}
             onClick={handleTabClick(index)}
-            key={label}
+            key={label + index}
           >
             {icon && <span>{icon}</span>}
             {label && <span>{label}</span>}
           </div>
         ))}
+        {isOverflowed && <span className='__scrollButton'>OPLE</span>}
       </div>
       <span
         className='__slider'
         style={{
           width: widths[activeTab],
-          left: steps[activeTab],
-          borderBottom: 'solid'
+          left: steps[activeTab]
         }}
       />
       <div className='__content'>{tabs[activeTab].props.children}</div>
@@ -73,15 +72,28 @@ export default React.memo(
   styled(Tabs, { label: 'houston-tabs' })(({ theme }) => {
     return css`
       position: relative;
+      overflow-x: clip;
 
       .__labels {
         display: flex;
         width: 100%;
+        position: relative;
+      }
+
+      .__scrollButton {
+        position: absolute;
+        width: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 90%;
       }
 
       .__slider {
         position: absolute;
-        transition: all 300ms;
+        transition: all 0.3s;
+        border-bottom: solid;
+        border-color: ${theme.brandColor.primary.pure};
+        border-width: ${theme.border.width.sm};
       }
 
       .__tab {
@@ -96,6 +108,10 @@ export default React.memo(
         border-radius: ${theme.border.radius.xs} ${theme.border.radius.xs} 0 0;
         transition-duration: 0.5s;
         transition-property: background-color, color;
+
+        /* :first-of-type {
+          outline-offset: -2px;
+        } */
 
         :hover {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
