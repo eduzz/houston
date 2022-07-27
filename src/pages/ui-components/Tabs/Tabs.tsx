@@ -1,17 +1,18 @@
 import * as React from 'react';
 
-import ChevronLeft from '@eduzz/houston-icons/ChevronLeft';
-import ChevronRight from '@eduzz/houston-icons/ChevronRight';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
 import IconButton from '../IconButton';
+import { ChevronLeft, ChevronRight } from './Icons';
 import Tab from './Tab';
 import useTabSteps from './useTabSteps';
 
 export interface TabsProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
+
+const SCROLL_MOVEMENT = 300;
 
 const Tabs = ({ children, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
@@ -44,14 +45,14 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
 
   const handleScrollRight = () => {
     parentRef.current?.scrollBy({
-      left: 120,
+      left: SCROLL_MOVEMENT,
       behavior: 'smooth'
     });
   };
 
   const handleScrollLeft = () => {
     parentRef.current?.scrollBy({
-      left: -120,
+      left: -SCROLL_MOVEMENT,
       behavior: 'smooth'
     });
   };
@@ -99,6 +100,8 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
   );
 };
 
+const NEGATIVE_MARGIN_IN_PX = -2;
+
 export default React.memo(
   styled(Tabs, { label: 'houston-tabs' })(({ theme }) => {
     return css`
@@ -108,6 +111,7 @@ export default React.memo(
         position: relative;
         overflow-x: hidden;
         overflow-y: hidden;
+        margin-left: ${NEGATIVE_MARGIN_IN_PX}px;
       }
 
       .__labels {
@@ -117,9 +121,8 @@ export default React.memo(
       }
 
       .__scrollButton {
-        margin-top: 4px;
-        padding: 16px;
-        margin: 15px;
+        padding: ${theme.spacing.nano};
+        margin: ${theme.spacing.nano};
       }
 
       .__slider {
@@ -141,6 +144,8 @@ export default React.memo(
         border-top: ${theme.border.width.sm} solid transparent;
         border-left: ${theme.border.width.sm} solid transparent;
         border-right: ${theme.border.width.sm} solid transparent;
+
+        margin-right: ${NEGATIVE_MARGIN_IN_PX}px;
 
         border-radius: ${theme.border.radius.xs} ${theme.border.radius.xs} 0 0;
         transition-duration: 0.5s;

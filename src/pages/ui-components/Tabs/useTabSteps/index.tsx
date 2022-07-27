@@ -10,7 +10,7 @@ const useTabSteps = () => {
 
     let sum = 0;
     const steps = widths.map((width: any) => {
-      sum = sum + width;
+      sum = sum + width - 2; // -2 because of the negative margin
       return sum;
     });
 
