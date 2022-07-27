@@ -1,8 +1,11 @@
 import * as React from 'react';
 
+import ChevronLeft from '@eduzz/houston-icons/ChevronLeft';
+import ChevronRight from '@eduzz/houston-icons/ChevronRight';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
+import IconButton from '../IconButton';
 import Tab from './Tab';
 import useTabSteps from './useTabSteps';
 
@@ -17,10 +20,10 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
   const [isOverflowed, setIsOverflowed] = React.useState(false);
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
+  const parentRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const labelsFullWidth = labelsRef?.current?.scrollWidth as number;
-
     const parentWidth = labelsRef?.current?.parentElement?.offsetWidth as number;
 
     if (labelsFullWidth > parentWidth) {
@@ -39,31 +42,56 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
     []
   );
 
+  const handleScrollRight = () => {
+    parentRef.current?.scrollBy({
+      left: 120,
+      behavior: 'smooth'
+    });
+  };
+
+  const handleScrollLeft = () => {
+    parentRef.current?.scrollBy({
+      left: -120,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <div {...rest}>
-      <div ref={labelsRef} className='__labels'>
-        {childrenProps?.map(({ label, icon, disabled }, index) => (
-          <div
-            ref={el => (tabsRefs.current[index] = el)}
-            tabIndex={0}
-            className={cx('__tab', { '--disabled': disabled })}
-            onClick={handleTabClick(index)}
-            key={label + index}
-          >
-            {icon && <span>{icon}</span>}
-            {label && <span>{label}</span>}
-          </div>
-        ))}
-        {isOverflowed && <span className='__scrollButton'>OPLE</span>}
+      {isOverflowed && (
+        <IconButton className='__scrollButton' size='md' onClick={() => handleScrollLeft()}>
+          <ChevronLeft />
+        </IconButton>
+      )}
+      <div ref={parentRef} className='__parent'>
+        <div ref={labelsRef} className='__labels'>
+          {childrenProps?.map(({ label, icon, disabled }, index) => (
+            <div
+              ref={el => (tabsRefs.current[index] = el)}
+              tabIndex={0}
+              className={cx('__tab', { '--disabled': disabled }, { '--active': index === activeTab })}
+              onClick={handleTabClick(index)}
+              key={label + index}
+            >
+              {icon && <span>{icon}</span>}
+              {label && <span>{label}</span>}
+            </div>
+          ))}
+        </div>
+        <span
+          className='__slider'
+          style={{
+            width: widths[activeTab],
+            left: steps[activeTab]
+          }}
+        />
+        <div className='__content'>{tabs[activeTab].props.children}</div>
       </div>
-      <span
-        className='__slider'
-        style={{
-          width: widths[activeTab],
-          left: steps[activeTab]
-        }}
-      />
-      <div className='__content'>{tabs[activeTab].props.children}</div>
+      {isOverflowed && (
+        <IconButton className='__scrollButton' size='md' onClick={() => handleScrollRight()}>
+          <ChevronRight />
+        </IconButton>
+      )}
     </div>
   );
 };
@@ -71,8 +99,12 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
 export default React.memo(
   styled(Tabs, { label: 'houston-tabs' })(({ theme }) => {
     return css`
-      position: relative;
-      overflow-x: clip;
+      display: flex;
+
+      .__parent {
+        position: relative;
+        overflow-x: hidden;
+      }
 
       .__labels {
         display: flex;
@@ -81,11 +113,8 @@ export default React.memo(
       }
 
       .__scrollButton {
-        position: absolute;
-        width: 30px;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 90%;
+        margin-top: 4px;
+        padding: 16px;
       }
 
       .__slider {
@@ -109,17 +138,8 @@ export default React.memo(
         transition-duration: 0.5s;
         transition-property: background-color, color;
 
-        /* :first-of-type {
-          outline-offset: -2px;
-        } */
-
         :hover {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-        }
-
-        &.--active {
-          border-color: ${theme.brandColor.primary.pure};
-          border-width: ${theme.border.width.sm};
         }
 
         :focus {
@@ -131,9 +151,6 @@ export default React.memo(
           opacity: ${theme.opacity.level[6]};
           pointer-events: none;
         }
-      }
-
-      .__content {
       }
     `;
   })
