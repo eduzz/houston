@@ -57,42 +57,45 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
   };
 
   return (
-    <div {...rest}>
-      {isOverflowed && (
-        <IconButton className='__scrollButton' size='md' onClick={() => handleScrollLeft()}>
-          <ChevronLeft />
-        </IconButton>
-      )}
-      <div ref={parentRef} className='__parent'>
-        <div ref={labelsRef} className='__labels'>
-          {childrenProps?.map(({ label, icon, disabled }, index) => (
-            <div
-              ref={el => (tabsRefs.current[index] = el)}
-              tabIndex={0}
-              className={cx('__tab', { '--disabled': disabled }, { '--active': index === activeTab })}
-              onClick={handleTabClick(index)}
-              key={label + index}
-            >
-              {icon && <span>{icon}</span>}
-              {label && <span>{label}</span>}
-            </div>
-          ))}
+    <>
+      <div {...rest}>
+        {isOverflowed && (
+          <IconButton className='__scrollButton' size='md' onClick={() => handleScrollLeft()}>
+            <ChevronLeft />
+          </IconButton>
+        )}
+        <div ref={parentRef} className='__parent'>
+          <div ref={labelsRef} className='__labels'>
+            {childrenProps?.map(({ label, icon, disabled }, index) => (
+              <div
+                ref={el => (tabsRefs.current[index] = el)}
+                tabIndex={0}
+                className={cx('__tab', { '--disabled': disabled })}
+                onClick={handleTabClick(index)}
+                key={label + index}
+              >
+                {icon && <span>{icon}</span>}
+                {label && <span>{label}</span>}
+              </div>
+            ))}
+          </div>
+          <span
+            className='__slider'
+            style={{
+              width: widths[activeTab],
+              left: steps[activeTab]
+            }}
+          />
         </div>
-        <span
-          className='__slider'
-          style={{
-            width: widths[activeTab],
-            left: steps[activeTab]
-          }}
-        />
-        <div className='__content'>{tabs[activeTab].props.children}</div>
+
+        {isOverflowed && (
+          <IconButton className='__scrollButton' size='md' onClick={() => handleScrollRight()}>
+            <ChevronRight />
+          </IconButton>
+        )}
       </div>
-      {isOverflowed && (
-        <IconButton className='__scrollButton' size='md' onClick={() => handleScrollRight()}>
-          <ChevronRight />
-        </IconButton>
-      )}
-    </div>
+      <div className='__content'>{tabs[activeTab].props.children}</div>
+    </>
   );
 };
 
@@ -104,6 +107,7 @@ export default React.memo(
       .__parent {
         position: relative;
         overflow-x: hidden;
+        overflow-y: hidden;
       }
 
       .__labels {
@@ -115,6 +119,7 @@ export default React.memo(
       .__scrollButton {
         margin-top: 4px;
         padding: 16px;
+        margin: 15px;
       }
 
       .__slider {
@@ -131,9 +136,12 @@ export default React.memo(
         line-height: 0;
         gap: ${theme.spacing.inline.nano};
         padding: ${theme.spacing.squish.xxs};
-        border-bottom: solid;
-        border-width: ${theme.border.width.xs};
-        border-color: rgba(0, 0, 0, 0.12);
+
+        border-bottom: ${theme.border.width.xs} solid rgba(0, 0, 0, 0.12);
+        border-top: ${theme.border.width.sm} solid transparent;
+        border-left: ${theme.border.width.sm} solid transparent;
+        border-right: ${theme.border.width.sm} solid transparent;
+
         border-radius: ${theme.border.radius.xs} ${theme.border.radius.xs} 0 0;
         transition-duration: 0.5s;
         transition-property: background-color, color;
@@ -143,7 +151,9 @@ export default React.memo(
         }
 
         :focus {
-          outline: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
+          border-top: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
+          border-left: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
+          border-right: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
         }
 
         &.--disabled {
