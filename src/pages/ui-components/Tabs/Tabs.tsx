@@ -18,23 +18,22 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
+  const { tabsRefs, steps, widths } = useTabSteps();
+  const [activeTab, setActiveTab] = React.useState(0);
   const [isOverflowed, setIsOverflowed] = React.useState(false);
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
   const parentRef = React.useRef<HTMLDivElement>(null);
+  const mainRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const labelsFullWidth = labelsRef?.current?.scrollWidth as number;
-    const parentWidth = labelsRef?.current?.parentElement?.offsetWidth as number;
+    const mainWidth = mainRef?.current?.parentElement?.offsetWidth as number;
 
-    if (labelsFullWidth > parentWidth) {
+    if (labelsFullWidth > mainWidth) {
       setIsOverflowed(true);
     }
   }, []);
-
-  const { tabsRefs, steps, widths } = useTabSteps();
-
-  const [activeTab, setActiveTab] = React.useState(0);
 
   const handleTabClick = React.useCallback(
     (index: number) => (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -59,7 +58,7 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
 
   return (
     <>
-      <div {...rest}>
+      <div ref={mainRef} {...rest}>
         {isOverflowed && (
           <IconButton className='__scrollButton' size='md' onClick={() => handleScrollLeft()}>
             <ChevronLeft />
@@ -100,7 +99,7 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
   );
 };
 
-const NEGATIVE_MARGIN_IN_PX = -2;
+const SPACING_IN_PX = 2;
 
 export default React.memo(
   styled(Tabs, { label: 'houston-tabs' })(({ theme }) => {
@@ -111,13 +110,15 @@ export default React.memo(
         position: relative;
         overflow-x: hidden;
         overflow-y: hidden;
-        margin-left: ${NEGATIVE_MARGIN_IN_PX}px;
+        margin-left: -${SPACING_IN_PX}px;
+        padding-bottom: ${SPACING_IN_PX}px;
       }
 
       .__labels {
         display: flex;
         width: 100%;
         position: relative;
+        margin-right: ${SPACING_IN_PX}px;
       }
 
       .__scrollButton {
@@ -145,7 +146,7 @@ export default React.memo(
         border-left: ${theme.border.width.sm} solid transparent;
         border-right: ${theme.border.width.sm} solid transparent;
 
-        margin-right: ${NEGATIVE_MARGIN_IN_PX}px;
+        margin-right: -${SPACING_IN_PX}px;
 
         border-radius: ${theme.border.radius.xs} ${theme.border.radius.xs} 0 0;
         transition-duration: 0.5s;
