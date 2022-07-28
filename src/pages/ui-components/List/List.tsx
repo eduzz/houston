@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
 import ListContextProvider from './context';
@@ -27,13 +27,17 @@ const List = ({ children, className, dividers = false, ...rest }: ListProps) => 
   );
 };
 
-const ListWrapper = React.memo(styled(List, { label: 'houston-list' })`
-  &.--dividers {
-    hr:last-of-type {
-      display: none;
-    }
-  }
-`);
+const ListWrapper = React.memo(
+  styled(List, { label: 'houston-list' })(() => {
+    return css`
+      &.--dividers {
+        hr:last-of-type {
+          display: none;
+        }
+      }
+    `;
+  })
+);
 
 export default nestedComponent(ListWrapper, {
   Item,
