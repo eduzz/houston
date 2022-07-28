@@ -24,13 +24,13 @@ export interface LinkProps extends StyledProp, React.HTMLAttributes<HTMLAnchorEl
 }
 
 const Link = ({ as: Tag = 'a', className, showIcon, size = 'inherit', children, ...rest }: LinkProps) => (
-  <Tag tabIndex={0} className={cx(className, `--${size}`)} {...rest}>
+  <Tag tabIndex={0} className={cx(className, `--link-size-${size}`)} {...rest}>
     {children}
     {showIcon && <ArrowRight size={size === 'inherit' ? 'sm' : size} />}
   </Tag>
 );
 
-export default styled(Link, { label: 'houston-tag-link' })(({ theme }) => {
+export default styled(Link, { label: 'houston-link' })(({ theme }) => {
   return css`
     all: unset;
     line-height: ${theme.line.height.default};
@@ -41,15 +41,15 @@ export default styled(Link, { label: 'houston-tag-link' })(({ theme }) => {
     border-radius: ${theme.border.radius.xs};
     cursor: pointer;
 
-    &.--sm {
+    &.--link-size-sm {
       font-size: ${theme.font.size.xs};
     }
 
-    &.--md {
+    &.--link-size-md {
       font-size: ${theme.font.size.sm};
     }
 
-    &.--inherit {
+    &.--link-size-inherit {
       font-size: inherit;
     }
 
