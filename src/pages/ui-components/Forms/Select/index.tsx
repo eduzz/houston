@@ -140,7 +140,6 @@ const SelectField = ({
       </Popover>
 
       <Fieldset
-        id={id}
         containerRef={popoverTargetProps.ref}
         label={label}
         size={size}
@@ -156,7 +155,9 @@ const SelectField = ({
         disableMargin={disableMargin}
         onClickContainer={!disabled && !loading ? openPopover : undefined}
       >
-        <div className='__text'>{text}</div>
+        <div id={id} className='__text'>
+          {text}
+        </div>
       </Fieldset>
     </SelectContext.Provider>
   );
