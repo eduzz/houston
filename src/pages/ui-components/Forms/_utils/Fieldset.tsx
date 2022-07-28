@@ -7,6 +7,7 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 import Spinner from '../../Spinner';
 
 export interface FieldsetProps extends StyledProp {
+  id?: string;
   label?: string;
   loading?: boolean;
   size?: 'sm' | 'default';
@@ -30,6 +31,7 @@ interface InternalFieldsetProps extends FieldsetProps {
 const Fieldset = React.forwardRef<HTMLFieldSetElement, InternalFieldsetProps>(
   (
     {
+      id,
       label,
       loading,
       size,
@@ -54,6 +56,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, InternalFieldsetProps>(
 
     return (
       <fieldset
+        id={id}
         ref={ref}
         className={cx(className, {
           '--hidden': hidden,

@@ -35,12 +35,14 @@ export interface SelectFieldProps extends OwnProperties, React.RefAttributes<HTM
  * @deprecated Utilizar a nova estrutura de options
  */
 export interface SelectFieldOption {
+  id?: string;
   value: string | number;
   label: string;
   disabled?: boolean;
 }
 
 const SelectField = ({
+  id,
   label,
   value,
   size,
@@ -138,6 +140,7 @@ const SelectField = ({
       </Popover>
 
       <Fieldset
+        id={id}
         containerRef={popoverTargetProps.ref}
         label={label}
         size={size}
