@@ -18,14 +18,14 @@ export default styled(LayoutContent, { label: 'houston-sidebar-content' })(
     overflow-y: auto;
 
     &:not(.--disable-padding) {
-      padding: ${theme.spacing.stack.lg} 0;
+      padding: ${theme.spacing.stack.lg} ${theme.spacing.xs};
 
       ${theme.breakpoints.down('md')} {
-        padding: ${theme.spacing.stack.sm} 0;
+        padding: ${theme.spacing.stack.sm} ${theme.spacing.xs};
       }
 
       ${theme.breakpoints.down('sm')} {
-        padding: ${theme.spacing.stack.xxxs} 0;
+        padding: ${theme.spacing.stack.xxxs} ${theme.spacing.xxxs};
       }
     }
   `
