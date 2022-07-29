@@ -92,7 +92,7 @@ const DrawerWrapper = styled(Drawer, { label: 'houston-drawer' })`
       flex-direction: column;
       max-width: 100vw;
       height: 100vh;
-      top: 0%;
+      top: 0;
 
       ${modifiers}
     `;
