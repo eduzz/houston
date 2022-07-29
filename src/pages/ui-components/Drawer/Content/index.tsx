@@ -9,7 +9,7 @@ const DrawerContent = ({
   ...rest
 }: DrawerContentProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => <div {...rest}>{children}</div>;
 
-export default styled(DrawerContent, { label: 'houston-drawer-content' })`
+export default styled(DrawerContent, { label: 'hst-drawer-content' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.sm};
     overflow: auto;

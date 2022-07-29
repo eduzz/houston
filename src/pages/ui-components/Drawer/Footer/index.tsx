@@ -10,21 +10,21 @@ const DrawerFooter = ({ children, ...rest }: DrawerFooterProps & React.HTMLAttri
   return (
     <footer {...rest}>
       <Divider />
-      <div className='drawer-footer__wrapper'>{children}</div>
+      <div className='hst-drawer-footer__wrapper'>{children}</div>
     </footer>
   );
 };
 
-export default styled(DrawerFooter, { label: 'houston-drawer-footer' })`
+export default styled(DrawerFooter, { label: 'hst-drawer-footer' })`
   ${({ theme }) => css`
-    .drawer-footer__wrapper {
+    .hst-drawer-footer__wrapper {
       padding: ${theme.spacing.squish.xs};
       display: flex;
       align-items: center;
       justify-content: flex-end;
 
       ${theme.breakpoints.up('sm')} {
-        button + button {
+        button.hst-button + button.hst-button {
           margin-left: ${theme.spacing.inline.xxxs};
         }
       }
@@ -33,10 +33,10 @@ export default styled(DrawerFooter, { label: 'houston-drawer-footer' })`
         padding: ${theme.spacing.inset.xs};
         flex-direction: column-reverse;
 
-        button {
+        button.hst-button {
           width: 100%;
 
-          & + button {
+          & + button.hst-button {
             margin-bottom: ${theme.spacing.stack.nano};
           }
         }

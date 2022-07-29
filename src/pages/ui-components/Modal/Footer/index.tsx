@@ -15,7 +15,7 @@ const ModalFooter = ({ children, ...rest }: ModalFooterProps & React.HTMLAttribu
   );
 };
 
-export default styled(ModalFooter, { label: 'houston-modal-footer' })`
+export default styled(ModalFooter, { label: 'hst-modal-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
 
@@ -26,7 +26,7 @@ export default styled(ModalFooter, { label: 'houston-modal-footer' })`
       justify-content: flex-end;
 
       ${theme.breakpoints.up('sm')} {
-        button + button {
+        button.hst-button + button.hst-button {
           margin-left: ${theme.spacing.inline.xxxs};
         }
       }
@@ -35,10 +35,10 @@ export default styled(ModalFooter, { label: 'houston-modal-footer' })`
         padding: ${theme.spacing.inset.xs};
         flex-direction: column-reverse;
 
-        button {
+        button.hst-button {
           width: 100%;
 
-          & + button {
+          & + button.hst-button {
             margin-bottom: ${theme.spacing.stack.nano};
           }
         }

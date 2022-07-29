@@ -45,14 +45,14 @@ const Drawer = ({
   }
 
   return (
-    <Portal target='houston-drawer'>
+    <Portal target='hst-drawer'>
       <Overlay visible={visible}>
         <DrawerContextProvider value={contextValue}>
           <div
             role='dialog'
             tabIndex={-1}
             aria-modal
-            className={cx(className, `--drawer-size-${size}`, `--drawer-placement-${placement}`)}
+            className={cx(className, `--hst-drawer-size-${size}`, `--hst-drawer-placement-${placement}`)}
             {...rest}
           >
             {children}
@@ -63,14 +63,14 @@ const Drawer = ({
   );
 };
 
-const DrawerWrapper = styled(Drawer, { label: 'houston-drawer' })`
+const DrawerWrapper = styled(Drawer, { label: 'hst-drawer' })`
   ${({ theme }) => {
     const modifiers: CSSInterpolation[] = [];
     const placementMap: DrawerPlacement[] = ['right', 'left'];
 
     Object.entries(modalSizesInPx).forEach(([size, value]) =>
       modifiers.push(css`
-        &.--drawer-size-${size} {
+        &.--hst-drawer-size-${size} {
           width: ${theme.pxToRem(value)}rem;
         }
       `)
@@ -78,7 +78,7 @@ const DrawerWrapper = styled(Drawer, { label: 'houston-drawer' })`
 
     placementMap.forEach(placement =>
       modifiers.push(css`
-        &.--drawer-placement-${placement} {
+        &.--hst-drawer-placement-${placement} {
           ${placement}: 0%;
         }
       `)
