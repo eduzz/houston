@@ -9,27 +9,19 @@ export interface ContainerProps extends StyledProp {
 }
 
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({ className, children, layout }, ref) => (
-  <div ref={ref} className={cx(className, `--${layout ?? 'solid'}`)}>
+  <div ref={ref} className={cx(className, `--layout-${layout ?? 'solid'}`)}>
     {children}
   </div>
 ));
 
-export default React.memo(styled(Container, { label: 'houston-grid-container' })`
-  ${({ theme }) => {
-    const MAX_WIDTH_IN_PX = theme.breakpoints.xlg;
-    return css`
-      width: 100%;
-      max-width: ${MAX_WIDTH_IN_PX};
-      margin: 0 auto;
-      padding: 0 ${theme.spacing.xs};
+export default styled(Container, { label: 'houston-grid-container' })(
+  ({ theme }) => css`
+    width: 100%;
+    max-width: ${theme.breakpoints.xlg};
+    margin: 0 auto;
 
-      ${theme.breakpoints.down('sm')} {
-        padding: 0 ${theme.spacing.xxxs};
-      }
-
-      &.--fluid {
-        max-width: 100%;
-      }
-    `;
-  }}
-`);
+    &.--layout-fluid {
+      max-width: 100%;
+    }
+  `
+);
