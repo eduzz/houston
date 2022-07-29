@@ -35,12 +35,14 @@ export interface SelectFieldProps extends OwnProperties, React.RefAttributes<HTM
  * @deprecated Utilizar a nova estrutura de options
  */
 export interface SelectFieldOption {
+  id?: string;
   value: string | number;
   label: string;
   disabled?: boolean;
 }
 
 const SelectField = ({
+  id,
   label,
   value,
   size,
@@ -153,7 +155,9 @@ const SelectField = ({
         disableMargin={disableMargin}
         onClickContainer={!disabled && !loading ? openPopover : undefined}
       >
-        <div className='__text'>{text}</div>
+        <div id={id} className='__text'>
+          {text}
+        </div>
       </Fieldset>
     </SelectContext.Provider>
   );

@@ -10,6 +10,7 @@ import Checkbox from '../Checkbox';
 import SelectContext from './context';
 
 export interface SelectOptionProps extends StyledProp {
+  id?: string;
   disabled?: boolean;
   value?: any;
   /**
@@ -20,7 +21,7 @@ export interface SelectOptionProps extends StyledProp {
   children?: React.ReactNode;
 }
 
-const SelectOption = ({ children, value, label, className, disabled }: SelectOptionProps) => {
+const SelectOption = ({ children, value, label, className, disabled, id }: SelectOptionProps) => {
   const divRef = React.useRef<HTMLDivElement>(null);
   const { registerOption, onSelect, inputSize, inputValue, multiple } = useContext(SelectContext);
   const isSelected = inputValue && (Array.isArray(inputValue) ? inputValue.includes(value) : inputValue === value);
@@ -39,6 +40,7 @@ const SelectOption = ({ children, value, label, className, disabled }: SelectOpt
 
   return (
     <div
+      id={id}
       ref={divRef}
       className={cx(className, {
         [`--size-${inputSize ?? 'default'}`]: true,
