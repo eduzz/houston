@@ -18,7 +18,6 @@ export type ModalSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface ModalProps {
   visible: boolean;
-  children?: React.ReactNode;
   onClose?: () => void;
   /**
    * Default `sm`
@@ -61,7 +60,7 @@ const Modal = ({
     <Portal target='houston-modal'>
       <Overlay visible={visible}>
         <ModalContextProvider value={contextValue}>
-          <ModalBase className={cx(className, `--modal-size-${size}`)} aria-modal={true} {...rest}>
+          <ModalBase className={cx(className, `--modal-size-${size}`)} aria-modal {...rest}>
             {children}
           </ModalBase>
         </ModalContextProvider>

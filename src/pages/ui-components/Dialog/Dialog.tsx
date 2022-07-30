@@ -46,11 +46,7 @@ const Dialog = ({
     <Portal target='houston-dialog'>
       <Overlay visible={visible}>
         <DialogContextProvider value={contextValue}>
-          <ModalBase
-            className={cx(className, `--dialog-size-${size}`, `--dialog-type-${type}`)}
-            aria-modal={true}
-            {...rest}
-          >
+          <ModalBase className={cx(className, `--dialog-size-${size}`, `--dialog-type-${type}`)} aria-modal {...rest}>
             {children}
           </ModalBase>
         </DialogContextProvider>
