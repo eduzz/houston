@@ -1,21 +1,21 @@
 import * as React from 'react';
 
 const useTabSteps = () => {
-  const tabsRefs = React.useRef<any[]>([]);
+  const tabsRefs = React.useRef<HTMLDivElement[]>([]);
   const [steps, setSteps] = React.useState<number[]>([]);
   const [widths, setWidths] = React.useState<number[]>([]);
 
   React.useLayoutEffect(() => {
-    const widths = tabsRefs?.current.map((tab: HTMLDivElement) => tab.getBoundingClientRect().width);
+    const widths = tabsRefs?.current?.map((tab: HTMLDivElement) => tab.getBoundingClientRect().width);
 
     let sum = 0;
-    const steps = widths.map((width: number) => {
+    const steps = widths?.map((width: number) => {
       sum = sum + width;
       return sum;
     });
 
     setWidths(widths);
-    setSteps([0, ...steps]);
+    setSteps([0, ...(steps ?? [])]);
   }, []);
 
   return { tabsRefs, steps, widths };

@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
-import Typography from '@eduzz/houston-ui/Typography';
 
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
 import IconButton from '../IconButton';
@@ -9,26 +8,27 @@ import { ChevronLeft, ChevronRight } from './Icons';
 import Tab from './Tab';
 import useTabSteps from './useTabSteps';
 
-export interface TabsProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
+export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   children: React.ReactNode;
+  value?: number;
+  onChange?: (value: number) => void;
 }
 
 const SCROLL_MOVEMENT = 300;
 
-const Tabs = ({ children, ...rest }: TabsProps) => {
+const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
   const { tabsRefs, steps, widths } = useTabSteps();
 
-  const [activeTab, setActiveTab] = React.useState(0);
+  const [activeTab, setActiveTab] = React.useState(value ?? 0);
   const [isOverflowed, setIsOverflowed] = React.useState(false);
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
   const parentRef = React.useRef<HTMLDivElement>(null);
   const mainRef = React.useRef<HTMLDivElement>(null);
 
-  console.log(labelsRef, 'asasas');
   React.useEffect(() => {
     const labelsFullWidth = labelsRef?.current?.scrollWidth as number;
     const mainWidth = mainRef?.current?.parentElement?.offsetWidth as number;
@@ -40,9 +40,12 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
 
   const handleTabClick = React.useCallback(
     (index: number) => () => {
+      if (value) {
+        onChange && onChange(index);
+      }
       setActiveTab(index);
     },
-    []
+    [onChange, value]
   );
 
   const handleScrollRight = React.useCallback(() => {
@@ -69,21 +72,18 @@ const Tabs = ({ children, ...rest }: TabsProps) => {
         )}
         <div ref={parentRef} className='__parent'>
           <div ref={labelsRef} className='__labels'>
-            {childrenProps?.map(({ label, icon, disabled }, index) => {
-              const isActive = index === activeTab;
-              return (
-                <div
-                  ref={el => (tabsRefs.current[index] = el)}
-                  tabIndex={0}
-                  className={cx('__tab', { '--disabled': disabled })}
-                  onClick={handleTabClick(index)}
-                  key={label + index}
-                >
-                  {icon && <span>{icon}</span>}
-                  {label && <span className='__label'>{label}</span>}
-                </div>
-              );
-            })}
+            {childrenProps?.map(({ label, icon, disabled }, index) => (
+              <div
+                ref={(el: HTMLDivElement) => (tabsRefs.current[index] = el)}
+                tabIndex={0}
+                className={cx('__tab', { '--disabled': disabled })}
+                onClick={handleTabClick(index)}
+                key={label + index}
+              >
+                {icon}
+                {label}
+              </div>
+            ))}
           </div>
           <span
             className='__slider'
@@ -136,9 +136,9 @@ export default React.memo(
       .__slider {
         position: absolute;
         transition: all 0.2s;
-        border-bottom: solid;
+        border: solid;
         border-color: ${theme.brandColor.primary.pure};
-        border-width: ${theme.border.width.sm};
+        border-width: ${theme.border.width.xs};
       }
 
       .__tab {
@@ -148,12 +148,15 @@ export default React.memo(
         gap: ${theme.spacing.inline.nano};
         padding: ${theme.spacing.squish.xxs};
         min-height: ${MIN_HEIGHT_IN_PX}px;
-
+        min-width: fit-content;
+        font-size: ${theme.font.size.xs};
+        font-family: ${theme.font.family.base};
+        font-weight: ${theme.font.weight.semibold};
+        line-height: ${theme.line.height.default};
         border-bottom: ${theme.border.width.xs} solid rgba(0, 0, 0, 0.12);
         border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
         transition-duration: 0.5s;
         transition-property: background-color, color;
-
         margin-bottom: ${NEGATIVE_SPACING_IN_PX}px;
 
         :hover {
@@ -168,7 +171,7 @@ export default React.memo(
         &.--disabled {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
           opacity: ${theme.opacity.level[6]};
-          pointer-events: none;
+          cursor: not-allowed;
         }
       }
     `;

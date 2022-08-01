@@ -2,9 +2,9 @@
 name: Tabs
 ---
 
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-import FaceHappyOutline from '@eduzz/houston-icons/FaceHappyOutline';
 import { Playground } from 'dokz';
+
+import FaceHappyOutline from '@eduzz/houston-icons/FaceHappyOutline';
 import Image from '@eduzz/houston-ui/Image';
 
 import Tabs from './';
@@ -29,14 +29,8 @@ Não há necessidade de controlar o estado da aba ativa.
     const { Tab } = Tabs;
     return (
       <Tabs>
-        <Tab label='Label 1'>
-          Conteúdo 1
-          <Image src='https://picsum.photos/301' />
-        </Tab>
-        <Tab label='Label 2'>
-          Conteúdo 2
-          <Image src='https://picsum.photos/300' />
-        </Tab>
+        <Tab label='Label 1'>Conteúdo 1</Tab>
+        <Tab label='Label 2'>Conteúdo 2</Tab>
       </Tabs>
     );
   }}
@@ -47,7 +41,7 @@ Não há necessidade de controlar o estado da aba ativa.
 <Playground>
   {() => {
     const { Tab } = Tabs;
-    const [tab, setTab] = React.useState(0);
+    const [tab, setTab] = React.useState(1);
     return (
       <Tabs value={tab} onChange={value => setTab(value)}>
         <Tab label='Label 1' icon={<FaceHappyOutline />}>
@@ -61,31 +55,58 @@ Não há necessidade de controlar o estado da aba ativa.
   }}
 </Playground>
 
-<!-- ### Desabilitado
+### Desabilitado
 
 <Playground>
-  <Tabs>
-    <Tab label='Título 1'>
-      <div>Conteúdo 1</div>
-    </Tab>
-    <Tab label='Desabilitado 2' disabled>
-      <div>Conteúdo 2</div>
-    </Tab>
-  </Tabs>
+  {() => {
+    const { Tab } = Tabs;
+    return (
+      <Tabs>
+        <Tab label='Título 1'>
+          <div>Conteúdo 1</div>
+        </Tab>
+        <Tab label='Desabilitado 2' disabled>
+          <div>Conteúdo 2</div>
+        </Tab>
+      </Tabs>
+    );
+  }}
 </Playground>
 
-### Com ícone
+### Múltiplas Tabs
 
 <Playground>
-  <Tabs>
-    <Tab label='Título 1' icon={<InsertEmoticonIcon />}>
-      <div>Conteúdo 1</div>
-    </Tab>
-    <Tab label='Título 2' icon={<InsertEmoticonIcon />}>
-      <div>Conteúdo 2</div>
-    </Tab>
-  </Tabs>
-</Playground> -->
+  {() => {
+    const { Tab } = Tabs;
+    return (
+      <div style={{ width: '600px' }}>
+        <Tabs>
+          <Tab label='Título 1' icon={<FaceHappyOutline />}>
+            <div>Conteúdo 1</div>
+          </Tab>
+          <Tab label='Título 2' icon={<FaceHappyOutline />}>
+            <div>Conteúdo 2</div>
+          </Tab>
+          <Tab label='Título 3' icon={<FaceHappyOutline />}>
+            <div>Conteúdo 3</div>
+          </Tab>
+          <Tab label='Título 4' icon={<FaceHappyOutline />}>
+            <div>Conteúdo 4</div>
+          </Tab>
+          <Tab label='Título 5' icon={<FaceHappyOutline />}>
+            <div>Conteúdo 5</div>
+          </Tab>
+          <Tab label='Título 6' icon={<FaceHappyOutline />}>
+            <div>Conteúdo 6</div>
+          </Tab>
+          <Tab label='Título 7' icon={<FaceHappyOutline />}>
+            <div>Conteúdo 7</div>
+          </Tab>
+        </Tabs>
+      </div>
+    );
+  }}
+</Playground>
 
 #### Tabs props
 
@@ -96,9 +117,8 @@ Não há necessidade de controlar o estado da aba ativa.
 
 #### Tab props
 
-| prop            | type        | required | default |
-| --------------- | ----------- | -------- | ------- |
-| label           | `string`    | `true`   | -       |
-| icon            | `ReactNode` | `false`  | -       |
-| disabled        | `boolean`   | `false`  | `false` |
-| disabledPadding | `boolean`   | `false`  | `false` |
+| prop     | type        | required | default |
+| -------- | ----------- | -------- | ------- |
+| label    | `string`    | `true`   | -       |
+| icon     | `ReactNode` | `false`  | -       |
+| disabled | `boolean`   | `false`  | `false` |
