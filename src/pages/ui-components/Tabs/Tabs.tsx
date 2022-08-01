@@ -40,12 +40,17 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
 
   const handleTabClick = React.useCallback(
     (index: number) => () => {
-      if (value) {
-        onChange && onChange(index);
-      }
+      onChange && onChange(index);
       setActiveTab(index);
     },
-    [onChange, value]
+    [onChange]
+  );
+
+  const passRefsToArray = React.useCallback(
+    (index: number) => (el: HTMLDivElement) => {
+      tabsRefs.current[index] = el;
+    },
+    [tabsRefs]
   );
 
   const handleScrollRight = React.useCallback(() => {
@@ -74,11 +79,13 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
           <div ref={labelsRef} className='hst-tabs__labels'>
             {childrenProps?.map(({ label, icon, disabled }, index) => (
               <div
-                ref={(el: HTMLDivElement) => (tabsRefs.current[index] = el)}
+                role='button'
+                ref={passRefsToArray(index)}
                 tabIndex={0}
-                className={cx('hst-tabs__tab', { '--disabled': disabled })}
+                className={cx('hst-tabs__tab', { '--hst_tabs-disabled': disabled })}
                 onClick={handleTabClick(index)}
-                key={label + index}
+                key={label}
+                aria-disabled={disabled}
               >
                 {icon}
                 {label}
@@ -88,8 +95,8 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
           <span
             className='hst-tabs__slider'
             style={{
-              width: widths[activeTab],
-              left: steps[activeTab]
+              width: widths[value ?? activeTab],
+              left: steps[value ?? activeTab]
             }}
           />
         </div>
@@ -100,7 +107,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
           </IconButton>
         )}
       </div>
-      <div>{tabs[activeTab].props.children}</div>
+      <div>{tabs[value ?? activeTab].props.children}</div>
     </>
   );
 };
@@ -119,7 +126,6 @@ export default React.memo(
         overflow-y: hidden;
         padding-bottom: ${theme.spacing.nano};
         margin-bottom: ${theme.spacing.nano};
-        cursor: pointer;
       }
 
       .hst-tabs__labels {
@@ -158,6 +164,7 @@ export default React.memo(
         transition-duration: 0.5s;
         transition-property: background-color, color;
         margin-bottom: ${NEGATIVE_SPACING_IN_PX}px;
+        cursor: pointer;
 
         :hover {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
@@ -168,9 +175,10 @@ export default React.memo(
           outline-offset: ${NEGATIVE_SPACING_IN_PX}px;
         }
 
-        &.--disabled {
+        &.--hst_tabs-disabled {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
           opacity: ${theme.opacity.level[6]};
+          pointer-events: none;
           cursor: not-allowed;
         }
       }

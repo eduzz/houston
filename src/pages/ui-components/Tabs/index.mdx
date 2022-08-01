@@ -36,7 +36,7 @@ Não há necessidade de controlar o estado da aba ativa.
   }}
 </Playground>
 
-### Valor controlado
+### Valor controlado e desabilitado
 
 <Playground>
   {() => {
@@ -50,23 +50,11 @@ Não há necessidade de controlar o estado da aba ativa.
         <Tab label='Label 2' icon={<FaceHappyOutline />}>
           <div>Conteúdo 2</div>
         </Tab>
-      </Tabs>
-    );
-  }}
-</Playground>
-
-### Desabilitado
-
-<Playground>
-  {() => {
-    const { Tab } = Tabs;
-    return (
-      <Tabs>
-        <Tab label='Título 1'>
-          <div>Conteúdo 1</div>
+        <Tab label='Label 3' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 3</div>
         </Tab>
-        <Tab label='Desabilitado 2' disabled>
-          <div>Conteúdo 2</div>
+        <Tab label='Desabilitado 4' disabled>
+          <div>Conteúdo 4</div>
         </Tab>
       </Tabs>
     );
@@ -108,14 +96,14 @@ Não há necessidade de controlar o estado da aba ativa.
   }}
 </Playground>
 
-#### Tabs props
+### Tabs props
 
 | prop     | type                      | required | default | description         |
 | -------- | ------------------------- | -------- | ------- | ------------------- |
 | value    | `number`                  | `false`  | -       | Índice da aba.      |
 | onChange | `(value: number) => void` | `false`  | -       | Recebe novo índice. |
 
-#### Tab props
+### Tab props
 
 | prop     | type        | required | default |
 | -------- | ----------- | -------- | ------- |
