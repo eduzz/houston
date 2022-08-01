@@ -2,10 +2,19 @@
 name: Modal
 ---
 
+import { useState, useCallback } from 'react';
+
 import { Playground } from 'dokz';
 
+import useForm from '@eduzz/houston-forms/useForm';
+
 import Button from '../Button';
+import Form from '../Forms/Form';
+import Input from '../Forms/Input';
 import Select from '../Forms/Select';
+import Column from '../Grid/Column';
+import Container from '../Grid/Container';
+import Row from '../Grid/Row';
 import Image from '../Image';
 import Modal from './';
 
@@ -25,7 +34,7 @@ import Modal from '@eduzz/houston-ui/Modal';
 
 <Playground>
   {() => {
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState(false);
     const onOpen = () => setVisible(true);
     const onClose = () => setVisible(false);
     return (
@@ -57,8 +66,8 @@ Valores disponíveis: `xs`, `sm`, `md`, `lg` e `xl`.
 
 <Playground>
   {() => {
-    const [visible, setVisible] = React.useState(false);
-    const [size, setSize] = React.useState('sm');
+    const [visible, setVisible] = useState(false);
+    const [size, setSize] = useState('sm');
     const onOpen = () => setVisible(true);
     const onClose = () => setVisible(false);
     return (
@@ -91,7 +100,7 @@ Valores disponíveis: `xs`, `sm`, `md`, `lg` e `xl`.
 
 <Playground>
   {() => {
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState(false);
     const onOpen = () => setVisible(true);
     const onClose = () => setVisible(false);
     return (
@@ -127,6 +136,64 @@ Valores disponíveis: `xs`, `sm`, `md`, `lg` e `xl`.
             </Button>
             <Button>Salvar</Button>
           </Modal.Footer>
+        </Modal>
+        <Button onClick={onOpen}>Abrir</Button>
+      </>
+    );
+  }}
+</Playground>
+
+### Form
+
+Quando utilizar um form dentro do modal, coloque o `Form (ou a tag form)` como filho direto do `Modal`
+
+```jsx
+<Modal>
+  <Form>
+    <Modal.Header />
+    <Modal.Content />
+    <Modal.Footer />
+  </Form>
+</Modal>
+```
+
+<Playground>
+  {() => {
+    const [visible, setVisible] = useState(false);
+    const onOpen = () => setVisible(true);
+    const onClose = () => setVisible(false);
+    const form = useForm({});
+    const onSubmit = useCallback(data => alert(JSON.stringify(data, null, 2)));
+    return (
+      <>
+        <Modal visible={visible} onClose={onClose}>
+          <Form context={form} onSubmit={onSubmit}>
+            <Modal.Header>Atenção!</Modal.Header>
+            <Modal.Content>
+              <Container layout='fluid'>
+                <Row>
+                  <Column xs={12}>
+                    <Input label='Título' name='title' disableMargin />
+                  </Column>
+                  <Column sm={6} xs={12}>
+                    <Input label='Datade início' name='beginDate' disableMargin />
+                  </Column>
+                  <Column sm={6} xs={12}>
+                    <Input label='Data de fim' name='endDate' disableMargin />
+                  </Column>
+                  <Column xs={12}>
+                    <Input multiline label='Descrição' name='description' disableMargin />
+                  </Column>
+                </Row>
+              </Container>
+            </Modal.Content>
+            <Modal.Footer>
+              <Button variant='text' onClick={onClose}>
+                Cancelar
+              </Button>
+              <Button type='submit'>Salvar</Button>
+            </Modal.Footer>
+          </Form>
         </Modal>
         <Button onClick={onOpen}>Abrir</Button>
       </>
