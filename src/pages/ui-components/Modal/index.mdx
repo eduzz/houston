@@ -134,6 +134,53 @@ Valores disponíveis: `xs`, `sm`, `md`, `lg` e `xl`.
   }}
 </Playground>
 
+### Form
+
+<Playground>
+  {() => {
+    const [visible, setVisible] = React.useState(false);
+    const onOpen = () => setVisible(true);
+    const onClose = () => setVisible(false);
+    return (
+      <>
+        <Modal visible={visible} onClose={onClose}>
+          <Modal.Header>Atenção!</Modal.Header>
+          <Modal.Content>
+            <center>
+              <Image src='https://picsum.photos/400/400' fallbackSrc='https://via.placeholder.com/400x400' />
+            </center>
+            <br />
+            <br />
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum necessitatibus, corrupti dignissimos cupiditate
+            et aliquam, quisquam, architecto aspernatur totam molestiae iste ut distinctio in ipsa corporis cum enim odio
+            tempora! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum necessitatibus, corrupti dignissimos
+            enim odio tempora! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum necessitatibus, corrupti
+            <br />
+            <br />
+            corporis cum enim odio tempora! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum
+            necessitatibus, corrupti dignissimos cupiditate et aliquam, quisquam, architecto aspernatur totam molestiae
+            iste ut distinctio in ipsa corporis cum enim odio tempora! Lorem ipsum dolor, sit amet consectetur
+            adipisicing elit. Laborum necessitatibus, corrupti dignissimos cupiditate et aliquam, quisquam, architecto
+            aspernatur totam molestiae iste ut distinctio in ipsa corporis cum enim odio tempora!
+            <br />
+            <br />
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum necessitatibus, corrupti dignissimos cupiditate
+            et aliquam, quisquam, architecto aspernatur totam molestiae iste ut distinctio in ipsa corporis cum enim odio
+            tempora! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum necessitatibus, corrupti dignissimos.
+          </Modal.Content>
+          <Modal.Footer>
+            <Button variant='text' onClick={onClose}>
+              Cancelar
+            </Button>
+            <Button>Salvar</Button>
+          </Modal.Footer>
+        </Modal>
+        <Button onClick={onOpen}>Abrir</Button>
+      </>
+    );
+  }}
+</Playground>
+
 ### Modal props
 
 | prop             | tipo        | obrigatório | padrão | descrição                                                               |
