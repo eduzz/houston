@@ -82,14 +82,17 @@ const ModalWrapper = styled(Modal, { label: 'houston-modal' })`
     );
 
     return css`
-      display: flex;
-      flex-direction: column;
-      max-width: calc(100vw - ${theme.spacing.inset.md});
-      max-height: calc(100vh - ${theme.spacing.inset.md});
+      &,
+      & > form {
+        display: flex;
+        flex-direction: column;
+        max-width: calc(100vw - ${theme.spacing.inset.md});
+        max-height: calc(100vh - ${theme.spacing.inset.md});
 
-      ${theme.breakpoints.down('sm')} {
-        max-width: calc(100vw - ${theme.spacing.inset.xs});
-        max-height: calc(100vh - ${theme.spacing.inset.xs});
+        ${theme.breakpoints.down('sm')} {
+          max-width: calc(100vw - ${theme.spacing.inset.xs});
+          max-height: calc(100vh - ${theme.spacing.inset.xs});
+        }
       }
 
       ${modifiersSizes}
