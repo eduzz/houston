@@ -27,15 +27,19 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
   const parentRef = React.useRef<HTMLDivElement>(null);
-  const mainRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const labelsFullWidth = labelsRef?.current?.scrollWidth as number;
-    const mainWidth = mainRef?.current?.parentElement?.offsetWidth as number;
+    const handleResize = () => {
+      const labelsScrollWidth = labelsRef?.current?.scrollWidth as number;
+      const labelsWidth = labelsRef?.current?.clientWidth as number;
 
-    if (labelsFullWidth > mainWidth) {
-      setIsOverflowed(true);
-    }
+      labelsScrollWidth > labelsWidth ? setIsOverflowed(true) : setIsOverflowed(false);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleTabClick = React.useCallback(
@@ -69,7 +73,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
 
   return (
     <>
-      <div ref={mainRef} {...rest}>
+      <div {...rest}>
         {isOverflowed && (
           <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScrollLeft}>
             <ChevronLeft />
@@ -179,7 +183,6 @@ export default React.memo(
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
           opacity: ${theme.opacity.level[6]};
           pointer-events: none;
-          cursor: not-allowed;
         }
       }
     `;
