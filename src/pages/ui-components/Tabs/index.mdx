@@ -3,7 +3,9 @@ name: Tabs
 ---
 
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import FaceHappyOutline from '@eduzz/houston-icons/FaceHappyOutline';
 import { Playground } from 'dokz';
+import Image from '@eduzz/houston-ui/Image';
 
 import Tabs from './';
 
@@ -11,12 +13,11 @@ import Tabs from './';
 
 As abas facilitam a exploração e alternam entre diferentes visualizações.
 
-> Para as Tabs funcionarem corretamente, insira uma div encapsulando o children dentro do Tab.Content.
-
 ### Importação
 
 ```js
 import Tabs from '@eduzz/houston-ui/Tabs';
+const { Tab } = Tabs;
 ```
 
 ### Auto gerenciável
@@ -24,44 +25,52 @@ import Tabs from '@eduzz/houston-ui/Tabs';
 Não há necessidade de controlar o estado da aba ativa.
 
 <Playground>
-  <Tabs>
-    <Tabs.Content label='Título 1'>
-      <div>Conteúdo 1</div>
-    </Tabs.Content>
-    <Tabs.Content label='Título 2'>
-      <div>Conteúdo 2</div>
-    </Tabs.Content>
-  </Tabs>
+  {() => {
+    const { Tab } = Tabs;
+    return (
+      <Tabs>
+        <Tab label='Label 1'>
+          Conteúdo 1
+          <Image src='https://picsum.photos/301' />
+        </Tab>
+        <Tab label='Label 2'>
+          Conteúdo 2
+          <Image src='https://picsum.photos/300' />
+        </Tab>
+      </Tabs>
+    );
+  }}
 </Playground>
 
 ### Valor controlado
 
 <Playground>
   {() => {
+    const { Tab } = Tabs;
     const [tab, setTab] = React.useState(0);
     return (
       <Tabs value={tab} onChange={value => setTab(value)}>
-        <Tabs.Content label='Título 1'>
+        <Tab label='Label 1' icon={<FaceHappyOutline />}>
           <div>Conteúdo 1</div>
-        </Tabs.Content>
-        <Tabs.Content label='Título 2'>
+        </Tab>
+        <Tab label='Label 2' icon={<FaceHappyOutline />}>
           <div>Conteúdo 2</div>
-        </Tabs.Content>
+        </Tab>
       </Tabs>
     );
   }}
 </Playground>
 
-### Desabilitado
+<!-- ### Desabilitado
 
 <Playground>
   <Tabs>
-    <Tabs.Content label='Título 1'>
+    <Tab label='Título 1'>
       <div>Conteúdo 1</div>
-    </Tabs.Content>
-    <Tabs.Content label='Desabilitado 2' disabled>
+    </Tab>
+    <Tab label='Desabilitado 2' disabled>
       <div>Conteúdo 2</div>
-    </Tabs.Content>
+    </Tab>
   </Tabs>
 </Playground>
 
@@ -69,14 +78,14 @@ Não há necessidade de controlar o estado da aba ativa.
 
 <Playground>
   <Tabs>
-    <Tabs.Content label='Título 1' icon={<InsertEmoticonIcon />}>
+    <Tab label='Título 1' icon={<InsertEmoticonIcon />}>
       <div>Conteúdo 1</div>
-    </Tabs.Content>
-    <Tabs.Content label='Título 2' icon={<InsertEmoticonIcon />}>
+    </Tab>
+    <Tab label='Título 2' icon={<InsertEmoticonIcon />}>
       <div>Conteúdo 2</div>
-    </Tabs.Content>
+    </Tab>
   </Tabs>
-</Playground>
+</Playground> -->
 
 #### Tabs props
 
@@ -85,7 +94,7 @@ Não há necessidade de controlar o estado da aba ativa.
 | value    | `number`                  | `false`  | -       | Índice da aba.      |
 | onChange | `(value: number) => void` | `false`  | -       | Recebe novo índice. |
 
-#### Tabs.Content props
+#### Tab props
 
 | prop            | type        | required | default |
 | --------------- | ----------- | -------- | ------- |

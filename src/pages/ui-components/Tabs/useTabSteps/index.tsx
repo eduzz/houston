@@ -1,16 +1,16 @@
 import * as React from 'react';
 
 const useTabSteps = () => {
-  const tabsRefs = React.useRef<any>([]);
+  const tabsRefs = React.useRef<any[]>([]);
   const [steps, setSteps] = React.useState<number[]>([]);
   const [widths, setWidths] = React.useState<number[]>([]);
 
-  React.useEffect(() => {
-    const widths = tabsRefs?.current.map((tab: HTMLDivElement) => tab.offsetWidth);
+  React.useLayoutEffect(() => {
+    const widths = tabsRefs?.current.map((tab: HTMLDivElement) => tab.getBoundingClientRect().width);
 
     let sum = 0;
-    const steps = widths.map((width: any) => {
-      sum = sum + width - 2; // -2 because of the negative margin
+    const steps = widths.map((width: number) => {
+      sum = sum + width;
       return sum;
     });
 

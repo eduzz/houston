@@ -90,6 +90,7 @@ const TypographyWrapper = styled(Typography)`
   ${({ theme, size = 'xs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
     return css`
       margin: 0;
+      font-family: ${theme.font.family.base};
       font-size: ${theme.font.size[size]};
       font-weight: ${theme.font.weight[weight]};
       line-height: ${theme.line.height[lineHeight]};
