@@ -66,17 +66,17 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
     <>
       <div ref={mainRef} {...rest}>
         {isOverflowed && (
-          <IconButton className='__scrollButton' size='md' onClick={handleScrollLeft}>
+          <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScrollLeft}>
             <ChevronLeft />
           </IconButton>
         )}
-        <div ref={parentRef} className='__parent'>
-          <div ref={labelsRef} className='__labels'>
+        <div ref={parentRef} className='hst-tabs__parent'>
+          <div ref={labelsRef} className='hst-tabs__labels'>
             {childrenProps?.map(({ label, icon, disabled }, index) => (
               <div
                 ref={(el: HTMLDivElement) => (tabsRefs.current[index] = el)}
                 tabIndex={0}
-                className={cx('__tab', { '--disabled': disabled })}
+                className={cx('hst-tabs__tab', { '--disabled': disabled })}
                 onClick={handleTabClick(index)}
                 key={label + index}
               >
@@ -86,7 +86,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
             ))}
           </div>
           <span
-            className='__slider'
+            className='hst-tabs__slider'
             style={{
               width: widths[activeTab],
               left: steps[activeTab]
@@ -95,7 +95,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
         </div>
 
         {isOverflowed && (
-          <IconButton className='__scrollButton' size='md' onClick={handleScrollRight}>
+          <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScrollRight}>
             <ChevronRight />
           </IconButton>
         )}
@@ -109,11 +109,11 @@ const NEGATIVE_SPACING_IN_PX = -2;
 const MIN_HEIGHT_IN_PX = 48;
 
 export default React.memo(
-  styled(Tabs, { label: 'houston-tabs' })(({ theme }) => {
+  styled(Tabs, { label: 'hst-tabs' })(({ theme }) => {
     return css`
       display: flex;
 
-      .__parent {
+      .hst-tabs__parent {
         position: relative;
         overflow-x: hidden;
         overflow-y: hidden;
@@ -122,18 +122,18 @@ export default React.memo(
         cursor: pointer;
       }
 
-      .__labels {
+      .hst-tabs__labels {
         display: flex;
         width: 100%;
         position: relative;
       }
 
-      .__scrollButton {
+      .hst-tabs__scrollButton {
         padding: ${theme.spacing.nano};
         margin: ${theme.spacing.nano};
       }
 
-      .__slider {
+      .hst-tabs__slider {
         position: absolute;
         transition: all 0.2s;
         border: solid;
@@ -141,7 +141,7 @@ export default React.memo(
         border-width: ${theme.border.width.xs};
       }
 
-      .__tab {
+      .hst-tabs__tab {
         display: flex;
         align-items: center;
         line-height: 0;
