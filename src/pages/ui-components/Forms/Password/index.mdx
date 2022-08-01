@@ -23,7 +23,7 @@ import PasswordInput from '@eduzz/houston-ui/Forms/Password';
   {() => {
     const [password, setPassword] = React.useState('');
     return (
-      <>
+      <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', gap: 16 }}>
         <PasswordInput label='Senha' value={password} onChange={setPassword} />
         <PasswordInput label='Senha' placeholder='Digite sua senha' value={password} onChange={setPassword} />
         <PasswordInput label='Senha (Desabilitado)' disabled value='123123' />
@@ -34,7 +34,7 @@ import PasswordInput from '@eduzz/houston-ui/Forms/Password';
           onChange={setPassword}
         />
         <PasswordInput label='Senha' errorMessage='Campo obrigatório' value={password} onChange={setPassword} />
-      </>
+      </div>
     );
   }}
 </Playground>

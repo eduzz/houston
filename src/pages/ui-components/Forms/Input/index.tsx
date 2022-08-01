@@ -51,7 +51,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onKeyPress,
       helperText,
       disabled = false,
-      disableMargin,
       type,
       ...props
     },
@@ -109,7 +108,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         helperText={helperText}
         disabled={disabled}
         hidden={type === 'hidden'}
-        disableMargin={disableMargin}
         className={cx(className, {
           '--multiline': multiline,
           [`--multiline-rows-${rows ?? 4}`]: multiline,

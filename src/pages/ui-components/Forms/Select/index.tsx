@@ -57,7 +57,6 @@ const SelectField = ({
   fullWidth,
   helperText,
   className,
-  disableMargin,
   emptyOption,
   options: optionsProps,
   children
@@ -152,7 +151,6 @@ const SelectField = ({
         startAdornment={startAdornment}
         helperText={helperText}
         disabled={disabled}
-        disableMargin={disableMargin}
         onClickContainer={!disabled && !loading ? openPopover : undefined}
       >
         <div id={id} className='__text'>
