@@ -3,7 +3,6 @@ import * as React from 'react';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import { useChildrenProps, useChildrenComponent } from '../../hooks/useChildrenProps';
-import nestedComponent from '../../utils/nestedComponent';
 import Tab from '../Tab';
 import useTabSteps from '../useTabSteps';
 
@@ -64,8 +63,9 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
 
 const MIN_HEIGHT_IN_PX = 48;
 const MIN_WIDTH_IN_PX = 80;
+const NEGATIVE_SPACING_IN_PX = -2;
 
-const TabsVerticalWrapper = React.memo(
+export default React.memo(
   styled(Tabs, { label: 'hst-tabs-vertical' })(({ theme }) => {
     return css`
       display: flex;
@@ -75,11 +75,6 @@ const TabsVerticalWrapper = React.memo(
         margin-right: ${theme.spacing.xxxs};
         flex-direction: column;
         position: relative;
-      }
-
-      .hst-tabs-vertical__scrollButton {
-        padding: ${theme.spacing.nano};
-        margin: ${theme.spacing.nano};
       }
 
       .hst-tabs-vertical__slider {
@@ -106,6 +101,7 @@ const TabsVerticalWrapper = React.memo(
         border-radius: ${theme.border.radius.xs} 0 0 ${theme.border.radius.xs};
         transition-duration: 0.5s;
         transition-property: background-color, color;
+        margin-right: ${NEGATIVE_SPACING_IN_PX}px;
         cursor: pointer;
 
         :hover {
@@ -114,6 +110,7 @@ const TabsVerticalWrapper = React.memo(
 
         :focus {
           outline: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
+          outline-offset: ${NEGATIVE_SPACING_IN_PX}px;
         }
 
         &.--hst-tabs-vertical-disabled {
@@ -125,7 +122,3 @@ const TabsVerticalWrapper = React.memo(
     `;
   })
 );
-
-export default nestedComponent(React.memo(TabsVerticalWrapper), {
-  Tab
-});

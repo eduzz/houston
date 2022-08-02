@@ -8,6 +8,7 @@ import nestedComponent from '../utils/nestedComponent';
 import { ChevronLeft, ChevronRight } from './Icons';
 import Tab from './Tab';
 import useTabSteps from './useTabSteps';
+import Vertical from './Vertical';
 
 export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   children: React.ReactNode;
@@ -184,5 +185,6 @@ const TabsWrapper = React.memo(
 );
 
 export default nestedComponent(TabsWrapper, {
-  Tab
+  Tab,
+  Vertical
 });
