@@ -18,7 +18,6 @@ export interface FieldsetProps extends StyledProp {
   errorMessage?: string;
   helperText?: React.ReactNode;
   hidden?: boolean;
-  disableMargin?: boolean;
 }
 
 interface InternalFieldsetProps extends FieldsetProps {
@@ -46,7 +45,6 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, InternalFieldsetProps>(
       children,
       containerRef,
       onClickContainer,
-      disableMargin,
       hidden
     },
     ref
@@ -66,7 +64,6 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, InternalFieldsetProps>(
           '--loading': loading,
           '--focused': focused,
           '--clickable': !!onClickContainer,
-          '--no-margin': disableMargin,
           [`--size-${size ?? 'default'}`]: true
         })}
       >
@@ -93,11 +90,6 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
     transition: 0.3s;
     display: inline-block;
     vertical-align: top;
-
-    &:not(.--no-margin) {
-      margin-top: ${theme.spacing.quarck};
-      margin-bottom: ${theme.spacing.xxxs};
-    }
 
     & > .__container {
       display: flex;
