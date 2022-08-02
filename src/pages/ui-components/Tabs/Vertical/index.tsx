@@ -98,7 +98,6 @@ export default React.memo(
         font-weight: ${theme.font.weight.semibold};
         line-height: ${theme.line.height.default};
         border-right: ${theme.border.width.xs} solid rgba(0, 0, 0, 0.12);
-        border-radius: ${theme.border.radius.xs} 0 0 ${theme.border.radius.xs};
         transition-duration: 0.5s;
         transition-property: background-color, color;
         margin-right: ${NEGATIVE_SPACING_IN_PX}px;
