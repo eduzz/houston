@@ -20,7 +20,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
-  const { tabsRefs, steps, widths } = useTabSteps();
+  const { passRefsToArray, steps, sizes } = useTabSteps('horizontal');
 
   const [activeTab, setActiveTab] = React.useState(value ?? 0);
   const [isOverflowed, setIsOverflowed] = React.useState(false);
@@ -48,13 +48,6 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
       setActiveTab(index);
     },
     [onChange]
-  );
-
-  const passRefsToArray = React.useCallback(
-    (index: number) => (el: HTMLDivElement) => {
-      tabsRefs.current[index] = el;
-    },
-    [tabsRefs]
   );
 
   const handleScrollRight = React.useCallback(() => {
@@ -99,7 +92,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
           <span
             className='hst-tabs__slider'
             style={{
-              width: widths[value ?? activeTab],
+              width: sizes[value ?? activeTab],
               left: steps[value ?? activeTab]
             }}
           />

@@ -1,24 +1,33 @@
 import * as React from 'react';
 
-const useTabSteps = () => {
+const useTabSteps = (type: 'horizontal' | 'vertical') => {
   const tabsRefs = React.useRef<HTMLDivElement[]>([]);
   const [steps, setSteps] = React.useState<number[]>([]);
-  const [widths, setWidths] = React.useState<number[]>([]);
+  const [sizes, setSizes] = React.useState<number[]>([]);
+
+  const passRefsToArray = React.useCallback(
+    (index: number) => (el: HTMLDivElement) => {
+      tabsRefs.current[index] = el;
+    },
+    [tabsRefs]
+  );
 
   React.useLayoutEffect(() => {
-    const widths = tabsRefs?.current?.map((tab: HTMLDivElement) => tab.getBoundingClientRect().width);
+    const sizes = tabsRefs?.current?.map((tab: HTMLDivElement) =>
+      type === 'horizontal' ? tab.getBoundingClientRect().width : tab.getBoundingClientRect().height
+    );
 
     let sum = 0;
-    const steps = widths?.map((width: number) => {
-      sum = sum + width;
+    const steps = sizes?.map((size: number) => {
+      sum = sum + size;
       return sum;
     });
 
-    setWidths(widths);
+    setSizes(sizes);
     setSteps([0, ...(steps ?? [])]);
-  }, []);
+  }, [type]);
 
-  return { tabsRefs, steps, widths };
+  return { passRefsToArray, steps, sizes };
 };
 
 export default useTabSteps;
