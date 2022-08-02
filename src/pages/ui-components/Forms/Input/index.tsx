@@ -19,6 +19,7 @@ interface OwnProperties<V = any> extends FieldsetProps {
   onChange?: (value: V | null | undefined, event: React.ChangeEvent<HTMLInputElement>) => any;
   onBlur?: (value: V | null | undefined, event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => any;
   onPressEnter?: (value: V | null | undefined) => any;
+  nativeChangeEvent?: boolean;
 }
 
 export interface InputProps<V = any>
@@ -52,6 +53,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       helperText,
       disabled = false,
       disableMargin,
+      nativeChangeEvent,
       type,
       ...props
     },
@@ -62,10 +64,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (nativeChangeEvent) {
+          onChange && onChange(e as any, e);
+          return;
+        }
+
         const cleanValue = maskClean(e.currentTarget.value);
         onChange && onChange(cleanValue === '' ? null : cleanValue, e);
       },
-      [onChange, maskClean]
+      [nativeChangeEvent, maskClean, onChange]
     );
 
     const handleFocus = React.useCallback(

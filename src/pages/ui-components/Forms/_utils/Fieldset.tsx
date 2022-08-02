@@ -141,6 +141,7 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
         font-family: ${theme.font.family.base};
         font-weight: ${theme.font.weight.regular};
         line-height: ${theme.line.height.sm};
+        text-align: left;
       }
     }
 
