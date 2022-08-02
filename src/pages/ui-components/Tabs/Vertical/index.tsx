@@ -63,6 +63,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
 };
 
 const MIN_HEIGHT_IN_PX = 48;
+const MIN_WIDTH_IN_PX = 80;
 
 const TabsVerticalWrapper = React.memo(
   styled(Tabs, { label: 'hst-tabs-vertical' })(({ theme }) => {
@@ -95,13 +96,14 @@ const TabsVerticalWrapper = React.memo(
         line-height: 0;
         gap: ${theme.spacing.inline.nano};
         padding: ${theme.spacing.squish.xxs};
-        min-height: ${MIN_HEIGHT_IN_PX}px;
-        min-width: 80px;
+        min-height: ${theme.pxToRem(MIN_HEIGHT_IN_PX)}rem;
+        min-width: ${theme.pxToRem(MIN_WIDTH_IN_PX)}rem;
         font-size: ${theme.font.size.xs};
         font-family: ${theme.font.family.base};
         font-weight: ${theme.font.weight.semibold};
         line-height: ${theme.line.height.default};
         border-right: ${theme.border.width.xs} solid rgba(0, 0, 0, 0.12);
+        border-radius: ${theme.border.radius.xs} 0 0 ${theme.border.radius.xs};
         transition-duration: 0.5s;
         transition-property: background-color, color;
         cursor: pointer;
