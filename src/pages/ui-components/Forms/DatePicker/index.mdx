@@ -4,6 +4,9 @@ name: DatePicker
 
 import { Playground } from 'dokz';
 
+import Column from '../../Grid/Column';
+import Container from '../../Grid/Container';
+import Row from '../../Grid/Row';
 import DatePicker from './';
 
 # Date Picker
@@ -22,29 +25,38 @@ import DatePicker from '@eduzz/houston-ui/Forms/DatePicker';
   {() => {
     const [value, setValue] = React.useState(null);
     return (
-      <>
-        <DatePicker label='Data' value={value} onChange={value => setValue(value)} />
-      </>
+      <Container>
+        <Row>
+          <Column sm={12} md={4}>
+            <DatePicker label='Data' value={value} onChange={value => setValue(value)} />
+          </Column>
+          <Column sm={12} md={4}>
+            <DatePicker label='Data e Hora' mode='datetime' value={value} onChange={value => setValue(value)} />
+          </Column>
+          <Column sm={12} md={4}>
+            <DatePicker label='Hora' mode='time' value={value} onChange={value => setValue(value)} />
+          </Column>
+        </Row>
+      </Container>
     );
   }}
 </Playground>
 
-| prop          | tipo                      | obrigatório | padrão  | descrição                                                                           |
-| ------------- | ------------------------- | ----------- | ------- | ----------------------------------------------------------------------------------- |
-| id            | `string`                  | `false`     | -       | -                                                                                   |
-| name          | `string`                  | `true`      | -       | -                                                                                   |
-| label         | `React.ReactNode`         | `false`     | -       | -                                                                                   |
-| placeholder   | `string`                  | `false`     | -       | -                                                                                   |
-| disabled      | `boolean`                 | `false`     | `false` | -                                                                                   |
-| fullWidth     | `boolean`                 | `false`     | `true`  | -                                                                                   |
-| className     | `string`                  | `false`     | -       | -                                                                                   |
-| helperText    | `string`                  | `false`     | -       | Exibe texto de ajuda abaixo do componente.                                          |
-| errorMessage  | `string`                  | `false`     | -       | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |
-| value         | `Date`                    | `false`     | -       | -                                                                                   |
-| margin        | `none`, `dense`, `normal` | `normal`    | -       | -                                                                                   |
-| required      | `boolean`                 | `false`     | -       | -                                                                                   |
-| displayFormat | `IDateFormat, string`     | `false`     | -       | Formatos suportados pela biblioteca `date-fns`.                                     |
-| defaultView   | `IDatePickerView`         | `false`     | `day`   | -                                                                                   |
-| maxDate       | `Date`                    | `false`     | -       | -                                                                                   |
-| minDate       | `Date`                    | `false`     | -       | -                                                                                   |
-| onChange      | `function`                | `false`     | -       | -                                                                                   |
+| prop          | tipo                 | obrigatório | padrão  | descrição                                                                           |
+| ------------- | -------------------- | ----------- | ------- | ----------------------------------------------------------------------------------- |
+| id            | `string`             | `false`     | -       | -                                                                                   |
+| name          | `string`             | `true`      | -       | -                                                                                   |
+| label         | `string`             | `false`     | -       | -                                                                                   |
+| className     | `string`             | `false`     | -       | -                                                                                   |
+| placeholder   | `string`             | `false`     | -       | -                                                                                   |
+| disabled      | `boolean`            | `false`     | `false` | -                                                                                   |
+| fullWidth     | `boolean`            | `false`     | `true`  | -                                                                                   |
+| loading       | `boolean`            | `false`     | -       | Exibe ícone de carregamento no componente de texto.                                 |
+| helperText    | `string`             | `false`     | -       | Exibe texto de ajuda abaixo do componente de texto.                                 |
+| errorMessage  | `string`             | `false`     | -       | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |
+| value         | `any`                | `false`     | -       | -                                                                                   |
+| onChange      | `function`           | `false`     | -       | Função disparada ao alterar o valor do campo de texto.                              |
+| mode          | `date/datetime/time` | `false`     | `date`  | -                                                                                   |
+| displayFormat | `string`             | `false`     | -       | Formatos suportados pela biblioteca `date-fns`.                                     |
+| maxDate       | `Date`               | `false`     | -       | -                                                                                   |
+| minDate       | `Date`               | `false`     | -       | -                                                                                   |

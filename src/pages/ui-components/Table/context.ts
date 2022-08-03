@@ -1,6 +1,6 @@
 import { createContext } from 'use-context-selector';
 
-import { TableSort, TableAction } from './interface';
+import { TableAction } from './interface';
 
 export interface TableRow {
   key: string;
@@ -22,15 +22,11 @@ export interface TableContextProps {
   loadingText?: React.ReactNode;
   size: TableSize;
 
-  sort?: TableSort;
-  onSort?: (param: TableSort) => void;
-
   columns: string[];
   registerColumn: (isCollapse?: boolean) => () => void;
 
   rows: TableRow[];
   registerRow: (param: Omit<TableRow, 'key'>) => () => void;
-
   rowMapLabel: { [rowKey: string]: string };
 
   onShowAction: (param: TableActionShow) => void;
