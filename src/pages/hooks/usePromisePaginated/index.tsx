@@ -34,7 +34,7 @@ export interface UsePaginatedOptions<P, T> {
   onChangeParams: (params: P, isSubscribed: () => boolean) => Promise<PaginationResponse<T>>;
 }
 
-export interface IUsePromisePaginated<P, R> {
+export interface UsePromisePaginated<P, R> {
   params: P;
   initialParams: Partial<P>;
   isLoading: boolean;
@@ -57,12 +57,12 @@ export interface IUsePromisePaginated<P, R> {
  * Hooks to simplify the use of an observable paginated
  * @param options `UsePaginatedOptions`
  * @param deps React deps
- * @returns `IUsePaginatedPromise`
+ * @returns `UsePaginatedPromise`
  */
 export default function usePromisePaginated<P extends PaginationParams, R>(
   options: UsePaginatedOptions<P, R>,
   deps: React.DependencyList
-): IUsePromisePaginated<P, R> {
+): UsePromisePaginated<P, R> {
   const { infintyScroll, initialParams: initialParamsOption, onChangeParams } = options;
 
   const [data, setData] = React.useState<DataState<R>>({ total: 0, result: [], hasMore: true });
