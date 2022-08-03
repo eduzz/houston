@@ -6,23 +6,25 @@ export interface SwitchProps extends StyledProp, React.HTMLAttributes<HTMLSpanEl
   children?: string;
 }
 
-const Switch = ({ children, className, ...rest }: SwitchProps) => {
+const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({ children, className, ...rest }, ref) => {
   const [selected, setSelected] = React.useState(false);
   return (
-    <div
+    <button
+      ref={ref}
+      role='switch'
       className={className}
       onClick={() => {
         setSelected(prev => !prev);
       }}
     >
       <input className='hst_input' {...rest} />
-      <div className={cx('hst_switch_track', { '--selected': selected })}>
+      <div tabIndex={0} className={cx('hst_switch_track', { '--selected': selected })}>
         <div className={cx('hst_switch_thumb', { '--selected': selected })} />
       </div>
       {children && <label>{children}</label>}
-    </div>
+    </button>
   );
-};
+});
 
 const WIDTH_IN_PX = 40;
 const HEIGHT_IN_PX = 24;
@@ -34,8 +36,18 @@ const THUMB_OFFSET_IN_REM = 1;
 
 export default styled(Switch, { label: 'hst-switch' })(({ theme }) => {
   return css`
+    all: unset;
     display: inline-flex;
-    color: red;
+    align-items: center;
+    gap: ${theme.spacing.inline.nano};
+
+    label {
+      color: ${theme.neutralColor.low.pure};
+      font-family: ${theme.font.family.base};
+      font-size: ${theme.font.size.xs};
+      font-weight: ${theme.font.weight.regular};
+      line-height: ${theme.line.height.default};
+    }
 
     .hst_input {
       display: none;
@@ -44,12 +56,28 @@ export default styled(Switch, { label: 'hst-switch' })(({ theme }) => {
     .hst_switch_track {
       width: ${theme.pxToRem(WIDTH_IN_PX)}rem;
       height: ${theme.pxToRem(HEIGHT_IN_PX)}rem;
-      background-color: ${theme.neutralColor.low.light};
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.light, theme.opacity.level[8])};
       border-radius: ${theme.border.radius.pill};
       display: flex;
       align-items: center;
       position: relative;
-      transition: all 0.2s;
+      transition-duration: 0.5s;
+      transition-property: background-color, color;
+
+      :hover {
+        background-color: ${theme.neutralColor.low.light};
+      }
+
+      :focus {
+        background-color: ${theme.neutralColor.low.light};
+        outline: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
+      }
+
+      &.--disabled {
+        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+        opacity: ${theme.opacity.level[6]};
+        pointer-events: none;
+      }
 
       &.--selected {
         background-color: ${theme.brandColor.primary.pure};
