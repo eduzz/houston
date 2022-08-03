@@ -9,7 +9,7 @@ import locale from 'rc-picker/lib/locale/pt_BR';
 import Calendar from '@eduzz/houston-icons/Calendar';
 import ChevronLeft from '@eduzz/houston-icons/ChevronLeft';
 import ChevronRight from '@eduzz/houston-icons/ChevronRight';
-import styled, { css } from '@eduzz/houston-styles';
+import styled, { css, cx } from '@eduzz/houston-styles';
 import { pxToRem } from '@eduzz/houston-tokens/variables/utils';
 
 import withForm, { WithFormProps } from '../Form/withForm';
@@ -19,13 +19,39 @@ import { DateFormat } from './types';
 const defaultFormats = {
   date: 'dd/MM/yyyy',
   datetime: 'dd/MM/yyyy HH:mm',
-  time: 'HH:mm'
+  datetimeSeconds: 'dd/MM/yyyy HH:mm:ss',
+  time: 'HH:mm',
+  timeSeconds: 'HH:mm:ss'
 } as const;
+
+locale.ok = 'Confirmar';
+
+const originalParse = generateConfig.locale.parse;
+
+generateConfig.locale.parse = (locale, text, formats) => {
+  // fix for https://github.com/date-fns/date-fns/issues/942
+  if (!formats.some(format => text?.length === format.length)) {
+    return null;
+  }
+
+  return originalParse(locale, text, formats);
+};
 
 export interface DatePickerProps
   extends Omit<
       InputProps<Date>,
-      'mask' | 'endAdornment' | 'onChange' | 'onBlur' | 'onError' | 'rows' | 'type' | 'multiline' | 'disableAutoResize'
+      | 'mask'
+      | 'endAdornment'
+      | 'onChange'
+      | 'onBlur'
+      | 'onError'
+      | 'rows'
+      | 'type'
+      | 'multiline'
+      | 'disableAutoResize'
+      | 'endAdornment'
+      | 'startAdornment'
+      | 'onPressEnter'
     >,
     Omit<WithFormProps<HTMLInputElement>, 'value'> {
   /*
@@ -36,6 +62,7 @@ export interface DatePickerProps
   onChange?: (date: Date | null) => void;
   minDate?: Date;
   maxDate?: Date;
+  enableSeconds?: boolean;
 }
 
 const DatePicker = ({
@@ -47,6 +74,7 @@ const DatePicker = ({
   mode = 'date',
   minDate,
   maxDate,
+  enableSeconds,
   ...inputProps
 }: DatePickerProps) => {
   const inputRender = React.useCallback(
@@ -88,18 +116,21 @@ const DatePicker = ({
       generateConfig={generateConfig}
       locale={locale}
       value={value}
+      defaultPickerValue={new Date()}
       className={className}
-      dropdownClassName={className}
-      onChange={onChange}
-      format={displayFormat ?? defaultFormats[mode]}
+      dropdownClassName={cx(className, { '--hst-datepicker-enable-seconds': enableSeconds })}
+      format={displayFormat ?? defaultFormats[`${mode}${enableSeconds ? 'Seconds' : ''}`]}
       inputRender={inputRender}
+      onSelect={s => console.log({ s })}
+      onChange={onChange}
       disabled={disabled}
       prevIcon={<ChevronLeft />}
       nextIcon={<ChevronRight />}
       superPrevIcon={<ChevronLeft />}
       superNextIcon={<ChevronRight />}
       showTime={mode === 'datetime'}
-      disabledDate={disableDate}
+      showSecond={enableSeconds ?? false}
+      disabledDate={mode === 'time' ? undefined : disableDate}
       picker={mode === 'time' ? 'time' : undefined}
     />
   );
@@ -208,12 +239,19 @@ export default withForm(
               background-color: ${theme.brandColor.primary.light};
               color: ${theme.neutralColor.low.dark};
             }
+
+            &.rc-picker-time-panel-cell-inner:hover {
+              background-color: ${theme.neutralColor.high.light};
+            }
           }
 
-          &.rc-picker-cell-selected > .rc-picker-cell-inner,
-          &.rc-picker-time-panel-cell-selected .rc-picker-time-panel-cell-inner {
+          &.rc-picker-cell-selected > .rc-picker-cell-inner {
             background-color: ${theme.brandColor.primary.pure};
             color: ${theme.neutralColor.high.pure};
+          }
+
+          &.rc-picker-time-panel-cell-selected .rc-picker-time-panel-cell-inner {
+            background-color: ${theme.brandColor.secondary.light};
           }
 
           &.rc-picker-cell-disabled {
@@ -283,11 +321,11 @@ export default withForm(
             max-height: 336px;
             display: grid;
             grid-template-rows: ${SIZE_BUTTON} calc(336px - ${SIZE_BUTTON});
-            grid-template-columns: repeat(3, ${HOUR_WIDTH_BUTTON});
+            grid-template-columns: repeat(2, ${HOUR_WIDTH_BUTTON});
 
             &::before {
               grid-row: 1;
-              content: 'Hor Min Seg';
+              content: 'Hor Min';
               word-spacing: 35px;
               text-transform: capitalize;
               font-family: ${theme.font.family.base};
@@ -295,7 +333,7 @@ export default withForm(
               font-weight: ${theme.font.weight.semibold};
               line-height: ${theme.line.height.xs};
               color: ${theme.neutralColor.low.pure};
-              width: calc(${HOUR_WIDTH_BUTTON} * 3);
+              width: calc(${HOUR_WIDTH_BUTTON} * 2);
               height: ${SIZE_BUTTON};
               display: flex;
               justify-content: flex-start;
@@ -338,7 +376,7 @@ export default withForm(
         .rc-picker-footer {
           background: none;
           border-top: ${theme.border.width.xs} solid ${theme.neutralColor.high.medium};
-          padding: ${theme.spacing.nano};
+          padding: ${theme.spacing.xxxs};
 
           .rc-picker-ok button,
           .rc-picker-now-btn {
@@ -346,7 +384,7 @@ export default withForm(
             display: inline-block;
             cursor: pointer;
             text-transform: none;
-            padding: ${theme.spacing.squish.xxs};
+            padding: ${theme.spacing.xxxs};
             border-radius: ${theme.border.radius.xs};
             font-weight: ${theme.font.weight.semibold};
             font-family: ${theme.font.family.base};
@@ -380,6 +418,7 @@ export default withForm(
           .rc-picker-now-btn {
             background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
             color: ${theme.neutralColor.low.pure};
+            display: none;
 
             &:hover:not(:disabled),
             &:focus,
@@ -403,6 +442,16 @@ export default withForm(
             right: 0;
             bottom: 0;
             display: flex;
+          }
+        }
+
+        &.--hst-datepicker-enable-seconds .rc-picker-time-panel .rc-picker-content {
+          grid-template-columns: repeat(3, ${HOUR_WIDTH_BUTTON});
+
+          &::before {
+            grid-row: 1;
+            content: 'Hor Min Seg';
+            width: calc(${HOUR_WIDTH_BUTTON} * 3);
           }
         }
       }
