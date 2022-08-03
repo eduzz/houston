@@ -21,7 +21,7 @@ export interface SidebarProps extends StyledProp {
 }
 
 const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
-  const isMobile = useMediaQuery(breakpoints.down('md'));
+  const isMobile = useMediaQuery(breakpoints.down('lg'));
 
   const hasTopbar = useContextSelector(LayoutContext, context => context.topbar.exists);
   const register = useContextSelector(LayoutContext, context => context.sidebar.register);
@@ -108,7 +108,7 @@ const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
       }
     }
 
-    ${breakpoints.down('md')} {
+    ${breakpoints.down('lg')} {
       width: 0;
 
       & .houston-menu__container {

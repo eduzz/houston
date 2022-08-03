@@ -158,7 +158,7 @@ const Pagination = React.memo<TablePagination>(
                 </Row>
               </Column>
 
-              <Column xs={12} sm='auto'>
+              <Column xs={12} sm='fill'>
                 <div className='__pages'>
                   <PaginationMUI
                     count={Math.ceil(total / perPage)}
