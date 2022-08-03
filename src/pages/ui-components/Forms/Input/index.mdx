@@ -30,7 +30,7 @@ import Input from '@eduzz/houston-ui/Forms/Input';
   {() => {
     const [text, setText] = React.useState('');
     return (
-      <>
+      <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', gap: 16 }}>
         <Input label='Campo de Texto' value={text} onChange={setText} />
         <Input label='Campo com ícone' value={text} startAdornment={<InsertEmoticonIcon />} onChange={setText} />
         <Input label='Campo com ícone' value={text} endAdornment={<InsertEmoticonIcon />} onChange={setText} />
@@ -44,7 +44,7 @@ import Input from '@eduzz/houston-ui/Forms/Input';
           onChange={setText}
         />
         <Input label='Campo de Texto com Erro' errorMessage='Mensagem de erro' value={text} onChange={setText} />
-      </>
+      </div>
     );
   }}
 </Playground>
@@ -55,7 +55,7 @@ import Input from '@eduzz/houston-ui/Forms/Input';
   {() => {
     const [text, setText] = React.useState('');
     return (
-      <>
+      <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', gap: 16 }}>
         <Input multiline label='Campo de Texto' value={text} onChange={setText} />
         <Input
           multiline
@@ -88,7 +88,7 @@ import Input from '@eduzz/houston-ui/Forms/Input';
           value={text}
           onChange={setText}
         />
-      </>
+      </div>
     );
   }}
 </Playground>
@@ -109,7 +109,7 @@ import maskPhone from '@eduzz/houston-forms/masks/phone';
     const [cpf, setCpf] = React.useState('');
     const [cnpj, setCnpj] = React.useState('');
     return (
-      <>
+      <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', gap: 16 }}>
         <Input label='Moeda' name='money' value={money} onChange={setMoney} mask={moneyMask} />
         <Input label='Telefone' name='phone' value={phone} onChange={setPhone} mask={phoneMask} />
         <Input label='CEP' name='zipcode' value={zipcode} onChange={setZipcode} mask={zipcodeMask} />
@@ -122,7 +122,7 @@ import maskPhone from '@eduzz/houston-forms/masks/phone';
         />
         <Input label='CNPJ' name='cnpj' value={cnpj} onChange={setCnpj} mask={cnpjMask} />
         <Input label='CPF' name='cpf' value={cpf} onChange={setCpf} mask={cpfMask} />
-      </>
+      </div>
     );
   }}
 </Playground>
