@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-hooks",
   "description": "Eduzz Houston Hooks",
-  "version": "0.57.1",
+  "version": "0.58.0-beta.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -16,7 +16,7 @@
     "url": "https://github.com/eduzz/houston/issues"
   },
   "dependencies": {
-    "@eduzz/houston-core": "0.57.1",
+    "@eduzz/houston-core": "0.58.0-beta.0",
     "lodash": "^4"
   },
   "devDependencies": {
