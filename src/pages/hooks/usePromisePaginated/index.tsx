@@ -10,10 +10,8 @@ export interface PaginationParams {
   [key: string]: any;
   page: number;
   perPage: number;
-  sort?: {
-    field: string;
-    direction: 'asc' | 'desc';
-  };
+  sortField?: string;
+  sortDirection?: 'asc' | 'desc';
 }
 
 export interface PaginationResponse<T> {
@@ -52,7 +50,7 @@ export interface IUsePromisePaginated<P, R> {
   /** Sintax sugar for `mergeParams` to change perPage  */
   handleChangePerPage: (perPage: number) => void;
   /** Sintax sugar for `mergeParams` to change the sort  */
-  handleSort: (sort: PaginationParams['sort']) => void;
+  handleSort: (sortField: string, sortDirection: 'asc' | 'desc') => void;
 }
 
 /**
@@ -145,7 +143,8 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
   const handleChangePage = React.useCallback((page: number) => mergeParams({ page } as P), [mergeParams]);
   const handleChangePerPage = React.useCallback((perPage: number) => mergeParams({ perPage } as P), [mergeParams]);
   const handleSort = React.useCallback(
-    (sort: PaginationParams['sort']) => mergeParams({ sort, page: initialParams.page } as P),
+    (sortField: string, sortDirection: 'asc' | 'desc') =>
+      mergeParams({ sortField, sortDirection, page: initialParams.page } as P),
     [initialParams.page, mergeParams]
   );
 

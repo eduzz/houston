@@ -23,25 +23,7 @@ export const salesService = (() => {
     price: faker.commerce.price()
   }));
   return {
-    list: params => {
-      return of(data).pipe(
-        map(data => {
-          let result = data;
-          if (params.sort) {
-            result = result.sort((a, b) => {
-              if (a[params.sort.field] > b[params.sort.field]) return params.sort.direction === 'asc' ? 1 : -1;
-              if (a[params.sort.field] == b[params.sort.field]) return 0;
-              return params.sort.direction === 'asc' ? -1 : 1;
-            });
-          }
-          const start = (params.page - 1) * params.perPage;
-          return result.slice(start, start + params.perPage);
-        }),
-        delay(500),
-        map(result => ({ total: data.length, result }))
-      );
-    },
-    listAsync: async params => {
+    list: async params => {
       await new Promise(resolve => setTimeout(() => resolve(), 500));
       let result = data;
       if (params.sort) {
@@ -54,12 +36,10 @@ export const salesService = (() => {
       const start = (params.page - 1) * params.perPage;
       return { total: data.length, result: result.slice(start, start + params.perPage) };
     },
-    listWithError: () =>
-      of(true).pipe(
-        map(() => {
-          throw new Error('Opá!');
-        })
-      )
+    listWithError: async () => {
+      await new Promise(resolve => setTimeout(() => resolve(), 500));
+      throw new Error('Opá!');
+    }
   };
 })();
 
@@ -78,10 +58,7 @@ import Table from '@eduzz/houston-ui/Table';
 
 <Playground>
   {() => {
-    const [sort, setSort] = useState(null);
-    const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState(10);
-    const [rows, setRows] = useState(() => {
+    const [rows] = useState(() => {
       return new Array(5).fill('a').map((_, index) => ({
         id: index + 1,
         name: `${faker.name.firstName()} ${faker.name.lastName()}`,
@@ -89,24 +66,12 @@ import Table from '@eduzz/houston-ui/Table';
         price: faker.commerce.price()
       }));
     });
-    const onSort = useCallback(data => {
-      setSort(data);
-      setRows(rows => {
-        return rows.sort((a, b) => {
-          if (a[data.field] > b[data.field]) return data.direction === 'asc' ? 1 : -1;
-          if (a[data.field] == b[data.field]) return 0;
-          return data.direction === 'asc' ? -1 : 1;
-        });
-      });
-    }, []);
     return (
-      <Table stripedRows sort={sort} onSort={onSort}>
+      <Table stripedRows>
         <Table.Header>
-          <Table.Column width={50} sortableField='id'>
-            #
-          </Table.Column>
-          <Table.Column sortableField='name'>Nome</Table.Column>
-          <Table.Column sortableField='email'>Email</Table.Column>
+          <Table.Column width={50}>#</Table.Column>
+          <Table.Column>Nome</Table.Column>
+          <Table.Column>Email</Table.Column>
           <Table.Column align='right'>Valor</Table.Column>
         </Table.Header>
         <Table.Body>
@@ -122,23 +87,15 @@ import Table from '@eduzz/houston-ui/Table';
             </Table.Row>
           ))}
         </Table.Body>
-        <Table.Pagination
-          page={page}
-          perPage={perPage}
-          total={100}
-          onChangePage={setPage}
-          onChangePerPage={setPerPage}
-        />
       </Table>
     );
   }}
 </Playground>
 
-### Collapse e Actions
+### Paginação
 
 <Playground>
   {() => {
-    const [sort, setSort] = useState(null);
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(10);
     const [rows, setRows] = useState(() => {
@@ -149,118 +106,15 @@ import Table from '@eduzz/houston-ui/Table';
         price: faker.commerce.price()
       }));
     });
-    const onSort = useCallback(data => {
-      setSort(data);
-      setRows(rows => {
-        return rows.sort((a, b) => {
-          if (a[data.field] > b[data.field]) return data.direction === 'asc' ? 1 : -1;
-          if (a[data.field] == b[data.field]) return 0;
-          return data.direction === 'asc' ? -1 : 1;
-        });
-      });
-    }, []);
     const onEdit = useCallback((data, index) => {
       alert(`Você recebera o data e o index:\n${JSON.stringify({ data, index }, null, 2)}`);
     }, []);
     return (
-      <Table stripedRows sort={sort} onSort={onSort}>
+      <Table stripedRows>
         <Table.Header>
-          <Table.Column width={50} sortableField='id'>
-            #
-          </Table.Column>
-          <Table.Column sortableField='name'>Nome</Table.Column>
-          <Table.Column sortableField='email'>Email</Table.Column>
-          <Table.Column align='right'>Valor</Table.Column>
-        </Table.Header>
-        <Table.Body>
-          <Table.Empty count={rows.length} />
-          {rows.map((row, index) => (
-            <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
-              <Table.ActionLoading show={index === 1} />
-              <Table.Action onClick={onEdit}>Editar</Table.Action>
-              <Table.Action onClick={onEdit}>Remover</Table.Action>
-              <Table.Collapse>
-                <Table stripedRows sort={sort} onSort={onSort}>
-                  <Table.Header>
-                    <Table.Column width={50} sortableField='id'>
-                      #
-                    </Table.Column>
-                    <Table.Column sortableField='name'>Nome</Table.Column>
-                    <Table.Column sortableField='email'>Email</Table.Column>
-                    <Table.Column align='right'>Valor</Table.Column>
-                  </Table.Header>
-                  <Table.Body>
-                    <Table.Empty count={rows.length} />
-                    {rows.map((row, index) => (
-                      <Table.Row data={row} index={index} key={row.id}>
-                        <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-                        <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-                        <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-                        <Table.Cell mobileSize={6} align='right'>
-                          {row.price}
-                        </Table.Cell>
-                      </Table.Row>
-                    ))}
-                  </Table.Body>
-                </Table>
-              </Table.Collapse>
-            </Table.Row>
-          ))}
-        </Table.Body>
-        <Table.Pagination
-          page={page}
-          perPage={perPage}
-          total={100}
-          onChangePage={setPage}
-          onChangePerPage={setPerPage}
-        />
-      </Table>
-    );
-  }}
-</Playground>
-
-### Responsivo
-
-<Playground>
-  {() => {
-    const [sort, setSort] = useState(null);
-    const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState(10);
-    const [rows, setRows] = useState(() => {
-      return new Array(5).fill('a').map((_, index) => ({
-        id: index + 1,
-        name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-        email: faker.internet.email().toLowerCase(),
-        price: faker.commerce.price()
-      }));
-    });
-    const onSort = useCallback(data => {
-      setSort(data);
-      setRows(rows => {
-        return rows.sort((a, b) => {
-          if (a[data.field] > b[data.field]) return data.direction === 'asc' ? 1 : -1;
-          if (a[data.field] == b[data.field]) return 0;
-          return data.direction === 'asc' ? -1 : 1;
-        });
-      });
-    }, []);
-    const onEdit = useCallback((data, index) => {
-      alert(`Você recebera o data e o index:\n${JSON.stringify({ data, index }, null, 2)}`);
-    }, []);
-    return (
-      <Table stripedRows mobileWidth={true} sort={sort} onSort={onSort}>
-        <Table.Header>
-          <Table.Column width={50} sortableField='id'>
-            #
-          </Table.Column>
-          <Table.Column sortableField='name'>Nome</Table.Column>
-          <Table.Column sortableField='email'>Email</Table.Column>
+          <Table.Column width={50}>#</Table.Column>
+          <Table.Column>Nome</Table.Column>
+          <Table.Column>Email</Table.Column>
           <Table.Column align='right'>Valor</Table.Column>
         </Table.Header>
         <Table.Body>
@@ -285,6 +139,116 @@ import Table from '@eduzz/houston-ui/Table';
           onChangePage={setPage}
           onChangePerPage={setPerPage}
         />
+      </Table>
+    );
+  }}
+</Playground>
+
+### Collapse e Actions
+
+<Playground>
+  {() => {
+    const [rows, setRows] = useState(() => {
+      return new Array(5).fill('a').map((_, index) => ({
+        id: index + 1,
+        name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+        email: faker.internet.email().toLowerCase(),
+        price: faker.commerce.price()
+      }));
+    });
+    const onEdit = useCallback((data, index) => {
+      alert(`Você recebera o data e o index:\n${JSON.stringify({ data, index }, null, 2)}`);
+    }, []);
+    return (
+      <Table stripedRows>
+        <Table.Header>
+          <Table.Column width={50}>#</Table.Column>
+          <Table.Column>Nome</Table.Column>
+          <Table.Column>Email</Table.Column>
+          <Table.Column align='right'>Valor</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          <Table.Empty count={rows.length} />
+          {rows.map((row, index) => (
+            <Table.Row data={row} index={index} key={row.id}>
+              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
+              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
+              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
+              <Table.Cell mobileSize={6} align='right'>
+                {row.price}
+              </Table.Cell>
+              <Table.ActionLoading show={index === 1} />
+              <Table.Action onClick={onEdit}>Editar</Table.Action>
+              <Table.Action onClick={onEdit}>Remover</Table.Action>
+              <Table.Collapse>
+                <Table stripedRows>
+                  <Table.Header>
+                    <Table.Column width={50}>#</Table.Column>
+                    <Table.Column>Nome</Table.Column>
+                    <Table.Column>Email</Table.Column>
+                    <Table.Column align='right'>Valor</Table.Column>
+                  </Table.Header>
+                  <Table.Body>
+                    <Table.Empty count={rows.length} />
+                    {rows.map((row, index) => (
+                      <Table.Row data={row} index={index} key={row.id}>
+                        <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
+                        <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
+                        <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
+                        <Table.Cell mobileSize={6} align='right'>
+                          {row.price}
+                        </Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </Table.Body>
+                </Table>
+              </Table.Collapse>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    );
+  }}
+</Playground>
+
+### Responsivo
+
+<Playground>
+  {() => {
+    const [rows, setRows] = useState(() => {
+      return new Array(5).fill('a').map((_, index) => ({
+        id: index + 1,
+        name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+        email: faker.internet.email().toLowerCase(),
+        price: faker.commerce.price()
+      }));
+    });
+    const onEdit = useCallback((data, index) => {
+      alert(`Você recebera o data e o index:\n${JSON.stringify({ data, index }, null, 2)}`);
+    }, []);
+    return (
+      <Table stripedRows mobileWidth={true}>
+        <Table.Header>
+          <Table.Column width={50}>#</Table.Column>
+          <Table.Column>Nome</Table.Column>
+          <Table.Column>Email</Table.Column>
+          <Table.Column align='right'>Valor</Table.Column>
+        </Table.Header>
+        <Table.Body>
+          <Table.Empty count={rows.length} />
+          {rows.map((row, index) => (
+            <Table.Row data={row} index={index} key={row.id}>
+              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
+              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
+              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
+              <Table.Cell mobileSize={6} align='right'>
+                {row.price}
+              </Table.Cell>
+              <Table.Action onClick={onEdit}>Editar</Table.Action>
+              <Table.Collapse>Olá!</Table.Collapse>
+            </Table.Row>
+          ))}
+        </Table.Body>
       </Table>
     );
   }}
@@ -319,58 +283,6 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
       usePromisePaginated(
         {
           initialParams: { perPage: 5 },
-          onChangeParams: params => salesService.listAsync(params)
-        },
-        []
-      );
-    return (
-      <>
-        <Button onClick={refresh}>Reload</Button>
-        <Table stripedRows sort={params.sort} onSort={handleSort} loading={isLoading}>
-          <Table.Header>
-            <Table.Column width={50} sortableField='id'>
-              #
-            </Table.Column>
-            <Table.Column sortableField='name'>Nome</Table.Column>
-            <Table.Column sortableField='email'>Email</Table.Column>
-            <Table.Column align='right'>Valor</Table.Column>
-          </Table.Header>
-          <Table.Body>
-            <Table.Empty count={result.length} />
-            {result.map((row, index) => (
-              <Table.Row data={row} index={index} key={row.id}>
-                <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-                <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-                <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-                <Table.Cell mobileSize={6} align='right'>
-                  {row.price}
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-          <Table.Pagination
-            page={params.page}
-            perPage={params.perPage}
-            total={total}
-            onChangePage={handleChangePage}
-            onChangePerPage={handleChangePerPage}
-          />
-        </Table>
-      </>
-    );
-  }}
-</Playground>
-
-### Usando Observable
-
-Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@eduzz/houston-hooks**:
-
-<Playground>
-  {() => {
-    const { params, handleChangePage, handleChangePerPage, handleSort, result, total, isLoading, refresh } =
-      useObservablePaginated(
-        {
-          initialParams: { perPage: 5 },
           onChangeParams: params => salesService.list(params)
         },
         []
@@ -378,8 +290,8 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
     return (
       <>
         <Button onClick={refresh}>Reload</Button>
-        <Table stripedRows sort={params.sort} onSort={handleSort} loading={isLoading}>
-          <Table.Header>
+        <Table stripedRows loading={isLoading}>
+          <Table.Header sortField={params.sortField} sortDirection={params.sortDirection} onSort={handleSort}>
             <Table.Column width={50} sortableField='id'>
               #
             </Table.Column>
@@ -419,7 +331,7 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 
 <Playground>
   {() => {
-    const { error, isLoading, result, retry } = useObservablePaginated(
+    const { error, isLoading, result, refresh } = usePromisePaginated(
       { onChangeParams: () => salesService.listWithError() },
       []
     );
@@ -427,17 +339,15 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
     return (
       <Table stripedRows loading={isLoading}>
         <Table.Header>
-          <Table.Column width={50} sortableField='id'>
-            #
-          </Table.Column>
-          <Table.Column sortableField='name'>Nome</Table.Column>
-          <Table.Column sortableField='email'>Email</Table.Column>
+          <Table.Column width={50}>#</Table.Column>
+          <Table.Column>Nome</Table.Column>
+          <Table.Column>Email</Table.Column>
           <Table.Column align='right'>Valor</Table.Column>
         </Table.Header>
         <Table.Body>
           <Table.Error error={error} />
           <Table.Error error={error} formater={errorFormater} />
-          <Table.Error error={error} formater={errorFormater} onRetry={retry} />
+          <Table.Error error={error} formater={errorFormater} onRetry={refresh} />
           {result.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
               <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
