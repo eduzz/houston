@@ -43,23 +43,24 @@ const TagWrapper = styled(Tag, { label: 'houston-tag' })(({ theme }) => {
     display: inline-flex;
     align-items: center;
     gap: ${theme.spacing.inline.nano};
-    outline: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
+    box-shadow: 0 0 0 ${theme.border.width.xs} ${theme.neutralColor.low.pure};
     border-radius: ${theme.border.radius.pill};
+    box-sizing: border-box;
     padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.nano};
     line-height: 0;
     transition-duration: 0.5s;
     transition-property: background-color, color;
     min-height: ${theme.pxToRem(MIN_HEIGHT_IN_PX)}rem;
+    outline: none;
 
     :hover,
     &.--active {
       background-color: ${theme.brandColor.primary.pure};
       color: ${theme.neutralColor.high.pure};
-      outline: none;
     }
 
     :focus {
-      outline: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
+      box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
     }
 
     &.--disabled {
