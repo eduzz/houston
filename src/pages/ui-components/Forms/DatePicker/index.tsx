@@ -214,9 +214,13 @@ export default withForm(
                 border-color: ${theme.neutralColor.high.medium};
               }
 
-              &:not(.rc-picker-cell-in-view) > .rc-picker-cell-inner {
-                color: ${theme.neutralColor.low.light};
-                background-color: ${theme.neutralColor.high.light};
+              &:not(.rc-picker-cell-in-view) {
+                pointer-events: none;
+
+                & > .rc-picker-cell-inner {
+                  color: ${theme.neutralColor.low.light};
+                  background-color: ${theme.neutralColor.high.light};
+                }
               }
             }
           }
@@ -261,10 +265,10 @@ export default withForm(
 
           &.rc-picker-cell-disabled {
             opacity: 1;
-            pointer-events: none;
 
             .rc-picker-cell-inner,
             .rc-picker-time-panel-cell-inner {
+              cursor: not-allowed;
               color: ${theme.neutralColor.low.light};
               background-color: ${theme.neutralColor.high.light};
             }
@@ -278,6 +282,12 @@ export default withForm(
         .rc-picker-month-panel,
         .rc-picker-year-panel,
         .rc-picker-decade-panel {
+          min-width: 336px;
+
+          .rc-picker-body {
+            border-radius: 0;
+          }
+
           .rc-picker-header {
             .rc-picker-header-view .rc-picker-year-btn {
               text-align: center;
@@ -288,6 +298,10 @@ export default withForm(
               display: block;
             }
           }
+        }
+
+        .rc-picker-panel-container .rc-picker-body {
+          border-radius: 0;
         }
 
         .rc-picker-panel .rc-picker-header button,
@@ -376,6 +390,18 @@ export default withForm(
               }
             }
           }
+
+          & + .rc-picker-footer .rc-picker-ok {
+            width: 100%;
+
+            button {
+              width: 100%;
+            }
+          }
+        }
+
+        .rc-picker-datetime-panel + .rc-picker-footer .rc-picker-now .rc-picker-now-btn {
+          display: block;
         }
 
         .rc-picker-footer {
@@ -421,9 +447,10 @@ export default withForm(
           }
 
           .rc-picker-now-btn {
-            background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
+            background-color: transparent;
+            border: ${theme.border.width.xs} solid;
+            border-color: ${theme.neutralColor.low.pure};
             color: ${theme.neutralColor.low.pure};
-            display: none;
 
             &:hover:not(:disabled),
             &:focus,
