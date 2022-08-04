@@ -38,7 +38,7 @@ function ThemeProvider({
   const [muiTheme] = React.useState(() => generateTheme(theme));
 
   React.useEffect(() => {
-    if (!disabledFontBase) {
+    if (disabledFontBase) {
       return undefined;
     }
 
