@@ -29,6 +29,7 @@
     "@mui/lab": "^5.0.0-alpha.88",
     "@mui/material": "^5",
     "@popperjs/core": "^2.11.5",
+    "rc-picker": "2.6.10",
     "date-fns": "^2",
     "lodash": "^4",
     "react-colorful": "^5",
