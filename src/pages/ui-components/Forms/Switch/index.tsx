@@ -6,46 +6,46 @@ import withForm, { WithFormProps } from '../Form/withForm';
 
 export interface SwitchProps
   extends StyledProp,
-    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'>,
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange' | 'value'>,
     WithFormProps<never> {
   children?: string;
   onChange?: (checked: boolean) => void;
-  checked?: boolean;
+  value?: boolean;
   disabled?: boolean;
 }
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ children, className, onChange, disabled, checked: checkedProp, value, ...rest }, ref) => {
+  ({ children, className, onChange, disabled, value, id: idProp, ...rest }, ref) => {
     const handleChange = React.useCallback(() => {
-      if (disabled) return;
-
-      if (checkedProp !== undefined) {
-        onChange && onChange(!checkedProp);
-        return;
-      }
       onChange && onChange(!value);
-    }, [onChange, value, checkedProp, disabled]);
+    }, [onChange, value]);
+
+    const [id] = React.useState(idProp ?? `hst-switch-id-${Math.floor(Math.random() * 1000)}`);
 
     return (
-      <button
-        role='switch'
-        className={cx(className, { '--disabled': disabled })}
-        onClick={handleChange}
-        disabled={disabled}
-        aria-disabled={disabled}
-        ref={ref}
-        {...rest}
-      >
-        <div
-          tabIndex={0}
-          className={cx('hst_switch_track', {
-            '--checked': checkedProp ?? (value as unknown as boolean)
-          })}
+      <div className={cx(className, { '--disabled': disabled })}>
+        <button
+          id={id}
+          role='switch'
+          className='hst-switch__button'
+          onClick={handleChange}
+          disabled={disabled}
+          aria-disabled={disabled}
+          aria-checked={value}
+          ref={ref}
+          {...rest}
         >
-          <span className={cx('hst_switch_thumb', { '--checked': checkedProp ?? (value as unknown as boolean) })} />
-        </div>
-        {children && <label>{children}</label>}
-      </button>
+          <div
+            tabIndex={0}
+            className={cx('hst-switch__track', {
+              '--checked': value
+            })}
+          >
+            <span className={cx('hst-switch__thumb', { '--checked': value })} />
+          </div>
+        </button>
+        {children && <label htmlFor={id}>{children}</label>}
+      </div>
     );
   }
 );
@@ -59,7 +59,6 @@ const THUMB_OFFSET_IN_REM = 1;
 
 export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => {
   return css`
-    all: unset;
     display: inline-flex;
     align-items: center;
     gap: ${theme.spacing.inline.nano};
@@ -67,19 +66,24 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
 
     &.--disabled {
       opacity: ${theme.opacity.level[6]};
-      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    .hst-switch__button {
+      all: unset;
     }
 
     label {
+      all: unset;
       color: ${theme.neutralColor.low.pure};
       font-family: ${theme.font.family.base};
       font-size: ${theme.font.size.xs};
       font-weight: ${theme.font.weight.regular};
       line-height: ${theme.line.height.default};
-      cursor: pointer;
+      user-select: none;
     }
 
-    .hst_switch_track {
+    .hst-switch__track {
       width: ${theme.pxToRem(WIDTH_IN_PX)}rem;
       height: ${theme.pxToRem(HEIGHT_IN_PX)}rem;
       background-color: ${theme.hexToRgba(theme.neutralColor.low.light, theme.opacity.level[8])};
@@ -103,7 +107,7 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
         background-color: ${theme.brandColor.primary.pure};
       }
 
-      .hst_switch_thumb {
+      .hst-switch__thumb {
         width: ${theme.pxToRem(THUMB_WIDTH_IN_PX)}rem;
         height: ${theme.pxToRem(THUMB_HEIGHT_IN_PX)}rem;
         background-color: ${theme.neutralColor.high.pure};
