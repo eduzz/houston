@@ -15,7 +15,7 @@ export interface SwitchProps
 }
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ children, className, onChange, disabled, value, id: idProp, ...rest }, ref) => {
+  ({ children, className, onChange, disabled, value, id: idProp, errorMessage, ...rest }, ref) => {
     const handleChange = React.useCallback(() => {
       onChange && onChange(!value);
     }, [onChange, value]);
@@ -71,6 +71,10 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
 
     .hst-switch__button {
       all: unset;
+
+      :disabled {
+        pointer-events: none;
+      }
     }
 
     label {
