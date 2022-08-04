@@ -24,7 +24,7 @@ const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P
     const formDeprecated = useFormContextDeprecated();
 
     if ((!form && !formDeprecated) || !name) {
-      return <Component {...(props as any)} name={name} errorMessage={errorMessage} ref={ref} />;
+      return <Component {...(props as any)} name={name} errorMessage={errorMessage} disabled={disabled} ref={ref} />;
     }
 
     if (formDeprecated) {

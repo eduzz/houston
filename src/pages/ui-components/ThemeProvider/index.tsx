@@ -3,9 +3,8 @@ import * as React from 'react';
 import { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { ptBR } from 'date-fns/locale';
+import setDefaultOptions from 'date-fns/setDefaultOptions';
 
 import { HoustonThemeProps } from '@eduzz/houston-styles';
 import createTheme from '@eduzz/houston-styles/createTheme';
@@ -15,6 +14,8 @@ import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
 import { setCurrentTheme } from './_state';
 import GlobalStyles from './reset';
+
+setDefaultOptions({ locale: ptBR });
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
   theme?: HoustonThemeProps;
@@ -56,14 +57,12 @@ function ThemeProvider({
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
-        <LocalizationProvider adapterLocale={ptBR} dateAdapter={AdapterDateFns}>
-          <PopoverRoot>
-            {!disableToast && <ToastContainer />}
-            {!disableCssBaseline && <CssBaseline />}
-            {!disableResetStyles && <GlobalStyles />}
-            {children}
-          </PopoverRoot>
-        </LocalizationProvider>
+        <PopoverRoot>
+          {!disableToast && <ToastContainer />}
+          {!disableCssBaseline && <CssBaseline />}
+          {!disableResetStyles && <GlobalStyles />}
+          {children}
+        </PopoverRoot>
       </MUIThemeProvider>
     </StyledEngineProvider>
   );

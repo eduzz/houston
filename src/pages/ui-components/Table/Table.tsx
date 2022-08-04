@@ -12,7 +12,6 @@ import { StyledProp } from '@eduzz/houston-styles/styled';
 import MenuActions from './Action/Menu';
 import TableCollapseContext from './CollapseContent/context';
 import TableContext, { TableActionShow, TableContextProps, TableRow } from './context';
-import { TableSort } from './interface';
 import { bindMutationObserver } from './observer';
 import styles from './styles';
 
@@ -22,11 +21,6 @@ let columnsKeyIncrementer = 0,
 export interface TableProps extends Pick<TablePropsMui, 'id' | 'children' | 'className'>, StyledProp {
   loading?: boolean;
   loadingText?: React.ReactNode;
-  sort?: TableSort;
-  /**
-   * Function called when clicking on an ordered column
-   */
-  onSort?: (ordernation: TableSort) => void;
   /**
    * Default `medium`
    */
@@ -46,8 +40,6 @@ const Table: React.FC<TableProps> = props => {
     id,
     children,
     loading,
-    sort,
-    onSort,
     maxHeight,
     stripedRows,
     columnActionTitle,
@@ -106,8 +98,6 @@ const Table: React.FC<TableProps> = props => {
     () => ({
       loading: loading ?? false,
       loadingText: loadingText ?? 'Carregando...',
-      sort,
-      onSort,
       onShowAction,
       registerColumn,
       rowMapLabel,
@@ -124,8 +114,6 @@ const Table: React.FC<TableProps> = props => {
     [
       loading,
       loadingText,
-      sort,
-      onSort,
       onShowAction,
       registerColumn,
       rowMapLabel,
