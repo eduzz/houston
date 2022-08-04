@@ -11,23 +11,34 @@ export interface SwitchProps
   children?: string;
   onChange?: (checked: boolean) => void;
   checked?: boolean;
+  disabled?: boolean;
 }
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ children, className, onChange, checked: checkedProp, value, ...rest }, ref) => {
+  ({ children, className, onChange, disabled, checked: checkedProp, value, ...rest }, ref) => {
     const handleChange = React.useCallback(() => {
+      if (disabled) return;
+
       if (checkedProp !== undefined) {
         onChange && onChange(!checkedProp);
         return;
       }
       onChange && onChange(!value);
-    }, [onChange, value, checkedProp]);
+    }, [onChange, value, checkedProp, disabled]);
 
     return (
-      <button role='switch' className={className} onClick={handleChange} ref={ref} {...rest}>
+      <button
+        role='switch'
+        className={cx(className, { '--disabled': disabled })}
+        onClick={handleChange}
+        ref={ref}
+        {...rest}
+      >
         <div
           tabIndex={0}
-          className={cx('hst_switch_track', { '--checked': checkedProp ?? (value as unknown as boolean) })}
+          className={cx('hst_switch_track', {
+            '--checked': checkedProp ?? (value as unknown as boolean)
+          })}
         >
           <span className={cx('hst_switch_thumb', { '--checked': checkedProp ?? (value as unknown as boolean) })} />
         </div>
@@ -50,6 +61,11 @@ export default styled(withForm(React.memo(Switch)), { label: 'hst-switch' })(({ 
     display: inline-flex;
     align-items: center;
     gap: ${theme.spacing.inline.nano};
+
+    &.--disabled {
+      opacity: ${theme.opacity.level[6]};
+      pointer-events: none;
+    }
 
     label {
       color: ${theme.neutralColor.low.pure};
@@ -77,12 +93,6 @@ export default styled(withForm(React.memo(Switch)), { label: 'hst-switch' })(({ 
       :focus {
         background-color: ${theme.neutralColor.low.light};
         outline: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
-      }
-
-      &.--disabled {
-        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-        opacity: ${theme.opacity.level[6]};
-        pointer-events: none;
       }
 
       &.--checked {
