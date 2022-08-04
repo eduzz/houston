@@ -2,39 +2,49 @@ import * as React from 'react';
 
 import styled, { StyledProp, css, cx } from '@eduzz/houston-styles';
 
-export interface SwitchProps extends StyledProp, React.HTMLAttributes<HTMLSpanElement> {
+import withForm, { WithFormProps } from '../Form/withForm';
+
+export interface SwitchProps
+  extends StyledProp,
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'>,
+    WithFormProps<never> {
   children?: string;
+  onChange?: (checked: boolean) => void;
+  checked?: boolean;
 }
 
-const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({ children, className, ...rest }, ref) => {
-  const [selected, setSelected] = React.useState(false);
-  return (
-    <button
-      ref={ref}
-      role='switch'
-      className={className}
-      onClick={() => {
-        setSelected(prev => !prev);
-      }}
-    >
-      <input className='hst_input' {...rest} />
-      <div tabIndex={0} className={cx('hst_switch_track', { '--selected': selected })}>
-        <div className={cx('hst_switch_thumb', { '--selected': selected })} />
-      </div>
-      {children && <label>{children}</label>}
-    </button>
-  );
-});
+const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
+  ({ children, className, onChange, checked: checkedProp, value, ...rest }, ref) => {
+    const handleChange = React.useCallback(() => {
+      if (checkedProp !== undefined) {
+        onChange && onChange(!checkedProp);
+        return;
+      }
+      onChange && onChange(!value);
+    }, [onChange, value, checkedProp]);
+
+    return (
+      <button role='switch' className={className} onClick={handleChange} ref={ref} {...rest}>
+        <div
+          tabIndex={0}
+          className={cx('hst_switch_track', { '--checked': checkedProp ?? (value as unknown as boolean) })}
+        >
+          <span className={cx('hst_switch_thumb', { '--checked': checkedProp ?? (value as unknown as boolean) })} />
+        </div>
+        {children && <label>{children}</label>}
+      </button>
+    );
+  }
+);
 
 const WIDTH_IN_PX = 40;
 const HEIGHT_IN_PX = 24;
 
 const THUMB_WIDTH_IN_PX = 16;
 const THUMB_HEIGHT_IN_PX = 16;
-
 const THUMB_OFFSET_IN_REM = 1;
 
-export default styled(Switch, { label: 'hst-switch' })(({ theme }) => {
+export default styled(withForm(React.memo(Switch)), { label: 'hst-switch' })(({ theme }) => {
   return css`
     all: unset;
     display: inline-flex;
@@ -47,10 +57,6 @@ export default styled(Switch, { label: 'hst-switch' })(({ theme }) => {
       font-size: ${theme.font.size.xs};
       font-weight: ${theme.font.weight.regular};
       line-height: ${theme.line.height.default};
-    }
-
-    .hst_input {
-      display: none;
     }
 
     .hst_switch_track {
@@ -79,7 +85,7 @@ export default styled(Switch, { label: 'hst-switch' })(({ theme }) => {
         pointer-events: none;
       }
 
-      &.--selected {
+      &.--checked {
         background-color: ${theme.brandColor.primary.pure};
       }
 
@@ -92,7 +98,7 @@ export default styled(Switch, { label: 'hst-switch' })(({ theme }) => {
         transition: all 0.2s;
         left: ${theme.spacing.quarck};
 
-        &.--selected {
+        &.--checked {
           transform: translateX(${THUMB_OFFSET_IN_REM}rem);
         }
       }
