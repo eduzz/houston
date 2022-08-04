@@ -45,7 +45,7 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
         },
 
         iconSizeMedium: {
-          '& > *:first-child': {
+          '& > *:first-of-type': {
             fontSize: 15
           }
         },
@@ -459,11 +459,11 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
       styleOverrides: {
         ul: {
           '& li': {
-            '&:first-child, &:last-child': {
+            '&:first-of-type, &:last-child': {
               borderRadius: 4
             },
 
-            '&:first-child': {
+            '&:first-of-type': {
               marginRight: 2
             },
 

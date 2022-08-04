@@ -89,6 +89,7 @@ const DatePicker = ({
           disabled={disabled}
           nativeChangeEvent
           readOnly
+          name={undefined}
           endAdornment={<Calendar />}
         />
       );
