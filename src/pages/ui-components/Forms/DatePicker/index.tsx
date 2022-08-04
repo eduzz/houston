@@ -75,6 +75,7 @@ const DatePicker = ({
   minDate,
   maxDate,
   enableSeconds,
+  fullWidth = true,
   ...inputProps
 }: DatePickerProps) => {
   const inputRender = React.useCallback(
@@ -84,6 +85,7 @@ const DatePicker = ({
           {...inputProps}
           {...props}
           size='default'
+          fullWidth={fullWidth}
           disabled={disabled}
           nativeChangeEvent
           readOnly
@@ -91,7 +93,7 @@ const DatePicker = ({
         />
       );
     },
-    [disabled, inputProps]
+    [disabled, inputProps, fullWidth]
   );
 
   const disableDate = React.useCallback(
@@ -117,11 +119,10 @@ const DatePicker = ({
       locale={locale}
       value={value}
       defaultPickerValue={new Date()}
-      className={className}
+      className={cx(className, { '--hst-datepicker-full-width': fullWidth })}
       dropdownClassName={cx(className, { '--hst-datepicker-enable-seconds': enableSeconds })}
       format={displayFormat ?? defaultFormats[`${mode}${enableSeconds ? 'Seconds' : ''}`]}
       inputRender={inputRender}
-      onSelect={s => console.log({ s })}
       onChange={onChange}
       disabled={disabled}
       prevIcon={<ChevronLeft />}
@@ -144,6 +145,10 @@ export default withForm(
     ({ theme }) => css`
       &.rc-picker-focused {
         border: none;
+      }
+
+      &.--hst-datepicker-full-width {
+        width: 100%;
       }
 
       &.rc-picker-dropdown {
