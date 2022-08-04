@@ -86,12 +86,16 @@ const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
 
         &::-webkit-scrollbar {
           width: 3px;
-          background: white;
+          background: transparent;
         }
 
         &::-webkit-scrollbar-thumb {
-          background: ${theme.neutralColor.high.medium};
+          background: transparent;
           border-radius: 4px;
+        }
+
+        &:hover::-webkit-scrollbar-thumb {
+          background: ${theme.neutralColor.high.medium};
         }
 
         ul {

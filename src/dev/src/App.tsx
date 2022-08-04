@@ -65,6 +65,37 @@ function App() {
 
             <Item>Central de Notificações</Item>
             <Item>Configurações</Item>
+            <Group label='Submenu'>
+              <Item>Item 1</Item>
+              <Item>Item 2</Item>
+            </Group>
+
+            <Item>Central de Notificações</Item>
+            <Item>Configurações</Item>
+
+            <Group label='Submenu'>
+              <Item>Item 1</Item>
+              <Item>Item 2</Item>
+            </Group>
+
+            <Item>Central de Notificações</Item>
+            <Item>Configurações</Item>
+
+            <Group label='Submenu'>
+              <Item>Item 1</Item>
+              <Item>Item 2</Item>
+            </Group>
+
+            <Item>Central de Notificações</Item>
+            <Item>Configurações</Item>
+
+            <Group label='Submenu'>
+              <Item>Item 1</Item>
+              <Item>Item 2</Item>
+            </Group>
+
+            <Item>Central de Notificações</Item>
+            <Item>Configurações</Item>
           </Sidebar>
 
           <Content>
