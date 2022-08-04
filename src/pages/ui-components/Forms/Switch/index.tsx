@@ -31,6 +31,8 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         role='switch'
         className={cx(className, { '--disabled': disabled })}
         onClick={handleChange}
+        disabled={disabled}
+        aria-disabled={disabled}
         ref={ref}
         {...rest}
       >
@@ -55,12 +57,13 @@ const THUMB_WIDTH_IN_PX = 16;
 const THUMB_HEIGHT_IN_PX = 16;
 const THUMB_OFFSET_IN_REM = 1;
 
-export default styled(withForm(React.memo(Switch)), { label: 'hst-switch' })(({ theme }) => {
+export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => {
   return css`
     all: unset;
     display: inline-flex;
     align-items: center;
     gap: ${theme.spacing.inline.nano};
+    cursor: pointer;
 
     &.--disabled {
       opacity: ${theme.opacity.level[6]};
@@ -73,6 +76,7 @@ export default styled(withForm(React.memo(Switch)), { label: 'hst-switch' })(({ 
       font-size: ${theme.font.size.xs};
       font-weight: ${theme.font.weight.regular};
       line-height: ${theme.line.height.default};
+      cursor: pointer;
     }
 
     .hst_switch_track {
