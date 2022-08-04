@@ -91,15 +91,25 @@ export interface TypographyProps extends StyledProp, React.HTMLAttributes<HTMLEl
 
 const Typography = React.forwardRef<any, TypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { size, lineHeight, weight, marginBottom, color, ...forwardProps } = props;
+  const {
+    size = 'xs',
+    lineHeight = 'md',
+    weight = 'regular',
+    color = 'neutralColor.low.pure',
+    marginBottom = false,
+    ...forwardProps
+  } = props;
+  const margin: TypographyMargin | null = marginBottom === true ? 'nano' : marginBottom === false ? null : marginBottom;
+
   return (
     <Tag
       ref={ref}
       className={cx(className, {
-        [`--hst-size-${size ?? 'xs'}`]: true,
-        [`--hst-line-${lineHeight ?? 'md'}`]: true,
-        [`--hst-weight-${weight ?? 'regular'}`]: true,
-        [`--hst-color-${getColorName(color ?? 'neutralColor.low.pure')}`]: true
+        [`--hst-size-${size}`]: true,
+        [`--hst-line-${lineHeight}`]: true,
+        [`--hst-weight-${weight}`]: true,
+        [`--hts-margin-${margin}`]: !!margin,
+        [`--hst-color-${getColorName(color)}`]: true
       })}
       {...forwardProps}
     />
