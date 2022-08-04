@@ -149,7 +149,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
           cursor: pointer;
           margin: 0 -10px 0 -5px;
 
-          ${breakpoints.up('md')} {
+          ${breakpoints.up('lg')} {
             display: none;
           }
         }

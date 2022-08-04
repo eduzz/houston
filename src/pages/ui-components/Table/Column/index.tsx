@@ -6,6 +6,7 @@ import { cx } from '@eduzz/houston-styles';
 import styled from '@eduzz/houston-styles/styled';
 
 import TableContext from '../context';
+import TableHeaderContext from '../Header/context';
 import SortLabel from './SortLabel';
 
 export interface TableColumnProps {
@@ -25,26 +26,26 @@ export interface TableColumnProps {
 }
 const TableColumn = React.memo<TableColumnProps>(({ sortableField, children, className, align, ...rest }) => {
   const registerColumn = useContextSelector(TableContext, context => context.registerColumn);
-  const onSort = useContextSelector(TableContext, context => context.onSort);
-  const sort = useContextSelector(TableContext, context => context.sort);
+  const onSort = useContextSelector(TableHeaderContext, context => context.onSort);
+  const sortField = useContextSelector(TableHeaderContext, context => context.sortField);
+  const sortDirection = useContextSelector(TableHeaderContext, context => context.sortDirection);
   const loading = useContextSelector(TableContext, context => context.loading);
   const tableSize = useContextSelector(TableContext, context => context.size);
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
   const cellRef = React.useRef<HTMLTableCellElement>(null);
 
-  const isSorted = sort?.field === sortableField;
+  const isSorted = sortField === sortableField;
 
   const handleSort = React.useCallback(() => {
     if (!onSort || !sortableField) {
-      throw new Error('@eduzz/houston-ui: add the onSort and sortableField prop to the Table to filter the fields');
+      throw new Error(
+        '@eduzz/houston-ui: add the onSort and sortableField prop to the TableHeader to filter the fields'
+      );
     }
 
-    onSort({
-      field: sortableField,
-      direction: !isSorted || sort?.direction === 'desc' ? 'asc' : 'desc'
-    });
-  }, [onSort, sortableField, isSorted, sort?.direction]);
+    onSort(sortableField, !isSorted || sortDirection === 'desc' ? 'asc' : 'desc');
+  }, [onSort, sortableField, isSorted, sortDirection]);
 
   React.useEffect(() => {
     const unregister = registerColumn();
@@ -67,7 +68,7 @@ const TableColumn = React.memo<TableColumnProps>(({ sortableField, children, cla
         sortable={!!sortableField && !isCollapseContent}
         active={isSorted}
         disabled={loading}
-        direction={isSorted ? sort?.direction : 'asc'}
+        direction={isSorted ? sortDirection : 'asc'}
         onClick={handleSort}
       >
         {children}
