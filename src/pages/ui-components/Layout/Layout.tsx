@@ -13,9 +13,11 @@ import Topbar from './Topbar';
 
 export interface LayoutProps extends StyledProp {
   children?: React.ReactNode;
+  isSidebarOpen?: boolean;
+  toggleSidebar?: () => void;
 }
 
-const Layout = ({ className, children }: LayoutProps) => {
+const Layout = ({ className, children, isSidebarOpen: isSidebarOpenProp, toggleSidebar }: LayoutProps) => {
   const [hasTopbar, setHasTopbar] = React.useState(false);
   const [hasSidebar, setHasSidebar] = React.useState(false);
   const [hasUserMenu, setHasUserMenu] = React.useState(false);
@@ -51,9 +53,9 @@ const Layout = ({ className, children }: LayoutProps) => {
       },
       sidebar: {
         exists: hasSidebar,
-        opened: sidebarOpened,
+        opened: isSidebarOpenProp ?? sidebarOpened,
         register: registerSidebar,
-        toogleOpened: toogleSidebarOpened,
+        toogleOpened: toggleSidebar ?? toogleSidebarOpened,
         trueOpened: trueSidebarOpened,
         falseOpened: falseSidebarOpened
       },
@@ -69,6 +71,8 @@ const Layout = ({ className, children }: LayoutProps) => {
       }
     }),
     [
+      isSidebarOpenProp,
+      toggleSidebar,
       falseSidebarOpened,
       falseUserMenuOpened,
       hasSidebar,

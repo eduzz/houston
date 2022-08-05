@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { BrowserRouter } from 'react-router-dom';
 
 import InfoChatOutline from '@eduzz/houston-icons/InfoChatOutline';
@@ -21,10 +23,16 @@ declare module '@eduzz/houston-styles' {
 }
 
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+  function toggleSidebar() {
+    setIsSidebarOpen(prevState => !prevState);
+  }
+
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <Layout>
+        <Layout isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
           <Topbar
             currentApplication='orbita'
             user={{

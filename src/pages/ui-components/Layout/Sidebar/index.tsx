@@ -26,7 +26,7 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
   const hasTopbar = useContextSelector(LayoutContext, context => context.topbar.exists);
   const register = useContextSelector(LayoutContext, context => context.sidebar.register);
   const opened = useContextSelector(LayoutContext, context => context.sidebar.opened);
-  const closeMenu = useContextSelector(LayoutContext, context => context.sidebar.falseOpened);
+  const toggleMenu = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
 
   React.useEffect(() => {
     const unregister = register();
@@ -43,7 +43,7 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
   return (
     <SidebarContext.Provider value={contextValue}>
       <div className={cx(className, { '--visible': opened && isMobile, '--has-topbar': hasTopbar })}>
-        <Overlay visible={opened && isMobile} color='high' onClick={closeMenu} underTopbar />
+        <Overlay visible={opened && isMobile} color='high' onClick={toggleMenu} underTopbar />
 
         <aside className='houston-menu__container'>
           <nav>
