@@ -43,7 +43,7 @@ const Belt = React.memo<StyledProp>(({ className }) => {
     <div className={cx(className, `--${beltClass}`)}>
       <div className='houston-topbar-belt__badge'>
         <BeltIcon size={25} className='houston-topbar-belt__icon' />
-        <Typography color='inherit' className='houston-topbar-belt__text'>
+        <Typography color='inherit' className='houston-topbar-belt__text' weight='semibold'>
           {beltColor}
         </Typography>
       </div>
