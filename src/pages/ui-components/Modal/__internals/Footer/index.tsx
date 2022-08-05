@@ -1,6 +1,6 @@
 import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
-import Divider from '../../Divider';
+import Divider from '../../../Divider';
 
 export interface ModalFooterProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ const ModalFooter = ({ children, ...rest }: ModalFooterProps & React.HTMLAttribu
   return (
     <footer {...rest}>
       <Divider />
-      <div className='modal-footer__wrapper'>{children}</div>
+      <div className='hst-modal-footer__wrapper'>{children}</div>
     </footer>
   );
 };
@@ -19,7 +19,7 @@ export default styled(ModalFooter, { label: 'hst-modal-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
 
-    .modal-footer__wrapper {
+    .hst-modal-footer__wrapper {
       padding: ${theme.spacing.squish.xs};
       display: flex;
       align-items: center;

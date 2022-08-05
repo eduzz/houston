@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, keyframes, StyledProp } from '@eduzz/houston-styles';
 
 import useScrollBlock from '../hooks/useScrollBlock';
 
@@ -34,7 +34,7 @@ const Overlay = ({ className, visible, color = 'low', children, ...rest }: Overl
     <div
       aria-hidden='true'
       tabIndex={-1}
-      className={cx(className, { '--overlay-visible': visible, '--overlay-color-high': color === 'high' })}
+      className={cx(className, { '--hst-overlay-visible': visible, '--hst-overlay-color-high': color === 'high' })}
       {...rest}
     >
       {children}
@@ -42,8 +42,13 @@ const Overlay = ({ className, visible, color = 'low', children, ...rest }: Overl
   );
 };
 
+const fadeInAnimation = keyframes`
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+`;
+
 export default styled(Overlay, {
-  label: 'houston-overlay',
+  label: 'hst-overlay',
   shouldForwardProp: propName => propName !== 'underTopbar'
 })(
   ({ theme, underTopbar }) => css`
@@ -58,12 +63,13 @@ export default styled(Overlay, {
     visibility: hidden;
     inset: 0;
     backdrop-filter: blur(${theme.pxToRem(8)}rem);
+    animation: ${fadeInAnimation} 200ms linear;
 
-    &.--overlay-color-high {
+    &.--hst-overlay-color-high {
       background: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[6])};
     }
 
-    &.--overlay-visible {
+    &.--hst-overlay-visible {
       opacity: 1;
       visibility: visible;
     }

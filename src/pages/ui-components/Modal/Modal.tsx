@@ -6,11 +6,12 @@ import useEscapeKey from '../hooks/useEscapeKey';
 import Overlay from '../Overlay';
 import Portal from '../Portal';
 import nestedComponent from '../utils/nestedComponent';
+import Content from './__internals/Content';
+import Footer from './__internals/Footer';
+import Header from './__internals/Header';
 import ModalBase from './__utils/ModalBase';
-import Content from './Content';
 import ModalContextProvider from './context';
-import Footer from './Footer';
-import Header from './Header';
+import FullScreen from './Fullscreen';
 
 export const modalSizesInPx: Record<ModalSizes, number> = { xs: 400, sm: 560, md: 640, lg: 800, xl: 1200 };
 
@@ -60,7 +61,7 @@ const Modal = ({
     <Portal target='houston-modal'>
       <Overlay visible={visible}>
         <ModalContextProvider value={contextValue}>
-          <ModalBase className={cx(className, `--modal-size-${size}`)} aria-modal {...rest}>
+          <ModalBase className={cx(className, `--hst-modal-size-${size}`)} aria-modal {...rest}>
             {children}
           </ModalBase>
         </ModalContextProvider>
@@ -69,19 +70,23 @@ const Modal = ({
   );
 };
 
-const ModalWrapper = styled(Modal, { label: 'houston-modal' })`
+const ModalWrapper = styled(Modal, { label: 'hst-modal' })`
   ${({ theme }) => {
-    const modifiersSizes: CSSInterpolation[] = [];
+    const modifiers: CSSInterpolation[] = [];
 
     Object.entries(modalSizesInPx).forEach(([size, value]) =>
-      modifiersSizes.push(css`
-        &.--modal-size-${size} {
+      modifiers.push(css`
+        &.--hst-modal-size-${size} {
           width: ${theme.pxToRem(value)}rem;
         }
       `)
     );
 
     return css`
+      & > .hst-modal-header .hst-modal-header-title__icon {
+        display: none;
+      }
+
       &,
       & > form {
         display: flex;
@@ -95,7 +100,7 @@ const ModalWrapper = styled(Modal, { label: 'houston-modal' })`
         }
       }
 
-      ${modifiersSizes}
+      ${modifiers}
     `;
   }}
 `;
@@ -103,5 +108,6 @@ const ModalWrapper = styled(Modal, { label: 'houston-modal' })`
 export default nestedComponent(React.memo(ModalWrapper), {
   Header,
   Content,
-  Footer
+  Footer,
+  FullScreen
 });

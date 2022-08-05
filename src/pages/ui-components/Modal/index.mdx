@@ -7,6 +7,7 @@ import { useState, useCallback } from 'react';
 import { Playground } from 'dokz';
 
 import useForm from '@eduzz/houston-forms/useForm';
+import FaceHappyOutlineIcon from '@eduzz/houston-icons/FaceHappyOutline';
 
 import Button from '../Button';
 import Form from '../Forms/Form';
@@ -201,6 +202,40 @@ Quando utilizar um form dentro do modal, coloque o `Form (ou a tag form)` como f
   }}
 </Playground>
 
+### Modal FullScreen
+
+Há uma variação do componente com algumas particularidades. Em resumo ele preenche 100% da tela, é possível adicionar um ícone no `Header` e não possui cantos arredondados.
+
+> A prop `size` não está disponível.
+
+<Playground>
+  {() => {
+    const [visible, setVisible] = useState(false);
+    const onOpen = () => setVisible(true);
+    const onClose = () => setVisible(false);
+    return (
+      <>
+        <Modal.FullScreen visible={visible} onClose={onClose}>
+          <Modal.Header icon={<FaceHappyOutlineIcon />}>Atenção!</Modal.Header>
+          <Modal.Content>
+            Dado o fluxo de dados atual, o último pull request desse SCRUM superou o desempenho de compilação
+            multi-plataforma de forma asincrona.
+          </Modal.Content>
+          <Modal.Footer>
+            <Button variant='text' onClick={onClose}>
+              Cancelar
+            </Button>
+            <Button>Salvar</Button>
+          </Modal.Footer>
+        </Modal.FullScreen>
+        <Button onClick={onOpen} type='button'>
+          Abrir
+        </Button>
+      </>
+    );
+  }}
+</Playground>
+
 ### Modal props
 
 | prop             | tipo        | obrigatório | padrão | descrição                                                               |
@@ -213,6 +248,7 @@ Quando utilizar um form dentro do modal, coloque o `Form (ou a tag form)` como f
 
 ### Modal Header props
 
-| prop              | tipo      | obrigatório | padrão  | descrição                                                  |
-| ----------------- | --------- | ----------- | ------- | ---------------------------------------------------------- |
-| disableTypography | `boolean` | `false`     | `false` | Se `true`, o componente `Typography` não será renderizado. |
+| prop              | tipo              | obrigatório | padrão  | descrição                                                        |
+| ----------------- | ----------------- | ----------- | ------- | ---------------------------------------------------------------- |
+| disableTypography | `boolean`         | `false`     | `false` | Se `true`, o componente `Typography` não será renderizado.       |
+| icon              | `React.ReactNode` | `false`     | `-`     | O ícone é renderizado apenas na variação `<Modal.FullScreen />`. |
