@@ -116,7 +116,7 @@ export default styled(Belt, { label: 'houston-topbar-belt' })(
         white-space: nowrap;
         text-transform: uppercase;
         font-style: italic;
-        margin-left: ${theme.spacing.nano};
+        margin-left: ${theme.spacing.inline.quarck};
       }
     }
 
