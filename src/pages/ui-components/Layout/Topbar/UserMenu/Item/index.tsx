@@ -58,6 +58,7 @@ const UserMenuItem: React.FC<UserMenuItemProps> = ({
 
 export default styled(UserMenuItem, { label: 'houston-user-menu-item' })`
   justify-content: start;
+  text-align: left;
 
   &.--disabled {
     background-color: transparent;
