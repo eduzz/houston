@@ -16,7 +16,7 @@ export interface SidebarProps extends StyledProp {
   /**
    * Current location path, if you are using `react-router-dom` use `useLocation`
    */
-  currentLocation?: string;
+  currentLocation: string;
   children: React.ReactNode;
 }
 
@@ -27,6 +27,7 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
   const register = useContextSelector(LayoutContext, context => context.sidebar.register);
   const opened = useContextSelector(LayoutContext, context => context.sidebar.opened);
   const toggleMenu = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
+  const falseOpened = useContextSelector(LayoutContext, context => context.sidebar.falseOpened);
 
   React.useEffect(() => {
     const unregister = register();
@@ -39,6 +40,11 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
     }),
     [currentLocation]
   );
+
+  React.useEffect(() => {
+    falseOpened();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentLocation]);
 
   return (
     <SidebarContext.Provider value={contextValue}>

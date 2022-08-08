@@ -23,16 +23,10 @@ declare module '@eduzz/houston-styles' {
 }
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-
-  function toggleSidebar() {
-    setIsSidebarOpen(prevState => !prevState);
-  }
-
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <Layout isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
+        <Layout>
           <Topbar
             currentApplication='orbita'
             user={{
@@ -65,6 +59,11 @@ function App() {
 
           <Sidebar currentLocation={location.pathname}>
             <Item isActive={true}>Resumo</Item>
+
+            <Group>
+              <Item>Item 1</Item>
+              <Item>Item 2</Item>
+            </Group>
 
             <Group label='Submenu'>
               <Item>Item 1</Item>
