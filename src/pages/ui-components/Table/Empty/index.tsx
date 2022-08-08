@@ -9,14 +9,15 @@ import TableContext, { TableSize } from '../context';
 
 export interface TableEmptyProps extends StyledProp {
   count: number;
+  hasError?: boolean;
   children?: React.ReactNode;
 }
 
-const TableEmpty = React.memo<TableEmptyProps>(({ children, count, className }) => {
+const TableEmpty = React.memo<TableEmptyProps>(({ children, count, hasError, className }) => {
   const columnsLen = useContextSelector(TableContext, context => context.columns.length);
   const tableSize = useContextSelector(TableContext, context => context.size);
 
-  if (count) return null;
+  if (count || hasError) return null;
 
   children = children ?? 'Nenhum dado encontrado';
 

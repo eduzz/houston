@@ -62,6 +62,7 @@ export default styled(TableError)`
   & > td > .__text {
     opacity: 0.8;
     font-style: italic;
+    padding: ${({ theme }) => theme.spacing.xxs};
 
     & + button {
       margin-top: ${({ theme }) => theme.spacing.xxxs};
