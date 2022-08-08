@@ -7,7 +7,7 @@ import { ptBR } from 'date-fns/locale';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
 
 import { HoustonThemeProps } from '@eduzz/houston-styles';
-import createTheme from '@eduzz/houston-styles/createTheme';
+import createThemeStyles from '@eduzz/houston-styles/createTheme';
 
 import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
@@ -16,6 +16,8 @@ import { setCurrentTheme } from './_state';
 import GlobalStyles from './reset';
 
 setDefaultOptions({ locale: ptBR });
+
+export const createTheme = createThemeStyles;
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
   theme?: HoustonThemeProps;

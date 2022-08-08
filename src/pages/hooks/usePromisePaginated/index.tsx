@@ -129,6 +129,10 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
         setIsLoading(false);
         setIsLoadingMore(false);
         setError(err);
+
+        if (!infintyScroll) {
+          setData(data => ({ ...data, result: [] }));
+        }
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
