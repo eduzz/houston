@@ -210,7 +210,7 @@ export default (Component: React.FC<TableProps>) => styled(Component)`
         margin-left: 0;
       }
 
-      & > tbody > tr > td.houston-table-action-cell button:first-child:not(:last-child) {
+      & > tbody > tr > td.houston-table-action-cell button:first-of-type:not(:last-child) {
         align-self: flex-start;
       }
 
