@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { BrowserRouter } from 'react-router-dom';
 
 import InfoChatOutline from '@eduzz/houston-icons/InfoChatOutline';
@@ -57,6 +59,11 @@ function App() {
 
           <Sidebar currentLocation={location.pathname}>
             <Item isActive={true}>Resumo</Item>
+
+            <Group>
+              <Item>Item 1</Item>
+              <Item>Item 2</Item>
+            </Group>
 
             <Group label='Submenu'>
               <Item>Item 1</Item>
