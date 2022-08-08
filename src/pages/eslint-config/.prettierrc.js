@@ -1,7 +1,7 @@
 module.exports = {
   "singleQuote": true,
   "jsxSingleQuote": true,
-  "quoteProps": "as-needed",
+  "quoteProps": "consistent",
   "trailingComma": "none",
   "useTabs": false,
   "tabWidth": 2,
