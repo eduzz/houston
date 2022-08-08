@@ -15,7 +15,6 @@ export default styled(LayoutContent, { label: 'houston-sidebar-content' })(
   ({ theme }) => css`
     flex: 1;
     overflow-x: hidden;
-    overflow-y: auto;
 
     &:not(.--disable-padding) {
       padding: ${theme.spacing.stack.lg} ${theme.spacing.xs};
