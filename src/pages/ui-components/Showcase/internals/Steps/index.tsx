@@ -21,7 +21,7 @@ interface StyleProps {
 
 const useStyles = createUseStyles(theme => ({
   root: ({ margin, modalSizes, size }: StyleProps) => ({
-    overflow: 'hidden',
+    'overflow': 'hidden',
 
     '& .steps': {
       display: 'flex',
@@ -50,10 +50,10 @@ const useStyles = createUseStyles(theme => ({
   },
 
   contentImage: (props: StyleProps) => ({
-    width: props.imageSizes.large,
-    marginBottom: 24,
-    display: 'flex',
-    justifyContent: 'center',
+    'width': props.imageSizes.large,
+    'marginBottom': 24,
+    'display': 'flex',
+    'justifyContent': 'center',
 
     [theme.breakpoints.down('lg')]: {
       width: props.imageSizes.medium

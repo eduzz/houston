@@ -18,14 +18,14 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
-          padding: '10px 16px',
-          height: 40,
-          borderRadius: theme.border.radius.xs,
-          fontWeight: theme.font.weight.semibold,
-          fontFamily: theme.font.family.base,
-          lineHeight: theme.line.height.sm,
-          fontSize: theme.font.size.xxs,
+          'textTransform': 'none',
+          'padding': '10px 16px',
+          'height': 40,
+          'borderRadius': theme.border.radius.xs,
+          'fontWeight': theme.font.weight.semibold,
+          'fontFamily': theme.font.family.base,
+          'lineHeight': theme.line.height.sm,
+          'fontSize': theme.font.size.xxs,
 
           '&:before': {
             content: '" "',
@@ -76,7 +76,7 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
         },
 
         outlinedPrimary: {
-          borderColor: palette.primary.light,
+          'borderColor': palette.primary.light,
           '&:before': {
             left: -5,
             right: -5,
@@ -124,7 +124,7 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
     MuiInputBase: {
       styleOverrides: {
         root: {
-          fontFamily: theme.font.family.base,
+          'fontFamily': theme.font.family.base,
 
           '&.Mui-disabled': {
             backgroundColor: palette.grey['100']
@@ -172,11 +172,11 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
           overflow: 'unset'
         },
         switchBase: {
-          left: -10,
-          padding: 12,
-          overflow: 'hidden',
+          'left': -10,
+          'padding': 12,
+          'overflow': 'hidden',
           '&.Mui-checked': {
-            transform: 'translateX(16px)',
+            'transform': 'translateX(16px)',
             '& > .MuiSwitch-thumb': {
               color: 'white'
             },
@@ -187,7 +187,7 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
             }
           },
           '&.Mui-disabled': {
-            color: palette.grey[400],
+            'color': palette.grey[400],
             '& > .MuiSwitch-thumb': {
               color: palette.grey[400]
             },
@@ -199,10 +199,10 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
           }
         },
         thumb: {
-          width: 16,
-          height: 16,
-          boxShadow: 'none',
-          transition: 'color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
+          'width': 16,
+          'height': 16,
+          'boxShadow': 'none',
+          'transition': 'color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
           '&:hover': {
             color: palette.primary.light
           }
@@ -216,14 +216,14 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
           opacity: '1 !important'
         },
         sizeSmall: {
-          width: 28,
-          height: 40,
-          padding: 0,
-          alignItems: 'center',
-          overflow: 'unset',
+          'width': 28,
+          'height': 40,
+          'padding': 0,
+          'alignItems': 'center',
+          'overflow': 'unset',
           '& > .MuiSwitch-switchBase': {
-            top: 2,
-            padding: 12,
+            'top': 2,
+            'padding': 12,
             '& + .MuiSwitch-track': {
               width: 28,
               height: SWITCH_SMALL_HEIGHT
@@ -329,7 +329,7 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
         },
 
         action: {
-          marginRight: 0,
+          'marginRight': 0,
           '&:empty': {
             display: 'none'
           }
@@ -403,14 +403,14 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
     MuiTableSortLabel: {
       styleOverrides: {
         root: {
-          color: palette.grey[600],
+          'color': palette.grey[600],
 
           '&:focus': {
             color: 'inherit'
           },
 
           '&$active': {
-            color: palette.grey[600],
+            'color': palette.grey[600],
 
             '&$root': {
               '&$active': {
@@ -436,11 +436,11 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
     MuiPaginationItem: {
       styleOverrides: {
         root: {
-          margin: '0 1px',
-          minWidth: 32,
-          minHeight: 28,
-          padding: 0,
-          fontWeight: theme.font.weight.semibold,
+          'margin': '0 1px',
+          'minWidth': 32,
+          'minHeight': 28,
+          'padding': 0,
+          'fontWeight': theme.font.weight.semibold,
 
           '&$selected': {
             color: palette.primary.main
@@ -496,8 +496,8 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
           borderBottom: `1px solid ${palette.grey[200]}`
         },
         scrollButtons: {
-          color: palette.primary['main'],
-          opacity: 1,
+          'color': palette.primary['main'],
+          'opacity': 1,
           '&.Mui-disabled': {
             opacity: 1,
             color: palette.grey[300]
@@ -519,9 +519,9 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
           padding: `0 ${theme.spacing.xxxs}`
         },
         labelIcon: {
-          minHeight: 40,
-          paddingTop: 0,
-          flexDirection: 'row',
+          'minHeight': 40,
+          'paddingTop': 0,
+          'flexDirection': 'row',
           '& > svg': {
             marginBottom: '0 !important',
             maxWidth: 20,
@@ -530,11 +530,11 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
           }
         },
         textColorPrimary: {
-          color: palette.grey[400],
-          transition: '0.3s',
-          border: '2px solid transparent',
-          borderBottom: 'none',
-          borderRadius: `${theme.border.radius.xs} ${theme.border.radius.xs} 0 0`,
+          'color': palette.grey[400],
+          'transition': '0.3s',
+          'border': '2px solid transparent',
+          'borderBottom': 'none',
+          'borderRadius': `${theme.border.radius.xs} ${theme.border.radius.xs} 0 0`,
           '& svg': {
             fill: palette.grey[500],
             transition: '0.3s'
@@ -543,25 +543,25 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
             borderColor: palette.grey[300]
           },
           '&:hover:not($selected):not(:active)': {
-            color: palette.primary['light'],
+            'color': palette.primary['light'],
             '& svg': {
               fill: palette.primary['light']
             }
           },
           '&:active': {
-            color: palette.primary['dark'],
+            'color': palette.primary['dark'],
             '& svg': {
               fill: palette.primary['dark']
             }
           },
           '&$selected': {
-            color: palette.primary['main'],
+            'color': palette.primary['main'],
             '& svg': {
               fill: palette.primary['main']
             }
           },
           '&.Mui-disabled': {
-            color: palette.grey[300],
+            'color': palette.grey[300],
             '& svg': {
               fill: palette.grey[300]
             }
@@ -609,10 +609,10 @@ export default function components(palette: Palette, theme: HoustonThemeProps): 
           }
         },
         label: {
-          color: palette.grey[300],
-          fontSize: theme.font.size.xs,
-          lineHeight: 1.5,
-          fontWeight: theme.font.weight.semibold,
+          'color': palette.grey[300],
+          'fontSize': theme.font.size.xs,
+          'lineHeight': 1.5,
+          'fontWeight': theme.font.weight.semibold,
           '&$active': {
             color: palette.success.main,
             fontWeight: theme.font.weight.semibold

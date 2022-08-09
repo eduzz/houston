@@ -16,7 +16,7 @@ export interface SidebarProps extends StyledProp {
   /**
    * Current location path, if you are using `react-router-dom` use `useLocation`
    */
-  currentLocation?: string;
+  currentLocation: string;
   children: React.ReactNode;
 }
 
@@ -26,7 +26,8 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
   const hasTopbar = useContextSelector(LayoutContext, context => context.topbar.exists);
   const register = useContextSelector(LayoutContext, context => context.sidebar.register);
   const opened = useContextSelector(LayoutContext, context => context.sidebar.opened);
-  const closeMenu = useContextSelector(LayoutContext, context => context.sidebar.falseOpened);
+  const toggleMenu = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
+  const falseOpened = useContextSelector(LayoutContext, context => context.sidebar.falseOpened);
 
   React.useEffect(() => {
     const unregister = register();
@@ -40,10 +41,15 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
     [currentLocation]
   );
 
+  React.useEffect(() => {
+    falseOpened();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentLocation]);
+
   return (
     <SidebarContext.Provider value={contextValue}>
       <div className={cx(className, { '--visible': opened && isMobile, '--has-topbar': hasTopbar })}>
-        <Overlay visible={opened && isMobile} color='high' onClick={closeMenu} underTopbar />
+        <Overlay visible={opened && isMobile} color='high' onClick={toggleMenu} underTopbar />
 
         <aside className='houston-menu__container'>
           <nav>

@@ -27,14 +27,14 @@ const useStyles = createUseStyles(theme => ({
     }
   },
   progressIndicator: {
-    position: 'absolute',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    bottom: 0,
-    top: 0,
-    left: 0,
-    right: 0,
+    'position': 'absolute',
+    'display': 'flex',
+    'justifyContent': 'center',
+    'alignItems': 'center',
+    'bottom': 0,
+    'top': 0,
+    'left': 0,
+    'right': 0,
     '& p': {
       color: theme.neutralColor.high.dark
     }

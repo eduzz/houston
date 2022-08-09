@@ -20,6 +20,9 @@ const UserMenuGroup: React.FC<UserMenuGroupProps> = ({ label, className, childre
 
 export default styled(UserMenuGroup, { label: 'houston-topbar-user-menu-group' })(
   ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+
     & > .houston-topbar-user-menu-group__label {
       margin-top: ${theme.spacing.nano};
       padding: ${theme.spacing.squish.xxs};
