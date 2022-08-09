@@ -30,6 +30,10 @@ const Overlay = ({ className, visible, color = 'low', children, ...rest }: Overl
     };
   }, [enableScroll, disableScroll, visible]);
 
+  if (!visible) {
+    return null;
+  }
+
   return (
     <div
       aria-hidden='true'
