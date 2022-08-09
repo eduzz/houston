@@ -17,7 +17,7 @@ export interface OverlayProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const Overlay = ({ className, visible, color = 'low', children, ...rest }: OverlayProps & StyledProp) => {
+const Overlay = ({ className, visible, color = 'low', children, underTopbar, ...rest }: OverlayProps & StyledProp) => {
   const { disableScroll, enableScroll } = useScrollBlock();
 
   React.useEffect(() => {
@@ -34,7 +34,11 @@ const Overlay = ({ className, visible, color = 'low', children, ...rest }: Overl
     <div
       aria-hidden='true'
       tabIndex={-1}
-      className={cx(className, { '--overlay-visible': visible, '--overlay-color-high': color === 'high' })}
+      className={cx(className, {
+        '--hts-visible': visible,
+        '--hts-color-high': color === 'high',
+        '--hts-under-topbar': underTopbar
+      })}
       {...rest}
     >
       {children}
@@ -43,29 +47,32 @@ const Overlay = ({ className, visible, color = 'low', children, ...rest }: Overl
 };
 
 export default styled(Overlay, {
-  label: 'houston-overlay',
-  shouldForwardProp: propName => propName !== 'underTopbar'
+  label: 'houston-overlay'
 })(
-  ({ theme, underTopbar }) => css`
+  ({ theme }) => css`
     background: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
     width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: ${underTopbar ? 104 : 106};
+    z-index: 106;
     opacity: ${theme.opacity.level[0]};
     visibility: hidden;
     inset: 0;
     backdrop-filter: blur(${theme.pxToRem(8)}rem);
 
-    &.--overlay-color-high {
+    &.--hts-color-high {
       background: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[6])};
     }
 
-    &.--overlay-visible {
+    &.--hts-visible {
       opacity: 1;
       visibility: visible;
+    }
+
+    &.--hts-under-topbar {
+      z-index: 104;
     }
   `
 );
