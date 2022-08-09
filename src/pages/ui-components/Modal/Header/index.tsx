@@ -5,17 +5,17 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
-import Divider from '../../../Divider';
-import IconButton from '../../../IconButton';
-import Typography from '../../../Typography';
-import { IconClose } from '../../__utils/icons';
-import { ModalContext } from '../../context';
+import Divider from '../../Divider';
+import IconButton from '../../IconButton';
+import Typography from '../../Typography';
+import { IconClose } from '../__utils/icons';
+import { ModalContext } from '../context';
 
 export interface ModalHeaderProps {
   children: React.ReactNode;
   disableTypography?: boolean;
   /**
-   * The icon will be rendered in `<Modal.FullScreen />` only.
+   * The icon will be rendered in `fullscreen` prop.
    */
   icon?: React.ReactNode;
 }

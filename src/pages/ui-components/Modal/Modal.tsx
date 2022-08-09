@@ -6,12 +6,11 @@ import useEscapeKey from '../hooks/useEscapeKey';
 import Overlay from '../Overlay';
 import Portal from '../Portal';
 import nestedComponent from '../utils/nestedComponent';
-import Content from './__internals/Content';
-import Footer from './__internals/Footer';
-import Header from './__internals/Header';
 import ModalBase from './__utils/ModalBase';
+import Content from './Content';
 import ModalContextProvider from './context';
-import FullScreen from './Fullscreen';
+import Footer from './Footer';
+import Header from './Header';
 
 export const modalSizesInPx: Record<ModalSizes, number> = { xs: 400, sm: 560, md: 640, lg: 800, xl: 1200 };
 
@@ -33,6 +32,11 @@ export interface ModalProps {
    * Default `false`
    */
   disableEscapeKey?: boolean;
+  /**
+   * The modal occupies 100% of the viewport
+   * Default `false`
+   */
+  fullscreen?: boolean;
 }
 
 const Modal = ({
@@ -41,6 +45,7 @@ const Modal = ({
   size = 'sm',
   onClose,
   closeIcon = true,
+  fullscreen = false,
   disableEscapeKey,
   children,
   ...rest
@@ -61,9 +66,17 @@ const Modal = ({
     <Portal target='houston-modal'>
       <Overlay visible={visible}>
         <ModalContextProvider value={contextValue}>
-          <ModalBase className={cx(className, `--hst-modal-size-${size}`)} aria-modal {...rest}>
-            {children}
-          </ModalBase>
+          {fullscreen && (
+            <div className={cx(className, '--hst-modal-fullscreen')} role='dialog' aria-modal {...rest}>
+              {children}
+            </div>
+          )}
+
+          {!fullscreen && (
+            <ModalBase className={cx(className, !fullscreen && `--hst-modal-size-${size}`)} aria-modal {...rest}>
+              {children}
+            </ModalBase>
+          )}
         </ModalContextProvider>
       </Overlay>
     </Portal>
@@ -83,10 +96,6 @@ const ModalWrapper = styled(Modal, { label: 'hst-modal' })`
     );
 
     return css`
-      & > .hst-modal-header .hst-modal-header-title__icon {
-        display: none;
-      }
-
       &,
       & > form {
         display: flex;
@@ -100,6 +109,30 @@ const ModalWrapper = styled(Modal, { label: 'hst-modal' })`
         }
       }
 
+      &.--hst-modal-fullscreen {
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        max-width: 100vw;
+        background-color: ${theme.neutralColor.high.pure};
+
+        & > .hst-modal-header,
+        & > .hst-modal-footer {
+          border-radius: 0;
+        }
+
+        &,
+        & > form {
+          max-width: 100vw;
+          max-height: 100%;
+          flex: 1;
+        }
+      }
+
+      &:not(.--hst-modal-fullscreen) > .hst-modal-header .hst-modal-header-title__icon {
+        display: none;
+      }
+
       ${modifiers}
     `;
   }}
@@ -108,6 +141,5 @@ const ModalWrapper = styled(Modal, { label: 'hst-modal' })`
 export default nestedComponent(React.memo(ModalWrapper), {
   Header,
   Content,
-  Footer,
-  FullScreen
+  Footer
 });

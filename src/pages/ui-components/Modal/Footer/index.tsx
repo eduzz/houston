@@ -1,14 +1,20 @@
+import { cx } from '@emotion/css';
+
 import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
-import Divider from '../../../Divider';
+import Divider from '../../Divider';
 
 export interface ModalFooterProps {
   children: React.ReactNode;
 }
 
-const ModalFooter = ({ children, ...rest }: ModalFooterProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+const ModalFooter = ({
+  children,
+  className,
+  ...rest
+}: ModalFooterProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   return (
-    <footer {...rest}>
+    <footer className={cx(className, 'hst-modal-footer')} {...rest}>
       <Divider />
       <div className='hst-modal-footer__wrapper'>{children}</div>
     </footer>

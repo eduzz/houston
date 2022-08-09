@@ -206,7 +206,7 @@ Quando utilizar um form dentro do modal, coloque o `Form (ou a tag form)` como f
 
 Há uma variação do componente com algumas particularidades. Em resumo ele preenche 100% da tela, é possível adicionar um ícone no `Header` e não possui cantos arredondados.
 
-> A prop `size` não está disponível.
+> A prop `size` não interfere em nada neste caso.
 
 <Playground>
   {() => {
@@ -215,7 +215,7 @@ Há uma variação do componente com algumas particularidades. Em resumo ele pre
     const onClose = () => setVisible(false);
     return (
       <>
-        <Modal.FullScreen visible={visible} onClose={onClose}>
+        <Modal fullscreen visible={visible} onClose={onClose}>
           <Modal.Header icon={<FaceHappyOutlineIcon />}>Atenção!</Modal.Header>
           <Modal.Content>
             Dado o fluxo de dados atual, o último pull request desse SCRUM superou o desempenho de compilação
@@ -227,7 +227,7 @@ Há uma variação do componente com algumas particularidades. Em resumo ele pre
             </Button>
             <Button>Salvar</Button>
           </Modal.Footer>
-        </Modal.FullScreen>
+        </Modal>
         <Button onClick={onOpen} type='button'>
           Abrir
         </Button>
@@ -238,17 +238,18 @@ Há uma variação do componente com algumas particularidades. Em resumo ele pre
 
 ### Modal props
 
-| prop             | tipo        | obrigatório | padrão | descrição                                                               |
-| ---------------- | ----------- | ----------- | ------ | ----------------------------------------------------------------------- |
-| visible          | `boolean`   | `true`      | `-`    | Controle de exibição.                                                   |
-| size             | `ModalSize` | `false`     | `sm`   | -                                                                       |
-| closeIcon        | `boolean`   | `false`     | `true` | Se `false`, o ícone (x) será ocultado.                                  |
-| onClose          | `function`  | `true`      | -      | -                                                                       |
-| disableEscapeKey | `boolean`   | `false`     | `-`    | Se `true`, ao pressionar a tecla ESC não é acionado a função `onClose`. |
+| prop             | tipo        | obrigatório | padrão  | descrição                                                               |
+| ---------------- | ----------- | ----------- | ------- | ----------------------------------------------------------------------- |
+| visible          | `boolean`   | `true`      | `-`     | Controle de exibição.                                                   |
+| size             | `ModalSize` | `false`     | `sm`    | -                                                                       |
+| closeIcon        | `boolean`   | `false`     | `true`  | Se `false`, o ícone (x) será ocultado.                                  |
+| onClose          | `function`  | `true`      | -       | -                                                                       |
+| disableEscapeKey | `boolean`   | `false`     | `false` | Se `true`, ao pressionar a tecla ESC não é acionado a função `onClose`. |
+| fullscreen       | `boolean`   | `false`     | `false` | Se `true`, o componente ocupa 100% do viewport.                         |
 
 ### Modal Header props
 
-| prop              | tipo              | obrigatório | padrão  | descrição                                                        |
-| ----------------- | ----------------- | ----------- | ------- | ---------------------------------------------------------------- |
-| disableTypography | `boolean`         | `false`     | `false` | Se `true`, o componente `Typography` não será renderizado.       |
-| icon              | `React.ReactNode` | `false`     | `-`     | O ícone é renderizado apenas na variação `<Modal.FullScreen />`. |
+| prop              | tipo              | obrigatório | padrão  | descrição                                                           |
+| ----------------- | ----------------- | ----------- | ------- | ------------------------------------------------------------------- |
+| disableTypography | `boolean`         | `false`     | `false` | Se `true`, o componente `Typography` não será renderizado.          |
+| icon              | `React.ReactNode` | `false`     | `-`     | O ícone é renderizado apenas quando a prop `fullscreen` está ativa. |

@@ -1,10 +1,9 @@
-import { ModalContentProps } from './__internals/Content';
-import { ModalFooterProps } from './__internals/Footer';
-import { ModalHeaderProps } from './__internals/Header';
-import { ModalFullScreenProps } from './Fullscreen';
+import { ModalFooterProps } from './/Footer';
+import { ModalHeaderProps } from './/Header';
+import { ModalContentProps } from './Content';
 import Modal, { ModalProps, ModalSizes, modalSizesInPx } from './Modal';
 
-export type { ModalProps, ModalHeaderProps, ModalContentProps, ModalFooterProps, ModalSizes, ModalFullScreenProps };
+export type { ModalProps, ModalHeaderProps, ModalContentProps, ModalFooterProps, ModalSizes };
 
 export { modalSizesInPx };
 
