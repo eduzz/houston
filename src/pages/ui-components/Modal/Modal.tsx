@@ -32,6 +32,11 @@ export interface ModalProps {
    * Default `false`
    */
   disableEscapeKey?: boolean;
+  /**
+   * The modal occupies 100% of the viewport
+   * Default `false`
+   */
+  fullscreen?: boolean;
 }
 
 const Modal = ({
@@ -40,6 +45,7 @@ const Modal = ({
   size = 'sm',
   onClose,
   closeIcon = true,
+  fullscreen = false,
   disableEscapeKey,
   children,
   ...rest
@@ -60,22 +66,30 @@ const Modal = ({
     <Portal target='houston-modal'>
       <Overlay visible={visible}>
         <ModalContextProvider value={contextValue}>
-          <ModalBase className={cx(className, `--modal-size-${size}`)} aria-modal {...rest}>
-            {children}
-          </ModalBase>
+          {fullscreen && (
+            <div className={cx(className, '--hst-modal-fullscreen')} role='dialog' aria-modal {...rest}>
+              {children}
+            </div>
+          )}
+
+          {!fullscreen && (
+            <ModalBase className={cx(className, `--hst-modal-size-${size}`)} aria-modal {...rest}>
+              {children}
+            </ModalBase>
+          )}
         </ModalContextProvider>
       </Overlay>
     </Portal>
   );
 };
 
-const ModalWrapper = styled(Modal, { label: 'houston-modal' })`
+const ModalWrapper = styled(Modal, { label: 'hst-modal' })`
   ${({ theme }) => {
-    const modifiersSizes: CSSInterpolation[] = [];
+    const modifiers: CSSInterpolation[] = [];
 
     Object.entries(modalSizesInPx).forEach(([size, value]) =>
-      modifiersSizes.push(css`
-        &.--modal-size-${size} {
+      modifiers.push(css`
+        &.--hst-modal-size-${size} {
           width: ${theme.pxToRem(value)}rem;
         }
       `)
@@ -95,7 +109,31 @@ const ModalWrapper = styled(Modal, { label: 'houston-modal' })`
         }
       }
 
-      ${modifiersSizes}
+      &.--hst-modal-fullscreen {
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        max-width: 100vw;
+        background-color: ${theme.neutralColor.high.pure};
+
+        & > .hst-modal-header,
+        & > .hst-modal-footer {
+          border-radius: 0;
+        }
+
+        &,
+        & > form {
+          max-width: 100vw;
+          max-height: 100%;
+          flex: 1;
+        }
+      }
+
+      &:not(.--hst-modal-fullscreen) > .hst-modal-header .hst-modal-header-title__icon {
+        display: none;
+      }
+
+      ${modifiers}
     `;
   }}
 `;
