@@ -73,7 +73,7 @@ const Modal = ({
           )}
 
           {!fullscreen && (
-            <ModalBase className={cx(className, !fullscreen && `--hst-modal-size-${size}`)} aria-modal {...rest}>
+            <ModalBase className={cx(className, `--hst-modal-size-${size}`)} aria-modal {...rest}>
               {children}
             </ModalBase>
           )}

@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { StyledProp, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, css, cx } from '@eduzz/houston-styles';
 
 import Divider from '../../Divider';
 import IconButton from '../../IconButton';
