@@ -20,18 +20,18 @@ interface StyleProps {
 
 const useStyles = createUseStyles(theme => ({
   ctas: (props: StyleProps) => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    padding: props?.size === 'small' ? '32px 16px 16px' : '32px 24px 24px',
+    'display': 'flex',
+    'justifyContent': 'space-between',
+    'alignItems': 'center',
+    'width': '100%',
+    'padding': props?.size === 'small' ? '32px 16px 16px' : '32px 24px 24px',
 
     [theme.breakpoints.down('xs')]: {
       padding: '12px 16px'
     },
 
     '& button': {
-      whiteSpace: 'nowrap',
+      'whiteSpace': 'nowrap',
 
       '&.--secondary-color': {
         color: theme.neutralColor.high.dark
@@ -46,9 +46,9 @@ const useStyles = createUseStyles(theme => ({
     },
 
     '& .standard-buttons': {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'flex-end',
+      'width': '100%',
+      'display': 'flex',
+      'justifyContent': 'flex-end',
 
       '& button': {
         marginLeft: 8
@@ -56,11 +56,11 @@ const useStyles = createUseStyles(theme => ({
     },
 
     '& .mobile-buttons': {
-      position: 'relative',
-      display: 'flex',
-      alignItems: 'center',
-      width: '100%',
-      height: 24,
+      'position': 'relative',
+      'display': 'flex',
+      'alignItems': 'center',
+      'width': '100%',
+      'height': 24,
 
       '& .arrow': {
         borderStyle: 'solid',

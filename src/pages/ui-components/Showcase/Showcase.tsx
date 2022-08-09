@@ -42,19 +42,19 @@ const imageSizes = {
 
 const useStyles = createUseStyles(theme => ({
   modalContent: {
-    width: modalSizes.large,
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    maxWidth: '100%',
-    background: 'white',
-    borderRadius: 4,
-    transform: 'translate(-50%, -50%)',
-    maxHeight: '85vh',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    'width': modalSizes.large,
+    'position': 'fixed',
+    'top': '50%',
+    'left': '50%',
+    'maxWidth': '100%',
+    'background': 'white',
+    'borderRadius': 4,
+    'transform': 'translate(-50%, -50%)',
+    'maxHeight': '85vh',
+    'overflow': 'hidden',
+    'display': 'flex',
+    'flexDirection': 'column',
+    'alignItems': 'center',
 
     [theme.breakpoints.down('lg')]: {
       width: modalSizes.medium
@@ -65,10 +65,10 @@ const useStyles = createUseStyles(theme => ({
     },
 
     '& .card-mui': {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-      boxShadow: 'none',
+      'display': 'flex',
+      'flexDirection': 'column',
+      'width': '100%',
+      'boxShadow': 'none',
 
       '& .card-content-mui': {
         boxSizing: 'border-box',
