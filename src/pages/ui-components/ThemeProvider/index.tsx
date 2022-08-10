@@ -9,6 +9,7 @@ import setDefaultOptions from 'date-fns/setDefaultOptions';
 import { HoustonThemeProps } from '@eduzz/houston-styles';
 import createThemeStyles from '@eduzz/houston-styles/createTheme';
 
+import DialogGlobal from '../Dialog/Global';
 import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
@@ -25,6 +26,7 @@ export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'chi
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
   disableToast?: boolean;
+  disableDialogs?: boolean;
 }
 
 const defaultTheme = createTheme('eduzz');
@@ -35,6 +37,7 @@ function ThemeProvider({
   disableResetStyles,
   disableCssBaseline,
   disabledFontBase,
+  disableDialogs,
   disableToast
 }: ThemeProviderProps) {
   const [muiTheme] = React.useState(() => generateTheme(theme));
@@ -61,6 +64,7 @@ function ThemeProvider({
       <MUIThemeProvider theme={muiTheme}>
         <PopoverRoot>
           {!disableToast && <ToastContainer />}
+          {!disableDialogs && <DialogGlobal />}
           {!disableCssBaseline && <CssBaseline />}
           {!disableResetStyles && <GlobalStyles />}
           {children}
