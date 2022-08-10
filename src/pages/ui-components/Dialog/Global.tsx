@@ -97,7 +97,7 @@ const DialogGlobal = memo(() => {
 });
 
 function callComponent(params: DialogShowParams): Promise<boolean> {
-  //prevent an alert to overhide another
+  //prevent an alert to override another
   return (lastPromise = lastPromise.finally(async () => {
     await new Promise<void>(resolve => setTimeout(() => resolve(), 300));
     if (!componentCallback) throw new Error('Please, initialize an DialogGlobal before');

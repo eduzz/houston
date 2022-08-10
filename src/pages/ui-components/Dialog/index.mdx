@@ -50,7 +50,7 @@ import Dialog from '@eduzz/houston-ui/Dialog';
 
 ### Alertas e Confirmações
 
-É possível usar o Dialog como alers e confirms
+É possível usar o Dialog como alerts e confirms
 
 <Playground>
   {() => {
@@ -59,7 +59,7 @@ import Dialog from '@eduzz/houston-ui/Dialog';
       () =>
         Dialog.confirm({
           title: 'Confirmação',
-          message: 'Essta confirmação retorna uma promise, por isso o botão tera um loading',
+          message: 'Essa confirmação retorna uma promise, por isso o botão tera um loading',
           onConfirm: () => new Promise(r => setTimeout(() => r(null), 3000))
         }),
       []
@@ -103,9 +103,9 @@ O retorno da função será uma promise de boolean;
 
 O retorno da função será uma promise de boolean;
 
-| prop      | tipo               | obrigatório | padrão  | descrição                                               |
-| --------- | ------------------ | ----------- | ------- | ------------------------------------------------------- |
-| message   | `string/ReactNode` | true        |         |                                                         |
-| title     | `string`           | false       | Atenção |                                                         |
-| onConfirm | `function`         | false       |         | Se retornar uma promise o button terá estado de loading |
-| onCancel  | `function`         | false       |         | Se retornar uma promise o button terá estado de loading |
+| prop      | tipo               | obrigatório | padrão      | descrição                                               |
+| --------- | ------------------ | ----------- | ----------- | ------------------------------------------------------- |
+| message   | `string/ReactNode` | true        |             |                                                         |
+| title     | `string`           | false       | Confirmação |                                                         |
+| onConfirm | `function`         | false       |             | Se retornar uma promise o button terá estado de loading |
+| onCancel  | `function`         | false       |             | Se retornar uma promise o button terá estado de loading |
