@@ -1,8 +1,10 @@
 import * as React from 'react';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles';
+import Select from '@eduzz/houston-ui/Forms/Select';
 
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
+import useMediaQuery from '../hooks/useMediaQuery';
 import IconButton from '../IconButton';
 import nestedComponent from '../utils/nestedComponent';
 import { ChevronLeft, ChevronRight } from './Icons';
@@ -30,6 +32,8 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
   const labelsRef = React.useRef<HTMLDivElement>(null);
   const parentRef = React.useRef<HTMLDivElement>(null);
 
+  const isMobile = useMediaQuery(breakpoints.down('sm'));
+
   React.useEffect(() => {
     const handleResize = () => {
       const labelsScrollWidth = labelsRef?.current?.scrollWidth as number;
@@ -52,6 +56,14 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
     [onChange]
   );
 
+  const handleSelectChange = React.useCallback(
+    (index: number) => {
+      onChange && onChange(index);
+      setActiveTab(index);
+    },
+    [onChange]
+  );
+
   const handleScrollRight = React.useCallback(() => {
     parentRef.current?.scrollBy({
       left: SCROLL_MOVEMENT,
@@ -65,6 +77,21 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
       behavior: 'smooth'
     });
   }, []);
+
+  if (isMobile) {
+    return (
+      <div>
+        <Select onChange={handleSelectChange} value={value ?? activeTab}>
+          {childrenProps?.map(({ label, disabled }, index) => (
+            <Select.Option value={index} key={label} disabled={disabled} aria-disabled={disabled}>
+              {label}
+            </Select.Option>
+          ))}
+        </Select>
+        <div>{tabs[value ?? activeTab].props.children}</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -159,7 +186,7 @@ const TabsWrapper = React.memo(
         font-weight: ${theme.font.weight.semibold};
         line-height: ${theme.line.height.default};
         border-bottom: ${theme.border.width.xs} solid rgba(0, 0, 0, 0.12);
-        border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
+        border-radius: ${theme.border.radius.xs} ${theme.border.radius.xs} 0 0;
         transition-duration: 0.5s;
         transition-property: background-color, color;
         margin-bottom: ${NEGATIVE_SPACING_IN_PX}px;
