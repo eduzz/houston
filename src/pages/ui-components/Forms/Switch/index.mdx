@@ -30,17 +30,17 @@ import Switch from '@eduzz/houston-ui/Forms/Switch';
     const onChange = React.useCallback(() => setChecked(prev => !prev), []);
     return (
       <Row>
-        <Column>
-          <Switch checked={checked} onChange={onChange}>
+        <Column xs='auto'>
+          <Switch value={checked} onChange={onChange}>
             Switch
           </Switch>
         </Column>
-        <Column>
-          <Switch checked disabled>
+        <Column xs='auto'>
+          <Switch value disabled>
             Checked disabled
           </Switch>
         </Column>
-        <Column>
+        <Column xs='auto'>
           <Switch disabled>Disabled</Switch>
         </Column>
       </Row>
@@ -56,13 +56,12 @@ import useForm from '@eduzz/houston-forms/useForm';
 
 <Playground>
   {() => {
-    const form = useForm({
-      defaultValues: { switch: true } //estado inicial, não precisa passar todas as propriedades
-    });
+    const form = useForm({ defaultValues: { switch: true } });
     const value = form.watch('switch');
     return (
       <Form context={form} onSubmit={() => {}}>
         <Typography>Valor atual do switch: {String(value)}</Typography>
+        <br />
         <Switch name='switch' />
       </Form>
     );

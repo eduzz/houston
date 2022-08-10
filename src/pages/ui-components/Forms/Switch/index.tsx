@@ -23,7 +23,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     const [id] = React.useState(idProp ?? `hst-switch-id-${Math.floor(Math.random() * 1000)}`);
 
     return (
-      <div className={cx(className, { '--disabled': disabled })}>
+      <div className={cx(className, { '--hst-switch-disabled': disabled })}>
         <button
           id={id}
           role='switch'
@@ -44,6 +44,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
             <span className={cx('hst-switch__thumb', { '--checked': value })} />
           </div>
         </button>
+
         {children && <label htmlFor={id}>{children}</label>}
       </div>
     );
@@ -64,7 +65,7 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
     gap: ${theme.spacing.inline.nano};
     cursor: pointer;
 
-    &.--disabled {
+    &.--hst-switch-disabled {
       opacity: ${theme.opacity.level[6]};
       cursor: not-allowed;
     }
