@@ -12,6 +12,7 @@ export interface SwitchProps
   onChange?: (checked: boolean) => void;
   value?: boolean;
   disabled?: boolean;
+  errorMessage?: string;
 }
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
@@ -27,7 +28,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         <button
           id={id}
           role='switch'
-          className='hst-switch__button'
+          className={cx('hst-switch__button', { '--error': !!errorMessage })}
           onClick={handleChange}
           disabled={disabled}
           aria-disabled={disabled}
@@ -38,14 +39,18 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
           <div
             tabIndex={0}
             className={cx('hst-switch__track', {
-              '--checked': value
+              '--checked': value,
+              '--error': !!errorMessage
             })}
           >
             <span className={cx('hst-switch__thumb', { '--checked': value })} />
           </div>
         </button>
 
-        {children && <label htmlFor={id}>{children}</label>}
+        <div className='__label'>
+          {children && <label htmlFor={id}>{children}</label>}
+          {!!errorMessage && <div className='hst-switch__errorMessage'>{errorMessage}</div>}
+        </div>
       </div>
     );
   }
@@ -64,14 +69,25 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
     align-items: center;
     gap: ${theme.spacing.inline.nano};
     cursor: pointer;
+    line-height: 0;
 
     &.--hst-switch-disabled {
       opacity: ${theme.opacity.level[6]};
       cursor: not-allowed;
     }
 
+    .hst-switch__errorMessage {
+      font-size: ${theme.font.size.xxs};
+      font-family: ${theme.font.family.base};
+      font-weight: ${theme.font.weight.regular};
+      line-height: ${theme.line.height.default};
+      color: ${theme.hexToRgba(theme.feedbackColor.negative.pure)};
+      margin-top: ${theme.spacing.quarck};
+    }
+
     .hst-switch__button {
       all: unset;
+      margin-bottom: auto;
 
       :disabled {
         pointer-events: none;
@@ -110,6 +126,10 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
 
       &.--checked {
         background-color: ${theme.brandColor.primary.pure};
+      }
+
+      &.--error {
+        background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure)};
       }
 
       .hst-switch__thumb {

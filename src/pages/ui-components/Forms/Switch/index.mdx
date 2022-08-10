@@ -43,6 +43,11 @@ import Switch from '@eduzz/houston-ui/Forms/Switch';
         <Column xs='auto'>
           <Switch disabled>Disabled</Switch>
         </Column>
+        <Column xs='auto'>
+          <Switch errorMessage='Error Message' value={checked} onChange={onChange}>
+            Error
+          </Switch>
+        </Column>
       </Row>
     );
   }}
@@ -68,9 +73,10 @@ import useForm from '@eduzz/houston-forms/useForm';
   }}
 </Playground>
 
-| prop     | tipo       | obrigatório | padrão  | descrição                                 |
-| -------- | ---------- | ----------- | ------- | ----------------------------------------- |
-| name     | `string`   | `true`      | -       | Necessário quando usado dentro de um Form |
-| value    | `boolean`  | `false`     | `false` | -                                         |
-| onChange | `function` | `false`     | -       | -                                         |
-| disabled | `boolean`  | `false`     | `false` | -                                         |
+| prop         | tipo       | obrigatório | padrão  | descrição                                 |
+| ------------ | ---------- | ----------- | ------- | ----------------------------------------- |
+| name         | `string`   | `true`      | -       | Necessário quando usado dentro de um Form |
+| value        | `boolean`  | `false`     | `false` | -                                         |
+| onChange     | `function` | `false`     | -       | -                                         |
+| disabled     | `boolean`  | `false`     | `false` | -                                         |
+| errorMessage | `string`   | `false`     | -       | -                                         |
