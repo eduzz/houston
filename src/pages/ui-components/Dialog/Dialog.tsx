@@ -104,6 +104,7 @@ export default nestedComponent(React.memo(DialogWrapper), {
   Header,
   Content,
   Footer,
-  alert: showAlert,
-  confirm: showConfirm
+  // Evita referência circular, pois o Global depende do Dialog
+  alert: (params: Parameters<typeof showAlert>[0]) => showAlert(params),
+  confirm: (params: Parameters<typeof showConfirm>[0]) => showConfirm(params)
 });
