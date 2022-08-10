@@ -10,6 +10,7 @@ import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import DialogContextProvider from './context';
 import Footer from './Footer';
+import { showAlert, showConfirm } from './Global';
 import Header from './Header';
 
 export type DialogTypes = 'positive' | 'informative' | 'warning' | 'negative';
@@ -102,5 +103,7 @@ const DialogWrapper = styled(Dialog, { label: 'houston-dialog' })`
 export default nestedComponent(React.memo(DialogWrapper), {
   Header,
   Content,
-  Footer
+  Footer,
+  alert: showAlert,
+  confirm: showConfirm
 });

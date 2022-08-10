@@ -8,7 +8,7 @@ const ModalContent = ({ children, ...rest }: ModalContentProps & React.HTMLAttri
   <div {...rest}>{children}</div>
 );
 
-export default styled(ModalContent, { label: 'houston-modal-content' })`
+export default styled(ModalContent, { label: 'hst-modal-content' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.sm};
     overflow: auto;
