@@ -20,10 +20,14 @@ export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDiv
 
 const SCROLL_MOVEMENT = 300;
 
-const Option = styled.div`
+const StyledOption = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.inline.nano};
+`;
+
+const StyledSelect = styled(Select)`
+  margin-bottom: ${({ theme }) => theme.spacing.inline.xxxs};
 `;
 
 const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
@@ -87,16 +91,16 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
   if (isMobile) {
     return (
       <>
-        <Select onChange={handleSelectChange} value={value ?? activeTab}>
+        <StyledSelect onChange={handleSelectChange} value={value ?? activeTab}>
           {childrenProps?.map(({ icon, label, disabled }, index) => (
             <Select.Option value={index} key={label} disabled={disabled} aria-disabled={disabled}>
-              <Option>
+              <StyledOption>
                 {icon}
                 {label}
-              </Option>
+              </StyledOption>
             </Select.Option>
           ))}
-        </Select>
+        </StyledSelect>
         <div>{tabs[value ?? activeTab].props.children}</div>
       </>
     );
