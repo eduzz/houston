@@ -91,7 +91,16 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
   if (isMobile) {
     return (
       <>
-        <StyledSelect onChange={handleSelectChange} value={value ?? activeTab}>
+        <StyledSelect
+          renderValue={value => (
+            <StyledOption>
+              {tabs[value].props.icon}
+              {tabs[value].props.label}
+            </StyledOption>
+          )}
+          onChange={handleSelectChange}
+          value={value ?? activeTab}
+        >
           {childrenProps?.map(({ icon, label, disabled }, index) => (
             <Select.Option value={index} key={label} disabled={disabled} aria-disabled={disabled}>
               <StyledOption>
