@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { HoustonThemeProps } from '@eduzz/houston-styles';
-import styled, { css, StyledProp } from '@eduzz/houston-styles/styled';
+import styled, { HoustonThemeProps, css, cx, StyledProp } from '@eduzz/houston-styles';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import nestedComponent from '../utils/nestedComponent';
@@ -34,6 +33,35 @@ export type TypographyTags =
 
 export type TypographyMargin = keyof Omit<HoustonTokens['spacing'], 'fn' | 'squish' | 'inline' | 'stack' | 'inset'>;
 
+const SUPPORTED_COLORS: TypographyColors[] = [
+  'primary',
+  'inherit',
+  'neutralColor.low.pure',
+  'neutralColor.low.light',
+  'neutralColor.low.medium',
+  'neutralColor.low.dark',
+  'neutralColor.high.pure',
+  'neutralColor.high.light',
+  'neutralColor.high.medium',
+  'neutralColor.high.dark'
+];
+
+const SUPPORTED_MARGINS: TypographyMargin[] = [
+  'quarck',
+  'nano',
+  'xxxs',
+  'xxs',
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  'xxl',
+  'xxxl',
+  'huge',
+  'giant'
+];
+
 export interface TypographyProps extends StyledProp, React.HTMLAttributes<HTMLElement> {
   id?: string;
   /**
@@ -63,9 +91,34 @@ export interface TypographyProps extends StyledProp, React.HTMLAttributes<HTMLEl
 
 const Typography = React.forwardRef<any, TypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { size, lineHeight, weight, marginBottom, color, ...forwardProps } = props;
-  return <Tag ref={ref} className={className} {...forwardProps} />;
+  const {
+    size = 'xs',
+    lineHeight = 'md',
+    weight = 'regular',
+    color = 'neutralColor.low.pure',
+    marginBottom = false,
+    ...forwardProps
+  } = props;
+  const margin: TypographyMargin | null = marginBottom === true ? 'nano' : marginBottom === false ? null : marginBottom;
+
+  return (
+    <Tag
+      ref={ref}
+      className={cx(className, {
+        [`--hst-size-${size}`]: true,
+        [`--hst-line-${lineHeight}`]: true,
+        [`--hst-weight-${weight}`]: true,
+        [`--hts-margin-${margin}`]: !!margin,
+        [`--hst-color-${getColorName(color)}`]: true
+      })}
+      {...forwardProps}
+    />
+  );
 });
+
+function getColorName(color: string) {
+  return color.replace(/\./gim, '-');
+}
 
 function getColor(theme: HoustonThemeProps, color: TypographyColors) {
   if (color === 'inherit') {
@@ -86,23 +139,51 @@ function getColor(theme: HoustonThemeProps, color: TypographyColors) {
   return result;
 }
 
-const TypographyWrapper = styled(Typography)`
-  ${({ theme, size = 'xs', lineHeight = 'md', weight = 'regular', color = 'neutralColor.low.pure', marginBottom }) => {
-    return css`
-      margin: 0;
-      font-family: ${theme.font.family.base};
-      font-size: ${theme.font.size[size]};
-      font-weight: ${theme.font.weight[weight]};
-      line-height: ${theme.line.height[lineHeight]};
-      color: ${getColor(theme, color)};
+const TypographyWrapper = styled(Typography, { label: 'houston-typography' })(({ theme }) => {
+  return css`
+    margin: 0;
 
-      ${marginBottom &&
-      css`
-        margin-bottom: ${typeof marginBottom === 'boolean' ? theme.spacing.nano : theme.spacing[marginBottom]};
-      `}
-    `;
-  }}
-`;
+    ${Object.keys(theme.font.size).map(
+      size => css`
+        &.--hst-size-${size} {
+          font-size: ${theme.font.size[size]};
+        }
+      `
+    )}
+
+    ${Object.keys(theme.line.height).map(
+      lineHeight => css`
+        &.--hst-line-${lineHeight} {
+          line-height: ${theme.line.height[lineHeight]};
+        }
+      `
+    )}
+
+    ${Object.keys(theme.font.weight).map(
+      weight => css`
+        &.--hst-weight-${weight} {
+          font-weight: ${theme.font.weight[weight]};
+        }
+      `
+    )}
+
+    ${SUPPORTED_COLORS.map(
+      color => css`
+        &.--hst-color-${getColorName(color)} {
+          color: ${getColor(theme, color)};
+        }
+      `
+    )}
+
+    ${SUPPORTED_MARGINS.map(
+      margin => css`
+        &.--hst-margin-${margin} {
+          margin-bottom: ${theme.spacing[margin]};
+        }
+      `
+    )}
+  `;
+});
 
 export default nestedComponent(TypographyWrapper, {
   Caption,

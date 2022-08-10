@@ -41,7 +41,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     <button
       ref={ref}
       role='button'
-      className={cx(className, `--${variant ?? 'contained'}`, {
+      className={cx(className, 'hst-button', `--${variant ?? 'contained'}`, {
         '--full-width': fullWidth,
         '--disabled': disabled || loading,
         '--active': active

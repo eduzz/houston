@@ -3,7 +3,7 @@ import { createContext } from 'use-context-selector';
 export const TOPBAR_HEIGHT = 80;
 export const TOPBAR_HEIGHT_MOBILE = 64;
 export const TOPBAR_DROPDOWN_WIDTH = 340;
-export const TOPBAR_MENU_WIDTH = 260;
+export const TOPBAR_MENU_MIN_WIDTH_IN_PX = 260;
 
 export const MENU_WIDTH = 248;
 

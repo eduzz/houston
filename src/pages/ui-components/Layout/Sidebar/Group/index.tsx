@@ -9,7 +9,7 @@ import Typography from '../../../Typography';
 import SidebarGroupContext, { SidebarGroupContextType } from './context';
 
 export interface SidebarGroupProps extends StyledProp {
-  label: React.ReactNode;
+  label?: React.ReactNode;
   children: React.ReactNode;
   tabIndex?: number;
 }
@@ -24,23 +24,25 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label,
   return (
     <SidebarGroupContext.Provider value={contextValue}>
       <li className={className}>
-        <div className='houston-sidebar-group__item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
-          <div className={cx('houston-sidebar-group__arrow', isExpanded && '--rotate')}>
-            <ChevronDownIcon size='md' />
-          </div>
+        {!!label && (
+          <div className='houston-sidebar-group__item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
+            <div className={cx('houston-sidebar-group__arrow', isExpanded && '--rotate')}>
+              <ChevronDownIcon size='md' />
+            </div>
 
-          <div className='houston-sidebar-group__content'>
-            <Typography
-              className='houston-sidebar-group__label'
-              color='neutralColor.low.medium'
-              weight='regular'
-              size='xxs'
-              lineHeight='lg'
-            >
-              {label}
-            </Typography>
+            <div className='houston-sidebar-group__content'>
+              <Typography
+                className='houston-sidebar-group__label'
+                color='neutralColor.low.medium'
+                weight='regular'
+                size='xxs'
+                lineHeight='lg'
+              >
+                {label}
+              </Typography>
+            </div>
           </div>
-        </div>
+        )}
 
         <ul className='houston-sidebar-group__items'>
           <Collapse timeout={350} visibled={isExpanded}>

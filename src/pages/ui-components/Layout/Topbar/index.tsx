@@ -147,9 +147,8 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
 
         & .houston-topbar__mobile-menu {
           cursor: pointer;
-          margin: 0 -10px 0 -5px;
 
-          ${breakpoints.up('md')} {
+          ${breakpoints.up('lg')} {
             display: none;
           }
         }
@@ -157,11 +156,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
         & .houston-topbar__logo {
           height: 80%;
           width: auto;
-          margin-right: ${theme.spacing.inline.nano};
-
-          ${theme.breakpoints.up('md')} {
-            margin: 0 ${theme.spacing.inline.nano};
-          }
+          margin-inline: ${theme.spacing.inline.nano};
 
           & > img {
             max-width: 100%;
@@ -174,8 +169,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
           }
 
           ${breakpoints.down('sm')} {
-            width: 44px;
-            min-width: 40px;
+            width: 32px;
 
             & .houston-topbar__logo-default {
               display: none;

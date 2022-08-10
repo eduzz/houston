@@ -16,10 +16,10 @@ interface StyleProps {
 
 const useStyles = createUseStyles(theme => ({
   header: (props: StyleProps) => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    padding: props?.size === 'small' ? '16px 16px 0' : '24px 24px 0',
+    'display': 'flex',
+    'justifyContent': 'space-between',
+    'alignItems': 'flex-end',
+    'padding': props?.size === 'small' ? '16px 16px 0' : '24px 24px 0',
 
     [theme.breakpoints.down('sm')]: {
       padding: '12px 16px 0'

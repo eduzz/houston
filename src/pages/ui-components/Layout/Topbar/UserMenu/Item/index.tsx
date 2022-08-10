@@ -8,14 +8,31 @@ import Button from '../../../../Button';
 import Typography from '../../../../Typography';
 import LayoutContext from '../../../context';
 
-export interface UserMenuItemProps extends StyledProp, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'onClick'> {
+export interface UserMenuItemProps extends StyledProp {
+  /**
+   * Allow to provide more props to the `as` Component
+   */
+  [key: string]: any;
+  /**
+   * Component that wraps the item.
+   * @example a, NavLink, Link (react-router-dom)
+   */
+  as?: React.ElementType;
   icon?: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
   children: string;
 }
 
-const UserMenuItem: React.FC<UserMenuItemProps> = ({ className, icon, disabled, onClick, children, ...rest }) => {
+const UserMenuItem: React.FC<UserMenuItemProps> = ({
+  className,
+  icon,
+  disabled,
+  onClick,
+  children,
+  as: Tag,
+  ...rest
+}) => {
   const close = useContextSelector(LayoutContext, context => context.userMenu.falseOpened);
 
   const handleClick = React.useCallback(
@@ -32,8 +49,8 @@ const UserMenuItem: React.FC<UserMenuItemProps> = ({ className, icon, disabled, 
     </Button>
   );
 
-  if (rest.href) {
-    content = <a {...rest}>{content}</a>;
+  if (Tag) {
+    content = <Tag {...rest}>{content}</Tag>;
   }
 
   return <>{content}</>;
@@ -41,6 +58,7 @@ const UserMenuItem: React.FC<UserMenuItemProps> = ({ className, icon, disabled, 
 
 export default styled(UserMenuItem, { label: 'houston-user-menu-item' })`
   justify-content: start;
+  text-align: left;
 
   &.--disabled {
     background-color: transparent;

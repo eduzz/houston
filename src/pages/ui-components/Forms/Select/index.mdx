@@ -22,7 +22,7 @@ import Select from '@eduzz/houston-ui/Forms/Select';
   {() => {
     const [text, setText] = React.useState('');
     return (
-      <>
+      <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', gap: 16 }}>
         <Select label='Com opção em branco' value={text} onChange={setText}>
           <Select.Option>Selecione...</Select.Option>
           <Select.Option value={1}>Opção 1</Select.Option>
@@ -63,7 +63,7 @@ import Select from '@eduzz/houston-ui/Forms/Select';
             Opção 3
           </Select.Option>
         </Select>
-      </>
+      </div>
     );
   }}
 </Playground>

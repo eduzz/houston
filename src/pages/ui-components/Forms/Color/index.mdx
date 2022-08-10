@@ -22,11 +22,11 @@ import Color from '@eduzz/houston-ui/Forms/Color';
   {() => {
     const [color, setColor] = React.useState('');
     return (
-      <>
+      <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', gap: 16 }}>
         <Color label='Cor' value={color} onChange={setColor} />
         <Color label='Cor' loading placeholder='Selecione uma cor' value={color} onChange={setColor} />
         <Color label='Campo desabilitado' value={color} onChange={setColor} disabled />
-      </>
+      </div>
     );
   }}
 </Playground>
