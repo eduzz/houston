@@ -38,6 +38,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
 
   const [activeTab, setActiveTab] = React.useState(value ?? 0);
   const [isOverflowed, setIsOverflowed] = React.useState(false);
+  const [justAdjusted, setJustAdjusted] = React.useState(false);
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
   const parentRef = React.useRef<HTMLDivElement>(null);
@@ -58,12 +59,39 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const scrollBy = React.useCallback((position: 'right' | 'left', value?: number) => {
+    const goToRight = value ?? SCROLL_MOVEMENT;
+    const goToLeft = (value && -value) ?? -SCROLL_MOVEMENT;
+
+    parentRef.current?.scrollBy({
+      left: position === 'right' ? goToRight : goToLeft,
+      behavior: 'smooth'
+    });
+  }, []);
+
+  const handleScroll = React.useCallback(
+    (position: 'right' | 'left') => () => {
+      setJustAdjusted(false);
+      scrollBy(position);
+    },
+    [scrollBy]
+  );
+
   const handleTabClick = React.useCallback(
     (index: number) => () => {
       onChange && onChange(index);
       setActiveTab(index);
+
+      const labelsWidth = labelsRef?.current?.clientWidth as number;
+      const clickedTabWidth = steps[index + 1];
+
+      if (clickedTabWidth > labelsWidth && !justAdjusted) {
+        const diff = clickedTabWidth - labelsWidth;
+        scrollBy('right', diff);
+        setJustAdjusted(true);
+      }
     },
-    [onChange]
+    [onChange, steps, scrollBy, justAdjusted]
   );
 
   const handleSelectChange = React.useCallback(
@@ -73,20 +101,6 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
     },
     [onChange]
   );
-
-  const handleScrollRight = React.useCallback(() => {
-    parentRef.current?.scrollBy({
-      left: SCROLL_MOVEMENT,
-      behavior: 'smooth'
-    });
-  }, []);
-
-  const handleScrollLeft = React.useCallback(() => {
-    parentRef.current?.scrollBy({
-      left: -SCROLL_MOVEMENT,
-      behavior: 'smooth'
-    });
-  }, []);
 
   if (isMobile) {
     return (
@@ -119,7 +133,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
     <>
       <div {...rest}>
         {isOverflowed && (
-          <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScrollLeft}>
+          <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScroll('left')}>
             <ChevronLeft />
           </IconButton>
         )}
@@ -150,7 +164,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
         </div>
 
         {isOverflowed && (
-          <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScrollRight}>
+          <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScroll('right')}>
             <ChevronRight />
           </IconButton>
         )}
@@ -173,7 +187,7 @@ const TabsWrapper = React.memo(
         overflow-x: hidden;
         overflow-y: hidden;
         padding-bottom: ${theme.spacing.nano};
-        margin-bottom: ${theme.spacing.nano};
+        /* margin-bottom: ${theme.spacing.nano}; */
       }
 
       .hst-tabs__labels {
