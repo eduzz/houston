@@ -69,7 +69,7 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
     align-items: center;
     gap: ${theme.spacing.inline.nano};
     cursor: pointer;
-    line-height: 0;
+    line-height: ${theme.line.height.lg};
 
     &.--hst-switch-disabled {
       opacity: ${theme.opacity.level[6]};
@@ -82,7 +82,6 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
       font-weight: ${theme.font.weight.regular};
       line-height: ${theme.line.height.default};
       color: ${theme.hexToRgba(theme.feedbackColor.negative.pure)};
-      margin-top: ${theme.spacing.quarck};
     }
 
     .hst-switch__button {
