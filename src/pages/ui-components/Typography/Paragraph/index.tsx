@@ -9,7 +9,7 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 
 type ParagraphTags = 'p' | 'span' | 'strong';
 
-export type ParagraphSizes = 'lg' | 'sm';
+export type ParagraphSizes = 'sm' | 'md' | 'lg';
 
 export interface ParagraphProps extends StyledProp, Omit<TypographyProps, 'size' | 'as'> {
   /**
@@ -27,13 +27,15 @@ type SizesMap = {
 };
 
 const defaultSizesMap: SizesMap = {
-  lg: 'sm',
-  sm: 'xs'
+  sm: 'xxs',
+  md: 'xs',
+  lg: 'sm'
 };
 
 const mobileSizesMap: SizesMap = {
-  lg: 'sm',
-  sm: 'xs'
+  sm: 'xxs',
+  md: 'xs',
+  lg: 'sm'
 };
 
 const Paragraph = React.forwardRef<HTMLParagraphElement | HTMLSpanElement | HTMLElement, ParagraphProps>(
@@ -44,7 +46,7 @@ const Paragraph = React.forwardRef<HTMLParagraphElement | HTMLSpanElement | HTML
     const fontSize = sizesMap[sizeProp];
 
     return (
-      <Typography as={as} ref={ref} size={fontSize} lineHeight={sizeProp} {...props}>
+      <Typography as={as} ref={ref} size={fontSize} lineHeight={sizeProp === 'lg' ? 'md' : 'lg'} {...props}>
         {children}
       </Typography>
     );
