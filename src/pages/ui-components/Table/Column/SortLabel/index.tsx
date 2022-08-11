@@ -26,7 +26,6 @@ const SortLabel: React.FC<SortLabelProps> = ({
   onClick,
   className
 }) => {
-  const tableSize = useContextSelector(TableContext, context => context.size);
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
   if (!sortable || isCollapseContent) {
@@ -34,8 +33,8 @@ const SortLabel: React.FC<SortLabelProps> = ({
       <span
         className={cx(
           className,
+          '__hts-table-column-sort',
           disabled && '--disabled',
-          tableSize === 'small' && '--small',
           isCollapseContent && '--collapse-content'
         )}
       >
@@ -45,10 +44,7 @@ const SortLabel: React.FC<SortLabelProps> = ({
   }
 
   return (
-    <div
-      className={cx(className, disabled && '--disabled', tableSize === 'small' && '--small', '--sortable')}
-      onClick={onClick}
-    >
+    <div className={cx(className, '__hts-table-column-sort', disabled && '--disabled', '--sortable')} onClick={onClick}>
       {children}
 
       {active && (
@@ -61,11 +57,6 @@ const SortLabel: React.FC<SortLabelProps> = ({
 };
 
 export default styled(SortLabel)`
-  font-size: ${({ theme }) => theme.font.size.xs};
-  line-height: ${({ theme }) => theme.line.height.xs};
-  font-weight: ${({ theme }) => theme.font.weight.semibold};
-  color: ${({ theme }) => theme.neutralColor.low.dark};
-
   &.--small {
     font-size: ${({ theme }) => theme.font.size.xxs};
   }

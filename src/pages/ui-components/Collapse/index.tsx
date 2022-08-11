@@ -6,6 +6,7 @@ export interface CollapseProps {
   visibled: boolean;
   children?: React.ReactNode;
   onEnter?: () => void;
+  onClose?: () => void;
   destroyOnClose?: boolean;
   mountOnEnter?: boolean;
   timeout?: number;
@@ -16,6 +17,7 @@ const Collapse = ({
   visibled,
   destroyOnClose = false,
   onEnter,
+  onClose,
   mountOnEnter = false,
   timeout = 500
 }: CollapseProps) => {
@@ -25,6 +27,7 @@ const Collapse = ({
       timeout={timeout}
       unmountOnExit={destroyOnClose}
       onEnter={onEnter}
+      onExited={onClose}
       mountOnEnter={mountOnEnter}
     >
       {children}

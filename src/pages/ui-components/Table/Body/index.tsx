@@ -1,19 +1,15 @@
 import * as React from 'react';
 
-import { useContextSelector } from 'use-context-selector';
-
-import TableContext from '../context';
 import TableLoading from '../Loading';
 
 export interface TableBodyProps {
   children: React.ReactNode;
+  loading?: boolean;
+  loadingText?: React.ReactNode;
 }
 
-const TableBody = React.memo<TableBodyProps>(({ children }) => {
-  const loading = useContextSelector(TableContext, context => context.loading);
-  const loadingText = useContextSelector(TableContext, context => context.loadingText);
-
-  return <tbody>{loading ? <TableLoading text={loadingText} /> : children}</tbody>;
-});
+const TableBody = ({ children, loading, loadingText = 'Carregando...' }: TableBodyProps) => {
+  return <tbody>{loading ? <TableLoading>{loadingText}</TableLoading> : children}</tbody>;
+};
 
 export default TableBody;

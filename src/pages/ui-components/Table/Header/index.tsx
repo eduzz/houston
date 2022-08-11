@@ -8,13 +8,13 @@ import TableHeaderContext, { TableHeaderContextProps } from './context';
 
 export interface TableHeadProps extends TableHeaderContextProps {
   children: React.ReactNode;
+  columnActionTitle?: string;
   disabledActionsColumn?: boolean;
 }
 
-const TableHeader = ({ children, disabledActionsColumn, ...contextValue }: TableHeadProps) => {
+const TableHeader = ({ children, disabledActionsColumn, columnActionTitle, ...contextValue }: TableHeadProps) => {
   const hasActions = useContextSelector(TableContext, context => context.rows.some(r => r.hasActions));
   const hasCollapse = useContextSelector(TableContext, context => context.rows.some(r => r.hasCollapse));
-  const columnActionTitle = useContextSelector(TableContext, context => context.columnActionTitle);
 
   return (
     <TableHeaderContext.Provider value={contextValue}>
@@ -22,13 +22,15 @@ const TableHeader = ({ children, disabledActionsColumn, ...contextValue }: Table
         <tr>
           {children}
 
-          {hasActions && !disabledActionsColumn && (
-            <TableColumn width={30} align='right'>
+          {!disabledActionsColumn && (
+            <TableColumn
+              className={!hasActions && !hasCollapse ? '--hts-hidden' : undefined}
+              width={hasActions && hasCollapse ? 100 : hasActions || hasCollapse ? 75 : 0}
+              align='right'
+            >
               {columnActionTitle ?? 'Ações'}
             </TableColumn>
           )}
-
-          {hasCollapse && <TableColumn width={30} />}
         </tr>
       </thead>
     </TableHeaderContext.Provider>

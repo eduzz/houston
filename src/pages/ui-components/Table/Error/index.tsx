@@ -1,12 +1,9 @@
 import * as React from 'react';
 
-import { useContextSelector } from 'use-context-selector';
-
 import styled, { cx, StyledProp } from '@eduzz/houston-styles/styled';
 
 import Button from '../../Button';
-import Typography, { TypographyProps } from '../../Typography';
-import TableContext, { TableSize } from '../context';
+import Typography from '../../Typography';
 
 export interface TableErrorProps extends StyledProp {
   error?: any;
@@ -14,9 +11,8 @@ export interface TableErrorProps extends StyledProp {
   onRetry?: () => void;
   children?: React.ReactNode;
 }
-const TableError = React.memo<TableErrorProps>(({ children, error, onRetry, formater, className }) => {
-  const tableSize = useContextSelector(TableContext, context => context.size);
 
+const TableError = React.memo<TableErrorProps>(({ children, error, onRetry, formater, className }) => {
   const errorMessage = React.useMemo(() => {
     if (!error) return null;
 
@@ -27,11 +23,6 @@ const TableError = React.memo<TableErrorProps>(({ children, error, onRetry, form
     return typeof error === 'string' ? error : 'Algo inesperado aconteceu...';
   }, [error, formater]);
 
-  const fontSizeMap: Record<TableSize, TypographyProps['size']> = {
-    small: 'xxs',
-    medium: 'xs'
-  };
-
   if (!error) return null;
   children = children ?? errorMessage;
 
@@ -40,7 +31,7 @@ const TableError = React.memo<TableErrorProps>(({ children, error, onRetry, form
       <td align='center' colSpan={1000}>
         {typeof children === 'string' ? (
           <>
-            <Typography size={fontSizeMap[tableSize]} weight='regular' lineHeight='xl' className='__text'>
+            <Typography weight='regular' lineHeight='xl' className='__text'>
               {children}
             </Typography>
 

@@ -2,68 +2,37 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import { cx } from '@eduzz/houston-styles';
-import styled from '@eduzz/houston-styles/styled';
+import { cx, StyledProp } from '@eduzz/houston-styles';
 
+import error from '../../utils/error';
 import TableContext from '../context';
 import TableHeaderContext from '../Header/context';
 import SortLabel from './SortLabel';
 
-export interface TableColumnProps {
-  id?: string;
-  className?: string;
-  children?: React.ReactNode;
+export interface TableColumnProps extends StyledProp, React.ThHTMLAttributes<HTMLTableCellElement> {
   width?: number;
-  /**
-   * Default `left`
-   */
-  align?: React.TdHTMLAttributes<HTMLTableCellElement>['align'];
-  /**
-   * Control of ordered columns
-   * Default `false`
-   */
+  children?: React.ReactNode;
   sortableField?: string;
 }
-const TableColumn = React.memo<TableColumnProps>(({ sortableField, children, className, align, ...rest }) => {
-  const registerColumn = useContextSelector(TableContext, context => context.registerColumn);
+const TableColumn = ({ sortableField, children, className, ...rest }: TableColumnProps) => {
   const onSort = useContextSelector(TableHeaderContext, context => context.onSort);
   const sortField = useContextSelector(TableHeaderContext, context => context.sortField);
   const sortDirection = useContextSelector(TableHeaderContext, context => context.sortDirection);
   const loading = useContextSelector(TableContext, context => context.loading);
-  const tableSize = useContextSelector(TableContext, context => context.size);
   const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
-
-  const cellRef = React.useRef<HTMLTableCellElement>(null);
-
   const isSorted = sortField === sortableField;
 
   const handleSort = React.useCallback(() => {
     if (!onSort || !sortableField) {
-      throw new Error(
-        '@eduzz/houston-ui: add the onSort and sortableField prop to the TableHeader to filter the fields'
-      );
+      error('TableColumn', 'add the onSort and sortableField prop to the TableHeader to filter the fields');
+      return;
     }
 
     onSort(sortableField, !isSorted || sortDirection === 'desc' ? 'asc' : 'desc');
   }, [onSort, sortableField, isSorted, sortDirection]);
 
-  React.useEffect(() => {
-    const unregister = registerColumn();
-    return () => unregister();
-  }, [registerColumn]);
-
   return (
-    <th
-      ref={cellRef}
-      className={cx(
-        className,
-        className,
-        `houston-column-align-${align ?? 'left'}`,
-        tableSize === 'small' && '--small',
-        isCollapseContent && '--collapse'
-      )}
-      {...rest}
-    >
+    <th className={cx(className, '__hts-table-column')} {...rest}>
       <SortLabel
         sortable={!!sortableField && !isCollapseContent}
         active={isSorted}
@@ -75,17 +44,6 @@ const TableColumn = React.memo<TableColumnProps>(({ sortableField, children, cla
       </SortLabel>
     </th>
   );
-});
+};
 
-export default styled(TableColumn)`
-  padding: 8px 20px;
-  border-bottom: 1px solid ${({ theme }) => theme.neutralColor.high.light};
-
-  &.--collapse {
-    border-bottom-color: ${({ theme }) => theme.neutralColor.high.medium};
-  }
-
-  &.--small {
-    padding: 8px 12px;
-  }
-`;
+export default React.memo(TableColumn);

@@ -1,6 +1,5 @@
 import nestedComponent from '../utils/nestedComponent';
 import Action from './Action';
-import ActionLoading from './Action/Loading';
 import Body from './Body';
 import Cell from './Cell';
 import Collapse from './Collapse';
@@ -22,6 +21,5 @@ export default nestedComponent(Table, {
   Row,
   Error,
   Pagination,
-  Action,
-  ActionLoading
+  Action
 });

@@ -1,152 +1,127 @@
 import * as React from 'react';
 
-import { TableProps as TablePropsMui } from '@mui/material/Table';
-import TableContainer from '@mui/material/TableContainer';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useContextSelector } from 'use-context-selector';
+import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
 
-import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import { cx } from '@eduzz/houston-styles';
-import { StyledProp } from '@eduzz/houston-styles/styled';
+import TableContext, { TableContextProps, TableRow } from './context';
 
-import MenuActions from './Action/Menu';
-import TableCollapseContext from './CollapseContent/context';
-import TableContext, { TableActionShow, TableContextProps, TableRow } from './context';
-import { bindMutationObserver } from './observer';
-import styles from './styles';
+let rowKeyIncremeter = 0;
 
-let columnsKeyIncrementer = 0,
-  rowKeyIncremeter = 0;
+export interface TableProps extends StyledProp {
+  id?: string;
+  children: React.ReactNode;
 
-export interface TableProps extends Pick<TablePropsMui, 'id' | 'children' | 'className'>, StyledProp {
-  loading?: boolean;
-  loadingText?: React.ReactNode;
-  /**
-   * Default `medium`
-   */
-  size?: 'small' | 'medium';
-  /**
-   * Max Height table container
-   */
-  maxHeight?: number;
-  stripedRows?: boolean;
-  columnActionTitle?: string;
-  mobileWidth?: number | boolean;
+  size?: 'sm' | 'md';
+  minWidth?: number;
 }
 
-const Table: React.FC<TableProps> = props => {
-  const {
-    size = 'medium',
-    id,
-    children,
-    loading,
-    maxHeight,
-    stripedRows,
-    columnActionTitle,
-    className,
-    loadingText
-  } = props;
-
-  const isCollapseContent = useContextSelector(TableCollapseContext, context => context.isCollapseContent);
-
-  const tableRef = React.useRef<HTMLTableElement>(null);
-  const mediaQueryMobile = useMediaQuery(`(max-width: ${props.mobileWidth ?? 600}px)`);
-  const responsive = typeof props.mobileWidth === 'boolean' ? props.mobileWidth : mediaQueryMobile;
-
-  const [openedMenuActions, , openMenuActions, closeMenuActions] = useBoolean(false);
-  const [menuActionOptions, setMenuActionOptions] = React.useState<TableActionShow>();
-
-  const [rowMapLabel, setRowMapLabel] = React.useState<{ [rowKey: string]: string }>({});
-  const [columns, setColumns] = React.useState<string[]>(() => []);
+const Table = ({ size = 'md', id, children, className }: TableProps) => {
   const [rows, setRows] = React.useState<TableRow[]>([]);
-
-  const onShowAction = React.useCallback(
-    (data: TableActionShow) => {
-      setMenuActionOptions(data);
-      openMenuActions();
-    },
-    [openMenuActions]
-  );
-
-  const registerColumn = React.useCallback(() => {
-    const key = `column-${++columnsKeyIncrementer}`;
-    setColumns(columns => [...columns, key]);
-    return () => setColumns(columns => columns.filter(c => c != key));
-  }, []);
-
   const registerRow = React.useCallback((row: Omit<TableRow, 'key'>) => {
     const key = `table-row-${++rowKeyIncremeter}`;
     setRows(rows => [...rows, { key, ...row }]);
     return () => setRows(rows => rows.filter(r => r.key !== key));
   }, []);
 
-  const hasCollapseInRows = React.useMemo(
-    () => !isCollapseContent && rows?.some(r => r.hasCollapse),
-    [isCollapseContent, rows]
-  );
-
+  const hasCollapseInRows = React.useMemo(() => rows?.some(r => r.hasCollapse), [rows]);
   const hasActionInRows = React.useMemo(() => rows?.some(r => r.hasActions), [rows]);
-
-  React.useEffect(() => {
-    if (!tableRef.current) return () => null;
-
-    const unbind = bindMutationObserver(tableRef.current, rowMap => setRowMapLabel(rowMap));
-    return () => unbind();
-  }, []);
 
   const contextValue = React.useMemo<TableContextProps>(
     () => ({
-      loading: loading ?? false,
-      loadingText: loadingText ?? 'Carregando...',
-      onShowAction,
-      registerColumn,
-      rowMapLabel,
-      columns,
       rows,
       registerRow,
-      stripedRows: stripedRows ?? false,
-      columnActionTitle,
-      size: isCollapseContent ? 'small' : size,
-      hasCollapseInRows,
-      hasActionInRows,
-      isCollapseContent
-    }),
-    [
-      loading,
-      loadingText,
-      onShowAction,
-      registerColumn,
-      rowMapLabel,
-      columns,
-      rows,
-      registerRow,
-      stripedRows,
-      columnActionTitle,
-      isCollapseContent,
-      size,
       hasCollapseInRows,
       hasActionInRows
-    ]
+    }),
+    [rows, registerRow, hasCollapseInRows, hasActionInRows]
   );
 
   return (
     <TableContext.Provider value={contextValue}>
-      <TableContainer className={className} style={{ maxHeight }}>
-        <table id={id} ref={tableRef} className={cx('__houston-table', responsive && '--responsive', className)}>
-          {children}
-
-          <MenuActions
-            open={openedMenuActions}
-            anchorEl={menuActionOptions?.anchorEl}
-            options={menuActionOptions?.actions}
-            rowData={menuActionOptions?.rowData}
-            rowIndex={menuActionOptions?.rowIndex}
-            onClose={closeMenuActions}
-          />
-        </table>
-      </TableContainer>
+      <table id={id} className={cx(className, `--hts-table-size-${size}`)}>
+        {children}
+      </table>
     </TableContext.Provider>
   );
 };
 
-export default React.memo(styles(Table));
+export default styled(React.memo(Table), { label: 'houston-table' })(
+  ({ theme }) => css`
+    position: relative;
+    width: 100%;
+    border-spacing: 0px;
+
+    & > thead > tr > th.__hts-table-column {
+      &:not([align]) {
+        text-align: left;
+      }
+
+      & > .__hts-table-column-sort {
+        font-weight: ${theme.font.weight.bold};
+      }
+    }
+
+    & > tbody > tr > td.__hts-table-cell {
+      font-weight: ${theme.font.weight.regular};
+    }
+
+    & > thead > tr > th.__hts-table-column,
+    & > thead > tr > th.__hts-table-column > .__hts-table-column-sort,
+    & > tbody > tr > td.__hts-table-cell,
+    & > tbody > tr > td > .__hts-table-loading-text {
+      font-family: ${theme.font.family.base};
+      font-size: ${theme.font.size.xxs};
+      line-height: ${theme.line.height.xs};
+      color: ${theme.neutralColor.low.dark};
+    }
+
+    & > thead > tr > th.__hts-table-column,
+    & > tbody > tr > td.__hts-table-cell,
+    & > tbody > tr > td.__hts-table-cell-action,
+    & > tbody > tr > td.__hts-table-cell-collapse,
+    & > tbody > tr > td > .__hts-table-loading-text {
+      padding: ${theme.spacing.inset.xs};
+      border-bottom: ${theme.border.width.xs} solid
+        ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
+    }
+
+    & > tbody > tr > td.__hts-table-cell-action {
+      padding: 0;
+      text-align: right;
+
+      & .__hts-table-cell-action-menu {
+        display: flex;
+        flex-direction: column;
+      }
+
+      & .__hts-table-cell-collapse-arrow {
+        transition: 0.15s ease-out;
+
+        &.--hts-active {
+          transform: rotateX(180deg);
+        }
+      }
+    }
+
+    & > tbody > tr > td.__hts-table-cell-collapse {
+      padding: 0;
+      text-align: center;
+    }
+
+    & > thead > tr > th.--hts-hidden,
+    & > thead > tr > td.--hts-hidden {
+      display: none;
+    }
+
+    & > tbody > tr > td.__hts-table-collapse {
+      transition: 0.3s;
+
+      &:not(.--hts-no-background) {
+        background-color: ${theme.neutralColor.high.light};
+      }
+
+      &.--hts-opened:not(.--hts-no-padding) {
+        padding: ${theme.spacing.xxxs};
+      }
+    }
+  `
+);
