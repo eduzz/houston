@@ -21,8 +21,9 @@ import Paragraph from '@eduzz/houston-ui/Typography/Paragraph';
 ### Tamanhos
 
 <Playground>
-  <Paragraph size='lg'>Large</Paragraph>
   <Paragraph size='sm'>Small</Paragraph>
+  <Paragraph size='md'>Medium</Paragraph>
+  <Paragraph size='lg'>Large</Paragraph>
 </Playground>
 
 ### Intensidade da fonte
@@ -107,14 +108,14 @@ import Paragraph from '@eduzz/houston-ui/Typography/Paragraph';
   }}
 </Playground>
 
-| prop         | tipo                                 | obrigatório     | padrão        |
-| ------------ | ------------------------------------ | --------------- | ------------- | ------- | --- |
-| size         | `lg, sm`                             | `false`         | `lg`          |
-| lineHeight   | `Line Height Tokens`                 | `false`         | `md`          |
-| weight       | `Font Weight Tokens`                 | `false`         | `regular`     |
-| marginBottom | `boolean`                            | `false`         | -             |
-| className    | `string`                             | `false`         | -             |
-| onClick      | `(e: React.MouseEvent) => void`      | `false`         | -             |
-| as           | `'p', 'span', 'strong'`              | `false`         | `p`           |
-| ref          | `React.ReactRef<HTMLParagraphElement | HTMLSpanElement | HTMLElement>` | `false` | -   |
-| color        | `'primary', 'low', 'pure'`           | `false`         | `low`         |
+| prop         | tipo                                                                   | obrigatório | padrão    |
+| ------------ | ---------------------------------------------------------------------- | ----------- | --------- |
+| size         | `sm, md, lg`                                                           | `false`     | `lg`      |
+| lineHeight   | `Line Height Tokens`                                                   | `false`     | `md`      |
+| weight       | `Font Weight Tokens`                                                   | `false`     | `regular` |
+| marginBottom | `boolean`                                                              | `false`     | -         |
+| className    | `string`                                                               | `false`     | -         |
+| onClick      | `(e: React.MouseEvent) => void`                                        | `false`     | -         |
+| as           | `'p', 'span', 'strong'`                                                | `false`     | `p`       |
+| ref          | `React.ReactRef<HTMLParagraphElement I HTMLSpanElement I HTMLElement>` | `false`     | -         |
+| color        | `'primary', 'low', 'pure'`                                             | `false`     | `low`     |

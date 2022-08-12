@@ -2,6 +2,8 @@
 name: Dialog
 ---
 
+import { useCallback } from 'react';
+
 import { Playground } from 'dokz';
 
 import Button from '../Button';
@@ -46,6 +48,31 @@ import Dialog from '@eduzz/houston-ui/Dialog';
   }}
 </Playground>
 
+### Alertas e Confirmações
+
+É possível usar o Dialog como alerts e confirms
+
+<Playground>
+  {() => {
+    const showAlert = useCallback(() => Dialog.alert('Alerta!'), []);
+    const showConfirm = useCallback(
+      () =>
+        Dialog.confirm({
+          title: 'Confirmação',
+          message: 'Essa confirmação retorna uma promise, por isso o botão tera um loading',
+          onConfirm: () => new Promise(r => setTimeout(() => r(null), 3000))
+        }),
+      []
+    );
+    return (
+      <div style={{ display: 'flex', gap: 16 }}>
+        <Button onClick={showAlert}>Alert</Button>
+        <Button onClick={showConfirm}>Confirm</Button>
+      </div>
+    );
+  }}
+</Playground>
+
 ### Dialog props
 
 | prop         | tipo          | obrigatório | padrão        | descrição                               |
@@ -61,3 +88,24 @@ import Dialog from '@eduzz/houston-ui/Dialog';
 | prop              | tipo      | obrigatório | padrão  | descrição                                                  |
 | ----------------- | --------- | ----------- | ------- | ---------------------------------------------------------- |
 | disableTypography | `boolean` | `false`     | `false` | Se `true`, o componente `Typography` não será renderizado. |
+
+### Dialog.alert
+
+O retorno da função será uma promise de boolean;
+
+| prop      | tipo               | obrigatório | padrão  | descrição                                               |
+| --------- | ------------------ | ----------- | ------- | ------------------------------------------------------- |
+| message   | `string/ReactNode` | true        |         |                                                         |
+| title     | `string`           | false       | Atenção |                                                         |
+| onConfirm | `function`         | false       |         | Se retornar uma promise o button terá estado de loading |
+
+### Dialog.confirm
+
+O retorno da função será uma promise de boolean;
+
+| prop      | tipo               | obrigatório | padrão      | descrição                                               |
+| --------- | ------------------ | ----------- | ----------- | ------------------------------------------------------- |
+| message   | `string/ReactNode` | true        |             |                                                         |
+| title     | `string`           | false       | Confirmação |                                                         |
+| onConfirm | `function`         | false       |             | Se retornar uma promise o button terá estado de loading |
+| onCancel  | `function`         | false       |             | Se retornar uma promise o button terá estado de loading |

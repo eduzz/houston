@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, keyframes, StyledProp } from '@eduzz/houston-styles';
 
 import useScrollBlock from '../hooks/useScrollBlock';
 
@@ -30,6 +30,10 @@ const Overlay = ({ className, visible, color = 'low', children, underTopbar, ...
     };
   }, [enableScroll, disableScroll, visible]);
 
+  if (!visible) {
+    return null;
+  }
+
   return (
     <div
       aria-hidden='true'
@@ -46,8 +50,13 @@ const Overlay = ({ className, visible, color = 'low', children, underTopbar, ...
   );
 };
 
+const fadeInAnimation = keyframes`
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+`;
+
 export default styled(Overlay, {
-  label: 'houston-overlay'
+  label: 'hst-overlay'
 })(
   ({ theme }) => css`
     background: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
@@ -61,6 +70,7 @@ export default styled(Overlay, {
     visibility: hidden;
     inset: 0;
     backdrop-filter: blur(${theme.pxToRem(8)}rem);
+    animation: ${fadeInAnimation} 200ms linear;
 
     &.--hts-color-high {
       background: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[6])};
