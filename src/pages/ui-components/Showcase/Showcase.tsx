@@ -1,14 +1,11 @@
 import * as React from 'react';
 
-import CardMUI from '@mui/material/Card';
-import CardActionsMUI from '@mui/material/CardActions';
-import CardContentMUI from '@mui/material/CardContent';
-import ModalMUI from '@mui/material/Modal';
-
-import { cx } from '@eduzz/houston-styles';
-import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+import styled, { cx, css } from '@eduzz/houston-styles';
 
 import { useFirstChildrenProps } from '../hooks/useChildrenProps';
+import ModalBase from '../Modal/__utils/ModalBase';
+import Overlay from '../Overlay';
+import Portal from '../Portal';
 import { getReactChildrenComponent, getReactFirstChildrenProps } from '../utils/children';
 import nestedComponent from '../utils/nestedComponent';
 import ShowcaseCloseButton from './CloseButton';
@@ -40,64 +37,10 @@ const imageSizes = {
   large: 482
 };
 
-const useStyles = createUseStyles(theme => ({
-  modalContent: {
-    'width': modalSizes.large,
-    'position': 'fixed',
-    'top': '50%',
-    'left': '50%',
-    'maxWidth': '100%',
-    'background': 'white',
-    'borderRadius': 4,
-    'transform': 'translate(-50%, -50%)',
-    'maxHeight': '85vh',
-    'overflow': 'hidden',
-    'display': 'flex',
-    'flexDirection': 'column',
-    'alignItems': 'center',
-
-    [theme.breakpoints.down('lg')]: {
-      width: modalSizes.medium
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      width: modalSizes.small
-    },
-
-    '& .card-mui': {
-      'display': 'flex',
-      'flexDirection': 'column',
-      'width': '100%',
-      'boxShadow': 'none',
-
-      '& .card-content-mui': {
-        boxSizing: 'border-box',
-        width: '100%',
-        padding: 0,
-        overflow: 'auto'
-      },
-
-      '& .card-actions-mui': {
-        width: '100%',
-        padding: 0,
-        position: 'relative',
-        zIndex: 1000,
-        background: '#fff'
-      }
-    }
-  },
-  medium: {
-    width: modalSizes.medium
-  },
-  small: {
-    width: modalSizes.small
-  }
-}));
-
 const Showcase = (props: ShowcaseProps) => {
   const {
     open,
-    size,
+    size = 'large',
     children,
     className,
     initialStep,
@@ -106,11 +49,8 @@ const Showcase = (props: ShowcaseProps) => {
     onNext,
     onPrevious,
     onFinish,
-    onClose,
-    ...rest
+    onClose
   } = props;
-
-  const classes = useStyles();
 
   const { currentStep, setCurrentStep, nextStep, previousStep } = useShowcase(initialStep);
   const [modalState, setModalState] = React.useState<boolean>(true);
@@ -197,28 +137,80 @@ const Showcase = (props: ShowcaseProps) => {
     ]
   );
 
+  if (!modalState) {
+    return null;
+  }
+
   return (
-    <ModalMUI {...rest} open={modalState} onClose={handleClose as any}>
-      <ShowcaseContextProvider value={contextValue}>
-        <div className={cx(className, size && classes[size], classes.modalContent)}>
-          <CardMUI className='card-mui'>
-            <Header />
+    <Portal target='houston-showcase'>
+      <Overlay visible>
+        <ModalBase aria-modal className={cx(className, size && `--showcase-size-${size}`)}>
+          <ShowcaseContextProvider value={contextValue}>
+            <div className='__card'>
+              <Header />
 
-            <CardContentMUI className='card-content-mui'>
-              <Steps />
-            </CardContentMUI>
+              <div className='__card-content'>
+                <Steps />
+              </div>
 
-            <CardActionsMUI disableSpacing className='card-actions-mui'>
-              <CallToActions />
-            </CardActionsMUI>
-          </CardMUI>
-        </div>
-      </ShowcaseContextProvider>
-    </ModalMUI>
+              <div className='__card-actions'>
+                <CallToActions />
+              </div>
+            </div>
+          </ShowcaseContextProvider>
+        </ModalBase>
+      </Overlay>
+    </Portal>
   );
 };
 
-export default nestedComponent(React.memo(Showcase), {
+const ShowcaseWrapper = styled(Showcase, { label: 'houston-showcase' })`
+  ${({ theme }) => {
+    return css`
+      width: ${modalSizes.large}px;
+
+      ${theme.breakpoints.down('lg')} {
+        width: ${modalSizes.medium}px;
+      }
+
+      ${theme.breakpoints.down('sm')} {
+        width: ${modalSizes.small}px;
+      }
+
+      & .__card: {
+        display: 'flex';
+        flexDirection: column;
+        width: 100%;
+        box-shadow': none;
+
+        & .__card-content: {
+          box-sizing: border-box;
+          width: 100%;
+          padding: 0;
+          overflow: auto;
+        }
+
+        & .__card-actions: {
+          width: 100%;
+          padding: 0;
+          position: relative;
+          z-index: 1000;
+          background: #fff;
+        }
+      }
+
+      &.--showcase-size-medium: {
+        width: ${modalSizes.medium}px;
+      }
+
+      &.--showcase-size-small: {
+        width: ${modalSizes.small}px;
+      }
+    `;
+  }}
+`;
+
+export default nestedComponent(React.memo(ShowcaseWrapper), {
   Title: ShowcaseTitle,
   Step: ShowcaseStep,
   Image: ShowcaseImage,

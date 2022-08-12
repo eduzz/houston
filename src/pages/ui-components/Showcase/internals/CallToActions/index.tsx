@@ -4,7 +4,7 @@ import { Theme, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import FinishIcon from '@eduzz/houston-icons/Done';
-import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+import styled, { css } from '@eduzz/houston-styles';
 
 import Button from '../../../Button';
 import { useFirstChildrenProps } from '../../../hooks/useChildrenProps';
@@ -14,91 +14,8 @@ import ShowcaseLastStep, { ShowcaseLastStepProps } from '../../LastButton';
 import ShowcaseNextStep, { ShowcaseNextStepProps } from '../../NextButton';
 import ShowcasePreviousStep, { ShowcasePreviousStepProps } from '../../PreviousButton';
 
-interface StyleProps {
-  size?: 'small' | 'medium' | 'large';
-}
-
-const useStyles = createUseStyles(theme => ({
-  ctas: (props: StyleProps) => ({
-    'display': 'flex',
-    'justifyContent': 'space-between',
-    'alignItems': 'center',
-    'width': '100%',
-    'padding': props?.size === 'small' ? '32px 16px 16px' : '32px 24px 24px',
-
-    [theme.breakpoints.down('xs')]: {
-      padding: '12px 16px'
-    },
-
-    '& button': {
-      'whiteSpace': 'nowrap',
-
-      '&.--secondary-color': {
-        color: theme.neutralColor.high.dark
-      }
-    },
-
-    '& .close-button': {
-      '& span': {
-        display: 'flex',
-        justifyContent: 'flex-start'
-      }
-    },
-
-    '& .standard-buttons': {
-      'width': '100%',
-      'display': 'flex',
-      'justifyContent': 'flex-end',
-
-      '& button': {
-        marginLeft: 8
-      }
-    },
-
-    '& .mobile-buttons': {
-      'position': 'relative',
-      'display': 'flex',
-      'alignItems': 'center',
-      'width': '100%',
-      'height': 24,
-
-      '& .arrow': {
-        borderStyle: 'solid',
-        borderColor: theme.neutralColor.high.dark,
-        borderWidth: '0 3px 3px 0',
-        display: 'inline-block',
-        padding: 3,
-        height: '0.5px',
-        cursor: 'pointer'
-      },
-
-      '& .arrow-left': {
-        transform: 'rotate(135deg)'
-      },
-
-      '& .arrow-right': {
-        transform: 'rotate(-45deg)',
-        marginLeft: 'auto'
-      },
-
-      '& .finish-button': {
-        cursor: 'pointer',
-        marginLeft: 'auto'
-      },
-
-      '& .step-counter': {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
-      }
-    }
-  })
-}));
-
 const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean) => {
   const { steps, currentStep, size, onNextStep, onPreviousStep, handleClose, handleFinish } = useShowcaseContext();
-  const classes = useStyles({ size });
 
   const theme = useTheme();
   const isMobile = useMediaQuery<Theme>(theme.breakpoints.down('sm'));
@@ -113,7 +30,7 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
 
   if (size === 'small' || isMobile) {
     return (
-      <div className={classes.ctas}>
+      <div>
         {isSingleStep ? (
           <div className='standard-buttons'>
             <Button variant='contained' onClick={handleFinish}>
@@ -138,7 +55,7 @@ const StepButtons = (buttons: React.ReactNode[] = [], hideCloseButton?: boolean)
   }
 
   return (
-    <div className={classes.ctas}>
+    <div>
       {isSingleStep && (
         <div className='standard-buttons'>
           <Button variant='contained' onClick={handleFinish}>
@@ -209,4 +126,86 @@ const CallToActions = React.memo(() => {
   return StepButtons(buttons, hideCloseButton);
 });
 
-export default CallToActions;
+export default styled(CallToActions, { label: 'houston-showcase-call-to-actions' })`
+  ${({ theme }) => {
+    return css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 32px 24px 24px;
+
+    &.--padding-size-small: {
+      padding: 32px 16px 16px;
+    }
+
+    ${theme.breakpoints.down('xs')} {
+      padding: 12px 16px;
+    }
+
+    & button: {
+      whiteSpace: nowrap;
+
+      &.--secondary-color: {
+        color: ${theme.neutralColor.high.dark};
+      }
+    }
+
+    '& .close-button': {
+      & span: {
+        display: flex;
+        justify-content: flex-start;
+      }
+    }
+
+    & .standard-buttons: {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+
+      & button: {
+        marginLeft: 8px;
+      }
+    }
+
+    & .mobile-buttons: {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height': 24px;
+
+      & .arrow: {
+        border-style: solid;
+        border-color: ${theme.neutralColor.high.dark};
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        height: 0.5px;
+        cursor: pointer;
+      }
+
+      & .arrow-left: {
+        transform: rotate(135deg);
+      }
+
+      & .arrow-right: {
+        transform: rotate(-45deg);
+        margin-left: auto;
+      }
+
+      & .finish-button: {
+        cursor: pointer;
+        margin-left: auto;
+      }
+
+      & .step-counter: {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    `;
+  }}
+`;
