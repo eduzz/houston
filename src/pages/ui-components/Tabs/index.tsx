@@ -18,7 +18,7 @@ export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDiv
   onChange?: (value: number) => void;
 }
 
-const SCROLL_MOVEMENT = 300;
+const SCROLL_MOVEMENT = 270;
 
 const StyledOption = styled.div`
   display: flex;
@@ -38,7 +38,6 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
 
   const [activeTab, setActiveTab] = React.useState(value ?? 0);
   const [isOverflowed, setIsOverflowed] = React.useState(false);
-  const [justAdjusted, setJustAdjusted] = React.useState(false);
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
   const parentRef = React.useRef<HTMLDivElement>(null);
@@ -71,27 +70,34 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
 
   const handleScroll = React.useCallback(
     (position: 'right' | 'left') => () => {
-      setJustAdjusted(false);
       scrollBy(position);
     },
     [scrollBy]
   );
 
   const handleTabClick = React.useCallback(
-    (index: number) => () => {
+    (index: number) => (e: any) => {
       onChange && onChange(index);
       setActiveTab(index);
 
-      const labelsWidth = labelsRef?.current?.clientWidth as number;
-      const clickedTabWidth = steps[index + 1];
+      const ONE_PX = 1;
+      const parentTabRightCoord = parentRef.current?.getBoundingClientRect().right as number;
+      const clickedTabRightCoord = e.target.getBoundingClientRect().right;
 
-      if (clickedTabWidth > labelsWidth && !justAdjusted) {
-        const diff = clickedTabWidth - labelsWidth;
-        scrollBy('right', diff);
-        setJustAdjusted(true);
+      if (clickedTabRightCoord > parentTabRightCoord) {
+        const diff = clickedTabRightCoord - parentTabRightCoord;
+        scrollBy('right', diff + ONE_PX);
+      }
+
+      const parentTabLeftCoord = parentRef.current?.getBoundingClientRect().left as number;
+      const clickedTabLeftCoord = e.target.getBoundingClientRect().left;
+
+      if (parentTabLeftCoord > clickedTabLeftCoord) {
+        const diff = parentTabLeftCoord - clickedTabLeftCoord;
+        scrollBy('left', diff + ONE_PX);
       }
     },
-    [onChange, steps, scrollBy, justAdjusted]
+    [onChange, scrollBy]
   );
 
   const handleSelectChange = React.useCallback(
@@ -186,8 +192,7 @@ const TabsWrapper = React.memo(
         position: relative;
         overflow-x: hidden;
         overflow-y: hidden;
-        padding-bottom: ${theme.spacing.nano};
-        /* margin-bottom: ${theme.spacing.nano}; */
+        padding-bottom: ${theme.spacing.quarck};
       }
 
       .hst-tabs__labels {
