@@ -1,16 +1,15 @@
 import * as React from 'react';
 
-import PaginationMUI from '@mui/material/Pagination';
-import { useContextSelector } from 'use-context-selector';
-
-import styled, { breakpoints, StyledProp } from '@eduzz/houston-styles/styled';
+import ChevronLeft from '@eduzz/houston-icons/ChevronLeft';
+import ChevronRight from '@eduzz/houston-icons/ChevronRight';
+import styled, { breakpoints, css, StyledProp } from '@eduzz/houston-styles';
 
 import Input from '../../Forms/Input';
 import Select from '../../Forms/Select';
 import Column from '../../Grid/Column';
 import Row from '../../Grid/Row';
+import IconButton from '../../IconButton';
 import Typography from '../../Typography';
-import TableContext from '../context';
 
 type TablePaginationExtends = 'id' | 'className' | 'children';
 
@@ -21,10 +20,11 @@ export interface TablePagination
   perPage: number;
   total: number;
   optionsPerPage?: number[] | 'string' | false;
-  labelItensPerPage?: React.ReactNode;
-  labelGoToPage?: React.ReactNode;
+  labelItensPerPage?: string;
+  labelGoToPage?: string;
   onChangePage: (page: number) => void;
   onChangePerPage: (rowsPerPage: number) => void;
+  disabled?: boolean;
 }
 
 const Pagination = React.memo<TablePagination>(
@@ -37,9 +37,9 @@ const Pagination = React.memo<TablePagination>(
     perPage,
     labelGoToPage,
     labelItensPerPage,
-    className
+    className,
+    disabled
   }) => {
-    const loading = useContextSelector(TableContext, context => context.loading);
     const [pageInput, setPageInput] = React.useState<string>(page?.toString());
 
     const optionsPerPage = React.useMemo(() => {
@@ -65,12 +65,12 @@ const Pagination = React.memo<TablePagination>(
         let enterPressed = false;
         let value = '';
 
-        if (typeof valueOrEvent === 'object') {
+        if (valueOrEvent && typeof valueOrEvent === 'object') {
           event = valueOrEvent;
           enterPressed = valueOrEvent.key?.toLowerCase() === 'enter';
           value = (valueOrEvent.target as any).value;
         } else {
-          value = valueOrEvent.toString();
+          value = valueOrEvent?.toString();
         }
 
         setPageInput(value);
@@ -110,6 +110,13 @@ const Pagination = React.memo<TablePagination>(
       [onChangePage]
     );
 
+    const paginationText = React.useMemo(() => {
+      const startsAt = (page - 1) * perPage + 1;
+      const endsAt = page * perPage;
+
+      return `${startsAt}-${endsAt > total ? total : endsAt} de ${total}`;
+    }, [page, perPage, total]);
+
     React.useEffect(() => {
       const timeout = setTimeout(() => setPageInput(page?.toString()), 500);
       return () => clearTimeout(timeout);
@@ -129,7 +136,7 @@ const Pagination = React.memo<TablePagination>(
 
                     <Select
                       className='__options'
-                      disabled={loading}
+                      disabled={disabled}
                       size='sm'
                       value={perPage}
                       onChange={handleChangePerPage}
@@ -147,7 +154,7 @@ const Pagination = React.memo<TablePagination>(
 
                     <Input
                       size='sm'
-                      disabled={loading}
+                      disabled={disabled}
                       value={pageInput}
                       className='__input'
                       onChange={handlePageInputChange as any}
@@ -160,14 +167,13 @@ const Pagination = React.memo<TablePagination>(
 
               <Column xs={12} sm='fill'>
                 <div className='__pages'>
-                  <PaginationMUI
-                    count={Math.ceil(total / perPage)}
-                    page={page ?? 1}
-                    disabled={loading}
-                    shape='rounded'
-                    size='medium'
-                    onChange={handleChangePage}
-                  />
+                  <IconButton>
+                    <ChevronLeft />
+                  </IconButton>
+                  <Typography>{paginationText}</Typography>
+                  <IconButton>
+                    <ChevronRight />
+                  </IconButton>
                 </div>
               </Column>
             </Row>
@@ -178,59 +184,63 @@ const Pagination = React.memo<TablePagination>(
   }
 );
 
-export default styled(Pagination)`
-  & > tr {
-    & .__td {
-      padding: 12px 0;
-      overflow-x: hidden;
-    }
+export default styled(Pagination)(
+  ({ theme }) => css`
+    background-color: ${theme.neutralColor.high.light};
 
-    .__perPage {
-      width: 220px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      & > p {
-        white-space: nowrap;
-        margin-right: ${({ theme }) => theme.spacing.nano};
-        color: ${({ theme }) => theme.neutralColor.low.dark};
-      }
-    }
-
-    .__labels {
-      display: inline-flex;
-      align-items: center;
-
-      & > p {
-        white-space: nowrap;
-        margin-right: ${({ theme }) => theme.spacing.nano};
-        color: ${({ theme }) => theme.neutralColor.low.dark};
+    & > tr {
+      & .__td {
+        padding: 12px 0;
+        overflow-x: hidden;
       }
 
-      ${breakpoints.down('sm')} {
-        display: none;
-      }
-    }
-
-    .__input {
-      max-width: 50px;
-    }
-
-    .__options {
-      width: 80px;
-    }
-
-    .__pages {
-      display: flex;
-      justify-content: flex-end;
-      height: 100%;
-      align-items: center;
-
-      ${breakpoints.down('sm')} {
-        margin-top: ${({ theme }) => theme.spacing.nano};
+      .__perPage {
+        width: 220px;
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
+
+        & > p {
+          white-space: nowrap;
+          margin-right: ${theme.spacing.nano};
+          color: ${theme.neutralColor.low.dark};
+        }
+      }
+
+      .__labels {
+        display: inline-flex;
+        align-items: center;
+
+        & > p {
+          white-space: nowrap;
+          margin-right: ${theme.spacing.nano};
+          color: ${theme.neutralColor.low.dark};
+        }
+
+        ${breakpoints.down('sm')} {
+          display: none;
+        }
+      }
+
+      .__input {
+        max-width: 50px;
+      }
+
+      .__options {
+        width: 80px;
+      }
+
+      .__pages {
+        display: flex;
+        justify-content: flex-end;
+        height: 100%;
+        align-items: center;
+
+        ${breakpoints.down('sm')} {
+          margin-top: ${theme.spacing.nano};
+          justify-content: center;
+        }
       }
     }
-  }
-`;
+  `
+);

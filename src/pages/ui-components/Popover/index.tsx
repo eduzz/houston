@@ -17,6 +17,7 @@ export interface PopoverProps extends StyledProp {
   placement?: Placement;
   id?: string;
   variant?: 'tooltip';
+  keepMounted?: boolean;
 }
 
 export interface PopoverRef {
@@ -25,8 +26,10 @@ export interface PopoverRef {
 }
 
 const Popover = React.forwardRef<PopoverRef, PopoverProps>(
-  ({ targetRef, children, className, fullWidth, placement, id, variant }, ref) => {
+  ({ targetRef, children, className, fullWidth, placement, id, variant, keepMounted }, ref) => {
     const setState = useContextSelector(PopoverContext, context => context.setState);
+
+    const [render, setRender] = React.useState(() => keepMounted ?? false);
     const contentRef = React.useRef<HTMLDivElement>(null);
     const closeRef = React.useRef<() => void>();
 
@@ -39,6 +42,7 @@ const Popover = React.forwardRef<PopoverRef, PopoverProps>(
             return;
           }
 
+          setRender(true);
           closeRef.current = setState({
             opened: true,
             target: targetRef.current,
@@ -49,15 +53,18 @@ const Popover = React.forwardRef<PopoverRef, PopoverProps>(
           contentRef.current.style.width = fullWidth ? `${targetRef.current?.offsetWidth}px` : 'auto';
         },
         close() {
+          !keepMounted && setRender(false);
           closeRef.current && closeRef.current();
         }
       }),
-      [fullWidth, placement, setState, targetRef]
+      [fullWidth, keepMounted, placement, setState, targetRef]
     );
 
     return (
       <div id={id} ref={contentRef} className={cx(className, 'popover')}>
-        <div className={cx('__container', { [`--${variant}`]: !!variant })}>{children}</div>
+        <div className={cx('__container', `render: ${render}`, { [`--${variant}`]: !!variant })}>
+          {render && children}
+        </div>
       </div>
     );
   }

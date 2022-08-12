@@ -8,9 +8,9 @@ import IconDotsHorizontal from '@eduzz/houston-icons/DotsHorizontal';
 import { cx, StyledProp } from '@eduzz/houston-styles';
 
 import IconButton from '../../IconButton';
+import Spinner from '../../Loaders/Spinner';
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
-import Spinner from '../../Spinner';
 import TableContext from '../context';
 import TableRowContext, { TableRowContextProps } from './context';
 
@@ -85,7 +85,7 @@ const TableRow = ({ data, index, children, className, ...props }: TableRowProps)
           align='right'
           className={cx('__hts-table-cell-action', !hasActionInRows && !hasCollapseInRows && '--hts-hidden')}
         >
-          <Popover {...popoverProps} placement='bottom-end'>
+          <Popover {...popoverProps} placement='bottom-end' keepMounted>
             <div id={portals.actions} className='__hts-table-cell-action-menu' />
           </Popover>
 

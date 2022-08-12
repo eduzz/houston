@@ -1,6 +1,6 @@
 import styled, { StyledProp, keyframes, css } from '@eduzz/houston-styles';
 
-import getColorFallback from '../utils/getColorFallback';
+import getColorFallback from '../../utils/getColorFallback';
 
 export interface LoaderProps extends StyledProp {
   size?: number;
