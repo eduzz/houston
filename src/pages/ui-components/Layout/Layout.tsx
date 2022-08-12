@@ -98,6 +98,7 @@ const Layout = ({ className, children }: LayoutProps) => {
 const LayoutWrapper = styled(Layout, { label: 'houston-layout' })`
   display: flex;
   width: 100%;
+  min-height: 100vh;
 
   &.--hasTopbar {
     padding-top: ${TOPBAR_HEIGHT}px;

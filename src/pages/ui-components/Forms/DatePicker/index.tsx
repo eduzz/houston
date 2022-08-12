@@ -63,9 +63,11 @@ export interface DatePickerProps
   minDate?: Date;
   maxDate?: Date;
   enableSeconds?: boolean;
+  id?: string;
 }
 
 const DatePicker = ({
+  id,
   value,
   onChange,
   disabled,
@@ -84,6 +86,7 @@ const DatePicker = ({
         <Input
           {...inputProps}
           {...props}
+          id={id}
           size='default'
           fullWidth={fullWidth}
           disabled={disabled}
@@ -94,7 +97,7 @@ const DatePicker = ({
         />
       );
     },
-    [disabled, inputProps, fullWidth]
+    [id, disabled, inputProps, fullWidth]
   );
 
   const disableDate = React.useCallback(
