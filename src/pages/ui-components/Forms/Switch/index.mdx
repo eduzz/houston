@@ -5,11 +5,11 @@ name: Switch
 import { Playground } from 'dokz';
 
 import useForm from '@eduzz/houston-forms/useForm';
+import Form from '@eduzz/houston-ui/Forms/Form';
 
 import Column from '../../Grid/Column';
 import Row from '../../Grid/Row';
 import Typography from '../../Typography';
-import Form from '../Form';
 import Switch from './';
 
 # Switch
@@ -29,34 +29,26 @@ import Switch from '@eduzz/houston-ui/Forms/Switch';
     const [checked, setChecked] = React.useState(false);
     const onChange = React.useCallback(() => setChecked(prev => !prev), []);
     return (
-      <>
-        <Typography>Padrão</Typography>
-        <Row>
-          <Column>
-            <Switch checked={checked} onChange={onChange} />
-          </Column>
-          <Column>
-            <Switch size='small' checked={checked} onChange={onChange} />
-          </Column>
-        </Row>
-        <Typography>Desabilitado</Typography>
-        <Row>
-          <Column>
-            <Switch checked disabled />
-          </Column>
-          <Column>
-            <Switch size='small' checked disabled />
-          </Column>
-        </Row>
-        <Row>
-          <Column>
-            <Switch disabled />
-          </Column>
-          <Column>
-            <Switch size='small' disabled />
-          </Column>
-        </Row>
-      </>
+      <Row>
+        <Column xs='auto'>
+          <Switch value={checked} onChange={onChange}>
+            Switch
+          </Switch>
+        </Column>
+        <Column xs='auto'>
+          <Switch value disabled>
+            Checked disabled
+          </Switch>
+        </Column>
+        <Column xs='auto'>
+          <Switch disabled>Disabled</Switch>
+        </Column>
+        <Column xs='auto'>
+          <Switch errorMessage='Error Message' value={checked} onChange={onChange}>
+            Error
+          </Switch>
+        </Column>
+      </Row>
     );
   }}
 </Playground>
@@ -69,27 +61,22 @@ import useForm from '@eduzz/houston-forms/useForm';
 
 <Playground>
   {() => {
-    const form = useForm({
-      defaultValues: { switch: true }, //estado inicial, não precisa passar todas as propriedades
-      onSubmit: () => {}
-    });
+    const form = useForm({ defaultValues: { switch: true } });
     const value = form.watch('switch');
     return (
-      <Form context={form}>
+      <Form context={form} onSubmit={() => {}}>
         <Typography>Valor atual do switch: {String(value)}</Typography>
+        <br />
         <Switch name='switch' />
       </Form>
     );
   }}
 </Playground>
 
-| prop           | tipo                | obrigatório | padrão     | descrição |
-| -------------- | ------------------- | ----------- | ---------- | --------- |
-| id             | `string`            | `false`     | -          | -         |
-| name           | `string`            | `true`      | -          | -         |
-| className      | `string`            | `false`     | -          | -         |
-| checked        | `boolean`           | `false`     | `false`    | -         |
-| defaultChecked | `boolean`           | `false`     | `false`    | -         |
-| size           | `'small ou medium'` | `false`     | `'medium'` | -         |
-| onChange       | `function`          | `false`     | -          | -         |
-| disabled       | `boolean`           | `false`     | `false`    | -         |
+| prop         | tipo       | obrigatório | padrão  | descrição                                 |
+| ------------ | ---------- | ----------- | ------- | ----------------------------------------- |
+| name         | `string`   | `true`      | -       | Necessário quando usado dentro de um Form |
+| value        | `boolean`  | `false`     | `false` | -                                         |
+| onChange     | `function` | `false`     | -       | -                                         |
+| disabled     | `boolean`  | `false`     | `false` | -                                         |
+| errorMessage | `string`   | `false`     | -       | -                                         |
