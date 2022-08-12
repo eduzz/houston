@@ -26,10 +26,6 @@ const StyledOption = styled.div`
   gap: ${({ theme }) => theme.spacing.inline.nano};
 `;
 
-const StyledSelect = styled(Select)`
-  margin-bottom: ${({ theme }) => theme.spacing.inline.xxxs};
-`;
-
 const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
@@ -75,11 +71,8 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
     [scrollBy]
   );
 
-  const handleTabClick = React.useCallback(
-    (index: number) => (e: any) => {
-      onChange && onChange(index);
-      setActiveTab(index);
-
+  const handleLastVisibleTabAdjustment = React.useCallback(
+    (e: any) => {
       const ONE_PX = 1;
       const parentTabRightCoord = parentRef.current?.getBoundingClientRect().right as number;
       const clickedTabRightCoord = e.target.getBoundingClientRect().right;
@@ -97,7 +90,17 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
         scrollBy('left', diff + ONE_PX);
       }
     },
-    [onChange, scrollBy]
+    [scrollBy]
+  );
+
+  const handleTabClick = React.useCallback(
+    (index: number) => (e: any) => {
+      onChange && onChange(index);
+      setActiveTab(index);
+
+      handleLastVisibleTabAdjustment(e);
+    },
+    [onChange, handleLastVisibleTabAdjustment]
   );
 
   const handleSelectChange = React.useCallback(
@@ -108,10 +111,10 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
     [onChange]
   );
 
-  if (isMobile) {
+  if (isMobile && false) {
     return (
       <>
-        <StyledSelect
+        <Select
           renderValue={value => (
             <StyledOption>
               {tabs[value].props.icon}
@@ -129,11 +132,48 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
               </StyledOption>
             </Select.Option>
           ))}
-        </StyledSelect>
+        </Select>
         <div>{tabs[value ?? activeTab].props.children}</div>
       </>
     );
   }
+
+  const ele = parentRef?.current as HTMLElement;
+  // ele?.style?.cursor = 'grab';
+
+  let pos = { scrollLeft: 0, x: 0 };
+
+  const touchStartHandler = function (e: any) {
+    ele.style.cursor = 'grabbing';
+    ele.style.userSelect = 'none';
+
+    pos = {
+      scrollLeft: ele.scrollLeft,
+      // Get the current mouse position
+      x: e.clientX
+    };
+
+    console.log(ele.scrollLeft, 'scrollLeft');
+    console.log(e.clientX, 'e.clientX');
+
+    document.addEventListener('touchmove', touchMoveHandler);
+    document.addEventListener('touchend', touchEndHandler);
+  };
+
+  const touchMoveHandler = function (e: any) {
+    // How far the mouse has been moved
+    const diffMobile = e.touches[0].clientX - pos.x;
+    // Scroll the element
+    ele.scrollLeft = pos.scrollLeft - diffMobile;
+  };
+
+  const touchEndHandler = function () {
+    ele.style.cursor = 'grab';
+    ele.style.removeProperty('user-select');
+
+    document.removeEventListener('touchmove', touchMoveHandler);
+    document.removeEventListener('touchend', touchEndHandler);
+  };
 
   return (
     <>
@@ -143,7 +183,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
             <ChevronLeft />
           </IconButton>
         )}
-        <div ref={parentRef} className='hst-tabs__parent'>
+        <div ref={parentRef} className='hst-tabs__parent' onTouchStart={touchStartHandler}>
           <div ref={labelsRef} className='hst-tabs__labels'>
             {childrenProps?.map(({ label, icon, disabled }, index) => (
               <div
@@ -231,7 +271,6 @@ const TabsWrapper = React.memo(
         transition-duration: 0.5s;
         transition-property: background-color, color;
         margin-bottom: ${NEGATIVE_SPACING_IN_PX}px;
-        cursor: pointer;
 
         :hover {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
