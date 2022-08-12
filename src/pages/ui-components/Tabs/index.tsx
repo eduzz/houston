@@ -16,6 +16,7 @@ export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDiv
   children: React.ReactNode;
   value?: number;
   onChange?: (value: number) => void;
+  selectOnMobile?: boolean;
 }
 
 const SCROLL_MOVEMENT = 270;
@@ -26,7 +27,7 @@ const StyledOption = styled.div`
   gap: ${({ theme }) => theme.spacing.inline.nano};
 `;
 
-const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
+const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
@@ -111,7 +112,35 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
     [onChange]
   );
 
-  if (isMobile && false) {
+  const ele = parentRef?.current as HTMLElement;
+
+  const [scrolledPosition, setScrolledPosition] = React.useState({ scrollLeft: 0, x: 0 });
+
+  const touchStartHandler = (e: React.TouchEvent) => {
+    const position = {
+      scrollLeft: ele.scrollLeft,
+      x: e.touches[0].clientX
+    };
+
+    setScrolledPosition(position);
+
+    window.addEventListener('touchmove', touchMoveHandler as any);
+    window.addEventListener('touchend', touchEndHandler);
+  };
+
+  const touchMoveHandler = (e: React.TouchEvent<HTMLDivElement>) => {
+    console.log(e, 'eventHandler');
+    const { scrollLeft, x } = scrolledPosition;
+    const howMuchMoved = e.touches[0].clientX - x;
+    ele.scrollLeft = scrollLeft - howMuchMoved;
+  };
+
+  const touchEndHandler = () => {
+    window.removeEventListener('touchmove', touchMoveHandler as any);
+    window.removeEventListener('touchend', touchEndHandler);
+  };
+
+  if (isMobile && selectOnMobile) {
     return (
       <>
         <Select
@@ -138,47 +167,10 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
     );
   }
 
-  const ele = parentRef?.current as HTMLElement;
-  // ele?.style?.cursor = 'grab';
-
-  let pos = { scrollLeft: 0, x: 0 };
-
-  const touchStartHandler = function (e: any) {
-    ele.style.cursor = 'grabbing';
-    ele.style.userSelect = 'none';
-
-    pos = {
-      scrollLeft: ele.scrollLeft,
-      // Get the current mouse position
-      x: e.clientX
-    };
-
-    console.log(ele.scrollLeft, 'scrollLeft');
-    console.log(e.clientX, 'e.clientX');
-
-    document.addEventListener('touchmove', touchMoveHandler);
-    document.addEventListener('touchend', touchEndHandler);
-  };
-
-  const touchMoveHandler = function (e: any) {
-    // How far the mouse has been moved
-    const diffMobile = e.touches[0].clientX - pos.x;
-    // Scroll the element
-    ele.scrollLeft = pos.scrollLeft - diffMobile;
-  };
-
-  const touchEndHandler = function () {
-    ele.style.cursor = 'grab';
-    ele.style.removeProperty('user-select');
-
-    document.removeEventListener('touchmove', touchMoveHandler);
-    document.removeEventListener('touchend', touchEndHandler);
-  };
-
   return (
     <>
       <div {...rest}>
-        {isOverflowed && (
+        {isOverflowed && !isMobile && (
           <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScroll('left')}>
             <ChevronLeft />
           </IconButton>
@@ -209,7 +201,7 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
           />
         </div>
 
-        {isOverflowed && (
+        {isOverflowed && !isMobile && (
           <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScroll('right')}>
             <ChevronRight />
           </IconButton>
