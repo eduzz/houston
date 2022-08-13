@@ -40,7 +40,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
   const labelsRef = React.useRef<HTMLDivElement>(null);
   const parentRef = React.useRef<HTMLDivElement>(null);
 
-  const { touchStartHandler } = useTabDragScroller(parentRef?.current as HTMLElement);
+  const { touchStartHandler, touchMoveHandler } = useTabDragScroller(parentRef?.current as HTMLElement);
 
   const isMobile = useMediaQuery(breakpoints.down('sm'));
 
@@ -150,7 +150,12 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
             <ChevronLeft />
           </IconButton>
         )}
-        <div ref={parentRef} className='hst-tabs__parent' onTouchStart={touchStartHandler}>
+        <div
+          ref={parentRef}
+          className='hst-tabs__parent'
+          onTouchStart={touchStartHandler}
+          onTouchMove={touchMoveHandler}
+        >
           <div ref={labelsRef} className='hst-tabs__labels'>
             {childrenProps?.map(({ label, icon, disabled }, index) => (
               <div

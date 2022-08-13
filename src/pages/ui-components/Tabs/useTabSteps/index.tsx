@@ -26,7 +26,7 @@ const useTabSteps = (type: 'horizontal' | 'vertical') => {
 
       setSizes(sizes);
       setSteps([0, ...(steps ?? [])]);
-    }, 300);
+    }, 400);
 
     return () => clearTimeout(timer);
   }, [type]);

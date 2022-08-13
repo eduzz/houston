@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const useTabDragScroller = (scrollableElement: HTMLElement) => {
-  const [scrolledPosition, setScrolledPosition] = React.useState({ scrollLeft: 0, x: 0 });
+  const scrolledPosition = React.useRef({ scrollLeft: 0, x: 0 });
 
   const touchStartHandler = (e: React.TouchEvent<HTMLDivElement>) => {
     const position = {
@@ -9,24 +9,16 @@ const useTabDragScroller = (scrollableElement: HTMLElement) => {
       x: e.touches[0].clientX
     };
 
-    setScrolledPosition(position);
-
-    window.addEventListener('touchmove', touchMoveHandler as any);
-    window.addEventListener('touchend', touchEndHandler);
+    scrolledPosition.current = position;
   };
 
   const touchMoveHandler = (e: React.TouchEvent<HTMLDivElement>) => {
-    const { scrollLeft, x } = scrolledPosition;
+    const { scrollLeft, x } = scrolledPosition.current;
     const howMuchMoved = e.touches[0].clientX - x;
     scrollableElement.scrollLeft = scrollLeft - howMuchMoved;
   };
 
-  const touchEndHandler = () => {
-    window.removeEventListener('touchmove', touchMoveHandler as any);
-    window.removeEventListener('touchend', touchEndHandler);
-  };
-
-  return { touchStartHandler };
+  return { touchStartHandler, touchMoveHandler };
 };
 
 export default useTabDragScroller;
