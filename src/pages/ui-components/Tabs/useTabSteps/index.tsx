@@ -12,19 +12,23 @@ const useTabSteps = (type: 'horizontal' | 'vertical') => {
     [tabsRefs]
   );
 
-  React.useLayoutEffect(() => {
-    const sizes = tabsRefs?.current?.map((tab: HTMLDivElement) =>
-      type === 'horizontal' ? tab.getBoundingClientRect().width : tab.getBoundingClientRect().height
-    );
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      const sizes = tabsRefs?.current?.map((tab: HTMLDivElement) =>
+        type === 'horizontal' ? tab.getBoundingClientRect().width : tab.getBoundingClientRect().height
+      );
 
-    let sum = 0;
-    const steps = sizes?.map((size: number) => {
-      sum = sum + size;
-      return sum;
-    });
+      let sum = 0;
+      const steps = sizes?.map((size: number) => {
+        sum = sum + size;
+        return sum;
+      });
 
-    setSizes(sizes);
-    setSteps([0, ...(steps ?? [])]);
+      setSizes(sizes);
+      setSteps([0, ...(steps ?? [])]);
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, [type]);
 
   return { passRefsToArray, steps, sizes };
