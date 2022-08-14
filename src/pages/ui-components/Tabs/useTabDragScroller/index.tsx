@@ -8,7 +8,6 @@ const useTabDragScroller = (scrollableElement: HTMLElement) => {
       scrollLeft: scrollableElement.scrollLeft,
       x: e.touches[0].clientX
     };
-
     scrolledPosition.current = position;
   };
 

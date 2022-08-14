@@ -9,6 +9,7 @@ import IconButton from '../IconButton';
 import nestedComponent from '../utils/nestedComponent';
 import { ChevronLeft, ChevronRight } from './Icons';
 import Tab from './Tab';
+import useCheckDisabledArrows from './useCheckDisabledArrows';
 import useTabDragScroller from './useTabDragScroller';
 import useTabSteps from './useTabSteps';
 import Vertical from './Vertical';
@@ -32,15 +33,15 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
-  const { passRefsToArray, steps, sizes } = useTabSteps('horizontal');
-
   const [activeTab, setActiveTab] = React.useState(value ?? 0);
   const [isOverflowed, setIsOverflowed] = React.useState(false);
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
   const parentRef = React.useRef<HTMLDivElement>(null);
 
+  const { passRefsToArray, steps, sizes } = useTabSteps('horizontal');
   const { touchStartHandler, touchMoveHandler } = useTabDragScroller(parentRef?.current as HTMLElement);
+  const { isDisabledLeftArrow, isDisabledRightArrow } = useCheckDisabledArrows(parentRef?.current as HTMLDivElement);
 
   const isMobile = useMediaQuery(breakpoints.down('sm'));
 
@@ -72,6 +73,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
     (position: 'right' | 'left') => () => {
       scrollBy(position);
     },
+
     [scrollBy]
   );
 
@@ -146,10 +148,16 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
     <>
       <div {...rest}>
         {isOverflowed && !isMobile && (
-          <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScroll('left')}>
+          <IconButton
+            disabled={isDisabledLeftArrow}
+            className='hst-tabs__scrollButton'
+            size='md'
+            onClick={handleScroll('left')}
+          >
             <ChevronLeft />
           </IconButton>
         )}
+
         <div
           ref={parentRef}
           className='hst-tabs__parent'
@@ -182,7 +190,12 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
         </div>
 
         {isOverflowed && !isMobile && (
-          <IconButton className='hst-tabs__scrollButton' size='md' onClick={handleScroll('right')}>
+          <IconButton
+            disabled={isDisabledRightArrow}
+            className='hst-tabs__scrollButton'
+            size='md'
+            onClick={handleScroll('right')}
+          >
             <ChevronRight />
           </IconButton>
         )}
