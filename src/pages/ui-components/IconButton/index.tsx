@@ -27,16 +27,19 @@ export interface IconButtonProps
   active?: boolean;
 }
 
-const IconButton = ({ className, size, children, disabled = false, active, ...rest }: IconButtonProps) => (
-  <button
-    role='button'
-    disabled={disabled}
-    className={cx(className, `--${size ?? 'lg'}`, { '--active': active })}
-    aria-disabled={disabled}
-    {...rest}
-  >
-    <div className={cx('__icon', `--${size ?? 'lg'}`, { '--disabled': disabled })}>{children}</div>
-  </button>
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+  ({ className, size, children, disabled = false, active, ...rest }, ref) => (
+    <button
+      role='button'
+      disabled={disabled}
+      className={cx(className, `--${size ?? 'lg'}`, { '--active': active })}
+      aria-disabled={disabled}
+      {...rest}
+      ref={ref}
+    >
+      <div className={cx('__icon', `--${size ?? 'lg'}`, { '--disabled': disabled })}>{children}</div>
+    </button>
+  )
 );
 
 const LG_SIZE = 48;
@@ -45,7 +48,7 @@ const LG_ICON_SIZE = 24;
 const MD_SIZE = 32;
 const MD_ICON_SIZE = 16;
 
-export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
+export default styled(IconButton, { label: 'houston-icon-button' })`
   ${({ theme }) => css`
     border: none;
     background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
@@ -119,4 +122,4 @@ export default React.memo(styled(IconButton, { label: 'houston-icon-button' })`
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
     }
   `}
-`);
+`;

@@ -1,71 +1,60 @@
 import * as React from 'react';
 
-import CircularProgress from '@mui/material/CircularProgress';
 import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import IconDotsHorizontal from '@eduzz/houston-icons/DotsHorizontal';
-import { cx } from '@eduzz/houston-styles';
-import styled from '@eduzz/houston-styles/styled';
+import { cx, StyledProp } from '@eduzz/houston-styles';
 
-import CollapseContent from '../CollapseContent';
+import IconButton from '../../IconButton';
+import Spinner from '../../Loaders/Spinner';
+import Popover from '../../Popover';
+import usePopover from '../../Popover/usePopover';
 import TableContext from '../context';
-import { TableAction, TableCollapse } from '../interface';
 import TableRowContext, { TableRowContextProps } from './context';
 
-let tableActionIncremeter = 0;
+let actionIncremeter = 0;
 
-export interface TableRowProps {
-  id?: string;
-  className?: string;
-  data: unknown;
+export interface TableRowProps<T = unknown> extends StyledProp, React.HTMLAttributes<HTMLTableRowElement> {
+  data: T;
   index: number;
   children?: React.ReactNode;
   onClick?: () => void;
   onDoubleClick?: () => void;
 }
 
-const TableRow = React.memo<TableRowProps>(({ data, index, children, className, ...props }) => {
-  const stripedRows = useContextSelector(TableContext, context => context.stripedRows);
-  const onShowAction = useContextSelector(TableContext, context => context.onShowAction);
+const TableRow = ({ data, index, children, className, ...props }: TableRowProps) => {
+  const { openPopover, isPopoverOpened, popoverProps, popoverTargetProps, closePopover } = usePopover();
+
+  const [portals] = React.useState(() => {
+    const ref = ++actionIncremeter;
+    return {
+      actions: `__hts-table-row-actions-${ref}`,
+      collapse: `__hts-table-row-collapse-${ref}`
+    };
+  });
+
   const registerRow = useContextSelector(TableContext, context => context.registerRow);
-  const tableSize = useContextSelector(TableContext, context => context.size);
   const hasCollapseInRows = useContextSelector(TableContext, context => context.hasCollapseInRows);
   const hasActionInRows = useContextSelector(TableContext, context => context.hasActionInRows);
-  const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
 
   const [showCollapse, toogleShowCollapse] = useBoolean(false);
   const [actionLoading, setActionLoading] = React.useState(false);
 
-  const [collapse, setCollapse] = React.useState<TableCollapse>();
-  const [actions, setActions] = React.useState<TableAction[]>([]);
+  const [hasCollapse, setHasCollapse] = React.useState(false);
+  const [actions, setActions] = React.useState<number>(0);
 
-  const oneAction = actions.length === 1 ? actions[0] : null;
-  const hasActions = actions.length > 0;
-  const hasCollapse = !!collapse;
+  const hasActions = actions > 0;
 
-  const onClickAction = React.useCallback(
-    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      if (oneAction) {
-        oneAction.onClick(data, index);
-        return;
-      }
-
-      onShowAction({ anchorEl: e.currentTarget, rowData: data, rowIndex: index, actions });
-    },
-    [oneAction, onShowAction, data, index, actions]
-  );
-
-  const registerCollapse = React.useCallback((content: TableCollapse) => {
-    setCollapse(content);
-    return () => setCollapse(undefined);
+  const registerCollapse = React.useCallback(() => {
+    setHasCollapse(true);
+    return () => setHasCollapse(false);
   }, []);
 
-  const registerAction = React.useCallback((action: Omit<TableAction, 'key'>) => {
-    const key = `table-action-option-${++tableActionIncremeter}`;
-    setActions(actions => [...actions, { key, ...action }]);
-    return () => setActions(actions => actions.filter(o => o.key !== key));
+  const registerAction = React.useCallback(() => {
+    setActions(actions => ++actions);
+    return () => setActions(actions => --actions);
   }, []);
 
   React.useEffect(() => {
@@ -74,106 +63,49 @@ const TableRow = React.memo<TableRowProps>(({ data, index, children, className, 
   }, [hasActions, hasCollapse, registerRow]);
 
   const contextValue = React.useMemo<TableRowContextProps>(
-    () => ({ registerAction, registerCollapse, registerActionLoading: setActionLoading, data, index, collapse }),
-    [collapse, data, index, registerAction, registerCollapse]
+    () => ({
+      portals,
+      data,
+      index,
+      showCollapse,
+      closeMenu: closePopover,
+      registerAction,
+      setActionLoading,
+      registerCollapse
+    }),
+    [closePopover, data, index, portals, registerAction, registerCollapse, showCollapse]
   );
+
   return (
     <TableRowContext.Provider value={contextValue}>
-      <tr
-        {...props}
-        className={cx(
-          hasActions && 'houston-table-row-has-action',
-          !isCollapseContent && hasCollapse && 'houston-table-row-has-collapse',
-          !isCollapseContent && stripedRows && (index % 2 == 0 ? 'houston-table-row-even' : 'table-row-odd'),
-          className
-        )}
-      >
+      <tr {...props} className={className}>
         {children}
 
-        {hasActions && (
-          <td align='right' className={cx('houston-table-action-cell', tableSize === 'small' && '--small')}>
-            {hasActions && !actionLoading && (
-              <div onClick={onClickAction} className='houston-table-icon-action'>
-                {oneAction?.icon ?? <IconDotsHorizontal size='md' />}
-              </div>
-            )}
-            {actionLoading && <CircularProgress size={18} variant='indeterminate' />}
-          </td>
-        )}
+        <td
+          align='right'
+          className={cx('__hts-table-cell-action', !hasActionInRows && !hasCollapseInRows && '--hts-hidden')}
+        >
+          <Popover {...popoverProps} placement='bottom-end' keepMounted>
+            <div id={portals.actions} className='__hts-table-cell-action-menu' />
+          </Popover>
 
-        {!hasActions && hasActionInRows && (
-          <td className={cx('houston-houston-table-collapse-cell', tableSize === 'small' && '--small')} />
-        )}
+          {hasActions && (
+            <IconButton active={isPopoverOpened} disabled={actionLoading} onClick={openPopover} {...popoverTargetProps}>
+              {actionLoading ? <Spinner size={18} /> : <IconDotsHorizontal />}
+            </IconButton>
+          )}
 
-        {!isCollapseContent && hasCollapse && (
-          <td align='right' className={cx('houston-houston-table-collapse-cell', tableSize === 'small' && '--small')}>
-            <div
-              onClick={toogleShowCollapse}
-              className={cx(
-                'houston-table-icon-action',
-                'houston-table-collapse-button',
-                showCollapse && 'houston-table-collapse-button-opened'
-              )}
-            >
-              <IconChevronDown size='md' />
-            </div>
-          </td>
-        )}
-
-        {!hasCollapse && hasCollapseInRows && (
-          <td
-            className={cx(
-              'houston-houston-table-collapse-cell',
-              tableSize === 'small' && '--small',
-              'houston-houston-table-collapse-cell'
-            )}
-          />
-        )}
+          {hasCollapse && (
+            <IconButton onClick={toogleShowCollapse}>
+              <IconChevronDown className={cx('__hts-table-cell-collapse-arrow', showCollapse && '--hts-active')} />
+            </IconButton>
+          )}
+        </td>
       </tr>
 
-      {!isCollapseContent && hasCollapse && <CollapseContent visible={showCollapse} />}
+      <tr id={portals.collapse} />
     </TableRowContext.Provider>
   );
-});
+};
 
-export default styled(TableRow)`
-  .houston-table-action-cell {
-    padding: 6px 12px;
-    border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light};
-    font-size: ${({ theme }) => theme.font.size.xs};
-
-    &.--small {
-      font-size: ${({ theme }) => theme.font.size.xxs};
-    }
-  }
-
-  .houston-houston-table-collapse-cell {
-    padding-right: 8px;
-    border-top: 1px solid ${({ theme }) => theme.neutralColor.high.light};
-    font-size: ${({ theme }) => theme.font.size.xs};
-
-    &.--small {
-      font-size: ${({ theme }) => theme.font.size.xxs};
-    }
-  }
-
-  .houston-table-icon-action {
-    display: inline-flex;
-    padding: 4px;
-    transition: background-color 0.2s linear;
-    border-radius: 50%;
-    cursor: pointer;
-
-    &:hover {
-      background-color: ${({ theme }) => theme.neutralColor.high.light};
-    }
-
-    &:focus {
-      background-color: ${({ theme }) => theme.neutralColor.high.medium};
-    }
-
-    & .houston-icon & svg {
-      fill: ${({ theme }) => theme.neutralColor.low.light};
-    }
-  }
-`;
+export default React.memo(TableRow);

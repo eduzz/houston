@@ -34,7 +34,7 @@ export interface UsePaginatedOptions<P, T> {
   onChangeParams: (params: P, isSubscribed: () => boolean) => Promise<PaginationResponse<T>>;
 }
 
-export interface UsePromisePaginated<P, R> {
+export interface UsePromisePaginated<P extends PaginationParams, R> {
   params: P;
   initialParams: Partial<P>;
   isLoading: boolean;
@@ -74,7 +74,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
     () =>
       ({
         page: getConfig()?.pagination?.pageStart ?? 1,
-        perPage: getConfig()?.pagination?.perPage ?? 25,
+        perPage: getConfig()?.pagination?.perPage ?? 40,
         ...(initialParamsOption ?? {})
       } as P)
   );
@@ -114,6 +114,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
 
         setIsLoading(false);
         setIsLoadingMore(false);
+        setError(null);
 
         setData(data => {
           const total = response.total ?? data.total;

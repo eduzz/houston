@@ -67,7 +67,7 @@ import Table from '@eduzz/houston-ui/Table';
       }));
     });
     return (
-      <Table stripedRows>
+      <Table total={rows.length}>
         <Table.Header>
           <Table.Column width={50}>#</Table.Column>
           <Table.Column>Nome</Table.Column>
@@ -75,15 +75,12 @@ import Table from '@eduzz/houston-ui/Table';
           <Table.Column align='right'>Valor</Table.Column>
         </Table.Header>
         <Table.Body>
-          <Table.Empty count={rows.length} />
           {rows.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -110,7 +107,7 @@ import Table from '@eduzz/houston-ui/Table';
       alert(`Você recebera o data e o index:\n${JSON.stringify({ data, index }, null, 2)}`);
     }, []);
     return (
-      <Table stripedRows>
+      <Table total={rows.length}>
         <Table.Header>
           <Table.Column width={50}>#</Table.Column>
           <Table.Column>Nome</Table.Column>
@@ -118,17 +115,12 @@ import Table from '@eduzz/houston-ui/Table';
           <Table.Column align='right'>Valor</Table.Column>
         </Table.Header>
         <Table.Body>
-          <Table.Empty count={rows.length} />
           {rows.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
-              <Table.Action onClick={onEdit}>Editar</Table.Action>
-              <Table.Collapse>Olá!</Table.Collapse>
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -160,7 +152,7 @@ import Table from '@eduzz/houston-ui/Table';
       alert(`Você recebera o data e o index:\n${JSON.stringify({ data, index }, null, 2)}`);
     }, []);
     return (
-      <Table stripedRows>
+      <Table total={rows.length}>
         <Table.Header>
           <Table.Column width={50}>#</Table.Column>
           <Table.Column>Nome</Table.Column>
@@ -168,20 +160,16 @@ import Table from '@eduzz/houston-ui/Table';
           <Table.Column align='right'>Valor</Table.Column>
         </Table.Header>
         <Table.Body>
-          <Table.Empty count={rows.length} />
           {rows.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
-              <Table.ActionLoading show={index === 1} />
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
               <Table.Action onClick={onEdit}>Editar</Table.Action>
               <Table.Action onClick={onEdit}>Remover</Table.Action>
               <Table.Collapse>
-                <Table stripedRows>
+                <Table total={rows.length}>
                   <Table.Header>
                     <Table.Column width={50}>#</Table.Column>
                     <Table.Column>Nome</Table.Column>
@@ -189,15 +177,12 @@ import Table from '@eduzz/houston-ui/Table';
                     <Table.Column align='right'>Valor</Table.Column>
                   </Table.Header>
                   <Table.Body>
-                    <Table.Empty count={rows.length} />
                     {rows.map((row, index) => (
                       <Table.Row data={row} index={index} key={row.id}>
-                        <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-                        <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-                        <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-                        <Table.Cell mobileSize={6} align='right'>
-                          {row.price}
-                        </Table.Cell>
+                        <Table.Cell>{row.id}.</Table.Cell>
+                        <Table.Cell>{row.name}</Table.Cell>
+                        <Table.Cell>{row.email}</Table.Cell>
+                        <Table.Cell align='right'>{row.price}</Table.Cell>
                       </Table.Row>
                     ))}
                   </Table.Body>
@@ -215,6 +200,8 @@ import Table from '@eduzz/houston-ui/Table';
 
 <Playground>
   {() => {
+    const [page, setPage] = useState(1);
+    const [perPage, setPerPage] = useState(40);
     const [rows, setRows] = useState(() => {
       return new Array(5).fill('a').map((_, index) => ({
         id: index + 1,
@@ -227,7 +214,7 @@ import Table from '@eduzz/houston-ui/Table';
       alert(`Você recebera o data e o index:\n${JSON.stringify({ data, index }, null, 2)}`);
     }, []);
     return (
-      <Table stripedRows mobileWidth={true}>
+      <Table total={rows.length} minWidth={1900}>
         <Table.Header>
           <Table.Column width={50}>#</Table.Column>
           <Table.Column>Nome</Table.Column>
@@ -235,20 +222,24 @@ import Table from '@eduzz/houston-ui/Table';
           <Table.Column align='right'>Valor</Table.Column>
         </Table.Header>
         <Table.Body>
-          <Table.Empty count={rows.length} />
           {rows.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
               <Table.Action onClick={onEdit}>Editar</Table.Action>
               <Table.Collapse>Olá!</Table.Collapse>
             </Table.Row>
           ))}
         </Table.Body>
+        <Table.Pagination
+          page={page}
+          perPage={perPage}
+          total={100}
+          onChangePage={setPage}
+          onChangePerPage={setPerPage}
+        />
       </Table>
     );
   }}
@@ -259,17 +250,14 @@ import Table from '@eduzz/houston-ui/Table';
 Mensagens customizadas para eventos internos.
 
 <Playground>
-  <Table>
+  <Table total={0}>
     <Table.Header>
       <Table.Column>ID</Table.Column>
       <Table.Column>Produto</Table.Column>
       <Table.Column>Produtor</Table.Column>
       <Table.Column align='right'>Valor</Table.Column>
     </Table.Header>
-    <Table.Body>
-      <Table.Empty count={0} />
-      <Table.Empty count={0}>Realmente isso está vazio</Table.Empty>
-    </Table.Body>
+    <Table.Body />
   </Table>
 </Playground>
 
@@ -300,15 +288,12 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
             <Table.Column align='right'>Valor</Table.Column>
           </Table.Header>
           <Table.Body>
-            <Table.Empty count={result.length} />
             {result.map((row, index) => (
               <Table.Row data={row} index={index} key={row.id}>
-                <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-                <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-                <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-                <Table.Cell mobileSize={6} align='right'>
-                  {row.price}
-                </Table.Cell>
+                <Table.Cell>{row.id}.</Table.Cell>
+                <Table.Cell>{row.name}</Table.Cell>
+                <Table.Cell>{row.email}</Table.Cell>
+                <Table.Cell align='right'>{row.price}</Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
@@ -327,7 +312,7 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 
 ### Tratando Errors
 
-É possivel tratar os erros de uma maneira fácil apenas passando ele o **Table.Error**
+É possivel tratar os erros de uma maneira fácil apenas passando ele via prop
 
 <Playground>
   {() => {
@@ -337,7 +322,7 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
     );
     const errorFormater = React.useCallback(err => 'Apenas um erro cara, rlx!');
     return (
-      <Table stripedRows loading={isLoading}>
+      <Table error={error} errorFormater={errorFormater} errorOnRetry={refresh} loading={isLoading}>
         <Table.Header>
           <Table.Column width={50}>#</Table.Column>
           <Table.Column>Nome</Table.Column>
@@ -345,17 +330,12 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
           <Table.Column align='right'>Valor</Table.Column>
         </Table.Header>
         <Table.Body>
-          <Table.Error error={error} />
-          <Table.Error error={error} formater={errorFormater} />
-          <Table.Error error={error} formater={errorFormater} onRetry={refresh} />
           {result.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -366,17 +346,19 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 
 ### Table props
 
-| prop              | tipo              | obrigatório | padrão          | descrição                                                                                           |
-| ----------------- | ----------------- | ----------- | --------------- | --------------------------------------------------------------------------------------------------- |
-| loading           | `boolean`         | `false`     | `false`         | -                                                                                                   |
-| loadingText       | `React.ReactNode` | `false`     | `Carregando...` | -                                                                                                   |
-| sort              | `ITableSort`      | `false`     | -               | Valor atual do sort                                                                                 |
-| onSort            | `function`        | `false`     | -               | Função chamada ao clicar em uma coluna com `sortableField`.                                         |
-| size              | `Size`            | `false`     | `medium`        | -                                                                                                   |
-| maxHeight         | `number`          | `false`     | -               | -                                                                                                   |
-| stripedRows       | `boolean`         | `false`     | `false`         | -                                                                                                   |
-| columnActionTitle | `string`          | `false`     | `Ações`         | Label da coluna de ações e collapse                                                                 |
-| mobileWidth       | `number/boolean`  | `false`     | `600`           | Tamanho da tela que a tabela irá para o modo mobile, se false a tabela permanecerá sempre uma table |
+| prop          | tipo              | obrigatório | padrão                   | descrição                                                   |
+| ------------- | ----------------- | ----------- | ------------------------ | ----------------------------------------------------------- |
+| loading       | `boolean`         | `false`     | `false`                  | -                                                           |
+| loadingText   | `React.ReactNode` | `false`     | `Carregando...`          | -                                                           |
+| error         | `any`             | `false`     | `false`                  | Se ocorreu um erro ao carregar a tabela                     |
+| errorFormater | `function`        | `false`     | `false`                  | Funçao para formatar o error                                |
+| errorOnRetry  | `function`        | `false`     | `false`                  | Funçao para recarregar caso um erro ocorra                  |
+| total         | `number`          | `false`     | -                        | Total de items, usado para mostrar a mensagem de vazio      |
+| emptyText     | `string`          | `false`     | `Nenhum dado encontrado` | Mensagem de vazio                                           |
+| sort          | `ITableSort`      | `false`     | -                        | Valor atual do sort                                         |
+| onSort        | `function`        | `false`     | -                        | Função chamada ao clicar em uma coluna com `sortableField`. |
+| size          | `Size`            | `false`     | `medium`                 | -                                                           |
+| minWidth      | `number`          | `false`     | -                        | Tamanho da tela que a tabela irá gerar barra de rolagem     |
 
 ### Table.Column props
 
@@ -395,13 +377,10 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 
 ### Table.Cell props
 
-| prop        | tipo               | obrigatório | padrão          | descrição                                                                                    |
-| ----------- | ------------------ | ----------- | --------------- | -------------------------------------------------------------------------------------------- |
-| align       | `ITableAlign`      | `false`     | `left`          | -                                                                                            |
-| colSpan     | `number`           | `false`     | -               | -                                                                                            |
-| mobileSize  | `GridSize/boolean` | `false`     | `auto`          | Grid system que cada celula irá seguir no modo mobile                                        |
-| mobileAlign | `ITableAlign`      | `false`     | `left`          | -                                                                                            |
-| columnLabel | `string`           | `false`     | `Padrão Header` | Existe um processo para pegar o label do header, mas caso queria mudar basta passar um valor |
+| prop    | tipo          | obrigatório | padrão | descrição |
+| ------- | ------------- | ----------- | ------ | --------- |
+| align   | `ITableAlign` | `false`     | `left` | -         |
+| colSpan | `number`      | `false`     | -      | -         |
 
 ### Table.Option props
 
@@ -414,16 +393,7 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 
 ### Table.Pagination props
 
-| prop              | tipo                        | obrigatório | padrão              | descrição         |
-| ----------------- | --------------------------- | ----------- | ------------------- | ----------------- | ---------------------------------------------------------------------------------- |
-| page              | `number`                    | `true`      | -                   | -                 |
-| perPage           | `number`                    | `true`      | -                   | -                 |
-| total             | `number`                    | `true`      | -                   | -                 |
-| optionsPerPage    | `number[]                   | string`     | `false`             | `[5, 10, 25, 50]` | Pode ser passado uma string separado por virgula, para diminuir o número de render |
-| labelItensPerPage | `React.ReactNode`           | `false`     | `Itens por página:` | -                 |
-| labelGoToPage     | `React.ReactNode`           | `false`     | `Ir para:`          | -                 |
-| onChangePage      | `(page: number) => void`    | `true`      | -                   | -                 |
-| onChangePerPage   | `(perPage: number) => void` | `true`      | -                   | -                 |
+As mesmas do [Pagination](/houston/ui-components/Pagination)
 
 ### Table.Collapse props
 

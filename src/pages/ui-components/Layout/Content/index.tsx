@@ -14,6 +14,7 @@ const LayoutContent = ({ children, className, disablePadding }: LayoutContentPro
 export default styled(LayoutContent, { label: 'houston-sidebar-content' })(
   ({ theme }) => css`
     flex: 1;
+    min-width: 0;
 
     &:not(.--disable-padding) {
       padding: ${theme.spacing.stack.lg} ${theme.spacing.xs};

@@ -9,7 +9,7 @@ import { TopbarApplication } from '..';
 import Button from '../../../../Button';
 import Divider from '../../../../Divider';
 import IconButton from '../../../../IconButton';
-import Spinner from '../../../../Spinner';
+import Spinner from '../../../../Loaders/Spinner';
 import Typography from '../../../../Typography';
 import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT, TOPBAR_HEIGHT_MOBILE } from '../../../context';
 
