@@ -21,8 +21,6 @@ export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDiv
   selectOnMobile?: boolean;
 }
 
-const SCROLL_MOVEMENT = 270;
-
 const StyledOption = styled.div`
   display: flex;
   align-items: center;
@@ -41,8 +39,9 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
 
   const { passRefsToArray, steps, sizes } = useTabSteps('horizontal');
   const { touchStartHandler, touchMoveHandler } = useTabDragScroller(parentRef?.current as HTMLElement);
-  const { isDisabledLeftArrow, isDisabledRightArrow } = useCheckDisabledArrows(parentRef?.current as HTMLDivElement);
-
+  const { isDisabledLeftArrow, isDisabledRightArrow, handleScrollArrows } = useCheckDisabledArrows(
+    parentRef?.current as HTMLDivElement
+  );
   const isMobile = useMediaQuery(breakpoints.down('sm'));
 
   React.useEffect(() => {
@@ -59,9 +58,9 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const scrollBy = React.useCallback((position: 'right' | 'left', value?: number) => {
-    const goToRight = value ?? SCROLL_MOVEMENT;
-    const goToLeft = (value && -value) ?? -SCROLL_MOVEMENT;
+  const scrollBy = React.useCallback((position: 'right' | 'left', value: number) => {
+    const goToRight = value;
+    const goToLeft = value && -value;
 
     parentRef.current?.scrollBy({
       left: position === 'right' ? goToRight : goToLeft,
@@ -71,28 +70,28 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
 
   const handleScroll = React.useCallback(
     (position: 'right' | 'left') => () => {
-      scrollBy(position);
+      const sizesSum = sizes.reduce((prev, current) => prev + current, 0);
+      const avgTabSize = sizesSum / sizes.length;
+      scrollBy(position, avgTabSize * 2);
     },
-
-    [scrollBy]
+    [scrollBy, sizes]
   );
 
   const handleLastVisibleTabAdjustment = React.useCallback(
-    (e: any) => {
-      const ONE_PX = 1;
-      const parentTabRightCoord = parentRef.current?.getBoundingClientRect().right as number;
-      const clickedTabRightCoord = e.target.getBoundingClientRect().right;
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const eventTarget = e.target as HTMLDivElement;
+      const clickedDivRect = eventTarget.getBoundingClientRect();
+      const parentDivRect = parentRef?.current?.getBoundingClientRect() as DOMRect;
 
-      if (clickedTabRightCoord > parentTabRightCoord) {
-        const diff = clickedTabRightCoord - parentTabRightCoord;
+      const ONE_PX = 1;
+
+      if (clickedDivRect.right > parentDivRect.right) {
+        const diff = clickedDivRect.right - parentDivRect.right;
         scrollBy('right', diff + ONE_PX);
       }
 
-      const parentTabLeftCoord = parentRef.current?.getBoundingClientRect().left as number;
-      const clickedTabLeftCoord = e.target.getBoundingClientRect().left;
-
-      if (parentTabLeftCoord > clickedTabLeftCoord) {
-        const diff = parentTabLeftCoord - clickedTabLeftCoord;
+      if (parentDivRect.left > clickedDivRect.left) {
+        const diff = parentDivRect.left - clickedDivRect.left;
         scrollBy('left', diff + ONE_PX);
       }
     },
@@ -100,7 +99,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
   );
 
   const handleTabClick = React.useCallback(
-    (index: number) => (e: any) => {
+    (index: number) => (e: React.MouseEvent<HTMLDivElement>) => {
       onChange && onChange(index);
       setActiveTab(index);
 
@@ -163,6 +162,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
           className='hst-tabs__parent'
           onTouchStart={touchStartHandler}
           onTouchMove={touchMoveHandler}
+          onScroll={handleScrollArrows}
         >
           <div ref={labelsRef} className='hst-tabs__labels'>
             {childrenProps?.map(({ label, icon, disabled }, index) => (

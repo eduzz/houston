@@ -4,35 +4,32 @@ const useCheckDisabledArrows = (parentDiv: HTMLDivElement) => {
   const [isDisabledLeftArrow, setIsDisabledLeftArrow] = React.useState(false);
   const [isDisabledRightArrow, setIsDisabledRightArrow] = React.useState(false);
 
+  const handleScrollArrows = React.useCallback(() => {
+    const howMuchHasScrolled = parentDiv?.scrollLeft as number;
+    const parentWidth = parentDiv?.clientWidth as number;
+
+    if (howMuchHasScrolled === 0) {
+      setIsDisabledLeftArrow(true);
+    }
+
+    if (howMuchHasScrolled > 0) {
+      setIsDisabledLeftArrow(false);
+    }
+
+    if (howMuchHasScrolled > parentWidth) {
+      setIsDisabledRightArrow(true);
+    }
+
+    if (howMuchHasScrolled < parentWidth) {
+      setIsDisabledRightArrow(false);
+    }
+  }, [parentDiv?.clientWidth, parentDiv?.scrollLeft]);
+
   React.useEffect(() => {
-    const handleScroll = () => {
-      const howMuchHasScrolled = parentDiv?.scrollLeft as number;
-      const parentWidth = parentDiv?.clientWidth as number;
+    handleScrollArrows();
+  }, [handleScrollArrows]);
 
-      if (howMuchHasScrolled === 0) {
-        setIsDisabledLeftArrow(true);
-      }
-
-      if (howMuchHasScrolled > 0) {
-        setIsDisabledLeftArrow(false);
-      }
-
-      if (howMuchHasScrolled > parentWidth) {
-        setIsDisabledRightArrow(true);
-      }
-
-      if (howMuchHasScrolled < parentWidth) {
-        setIsDisabledRightArrow(false);
-      }
-    };
-
-    handleScroll();
-    parentDiv?.addEventListener('scroll', handleScroll);
-
-    return () => parentDiv?.removeEventListener('scroll', handleScroll);
-  }, [parentDiv]);
-
-  return { isDisabledLeftArrow, isDisabledRightArrow };
+  return { isDisabledLeftArrow, isDisabledRightArrow, handleScrollArrows };
 };
 
 export default useCheckDisabledArrows;
