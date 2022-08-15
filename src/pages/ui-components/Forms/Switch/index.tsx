@@ -1,30 +1,149 @@
 import * as React from 'react';
 
-import SwitchMUI, { SwitchProps } from '@mui/material/Switch';
+import styled, { StyledProp, css, cx } from '@eduzz/houston-styles';
 
-import withForm from '../Form/withForm';
+import withForm, { WithFormProps } from '../Form/withForm';
 
-type FieldSwitchPropsExtends = 'id' | 'className' | 'checked' | 'defaultChecked' | 'disabled' | 'size' | 'onChange';
-
-export interface SwitchFieldProps extends Pick<SwitchProps, FieldSwitchPropsExtends> {
-  name?: string;
+export interface SwitchProps
+  extends StyledProp,
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange' | 'value'>,
+    WithFormProps<never> {
+  children?: string;
+  onChange?: (checked: boolean) => void;
+  value?: boolean;
+  disabled?: boolean;
+  errorMessage?: string;
 }
 
-const Switch = React.forwardRef<React.LegacyRef<HTMLInputElement>, SwitchFieldProps>(
-  ({ name, onChange, checked, disabled, ...props }, ref) => {
+const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
+  ({ children, className, onChange, disabled, value, id: idProp, errorMessage, ...rest }, ref) => {
+    const handleChange = React.useCallback(() => {
+      onChange && onChange(!value);
+    }, [onChange, value]);
+
+    const [id] = React.useState(idProp ?? `hst-switch-id-${Math.floor(Math.random() * 1000)}`);
+
     return (
-      <SwitchMUI
-        disabled={disabled}
-        name={name}
-        inputRef={ref}
-        onChange={onChange}
-        className={props.className}
-        color='primary'
-        checked={checked ?? (props as any).value}
-        {...props}
-      />
+      <div className={cx(className, { '--hst-switch-disabled': disabled })}>
+        <button
+          id={id}
+          role='switch'
+          className={cx('hst-switch__button', { '--error': !!errorMessage })}
+          onClick={handleChange}
+          disabled={disabled}
+          aria-disabled={disabled}
+          aria-checked={value}
+          ref={ref}
+          {...rest}
+        >
+          <div
+            tabIndex={0}
+            className={cx('hst-switch__track', {
+              '--checked': value,
+              '--error': !!errorMessage
+            })}
+          >
+            <span className={cx('hst-switch__thumb', { '--checked': value })} />
+          </div>
+        </button>
+
+        <div className='__label'>
+          {children && <label htmlFor={id}>{children}</label>}
+          {!!errorMessage && <div className='hst-switch__errorMessage'>{errorMessage}</div>}
+        </div>
+      </div>
     );
   }
 );
 
-export default withForm(React.memo(Switch));
+const WIDTH_IN_PX = 40;
+const HEIGHT_IN_PX = 24;
+
+const THUMB_WIDTH_IN_PX = 16;
+const THUMB_HEIGHT_IN_PX = 16;
+const THUMB_OFFSET_IN_REM = 1;
+
+export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => {
+  return css`
+    display: inline-flex;
+    align-items: center;
+    gap: ${theme.spacing.inline.nano};
+    cursor: pointer;
+    line-height: ${theme.line.height.lg};
+
+    &.--hst-switch-disabled {
+      opacity: ${theme.opacity.level[6]};
+      cursor: not-allowed;
+    }
+
+    .hst-switch__errorMessage {
+      font-size: ${theme.font.size.xxs};
+      font-family: ${theme.font.family.base};
+      font-weight: ${theme.font.weight.regular};
+      line-height: ${theme.line.height.default};
+      color: ${theme.hexToRgba(theme.feedbackColor.negative.pure)};
+    }
+
+    .hst-switch__button {
+      all: unset;
+      margin-bottom: auto;
+
+      :disabled {
+        pointer-events: none;
+      }
+    }
+
+    label {
+      all: unset;
+      color: ${theme.neutralColor.low.pure};
+      font-family: ${theme.font.family.base};
+      font-size: ${theme.font.size.xs};
+      font-weight: ${theme.font.weight.regular};
+      line-height: ${theme.line.height.default};
+      user-select: none;
+    }
+
+    .hst-switch__track {
+      width: ${theme.pxToRem(WIDTH_IN_PX)}rem;
+      height: ${theme.pxToRem(HEIGHT_IN_PX)}rem;
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.light, theme.opacity.level[8])};
+      border-radius: ${theme.border.radius.pill};
+      display: flex;
+      align-items: center;
+      position: relative;
+      transition-duration: 0.5s;
+      transition-property: background-color, color;
+
+      :hover {
+        background-color: ${theme.neutralColor.low.light};
+      }
+
+      :focus {
+        background-color: ${theme.neutralColor.low.light};
+        outline: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
+      }
+
+      &.--checked {
+        background-color: ${theme.brandColor.primary.pure};
+      }
+
+      &.--error {
+        background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure)};
+      }
+
+      .hst-switch__thumb {
+        width: ${theme.pxToRem(THUMB_WIDTH_IN_PX)}rem;
+        height: ${theme.pxToRem(THUMB_HEIGHT_IN_PX)}rem;
+        background-color: ${theme.neutralColor.high.pure};
+        border-radius: ${theme.border.radius.pill};
+        position: absolute;
+        transition: all 0.2s;
+        left: ${theme.spacing.quarck};
+
+        &.--checked {
+          transform: translateX(${THUMB_OFFSET_IN_REM}rem);
+        }
+      }
+    }
+  `;
+});

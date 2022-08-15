@@ -26,9 +26,23 @@ import Link from '@eduzz/houston-ui/Link';
 ### Exemplo
 
 <Playground>
-  <Link href='https://eduzz.github.io/houston/ui-components/Link' showIcon>
-    Houston
-  </Link>
+  <Row>
+    <Column>
+      <Link size='xs' href='https://eduzz.github.io/houston/ui-components/Link' showIcon>
+        Link xs
+      </Link>
+    </Column>
+    <Column>
+      <Link size='sm' href='https://eduzz.github.io/houston/ui-components/Link' showIcon>
+        Link sm
+      </Link>
+    </Column>
+    <Column>
+      <Link size='md' href='https://eduzz.github.io/houston/ui-components/Link' showIcon>
+        Link md
+      </Link>
+    </Column>
+  </Row>
 </Playground>
 
 ### Em parágrafo
@@ -59,4 +73,4 @@ import { NavLink } from 'react-router-dom';
 | as       | `React.ElementType` | `false`     | `a`     |           |
 | href     | `string`            | `false`     | -       |           |
 | showIcon | `boolean`           | `false`     | -       |           |
-| size     | sm, md, inherit     | `false`     | inherit |           |
+| size     | xs, sm, md, inherit | `false`     | inherit |           |
