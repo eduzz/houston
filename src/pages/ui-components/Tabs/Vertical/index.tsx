@@ -72,7 +72,7 @@ export default React.memo(
 
       .hst-tabs-vertical__labels {
         display: flex;
-        margin-right: ${theme.spacing.xxxs};
+        margin-right: ${theme.spacing.quarck};
         flex-direction: column;
         position: relative;
       }
@@ -80,9 +80,8 @@ export default React.memo(
       .hst-tabs-vertical__slider {
         position: absolute;
         transition: all 0.2s;
-        border: solid;
-        border-color: ${theme.brandColor.primary.pure};
-        border-width: ${theme.border.width.xs};
+        width: ${theme.border.width.sm};
+        background-color: ${theme.brandColor.primary.pure};
       }
 
       .hst-tabs-vertical__tab {

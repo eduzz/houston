@@ -60,7 +60,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
 
   const scrollBy = React.useCallback((position: 'right' | 'left', value: number) => {
     const goToRight = value;
-    const goToLeft = value && -value;
+    const goToLeft = -value;
 
     parentRef.current?.scrollBy({
       left: position === 'right' ? goToRight : goToLeft,
@@ -70,9 +70,10 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
 
   const handleScroll = React.useCallback(
     (position: 'right' | 'left') => () => {
-      const sizesSum = sizes.reduce((prev, current) => prev + current, 0);
+      const HOWMANYTABSTOSCROLL = 2;
+      const sizesSum = sizes.reduce((sum, value) => sum + value, 0);
       const avgTabSize = sizesSum / sizes.length;
-      scrollBy(position, avgTabSize * 2);
+      scrollBy(position, avgTabSize * HOWMANYTABSTOSCROLL);
     },
     [scrollBy, sizes]
   );
@@ -102,7 +103,6 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
     (index: number) => (e: React.MouseEvent<HTMLDivElement>) => {
       onChange && onChange(index);
       setActiveTab(index);
-
       handleLastVisibleTabAdjustment(e);
     },
     [onChange, handleLastVisibleTabAdjustment]
@@ -160,9 +160,8 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
         <div
           ref={parentRef}
           className='hst-tabs__parent'
-          onTouchStart={touchStartHandler}
-          onTouchMove={touchMoveHandler}
-          onScroll={handleScrollArrows}
+          {...(!isMobile && { onScroll: handleScrollArrows })}
+          {...(isMobile && { onTouchStart: touchStartHandler, onTouchMove: touchMoveHandler })}
         >
           <div ref={labelsRef} className='hst-tabs__labels'>
             {childrenProps?.map(({ label, icon, disabled }, index) => (
