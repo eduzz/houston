@@ -23,16 +23,14 @@ import Radio from '@eduzz/houston-ui/Forms/Radio';
 
 <Playground>
   {() => {
-    const form = useForm({ onSubmit: () => {} });
+    const form = useForm({ defaultValues: { value: 1 } });
     return (
-      <Form context={form}>
-        <p>{JSON.stringify(form.values)}</p>
-        <Radio name='value' value={1}>
-          Opção 1
-        </Radio>
-        <Radio name='value' value={2}>
-          Opção 2
-        </Radio>
+      <Form context={form} onSubmit={alert}>
+        <p style={{ marginBottom: 8 }}>Valor: {JSON.stringify(form.watch('value'))}</p>
+        <Radio.Group name='value'>
+          <Radio.Item value={1} label='Opção 1' />
+          <Radio.Item value={2} label='Opção 2' />
+        </Radio.Group>
       </Form>
     );
   }}
@@ -45,26 +43,32 @@ import Radio from '@eduzz/houston-ui/Forms/Radio';
     const [value, setValue] = React.useState();
     return (
       <div>
-        <p>{JSON.stringify({ value })}</p>
-        <Radio helperText='Descrição do item' onChange={setValue} value={1} checked={value}>
-          Opção 1
-        </Radio>
-        <Radio errorMessage='Mensagem de erro' onChange={setValue} value={2} checked={value}>
-          Opção 2
-        </Radio>
+        <p style={{ marginBottom: 8 }}>Valor: {JSON.stringify(value)}</p>
+        <Radio.Group value={value} errorMessage='Mensagem de erro' onChange={setValue}>
+          <Radio.Item helperText='Descrição do item' value={1} label='Opção 1' />
+          <Radio.Item value={2} label='Opção' />
+        </Radio.Group>
       </div>
     );
   }}
 </Playground>
 
-### Props
+### Radio.Group props
 
-| prop         | tipo       | obrigatório | padrão  | descrição                                            |
-| ------------ | ---------- | ----------- | ------- | ---------------------------------------------------- |
-| name         | `string`   | `false`     | -       |                                                      |
-| helperText   | `string`   | `false`     | -       |                                                      |
-| errorMessage | `string`   | `false`     | -       |                                                      |
-| value        | `boolean`  | `false`     | -       | Valor setado caso seja checkado                      |
-| checked      | `boolean`  | `false`     | `false` | Pode receber um boolean ou um state com o valor      |
-| onChange     | `function` | `false`     | -       | Função chamada quando o valor do checkbox é alterado |
-| disabled     | `boolean`  | `false`     | -       |                                                      |
+| prop         | tipo                               | obrigatório | padrão | descrição               |
+| ------------ | ---------------------------------- | ----------- | ------ | ----------------------- |
+| name         | `string`                           | `false`     | -      | -                       |
+| errorMessage | `string`                           | `false`     | -      | -                       |
+| value        | `any`                              | `false`     | -      | Valor controle do grupo |
+| onChange     | `function`                         | `false`     | -      | -                       |
+| children     | `React.ReactElement<RadioProps>[]` | `true`      | -      | -                       |
+
+### Radio.Item props
+
+| prop       | tipo      | obrigatório | padrão | descrição               |
+| ---------- | --------- | ----------- | ------ | ----------------------- |
+| helperText | `string`  | `false`     | -      | -                       |
+| value      | `any`     | `false`     | -      | -                       |
+| disabled   | `boolean` | `false`     | -      | -                       |
+| label      | `string`  | `false`     | -      | -                       |
+| error      | `boolean` | `false`     | -      | Estado de erro do campo |

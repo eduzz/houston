@@ -6,7 +6,7 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 import Typography from '../../Typography';
 
 type OwnProperties = StyledProp & {
-  children?: React.ReactNode;
+  label?: React.ReactNode;
   helperText?: React.ReactNode;
   /**
    * Value of checked. Ex. true, 1, 'value'
@@ -22,7 +22,7 @@ export type RadioProps = OwnProperties &
 
 const RadioItem = ({
   value,
-  children,
+  label,
   helperText,
   disabled,
   checked,
@@ -34,7 +34,7 @@ const RadioItem = ({
   return (
     <div
       className={cx(className, {
-        '--hst-empty': !children,
+        '--hst-empty': !label,
         '--hst-checked': checked,
         '--hst-error': !!error,
         '--hst-disabled': disabled
@@ -47,9 +47,9 @@ const RadioItem = ({
         <Bullet size='sm' className='hst-radio-item-icon' />
       </div>
 
-      {!!children && (
+      {!!label && (
         <div className='hst-radio-item-label'>
-          {typeof children === 'string' ? <Typography size='xs'>{children}</Typography> : children}
+          {typeof label === 'string' ? <Typography size='xs'>{label}</Typography> : label}
           {!!helperText && <span className='hst-radio-item-input-helper-text'>{helperText}</span>}
         </div>
       )}
