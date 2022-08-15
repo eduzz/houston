@@ -4,17 +4,45 @@ import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
 
 import TableContext, { TableContextProps, TableRow } from './context';
 
-let rowKeyIncremeter = 0;
+let rowKeyIncremeter = 0,
+  tablePortalIncremeter = 0;
 
 export interface TableProps extends StyledProp, React.TableHTMLAttributes<HTMLTableElement> {
   children: React.ReactNode;
 
   size?: 'sm' | 'md';
   minWidth?: number;
+
+  loading?: boolean;
+  loadingText?: React.ReactNode;
+
+  error?: any;
+  errorFormater?: (error: any) => string;
+  errorOnRetry?: () => void;
+
+  total?: number;
+  emptyText?: string;
 }
 
-const Table = ({ size = 'md', children, className, minWidth, ...tableProps }: TableProps) => {
+const Table = ({
+  size = 'md',
+  children,
+  className,
+  minWidth,
+  loading,
+  loadingText = 'Carregando...',
+
+  error,
+  errorFormater,
+  errorOnRetry,
+
+  total,
+  emptyText = 'Nenhum dado encontrado',
+  ...tableProps
+}: TableProps) => {
   const scroller = React.useRef<HTMLDivElement>(null);
+
+  const [paginationPortal] = React.useState(() => `__hts-table-pagination-${++tablePortalIncremeter}`);
 
   const [rows, setRows] = React.useState<TableRow[]>([]);
   const registerRow = React.useCallback((row: Omit<TableRow, 'key'>) => {
@@ -27,8 +55,34 @@ const Table = ({ size = 'md', children, className, minWidth, ...tableProps }: Ta
   const hasActionInRows = React.useMemo(() => rows?.some(r => r.hasActions), [rows]);
 
   const contextValue = React.useMemo<TableContextProps>(
-    () => ({ rows, registerRow, hasCollapseInRows, hasActionInRows }),
-    [rows, registerRow, hasCollapseInRows, hasActionInRows]
+    () => ({
+      rows,
+      registerRow,
+      hasCollapseInRows,
+      hasActionInRows,
+      paginationPortal,
+      loading,
+      loadingText,
+      error,
+      errorFormater,
+      errorOnRetry,
+      total,
+      emptyText
+    }),
+    [
+      rows,
+      registerRow,
+      hasCollapseInRows,
+      hasActionInRows,
+      paginationPortal,
+      loading,
+      loadingText,
+      error,
+      errorFormater,
+      errorOnRetry,
+      total,
+      emptyText
+    ]
   );
 
   React.useLayoutEffect(() => {
@@ -74,11 +128,16 @@ const Table = ({ size = 'md', children, className, minWidth, ...tableProps }: Ta
   return (
     <TableContext.Provider value={contextValue}>
       <div className={cx(className, `--hts-table-size-${size}`)}>
-        <div className='__hts-table-scroller' ref={scroller}>
-          <table {...tableProps} style={{ minWidth }}>
-            {children}
-          </table>
+        <div className='__hts-table-scroller-shadow'>
+          <div className='__hts-table-scroller'>
+            <div ref={scroller}>
+              <table {...tableProps} style={{ minWidth }}>
+                {children}
+              </table>
+            </div>
+          </div>
         </div>
+        <div id={paginationPortal} />
       </div>
     </TableContext.Provider>
   );
@@ -86,102 +145,162 @@ const Table = ({ size = 'md', children, className, minWidth, ...tableProps }: Ta
 
 export default styled(React.memo(Table), { label: 'houston-table' })(
   ({ theme }) => css`
-    position: relative;
-    overflow: hidden;
+    & > .__hts-table-scroller-shadow {
+      position: relative;
+      overflow: hidden;
 
-    &:before {
-      content: ' ';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      width: 1px;
-      transition: 0.15s;
-    }
-
-    &.--hts-scrollable:before {
-      box-shadow: ${theme.shadow.level[4]};
-    }
-
-    & > .__hts-table-scroller {
-      overflow: auto;
-    }
-
-    & > .__hts-table-scroller > table {
-      width: 100%;
-      border-spacing: 0px;
-
-      & > thead > tr > th.__hts-table-column {
-        &:not([align]) {
-          text-align: left;
+      & > .__hts-table-scroller {
+        &:before {
+          content: ' ';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 1px;
+          transition: 0.15s;
         }
 
-        & > .__hts-table-column-sort {
-          font-weight: ${theme.font.weight.bold};
+        &.--hts-scrollable:before {
+          box-shadow: ${theme.shadow.level[2]};
+        }
+
+        & > div {
+          overflow: auto;
         }
       }
 
-      & > tbody > tr > td.__hts-table-cell {
-        font-weight: ${theme.font.weight.regular};
-      }
+      & > .__hts-table-scroller > div > table {
+        width: 100%;
+        border-spacing: 0px;
 
-      & > thead > tr > th.__hts-table-column,
-      & > thead > tr > th.__hts-table-column > .__hts-table-column-sort,
-      & > tbody > tr > td.__hts-table-cell,
-      & > tbody > tr > td > .__hts-table-loading-text {
-        font-family: ${theme.font.family.base};
-        font-size: ${theme.font.size.xxs};
-        line-height: ${theme.line.height.xs};
-        color: ${theme.neutralColor.low.dark};
-      }
+        & > thead {
+          & > tr > th {
+            background-color: ${theme.neutralColor.high.light};
 
-      & > thead > tr > th.__hts-table-column,
-      & > tbody > tr > td.__hts-table-cell,
-      & > tbody > tr > td.__hts-table-cell-action,
-      & > tbody > tr > td.__hts-table-cell-collapse,
-      & > tbody > tr > td > .__hts-table-loading-text {
-        padding: ${theme.spacing.inset.xs};
-        border-bottom: ${theme.border.width.xs} solid
-          ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
-      }
+            &:first-of-type {
+              border-top-left-radius: ${theme.border.radius.sm};
+            }
 
-      & > tbody > tr > td.__hts-table-cell-action {
-        padding: 0;
-        text-align: right;
+            &:last-of-type {
+              border-top-right-radius: ${theme.border.radius.sm};
+            }
 
-        & .__hts-table-cell-action-menu {
-          display: flex;
-          flex-direction: column;
+            &.__hts-table-column {
+              font-weight: ${theme.font.weight.bold};
+
+              &:not([align]) {
+                text-align: left;
+              }
+
+              & .__hts-table-column-sort {
+                display: inline-flex;
+                align-items: center;
+                cursor: pointer;
+
+                & > .__hts-table-column-sort-icon {
+                  transition: 0.2s linear;
+                }
+
+                &.--hts-sort-rev > .__hts-table-column-sort-icon {
+                  transform: rotateX(-180deg);
+                }
+              }
+
+              &.--hts-disabled {
+                color: ${theme.neutralColor.low.light};
+
+                & .__hts-table-column-sort {
+                  cursor: not-allowed;
+                }
+              }
+            }
+          }
+
+          &.--hts-action-column-hidden > tr > th:nth-last-child(2) {
+            border-top-right-radius: ${theme.border.radius.sm};
+          }
         }
 
-        & .__hts-table-cell-collapse-arrow {
-          transition: 0.15s ease-out;
+        & > tbody > tr > td.__hts-table-cell {
+          font-weight: ${theme.font.weight.regular};
+        }
 
-          &.--hts-active {
-            transform: rotateX(180deg);
+        & > thead > tr > th.__hts-table-column,
+        & > tbody > tr > td.__hts-table-cell,
+        & > tbody > tr > td > .__hts-table-loading-text {
+          font-family: ${theme.font.family.base};
+          font-size: ${theme.font.size.xxs};
+          line-height: ${theme.line.height.xs};
+          color: ${theme.neutralColor.low.dark};
+        }
+
+        & > thead > tr > th.__hts-table-column,
+        & > tbody > tr > td.__hts-table-cell,
+        & > tbody > tr > td.__hts-table-cell-action,
+        & > tbody > tr > td.__hts-table-cell-collapse,
+        & > tbody > tr > td > .__hts-table-loading-text {
+          padding: ${theme.spacing.inset.xs};
+          border-bottom: ${theme.border.width.xs} solid
+            ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
+        }
+
+        & > tbody > tr > td.__hts-table-cell-action {
+          padding: 0;
+          text-align: right;
+
+          & .__hts-table-cell-action-menu {
+            display: flex;
+            flex-direction: column;
+          }
+
+          & .__hts-table-cell-collapse-arrow {
+            transition: 0.15s ease-out;
+
+            &.--hts-active {
+              transform: rotateX(180deg);
+            }
+          }
+        }
+
+        & > tbody > tr > td.__hts-table-cell-collapse {
+          padding: 0;
+          text-align: center;
+        }
+
+        & > thead > tr > th.--hts-hidden,
+        & > tbody > tr > td.--hts-hidden {
+          display: none;
+        }
+
+        & > tbody > tr > td.__hts-table-collapse {
+          transition: 0.3s;
+
+          &:not(.--hts-no-background) {
+            background-color: ${theme.neutralColor.high.light};
+          }
+
+          &.--hts-opened:not(.--hts-no-padding) {
+            padding: ${theme.spacing.xxxs};
           }
         }
       }
+    }
 
-      & > tbody > tr > td.__hts-table-cell-collapse {
-        padding: 0;
-        text-align: center;
-      }
+    & .__hts-table-pagination {
+      padding: ${theme.spacing.inset.xxs};
+      background-color: ${theme.neutralColor.high.light};
+      border-bottom-left-radius: ${theme.border.radius.sm};
+      border-bottom-right-radius: ${theme.border.radius.sm};
+    }
 
-      & > thead > tr > th.--hts-hidden,
-      & > thead > tr > td.--hts-hidden {
-        display: none;
-      }
-
-      & > tbody > tr > td.__hts-table-collapse {
-        transition: 0.3s;
-
-        &:not(.--hts-no-background) {
-          background-color: ${theme.neutralColor.high.light};
-        }
-
-        &.--hts-opened:not(.--hts-no-padding) {
-          padding: ${theme.spacing.xxxs};
+    &.--hts-table-size-sm {
+      & > .__hts-table-scroller-shadow > .__hts-table-scroller > div > table {
+        & > thead > tr > th.__hts-table-column,
+        & > tbody > tr > td.__hts-table-cell,
+        & > tbody > tr > td.__hts-table-cell-action,
+        & > tbody > tr > td.__hts-table-cell-collapse,
+        & > tbody > tr > td > .__hts-table-loading-text {
+          padding: ${theme.spacing.squish.xxs};
         }
       }
     }

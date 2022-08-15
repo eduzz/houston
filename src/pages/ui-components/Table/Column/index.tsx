@@ -19,7 +19,6 @@ const TableColumn = ({ sortableField, children, className, ...rest }: TableColum
   const sortField = useContextSelector(TableHeaderContext, context => context.sortField);
   const sortDirection = useContextSelector(TableHeaderContext, context => context.sortDirection);
   const loading = useContextSelector(TableContext, context => context.loading);
-  const isCollapseContent = useContextSelector(TableContext, context => context.isCollapseContent);
   const isSorted = sortField === sortableField;
 
   const handleSort = React.useCallback(() => {
@@ -32,9 +31,9 @@ const TableColumn = ({ sortableField, children, className, ...rest }: TableColum
   }, [onSort, sortableField, isSorted, sortDirection]);
 
   return (
-    <th className={cx(className, '__hts-table-column')} {...rest}>
+    <th className={cx(className, '__hts-table-column', { '--hts-disabled': loading })} {...rest}>
       <SortLabel
-        sortable={!!sortableField && !isCollapseContent}
+        sortable={!!sortableField}
         active={isSorted}
         disabled={loading}
         direction={isSorted ? sortDirection : 'asc'}

@@ -1,37 +1,26 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import Button from '../../Button';
 import LineLoader from '../../Loaders/Line';
 import Typography from '../../Typography';
 import TableCell from '../Cell';
+import TableContext from '../context';
 
 export interface TableBodyProps {
   children: React.ReactNode;
-
-  loading?: boolean;
-  loadingText?: React.ReactNode;
-
-  error?: any;
-  errorFormater?: (error: any) => string;
-  errorOnRetry?: () => void;
-
-  total?: number;
-  emptyText?: string;
 }
 
-const TableBody = ({
-  children,
+const TableBody = ({ children }: TableBodyProps) => {
+  const loading = useContextSelector(TableContext, context => context.loading);
+  const loadingText = useContextSelector(TableContext, context => context.loadingText);
+  const error = useContextSelector(TableContext, context => context.error);
+  const errorFormater = useContextSelector(TableContext, context => context.errorFormater);
+  const errorOnRetry = useContextSelector(TableContext, context => context.errorOnRetry);
+  const total = useContextSelector(TableContext, context => context.total);
+  const emptyText = useContextSelector(TableContext, context => context.emptyText);
 
-  loading,
-  loadingText = 'Carregando...',
-
-  error,
-  errorFormater,
-  errorOnRetry,
-
-  total,
-  emptyText = 'Nenhum dado encontrado'
-}: TableBodyProps) => {
   const errorMessage = React.useMemo(() => {
     if (!error) return null;
 

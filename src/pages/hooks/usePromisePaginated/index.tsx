@@ -74,7 +74,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
     () =>
       ({
         page: getConfig()?.pagination?.pageStart ?? 1,
-        perPage: getConfig()?.pagination?.perPage ?? 25,
+        perPage: getConfig()?.pagination?.perPage ?? 40,
         ...(initialParamsOption ?? {})
       } as P)
   );
