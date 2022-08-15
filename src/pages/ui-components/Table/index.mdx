@@ -77,12 +77,10 @@ import Table from '@eduzz/houston-ui/Table';
         <Table.Body>
           {rows.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -119,12 +117,10 @@ import Table from '@eduzz/houston-ui/Table';
         <Table.Body>
           {rows.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -166,12 +162,10 @@ import Table from '@eduzz/houston-ui/Table';
         <Table.Body>
           {rows.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
               <Table.Action onClick={onEdit}>Editar</Table.Action>
               <Table.Action onClick={onEdit}>Remover</Table.Action>
               <Table.Collapse>
@@ -185,12 +179,10 @@ import Table from '@eduzz/houston-ui/Table';
                   <Table.Body>
                     {rows.map((row, index) => (
                       <Table.Row data={row} index={index} key={row.id}>
-                        <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-                        <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-                        <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-                        <Table.Cell mobileSize={6} align='right'>
-                          {row.price}
-                        </Table.Cell>
+                        <Table.Cell>{row.id}.</Table.Cell>
+                        <Table.Cell>{row.name}</Table.Cell>
+                        <Table.Cell>{row.email}</Table.Cell>
+                        <Table.Cell align='right'>{row.price}</Table.Cell>
                       </Table.Row>
                     ))}
                   </Table.Body>
@@ -232,12 +224,10 @@ import Table from '@eduzz/houston-ui/Table';
         <Table.Body>
           {rows.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
               <Table.Action onClick={onEdit}>Editar</Table.Action>
               <Table.Collapse>Olá!</Table.Collapse>
             </Table.Row>
@@ -300,12 +290,10 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
           <Table.Body>
             {result.map((row, index) => (
               <Table.Row data={row} index={index} key={row.id}>
-                <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-                <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-                <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-                <Table.Cell mobileSize={6} align='right'>
-                  {row.price}
-                </Table.Cell>
+                <Table.Cell>{row.id}.</Table.Cell>
+                <Table.Cell>{row.name}</Table.Cell>
+                <Table.Cell>{row.email}</Table.Cell>
+                <Table.Cell align='right'>{row.price}</Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
@@ -344,12 +332,10 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
         <Table.Body>
           {result.map((row, index) => (
             <Table.Row data={row} index={index} key={row.id}>
-              <Table.Cell mobileSize={1}>{row.id}.</Table.Cell>
-              <Table.Cell mobileSize={11}>{row.name}</Table.Cell>
-              <Table.Cell mobileSize={6}>{row.email}</Table.Cell>
-              <Table.Cell mobileSize={6} align='right'>
-                {row.price}
-              </Table.Cell>
+              <Table.Cell>{row.id}.</Table.Cell>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.email}</Table.Cell>
+              <Table.Cell align='right'>{row.price}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -391,13 +377,10 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 
 ### Table.Cell props
 
-| prop        | tipo               | obrigatório | padrão          | descrição                                                                                    |
-| ----------- | ------------------ | ----------- | --------------- | -------------------------------------------------------------------------------------------- |
-| align       | `ITableAlign`      | `false`     | `left`          | -                                                                                            |
-| colSpan     | `number`           | `false`     | -               | -                                                                                            |
-| mobileSize  | `GridSize/boolean` | `false`     | `auto`          | Grid system que cada celula irá seguir no modo mobile                                        |
-| mobileAlign | `ITableAlign`      | `false`     | `left`          | -                                                                                            |
-| columnLabel | `string`           | `false`     | `Padrão Header` | Existe um processo para pegar o label do header, mas caso queria mudar basta passar um valor |
+| prop    | tipo          | obrigatório | padrão | descrição |
+| ------- | ------------- | ----------- | ------ | --------- |
+| align   | `ITableAlign` | `false`     | `left` | -         |
+| colSpan | `number`      | `false`     | -      | -         |
 
 ### Table.Option props
 
