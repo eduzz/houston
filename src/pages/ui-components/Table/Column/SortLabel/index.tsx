@@ -19,12 +19,12 @@ const SortLabel: React.FC<SortLabelProps> = ({ children, sortable, active, direc
 
   return (
     <div
-      className={cx('__hts-table-column-sort', { '--hts-sort-rev': direction === 'desc' })}
+      className={cx('hts-table__column-sort', { '--hts-sort-rev': direction === 'desc' })}
       onClick={disabled ? undefined : onClick}
     >
       {children}
 
-      {active && <IconArrowUp className='__hts-table-column-sort-icon' />}
+      {active && <IconArrowUp className='hts-table__column-sort-icon' />}
     </div>
   );
 };

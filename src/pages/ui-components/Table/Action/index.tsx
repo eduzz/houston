@@ -22,7 +22,7 @@ export interface TableActionOptionProp {
   as?: React.ElementType;
   icon?: React.ReactNode;
   disabled?: boolean;
-  onClick: (data: unknown, index: number, event?: React.MouseEvent<HTMLButtonElement>) => Promise<any>;
+  onClick: (data: unknown, index: number, event?: React.MouseEvent<HTMLButtonElement>) => any | Promise<any>;
   children: string;
 }
 

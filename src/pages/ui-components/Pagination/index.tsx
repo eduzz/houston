@@ -49,7 +49,7 @@ const Pagination = ({
   const handleChangePage = React.useCallback((page: number) => onChangePage(page), [onChangePage]);
 
   return (
-    <div className={cx(className, `__hts-pagination-mode-${mode}`)}>
+    <div className={cx(className, `hts-pagination__mode-${mode}`)}>
       <Typography size='xs' className='__hts-pagination_label'>
         Itens por página:
       </Typography>
@@ -66,15 +66,15 @@ const Pagination = ({
         ))}
       </Select>
 
-      <div className='__hts-pagination-numbers'>
+      <div className='hts-pagination__numbers'>
         <IconButton
-          className='__hts-pagination-previous'
+          className='hts-pagination__previous'
           disabled={page === 1 ? true : disabled}
           onClick={handlePreviousPage}
         >
           <ChevronLeft />
         </IconButton>
-        <div className='__hts-pagination-pages'>
+        <div className='hts-pagination__pages'>
           <PaginationPages
             disabled={disabled}
             currentPage={page}
@@ -86,7 +86,7 @@ const Pagination = ({
           />
         </div>
         <IconButton
-          className='__hts-pagination-next'
+          className='hts-pagination__next'
           disabled={maxPage === page ? true : disabled}
           onClick={handleNextPage}
         >
@@ -113,93 +113,93 @@ export default styled(React.memo(Pagination), { label: 'houston-pagination' })(
       width: 90px;
     }
 
-    & .__hts-pagination-numbers {
+    & .hts-pagination__numbers {
       display: grid;
       grid-template-columns: 1fr auto auto auto;
       width: 100%;
       align-items: center;
       gap: ${theme.spacing.nano};
 
-      .__hts-pagination-previous {
+      .hts-pagination__previous {
         grid-row: 1;
         grid-column: 2;
       }
 
-      .__hts-pagination-pages {
+      .hts-pagination__pages {
         grid-row: 1;
         grid-column: 3;
       }
 
-      .__hts-pagination-next {
+      .hts-pagination__next {
         grid-row: 1;
         grid-column: 4;
       }
     }
 
-    &.__hts-pagination-mode-table {
-      & .__hts-pagination-numbers {
-        .__hts-pagination-previous {
+    &.hts-pagination__mode-table {
+      & .hts-pagination__numbers {
+        .hts-pagination__previous {
           grid-column: 3;
         }
 
-        .__hts-pagination-pages {
+        .hts-pagination__pages {
           padding-right: ${theme.spacing.inline.xxxs};
           grid-column: 2;
         }
 
-        .__hts-pagination-next {
+        .hts-pagination__next {
           grid-column: 4;
         }
       }
     }
 
-    &.__hts-pagination-mode-default {
+    &.hts-pagination__mode-default {
       ${theme.breakpoints.down('md')} {
         & .__hts-pagination_label,
         & .__hts-pagination_select {
           display: none;
         }
 
-        & .__hts-pagination-numbers {
+        & .hts-pagination__numbers {
           grid-template-columns: auto 1fr auto;
         }
 
-        .__hts-pagination-previous {
+        .hts-pagination__previous {
           grid-column: 1;
         }
 
-        .__hts-pagination-pages {
+        .hts-pagination__pages {
           grid-column: 2;
           text-align: center;
         }
 
-        .__hts-pagination-next {
+        .hts-pagination__next {
           grid-column: 3;
         }
       }
     }
 
-    &.__hts-pagination-mode-table {
+    &.hts-pagination__mode-table {
       ${theme.breakpoints.down('sm')} {
         & .__hts-pagination_label,
         & .__hts-pagination_select {
           display: none;
         }
 
-        & .__hts-pagination-numbers {
+        & .hts-pagination__numbers {
           grid-template-columns: auto 1fr auto;
 
-          .__hts-pagination-previous {
+          .hts-pagination__previous {
             grid-column: 1;
           }
 
-          .__hts-pagination-pages {
+          .hts-pagination__pages {
             padding-right: 0;
             grid-column: 2;
             text-align: center;
           }
 
-          .__hts-pagination-next {
+          .hts-pagination__next {
             grid-column: 3;
           }
         }

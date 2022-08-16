@@ -8,7 +8,7 @@ export interface TableCellProps extends StyledProp, React.TdHTMLAttributes<HTMLT
 
 const TableCell = ({ children, className, ...props }: TableCellProps) => {
   return (
-    <td {...props} className={cx(className, '__hts-table-cell')}>
+    <td {...props} className={cx(className, 'hts-table__cell')}>
       {children}
     </td>
   );

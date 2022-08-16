@@ -1,6 +1,6 @@
 import Icon, { IconProps } from '../Icon';
 
-const ChevronRight = (props: IconProps) => {
+const ChevronDoubleLeft = (props: IconProps) => {
   return (
     <Icon {...props}>
       <g>
@@ -11,4 +11,4 @@ const ChevronRight = (props: IconProps) => {
   );
 };
 
-export default ChevronRight;
+export default ChevronDoubleLeft;

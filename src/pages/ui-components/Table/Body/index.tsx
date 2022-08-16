@@ -37,7 +37,7 @@ const TableBody = ({ children }: TableBodyProps) => {
         <tr>
           <td align='center' colSpan={1000}>
             <LineLoader />
-            <div className='__hts-table-loading-text'>{loadingText}</div>
+            <div className='hts-table__loading-text'>{loadingText}</div>
           </td>
         </tr>
       </tbody>

@@ -160,7 +160,7 @@ const PaginationPages = ({
 
   return (
     <div className={className}>
-      <div className='__hts-pagination-pages-buttons'>
+      <div className='hts-pagination__pages-buttons'>
         {pages?.map(({ page, onClick }) => (
           <Button
             key={page}
@@ -168,7 +168,7 @@ const PaginationPages = ({
             disabled={disabled}
             active={page === currentPage}
             onClick={onClick}
-            className='__hts-pagination-pages-button'
+            className='hts-pagination__pages-button'
           >
             {typeof page === 'number' ? (
               page
@@ -185,18 +185,18 @@ const PaginationPages = ({
           </Button>
         ))}
       </div>
-      <div className='__hts-pagination-pages-mobile'>
+      <div className='hts-pagination__pages-mobile'>
         <Input
           size='sm'
           disabled={disabled}
           value={pageInput}
-          className='__hts-pagination-pages-mobile-input'
+          className='hts-pagination__pages-mobile-input'
           onChange={handlePageInputChange as any}
           onKeyUp={handlePageInputChange}
           onBlur={handlePageInputChange as any}
         />
 
-        <Typography size='xs' weight='regular' className='__hts-pagination-pages-mobile-text'>
+        <Typography size='xs' weight='regular' className='hts-pagination__pages-mobile-text'>
           de {maxPage}
         </Typography>
       </div>
@@ -206,12 +206,12 @@ const PaginationPages = ({
 
 export default styled(PaginationPages, { label: 'houston-pagination-pages' })(
   ({ theme }) => css`
-    & .__hts-pagination-pages-buttons {
+    & .hts-pagination__pages-buttons {
       align-items: center;
       display: flex;
       width: 100%;
 
-      & .__hts-pagination-pages-button {
+      & .hts-pagination__pages-button {
         min-width: 0;
         font-weight: ${theme.font.weight.regular};
 
@@ -231,17 +231,17 @@ export default styled(PaginationPages, { label: 'houston-pagination-pages' })(
       }
     }
 
-    & .__hts-pagination-pages-mobile {
+    & .hts-pagination__pages-mobile {
       display: none;
       align-items: center;
       justify-content: center;
       gap: ${theme.spacing.nano};
 
-      & .__hts-pagination-pages-mobile-input {
+      & .hts-pagination__pages-mobile-input {
         width: 60px;
       }
 
-      & .__hts-pagination-pages-mobile-text {
+      & .hts-pagination__pages-mobile-text {
         white-space: nowrap;
       }
     }
@@ -249,11 +249,11 @@ export default styled(PaginationPages, { label: 'houston-pagination-pages' })(
     ${theme.breakpoints.down('md')} {
       width: 100%;
 
-      & .__hts-pagination-pages-buttons {
+      & .hts-pagination__pages-buttons {
         display: none;
       }
 
-      & .__hts-pagination-pages-mobile {
+      & .hts-pagination__pages-mobile {
         display: flex;
       }
     }

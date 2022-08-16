@@ -1,6 +1,6 @@
 import Icon, { IconProps } from '../Icon';
 
-const ChevronRight = (props: IconProps) => {
+const ChevronDoubleRight = (props: IconProps) => {
   return (
     <Icon {...props}>
       <g transform='rotate(-180 96 96)'>
@@ -11,4 +11,4 @@ const ChevronRight = (props: IconProps) => {
   );
 };
 
-export default ChevronRight;
+export default ChevronDoubleRight;

@@ -42,7 +42,7 @@ const Table = ({
 }: TableProps) => {
   const scroller = React.useRef<HTMLDivElement>(null);
 
-  const [paginationPortal] = React.useState(() => `__hts-table-pagination-${++tablePortalIncremeter}`);
+  const [paginationPortal] = React.useState(() => `hts-table__pagination-${++tablePortalIncremeter}`);
 
   const [rows, setRows] = React.useState<TableRow[]>([]);
   const registerRow = React.useCallback((row: Omit<TableRow, 'key'>) => {
@@ -128,8 +128,8 @@ const Table = ({
   return (
     <TableContext.Provider value={contextValue}>
       <div className={cx(className, `--hts-table-size-${size}`)}>
-        <div className='__hts-table-scroller-shadow'>
-          <div className='__hts-table-scroller'>
+        <div className='hts-table__scroller-shadow'>
+          <div className='hts-table__scroller'>
             <div ref={scroller}>
               <table {...tableProps} style={{ minWidth }}>
                 {children}
@@ -145,11 +145,11 @@ const Table = ({
 
 export default styled(React.memo(Table), { label: 'houston-table' })(
   ({ theme }) => css`
-    & > .__hts-table-scroller-shadow {
+    & > .hts-table__scroller-shadow {
       position: relative;
       overflow: hidden;
 
-      & > .__hts-table-scroller {
+      & > .hts-table__scroller {
         &:before {
           content: ' ';
           position: absolute;
@@ -169,7 +169,7 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
         }
       }
 
-      & > .__hts-table-scroller > div > table {
+      & > .hts-table__scroller > div > table {
         width: 100%;
         border-spacing: 0px;
 
@@ -185,23 +185,23 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
               border-top-right-radius: ${theme.border.radius.sm};
             }
 
-            &.__hts-table-column {
+            &.hts-table__column {
               font-weight: ${theme.font.weight.bold};
 
               &:not([align]) {
                 text-align: left;
               }
 
-              & .__hts-table-column-sort {
+              & .hts-table__column-sort {
                 display: inline-flex;
                 align-items: center;
                 cursor: pointer;
 
-                & > .__hts-table-column-sort-icon {
+                & > .hts-table__column-sort-icon {
                   transition: 0.2s linear;
                 }
 
-                &.--hts-sort-rev > .__hts-table-column-sort-icon {
+                &.--hts-sort-rev > .hts-table__column-sort-icon {
                   transform: rotateX(-180deg);
                 }
               }
@@ -209,7 +209,7 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
               &.--hts-disabled {
                 color: ${theme.neutralColor.low.light};
 
-                & .__hts-table-column-sort {
+                & .hts-table__column-sort {
                   cursor: not-allowed;
                 }
               }
@@ -221,39 +221,39 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
           }
         }
 
-        & > tbody > tr > td.__hts-table-cell {
+        & > tbody > tr > td.hts-table__cell {
           font-weight: ${theme.font.weight.regular};
         }
 
-        & > thead > tr > th.__hts-table-column,
-        & > tbody > tr > td.__hts-table-cell,
-        & > tbody > tr > td > .__hts-table-loading-text {
+        & > thead > tr > th.hts-table__column,
+        & > tbody > tr > td.hts-table__cell,
+        & > tbody > tr > td > .hts-table__loading-text {
           font-family: ${theme.font.family.base};
           font-size: ${theme.font.size.xxs};
           line-height: ${theme.line.height.xs};
           color: ${theme.neutralColor.low.dark};
         }
 
-        & > thead > tr > th.__hts-table-column,
-        & > tbody > tr > td.__hts-table-cell,
-        & > tbody > tr > td.__hts-table-cell-action,
-        & > tbody > tr > td.__hts-table-cell-collapse,
-        & > tbody > tr > td > .__hts-table-loading-text {
+        & > thead > tr > th.hts-table__column,
+        & > tbody > tr > td.hts-table__cell,
+        & > tbody > tr > td.hts-table__cell-action,
+        & > tbody > tr > td.hts-table__cell-collapse,
+        & > tbody > tr > td > .hts-table__loading-text {
           padding: ${theme.spacing.inset.xs};
           border-bottom: ${theme.border.width.xs} solid
             ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
         }
 
-        & > tbody > tr > td.__hts-table-cell-action {
+        & > tbody > tr > td.hts-table__cell-action {
           padding: 0;
           text-align: right;
 
-          & .__hts-table-cell-action-menu {
+          & .hts-table__cell-action-menu {
             display: flex;
             flex-direction: column;
           }
 
-          & .__hts-table-cell-collapse-arrow {
+          & .hts-table__cell-collapse-arrow {
             transition: 0.15s ease-out;
 
             &.--hts-active {
@@ -262,7 +262,7 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
           }
         }
 
-        & > tbody > tr > td.__hts-table-cell-collapse {
+        & > tbody > tr > td.hts-table__cell-collapse {
           padding: 0;
           text-align: center;
         }
@@ -272,7 +272,7 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
           display: none;
         }
 
-        & > tbody > tr > td.__hts-table-collapse {
+        & > tbody > tr > td.hts-table__collapse {
           transition: 0.3s;
 
           &:not(.--hts-no-background) {
@@ -286,7 +286,7 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
       }
     }
 
-    & .__hts-table-pagination {
+    & .hts-table__pagination {
       padding: ${theme.spacing.inset.xxs};
       background-color: ${theme.neutralColor.high.light};
       border-bottom-left-radius: ${theme.border.radius.sm};
@@ -294,12 +294,12 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
     }
 
     &.--hts-table-size-sm {
-      & > .__hts-table-scroller-shadow > .__hts-table-scroller > div > table {
-        & > thead > tr > th.__hts-table-column,
-        & > tbody > tr > td.__hts-table-cell,
-        & > tbody > tr > td.__hts-table-cell-action,
-        & > tbody > tr > td.__hts-table-cell-collapse,
-        & > tbody > tr > td > .__hts-table-loading-text {
+      & > .hts-table__scroller-shadow > .hts-table__scroller > div > table {
+        & > thead > tr > th.hts-table__column,
+        & > tbody > tr > td.hts-table__cell,
+        & > tbody > tr > td.hts-table__cell-action,
+        & > tbody > tr > td.hts-table__cell-collapse,
+        & > tbody > tr > td > .hts-table__loading-text {
           padding: ${theme.spacing.squish.xxs};
         }
       }
