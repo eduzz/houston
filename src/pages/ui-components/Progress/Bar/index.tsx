@@ -1,9 +1,5 @@
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-export type ProgressFormat = 'percentage' | 'text';
-
-export type ProgressInfoPosition = 'left' | 'right';
-
 export interface ProgressBarProps {
   value: number;
   max: number;
