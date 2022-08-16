@@ -13,7 +13,7 @@ type OwnProperties = StyledProp & {
    */
   value?: any;
   checked?: boolean;
-  onChange?: (value: any, e?: React.MouseEvent<HTMLDivElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>, value: any) => void;
   error?: boolean;
 };
 
@@ -31,17 +31,21 @@ const RadioItem = ({
   error,
   ...props
 }: RadioProps) => {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    onChange && onChange(e, value);
+  }
+
   return (
-    <div
+    <label
       className={cx(className, {
         '--hst-empty': !label,
         '--hst-checked': checked,
         '--hst-error': !!error,
         '--hst-disabled': disabled
       })}
-      onClick={e => onChange && !disabled && onChange(value, e)}
+      htmlFor={props.id}
     >
-      <input type='radio' className='hst-radio-item-input' checked={checked} {...props} />
+      <input type='radio' className='hst-radio-item-input' checked={checked} onChange={handleChange} {...props} />
 
       <div className='hst-radio-item-icon-container'>
         <Bullet size='sm' className='hst-radio-item-icon' />
@@ -53,7 +57,7 @@ const RadioItem = ({
           {!!helperText && <span className='hst-radio-item-input-helper-text'>{helperText}</span>}
         </div>
       )}
-    </div>
+    </label>
   );
 };
 

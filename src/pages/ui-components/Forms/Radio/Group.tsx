@@ -1,25 +1,28 @@
 import * as React from 'react';
 
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
+import { Spacing } from '@eduzz/houston-tokens';
 
 import withForm, { WithFormProps } from '../Form/withForm';
 import { RadioProps } from './Item';
 
-type OwnProperties = StyledProp &
+export type RadioGroupProps = StyledProp &
   WithFormProps<never> & {
     children: React.ReactElement<RadioProps>[];
-    value?: any;
     name?: string;
-    onChange?: (value: any, e?: React.MouseEvent<HTMLDivElement>) => void;
+    value?: any;
+    onChange?: (value: any, e?: React.ChangeEvent<HTMLInputElement>) => void;
     errorMessage?: string;
+    /**
+     * Spacing between radios
+     * @default 'xxxs'
+     */
+    spacing?: keyof Omit<Spacing, 'fn'>;
   };
-
-export type RadioGroupProps = OwnProperties &
-  Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof OwnProperties | 'type'>;
 
 const RadioGroup = ({ children, value, onChange, className, errorMessage }: RadioGroupProps) => {
   const handleChange = React.useCallback(
-    (value: any, e: React.MouseEvent<HTMLDivElement>) => {
+    (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
       onChange && onChange(value, e);
     },
     [onChange]
@@ -42,11 +45,11 @@ const RadioGroup = ({ children, value, onChange, className, errorMessage }: Radi
 };
 
 export default styled(withForm(React.memo(RadioGroup)), { label: 'hst-radio-group' })`
-  ${({ theme }) => css`
+  ${({ theme, spacing = 'xxxs' }) => css`
     .hst-radio-group-radios {
       display: flex;
       flex-direction: column;
-      gap: ${theme.spacing.xxxs};
+      gap: ${theme.spacing[spacing]};
     }
 
     .hst-radio-group-error-message {
