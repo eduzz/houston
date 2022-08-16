@@ -216,7 +216,7 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
             }
           }
 
-          &.--hts-action-column-hidden > tr > th:nth-last-child(2) {
+          &.--hts-action-column-hidden > tr > th:nth-last-of-type(2) {
             border-top-right-radius: ${theme.border.radius.sm};
           }
         }
