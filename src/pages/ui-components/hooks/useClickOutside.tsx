@@ -17,7 +17,7 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
     let throttle = false;
 
     const listener = (event: AnyEvent) => {
-      if (!el || el.contains(event.target as Node) || throttle) {
+      if (!el || !el.contains || el.contains(event.target as Node) || throttle) {
         return;
       }
 
