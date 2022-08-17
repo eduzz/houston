@@ -1,0 +1,76 @@
+---
+name: TabsVertical
+---
+
+import { Playground } from 'dokz';
+
+import FaceHappyOutline from '@eduzz/houston-icons/FaceHappyOutline';
+import Image from '@eduzz/houston-ui/Image';
+import Tabs from '@eduzz/houston-ui/Tabs';
+
+# TabsVertical
+
+As abas facilitam a exploração e alternam entre diferentes visualizações.
+
+### Importação
+
+```js
+import Tabs from '@eduzz/houston-ui/Tabs';
+const { Tab } = Tabs;
+```
+
+### Auto gerenciável
+
+Não há necessidade de controlar o estado da aba ativa.
+
+<Playground>
+  {() => {
+    const { Tab } = Tabs;
+    return (
+      <Tabs.Vertical>
+        <Tab label='Label 1'>Conteúdo 1</Tab>
+        <Tab label='Label 2'>Conteúdo 2</Tab>
+      </Tabs.Vertical>
+    );
+  }}
+</Playground>
+
+### Valor controlado e desabilitado
+
+<Playground>
+  {() => {
+    const { Tab } = Tabs;
+    const [tab, setTab] = React.useState(1);
+    return (
+      <Tabs.Vertical value={tab} onChange={value => setTab(value)}>
+        <Tab label='Label 1' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 1</div>
+        </Tab>
+        <Tab label='Label 2' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 2</div>
+        </Tab>
+        <Tab label='Label 3' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 3</div>
+        </Tab>
+        <Tab label='Desabilitado 4' disabled>
+          <div>Conteúdo 4</div>
+        </Tab>
+      </Tabs.Vertical>
+    );
+  }}
+</Playground>
+
+### Tabs props
+
+| prop     | type                      | required | default | description         |
+| -------- | ------------------------- | -------- | ------- | ------------------- |
+| value    | `number`                  | `false`  | -       | Índice da aba.      |
+| onChange | `(value: number) => void` | `false`  | -       | Recebe novo índice. |
+
+### Tab props
+
+| prop     | type        | required | default |
+| -------- | ----------- | -------- | ------- |
+| label    | `string`    | `true`   | -       |
+| icon     | `ReactNode` | `false`  | -       |
+| disabled | `boolean`   | `false`  | `false` |
