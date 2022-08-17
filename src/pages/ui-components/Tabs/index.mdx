@@ -2,8 +2,10 @@
 name: Tabs
 ---
 
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import { Playground } from 'dokz';
+
+import FaceHappyOutline from '@eduzz/houston-icons/FaceHappyOutline';
+import Image from '@eduzz/houston-ui/Image';
 
 import Tabs from './';
 
@@ -11,12 +13,11 @@ import Tabs from './';
 
 As abas facilitam a exploração e alternam entre diferentes visualizações.
 
-> Para as Tabs funcionarem corretamente, insira uma div encapsulando o children dentro do Tab.Content.
-
 ### Importação
 
 ```js
 import Tabs from '@eduzz/houston-ui/Tabs';
+const { Tab } = Tabs;
 ```
 
 ### Auto gerenciável
@@ -24,72 +25,87 @@ import Tabs from '@eduzz/houston-ui/Tabs';
 Não há necessidade de controlar o estado da aba ativa.
 
 <Playground>
-  <Tabs>
-    <Tabs.Content label='Título 1'>
-      <div>Conteúdo 1</div>
-    </Tabs.Content>
-    <Tabs.Content label='Título 2'>
-      <div>Conteúdo 2</div>
-    </Tabs.Content>
-  </Tabs>
-</Playground>
-
-### Valor controlado
-
-<Playground>
   {() => {
-    const [tab, setTab] = React.useState(0);
+    const { Tab } = Tabs;
     return (
-      <Tabs value={tab} onChange={value => setTab(value)}>
-        <Tabs.Content label='Título 1'>
-          <div>Conteúdo 1</div>
-        </Tabs.Content>
-        <Tabs.Content label='Título 2'>
-          <div>Conteúdo 2</div>
-        </Tabs.Content>
+      <Tabs>
+        <Tab label='Label 1'>Conteúdo 1</Tab>
+        <Tab label='Label 2'>Conteúdo 2</Tab>
       </Tabs>
     );
   }}
 </Playground>
 
-### Desabilitado
+### Valor controlado e desabilitado
 
 <Playground>
-  <Tabs>
-    <Tabs.Content label='Título 1'>
-      <div>Conteúdo 1</div>
-    </Tabs.Content>
-    <Tabs.Content label='Desabilitado 2' disabled>
-      <div>Conteúdo 2</div>
-    </Tabs.Content>
-  </Tabs>
+  {() => {
+    const { Tab } = Tabs;
+    const [tab, setTab] = React.useState(1);
+    return (
+      <Tabs value={tab} onChange={value => setTab(value)}>
+        <Tab label='Label 1' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 1</div>
+        </Tab>
+        <Tab label='Label 2' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 2</div>
+        </Tab>
+        <Tab label='Label 3' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 3</div>
+        </Tab>
+        <Tab label='Desabilitado 4' disabled>
+          <div>Conteúdo 4</div>
+        </Tab>
+      </Tabs>
+    );
+  }}
 </Playground>
 
-### Com ícone
+### Múltiplas Tabs
 
 <Playground>
-  <Tabs>
-    <Tabs.Content label='Título 1' icon={<InsertEmoticonIcon />}>
-      <div>Conteúdo 1</div>
-    </Tabs.Content>
-    <Tabs.Content label='Título 2' icon={<InsertEmoticonIcon />}>
-      <div>Conteúdo 2</div>
-    </Tabs.Content>
-  </Tabs>
+  {() => {
+    const { Tab } = Tabs;
+    return (
+      <Tabs>
+        <Tab label='Título 1' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 1</div>
+        </Tab>
+        <Tab label='Título 2' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 2</div>
+        </Tab>
+        <Tab label='Título 3' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 3</div>
+        </Tab>
+        <Tab label='Título 4' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 4</div>
+        </Tab>
+        <Tab label='Título 5' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 5</div>
+        </Tab>
+        <Tab label='Título 6' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 6</div>
+        </Tab>
+        <Tab label='Título 7' icon={<FaceHappyOutline />}>
+          <div>Conteúdo 7</div>
+        </Tab>
+      </Tabs>
+    );
+  }}
 </Playground>
 
-#### Tabs props
+### Tabs props
 
 | prop     | type                      | required | default | description         |
 | -------- | ------------------------- | -------- | ------- | ------------------- |
 | value    | `number`                  | `false`  | -       | Índice da aba.      |
 | onChange | `(value: number) => void` | `false`  | -       | Recebe novo índice. |
 
-#### Tabs.Content props
+### Tab props
 
-| prop            | type        | required | default |
-| --------------- | ----------- | -------- | ------- |
-| label           | `string`    | `true`   | -       |
-| icon            | `ReactNode` | `false`  | -       |
-| disabled        | `boolean`   | `false`  | `false` |
-| disabledPadding | `boolean`   | `false`  | `false` |
+| prop           | type        | required | default | description                                                                     |
+| -------------- | ----------- | -------- | ------- | ------------------------------------------------------------------------------- |
+| label          | `string`    | `true`   | -       | -                                                                               |
+| icon           | `ReactNode` | `false`  | -       | -                                                                               |
+| disabled       | `boolean`   | `false`  | `false` | -                                                                               |
+| selectOnMobile | `boolean`   | `false`  | `false` | Se true quando a tela for menor que 576px a Tab vai se transformar em um Select |
