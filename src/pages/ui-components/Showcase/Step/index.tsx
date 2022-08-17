@@ -1,8 +1,5 @@
-import * as React from 'react';
+const Step = () => {
+  return <>Step</>;
+};
 
-export interface ShowcaseStepProps {
-  id?: number;
-  children?: React.ReactNode;
-}
-
-export default (() => null) as React.FC<ShowcaseStepProps>;
+export default Step;

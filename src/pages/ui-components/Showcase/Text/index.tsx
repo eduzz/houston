@@ -1,8 +1,7 @@
-import * as React from 'react';
+import Modal from '@eduzz/houston-ui/Modal';
 
-export interface ShowcaseTextProps {
-  content?: string;
-  children?: React.ReactNode;
-}
+const Text = ({ children }: React.HTMLAttributes<HTMLDivElement>) => {
+  return <Modal.Content>{children}</Modal.Content>;
+};
 
-export default (() => null) as React.FC<ShowcaseTextProps>;
+export default Text;

@@ -1,6 +1,9 @@
-export interface ShowcaseImageProps {
+interface ImageProps {
   src: string;
-  alt: string;
 }
 
-export default (() => null) as React.FC<ShowcaseImageProps>;
+const Image = ({ src }: ImageProps) => {
+  return <img src={src}>Image</img>;
+};
+
+export default Image;

@@ -1,7 +1,11 @@
-import * as React from 'react';
+import Typography from '../../Typography';
 
-export interface ShowcaseTitleProps {
-  children: React.ReactNode;
-}
+const Title = ({ children }: React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <Typography as='h6' size='sm'>
+      {children}
+    </Typography>
+  );
+};
 
-export default (() => null) as React.FC<ShowcaseTitleProps>;
+export default Title;
