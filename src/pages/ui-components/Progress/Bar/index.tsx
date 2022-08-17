@@ -25,7 +25,6 @@ const ProgressBarWrapper = styled(ProgressBar, { label: 'hst-progress-bar' })`
   ${({ theme }) => css`
     background-color: ${theme.neutralColor.high.medium};
     width: 100%;
-    height: 8px;
     border-radius: ${theme.border.radius.pill};
     overflow: hidden;
 

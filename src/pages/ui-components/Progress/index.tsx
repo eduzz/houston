@@ -7,11 +7,17 @@ export type ProgressFormat = 'percentage' | 'text';
 
 export type ProgressInfoPosition = 'left' | 'right';
 
+export type ProgressSize = 'sm' | 'md';
+
 export interface ProgressProps {
   /**
    * Bar fill percentage
    */
   value: number;
+  /**
+   * @default 'md'
+   */
+  size?: ProgressSize;
   /**
    * @default 100
    */
@@ -41,12 +47,16 @@ export interface ProgressProps {
   labelBottomEnd?: React.ReactNode;
 }
 
+const HEIGHT_BAR_DEFAULT = 8;
+const HEIGHT_BAR_SMALL = 4;
+
 const MIN_WIDTH_WHEN_LABEL = 160;
 const MIN_WIDTH_DEFAULT = 88;
 
 const Progress = ({
   className,
   value,
+  size = 'md',
   max = 100,
   min = 0,
   format = 'percentage',
@@ -71,7 +81,7 @@ const Progress = ({
   };
 
   return (
-    <div className={cx(className, { '--hst-progress-hasLabel': hasLabel })} {...rest}>
+    <div className={cx(className, `--hst-progress-size-${size}`, { '--hst-progress-has-label': hasLabel })} {...rest}>
       {hasLabelTop && (
         <div
           className={cx('hst-progress-label__top', {
@@ -114,7 +124,23 @@ const ProgressWrapper = styled(Progress, { label: 'hst-progress' })`
   ${({ theme }) => css`
     min-width: ${theme.pxToRem(MIN_WIDTH_DEFAULT)}rem;
 
-    &.--hst-progress-hasLabel {
+    &.--hst-progress-size-sm {
+      & > .hst-progress__wrapper {
+        & > .hst-progress__bar {
+          height: ${theme.pxToRem(HEIGHT_BAR_SMALL)}rem;
+        }
+      }
+    }
+
+    &.--hst-progress-size-md {
+      & > .hst-progress__wrapper {
+        & > .hst-progress__bar {
+          height: ${theme.pxToRem(HEIGHT_BAR_DEFAULT)}rem;
+        }
+      }
+    }
+
+    &.--hst-progress-has-label {
       min-width: ${theme.pxToRem(MIN_WIDTH_WHEN_LABEL)}rem;
     }
 
