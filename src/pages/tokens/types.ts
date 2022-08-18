@@ -318,6 +318,20 @@ export type BrandColors = {
       dark: '#560877';
     };
   };
+  next: {
+    primary: {
+      pure: '#6063AB';
+      light: '#A2A4DF';
+      medium: '#8184C7';
+      dark: '#3C4194';
+    };
+    secondary: {
+      pure: '#6063AB';
+      light: '#A2A4DF';
+      medium: '#8184C7';
+      dark: '#3C4194';
+    };
+  };
 };
 
 export type Brands = keyof BrandColors;
