@@ -1,0 +1,3 @@
+{
+  "reject": ["inquirer", "ora", "eslint-plugin-mdx"]
+}

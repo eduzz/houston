@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-forms",
-  "version": "0.60.0",
+  "version": "0.60.1",
   "description": "Houston Forms",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -15,18 +15,21 @@
   "bugs": {
     "url": "https://github.com/eduzz/houston/issues"
   },
+  "scripts": {
+    "check-update-deps": "yarn ncu -u"
+  },
   "dependencies": {
-    "formik": "^2.2.9",
-    "@eduzz/houston-core": "0.60.0",
-    "@eduzz/houston-hooks": "0.60.0",
-    "react-hook-form": "^7",
-    "@hookform/resolvers": "^2",
+    "@eduzz/houston-core": "0.60.1",
+    "@eduzz/houston-hooks": "0.60.1",
     "@hookform/error-message": "^2.0.0",
-    "zod": "^3.17.3",
-    "yup": "^0.32.11"
+    "@hookform/resolvers": "^2",
+    "formik": "^2.2.9",
+    "react-hook-form": "^7",
+    "yup": "^0.32.11",
+    "zod": "^3.18.0"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.60.0"
+    "@eduzz/houston-core": "0.60.1"
   },
   "devDependencies": {}
 }

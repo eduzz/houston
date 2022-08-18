@@ -1,13 +1,16 @@
 {
   "name": "@eduzz/houston-icons",
   "description": "Eduzz Houston Icons",
-  "version": "0.60.0",
+  "version": "0.60.1",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
   "license": "MIT",
   "private": false,
   "homepage": "https://github.com/eduzz/houston",
+  "scripts": {
+    "check-update-deps": "yarn ncu -u"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/eduzz/houston"
