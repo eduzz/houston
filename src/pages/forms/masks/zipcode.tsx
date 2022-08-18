@@ -1,4 +1,4 @@
-import FormMaskAdapter from '@eduzz/houston-core/maskAdapter';
+import FormMaskAdapter from './maskAdapter';
 
 const zipcodeMask: FormMaskAdapter = {
   apply: (value: string) => {

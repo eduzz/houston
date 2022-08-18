@@ -102,7 +102,7 @@ async function changePackageVersion(package, allPackages, newVersion) {
 }
 
 async function getLastVersions() {
-  const versions = await exec('npm view @eduzz/houston-core versions --json').then(v => JSON.parse(v).reverse());
+  const versions = await exec('npm view @eduzz/houston-ui versions --json').then(v => JSON.parse(v).reverse());
 
   const beta = versions.find(v => v.includes('beta'));
   const current = versions.find(v => !v.includes('beta'));

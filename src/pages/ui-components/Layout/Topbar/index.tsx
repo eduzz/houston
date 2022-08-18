@@ -10,7 +10,7 @@ import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
 import Typography from '../../Typography';
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_HEIGHT_MOBILE } from '../context';
+import LayoutContext, { TOPBAR_HEIGHT } from '../context';
 import Action from './Action';
 import Apps from './Apps';
 import Belt from './Belt';
@@ -126,7 +126,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
         ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
       box-sizing: border-box;
       position: fixed;
-      padding: ${theme.spacing.inset.xs};
+      padding: ${theme.spacing.squish.xxs};
       top: 0;
       left: 0;
       right: 0;
@@ -135,11 +135,6 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
       justify-content: space-between;
       z-index: 105;
       transition: 0.15s ease-out;
-
-      ${theme.breakpoints.down('sm')} {
-        padding: ${theme.spacing.inset.xxs};
-        height: ${TOPBAR_HEIGHT_MOBILE}px;
-      }
 
       & > .houston-topbar__start {
         display: flex;

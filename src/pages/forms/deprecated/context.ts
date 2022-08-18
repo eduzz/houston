@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { createContext, useContextSelector } from 'use-context-selector';
 
-import FormAdapter from '@eduzz/houston-core/formAdapter';
+import FormAdapter from '@eduzz/houston-forms/deprecated/formAdapter';
 
 const FormContext = createContext<FormAdapter<any> | null>(null);
 
