@@ -1,27 +1,26 @@
 {
   "name": "@eduzz/houston-dev",
-  "version": "0.59.0",
+  "version": "0.60.2",
   "private": true,
   "dependencies": {
-    "@eduzz/apps-toolbar-react": "latest",
-    "@eduzz/houston-experimental": "0.59.0",
-    "@eduzz/houston-forms": "0.59.0",
-    "@eduzz/houston-hooks": "0.59.0",
-    "@eduzz/houston-icons": "0.59.0",
-    "@eduzz/houston-ui": "0.59.0",
-    "react": "^17",
-    "react-dom": "^17",
+    "@eduzz/houston-forms": "0.60.2",
+    "@eduzz/houston-hooks": "0.60.2",
+    "@eduzz/houston-icons": "0.60.2",
+    "@eduzz/houston-ui": "0.60.2",
+    "react-dom": "^18",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.0"
+    "react-scripts": "^5.0.1",
+    "react": "^18"
   },
   "devDependencies": {
-    "@types/node": "^17",
-    "@types/react": "^17",
-    "@types/react-dom": "^17"
+    "@types/node": "^18",
+    "@types/react": "^18",
+    "@types/react-dom": "^18"
   },
   "scripts": {
     "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
-    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build"
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "check-update-deps": "yarn ncu -u"
   },
   "browserslist": {
     "production": [

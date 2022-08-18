@@ -1,4 +1,4 @@
-import FormMaskAdapter from '@eduzz/houston-core/maskAdapter';
+import FormMaskAdapter from './maskAdapter';
 
 const moneyMask: FormMaskAdapter = {
   apply: (value: number | string) => {

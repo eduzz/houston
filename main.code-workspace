@@ -9,10 +9,6 @@
       "path": "./src/dev"
     },
     {
-      "name": "@eduzz/core",
-      "path": "./src/pages/core"
-    },
-    {
       "name": "@eduzz/houston-ui",
       "path": "./src/pages/ui-components"
     },
@@ -31,10 +27,6 @@
     {
       "name": "@eduzz/eslint-config-houston",
       "path": "./src/pages/eslint-config"
-    },
-    {
-      "name": "@eduzz/houston-experimental",
-      "path": "./src/pages/experimental"
     },
     {
       "name": "@eduzz/houston-tokens",

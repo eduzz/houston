@@ -7,7 +7,7 @@ import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles'
 import useMediaQuery from '../../hooks/useMediaQuery';
 import Overlay from '../../Overlay';
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { MENU_WIDTH, TOPBAR_HEIGHT, TOPBAR_HEIGHT_MOBILE } from '../context';
+import LayoutContext, { MENU_WIDTH, TOPBAR_HEIGHT } from '../context';
 import SidebarContext, { SidebarContextType } from './context';
 import Group from './Group';
 import Item from './Item';
@@ -112,10 +112,6 @@ const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
 
     &.--has-topbar .houston-menu__container {
       top: ${TOPBAR_HEIGHT}px;
-
-      ${breakpoints.down('sm')} {
-        top: ${TOPBAR_HEIGHT_MOBILE}px;
-      }
     }
 
     ${breakpoints.down('lg')} {

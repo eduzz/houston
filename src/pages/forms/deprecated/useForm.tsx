@@ -7,7 +7,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, share, switchMap } from 'rxjs/operators';
 import * as yup from 'yup';
 
-import FormAdapter from '@eduzz/houston-core/formAdapter';
+import FormAdapter from '@eduzz/houston-forms/deprecated/formAdapter';
 import useObservable from '@eduzz/houston-hooks/useObservable';
 
 import { useFormContext } from './context';
@@ -98,7 +98,7 @@ export default function useForm<Values = Record<string, never>>({
     return handlers[field];
   }).current;
 
-  const handleSubmit = useCallback(e => formik.handleSubmit(e), [formik]);
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => formik.handleSubmit(e), [formik]);
 
   const getFieldValue = useCallback((name: string) => formik.getFieldMeta(name).value, [formik]);
 

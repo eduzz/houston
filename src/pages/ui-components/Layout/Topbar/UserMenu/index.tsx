@@ -5,7 +5,7 @@ import { useContextSelector } from 'use-context-selector';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Portal from '../../../Portal';
-import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_HEIGHT_MOBILE, TOPBAR_MENU_MIN_WIDTH_IN_PX } from '../../context';
+import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_MENU_MIN_WIDTH_IN_PX } from '../../context';
 
 export interface UserMenuProps extends StyledProp {
   children: React.ReactNode;
@@ -50,10 +50,6 @@ export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
     user-select: none;
     background: white;
     border-radius: ${theme.border.radius.sm};
-
-    ${theme.breakpoints.down('sm')} {
-      top: ${TOPBAR_HEIGHT_MOBILE}px;
-    }
 
     &.--opened {
       visibility: visible;
