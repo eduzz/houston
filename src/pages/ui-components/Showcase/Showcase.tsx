@@ -1,17 +1,20 @@
 import * as React from 'react';
 
-import styled, { StyledProp } from '@eduzz/houston-styles';
-import Modal from '@eduzz/houston-ui/Modal';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
 import { useShowcase } from '.';
+import ModalBase from '../Modal/__utils/ModalBase';
 import Overlay from '../Overlay';
 import Portal from '../Portal';
 import nestedComponent from '../utils/nestedComponent';
 import ShowcaseContextProvider from './context';
+import Footer from './Footer';
 import Image from './Image';
 import Step from './Step';
 import Text from './Text';
 import Title from './Title';
+
+const MAX_WIDTH = 400;
 
 interface ShowcaseProps {
   open: boolean;
@@ -19,7 +22,7 @@ interface ShowcaseProps {
 }
 
 const Showcase = (props: ShowcaseProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
-  const { open, initialStep, children } = props;
+  const { open, initialStep, children, className } = props;
 
   const contextValue = useShowcase(initialStep);
   const [modalState, setModalState] = React.useState<boolean>(true);
@@ -32,38 +35,35 @@ const Showcase = (props: ShowcaseProps & React.HTMLAttributes<HTMLDivElement> & 
     setModalState(open);
   }, [open]);
 
+  if (!modalState) return null;
+
   return (
     <Portal target='houston-showcase'>
       <Overlay visible>
-        <ShowcaseContextProvider value={contextValue}>
-          <Modal visible={modalState}>
-            <Modal.Content>
-              Dado o fluxo de dados atual, o último pull request desse SCRUM superou o desempenho de compilação
-              multi-plataforma de forma asincrona.
-            </Modal.Content>
-            <Modal.Footer>{children}</Modal.Footer>
-          </Modal>
-          <div className='hst-showcase-content'>{children}</div>
-        </ShowcaseContextProvider>
+        <ModalBase>
+          <ShowcaseContextProvider value={contextValue}>
+            <div className={className}>{children}</div>
+          </ShowcaseContextProvider>
+        </ModalBase>
       </Overlay>
     </Portal>
   );
 };
 
-const ShowcaseWrapper = styled(Showcase, { label: 'hst-showcase' })`
-  max-width: 400px;
-
-  & .hst-showcase-content: {
-    display: 'flex';
-    flexDirection: column;
+const ShowcaseWrapper = styled(Showcase, { label: 'houston-showcase' })`
+  ${({ theme }) => css`
+    max-width: ${theme.pxToRem(MAX_WIDTH)}rem;
+    overflow: hidden;
+    display: flex;
     width: 100%;
-    box-shadow': none;
-  }
+    box-shadow: none;
+  `}
 `;
 
 export default nestedComponent(React.memo(ShowcaseWrapper), {
-  Title: Title,
-  Step: Step,
-  Image: Image,
-  Text: Text
+  Title,
+  Step,
+  Image,
+  Text,
+  Footer
 });

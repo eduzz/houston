@@ -1,7 +1,18 @@
-import Modal from '@eduzz/houston-ui/Modal';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
+import Typography from '@eduzz/houston-ui/Typography';
 
-const Text = ({ children }: React.HTMLAttributes<HTMLDivElement>) => {
-  return <Modal.Content>{children}</Modal.Content>;
+const Text = ({ children, className }: React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+  return (
+    <Typography as='p' size='sm' className={className}>
+      {children}
+    </Typography>
+  );
 };
 
-export default Text;
+export default styled(Text, { label: 'hst-showcase-text' })`
+  ${({ theme }) => css`
+    padding: ${theme.spacing.inset.sm};
+
+    padding-bottom: 0;
+  `}
+`;

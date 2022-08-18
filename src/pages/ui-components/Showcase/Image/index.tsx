@@ -1,9 +1,17 @@
-interface ImageProps {
+import styled, { StyledProp } from '@eduzz/houston-styles';
+
+export interface ShowcaseImageProps {
   src: string;
 }
 
-const Image = ({ src }: ImageProps) => {
-  return <img src={src}>Image</img>;
+const Image = ({ src, className }: ShowcaseImageProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+  return <div className={className} style={{ backgroundImage: `url('${src}')` }} />;
 };
 
-export default Image;
+export default styled(Image, { label: 'hst-showcase-image' })`
+  width: 100%;
+  height: 235px;
+  border-radius: 0.5rem 0.5rem 0 0;
+  background-size: cover;
+  background-position: center;
+`;

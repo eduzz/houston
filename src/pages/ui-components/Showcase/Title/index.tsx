@@ -1,11 +1,18 @@
-import Typography from '../../Typography';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
+import Typography from '@eduzz/houston-ui/Typography';
 
-const Title = ({ children }: React.HTMLAttributes<HTMLDivElement>) => {
+const Title = ({ children, className }: React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   return (
-    <Typography as='h6' size='sm'>
+    <Typography as='h6' size='sm' className={className}>
       {children}
     </Typography>
   );
 };
 
-export default Title;
+export default styled(Title, { label: 'hst-showcase-title' })`
+  ${({ theme }) => css`
+    padding: ${theme.spacing.inset.sm};
+
+    padding-bottom: 0;
+  `}
+`;
