@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
 import Collapse from '../../../Collapse';
@@ -12,11 +14,15 @@ type ReceivedFromParentProps = {
 };
 
 const AccordionContent = ({ children, index, ...rest }: ContentProps & ReceivedFromParentProps) => {
-  const { expandedItems } = useAccordion();
+  const { expandedItems, cachedItems, destroyOnClose } = useAccordion();
+
+  const isExpanded = expandedItems.includes(index as number);
+  const isCached = cachedItems.includes(index as number);
 
   return (
-    <Collapse timeout={350} visibled={expandedItems.includes(index as number)}>
-      <div {...rest}>{children}</div>
+    <Collapse timeout={350} visibled={isExpanded}>
+      {isCached && <div {...rest}>{children}</div>}
+      {destroyOnClose && isExpanded && <div {...rest}>{children}</div>}
     </Collapse>
   );
 };
