@@ -2,291 +2,79 @@
 name: Progress
 ---
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import LinkIcon from '@mui/icons-material/Link';
+import { useState } from 'react';
+
 import { Playground } from 'dokz';
 
 import Box from '../Box';
 import Button from '../Button';
-import Column from '../Grid/Column';
-import Container from '../Grid/Container';
-import Row from '../Grid/Row';
-import { useProgress } from './';
-import ProgressLine from './Line';
-import ProgressRound from './Round';
+import Progress from './';
 
 # Progress
 
-São usados para transmitir progresso através de etapas numeradas. Ele fornece um fluxo de trabalho com etapas.
-
-## Line
+O componente é usado para exibir o status de andamento.
 
 ### Importação
 
 ```ts
-import ProgressLine from '@eduzz/houston-ui/Progress/Line';
+import Progress from '@eduzz/houston-ui/Progress';
 ```
 
 ### Exemplo
 
 <Playground>
   {() => {
-    const { nextStep, backStep, setCurrentStep, currentStep } = useProgress();
-    const steps = [
-      {
-        label: 'Dados pessoais'
-      },
-      {
-        label: 'Endereço'
-      },
-      {
-        label: 'Pagamento'
-      },
-      {
-        label: 'Obrigado'
-      }
-    ];
-    const handleReset = () => setCurrentStep(0);
-    return (
-      <Container>
-        <Row>
-          <Column xs={12}>
-            <ProgressLine steps={steps} currentStep={currentStep} />
-          </Column>
-        </Row>
-        <div style={{ margin: '16px 0' }} />
-        <Row>
-          {currentStep === steps.length && (
-            <Column>
-              <Button onClick={handleReset} variant='text'>
-                Resetar
-              </Button>
-            </Column>
-          )}
-          {currentStep !== steps.length && (
-            <>
-              <Column>
-                <Button onClick={backStep} disabled={currentStep === 0}>
-                  Anterior
-                </Button>
-              </Column>
-              <Column>
-                <Button onClick={nextStep} disabled={currentStep === steps.length}>
-                  Próximo
-                </Button>
-              </Column>
-            </>
-          )}
-        </Row>
-      </Container>
-    );
-  }}
-</Playground>
-
-### Com ícones
-
-<Playground>
-  {() => {
-    const { nextStep, backStep, setCurrentStep, currentStep } = useProgress();
-    const steps = [
-      {
-        label: 'Criar conta',
-        icon: <AccountCircleIcon />
-      },
-      {
-        label: 'Adicionar foto',
-        icon: <AddAPhotoIcon />
-      },
-      {
-        label: 'Compartilhe com amigos',
-        icon: <LinkIcon />
-      }
-    ];
-    const handleReset = () => setCurrentStep(0);
-    return (
-      <Container>
-        <Row>
-          <Column xs={12}>
-            <ProgressLine steps={steps} currentStep={currentStep} />
-          </Column>
-        </Row>
-        <div style={{ margin: '16px 0' }} />
-        <Row>
-          {currentStep === steps.length && (
-            <Column>
-              <Button onClick={handleReset} variant='text'>
-                Resetar
-              </Button>
-            </Column>
-          )}
-          {currentStep !== steps.length && (
-            <>
-              <Column>
-                <Button onClick={backStep} disabled={currentStep === 0}>
-                  Anterior
-                </Button>
-              </Column>
-              <Column>
-                <Button onClick={nextStep} disabled={currentStep === steps.length}>
-                  Próximo
-                </Button>
-              </Column>
-            </>
-          )}
-        </Row>
-      </Container>
-    );
-  }}
-</Playground>
-
-### Etapa de erro
-
-<Playground>
-  {() => {
-    const { nextStep, backStep, setCurrentStep, currentStep } = useProgress();
-    const steps = [
-      {
-        label: 'Configuração da campanha'
-      },
-      {
-        label: 'Grupo de campanha',
-        error: true
-      },
-      {
-        label: 'Pagamento'
-      },
-      {
-        label: 'Obrigado'
-      }
-    ];
-    const handleReset = () => setCurrentStep(0);
-    return (
-      <Container>
-        <Row>
-          <Column xs={12}>
-            <ProgressLine steps={steps} currentStep={currentStep} />
-          </Column>
-        </Row>
-        <Box xs={{ margin: '16px 0' }} />
-        <Row>
-          {currentStep === steps.length && (
-            <Column>
-              <Button onClick={handleReset} variant='text'>
-                Resetar
-              </Button>
-            </Column>
-          )}
-          {currentStep !== steps.length && (
-            <>
-              <Column>
-                <Button onClick={backStep} disabled={currentStep === 0}>
-                  Anterior
-                </Button>
-              </Column>
-              <Column>
-                <Button onClick={nextStep} disabled={currentStep === steps.length}>
-                  Próximo
-                </Button>
-              </Column>
-            </>
-          )}
-        </Row>
-      </Container>
-    );
-  }}
-</Playground>
-
-```ts
-interface Step {
-  icon?: React.ReactNode;
-  label?: string;
-  error?: boolean;
-}
-```
-
-| prop        | tipo     | obrigatório | padrão |
-| ----------- | -------- | ----------- | ------ |
-| steps       | `Step[]` | `true`      | -      |
-| currentStep | `number` | `false`     | 0      |
-
-## Round
-
-### Importação
-
-```js
-import ProgressRound from '@eduzz/houston-ui/Progress/Round';
-```
-
-### Exemplo
-
-<Playground>
-  {() => {
-    const MAX_STEPS = 4;
-    const { nextStep, backStep, setCurrentStep, currentStep } = useProgress();
-    const handleReset = () => setCurrentStep(0);
+    const [value, setValue] = useState(50);
+    const add = () => setValue(prevState => prevState + 10);
+    const remove = () => setValue(prevState => prevState - 10);
     return (
       <>
-        <Row>
-          <Column>
-            <Box xs={{ padding: '20px 0' }}>
-              <ProgressRound maxSteps={MAX_STEPS} currentStep={currentStep} />
-            </Box>
-          </Column>
-          <Column>
-            <Box xs={{ padding: '20px 0' }}>
-              <ProgressRound type='percentage' maxSteps={MAX_STEPS} currentStep={currentStep} />
-            </Box>
-          </Column>
-        </Row>
-        <Row>
-          {currentStep === MAX_STEPS && (
-            <Column>
-              <Button onClick={handleReset} variant='text'>
-                Resetar
-              </Button>
-            </Column>
-          )}
-          {currentStep !== MAX_STEPS && (
-            <>
-              <Column>
-                <Button onClick={backStep} disabled={currentStep === 0}>
-                  Anterior
-                </Button>
-              </Column>
-              <Column>
-                <Button onClick={nextStep} disabled={currentStep === MAX_STEPS}>
-                  Próximo
-                </Button>
-              </Column>
-            </>
-          )}
-        </Row>
+        <Box xs={{ padding: '0.5rem 0' }}>
+          <Progress value={value} showInfo={false} />
+        </Box>
+        <Box xs={{ padding: '0.5rem 0' }}>
+          <Progress value={value} />
+        </Box>
+        <Box xs={{ padding: '0.5rem 0' }}>
+          <Progress value={value} infoPosition='right' />
+        </Box>
+        <div style={{ gap: 16, display: 'flex', marginTop: '1rem' }}>
+          <Button onClick={() => add()}>+ 10</Button>
+          <Button onClick={() => remove()}>- 10</Button>
+        </div>
       </>
     );
   }}
 </Playground>
 
-### Erro no progresso
+### Exemplo com labels
+
+É possível inserir label em todos os cantos do componente.
+
+> Atenção, quando uma das labels está preenchida, o valor atual (%) não é exibido.
 
 <Playground>
-  <Row>
-    <Column>
-      <Box xs={{ padding: '20px 0' }}>
-        <ProgressRound maxSteps={4} currentStep={2} error />
-      </Box>
-    </Column>
-    <Column>
-      <Box xs={{ padding: '20px 0' }}>
-        <ProgressRound type='percentage' maxSteps={4} currentStep={2} error />
-      </Box>
-    </Column>
-  </Row>
+  <Box xs={{ padding: '20px 0' }}>
+    <Progress
+      labelTopStart='Info Top'
+      labelTopEnd='Info Top'
+      labelBottomStart='Info Bottom'
+      labelBottomEnd='Info Bottom'
+      value={50}
+    />
+  </Box>
 </Playground>
 
-| prop        | tipo                    | obrigatório | padrão    | descrição                                                                    |
-| ----------- | ----------------------- | ----------- | --------- | ---------------------------------------------------------------------------- |
-| maxSteps    | `number`                | `true`      | -         | Indica o número máximo de passos do progresso                                |
-| currentStep | `number`                | `false`     | 0         | Indica o passo atual do progresso                                            |
-| type        | `numeric`, `percentage` | `false`     | `numeric` | Indica como vai ser exibido o progresso no componente: número ou porcentagem |
-| error       | `boolean`               | `false`     | `false`   | Se `true`, altera a cor do progresso para cor de erro da paleta de cores     |
+| prop             | tipo                   | obrigatório | padrão       | descrição                                                     |
+| ---------------- | ---------------------- | ----------- | ------------ | ------------------------------------------------------------- |
+| value            | `number`               | `true`      | -            | -                                                             |
+| size             | `ProgressSize`         | `false`     | `md`         | -                                                             |
+| max              | `number`               | `false`     | `100`        | -                                                             |
+| min              | `number`               | `false`     | `0`          | -                                                             |
+| showInfo         | `boolean`              | `false`     | `true`       | Exibição da quantidade preenchida.                            |
+| infoPosition     | `ProgressInfoPosition` | `false`     | `left`       | -                                                             |
+| format           | `ProgressFormat`       | `false`     | `percentage` | Se `text`, o símbolo de porcentagem (%) não será renderizado. |
+| labelTopStart    | `React.ReactNode`      | `false`     | -            | -                                                             |
+| labelTopEnd      | `React.ReactNode`      | `false`     | -            | -                                                             |
+| labelBottomStart | `React.ReactNode`      | `false`     | -            | -                                                             |
+| labelTopEnd      | `React.ReactNode`      | `false`     | -            | -                                                             |

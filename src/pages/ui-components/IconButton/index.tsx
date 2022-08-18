@@ -85,7 +85,7 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
       justify-content: center;
 
       &.--disabled {
-        color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
+        fill: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
       }
 
       &.--lg,

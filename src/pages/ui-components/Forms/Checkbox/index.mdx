@@ -4,6 +4,9 @@ name: Checkbox
 
 import { Playground } from 'dokz';
 
+import useForm from '@eduzz/houston-forms/useForm';
+
+import Form from '../Form';
 import Checkbox from './';
 
 # Checkbox
@@ -21,21 +24,21 @@ import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
 <Playground>
   {() => {
     const [checked, setChecked] = React.useState(false);
+    function onChange() {
+      setChecked(prev => !prev);
+    }
     return (
-      <>
-        <Checkbox checked={checked} onChange={setChecked}>
-          Simples
-        </Checkbox>
-        <Checkbox helperText='Exemplo de utilização do Checkbox com descrição' checked={checked} onChange={setChecked}>
-          Com descrição
-        </Checkbox>
-        <Checkbox errorMessage='Mensagem de erro' checked={checked} onChange={setChecked}>
-          Com erro
-        </Checkbox>
-        <Checkbox disabled helperText='Checkbox sem margem' checked={checked} onChange={setChecked}>
-          Desativado
-        </Checkbox>
-      </>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <Checkbox checked={checked} onChange={onChange} label='Simples' />
+        <Checkbox
+          helperText='Exemplo de utilização do Checkbox com descrição'
+          checked={checked}
+          onChange={onChange}
+          label='Com descrição'
+        />
+        <Checkbox error checked={checked} onChange={onChange} label='Com erro' />
+        <Checkbox disabled checked={checked} onChange={onChange} label='Desativado' />
+      </div>
     );
   }}
 </Playground>
@@ -44,50 +47,65 @@ import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
 
 <Playground>
   {() => {
-    const [value, setValue] = React.useState([]);
+    const [value, setValue] = React.useState([1]);
     return (
       <>
-        <p>Valores: {JSON.stringify(value)}</p>
-        <Checkbox checked={value} multiple value={1} onChange={setValue}>
-          Valor 1
-        </Checkbox>
-        <Checkbox checked={value} multiple value={2} onChange={setValue}>
-          Valor 2
-        </Checkbox>
-        <Checkbox checked={value} multiple value={3} onChange={setValue}>
-          Valor 3
-        </Checkbox>
+        <Checkbox.Group value={value} onChange={setValue}>
+          <Checkbox value={1} label='Valor 1' />
+          <Checkbox value={2} label='Valor 2' />
+          <Checkbox value={3} label='Valor 3' />
+        </Checkbox.Group>
+        <p>Valor: {JSON.stringify(value)}</p>
       </>
     );
   }}
 </Playground>
 
-### Utilizando método onChange (sem hook useForm)
+### Exemplo com form
 
 <Playground>
   {() => {
-    const [value, setValue] = React.useState(false);
-    const handleChange = checked => {
-      setValue(checked);
-      console.log('current checkbox value', checked);
-    };
+    const form = useForm({
+      defaultValues: {
+        value: [1, 2]
+      },
+      validationSchema(yup) {
+        return yup.object().shape({
+          value: yup.array().length(2, 'Você deve selecionar no máximo dois checkboxes')
+        });
+      },
+      mode: 'onChange'
+    });
     return (
-      <Checkbox helperText='Checkbox utilizando método de onChange' onChange={handleChange} checked={value}>
-        Exemplo com método onChange
-      </Checkbox>
+      <Form context={form} onSubmit={alert}>
+        <Checkbox.Group name='value'>
+          <Checkbox value={1} label='Valor 1' />
+          <Checkbox value={2} label='Valor 2' />
+          <Checkbox value={3} label='Valor 3' />
+        </Checkbox.Group>
+        <p>Valor: {JSON.stringify(form.watch('value'))}</p>
+      </Form>
     );
   }}
 </Playground>
 
-### Props
+### Checkbox props
 
-| prop         | tipo       | obrigatório | padrão  | descrição                                                  |
-| ------------ | ---------- | ----------- | ------- | ---------------------------------------------------------- |
-| name         | `string`   | `false`     | -       |                                                            |
-| helperText   | `string`   | `false`     | -       |                                                            |
-| errorMessage | `string`   | `false`     | -       |                                                            |
-| value        | `boolean`  | `false`     | -       | Valor setado caso seja checkado                            |
-| multiple     | `boolean`  | `false`     | `false` | Trata o valor passado como um array, útil em caso de lista |
-| checked      | `boolean`  | `false`     | `false` | Pode receber um boolean ou um array no caso de multiple    |
-| onChange     | `function` | `false`     | -       | Função chamada quando o valor do checkbox é alterado       |
-| disabled     | `boolean`  | `false`     | -       |                                                            |
+| prop       | tipo      | obrigatório | padrão | descrição               |
+| ---------- | --------- | ----------- | ------ | ----------------------- |
+| helperText | `string`  | `false`     | -      | -                       |
+| value      | `any`     | `false`     | -      | -                       |
+| disabled   | `boolean` | `false`     | -      | -                       |
+| label      | `string`  | `false`     | -      | -                       |
+| error      | `boolean` | `false`     | -      | Estado de erro do campo |
+
+### Checkbox.Group props
+
+| prop         | tipo                                  | obrigatório | padrão | descrição                       |
+| ------------ | ------------------------------------- | ----------- | ------ | ------------------------------- |
+| name         | `string`                              | `false`     | -      | -                               |
+| errorMessage | `string`                              | `false`     | -      | -                               |
+| value        | `any`                                 | `false`     | -      | Valor controle do grupo         |
+| onChange     | `function`                            | `false`     | -      | -                               |
+| children     | `React.ReactElement<CheckboxProps>[]` | `true`      | -      | -                               |
+| spacing      | `Spacing`                             | `false`     | xxxs   | Espaçamento entre os checkboxes |

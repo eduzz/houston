@@ -1,12 +1,10 @@
-import CheckboxRadio, { CheckboxRadioProps } from '../_utils/CheckboxRadio';
+import Group from './Group';
+import Item from './Item';
 
-export interface RadioProps extends Omit<CheckboxRadioProps, 'multiple' | 'value' | 'checked'> {
-  value: any;
-  checked?: boolean;
-}
+export * from './Group';
+export * from './Item';
 
-const Radio = (props: RadioProps) => {
-  return <CheckboxRadio {...props} type='radio' />;
+export default {
+  Group,
+  Item
 };
-
-export default Radio;

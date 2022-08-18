@@ -14,7 +14,7 @@ interface OwnProperties extends Omit<FieldsetProps, 'focused' | 'endAdornment'> 
   value?: any;
   name?: string;
   placeholder?: string;
-  renderValue?: (value: any) => string;
+  renderValue?: (value: any) => React.ReactNode;
   onChange?: (value: any) => any;
   multiple?: boolean;
   children?: React.ReactNode;
