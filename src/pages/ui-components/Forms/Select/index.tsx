@@ -125,7 +125,7 @@ const SelectField = ({
 
   return (
     <SelectContext.Provider value={contextValue}>
-      <Popover {...popoverProps} placement='bottom' fullWidth>
+      <Popover {...popoverProps} placement='bottom' fullWidth keepMounted>
         {children}
         {!!emptyOption && <SelectOption label={emptyOption} />}
         {optionsProps?.map((option, index) => (
