@@ -2,7 +2,6 @@
 name: Input
 ---
 
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import { Playground } from 'dokz';
 
 import cnpjMask from '@eduzz/houston-forms/masks/cnpj';
@@ -11,6 +10,7 @@ import documentMask from '@eduzz/houston-forms/masks/document';
 import moneyMask from '@eduzz/houston-forms/masks/money';
 import phoneMask from '@eduzz/houston-forms/masks/phone';
 import zipcodeMask from '@eduzz/houston-forms/masks/zipcode';
+import FaceHappyOutlineIcon from '@eduzz/houston-icons/FaceHappyOutline';
 
 import Input from './';
 
@@ -32,8 +32,8 @@ import Input from '@eduzz/houston-ui/Forms/Input';
     return (
       <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', gap: 16 }}>
         <Input label='Campo de Texto' value={text} onChange={setText} />
-        <Input label='Campo com ícone' value={text} startAdornment={<InsertEmoticonIcon />} onChange={setText} />
-        <Input label='Campo com ícone' value={text} endAdornment={<InsertEmoticonIcon />} onChange={setText} />
+        <Input label='Campo com ícone' value={text} startAdornment={<FaceHappyOutlineIcon />} onChange={setText} />
+        <Input label='Campo com ícone' value={text} endAdornment={<FaceHappyOutlineIcon />} onChange={setText} />
         <Input label='Campo de Texto' placeholder='Placeholder' value={text} onChange={setText} />
         <Input label='Campo de Texto Desabilitado' disabled value='Valor enviado via propriedade' />
         <Input label='Campo de Texto com Carregamento' loading value={text} onChange={setText} />
@@ -61,14 +61,14 @@ import Input from '@eduzz/houston-ui/Forms/Input';
           multiline
           label='Campo com ícone'
           value={text}
-          startAdornment={<InsertEmoticonIcon />}
+          startAdornment={<FaceHappyOutlineIcon />}
           onChange={setText}
         />
         <Input
           multiline
           label='Campo com ícone'
           value={text}
-          endAdornment={<InsertEmoticonIcon />}
+          endAdornment={<FaceHappyOutlineIcon />}
           onChange={setText}
         />
         <Input multiline label='Campo de Texto' placeholder='Placeholder' value={text} onChange={setText} />

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-import Spinner from '../Spinner';
+import Spinner from '../Loaders/Spinner';
 
 export type IButtonVariant = 'contained' | 'outlined' | 'text';
 
