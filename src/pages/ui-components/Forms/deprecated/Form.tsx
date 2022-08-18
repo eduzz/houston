@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import IFormAdapter from '@eduzz/houston-core/formAdapter';
 import FormContext from '@eduzz/houston-forms/deprecated/context';
+import FormAdapter from '@eduzz/houston-forms/deprecated/formAdapter';
 
 export interface FormProps {
   id?: string;
   className?: string;
-  context: IFormAdapter<any>;
+  context: FormAdapter<any>;
   children?: React.ReactNode;
 }
 

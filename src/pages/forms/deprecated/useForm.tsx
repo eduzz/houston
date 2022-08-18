@@ -7,7 +7,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, share, switchMap } from 'rxjs/operators';
 import * as yup from 'yup';
 
-import FormAdapter from '@eduzz/houston-core/formAdapter';
+import FormAdapter from '@eduzz/houston-forms/deprecated/formAdapter';
 import useObservable from '@eduzz/houston-hooks/useObservable';
 
 import { useFormContext } from './context';
