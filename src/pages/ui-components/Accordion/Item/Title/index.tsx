@@ -4,6 +4,8 @@ import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
 import Divider from '@eduzz/houston-ui/Divider';
 import Typography from '@eduzz/houston-ui/Typography';
 
+import { useAccordion } from '../../context';
+
 export interface TitleProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
@@ -18,16 +20,16 @@ const ChevronIcon = () => (
   </svg>
 );
 
-const AccordionTitle = ({ children, ...rest }: TitleProps) => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
+type ReceivedFromParentProps = {
+  index?: number;
+};
 
-  const onClick = () => {
-    setIsExpanded(prev => !prev);
-  };
+const AccordionTitle = ({ children, index, ...rest }: TitleProps & ReceivedFromParentProps) => {
+  const { expandedItems } = useAccordion();
 
   return (
     <>
-      <div tabIndex={0} {...rest} onClick={onClick}>
+      <div tabIndex={0} {...rest}>
         {typeof children === 'string' ? (
           <Typography lineHeight='default' weight='semibold'>
             {children}
@@ -35,7 +37,7 @@ const AccordionTitle = ({ children, ...rest }: TitleProps) => {
         ) : (
           <>{children}</>
         )}
-        <span className={cx('hst-accordion__icon', { '--isExpanded': isExpanded })}>
+        <span className={cx('hst-accordion__icon', { '--isExpanded': expandedItems.includes(index as number) })}>
           <ChevronIcon />
         </span>
       </div>
