@@ -5,6 +5,7 @@ import Divider from '@eduzz/houston-ui/Divider';
 import Typography from '@eduzz/houston-ui/Typography';
 
 import { useAccordion } from '../../context';
+import { useItemId } from '../context';
 
 export interface TitleProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -20,12 +21,9 @@ const ChevronIcon = () => (
   </svg>
 );
 
-type ReceivedFromParentProps = {
-  index?: number;
-};
-
-const AccordionTitle = ({ children, index, ...rest }: TitleProps & ReceivedFromParentProps) => {
+const AccordionTitle = ({ children, ...rest }: TitleProps) => {
   const { expandedItems } = useAccordion();
+  const { itemId } = useItemId();
 
   return (
     <>
@@ -37,7 +35,7 @@ const AccordionTitle = ({ children, index, ...rest }: TitleProps & ReceivedFromP
         ) : (
           <>{children}</>
         )}
-        <span className={cx('hst-accordion__icon', { '--isExpanded': expandedItems.includes(index as number) })}>
+        <span className={cx('hst-accordion__icon', { '--isExpanded': expandedItems.includes(itemId) })}>
           <ChevronIcon />
         </span>
       </div>

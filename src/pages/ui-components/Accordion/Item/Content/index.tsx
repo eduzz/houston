@@ -4,20 +4,18 @@ import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
 import Collapse from '../../../Collapse';
 import { useAccordion } from '../../context';
+import { useItemId } from '../context';
 
 export interface ContentProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
 
-type ReceivedFromParentProps = {
-  index?: number;
-};
-
-const AccordionContent = ({ children, index, ...rest }: ContentProps & ReceivedFromParentProps) => {
+const AccordionContent = ({ children, ...rest }: ContentProps) => {
   const { expandedItems, cachedItems, destroyOnClose } = useAccordion();
+  const { itemId } = useItemId();
 
-  const isExpanded = expandedItems.includes(index as number);
-  const isCached = cachedItems.includes(index as number);
+  const isExpanded = expandedItems.includes(itemId);
+  const isCached = cachedItems.includes(itemId);
 
   return (
     <Collapse timeout={350} visibled={isExpanded}>
