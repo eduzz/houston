@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-forms",
-  "version": "0.60.1",
+  "version": "0.60.0",
   "description": "Houston Forms",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "formik": "^2.2.9",
-    "@eduzz/houston-core": "0.60.1",
-    "@eduzz/houston-hooks": "0.60.1",
+    "@eduzz/houston-core": "0.60.0",
+    "@eduzz/houston-hooks": "0.60.0",
     "react-hook-form": "^7",
     "@hookform/resolvers": "^2",
     "@hookform/error-message": "^2.0.0",
@@ -26,7 +26,7 @@
     "yup": "^0.32.11"
   },
   "peerDependencies": {
-    "@eduzz/houston-core": "0.60.1"
+    "@eduzz/houston-core": "0.60.0"
   },
   "devDependencies": {}
 }
