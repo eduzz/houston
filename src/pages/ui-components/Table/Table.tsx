@@ -1,152 +1,308 @@
 import * as React from 'react';
 
-import { TableProps as TablePropsMui } from '@mui/material/Table';
-import TableContainer from '@mui/material/TableContainer';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useContextSelector } from 'use-context-selector';
+import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
 
-import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import { cx } from '@eduzz/houston-styles';
-import { StyledProp } from '@eduzz/houston-styles/styled';
+import TableContext, { TableContextProps, TableRow } from './context';
 
-import MenuActions from './Action/Menu';
-import TableCollapseContext from './CollapseContent/context';
-import TableContext, { TableActionShow, TableContextProps, TableRow } from './context';
-import { bindMutationObserver } from './observer';
-import styles from './styles';
+let rowKeyIncremeter = 0,
+  tablePortalIncremeter = 0;
 
-let columnsKeyIncrementer = 0,
-  rowKeyIncremeter = 0;
+export interface TableProps extends StyledProp, React.TableHTMLAttributes<HTMLTableElement> {
+  children: React.ReactNode;
 
-export interface TableProps extends Pick<TablePropsMui, 'id' | 'children' | 'className'>, StyledProp {
+  size?: 'sm' | 'md';
+  minWidth?: number;
+
   loading?: boolean;
   loadingText?: React.ReactNode;
-  /**
-   * Default `medium`
-   */
-  size?: 'small' | 'medium';
-  /**
-   * Max Height table container
-   */
-  maxHeight?: number;
-  stripedRows?: boolean;
-  columnActionTitle?: string;
-  mobileWidth?: number | boolean;
+
+  error?: any;
+  errorFormater?: (error: any) => string;
+  errorOnRetry?: () => void;
+
+  total?: number;
+  emptyText?: string;
 }
 
-const Table: React.FC<TableProps> = props => {
-  const {
-    size = 'medium',
-    id,
-    children,
-    loading,
-    maxHeight,
-    stripedRows,
-    columnActionTitle,
-    className,
-    loadingText
-  } = props;
+const Table = ({
+  size = 'md',
+  children,
+  className,
+  minWidth,
+  loading,
+  loadingText = 'Carregando...',
 
-  const isCollapseContent = useContextSelector(TableCollapseContext, context => context.isCollapseContent);
+  error,
+  errorFormater,
+  errorOnRetry,
 
-  const tableRef = React.useRef<HTMLTableElement>(null);
-  const mediaQueryMobile = useMediaQuery(`(max-width: ${props.mobileWidth ?? 600}px)`);
-  const responsive = typeof props.mobileWidth === 'boolean' ? props.mobileWidth : mediaQueryMobile;
+  total,
+  emptyText = 'Nenhum dado encontrado',
+  ...tableProps
+}: TableProps) => {
+  const scroller = React.useRef<HTMLDivElement>(null);
 
-  const [openedMenuActions, , openMenuActions, closeMenuActions] = useBoolean(false);
-  const [menuActionOptions, setMenuActionOptions] = React.useState<TableActionShow>();
+  const [paginationPortal] = React.useState(() => `hts-table__pagination-${++tablePortalIncremeter}`);
 
-  const [rowMapLabel, setRowMapLabel] = React.useState<{ [rowKey: string]: string }>({});
-  const [columns, setColumns] = React.useState<string[]>(() => []);
   const [rows, setRows] = React.useState<TableRow[]>([]);
-
-  const onShowAction = React.useCallback(
-    (data: TableActionShow) => {
-      setMenuActionOptions(data);
-      openMenuActions();
-    },
-    [openMenuActions]
-  );
-
-  const registerColumn = React.useCallback(() => {
-    const key = `column-${++columnsKeyIncrementer}`;
-    setColumns(columns => [...columns, key]);
-    return () => setColumns(columns => columns.filter(c => c != key));
-  }, []);
-
   const registerRow = React.useCallback((row: Omit<TableRow, 'key'>) => {
     const key = `table-row-${++rowKeyIncremeter}`;
     setRows(rows => [...rows, { key, ...row }]);
     return () => setRows(rows => rows.filter(r => r.key !== key));
   }, []);
 
-  const hasCollapseInRows = React.useMemo(
-    () => !isCollapseContent && rows?.some(r => r.hasCollapse),
-    [isCollapseContent, rows]
-  );
-
+  const hasCollapseInRows = React.useMemo(() => rows?.some(r => r.hasCollapse), [rows]);
   const hasActionInRows = React.useMemo(() => rows?.some(r => r.hasActions), [rows]);
-
-  React.useEffect(() => {
-    if (!tableRef.current) return () => null;
-
-    const unbind = bindMutationObserver(tableRef.current, rowMap => setRowMapLabel(rowMap));
-    return () => unbind();
-  }, []);
 
   const contextValue = React.useMemo<TableContextProps>(
     () => ({
-      loading: loading ?? false,
-      loadingText: loadingText ?? 'Carregando...',
-      onShowAction,
-      registerColumn,
-      rowMapLabel,
-      columns,
       rows,
       registerRow,
-      stripedRows: stripedRows ?? false,
-      columnActionTitle,
-      size: isCollapseContent ? 'small' : size,
       hasCollapseInRows,
       hasActionInRows,
-      isCollapseContent
-    }),
-    [
+      paginationPortal,
       loading,
       loadingText,
-      onShowAction,
-      registerColumn,
-      rowMapLabel,
-      columns,
+      error,
+      errorFormater,
+      errorOnRetry,
+      total,
+      emptyText
+    }),
+    [
       rows,
       registerRow,
-      stripedRows,
-      columnActionTitle,
-      isCollapseContent,
-      size,
       hasCollapseInRows,
-      hasActionInRows
+      hasActionInRows,
+      paginationPortal,
+      loading,
+      loadingText,
+      error,
+      errorFormater,
+      errorOnRetry,
+      total,
+      emptyText
     ]
   );
 
+  React.useLayoutEffect(() => {
+    let wait = false;
+    let previousState = false;
+    let timeout: ReturnType<typeof setTimeout>;
+    const checkResize = () => {
+      clearTimeout(timeout);
+
+      if (wait) {
+        setTimeout(() => checkResize(), 200);
+        return;
+      }
+
+      wait = true;
+
+      const hasScroll = (scroller.current?.scrollWidth ?? 0) > (scroller.current?.clientWidth ?? 0);
+      const scrollLeft = scroller.current?.scrollLeft ?? 0;
+      const totalScroll = (scroller.current?.scrollWidth ?? 0) - (scroller.current?.clientWidth ?? 0) - 10;
+      const scrolledToEnd = scrollLeft >= totalScroll;
+
+      const apply = hasScroll && !scrolledToEnd;
+
+      if (apply !== previousState) {
+        previousState = apply;
+        apply
+          ? scroller.current?.parentElement?.classList.add('--hts-scrollable')
+          : scroller.current?.parentElement?.classList.remove('--hts-scrollable');
+      }
+
+      setTimeout(() => (wait = false), 200);
+    };
+
+    checkResize();
+    window.addEventListener('resize', checkResize);
+    scroller.current?.addEventListener('scroll', checkResize);
+
+    return () => {
+      window.removeEventListener('resize', checkResize);
+    };
+  }, []);
+
   return (
     <TableContext.Provider value={contextValue}>
-      <TableContainer className={className} style={{ maxHeight }}>
-        <table id={id} ref={tableRef} className={cx('__houston-table', responsive && '--responsive', className)}>
-          {children}
-
-          <MenuActions
-            open={openedMenuActions}
-            anchorEl={menuActionOptions?.anchorEl}
-            options={menuActionOptions?.actions}
-            rowData={menuActionOptions?.rowData}
-            rowIndex={menuActionOptions?.rowIndex}
-            onClose={closeMenuActions}
-          />
-        </table>
-      </TableContainer>
+      <div className={cx(className, `--hts-table-size-${size}`)}>
+        <div className='hts-table__scroller-shadow'>
+          <div className='hts-table__scroller'>
+            <div ref={scroller}>
+              <table {...tableProps} style={{ minWidth }}>
+                {children}
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id={paginationPortal} />
+      </div>
     </TableContext.Provider>
   );
 };
 
-export default React.memo(styles(Table));
+export default styled(React.memo(Table), { label: 'houston-table' })(
+  ({ theme }) => css`
+    & > .hts-table__scroller-shadow {
+      position: relative;
+      overflow: hidden;
+
+      & > .hts-table__scroller {
+        &:before {
+          content: ' ';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 1px;
+          transition: 0.15s;
+        }
+
+        &.--hts-scrollable:before {
+          box-shadow: ${theme.shadow.level[2]};
+        }
+
+        & > div {
+          overflow: auto;
+        }
+      }
+
+      & > .hts-table__scroller > div > table {
+        width: 100%;
+        border-spacing: 0px;
+
+        & > thead {
+          & > tr > th {
+            background-color: ${theme.neutralColor.high.light};
+
+            &:first-of-type {
+              border-top-left-radius: ${theme.border.radius.sm};
+            }
+
+            &:last-of-type {
+              border-top-right-radius: ${theme.border.radius.sm};
+            }
+
+            &.hts-table__column {
+              font-weight: ${theme.font.weight.bold};
+
+              &:not([align]) {
+                text-align: left;
+              }
+
+              & .hts-table__column-sort {
+                display: inline-flex;
+                align-items: center;
+                cursor: pointer;
+
+                & > .hts-table__column-sort-icon {
+                  transition: 0.2s linear;
+                }
+
+                &.--hts-sort-rev > .hts-table__column-sort-icon {
+                  transform: rotateX(-180deg);
+                }
+              }
+
+              &.--hts-disabled {
+                color: ${theme.neutralColor.low.light};
+
+                & .hts-table__column-sort {
+                  cursor: not-allowed;
+                }
+              }
+            }
+          }
+
+          &.--hts-action-column-hidden > tr > th:nth-last-of-type(2) {
+            border-top-right-radius: ${theme.border.radius.sm};
+          }
+        }
+
+        & > tbody > tr > td.hts-table__cell {
+          font-weight: ${theme.font.weight.regular};
+        }
+
+        & > thead > tr > th.hts-table__column,
+        & > tbody > tr > td.hts-table__cell,
+        & > tbody > tr > td > .hts-table__loading-text {
+          font-family: ${theme.font.family.base};
+          font-size: ${theme.font.size.xxs};
+          line-height: ${theme.line.height.xs};
+          color: ${theme.neutralColor.low.dark};
+        }
+
+        & > thead > tr > th.hts-table__column,
+        & > tbody > tr > td.hts-table__cell,
+        & > tbody > tr > td.hts-table__cell-action,
+        & > tbody > tr > td.hts-table__cell-collapse,
+        & > tbody > tr > td > .hts-table__loading-text {
+          padding: ${theme.spacing.inset.xs};
+          border-bottom: ${theme.border.width.xs} solid
+            ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
+        }
+
+        & > tbody > tr > td.hts-table__cell-action {
+          padding: 0;
+          text-align: right;
+
+          & .hts-table__cell-action-menu {
+            display: flex;
+            flex-direction: column;
+          }
+
+          & .hts-table__cell-collapse-arrow {
+            transition: 0.15s ease-out;
+
+            &.--hts-active {
+              transform: rotateX(180deg);
+            }
+          }
+        }
+
+        & > tbody > tr > td.hts-table__cell-collapse {
+          padding: 0;
+          text-align: center;
+        }
+
+        & > thead > tr > th.--hts-hidden,
+        & > tbody > tr > td.--hts-hidden {
+          display: none;
+        }
+
+        & > tbody > tr > td.hts-table__collapse {
+          transition: 0.3s;
+
+          &:not(.--hts-no-background) {
+            background-color: ${theme.neutralColor.high.light};
+          }
+
+          &.--hts-opened:not(.--hts-no-padding) {
+            padding: ${theme.spacing.xxxs};
+          }
+        }
+      }
+    }
+
+    & .hts-table__pagination {
+      padding: ${theme.spacing.inset.xxs};
+      background-color: ${theme.neutralColor.high.light};
+      border-bottom-left-radius: ${theme.border.radius.sm};
+      border-bottom-right-radius: ${theme.border.radius.sm};
+    }
+
+    &.--hts-table-size-sm {
+      & > .hts-table__scroller-shadow > .hts-table__scroller > div > table {
+        & > thead > tr > th.hts-table__column,
+        & > tbody > tr > td.hts-table__cell,
+        & > tbody > tr > td.hts-table__cell-action,
+        & > tbody > tr > td.hts-table__cell-collapse,
+        & > tbody > tr > td > .hts-table__loading-text {
+          padding: ${theme.spacing.squish.xxs};
+        }
+      }
+    }
+  `
+);

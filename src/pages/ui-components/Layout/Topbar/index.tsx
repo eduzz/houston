@@ -23,7 +23,7 @@ import UserMenuItem from './UserMenu/Item';
 import UserMenuGroup from './UserMenu/ItemGroup';
 
 export interface TopbarProps extends StyledProp {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   logo?: string;
   logoMobile?: string;
   currentApplication?: string;

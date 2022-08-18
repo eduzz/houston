@@ -108,7 +108,7 @@ const Typography = React.forwardRef<any, TypographyProps>(({ as: Tag = 'p', clas
         [`--hst-size-${size}`]: true,
         [`--hst-line-${lineHeight}`]: true,
         [`--hst-weight-${weight}`]: true,
-        [`--hts-margin-${margin}`]: !!margin,
+        [`--hst-margin-${margin}`]: !!margin,
         [`--hst-color-${getColorName(color)}`]: true
       })}
       {...forwardProps}

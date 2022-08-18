@@ -12,7 +12,7 @@ o resultado junto com funções de manipulação dos parametros.
 ```tsx
 const { params, handleChangePage, handleChangePerPage, handleSort, result, total, isLoading } = usePromisePaginated(
   {
-    initialParams: { page: 1, perPage: 5 }, // optional
+    initialParams: { page: 1, perPage: 40 }, // optional
     infinityScroll: false, // optional
     onChangeParams: params => salesService.list(params)
   },

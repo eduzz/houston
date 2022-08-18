@@ -44,6 +44,7 @@ const PopoverRoot = ({ children }: PopoverProps) => {
 
     const instance = createPopper(state.target, state.content, {
       placement: state.placement ?? 'auto',
+      strategy: 'fixed',
       modifiers: [
         {
           name: 'offset',
