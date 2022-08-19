@@ -2,9 +2,9 @@ import * as React from 'react';
 
 export interface ShowcaseContextProps {
   currentStep: number;
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  nextStep: () => void;
-  previousStep: () => void;
+  totalSteps: number;
+  maxWidth: number;
+  stepSize: number;
 }
 
 export const ShowcaseContext = React.createContext<ShowcaseContextProps>({} as ShowcaseContextProps);
