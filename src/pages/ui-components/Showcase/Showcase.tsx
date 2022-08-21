@@ -22,7 +22,7 @@ interface ShowcaseProps {
   currentStep: number;
 }
 
-const MIN_STEP_SIZE = 400;
+export const MIN_STEP_SIZE = 400;
 
 const Showcase = ({
   open,

@@ -3,6 +3,8 @@ import * as React from 'react';
 import styled, { css } from '@eduzz/houston-styles';
 
 import { ShowcaseContext } from '../context';
+import { MIN_STEP_SIZE } from '../Showcase';
+import useResize from './useResize';
 
 export interface ContentProps {
   currentStep: number;
@@ -11,13 +13,14 @@ export interface ContentProps {
 const Content = ({
   children,
   className
-}: ContentProps & React.HTMLAttributes<HTMLDivElement> & { stepSize: number }) => {
+}: ContentProps & React.HTMLAttributes<HTMLDivElement> & { stepSize: number; windowWidth: number }) => {
   return <div className={className}>{children}</div>;
 };
 
 const StyledContent = styled(Content, { label: 'hst-showcase-content' })`
-  ${({ currentStep, stepSize }) => {
-    const currentMargin = (currentStep - 1) * -stepSize;
+  ${({ currentStep, stepSize, windowWidth }) => {
+    const offset = stepSize < MIN_STEP_SIZE ? (MIN_STEP_SIZE - windowWidth) / 2 : 0;
+    const currentMargin = (currentStep - 1) * -stepSize + offset;
 
     return css`
       display: block;
@@ -33,22 +36,12 @@ const StyledContent = styled(Content, { label: 'hst-showcase-content' })`
 
 const ContentWrapper = ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement>) => {
   const { currentStep, stepSize } = React.useContext(ShowcaseContext);
+  const windowSize = useResize();
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'block',
-        margin: 0,
-        padding: 0,
-        overflow: 'hidden',
-        transform: 'translateZ(0)'
-      }}
-    >
-      <StyledContent currentStep={currentStep} stepSize={stepSize} {...rest}>
-        {children}
-      </StyledContent>
-    </div>
+    <StyledContent currentStep={currentStep} stepSize={stepSize} windowWidth={windowSize.width} {...rest}>
+      {children}
+    </StyledContent>
   );
 };
 
