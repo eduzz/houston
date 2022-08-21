@@ -313,7 +313,7 @@ const StyledDragAndDrop = styled(withForm(DragAndDrop), { label: 'hst-drag-and-d
     flex: 1;
 
     &.--hst-drag-and-drop-full-width {
-      flex-basis: 100%;
+      width: 100%;
     }
 
     &.--hst-drag-and-drop-disabled {

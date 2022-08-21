@@ -5,17 +5,17 @@ import { removeFileItem } from './utils';
 
 const withForm =
   (Component: React.ComponentType<DragAndDropProps>) =>
-  ({ onChange, onRemove, ...props }: DragAndDropProps) => {
+  ({ onChange, onRemove, name = 'file', ...props }: DragAndDropProps) => {
     const form = useFormContext();
 
-    if (!form || !props.name) {
-      return <Component onChange={onChange} onRemove={onRemove} {...props} />;
+    if (!form) {
+      return <Component onChange={onChange} onRemove={onRemove} name={name} {...props} />;
     }
 
     return (
       <Controller
         control={form.control}
-        name={props.name}
+        name={name}
         render={({ field, formState }) => (
           <Component
             {...props}
