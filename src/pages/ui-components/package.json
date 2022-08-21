@@ -30,6 +30,7 @@
     "@mui/material": "^5",
     "@popperjs/core": "^2.11.5",
     "rc-picker": "2.6.10",
+    "rc-upload": "^4.3.4",
     "date-fns": "^2",
     "lodash": "^4",
     "react-colorful": "^5",
