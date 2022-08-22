@@ -4,6 +4,8 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-styles/styled';
 
 import { ShowcaseContext } from '../context';
 
+const DOTS_DIMENSION_SIZE = 10;
+
 const ControlDots = ({ className }: StyledProp) => {
   const { totalSteps, currentStep } = useContext(ShowcaseContext);
 
@@ -25,9 +27,9 @@ export default styled(ControlDots, { label: 'hst-control-dots' })`
     padding: ${theme.spacing.inset.sm};
 
     & .hst-dots {
-      height: 10px;
-      width: 10px;
-      margin-right: 10px;
+      height: ${theme.pxToRem(DOTS_DIMENSION_SIZE)}rem;
+      width: ${theme.pxToRem(DOTS_DIMENSION_SIZE)}rem;
+      margin-right: ${theme.pxToRem(DOTS_DIMENSION_SIZE)}rem;
       background-color: #fff;
       border: solid 1px #bbb;
       border-radius: 50%;
@@ -35,7 +37,7 @@ export default styled(ControlDots, { label: 'hst-control-dots' })`
     }
 
     & .---hst-dots-active {
-      background-color: blue;
+      background-color: ${theme.brandColor.primary.medium};
       border: none;
       border-radius: 50%;
     }

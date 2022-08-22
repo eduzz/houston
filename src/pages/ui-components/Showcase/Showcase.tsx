@@ -20,18 +20,21 @@ const MAX_WIDTH = 400;
 interface ShowcaseProps {
   open: boolean;
   currentStep: number;
+  widthSize: number;
 }
 
-export const MIN_STEP_SIZE = 400;
+export const MAX_SHOWCASE_WIDTH = 400;
+export const MIN_WINDOW_SIZE = 440;
+export const OFFSET = 40;
 
 const Showcase = ({
   open,
   currentStep,
   children,
-  className
+  className,
+  widthSize
 }: ShowcaseProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   const [modalState, setModalState] = React.useState<boolean>(true);
-  const windowSize = useResize();
 
   const [{ props }] = children as React.ReactElement[];
 
@@ -57,7 +60,7 @@ const Showcase = ({
               currentStep,
               maxWidth: MAX_WIDTH,
               totalSteps: steps.length,
-              stepSize: windowSize.width < 400 ? windowSize.width : MIN_STEP_SIZE
+              stepSize: widthSize < MIN_WINDOW_SIZE ? widthSize - OFFSET : MAX_SHOWCASE_WIDTH
             }}
           >
             <div className={className}>{children}</div>
@@ -68,15 +71,29 @@ const Showcase = ({
   );
 };
 
-const ShowcaseWrapper = styled(Showcase, { label: 'houston-showcase' })`
-  ${({ theme }) => {
+const StyledShowcase = styled(Showcase, { label: 'houston-showcase' })`
+  ${({ theme, widthSize }) => {
     return css`
+      width: ${widthSize - OFFSET}px;
       max-width: ${theme.pxToRem(MAX_WIDTH)}rem;
       overflow: hidden;
       box-shadow: none;
     `;
   }}
 `;
+
+const ShowcaseWrapper = ({
+  children,
+  ...rest
+}: Omit<ShowcaseProps, 'widthSize'> & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+  const windowSize = useResize();
+
+  return (
+    <StyledShowcase {...rest} widthSize={windowSize.width}>
+      {children}
+    </StyledShowcase>
+  );
+};
 
 export default nestedComponent(React.memo(ShowcaseWrapper), {
   Title,
