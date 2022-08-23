@@ -5,6 +5,7 @@ export interface ShowcaseContextProps {
   totalSteps: number;
   maxWidth: number;
   stepSize: number;
+  controlDots: boolean;
 }
 
 export const ShowcaseContext = React.createContext<ShowcaseContextProps>({} as ShowcaseContextProps);

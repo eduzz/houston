@@ -26,8 +26,10 @@ import Showcase from '@eduzz/houston-ui/Showcase';
 
 <Playground>
   {() => {
-    const [openSmall, setOpenSmall] = useState(false);
-    const [openLarge, setOpenLarge] = useState(false);
+    const [step, setStep] = React.useState(1);
+    const [open, setOpen] = React.useState(true);
+    const isFirstStep = step === 1;
+    const isLastStep = step === 4;
     return (
       <Container>
         <Row justifyContent='space-around'>
@@ -35,87 +37,60 @@ import Showcase from '@eduzz/houston-ui/Showcase';
             <Button onClick={() => setOpenSmall(true)} variant='outlined'>
               Abrir Showcase Small
             </Button>
-            <Showcase
-              open={openSmall}
-              size='small'
-              onClose={currentStep => {
-                console.log(`Salvar no localstorage e enviar para o analytics o step ${currentStep}`);
-                setOpenSmall(false);
-              }}
-              onFinish={() => {
-                console.log('Enviar para o analytics que o usuário finalizou todos os steps');
-                setOpenSmall(false);
-              }}
-            >
-              <Showcase.Title>Envie vídeos!</Showcase.Title>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-              </Showcase.Step>
-            </Showcase>
-          </Column>
-          <Column xs={12} md={3}>
-            <Button onClick={() => setOpenLarge(true)} variant='contained'>
-              Abrir Showcase Large
-            </Button>
-            <Showcase
-              open={openLarge}
-              onFinish={() => {
-                console.log('Enviar para o analytics que o usuário finalizou todos os steps');
-                setOpenLarge(false);
-              }}
-              onNext={currentStep => console.log(`Salvar no localstorage o step ${currentStep}`)}
-              onPrevious={currentStep => console.log('Mostrar toast perguntando se o usuário precisa de ajuda.')}
-              onClose={currentStep => {
-                console.log(`Salvar no localstorage e enviar para o analytics o step ${currentStep}`);
-                setOpenLarge(false);
-              }}
-              stepCounter
-            >
-              <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-                <Showcase.StepButtons>
-                  <Showcase.PreviousButton label='Back' />
-                  <Showcase.NextButton label='Next' />
-                  <Showcase.CloseButton label='Close' />
-                </Showcase.StepButtons>
-              </Showcase.Step>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-                <Showcase.StepButtons hideCloseButton />
-              </Showcase.Step>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-              </Showcase.Step>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-              </Showcase.Step>
-              <Showcase.GenericButtons>
-                <Showcase.PreviousButton label='Retroceder' />
-                <Showcase.NextButton label='Avançar' />
-                <Showcase.LastButton label='Você chegou!' />
-                <Showcase.CloseButton label='Ver depois' />
-              </Showcase.GenericButtons>
+            <Showcase open={open} currentStep={step} controlDots>
+              <Showcase.Content>
+                <Showcase.Step>
+                  <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
+                  <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
+                  <Showcase.Text>
+                    Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
+                    ipsum consectetur amet. Lorem ipsum consectetur amet.
+                  </Showcase.Text>
+                </Showcase.Step>
+                <Showcase.Step>
+                  <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
+                  <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
+                  <Showcase.Text>
+                    Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
+                    ipsum consectetur amet. Lorem ipsum consectetur amet.
+                  </Showcase.Text>
+                </Showcase.Step>
+                <Showcase.Step>
+                  <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
+                  <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
+                  <Showcase.Text>
+                    Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
+                    ipsum consectetur amet. Lorem ipsum consectetur amet.
+                  </Showcase.Text>
+                </Showcase.Step>
+                <Showcase.Step>
+                  <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
+                  <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
+                  <Showcase.Text>
+                    Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
+                    ipsum consectetur amet. Lorem ipsum consectetur amet.
+                  </Showcase.Text>
+                </Showcase.Step>
+              </Showcase.Content>
+              <Showcase.Footer>
+                {isFirstStep ? (
+                  <Button onClick={() => setStep(step => step + 1)}>Próximo</Button>
+                ) : isLastStep ? (
+                  <>
+                    <Button variant='text' onClick={() => setStep(step => step - 1)}>
+                      Anterior
+                    </Button>
+                    <Button onClick={() => setOpen(false)}>Entendi</Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant='text' onClick={() => setStep(step => step - 1)}>
+                      Anterior
+                    </Button>
+                    <Button onClick={() => setStep(step => step + 1)}>Próximo</Button>
+                  </>
+                )}
+              </Showcase.Footer>
             </Showcase>
           </Column>
         </Row>

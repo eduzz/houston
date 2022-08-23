@@ -1,11 +1,11 @@
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
-import Typography from '@eduzz/houston-ui/Typography';
+import Heading from '@eduzz/houston-ui/Typography/Heading';
 
 const Title = ({ children, className }: React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   return (
-    <Typography as='h6' size='sm' className={className}>
+    <Heading size='sm' className={className} color='neutralColor.low.dark'>
       {children}
-    </Typography>
+    </Heading>
   );
 };
 

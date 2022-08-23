@@ -7,20 +7,21 @@ import Overlay from '../Overlay';
 import Portal from '../Portal';
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
-import useResize from './Content/useResize';
 import ShowcaseContextProvider from './context';
 import Footer from './Footer';
 import Image from './Image';
 import Step from './Step';
 import Text from './Text';
 import Title from './Title';
+import useResize from './useResize';
 
 const MAX_WIDTH = 400;
 
 interface ShowcaseProps {
-  open: boolean;
+  open?: boolean;
   currentStep: number;
   widthSize: number;
+  controlDots?: boolean;
 }
 
 export const MAX_SHOWCASE_WIDTH = 400;
@@ -32,9 +33,10 @@ const Showcase = ({
   currentStep,
   children,
   className,
-  widthSize
+  widthSize,
+  controlDots
 }: ShowcaseProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
-  const [modalState, setModalState] = React.useState<boolean>(true);
+  const [modalState, setModalState] = React.useState(true);
 
   const [{ props }] = children as React.ReactElement[];
 
@@ -60,7 +62,8 @@ const Showcase = ({
               currentStep,
               maxWidth: MAX_WIDTH,
               totalSteps: steps.length,
-              stepSize: widthSize < MIN_WINDOW_SIZE ? widthSize - OFFSET : MAX_SHOWCASE_WIDTH
+              stepSize: widthSize < MIN_WINDOW_SIZE ? widthSize - OFFSET : MAX_SHOWCASE_WIDTH,
+              controlDots: controlDots || true
             }}
           >
             <div className={className}>{children}</div>
@@ -86,10 +89,10 @@ const ShowcaseWrapper = ({
   children,
   ...rest
 }: Omit<ShowcaseProps, 'widthSize'> & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
-  const windowSize = useResize();
+  const { width } = useResize();
 
   return (
-    <StyledShowcase {...rest} widthSize={windowSize.width}>
+    <StyledShowcase {...rest} widthSize={width}>
       {children}
     </StyledShowcase>
   );

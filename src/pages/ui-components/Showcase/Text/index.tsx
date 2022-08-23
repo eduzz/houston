@@ -1,15 +1,16 @@
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
+import Paragraph from '@eduzz/houston-ui/Typography/Paragraph';
 
 const Text = ({ children, className }: React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
-  return <p className={className}>{children}</p>;
+  return (
+    <Paragraph className={className} size='sm' color='neutralColor.low.medium'>
+      {children}
+    </Paragraph>
+  );
 };
 
 export default styled(Text, { label: 'hst-showcase-text' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.sm};
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 21px;
-    color: #666666;
   `}
 `;

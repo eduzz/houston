@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
-import { ShowcaseContext } from '../context';
+import { useShowcaseContext } from '../context';
 
 export interface StepProps {
   maxWidth: number;
@@ -26,7 +26,7 @@ const StyledStep = styled(Step, { label: 'hst-showcase-step' })`
 `;
 
 const StepWrapper = ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement>) => {
-  const { maxWidth, stepSize } = React.useContext(ShowcaseContext);
+  const { maxWidth, stepSize } = useShowcaseContext();
 
   return (
     <StyledStep maxWidth={maxWidth} stepSize={stepSize} {...rest}>

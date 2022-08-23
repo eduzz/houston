@@ -14,7 +14,7 @@ export default styled(Image, { label: 'hst-showcase-image' })`
   ${({ theme }) => css`
     width: 100%;
     height: ${theme.pxToRem(IMAGE_HEIGHT)}rem;
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
     background-size: cover;
     background-position: center;
   `}
