@@ -11,13 +11,9 @@ interface AccordionContextProps {
 
 const AccordionContext = createContext<AccordionContextProps | null>(null);
 
-interface AccordionProviderProps {
+type AccordionProviderProps = AccordionContextProps & {
   children: React.ReactNode;
-  expandedItems: number[];
-  setTheExpandedItems: (index: number) => void;
-  cachedItems: number[];
-  destroyOnClose: boolean;
-}
+};
 
 const AccordionProvider = ({
   children,

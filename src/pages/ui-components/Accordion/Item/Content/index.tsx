@@ -7,7 +7,7 @@ import { useAccordion } from '../../context';
 import { useItemId } from '../context';
 
 export interface ContentProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const AccordionContent = ({ children, ...rest }: ContentProps) => {

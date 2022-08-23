@@ -8,10 +8,9 @@ interface ItemContextProps {
 
 const ItemContext = createContext<ItemContextProps | null>(null);
 
-interface ItemProviderProps {
+type ItemProviderProps = ItemContextProps & {
   children: React.ReactNode;
-  itemId: number;
-}
+};
 
 const ItemProvider = ({ children, itemId }: ItemProviderProps) => {
   const value = React.useMemo(() => ({ itemId }), [itemId]);

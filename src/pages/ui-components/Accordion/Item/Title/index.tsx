@@ -8,7 +8,7 @@ import { useAccordion } from '../../context';
 import { useItemId } from '../context';
 
 export interface TitleProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const ChevronIcon = () => (
@@ -29,7 +29,7 @@ const AccordionTitle = ({ children, ...rest }: TitleProps) => {
     <>
       <div tabIndex={0} {...rest}>
         {typeof children === 'string' ? (
-          <Typography lineHeight='default' weight='semibold'>
+          <Typography lineHeight='default' weight='semibold' as='span'>
             {children}
           </Typography>
         ) : (

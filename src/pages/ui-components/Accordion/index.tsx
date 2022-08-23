@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { StyledProp, cx } from '@eduzz/houston-styles';
+import { StyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
 import { AccordionProvider } from './context';
-import Item from './Item';
+import Item, { ItemProps } from './Item';
 import Content from './Item/Content';
 import Title from './Item/Title';
 
 interface AccordionProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  children?: any;
+  children: React.ReactElement<ItemProps>[];
   destroyOnClose?: boolean;
   allowMultiple?: boolean;
   values?: number[];
@@ -18,7 +18,6 @@ interface AccordionProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivEl
 
 const Accordion = ({
   children,
-  className,
   values,
   onChange,
   destroyOnClose = false,
@@ -30,27 +29,40 @@ const Accordion = ({
 
   const controlled = typeof values !== 'undefined';
 
-  const setTheExpandedItems = (index: number) => {
-    const newExpandedItems = expandedItems.includes(index)
-      ? expandedItems.filter(item => item !== index)
-      : [...expandedItems, index];
+  const setTheExpandedItems = React.useCallback(
+    (index: number) => {
+      let newExpandedItems = new Set(expandedItems);
 
-    onChange && onChange(newExpandedItems);
+      if (allowMultiple) {
+        newExpandedItems.has(index) ? newExpandedItems.delete(index) : newExpandedItems.add(index);
+      } else {
+        newExpandedItems = newExpandedItems.has(index) ? new Set([]) : new Set([index]);
+      }
 
-    !allowMultiple && setExpandedItems([index]);
-    allowMultiple && setExpandedItems(newExpandedItems);
-    !destroyOnClose && setCachedItems([...cachedItems, index]);
-  };
+      onChange && onChange([...newExpandedItems]);
+      setExpandedItems([...newExpandedItems]);
+
+      const newCachedItems = new Set(cachedItems);
+      newCachedItems.add(index);
+      !destroyOnClose && setCachedItems([...newCachedItems]);
+    },
+    [expandedItems, cachedItems, onChange, allowMultiple, destroyOnClose]
+  );
 
   React.useEffect(() => {
     if (controlled) {
       setExpandedItems(values);
-      !destroyOnClose && setCachedItems(prev => [...prev, ...values]);
+
+      !destroyOnClose &&
+        setCachedItems(prev => {
+          const newCachedItems = new Set([...prev, ...values]);
+          return [...newCachedItems];
+        });
     }
   }, [controlled, destroyOnClose, values]);
 
-  const mappedChildren = React.Children.map(children, (child: React.ReactElement, i: number) => {
-    return React.cloneElement(child as React.ReactElement, {
+  const mappedChildren = React.Children.map(children, (child, i: number) => {
+    return React.cloneElement(child, {
       index: i
     });
   });
@@ -62,14 +74,14 @@ const Accordion = ({
       cachedItems={cachedItems}
       destroyOnClose={destroyOnClose}
     >
-      <div className={cx(className, 'hst-accordion')} {...rest}>
+      <div className='hst-accordion' {...rest}>
         {mappedChildren}
       </div>
     </AccordionProvider>
   );
 };
 
-export default nestedComponent(Accordion, {
+export default nestedComponent(React.memo(Accordion), {
   Item,
   Content,
   Title

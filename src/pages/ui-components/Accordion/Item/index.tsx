@@ -3,22 +3,25 @@ import * as React from 'react';
 import { useAccordion } from '../context';
 import { ItemProvider } from './context';
 
-export interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  children?: any;
-}
-
 type ReceivedFromParentProps = {
   index?: number;
 };
+export interface ItemProps extends React.HTMLAttributes<HTMLDivElement>, ReceivedFromParentProps {
+  children: React.ReactNode;
+}
 
-const AccordionItem = ({ children, index }: ItemProps & ReceivedFromParentProps) => {
+const AccordionItem = ({ children, index }: ItemProps) => {
   const { setTheExpandedItems } = useAccordion();
 
-  const onClick = () => {
+  const onClick = React.useCallback(() => {
     typeof index !== 'undefined' && setTheExpandedItems(index);
-  };
+  }, [index, setTheExpandedItems]);
 
-  return <ItemProvider itemId={index as number}>{<div onClick={onClick}>{children}</div>}</ItemProvider>;
+  return (
+    <ItemProvider itemId={index as number}>
+      <div onClick={onClick}>{children}</div>
+    </ItemProvider>
+  );
 };
 
 export default AccordionItem;
