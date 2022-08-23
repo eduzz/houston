@@ -17,10 +17,17 @@ const AccordionContent = ({ children, ...rest }: ContentProps) => {
   const isExpanded = expandedItems.includes(itemId);
   const isCached = cachedItems.includes(itemId);
 
+  if (destroyOnClose) {
+    return (
+      <Collapse timeout={350} visibled={isExpanded} destroyOnClose={destroyOnClose}>
+        <div {...rest}>{children}</div>
+      </Collapse>
+    );
+  }
+
   return (
     <Collapse timeout={350} visibled={isExpanded}>
       {isCached && <div {...rest}>{children}</div>}
-      {destroyOnClose && isExpanded && <div {...rest}>{children}</div>}
     </Collapse>
   );
 };
