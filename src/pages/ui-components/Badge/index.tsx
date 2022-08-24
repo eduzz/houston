@@ -37,6 +37,7 @@ const Badge = ({
 }: BadgeProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   const hasCount = count !== undefined;
   const displayCount = hasCount && count > MAX_COUNT ? `${MAX_COUNT}+` : count;
+  const hasChildren = children !== undefined;
 
   return (
     <span
@@ -45,6 +46,7 @@ const Badge = ({
         className,
         `--hst-badge-color-${color}`,
         `--hst-badge-distance-${distance}`,
+        { '--hst-badge-has-not-children': !hasChildren },
         { '--hst-badge-dot': dot || !hasCount },
         { '--hst-badge-number': hasCount && !dot }
       )}
@@ -117,6 +119,13 @@ const BadgeWrapper = styled(Badge, { label: 'hst-badge' })`
       &.--hst-badge-distance-md {
         & > .hst-badge__count {
           transform: translate(50%, -50%);
+        }
+      }
+
+      &.--hst-badge-has-not-children {
+        & > .hst-badge__count {
+          position: relative;
+          transform: none;
         }
       }
 

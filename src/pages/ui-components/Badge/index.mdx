@@ -9,6 +9,7 @@ import Icon from '@eduzz/houston-icons/FaceHappyOutline';
 import Box from '../Box';
 import Button from '../Button';
 import IconButton from '../IconButton';
+import Typography from '../Typography';
 import Badge from './';
 
 # Badge
@@ -104,6 +105,17 @@ Em alguns casos, você pode diminuir o espaço entre a Badge e o elemento. Valor
     <Badge count={101} distance='md'>
       <Button>Meu botão</Button>
     </Badge>
+  </div>
+</Playground>
+
+### Sem filhos
+
+Caso você não passe um filho, o posicionamento da Badge é alinhado com a linha.
+
+<Playground>
+  <div style={{ display: 'inline-flex', gap: 8 }}>
+    <Typography>Um texto qualquer</Typography>
+    <Badge count={101} />
   </div>
 </Playground>
 
