@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-ui",
   "description": "Eduzz Houston Components UI",
-  "version": "0.60.0",
+  "version": "0.60.2",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -15,34 +15,28 @@
   "bugs": {
     "url": "https://github.com/eduzz/houston/issues"
   },
+  "scripts": {
+    "check-update-deps": "yarn ncu -u"
+  },
   "dependencies": {
-    "@eduzz/houston-core": "0.60.0",
-    "@eduzz/houston-hooks": "0.60.0",
-    "@eduzz/houston-icons": "0.60.0",
-    "@eduzz/houston-styles": "0.60.0",
-    "@eduzz/houston-forms": "0.60.0",
+    "@eduzz/houston-forms": "0.60.2",
+    "@eduzz/houston-hooks": "0.60.2",
+    "@eduzz/houston-icons": "0.60.2",
+    "@eduzz/houston-styles": "0.60.2",
+    "@emotion/cache": "^11",
     "@emotion/css": "^11",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@emotion/cache": "^11",
-    "@mui/icons-material": "^5",
-    "@mui/lab": "^5.0.0-alpha.88",
     "@mui/material": "^5",
-    "@popperjs/core": "^2.11.5",
     "rc-picker": "2.6.10",
     "rc-upload": "^4.3.4",
+    "@popperjs/core": "^2.11.6",
     "date-fns": "^2",
     "lodash": "^4",
+    "rc-picker": "2.6.10",
     "react-colorful": "^5",
     "react-toastify": "^9",
     "tslib": "^2",
-    "use-context-selector": "^1",
-    "@mui/x-date-pickers": "5.0.0-alpha.7"
-  },
-  "peerDependencies": {
-    "@eduzz/houston-core": "0.60.0",
-    "@material-ui/core": "^4",
-    "@material-ui/icons": "^4",
-    "@material-ui/lab": "^4"
+    "use-context-selector": "^1"
   }
 }

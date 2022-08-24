@@ -1,7 +1,6 @@
-import FormMaskAdapter from '@eduzz/houston-core/maskAdapter';
-
 import cnpjMask from './cnpj';
 import cpfMask from './cpf';
+import FormMaskAdapter from './maskAdapter';
 
 const documentMask: FormMaskAdapter = {
   apply: (value: string) => {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import FormMaskAdapter from '@eduzz/houston-core/maskAdapter';
+import FormMaskAdapter from '@eduzz/houston-forms/masks/maskAdapter';
 
 export interface MaskFunction {
   apply(value: string | number): string;

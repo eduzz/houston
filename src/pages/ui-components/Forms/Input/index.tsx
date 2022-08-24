@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import FormMaskAdapter from '@eduzz/houston-core/maskAdapter';
+import FormMaskAdapter from '@eduzz/houston-forms/masks/maskAdapter';
 import styled, { css, cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
