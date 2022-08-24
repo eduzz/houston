@@ -41,7 +41,7 @@ import Accordion from '@eduzz/houston-ui/Accordion';
   </Accordion>
 </Playground>
 
-### Valor controlado e allowMultiple = false
+### Valor controlado, allowMultiple = false e disabled
 
 <Playground>
   {() => {
@@ -60,7 +60,7 @@ import Accordion from '@eduzz/houston-ui/Accordion';
             <div>Conteúdo 2</div>
           </Accordion.Content>
         </Accordion.Item>
-        <Accordion.Item>
+        <Accordion.Item disabled>
           <Accordion.Title>Title 3</Accordion.Title>
           <Accordion.Content>
             <div>Conteúdo 3</div>
@@ -83,9 +83,10 @@ import Accordion from '@eduzz/houston-ui/Accordion';
 
 ### Accordion.Item props
 
-| prop     | tipo              | obrigatório | padrão | descrição |
-| -------- | ----------------- | ----------- | ------ | --------- |
-| children | `React.ReactNode` | `true`      | -      | -         |
+| prop     | tipo              | obrigatório | padrão  | descrição |
+| -------- | ----------------- | ----------- | ------- | --------- |
+| children | `React.ReactNode` | `true`      | -       | -         |
+| disabled | `boolean`         | `false`     | `false` | -         |
 
 ### Accordion.Title props
 

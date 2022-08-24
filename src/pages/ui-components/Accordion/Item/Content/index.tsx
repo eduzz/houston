@@ -34,7 +34,7 @@ const AccordionContent = ({ children, ...rest }: ContentProps) => {
 
 export default styled(AccordionContent, { label: 'hst-accordion-content' })(({ theme }) => {
   return css`
-    background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+    background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[1])};
     padding: ${theme.spacing.inset.xs};
   `;
 });
