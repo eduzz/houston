@@ -28,6 +28,8 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@mui/material": "^5",
+    "rc-picker": "2.6.10",
+    "rc-upload": "^4.3.4",
     "@popperjs/core": "^2.11.6",
     "date-fns": "^2",
     "lodash": "^4",
