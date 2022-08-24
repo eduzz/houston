@@ -96,13 +96,13 @@ Em alguns casos, você pode diminuir o espaço entre a Badge e o elemento. Valor
 
 <Playground>
   <div style={{ display: 'inline-flex', gap: 16 }}>
-    <Badge count={101} distance='xs'>
+    <Badge count={101} offset='xs'>
       <Button>Meu botão</Button>
     </Badge>
-    <Badge count={101} distance='sm'>
+    <Badge count={101} offset='sm'>
       <Button>Meu botão</Button>
     </Badge>
-    <Badge count={101} distance='md'>
+    <Badge count={101} offset='md'>
       <Button>Meu botão</Button>
     </Badge>
   </div>
@@ -121,9 +121,9 @@ Caso você não passe um filho, o posicionamento da Badge é alinhado com a linh
 
 ### Badge props
 
-| prop     | tipo            | obrigatório | padrão        | descrição                                  |
-| -------- | --------------- | ----------- | ------------- | ------------------------------------------ |
-| count    | `number`        | `false`     | -             | -                                          |
-| color    | `BadgeColors`   | `false`     | `informative` | -                                          |
-| dot      | `boolean`       | `false`     | `false`       | Se `true`, o número interno será ocultado. |
-| distance | `BadgeDistance` | `false`     | `md`          | Distância entre o elemento com a Badge.    |
+| prop   | tipo            | obrigatório | padrão     | descrição                                  |
+| ------ | --------------- | ----------- | ---------- | ------------------------------------------ |
+| count  | `number`        | `false`     | -          | -                                          |
+| color  | `BadgeColors`   | `false`     | `negative` | -                                          |
+| dot    | `boolean`       | `false`     | `false`    | Se `true`, o número interno será ocultado. |
+| offset | `BadgeDistance` | `false`     | `md`       | Distância entre o elemento com a Badge.    |

@@ -7,7 +7,7 @@ export type BadgeDistance = 'xs' | 'sm' | 'md';
 export interface BadgeProps {
   count?: number;
   /**
-   * @default `informative`
+   * @default `negative`
    */
   color?: BadgeColors;
   /**
@@ -19,7 +19,7 @@ export interface BadgeProps {
    * Distance from element
    * @default `md`
    */
-  distance?: BadgeDistance;
+  offset?: BadgeDistance;
 }
 
 const MIN_WITH_DOT = 8;
@@ -29,12 +29,12 @@ const MAX_COUNT = 99;
 const Badge = ({
   count,
   className,
-  color = 'informative',
-  distance = 'md',
+  color = 'negative',
+  offset = 'md',
   dot = false,
   children,
   ...rest
-}: BadgeProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+}: BadgeProps & React.HTMLAttributes<HTMLSpanElement> & StyledProp) => {
   const hasCount = count !== undefined;
   const displayCount = hasCount && count > MAX_COUNT ? `${MAX_COUNT}+` : count;
   const hasChildren = children !== undefined;
@@ -45,7 +45,7 @@ const Badge = ({
       className={cx(
         className,
         `--hst-badge-color-${color}`,
-        `--hst-badge-distance-${distance}`,
+        `--hst-badge-offset-${offset}`,
         { '--hst-badge-has-not-children': !hasChildren },
         { '--hst-badge-dot': dot || !hasCount },
         { '--hst-badge-number': hasCount && !dot }
@@ -101,24 +101,22 @@ const BadgeWrapper = styled(Badge, { label: 'hst-badge' })`
         & > .hst-badge__count {
           min-width: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
           min-height: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
-          width: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
-          height: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
         }
       }
 
-      &.--hst-badge-distance-xs {
+      &.--hst-badge-offset-xs {
         & > .hst-badge__count {
           transform: translate(30%, -30%);
         }
       }
 
-      &.--hst-badge-distance-sm {
+      &.--hst-badge-offset-sm {
         & > .hst-badge__count {
           transform: translate(40%, -40%);
         }
       }
 
-      &.--hst-badge-distance-md {
+      &.--hst-badge-offset-md {
         & > .hst-badge__count {
           transform: translate(50%, -50%);
         }
@@ -147,7 +145,7 @@ const BadgeWrapper = styled(Badge, { label: 'hst-badge' })`
         color: ${theme.neutralColor.high.pure};
         font-weight: ${theme.font.weight.regular};
         border-radius: ${theme.border.radius.pill};
-        border: 1px solid ${theme.neutralColor.high.pure};
+        border: ${theme.border.width.xs} solid ${theme.neutralColor.high.pure};
       }
     `;
   }}
