@@ -100,6 +100,8 @@ const BadgeWrapper = styled(Badge, { label: 'hst-badge' })`
       &.--hst-badge-number {
         & > .hst-badge__count {
           min-width: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
+          min-height: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
+          width: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
           height: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
         }
       }
