@@ -278,7 +278,7 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
     return (
       <>
         <Button onClick={refresh}>Reload</Button>
-        <Table stripedRows loading={isLoading}>
+        <Table loading={isLoading} total={total}>
           <Table.Header sortField={params.sortField} sortDirection={params.sortDirection} onSort={handleSort}>
             <Table.Column width={50} sortableField='id'>
               #
@@ -300,7 +300,6 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
           <Table.Pagination
             page={params.page}
             perPage={params.perPage}
-            total={total}
             onChangePage={handleChangePage}
             onChangePerPage={handleChangePerPage}
           />
