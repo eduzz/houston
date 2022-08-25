@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { createContext, useContext } from 'use-context-selector';
+import { createContext } from 'use-context-selector';
 
 interface AccordionContextProps {
   expandedItems: number[];
   setTheExpandedItems: (index: number) => void;
-  cachedItems: number[];
   destroyOnClose: boolean;
+  mountOnEnter: boolean;
 }
 
 const AccordionContext = createContext<AccordionContextProps>({} as AccordionContextProps);
@@ -19,12 +19,12 @@ const AccordionProvider = ({
   children,
   expandedItems,
   setTheExpandedItems,
-  cachedItems,
-  destroyOnClose
+  destroyOnClose,
+  mountOnEnter
 }: AccordionProviderProps) => {
   const value = React.useMemo(
-    () => ({ expandedItems, setTheExpandedItems, cachedItems, destroyOnClose }),
-    [expandedItems, setTheExpandedItems, cachedItems, destroyOnClose]
+    () => ({ expandedItems, setTheExpandedItems, destroyOnClose, mountOnEnter }),
+    [expandedItems, setTheExpandedItems, destroyOnClose, mountOnEnter]
   );
   return <AccordionContext.Provider value={value}>{children}</AccordionContext.Provider>;
 };

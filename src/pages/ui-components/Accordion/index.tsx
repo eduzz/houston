@@ -11,6 +11,7 @@ import Title from './Item/Title';
 interface AccordionProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   children: React.ReactElement<ItemProps>[];
   destroyOnClose?: boolean;
+  mountOnEnter?: boolean;
   allowMultiple?: boolean;
   values?: number[];
   onChange?: (values: number[]) => void;
@@ -21,11 +22,11 @@ const Accordion = ({
   values,
   onChange,
   destroyOnClose = false,
+  mountOnEnter = false,
   allowMultiple = true,
   ...rest
 }: AccordionProps) => {
   const [expandedItems, setExpandedItems] = React.useState<number[]>(values ?? []);
-  const [cachedItems, setCachedItems] = React.useState<number[]>(values ?? []);
 
   const controlled = typeof values !== 'undefined';
 
@@ -41,25 +42,15 @@ const Accordion = ({
 
       onChange && onChange([...newExpandedItems]);
       setExpandedItems([...newExpandedItems]);
-
-      const newCachedItems = new Set(cachedItems);
-      newCachedItems.add(index);
-      !destroyOnClose && setCachedItems([...newCachedItems]);
     },
-    [expandedItems, cachedItems, onChange, allowMultiple, destroyOnClose]
+    [expandedItems, onChange, allowMultiple]
   );
 
   React.useEffect(() => {
     if (controlled) {
       setExpandedItems(values);
-
-      !destroyOnClose &&
-        setCachedItems(prev => {
-          const newCachedItems = new Set([...prev, ...values]);
-          return [...newCachedItems];
-        });
     }
-  }, [controlled, destroyOnClose, values]);
+  }, [controlled, values]);
 
   const mappedChildren = React.Children.map(children, (child, i: number) => {
     return React.cloneElement(child, {
@@ -71,8 +62,8 @@ const Accordion = ({
     <AccordionProvider
       setTheExpandedItems={setTheExpandedItems}
       expandedItems={expandedItems}
-      cachedItems={cachedItems}
       destroyOnClose={destroyOnClose}
+      mountOnEnter={mountOnEnter}
     >
       <div className='hst-accordion' {...rest}>
         {mappedChildren}

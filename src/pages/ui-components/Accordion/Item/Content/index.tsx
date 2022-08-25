@@ -14,25 +14,16 @@ export interface ContentProps extends StyledProp, React.HTMLAttributes<HTMLDivEl
 
 const AccordionContent = ({ children, ...rest }: ContentProps) => {
   const expandedItems = useContextSelector(AccordionContext, context => context.expandedItems);
-  const cachedItems = useContextSelector(AccordionContext, context => context.cachedItems);
   const destroyOnClose = useContextSelector(AccordionContext, context => context.destroyOnClose);
+  const mountOnEnter = useContextSelector(AccordionContext, context => context.mountOnEnter);
 
   const itemId = useContextSelector(ItemContext, context => context.itemId);
 
   const isExpanded = expandedItems.includes(itemId);
-  const isCached = cachedItems.includes(itemId);
-
-  if (destroyOnClose) {
-    return (
-      <Collapse timeout={350} visibled={isExpanded} destroyOnClose={destroyOnClose}>
-        <div {...rest}>{children}</div>
-      </Collapse>
-    );
-  }
 
   return (
-    <Collapse timeout={350} visibled={isExpanded}>
-      {isCached && <div {...rest}>{children}</div>}
+    <Collapse timeout={350} visibled={isExpanded} destroyOnClose={destroyOnClose} mountOnEnter={mountOnEnter}>
+      <div {...rest}>{children}</div>
     </Collapse>
   );
 };
