@@ -1,18 +1,23 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
 import Collapse from '../../../Collapse';
-import { useAccordion } from '../../context';
-import { useItemId } from '../context';
+import { AccordionContext } from '../../context';
+import { ItemContext } from '../context';
 
 export interface ContentProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
 const AccordionContent = ({ children, ...rest }: ContentProps) => {
-  const { expandedItems, cachedItems, destroyOnClose } = useAccordion();
-  const { itemId } = useItemId();
+  const expandedItems = useContextSelector(AccordionContext, context => context.expandedItems);
+  const cachedItems = useContextSelector(AccordionContext, context => context.cachedItems);
+  const destroyOnClose = useContextSelector(AccordionContext, context => context.destroyOnClose);
+
+  const itemId = useContextSelector(ItemContext, context => context.itemId);
 
   const isExpanded = expandedItems.includes(itemId);
   const isCached = cachedItems.includes(itemId);

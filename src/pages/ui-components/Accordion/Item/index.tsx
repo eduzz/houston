@@ -1,8 +1,10 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import styled, { cx, css } from '@eduzz/houston-styles';
 
-import { useAccordion } from '../context';
+import { AccordionContext } from '../context';
 import { ItemProvider } from './context';
 
 type ReceivedFromParentProps = {
@@ -14,7 +16,7 @@ export interface ItemProps extends React.HTMLAttributes<HTMLDivElement>, Receive
 }
 
 const AccordionItem = ({ children, className, disabled, index, ...rest }: ItemProps) => {
-  const { setTheExpandedItems } = useAccordion();
+  const setTheExpandedItems = useContextSelector(AccordionContext, context => context.setTheExpandedItems);
 
   const onClick = React.useCallback(() => {
     typeof index !== 'undefined' && setTheExpandedItems(index);

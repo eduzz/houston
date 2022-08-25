@@ -1,11 +1,13 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
 import Divider from '@eduzz/houston-ui/Divider';
 import Typography from '@eduzz/houston-ui/Typography';
 
-import { useAccordion } from '../../context';
-import { useItemId } from '../context';
+import { AccordionContext } from '../../context';
+import { ItemContext } from '../context';
 
 export interface TitleProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -22,8 +24,8 @@ const ChevronIcon = () => (
 );
 
 const AccordionTitle = ({ children, ...rest }: TitleProps) => {
-  const { expandedItems } = useAccordion();
-  const { itemId } = useItemId();
+  const expandedItems = useContextSelector(AccordionContext, context => context.expandedItems);
+  const itemId = useContextSelector(ItemContext, context => context.itemId);
 
   return (
     <>

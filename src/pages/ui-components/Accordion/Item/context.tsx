@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { createContext, useContextSelector } from 'use-context-selector';
+import { createContext } from 'use-context-selector';
 
 interface ItemContextProps {
   itemId: number;
 }
 
-const ItemContext = createContext<ItemContextProps | null>(null);
+const ItemContext = createContext<ItemContextProps>({} as ItemContextProps);
 
 type ItemProviderProps = ItemContextProps & {
   children: React.ReactNode;
@@ -17,12 +17,4 @@ const ItemProvider = ({ children, itemId }: ItemProviderProps) => {
   return <ItemContext.Provider value={value}>{children}</ItemContext.Provider>;
 };
 
-function useItemId() {
-  const ctx = useContextSelector(ItemContext, context => context);
-  if (!ctx) {
-    throw new Error('You must provide a `ItemProvider` in order to use `useItem`');
-  }
-  return ctx;
-}
-
-export { ItemContext, ItemProvider, useItemId };
+export { ItemContext, ItemProvider };

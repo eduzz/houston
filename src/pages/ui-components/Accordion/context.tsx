@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { createContext, useContextSelector } from 'use-context-selector';
+import { createContext, useContext } from 'use-context-selector';
 
 interface AccordionContextProps {
   expandedItems: number[];
@@ -9,7 +9,7 @@ interface AccordionContextProps {
   destroyOnClose: boolean;
 }
 
-const AccordionContext = createContext<AccordionContextProps | null>(null);
+const AccordionContext = createContext<AccordionContextProps>({} as AccordionContextProps);
 
 type AccordionProviderProps = AccordionContextProps & {
   children: React.ReactNode;
@@ -29,12 +29,4 @@ const AccordionProvider = ({
   return <AccordionContext.Provider value={value}>{children}</AccordionContext.Provider>;
 };
 
-function useAccordion() {
-  const ctx = useContextSelector(AccordionContext, context => context);
-  if (!ctx) {
-    throw new Error('You must provide a `AccordionProvider` in order to use `useAccordion`');
-  }
-  return ctx;
-}
-
-export { AccordionContext, AccordionProvider, useAccordion };
+export { AccordionContext, AccordionProvider };
