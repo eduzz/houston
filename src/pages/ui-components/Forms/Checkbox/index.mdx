@@ -28,7 +28,7 @@ import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
       setChecked(prev => !prev);
     }
     return (
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Checkbox checked={checked} onChange={onChange} label='Simples' />
         <Checkbox
           helperText='Exemplo de utilização do Checkbox com descrição'
@@ -36,14 +36,14 @@ import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
           onChange={onChange}
           label='Com descrição'
         />
-        <Checkbox error checked={checked} onChange={onChange} label='Com erro' />
+        <Checkbox error errorMessage='Mensagem de erro' checked={checked} onChange={onChange} label='Com erro' />
         <Checkbox disabled checked={checked} onChange={onChange} label='Desativado' />
       </div>
     );
   }}
 </Playground>
 
-### Multiplos valores
+### Múltiplos valores
 
 <Playground>
   {() => {
@@ -61,7 +61,33 @@ import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
   }}
 </Playground>
 
-### Exemplo com form
+### Form Único
+
+No caso do item único dentro do form, não informar o value, porque ele será apenas true ou false
+
+<Playground>
+  {() => {
+    const form = useForm({
+      defaultValues: {
+        value: true
+      },
+      validationSchema(yup) {
+        return yup.object().shape({
+          value: yup.bool().isTrue('Deve ser verdadeiro')
+        });
+      },
+      mode: 'onChange'
+    });
+    return (
+      <Form context={form} onSubmit={alert}>
+        <Checkbox name='value' label='Único' />
+        <p>Valor: {JSON.stringify(form.watch('value'))}</p>
+      </Form>
+    );
+  }}
+</Playground>
+
+### Form Grupo
 
 <Playground>
   {() => {
@@ -71,7 +97,7 @@ import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
       },
       validationSchema(yup) {
         return yup.object().shape({
-          value: yup.array().length(2, 'Você deve selecionar no máximo dois checkboxes')
+          value: yup.array().max(2, 'Você deve selecionar no máximo dois checkboxes')
         });
       },
       mode: 'onChange'
@@ -91,13 +117,17 @@ import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
 
 ### Checkbox props
 
-| prop       | tipo      | obrigatório | padrão | descrição               |
-| ---------- | --------- | ----------- | ------ | ----------------------- |
-| helperText | `string`  | `false`     | -      | -                       |
-| value      | `any`     | `false`     | -      | -                       |
-| disabled   | `boolean` | `false`     | -      | -                       |
-| label      | `string`  | `false`     | -      | -                       |
-| error      | `boolean` | `false`     | -      | Estado de erro do campo |
+| prop           | tipo      | obrigatório | padrão | descrição                                       |
+| -------------- | --------- | ----------- | ------ | ----------------------------------------------- |
+| helperText     | `string`  | `false`     | -      | -                                               |
+| value          | `any`     | `false`     | -      | -                                               |
+| disabled       | `boolean` | `false`     | -      | -                                               |
+| label          | `string`  | `false`     | -      | -                                               |
+| error          | `boolean` | `false`     | -      | Estado de erro do campo                         |
+| errorMessage   | `string`  | `false`     | -      | -                                               |
+| defaultChecked | `boolean` | `false`     | -      | Só é válido quando o componente é uncontrolled  |
+| checked        | `boolean` | `false`     | -      | Usar se deseja que o componente seja controlled |
+| name           | `string`  | `false`     | -      | Obrigatório se está usando junto a um form      |
 
 ### Checkbox.Group props
 
@@ -108,4 +138,4 @@ import Checkbox from '@eduzz/houston-ui/Forms/Checkbox';
 | value        | `any`                                 | `false`     | -      | Valor controle do grupo         |
 | onChange     | `function`                            | `false`     | -      | -                               |
 | children     | `React.ReactElement<CheckboxProps>[]` | `true`      | -      | -                               |
-| spacing      | `Spacing`                             | `false`     | xxxs   | Espaçamento entre os checkboxes |
+| spacing      | `Spacing`                             | `false`     | `xxxs` | Espaçamento entre os checkboxes |
