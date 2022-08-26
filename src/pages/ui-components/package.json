@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-ui",
   "description": "Eduzz Houston Components UI",
-  "version": "0.60.3",
+  "version": "0.61.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -19,10 +19,10 @@
     "check-update-deps": "yarn ncu -u"
   },
   "dependencies": {
-    "@eduzz/houston-forms": "0.60.3",
-    "@eduzz/houston-hooks": "0.60.3",
-    "@eduzz/houston-icons": "0.60.3",
-    "@eduzz/houston-styles": "0.60.3",
+    "@eduzz/houston-forms": "0.61.0",
+    "@eduzz/houston-hooks": "0.61.0",
+    "@eduzz/houston-icons": "0.61.0",
+    "@eduzz/houston-styles": "0.61.0",
     "@emotion/cache": "^11",
     "@emotion/css": "^11",
     "@emotion/react": "^11",
