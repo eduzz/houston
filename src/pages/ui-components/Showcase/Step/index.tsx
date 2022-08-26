@@ -1,38 +1,23 @@
 import * as React from 'react';
 
+import { useContextSelector } from 'use-context-selector';
+
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
-import { useShowcaseContext } from '../context';
+import { ShowcaseContext } from '../context';
 
-export interface StepProps {
-  maxWidth: number;
-}
-
-const Step = ({
-  children,
-  ...rest
-}: StepProps & React.HTMLAttributes<HTMLDivElement> & StyledProp & { stepSize: number }) => {
+const Step = ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   return <div {...rest}>{children}</div>;
 };
 
-const StyledStep = styled(Step, { label: 'hst-showcase-step' })`
-  ${({ stepSize }) => css`
-    width: ${stepSize}px;
-    float: left;
-    display: block;
-    height: 100%;
-    min-height: 1px;
-  `}
+export default styled(Step, { label: 'hst-showcase-step' })`
+  ${({ theme }) => {
+    const stepSize = useContextSelector(ShowcaseContext, context => context.stepSize);
+
+    return css`
+      width: ${theme.pxToRem(stepSize)}rem;
+      display: block;
+      min-height: 1px;
+    `;
+  }}
 `;
-
-const StepWrapper = ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement>) => {
-  const { maxWidth, stepSize } = useShowcaseContext();
-
-  return (
-    <StyledStep maxWidth={maxWidth} stepSize={stepSize} {...rest}>
-      {children}
-    </StyledStep>
-  );
-};
-
-export default StepWrapper;

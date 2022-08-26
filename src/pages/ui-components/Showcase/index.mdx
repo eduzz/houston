@@ -27,20 +27,23 @@ import Showcase from '@eduzz/houston-ui/Showcase';
 <Playground>
   {() => {
     const [step, setStep] = React.useState(1);
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const isFirstStep = step === 1;
     const isLastStep = step === 4;
     return (
       <Container>
         <Row justifyContent='space-around'>
           <Column xs={12} md={4}>
-            <Button onClick={() => setOpenSmall(true)} variant='outlined'>
-              Abrir Showcase Small
+            <Button onClick={() => setOpen(true)} variant='outlined'>
+              Abrir Showcase
             </Button>
             <Showcase open={open} currentStep={step} controlDots>
               <Showcase.Content>
                 <Showcase.Step>
-                  <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
+                  <Showcase.Image
+                    src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg'
+                    alt='Image 1'
+                  />
                   <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
                   <Showcase.Text>
                     Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
@@ -48,7 +51,10 @@ import Showcase from '@eduzz/houston-ui/Showcase';
                   </Showcase.Text>
                 </Showcase.Step>
                 <Showcase.Step>
-                  <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
+                  <Showcase.Image
+                    src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg'
+                    alt='Image 2'
+                  />
                   <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
                   <Showcase.Text>
                     Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
@@ -56,7 +62,10 @@ import Showcase from '@eduzz/houston-ui/Showcase';
                   </Showcase.Text>
                 </Showcase.Step>
                 <Showcase.Step>
-                  <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
+                  <Showcase.Image
+                    src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg'
+                    alt='Image 3'
+                  />
                   <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
                   <Showcase.Text>
                     Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
@@ -64,7 +73,10 @@ import Showcase from '@eduzz/houston-ui/Showcase';
                   </Showcase.Text>
                 </Showcase.Step>
                 <Showcase.Step>
-                  <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
+                  <Showcase.Image
+                    src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg'
+                    alt='Image 4'
+                  />
                   <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
                   <Showcase.Text>
                     Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
@@ -74,7 +86,12 @@ import Showcase from '@eduzz/houston-ui/Showcase';
               </Showcase.Content>
               <Showcase.Footer>
                 {isFirstStep ? (
-                  <Button onClick={() => setStep(step => step + 1)}>Próximo</Button>
+                  <>
+                    <Button onClick={() => setOpen(false)} variant='text'>
+                      Agora não
+                    </Button>
+                    <Button onClick={() => setStep(step => step + 1)}>Próximo</Button>
+                  </>
                 ) : isLastStep ? (
                   <>
                     <Button variant='text' onClick={() => setStep(step => step - 1)}>
@@ -103,8 +120,8 @@ import Showcase from '@eduzz/houston-ui/Showcase';
 
 | prop        | tipo      | obrigatório | padrão | descrição                                              |
 | ----------- | --------- | ----------- | ------ | ------------------------------------------------------ |
-| open        | `boolean` | `false`     | `true` | Controla o estado aberto/fechado do componente         |
-| currentStep | `number`  | `true`      | 1      | Indica em qual passo o componente será renderizado     |
+| open        | `boolean` | `true`      | -      | Controla o estado aberto/fechado do componente         |
+| currentStep | `number`  | `true`      | -      | Indica em qual passo o componente será renderizado     |
 | controlDots | `boolean` | `false`     | `true` | Se `true`, exibe o contador de passos totais e o atual |
 
 ### Showcase.Image
@@ -112,3 +129,4 @@ import Showcase from '@eduzz/houston-ui/Showcase';
 | prop | tipo     | obrigatório | padrão | descrição |
 | ---- | -------- | ----------- | ------ | --------- |
 | src  | `string` | `true`      | -      | -         |
+| alt  | `string` | `true`      | -      | -         |

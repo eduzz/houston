@@ -15,10 +15,8 @@ import Text from './Text';
 import Title from './Title';
 import useResize from './useResize';
 
-const MAX_WIDTH = 400;
-
-interface ShowcaseProps {
-  open?: boolean;
+export interface ShowcaseProps {
+  open: boolean;
   currentStep: number;
   widthSize: number;
   controlDots?: boolean;
@@ -34,39 +32,28 @@ const Showcase = ({
   children,
   className,
   widthSize,
-  controlDots
+  controlDots,
+  ...rest
 }: ShowcaseProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
-  const [modalState, setModalState] = React.useState(true);
+  if (!open) return null;
 
-  const [{ props }] = children as React.ReactElement[];
+  const [showcaseContent] = children as React.ReactElement[];
 
-  const { children: steps } = props;
-
-  React.useEffect(() => {
-    if (open === undefined) {
-      setModalState(true);
-      return;
-    }
-
-    setModalState(open);
-  }, [open]);
-
-  if (!modalState) return null;
+  const showcaseSteps: React.ReactElement[] = showcaseContent.props.children;
 
   return (
     <Portal target='houston-showcase'>
       <Overlay visible>
-        <ModalBase>
+        <ModalBase className={className} {...rest}>
           <ShowcaseContextProvider
             value={{
               currentStep,
-              maxWidth: MAX_WIDTH,
-              totalSteps: steps.length,
+              totalSteps: showcaseSteps.length,
               stepSize: widthSize < MIN_WINDOW_SIZE ? widthSize - OFFSET : MAX_SHOWCASE_WIDTH,
-              controlDots: controlDots || true
+              controlDots: controlDots === undefined ? true : controlDots
             }}
           >
-            <div className={className}>{children}</div>
+            {children}
           </ShowcaseContextProvider>
         </ModalBase>
       </Overlay>
@@ -77,9 +64,10 @@ const Showcase = ({
 const StyledShowcase = styled(Showcase, { label: 'houston-showcase' })`
   ${({ theme, widthSize }) => {
     return css`
-      width: ${widthSize - OFFSET}px;
-      max-width: ${theme.pxToRem(MAX_WIDTH)}rem;
-      overflow: hidden;
+      width: ${theme.pxToRem(widthSize - OFFSET)}rem;
+      max-width: ${theme.pxToRem(MAX_SHOWCASE_WIDTH)}rem;
+      max-height: 98%;
+      overflow-x: hidden;
       box-shadow: none;
     `;
   }}

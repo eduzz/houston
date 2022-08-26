@@ -3,7 +3,7 @@ import Heading from '@eduzz/houston-ui/Typography/Heading';
 
 const Title = ({ children, className }: React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   return (
-    <Heading size='sm' className={className} color='neutralColor.low.dark'>
+    <Heading size='sm' as='h6' className={className} color='neutralColor.low.dark'>
       {children}
     </Heading>
   );

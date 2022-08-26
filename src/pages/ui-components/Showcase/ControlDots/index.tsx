@@ -1,11 +1,16 @@
+import { useContextSelector } from 'use-context-selector';
+
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles/styled';
 
-import { useShowcaseContext } from '../context';
+import { ShowcaseContext } from '../context';
 
 const DOTS_DIMENSION_SIZE = 10;
+const DOTS_BORDER = 1;
 
 const ControlDots = ({ className }: StyledProp) => {
-  const { totalSteps, currentStep, controlDots } = useShowcaseContext();
+  const currentStep = useContextSelector(ShowcaseContext, context => context.currentStep);
+  const controlDots = useContextSelector(ShowcaseContext, context => context.controlDots);
+  const totalSteps = useContextSelector(ShowcaseContext, context => context.totalSteps);
 
   if (!controlDots) return null;
 
@@ -31,15 +36,14 @@ export default styled(ControlDots, { label: 'hst-control-dots' })`
       width: ${theme.pxToRem(DOTS_DIMENSION_SIZE)}rem;
       margin-right: ${theme.pxToRem(DOTS_DIMENSION_SIZE)}rem;
       background-color: ${theme.neutralColor.high.pure};
-      border: solid 1px #bbb;
-      border-radius: 50%;
+      border: solid ${theme.pxToRem(DOTS_BORDER)}rem ${theme.neutralColor.high.dark};
+      border-radius: ${theme.border.radius.circular};
       display: inline-block;
     }
 
     & .--hst-dots-active {
       background-color: ${theme.brandColor.primary.pure};
       border: none;
-      border-radius: 50%;
     }
   `}
 `;

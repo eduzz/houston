@@ -2,12 +2,17 @@ import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
 export interface ShowcaseImageProps {
   src: string;
+  alt: string;
 }
 
 const IMAGE_HEIGHT = 235;
 
-const Image = ({ src, className }: ShowcaseImageProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
-  return <div className={className} style={{ backgroundImage: `url('${src}')` }} />;
+const Image = ({ src, alt, ...rest }: ShowcaseImageProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+  return (
+    <div {...rest}>
+      <img src={src} alt={alt} />
+    </div>
+  );
 };
 
 export default styled(Image, { label: 'hst-showcase-image' })`
@@ -15,7 +20,12 @@ export default styled(Image, { label: 'hst-showcase-image' })`
     width: 100%;
     height: ${theme.pxToRem(IMAGE_HEIGHT)}rem;
     border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
-    background-size: cover;
-    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+      max-width: 100%;
+    }
   `}
 `;
