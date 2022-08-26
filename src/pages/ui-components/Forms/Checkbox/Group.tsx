@@ -31,8 +31,8 @@ const CheckboxGroup = ({ children, value: groupValue = [], onChange, className, 
     }
   }, [groupValue]);
 
-  const handleChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
+  const onInternalChange = React.useCallback(
+    (value: any, e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = groupValue.includes(value)
         ? groupValue.filter(itemValue => itemValue !== value)
         : [...groupValue, value];
@@ -43,7 +43,7 @@ const CheckboxGroup = ({ children, value: groupValue = [], onChange, className, 
 
   const mappedChildren = React.Children.map(children, (child: React.ReactElement<CheckboxRadioProps>) => {
     return React.cloneElement(child as React.ReactElement, {
-      onChange: handleChange,
+      onChange: onInternalChange,
       checked: Array.isArray(groupValue) && groupValue.includes(child.props.value),
       error: !!errorMessage
     });
