@@ -17,7 +17,7 @@ export interface UseFormParams<T> extends UseFormProps<T> {
    * @deprecated Utilizar defaultValues
    */
   initialValues?: DefaultValues<T>;
-  validationSchema?: yup.AnyObjectSchema | ((yup: Yup) => yup.AnyObjectSchema) | undefined;
+  validationSchema?: yup.SchemaOf<T> | ((yup: Yup) => yup.SchemaOf<T>) | undefined;
 }
 
 export type FormModel<Form> = Form extends UseFormReturn<infer M> ? M : Form;
@@ -34,7 +34,7 @@ export default function useForm<T>({ validationSchema, defaultValues, initialVal
 
   if (validationSchema) {
     Object.assign(hookParams, {
-      resolver: yupResolver(typeof validationSchema === 'function' ? validationSchema(yup) : validationSchema)
+      resolver: yupResolver(typeof validationSchema === 'function' ? validationSchema(yup) : (validationSchema as any))
     });
   }
 

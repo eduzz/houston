@@ -13,10 +13,11 @@ type OwnProperties = StyledProp &
     label?: React.ReactNode;
     helperText?: React.ReactNode;
     /**
-     * Value of checked. Ex. true, 1, 'value'
+     * Value when checked. Ex. true, 1, 'value'
+     * Only works if you use with Checkbox.Group
      */
     value?: any;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>, value?: any) => void;
+    onChange?: (value: any, e: React.ChangeEvent<HTMLInputElement>) => void;
     error?: boolean;
   };
 
@@ -24,17 +25,53 @@ export type CheckboxRadioProps = OwnProperties &
   Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof OwnProperties | 'type'>;
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxRadioProps>(
-  ({ value, label, error, helperText, disabled, checked, onChange, className, ...props }: CheckboxRadioProps, ref) => {
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-      onChange && onChange(e, value);
+  (
+    {
+      value,
+      label,
+      error,
+      helperText,
+      disabled,
+      checked: checkedProp,
+      onChange,
+      className,
+      errorMessage,
+      defaultChecked,
+      ...props
+    }: CheckboxRadioProps,
+    ref
+  ) => {
+    const [checkedState, setCheckedState] = React.useState(defaultChecked);
+    const isCheckedControlled = checkedProp !== undefined;
+    const isChecked = React.useMemo(() => {
+      if (isCheckedControlled) return checkedProp;
+      if (typeof value === 'undefined') return checkedState;
+      return !!value;
+    }, [checkedProp, checkedState, value, isCheckedControlled]);
+
+    function onInternalChange(e: React.ChangeEvent<HTMLInputElement>) {
+      if (isCheckedControlled) {
+        const isValueControlled = value !== undefined;
+        if (isValueControlled) {
+          onChange && onChange(typeof value === 'boolean' ? !value : value, e);
+          return;
+        }
+        onChange && onChange(!checkedProp, e);
+        return;
+      }
+      setCheckedState(state => !state);
+      onChange && onChange(!isChecked, e);
     }
+
+    const feedbackMessage = errorMessage ?? helperText;
+    const hasError = !!errorMessage || !!error;
 
     return (
       <label
         className={cx(className, {
           '--hst-empty': !label,
-          '--hst-checked': checked,
-          '--hst-error': !!error,
+          '--hst-checked': isChecked,
+          '--hst-error': hasError,
           '--hst-disabled': disabled
         })}
         htmlFor={props.id}
@@ -44,8 +81,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxRadioProps>(
           type='checkbox'
           className='hst-checkbox-input'
           value={value}
-          checked={checked}
-          onChange={handleChange}
+          checked={isChecked}
+          onChange={onInternalChange}
           {...props}
         />
 
@@ -56,7 +93,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxRadioProps>(
         {!!label && (
           <div className='hst-checkbox-label'>
             {typeof label === 'string' ? <Typography size='xs'>{label}</Typography> : label}
-            {!!helperText && <span className='hst-checkbox-helper-text'>{helperText}</span>}
+            {!!feedbackMessage && <span className='hst-checkbox-helper-text'>{feedbackMessage}</span>}
           </div>
         )}
       </label>
