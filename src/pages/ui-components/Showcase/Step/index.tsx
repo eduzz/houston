@@ -16,8 +16,7 @@ export default styled(Step, { label: 'hst-showcase-step' })`
 
     return css`
       width: ${theme.pxToRem(stepSize)}rem;
-      display: block;
-      min-height: 1px;
+      flex-shrink: 0;
     `;
   }}
 `;

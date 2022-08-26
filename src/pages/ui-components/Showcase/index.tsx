@@ -66,7 +66,7 @@ const StyledShowcase = styled(Showcase, { label: 'houston-showcase' })`
     return css`
       width: ${theme.pxToRem(widthSize - OFFSET)}rem;
       max-width: ${theme.pxToRem(MAX_SHOWCASE_WIDTH)}rem;
-      max-height: 98%;
+      max-height: 90%;
       overflow-x: hidden;
       box-shadow: none;
     `;
