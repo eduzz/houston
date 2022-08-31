@@ -1,8 +1,16 @@
-import * as React from 'react';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
+import Paragraph from '@eduzz/houston-ui/Typography/Paragraph';
 
-export interface ShowcaseTextProps {
-  content?: string;
-  children?: React.ReactNode;
-}
+const Text = ({ children, className }: React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+  return (
+    <Paragraph className={className} size='sm' color='neutralColor.low.medium'>
+      {children}
+    </Paragraph>
+  );
+};
 
-export default (() => null) as React.FC<ShowcaseTextProps>;
+export default styled(Text, { label: 'hst-showcase-text' })`
+  ${({ theme }) => css`
+    padding: ${theme.spacing.inset.sm};
+  `}
+`;

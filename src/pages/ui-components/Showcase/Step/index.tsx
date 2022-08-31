@@ -1,8 +1,22 @@
 import * as React from 'react';
 
-export interface ShowcaseStepProps {
-  id?: number;
-  children?: React.ReactNode;
-}
+import { useContextSelector } from 'use-context-selector';
 
-export default (() => null) as React.FC<ShowcaseStepProps>;
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
+
+import { ShowcaseContext } from '../context';
+
+const Step = ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+  return <div {...rest}>{children}</div>;
+};
+
+export default styled(Step, { label: 'hst-showcase-step' })`
+  ${({ theme }) => {
+    const stepSize = useContextSelector(ShowcaseContext, context => context.stepSize);
+
+    return css`
+      width: ${theme.pxToRem(stepSize)}rem;
+      flex-shrink: 0;
+    `;
+  }}
+`;

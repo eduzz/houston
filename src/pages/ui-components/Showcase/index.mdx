@@ -26,96 +26,88 @@ import Showcase from '@eduzz/houston-ui/Showcase';
 
 <Playground>
   {() => {
-    const [openSmall, setOpenSmall] = useState(false);
-    const [openLarge, setOpenLarge] = useState(false);
+    const [step, setStep] = React.useState(1);
+    const [open, setOpen] = React.useState(false);
+    const isFirstStep = step === 1;
+    const isLastStep = step === 4;
     return (
       <Container>
         <Row justifyContent='space-around'>
           <Column xs={12} md={4}>
-            <Button onClick={() => setOpenSmall(true)} variant='outlined'>
-              Abrir Showcase Small
+            <Button onClick={() => setOpen(true)} variant='outlined'>
+              Abrir Showcase
             </Button>
-            <Showcase
-              open={openSmall}
-              size='small'
-              onClose={currentStep => {
-                console.log(`Salvar no localstorage e enviar para o analytics o step ${currentStep}`);
-                setOpenSmall(false);
-              }}
-              onFinish={() => {
-                console.log('Enviar para o analytics que o usuário finalizou todos os steps');
-                setOpenSmall(false);
-              }}
-            >
-              <Showcase.Title>Envie vídeos!</Showcase.Title>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-              </Showcase.Step>
-            </Showcase>
-          </Column>
-          <Column xs={12} md={3}>
-            <Button onClick={() => setOpenLarge(true)} variant='contained'>
-              Abrir Showcase Large
-            </Button>
-            <Showcase
-              open={openLarge}
-              onFinish={() => {
-                console.log('Enviar para o analytics que o usuário finalizou todos os steps');
-                setOpenLarge(false);
-              }}
-              onNext={currentStep => console.log(`Salvar no localstorage o step ${currentStep}`)}
-              onPrevious={currentStep => console.log('Mostrar toast perguntando se o usuário precisa de ajuda.')}
-              onClose={currentStep => {
-                console.log(`Salvar no localstorage e enviar para o analytics o step ${currentStep}`);
-                setOpenLarge(false);
-              }}
-              stepCounter
-            >
-              <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-                <Showcase.StepButtons>
-                  <Showcase.PreviousButton label='Back' />
-                  <Showcase.NextButton label='Next' />
-                  <Showcase.CloseButton label='Close' />
-                </Showcase.StepButtons>
-              </Showcase.Step>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-                <Showcase.StepButtons hideCloseButton />
-              </Showcase.Step>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-              </Showcase.Step>
-              <Showcase.Step>
-                <Showcase.Image src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg' />
-                <Showcase.Text>
-                  Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum
-                  consectetur amet. Lorem ipsum consectetur amet.
-                </Showcase.Text>
-              </Showcase.Step>
-              <Showcase.GenericButtons>
-                <Showcase.PreviousButton label='Retroceder' />
-                <Showcase.NextButton label='Avançar' />
-                <Showcase.LastButton label='Você chegou!' />
-                <Showcase.CloseButton label='Ver depois' />
-              </Showcase.GenericButtons>
+            <Showcase open={open} currentStep={step} controlDots>
+              <Showcase.Content>
+                <Showcase.Step>
+                  <Showcase.Image
+                    src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg'
+                    alt='Image 1'
+                  />
+                  <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
+                  <Showcase.Text>
+                    Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
+                    ipsum consectetur amet. Lorem ipsum consectetur amet.
+                  </Showcase.Text>
+                </Showcase.Step>
+                <Showcase.Step>
+                  <Showcase.Image
+                    src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg'
+                    alt='Image 2'
+                  />
+                  <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
+                  <Showcase.Text>
+                    Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
+                    ipsum consectetur amet. Lorem ipsum consectetur amet.
+                  </Showcase.Text>
+                </Showcase.Step>
+                <Showcase.Step>
+                  <Showcase.Image
+                    src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg'
+                    alt='Image 3'
+                  />
+                  <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
+                  <Showcase.Text>
+                    Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
+                    ipsum consectetur amet. Lorem ipsum consectetur amet.
+                  </Showcase.Text>
+                </Showcase.Step>
+                <Showcase.Step>
+                  <Showcase.Image
+                    src='https://cdn.pixabay.com/photo/2021/05/22/17/06/hybrid-6274156_960_720.jpg'
+                    alt='Image 4'
+                  />
+                  <Showcase.Title>Nova forma de enviar os vídeos!</Showcase.Title>
+                  <Showcase.Text>
+                    Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem ipsum consectetur amet. Lorem
+                    ipsum consectetur amet. Lorem ipsum consectetur amet.
+                  </Showcase.Text>
+                </Showcase.Step>
+              </Showcase.Content>
+              <Showcase.Footer>
+                {isFirstStep ? (
+                  <>
+                    <Button onClick={() => setOpen(false)} variant='text'>
+                      Agora não
+                    </Button>
+                    <Button onClick={() => setStep(step => step + 1)}>Próximo</Button>
+                  </>
+                ) : isLastStep ? (
+                  <>
+                    <Button variant='text' onClick={() => setStep(step => step - 1)}>
+                      Anterior
+                    </Button>
+                    <Button onClick={() => setOpen(false)}>Entendi</Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant='text' onClick={() => setStep(step => step - 1)}>
+                      Anterior
+                    </Button>
+                    <Button onClick={() => setStep(step => step + 1)}>Próximo</Button>
+                  </>
+                )}
+              </Showcase.Footer>
             </Showcase>
           </Column>
         </Row>
@@ -126,17 +118,11 @@ import Showcase from '@eduzz/houston-ui/Showcase';
 
 ### Showcase
 
-| prop                 | tipo                       | obrigatório | padrão  | descrição                                              |
-| -------------------- | -------------------------- | ----------- | ------- | ------------------------------------------------------ |
-| open                 | `boolean`                  | `false`     | `true`  | Controla o estado aberto/fechado do componente         |
-| initialStep          | `number`                   | `false`     | 1       | Indica em qual passo o componente será renderizado     |
-| onNext               | `Function`                 | `false`     | -       | -                                                      |
-| onPrevious           | `Function`                 | `false`     | -       | -                                                      |
-| onFinish             | `Function`                 | `false`     | -       | -                                                      |
-| onClose              | `Function`                 | `false`     | -       | -                                                      |
-| stepCounter          | `boolean`                  | `false`     | `true`  | Se `true`, exibe o contador de passos totais e o atual |
-| disableBackdropClick | `boolean`                  | `false`     | `true`  | -                                                      |
-| size                 | `small`, `medium`, `large` | `false`     | `large` | Define a largura do componente                         |
+| prop        | tipo      | obrigatório | padrão | descrição                                              |
+| ----------- | --------- | ----------- | ------ | ------------------------------------------------------ |
+| open        | `boolean` | `true`      | -      | Controla o estado aberto/fechado do componente         |
+| currentStep | `number`  | `true`      | -      | Indica em qual passo o componente será renderizado     |
+| controlDots | `boolean` | `false`     | `true` | Se `true`, exibe o contador de passos totais e o atual |
 
 ### Showcase.Image
 
@@ -144,39 +130,3 @@ import Showcase from '@eduzz/houston-ui/Showcase';
 | ---- | -------- | ----------- | ------ | --------- |
 | src  | `string` | `true`      | -      | -         |
 | alt  | `string` | `true`      | -      | -         |
-
-### Showcase.StepButtons
-
-| prop            | tipo      | obrigatório | padrão  | descrição                                          |
-| --------------- | --------- | ----------- | ------- | -------------------------------------------------- |
-| hideCloseButton | `boolean` | `false`     | `false` | Se `true`, não exibe o botão fechar no passo atual |
-
-### Showcase.GenericButtons
-
-| prop            | tipo      | obrigatório | padrão  | descrição                                         |
-| --------------- | --------- | ----------- | ------- | ------------------------------------------------- |
-| hideCloseButton | `boolean` | `false`     | `false` | Se true, não exibe o botão fechar em nenhum passo |
-
-### Showcase.PreviousButton
-
-| prop  | tipo     | obrigatório | padrão     | descrição |
-| ----- | -------- | ----------- | ---------- | --------- |
-| label | `string` | `false`     | `Anterior` | -         |
-
-### Showcase.NextButton
-
-| prop  | tipo     | obrigatório | padrão    | descrição |
-| ----- | -------- | ----------- | --------- | --------- |
-| label | `string` | `false`     | `Próximo` | -         |
-
-### Showcase.LastButton
-
-| prop  | tipo     | obrigatório | padrão         | descrição |
-| ----- | -------- | ----------- | -------------- | --------- |
-| label | `string` | `false`     | `Ok, entendi!` | -         |
-
-### Showcase.CloseButton
-
-| prop  | tipo     | obrigatório | padrão   | descrição |
-| ----- | -------- | ----------- | -------- | --------- |
-| label | `string` | `false`     | `Fechar` | -         |
