@@ -19,6 +19,7 @@ export default function usePromise<T>(
   React.useEffect(() => {
     let isSubscribed = true;
     setLoading(true);
+    setError(undefined);
 
     promiseGenerator(() => isSubscribed)
       .then(result => {

@@ -9,8 +9,8 @@ export interface DialogShowParams {
   message: React.ReactNode;
   title?: string;
   confirmation?: boolean;
-  onConfirm?(): Promise<any>;
-  onCancel?(): Promise<any>;
+  onConfirm?(): any | Promise<any>;
+  onCancel?(): any | Promise<any>;
 }
 
 let lastPromise = Promise.resolve(false);
