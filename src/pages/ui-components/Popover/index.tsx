@@ -43,6 +43,7 @@ const Popover = React.forwardRef<PopoverRef, PopoverProps>(
           }
 
           setRender(true);
+
           closeRef.current = setState({
             opened: true,
             target: targetRef.current,
@@ -62,9 +63,7 @@ const Popover = React.forwardRef<PopoverRef, PopoverProps>(
 
     return (
       <div id={id} ref={contentRef} className={cx(className, 'popover')}>
-        <div className={cx('__container', `render: ${render}`, { [`--${variant}`]: !!variant })}>
-          {render && children}
-        </div>
+        <div className={cx('__container', { [`--${variant}`]: !!variant })}>{render && children}</div>
       </div>
     );
   }
@@ -96,8 +95,8 @@ export default styled(Popover, { label: 'houston-popover' })(
       overflow-y: auto;
       overflow-x: hidden;
       background-color: white;
-      box-shadow: ${theme.shadow.level[1]};
-      border-radius: ${theme.border.radius.xs};
+      box-shadow: ${theme.shadow.level[3]};
+      border-radius: ${theme.border.radius.sm};
       box-sizing: border-box;
       transform-origin: top center;
       animation-duration: 0.2s;
