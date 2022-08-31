@@ -57,29 +57,29 @@ const Dropdown = ({
   id: idProp,
   ...rest
 }: DropdownProps & StyledProp & React.HTMLAttributes<HTMLElement>) => {
-  const { openPopover, closePopover, popoverTargetProps, popoverProps, isPopoverOpened } = usePopover();
+  const { openPopover: open, closePopover: close, popoverTargetProps, popoverProps, isPopoverOpened } = usePopover();
   const [dropdownCreated, , createDropdown, deleteDropdown] = useBoolean();
 
   const [id] = React.useState(idProp ?? `hst-dropdown-${Math.floor(Math.random() * 1000)}`);
 
-  const onOpenPopover = React.useCallback(() => {
+  const onOpenDropdown = React.useCallback(() => {
     flushSync(() => {
       createDropdown();
     });
 
-    openPopover();
+    open();
     onOpen && onOpen();
-  }, [onOpen, openPopover, createDropdown]);
+  }, [onOpen, open, createDropdown]);
 
   const onCloseDropdown = React.useCallback(() => {
     onClose && onClose();
-    closePopover();
+    close();
     deleteDropdown();
-  }, [onClose, closePopover, deleteDropdown]);
+  }, [onClose, close, deleteDropdown]);
 
   const props: Partial<React.HTMLAttributes<HTMLDivElement>> & { ref: React.MutableRefObject<any> } = {
     tabIndex: 0,
-    onClick: onOpenPopover,
+    onClick: onOpenDropdown,
     ref: popoverTargetProps.ref,
     ...rest
   };
