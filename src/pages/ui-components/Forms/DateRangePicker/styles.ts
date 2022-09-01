@@ -72,7 +72,7 @@ export const styles = ({ theme }: { theme: HoustonThemeProps }) => css`
     border: none;
   }
 
-  &.--hst-datepicker-full-width {
+  &.--hst-date-range-picker-full-width {
     width: 100%;
   }
 
@@ -431,7 +431,7 @@ export const styles = ({ theme }: { theme: HoustonThemeProps }) => css`
       }
     }
 
-    &.--hst-datepicker-enable-seconds .rc-picker-time-panel .rc-picker-content {
+    &.--hst-date-range-picker-enable-seconds .rc-picker-time-panel .rc-picker-content {
       grid-template-columns: repeat(3, ${HOUR_WIDTH_BUTTON});
 
       &::before {

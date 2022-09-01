@@ -16,7 +16,8 @@ import Fieldset from '../_utils/Fieldset';
 import withForm, { WithFormProps } from '../Form/withForm';
 import { InputProps } from '../Input';
 import { styles } from './styles';
-import { DateFormat } from './types';
+
+export type DateFormat = 'dd/MM/yyyy' | 'MM/dd/yyyy' | 'yyyy-MM-dd' | 'dd-MM-yyyy' | string;
 
 const defaultFormats = {
   date: 'dd/MM/yyyy',
@@ -125,8 +126,8 @@ const DateRangePicker = ({
         value={value}
         defaultPickerValue={[new Date(), new Date()]}
         placeholder={placeholder}
-        className={cx(className, { '--hst-datepicker-full-width': fullWidth })}
-        dropdownClassName={cx(className, { '--hst-datepicker-enable-seconds': enableSeconds })}
+        className={cx(className, { '--hst-date-range-picker-full-width': fullWidth })}
+        dropdownClassName={cx(className, { '--hst-date-range-picker-enable-seconds': enableSeconds })}
         format={displayFormat ?? defaultFormats[`${mode}${enableSeconds ? 'Seconds' : ''}`]}
         onChange={onChange}
         disabled={disabled}
