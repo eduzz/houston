@@ -1,0 +1,68 @@
+---
+name: DateRangePicker
+---
+
+import { Playground } from 'dokz';
+
+import Column from '../../Grid/Column';
+import Container from '../../Grid/Container';
+import Row from '../../Grid/Row';
+import DateRangePicker from './';
+
+# Date Range Picker
+
+O componente é responsável por exibir campos parar selecionar um período de data nos formulários.
+
+### Importação
+
+```js
+import DateRangePicker from '@eduzz/houston-ui/Forms/DateRangePicker';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const [value, setValue] = React.useState(null);
+    return (
+      <Container>
+        <Row>
+          <Column sm={12} md={4}>
+            <DateRangePicker label='Período' value={value} onChange={value => setValue(value)} />
+          </Column>
+          <Column sm={12} md={4}>
+            <DateRangePicker
+              label='Período com data e hora'
+              mode='datetime'
+              value={value}
+              onChange={value => setValue(value)}
+            />
+          </Column>
+          <Column sm={12} md={4}>
+            <DateRangePicker label='Período de hora' mode='time' value={value} onChange={value => setValue(value)} />
+          </Column>
+        </Row>
+      </Container>
+    );
+  }}
+</Playground>
+
+| prop              | tipo                 | obrigatório | padrão  | descrição                                                                           |
+| ----------------- | -------------------- | ----------- | ------- | ----------------------------------------------------------------------------------- |
+| id                | `string`             | `false`     | -       | -                                                                                   |
+| name              | `string`             | `true`      | -       | -                                                                                   |
+| label             | `string`             | `false`     | -       | -                                                                                   |
+| className         | `string`             | `false`     | -       | -                                                                                   |
+| placeholder       | `string`             | `false`     | -       | -                                                                                   |
+| disabled          | `boolean`            | `false`     | `false` | -                                                                                   |
+| fullWidth         | `boolean`            | `false`     | `true`  | -                                                                                   |
+| loading           | `boolean`            | `false`     | -       | Exibe ícone de carregamento no componente de texto.                                 |
+| helperText        | `string`             | `false`     | -       | Exibe texto de ajuda abaixo do componente de texto.                                 |
+| errorMessage      | `string`             | `false`     | -       | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |
+| value             | `[date, date]`       | `false`     | -       | -                                                                                   |
+| onChange          | `function`           | `false`     | -       | Função disparada ao alterar os valores do input da data inicial e final.            |
+| mode              | `date/datetime/time` | `false`     | `date`  | -                                                                                   |
+| displayFormat     | `string`             | `false`     | -       | Formatos suportados pela biblioteca `date-fns`.                                     |
+| maxDate           | `Date`               | `false`     | -       | -                                                                                   |
+| minDate           | `Date`               | `false`     | -       | -                                                                                   |
+| renderExtraFooter | (mode) => React.Node | `false`     | -       | -                                                                                   |
