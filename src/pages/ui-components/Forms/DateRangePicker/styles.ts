@@ -165,19 +165,29 @@ export const styles = ({ theme }: { theme: HoustonThemeProps }) => css`
       }
     }
 
+    .rc-picker-cell-range-start > .rc-picker-cell-inner,
+    .rc-picker-cell-range-end > .rc-picker-cell-inner,
+    .rc-picker-cell-selected > .rc-picker-cell-inner,
+    .rc-picker-cell-range-hover-start,
+    .rc-picker-cell-range-hover-end {
+      background-color: ${theme.brandColor.primary.pure} !important;
+      color: ${theme.neutralColor.high.pure} !important;
+    }
+
+    .rc-picker-panel .rc-picker-body .rc-picker-cell .rc-picker-cell-inner:hover {
+      background-color: ${theme.brandColor.primary.pure} !important;
+      color: ${theme.neutralColor.high.pure} !important;
+    }
+
+    .rc-picker-cell-in-range,
+    .rc-picker-cell-range-hover {
+      background-color: ${theme.brandColor.primary.light};
+    }
+
     .rc-picker-cell-range-hover-start::after,
     .rc-picker-cell-range-hover-end::after,
     .rc-picker-cell-range-hover::after {
-      position: absolute;
-      top: 0.5px;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      border: 1px solid ${theme.brandColor.primary.dark};
-      border-right: 0;
-      border-left: 0;
-      content: '';
-      pointer-events: none;
+      border: none !important;
     }
 
     .rc-picker-panel .rc-picker-body .rc-picker-cell,
