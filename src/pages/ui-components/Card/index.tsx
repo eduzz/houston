@@ -52,7 +52,7 @@ const Card = ({
   );
 };
 
-export default styled(Card)`
+export default styled(Card, { label: 'hst-card' })`
   ${({ theme }) => {
     const modifiers: CSSInterpolation[] = [];
 
