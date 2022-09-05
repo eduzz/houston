@@ -164,7 +164,7 @@ Quando passado a prop `onClick` para o componente, ele ativa alguns comportament
       </Card>
     </Grid.Column>
     <Grid.Column>
-      <Card disabled onClick={() => alert('Houston Design System')}>
+      <Card disabled onClick={() => console.log('Houston Design System')}>
         <Box xs={{ margin: '0 0 1rem 0' }}>
           <img src='/houston/img/welcome.png' width='100%' />
         </Box>
@@ -175,12 +175,12 @@ Quando passado a prop `onClick` para o componente, ele ativa alguns comportament
           Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
         </Typography.Paragraph>
         <Box xs={{ margin: '1rem 0 0 0' }}>
-          <Button>Ver mais</Button>
+          <Button onClick={() => alert('Houston Button')}>Ver mais</Button>
         </Box>
       </Card>
     </Grid.Column>
     <Grid.Column>
-      <Card onClick={() => alert('Houston Design System')}>
+      <Card onClick={() => console.log('Houston Design System')}>
         <Box xs={{ margin: '0 0 1rem 0' }}>
           <img src='/houston/img/welcome.png' width='100%' />
         </Box>

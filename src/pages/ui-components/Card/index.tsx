@@ -3,20 +3,7 @@ import type { Spacing as HoustonSpacing } from '@eduzz/houston-tokens';
 
 type Spacing = Omit<HoustonSpacing, 'fn' | 'inline' | 'inset' | 'stack' | 'squish'>;
 
-export type CardSpacing =
-  | 'quarck'
-  | 'nano'
-  | 'xxxs'
-  | 'xxs'
-  | 'xs'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | 'xxl'
-  | 'xxxl'
-  | 'huge'
-  | 'giant';
+export type CardSpacing = keyof Spacing;
 
 export interface CardProps {
   children?: React.ReactNode;
@@ -30,7 +17,7 @@ export interface CardProps {
 const Card = ({
   children,
   spacing = 'xs',
-  disabled,
+  disabled = false,
   className,
   onClick,
   ...rest
@@ -39,6 +26,7 @@ const Card = ({
 
   return (
     <div
+      onClick={onClick}
       className={cx(
         className,
         `--hst-spacing-${spacing}`,
@@ -56,7 +44,7 @@ export default styled(Card, { label: 'hst-card' })`
   ${({ theme }) => {
     const modifiers: CSSInterpolation[] = [];
 
-    const availableSpacing: Record<keyof Spacing, string> = {
+    const availableSpacing: Record<CardSpacing, string> = {
       quarck: theme.spacing.quarck,
       nano: theme.spacing.nano,
       xxxs: theme.spacing.xxxs,
@@ -89,6 +77,7 @@ export default styled(Card, { label: 'hst-card' })`
 
       &.--hst-disabled {
         cursor: not-allowed;
+        pointer-events: none;
         opacity: ${theme.opacity.level[6]};
       }
 
