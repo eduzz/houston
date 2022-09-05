@@ -5,7 +5,7 @@
     "declaration": true,
     "declarationDir": "./src/pages",
     "module": "CommonJS",
-    "target": "ESNext",
+    "target": "ES5",
     "experimentalDecorators": true,
     "lib": ["es2020", "dom"],
     "sourceMap": false,
