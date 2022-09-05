@@ -1,0 +1,207 @@
+---
+name: Card
+---
+
+import { Playground } from 'dokz';
+
+import Box from '../Box';
+import Button from '../Button';
+import Grid from '../Grid';
+import Typography from '../Typography';
+import Card from './';
+
+# Card
+
+Cards são componentes da interface usados para agrupar informações relacionadas dentro de um container/bloco. Os cards funcionam como um contentor para algumas informações curtas e relacionadas. Os cards não possuem uma configuração de estilos para o conteúdo que é apresentado neles.
+
+### Importação
+
+```js
+import Card from '@eduzz/houston-ui/Card';
+```
+
+### Exemplo
+
+<Playground>
+  <Grid.Row>
+    <Grid.Column>
+      <Card>
+        <Box xs={{ margin: '0 0 1rem 0' }}>
+          <img src='/houston/img/welcome.png' width='100%' />
+        </Box>
+        <Typography.Heading as='h3' weight='bold' size='sm' marginBottom>
+          Houston
+        </Typography.Heading>
+        <Typography.Paragraph size='md'>
+          Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
+        </Typography.Paragraph>
+        <Box xs={{ margin: '1rem 0 0 0' }}>
+          <Button>Ver mais</Button>
+        </Box>
+      </Card>
+    </Grid.Column>
+    <Grid.Column>
+      <Card>
+        <Box xs={{ margin: '0 0 1rem 0' }}>
+          <img src='/houston/img/welcome.png' width='100%' />
+        </Box>
+        <Typography.Heading as='h3' weight='bold' size='sm' marginBottom>
+          Houston
+        </Typography.Heading>
+        <Typography.Paragraph size='md'>
+          Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
+        </Typography.Paragraph>
+        <Box xs={{ margin: '1rem 0 0 0' }}>
+          <Button>Ver mais</Button>
+        </Box>
+      </Card>
+    </Grid.Column>
+    <Grid.Column>
+      <Card>
+        <Box xs={{ margin: '0 0 1rem 0' }}>
+          <img src='/houston/img/welcome.png' width='100%' />
+        </Box>
+        <Typography.Heading as='h3' weight='bold' size='sm' marginBottom>
+          Houston
+        </Typography.Heading>
+        <Typography.Paragraph size='md'>
+          Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
+        </Typography.Paragraph>
+        <Box xs={{ margin: '1rem 0 0 0' }}>
+          <Button>Ver mais</Button>
+        </Box>
+      </Card>
+    </Grid.Column>
+  </Grid.Row>
+</Playground>
+
+### Espaçamento
+
+Você pode alterar o espaçamento interno conforme sua necessidade.
+
+<Playground>
+  {() => {
+    const spacing = ['xxxs', 'xxs', 'sm'];
+    return (
+      <>
+        {spacing.map((s, index) => (
+          <Grid.Row key={index}>
+            <Grid.Column>
+              <Card spacing={s}>
+                <Box xs={{ margin: '0 0 1rem 0' }}>
+                  <img src='/houston/img/welcome.png' width='100%' />
+                </Box>
+                <Typography.Heading as='h3' weight='bold' size='sm' marginBottom>
+                  Houston
+                </Typography.Heading>
+                <Typography.Paragraph size='md'>
+                  Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
+                </Typography.Paragraph>
+                <Box xs={{ margin: '1rem 0 0 0' }}>
+                  <Button>Ver mais</Button>
+                </Box>
+              </Card>
+            </Grid.Column>
+            <Grid.Column>
+              <Card spacing={s}>
+                <Box xs={{ margin: '0 0 1rem 0' }}>
+                  <img src='/houston/img/welcome.png' width='100%' />
+                </Box>
+                <Typography.Heading as='h3' weight='bold' size='sm' marginBottom>
+                  Houston
+                </Typography.Heading>
+                <Typography.Paragraph size='md'>
+                  Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
+                </Typography.Paragraph>
+                <Box xs={{ margin: '1rem 0 0 0' }}>
+                  <Button>Ver mais</Button>
+                </Box>
+              </Card>
+            </Grid.Column>
+            <Grid.Column>
+              <Card spacing={s}>
+                <Box xs={{ margin: '0 0 1rem 0' }}>
+                  <img src='/houston/img/welcome.png' width='100%' />
+                </Box>
+                <Typography.Heading as='h3' weight='bold' size='sm' marginBottom>
+                  Houston
+                </Typography.Heading>
+                <Typography.Paragraph size='md'>
+                  Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
+                </Typography.Paragraph>
+                <Box xs={{ margin: '1rem 0 0 0' }}>
+                  <Button>Ver mais</Button>
+                </Box>
+              </Card>
+            </Grid.Column>
+          </Grid.Row>
+        ))}
+      </>
+    );
+  }}
+</Playground>
+
+### Card clicável
+
+Quando passado a prop `onClick` para o componente, ele ativa alguns comportamentos no `hover`, `focus` e etc...
+
+<Playground>
+  <Grid.Row>
+    <Grid.Column>
+      <Card onClick={() => alert('Houston Design System')}>
+        <Box xs={{ margin: '0 0 1rem 0' }}>
+          <img src='/houston/img/welcome.png' width='100%' />
+        </Box>
+        <Typography.Heading as='h3' weight='bold' size='sm' marginBottom>
+          Houston
+        </Typography.Heading>
+        <Typography.Paragraph size='md'>
+          Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
+        </Typography.Paragraph>
+        <Box xs={{ margin: '1rem 0 0 0' }}>
+          <Button>Ver mais</Button>
+        </Box>
+      </Card>
+    </Grid.Column>
+    <Grid.Column>
+      <Card disabled onClick={() => alert('Houston Design System')}>
+        <Box xs={{ margin: '0 0 1rem 0' }}>
+          <img src='/houston/img/welcome.png' width='100%' />
+        </Box>
+        <Typography.Heading as='h3' weight='bold' size='sm' marginBottom>
+          Houston
+        </Typography.Heading>
+        <Typography.Paragraph size='md'>
+          Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
+        </Typography.Paragraph>
+        <Box xs={{ margin: '1rem 0 0 0' }}>
+          <Button>Ver mais</Button>
+        </Box>
+      </Card>
+    </Grid.Column>
+    <Grid.Column>
+      <Card onClick={() => alert('Houston Design System')}>
+        <Box xs={{ margin: '0 0 1rem 0' }}>
+          <img src='/houston/img/welcome.png' width='100%' />
+        </Box>
+        <Typography.Heading as='h3' weight='bold' size='sm' marginBottom>
+          Houston
+        </Typography.Heading>
+        <Typography.Paragraph size='md'>
+          Houston é uma grande metrópole situada no Texas que se estende até a Baía de Galveston.
+        </Typography.Paragraph>
+        <Box xs={{ margin: '1rem 0 0 0' }}>
+          <Button>Ver mais</Button>
+        </Box>
+      </Card>
+    </Grid.Column>
+  </Grid.Row>
+</Playground>
+
+### Props
+
+| prop     | tipo              | obrigatório | padrão | descrição                      |
+| -------- | ----------------- | ----------- | ------ | ------------------------------ |
+| children | `React.ReactNode` | `false`     | -      | -                              |
+| disabled | `boolean`         | `false`     | -      | -                              |
+| spacing  | `CardSpacing`     | `false`     | `xs`   | Padding interno do componente. |
