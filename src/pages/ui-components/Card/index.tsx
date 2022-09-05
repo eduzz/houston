@@ -3,20 +3,20 @@ import type { Spacing as HoustonSpacing } from '@eduzz/houston-tokens';
 
 type Spacing = Omit<HoustonSpacing, 'fn' | 'inline' | 'inset' | 'stack' | 'squish'>;
 
-export type CardSpacing = keyof Spacing;
+export type CardPadding = keyof Spacing;
 
 export interface CardProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   disabled?: boolean;
   /**
    * @default `xs`
    */
-  spacing?: CardSpacing;
+  padding?: CardPadding;
 }
 
 const Card = ({
   children,
-  spacing = 'xs',
+  padding = 'xs',
   disabled = false,
   className,
   onClick,
@@ -26,10 +26,10 @@ const Card = ({
 
   return (
     <div
-      onClick={onClick}
+      {...(clickable && { tabIndex: 0, role: 'button', onClick })}
       className={cx(
         className,
-        `--hst-spacing-${spacing}`,
+        `--hst-padding-${padding}`,
         { '--hst-clickable': !disabled && clickable },
         { '--hst-disabled': disabled }
       )}
@@ -44,7 +44,7 @@ export default styled(Card, { label: 'hst-card' })`
   ${({ theme }) => {
     const modifiers: CSSInterpolation[] = [];
 
-    const availableSpacing: Record<CardSpacing, string> = {
+    const availableSpacing: Record<CardPadding, string> = {
       quarck: theme.spacing.quarck,
       nano: theme.spacing.nano,
       xxxs: theme.spacing.xxxs,
@@ -62,7 +62,7 @@ export default styled(Card, { label: 'hst-card' })`
 
     Object.entries(availableSpacing).forEach(([key, value]) =>
       modifiers.push(css`
-        &.--hst-spacing-${key} {
+        &.--hst-padding-${key} {
           padding: ${value};
         }
       `)
@@ -87,6 +87,11 @@ export default styled(Card, { label: 'hst-card' })`
 
         &:hover {
           box-shadow: ${theme.shadow.level[2]};
+        }
+
+        &:active {
+          background-color: ${theme.neutralColor.high.light};
+          box-shadow: ${theme.shadow.level[1]};
         }
 
         &:focus {
