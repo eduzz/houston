@@ -25,7 +25,7 @@ interface DataState<T> extends PaginationResponse<T> {
 
 export type PaginationMergeParams<P> =
   | Partial<P & { _refresh?: number }>
-  | ((currenteParams: Partial<P & { _refresh?: number }>) => Partial<P & { _refresh?: number }>);
+  | ((currenteParams: Partial<P>) => Partial<P>);
 
 export interface UsePaginatedOptions<P, T> {
   initialParams?: P;
@@ -142,8 +142,14 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
 
   const refresh = React.useCallback(() => {
     setIsLoading(true);
-    mergeParams({ page: getConfig()?.pagination?.pageStart ?? 1, _refresh: Date.now() } as any);
-  }, [mergeParams]);
+
+    if (infintyScroll) {
+      mergeParams({ page: getConfig()?.pagination?.pageStart ?? 1, _refresh: Date.now() } as any);
+      return;
+    }
+
+    mergeParams({ _refresh: Date.now() } as any);
+  }, [infintyScroll, mergeParams]);
 
   const handleChangePage = React.useCallback((page: number) => mergeParams({ page } as P), [mergeParams]);
   const handleChangePerPage = React.useCallback((perPage: number) => mergeParams({ perPage } as P), [mergeParams]);
