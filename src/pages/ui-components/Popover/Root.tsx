@@ -49,7 +49,7 @@ const PopoverRoot = ({ children }: PopoverProps) => {
         {
           name: 'offset',
           options: {
-            offset: [0, 8]
+            offset: [0, 12]
           }
         }
       ]

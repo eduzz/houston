@@ -33,7 +33,6 @@
     "@popperjs/core": "^2.11.6",
     "date-fns": "^2",
     "lodash": "^4",
-    "rc-picker": "2.6.10",
     "react-colorful": "^5",
     "react-toastify": "^9",
     "tslib": "^2",
