@@ -50,13 +50,15 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
       const labelsWidth = labelsRef?.current?.clientWidth as number;
 
       labelsScrollWidth > labelsWidth ? setIsOverflowed(true) : setIsOverflowed(false);
+
+      handleScrollArrows();
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [handleScrollArrows]);
 
   const scrollBy = React.useCallback((position: 'right' | 'left', value: number) => {
     const goToRight = value;
@@ -254,6 +256,7 @@ const TabsWrapper = React.memo(
         transition-duration: 0.5s;
         transition-property: background-color, color;
         margin-bottom: ${NEGATIVE_SPACING_IN_PX}px;
+        cursor: pointer;
 
         :hover {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
