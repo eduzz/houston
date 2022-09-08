@@ -15,7 +15,7 @@ import Action from './Action';
 import Apps from './Apps';
 import Belt from './Belt';
 import TopbarContext, { TopbarContextType } from './context';
-import SupportChat from './SupportChat';
+import UnitySupportChat from './UnitySupportChat';
 import User from './User';
 import UserMenu from './UserMenu';
 import UserMenuDivider from './UserMenu/Divider';
@@ -221,7 +221,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
 
 export default nestedComponent(TopbarStyled, {
   Action,
-  SupportChat,
+  UnitySupportChat,
   UserMenu,
   UserMenuItem,
   UserMenuDivider,
