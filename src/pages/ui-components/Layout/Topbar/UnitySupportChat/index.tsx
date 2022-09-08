@@ -7,10 +7,11 @@ import { css, GlobalStyles } from '@eduzz/houston-styles';
 import TopbarContext from '../context';
 import chatInit from './chat';
 
-const TopbarSupportChat = () => {
+const TopbarUnitySupportChat = () => {
   const user = useContextSelector(TopbarContext, context => context.user);
 
   React.useEffect(() => {
+    if (!user?.isClubeBlack) return;
     const destroy = chatInit(user);
     return () => destroy();
   }, [user]);
@@ -33,4 +34,4 @@ const TopbarSupportChat = () => {
     />
   );
 };
-export default TopbarSupportChat;
+export default TopbarUnitySupportChat;
