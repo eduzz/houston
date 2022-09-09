@@ -151,7 +151,17 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
             </Select.Option>
           ))}
         </Select>
-        <div>{tabs[activeTab].props.children}</div>
+        {tabs?.map((tab, index) => (
+          <Collapse
+            key={index}
+            timeout={0}
+            visibled={activeTab === index}
+            destroyOnClose={destroyOnClose}
+            mountOnEnter={mountOnEnter}
+          >
+            <div>{tab.props.children}</div>
+          </Collapse>
+        ))}
       </>
     );
   }
