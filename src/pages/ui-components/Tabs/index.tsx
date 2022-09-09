@@ -34,8 +34,9 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
-  const [activeTab, setActiveTab] = React.useState(value ?? 0);
+  const [activeTab, setActiveTab] = React.useState(0);
   const controlled = typeof value !== 'undefined';
+  const activeTabValue = controlled ? value : activeTab;
 
   const [isOverflowed, setIsOverflowed] = React.useState(false);
 
@@ -48,12 +49,6 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
     parentRef?.current as HTMLDivElement
   );
   const isMobile = useMediaQuery(breakpoints.down('sm'));
-
-  React.useEffect(() => {
-    if (controlled) {
-      setActiveTab(value);
-    }
-  }, [controlled, value]);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -140,7 +135,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
             </StyledOption>
           )}
           onChange={handleSelectChange}
-          value={activeTab}
+          value={activeTabValue}
         >
           {childrenProps?.map(({ icon, label, disabled }, index) => (
             <Select.Option value={index} key={label} disabled={disabled} aria-disabled={disabled}>
@@ -155,7 +150,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
           <Collapse
             key={index}
             timeout={0}
-            visibled={activeTab === index}
+            visibled={activeTabValue === index}
             destroyOnClose={destroyOnClose}
             mountOnEnter={mountOnEnter}
           >
@@ -205,8 +200,8 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
           <span
             className='hst-tabs__slider'
             style={{
-              width: sizes[activeTab],
-              left: steps[activeTab]
+              width: sizes[activeTabValue],
+              left: steps[activeTabValue]
             }}
           />
         </div>
@@ -227,7 +222,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
         <Collapse
           key={index}
           timeout={0}
-          visibled={activeTab === index}
+          visibled={activeTabValue === index}
           destroyOnClose={destroyOnClose}
           mountOnEnter={mountOnEnter}
         >

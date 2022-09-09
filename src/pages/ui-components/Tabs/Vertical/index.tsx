@@ -23,12 +23,7 @@ const Tabs = ({ children, value, onChange, destroyOnClose, mountOnEnter, ...rest
 
   const [activeTab, setActiveTab] = React.useState(value ?? 0);
   const controlled = typeof value !== 'undefined';
-
-  React.useEffect(() => {
-    if (controlled) {
-      setActiveTab(value);
-    }
-  }, [controlled, value]);
+  const activeTabValue = controlled ? value : activeTab;
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
 
@@ -60,8 +55,8 @@ const Tabs = ({ children, value, onChange, destroyOnClose, mountOnEnter, ...rest
         <span
           className='hst-tabs-vertical__slider'
           style={{
-            height: sizes[activeTab],
-            top: steps[activeTab],
+            height: sizes[activeTabValue],
+            top: steps[activeTabValue],
             left: labelsRef.current?.getBoundingClientRect().width
           }}
         />
@@ -72,7 +67,7 @@ const Tabs = ({ children, value, onChange, destroyOnClose, mountOnEnter, ...rest
           <Collapse
             key={index}
             timeout={0}
-            visibled={activeTab === index}
+            visibled={activeTabValue === index}
             destroyOnClose={destroyOnClose}
             mountOnEnter={mountOnEnter}
           >
