@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import Collapse from '@eduzz/houston-ui/Collapse';
 
 import { useChildrenProps, useChildrenComponent } from '../../hooks/useChildrenProps';
 import Tab from '../Tab';
@@ -10,15 +11,19 @@ export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDiv
   children: React.ReactNode;
   value?: number;
   onChange?: (value: number) => void;
+  destroyOnClose?: boolean;
+  mountOnEnter?: boolean;
 }
 
-const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
+const Tabs = ({ children, value, onChange, destroyOnClose, mountOnEnter, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
   const { passRefsToArray, steps, sizes } = useTabSteps('vertical');
 
   const [activeTab, setActiveTab] = React.useState(value ?? 0);
+  const controlled = typeof value !== 'undefined';
+  const activeTabValue = controlled ? value : activeTab;
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
 
@@ -50,13 +55,26 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
         <span
           className='hst-tabs-vertical__slider'
           style={{
-            height: sizes[value ?? activeTab],
-            top: steps[value ?? activeTab],
+            height: sizes[activeTabValue],
+            top: steps[activeTabValue],
             left: labelsRef.current?.getBoundingClientRect().width
           }}
         />
       </div>
-      <div className='hst-tabs-vertical-content'>{tabs[value ?? activeTab].props.children}</div>
+
+      <div className='hst-tabs-vertical-content'>
+        {tabs?.map((tab, index) => (
+          <Collapse
+            key={index}
+            timeout={0}
+            visibled={activeTabValue === index}
+            destroyOnClose={destroyOnClose}
+            mountOnEnter={mountOnEnter}
+          >
+            {tab.props.children}
+          </Collapse>
+        ))}
+      </div>
     </div>
   );
 };

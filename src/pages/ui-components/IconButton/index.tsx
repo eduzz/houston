@@ -32,12 +32,12 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     <button
       role='button'
       disabled={disabled}
-      className={cx(className, `--${size ?? 'lg'}`, { '--active': active })}
+      className={cx(className, `--hst-${size ?? 'lg'}`, { '--hst-active': active })}
       aria-disabled={disabled}
       {...rest}
       ref={ref}
     >
-      <div className={cx('__icon', `--${size ?? 'lg'}`, { '--disabled': disabled })}>{children}</div>
+      <div className={cx('__hst-icon', `--hst-${size ?? 'lg'}`, { '--hst-disabled': disabled })}>{children}</div>
     </button>
   )
 );
@@ -62,15 +62,15 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
       transition: 0.3s;
     }
 
-    &.--lg,
-    &.--large {
+    &.--hst-lg,
+    &.--hst-large {
       width: ${theme.pxToRem(LG_SIZE)}rem;
       height: ${theme.pxToRem(LG_SIZE)}rem;
     }
 
-    &.--md,
-    &.--medium,
-    &.--small {
+    &.--hst-md,
+    &.--hst-medium,
+    &.--hst-small {
       width: ${theme.pxToRem(MD_SIZE)}rem;
       height: ${theme.pxToRem(MD_SIZE)}rem;
     }
@@ -79,17 +79,18 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
       cursor: default;
     }
 
-    .__icon {
+    .__hst-icon {
       display: flex;
       align-items: center;
       justify-content: center;
 
-      &.--disabled {
+      &.--hst-disabled {
         fill: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
+        color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
       }
 
-      &.--lg,
-      &.--large {
+      &.--hst-lg,
+      &.--hst-large {
         width: ${theme.pxToRem(LG_ICON_SIZE)}rem;
         height: ${theme.pxToRem(LG_ICON_SIZE)}rem;
 
@@ -99,9 +100,9 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
         }
       }
 
-      &.--md,
-      &.--medium,
-      &.--small {
+      &.--hst-md,
+      &.--hst-medium,
+      &.--hst-small {
         width: ${theme.pxToRem(MD_ICON_SIZE)}rem;
         height: ${theme.pxToRem(MD_ICON_SIZE)}rem;
 
@@ -118,7 +119,7 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
 
     &:hover:not(:disabled),
     &:focus,
-    &.--active {
+    &.--hst-active {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
     }
   `}
