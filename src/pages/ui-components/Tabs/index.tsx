@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles';
+import Collapse from '@eduzz/houston-ui/Collapse';
 import Select from '@eduzz/houston-ui/Forms/Select';
 
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
@@ -19,6 +20,8 @@ export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDiv
   value?: number;
   onChange?: (value: number) => void;
   selectOnMobile?: boolean;
+  destroyOnClose?: boolean;
+  mountOnEnter?: boolean;
 }
 
 const StyledOption = styled.div`
@@ -27,11 +30,13 @@ const StyledOption = styled.div`
   gap: ${({ theme }) => theme.spacing.inline.nano};
 `;
 
-const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps) => {
+const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mountOnEnter, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
   const [activeTab, setActiveTab] = React.useState(value ?? 0);
+  const controlled = typeof value !== 'undefined';
+
   const [isOverflowed, setIsOverflowed] = React.useState(false);
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
@@ -43,6 +48,12 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
     parentRef?.current as HTMLDivElement
   );
   const isMobile = useMediaQuery(breakpoints.down('sm'));
+
+  React.useEffect(() => {
+    if (controlled) {
+      setActiveTab(value);
+    }
+  }, [controlled, value]);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -129,7 +140,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
             </StyledOption>
           )}
           onChange={handleSelectChange}
-          value={value ?? activeTab}
+          value={activeTab}
         >
           {childrenProps?.map(({ icon, label, disabled }, index) => (
             <Select.Option value={index} key={label} disabled={disabled} aria-disabled={disabled}>
@@ -140,7 +151,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
             </Select.Option>
           ))}
         </Select>
-        <div>{tabs[value ?? activeTab].props.children}</div>
+        <div>{tabs[activeTab].props.children}</div>
       </>
     );
   }
@@ -184,8 +195,8 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
           <span
             className='hst-tabs__slider'
             style={{
-              width: sizes[value ?? activeTab],
-              left: steps[value ?? activeTab]
+              width: sizes[activeTab],
+              left: steps[activeTab]
             }}
           />
         </div>
@@ -201,7 +212,18 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
           </IconButton>
         )}
       </div>
-      <div>{tabs[value ?? activeTab].props.children}</div>
+
+      {tabs?.map((tab, index) => (
+        <Collapse
+          key={index}
+          timeout={0}
+          visibled={activeTab === index}
+          destroyOnClose={destroyOnClose}
+          mountOnEnter={mountOnEnter}
+        >
+          <div>{tab.props.children}</div>
+        </Collapse>
+      ))}
     </>
   );
 };
@@ -257,6 +279,10 @@ const TabsWrapper = React.memo(
         transition-property: background-color, color;
         margin-bottom: ${NEGATIVE_SPACING_IN_PX}px;
         cursor: pointer;
+
+        > svg {
+          pointer-events: none;
+        }
 
         :hover {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
