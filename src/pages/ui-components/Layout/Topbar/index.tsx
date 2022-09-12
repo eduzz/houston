@@ -24,6 +24,7 @@ import UserMenuGroup from './UserMenu/ItemGroup';
 
 export interface TopbarProps extends StyledProp {
   children?: React.ReactNode;
+  disableApps?: boolean;
   logo?: string;
   logoMobile?: string;
   currentApplication?: string;
@@ -41,7 +42,7 @@ export interface TopbarProps extends StyledProp {
 }
 
 const Topbar = React.memo<TopbarProps>(
-  ({ children, currentApplication, logo, logoMobile, className, blackMode, user }) => {
+  ({ children, currentApplication, logo, logoMobile, className, blackMode, user, disableApps }) => {
     const theme = useHoustonTheme();
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
@@ -76,7 +77,7 @@ const Topbar = React.memo<TopbarProps>(
                 onClick={sidebarToogleOpened}
               />
 
-              <Apps />
+              {!disableApps && <Apps />}
 
               <div className='houston-topbar__logo'>
                 <img
