@@ -6,7 +6,9 @@ import { ShowcaseContext } from '../context';
 
 const DOTS_DIMENSION_SIZE = 10;
 
-const ControlDots = ({ className }: StyledProp) => {
+type ControlDotsProps = StyledProp & React.HTMLAttributes<HTMLDivElement>;
+
+const ControlDots = (props: ControlDotsProps) => {
   const currentStep = useContextSelector(ShowcaseContext, context => context.currentStep);
   const controlDots = useContextSelector(ShowcaseContext, context => context.controlDots);
   const totalSteps = useContextSelector(ShowcaseContext, context => context.totalSteps);
@@ -16,7 +18,7 @@ const ControlDots = ({ className }: StyledProp) => {
   const dots = Array(totalSteps).fill(0);
 
   return (
-    <div className={className}>
+    <div {...props}>
       {dots.map((_, index) => {
         const activeDot = currentStep - 1 === index;
 

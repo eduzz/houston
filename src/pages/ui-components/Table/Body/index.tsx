@@ -9,10 +9,11 @@ import TableCell from '../Cell';
 import TableContext from '../context';
 
 export interface TableBodyProps {
+  id?: string;
   children: React.ReactNode;
 }
 
-const TableBody = ({ children }: TableBodyProps) => {
+const TableBody = ({ id, children }: TableBodyProps) => {
   const loading = useContextSelector(TableContext, context => context.loading);
   const loadingText = useContextSelector(TableContext, context => context.loadingText);
   const error = useContextSelector(TableContext, context => context.error);
@@ -33,7 +34,7 @@ const TableBody = ({ children }: TableBodyProps) => {
 
   if (loading) {
     return (
-      <tbody>
+      <tbody id={id}>
         <tr>
           <td align='center' colSpan={1000}>
             <LineLoader />
@@ -46,7 +47,7 @@ const TableBody = ({ children }: TableBodyProps) => {
 
   if (error) {
     return (
-      <tbody>
+      <tbody id={id}>
         <tr>
           <TableCell align='center' colSpan={1000}>
             <Typography marginBottom='xxxs' weight='regular' lineHeight='xl' className='__text'>
@@ -66,7 +67,7 @@ const TableBody = ({ children }: TableBodyProps) => {
 
   if (total === 0) {
     return (
-      <tbody>
+      <tbody id={id}>
         <tr>
           <TableCell align='center' colSpan={1000}>
             {emptyText}

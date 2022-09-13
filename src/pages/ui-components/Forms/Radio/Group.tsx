@@ -7,7 +7,8 @@ import withForm, { WithFormProps } from '../Form/withForm';
 import { RadioProps } from './Item';
 
 export type RadioGroupProps = StyledProp &
-  WithFormProps<never> & {
+  WithFormProps<never> &
+  React.HTMLAttributes<HTMLDivElement> & {
     children: React.ReactElement<RadioProps>[];
     name?: string;
     value?: any;
@@ -20,7 +21,7 @@ export type RadioGroupProps = StyledProp &
     spacing?: keyof Omit<Spacing, 'fn'>;
   };
 
-const RadioGroup = ({ children, value, onChange, className, errorMessage }: RadioGroupProps) => {
+const RadioGroup = ({ children, value, onChange, className, errorMessage, ...rest }: RadioGroupProps) => {
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, value: any) => {
       onChange && onChange(value, e);
@@ -37,7 +38,7 @@ const RadioGroup = ({ children, value, onChange, className, errorMessage }: Radi
   });
 
   return (
-    <div className={className}>
+    <div className={className} {...rest}>
       <div className='hst-radio-group-radios'>{mappedChildren}</div>
       <span className='hst-radio-group-error-message'>{errorMessage}</span>
     </div>

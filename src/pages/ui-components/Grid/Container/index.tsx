@@ -3,13 +3,15 @@ import * as React from 'react';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 export type ContainerLayout = 'fluid' | 'solid';
-export interface ContainerProps extends StyledProp {
-  children: React.ReactNode;
-  layout?: ContainerLayout;
-}
 
-const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({ className, children, layout }, ref) => (
-  <div ref={ref} className={cx(className, `--layout-${layout ?? 'solid'}`)}>
+export type ContainerProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    children: React.ReactNode;
+    layout?: ContainerLayout;
+  };
+
+const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({ className, children, layout, ...rest }, ref) => (
+  <div ref={ref} className={cx(className, `--layout-${layout ?? 'solid'}`)} {...rest}>
     {children}
   </div>
 ));

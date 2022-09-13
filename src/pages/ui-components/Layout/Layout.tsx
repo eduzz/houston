@@ -11,11 +11,12 @@ import LayoutContext, { LayoutContextType, TOPBAR_HEIGHT } from './context';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
-export interface LayoutProps extends StyledProp {
-  children?: React.ReactNode;
-}
+export type LayoutProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    children?: React.ReactNode;
+  };
 
-const Layout = ({ className, children }: LayoutProps) => {
+const Layout = ({ className, children, ...rest }: LayoutProps) => {
   const [hasTopbar, setHasTopbar] = React.useState(false);
   const [hasSidebar, setHasSidebar] = React.useState(false);
   const [hasUserMenu, setHasUserMenu] = React.useState(false);
@@ -90,7 +91,9 @@ const Layout = ({ className, children }: LayoutProps) => {
 
   return (
     <LayoutContext.Provider value={contextValue}>
-      <div className={cx(className, { '--hasTopbar': hasTopbar })}>{children}</div>
+      <div className={cx(className, { '--hasTopbar': hasTopbar })} {...rest}>
+        {children}
+      </div>
     </LayoutContext.Provider>
   );
 };
