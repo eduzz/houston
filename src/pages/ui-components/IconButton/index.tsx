@@ -25,10 +25,11 @@ export interface IconButtonProps
    * If button should be on active state
    */
   active?: boolean;
+  fill?: boolean;
 }
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ className, size, children, disabled = false, active, ...rest }, ref) => (
+  ({ className, size, children, disabled = false, fill, active, ...rest }, ref) => (
     <button
       role='button'
       disabled={disabled}
@@ -37,7 +38,11 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       {...rest}
       ref={ref}
     >
-      <div className={cx('__hst-icon', `--hst-${size ?? 'lg'}`, { '--hst-disabled': disabled })}>{children}</div>
+      <div
+        className={cx('__hst-icon', `--hst-${size ?? 'lg'}`, { '--hst-disabled': disabled }, { '--hst-fill': fill })}
+      >
+        {children}
+      </div>
     </button>
   )
 );
@@ -98,6 +103,11 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
           vertical-align: middle;
           font-size: ${theme.pxToRem(LG_ICON_SIZE)}rem;
         }
+
+        &.--hst-fill {
+          width: ${theme.pxToRem(LG_SIZE)}rem;
+          height: ${theme.pxToRem(LG_SIZE)}rem;
+        }
       }
 
       &.--hst-md,
@@ -109,6 +119,11 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
         > svg {
           vertical-align: middle;
           font-size: ${theme.pxToRem(MD_ICON_SIZE)}rem;
+        }
+
+        &.--hst-fill {
+          width: ${theme.pxToRem(MD_SIZE)}rem;
+          height: ${theme.pxToRem(MD_SIZE)}rem;
         }
       }
     }
