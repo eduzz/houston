@@ -8,18 +8,23 @@ import { cx } from '@eduzz/houston-styles';
 import Typography from '../../Typography';
 
 export interface ErrorMessageProps {
+  id?: string;
   name: string;
   className?: string;
 }
 
-const ErrorMessage = ({ name, className }: ErrorMessageProps) => {
+const ErrorMessage = ({ id, name, className }: ErrorMessageProps) => {
   const formState = useFormState({ name, exact: true });
 
   return (
     <ErrorMessageHook
       errors={formState.errors}
       name={name}
-      render={({ message }) => <Typography className={cx(className, 'hst-form-error-message')}>{message}</Typography>}
+      render={({ message }) => (
+        <Typography id={id} className={cx(className, 'hst-form-error-message')}>
+          {message}
+        </Typography>
+      )}
     />
   );
 };

@@ -1,5 +1,9 @@
-import Divider from '../../../../Divider';
+import Divider, { DividerProps } from '../../../../Divider';
 
-const UserMenuDivider = () => <Divider />;
+type UserMenuDividerProps = DividerProps;
+
+const UserMenuDivider = (props: UserMenuDividerProps) => {
+  return <Divider {...props} />;
+};
 
 export default UserMenuDivider;

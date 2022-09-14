@@ -99,6 +99,7 @@ const Typography = React.forwardRef<any, TypographyProps>(({ as: Tag = 'p', clas
     marginBottom = false,
     ...forwardProps
   } = props;
+
   const margin: TypographyMargin | null = marginBottom === true ? 'nano' : marginBottom === false ? null : marginBottom;
 
   return (

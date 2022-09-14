@@ -6,7 +6,7 @@ import useScrollBlock from '../hooks/useScrollBlock';
 
 export type OverlayColor = 'low' | 'high';
 
-export interface OverlayProps {
+export type OverlayProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: React.ReactNode;
   visible: boolean;
   /**
@@ -15,7 +15,7 @@ export interface OverlayProps {
   color?: OverlayColor;
   underTopbar?: boolean;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
-}
+};
 
 const Overlay = ({ className, visible, color = 'low', children, underTopbar, ...rest }: OverlayProps & StyledProp) => {
   const { disableScroll, enableScroll } = useScrollBlock();

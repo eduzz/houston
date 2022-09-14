@@ -7,11 +7,12 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 import Portal from '../../../Portal';
 import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_MENU_MIN_WIDTH_IN_PX } from '../../context';
 
-export interface UserMenuProps extends StyledProp {
-  children: React.ReactNode;
-}
+export type UserMenuProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    children: React.ReactNode;
+  };
 
-const UserMenu: React.FC<UserMenuProps> = ({ className, children }) => {
+const UserMenu = ({ className, children, ...rest }: UserMenuProps) => {
   const opened = useContextSelector(LayoutContext, context => context.userMenu.opened);
   const register = useContextSelector(LayoutContext, context => context.userMenu.register);
   const container = useContextSelector(LayoutContext, context => context.userMenu.container);
@@ -25,7 +26,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ className, children }) => {
 
   return (
     <Portal target={container}>
-      <div className={cx(className, opened && 'hst-topbar-user-menu-opened')}>{children}</div>
+      <div className={cx(className, opened && 'hst-topbar-user-menu-opened')} {...rest}>
+        {children}
+      </div>
     </Portal>
   );
 };

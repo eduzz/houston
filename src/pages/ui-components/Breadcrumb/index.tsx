@@ -7,15 +7,15 @@ import { BreadcrumbProvider } from './context';
 import Item from './Item';
 import Link from './Link';
 
-export interface BreadcrumbProps extends StyledProp {
+export interface BreadcrumbProps extends StyledProp, React.HTMLAttributes<HTMLElement> {
   separator?: React.ReactNode;
   children: React.ReactNode;
 }
 
-const Breadcrumb = ({ children, className, separator }: BreadcrumbProps) => {
+const Breadcrumb = ({ children, className, separator, ...rest }: BreadcrumbProps) => {
   return (
     <BreadcrumbProvider separator={separator}>
-      <nav aria-label='breadcrumb' className={className}>
+      <nav aria-label='breadcrumb' className={className} {...rest}>
         <ol className='hst-breadcrumb-list'>{children}</ol>
       </nav>
     </BreadcrumbProvider>

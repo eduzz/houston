@@ -22,8 +22,9 @@ import UserMenuDivider from './UserMenu/Divider';
 import UserMenuItem from './UserMenu/Item';
 import UserMenuGroup from './UserMenu/ItemGroup';
 
-export interface TopbarProps extends StyledProp {
+export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
+  disableApps?: boolean;
   logo?: string;
   logoMobile?: string;
   currentApplication?: string;
@@ -41,7 +42,7 @@ export interface TopbarProps extends StyledProp {
 }
 
 const Topbar = React.memo<TopbarProps>(
-  ({ children, currentApplication, logo, logoMobile, className, blackMode, user }) => {
+  ({ children, currentApplication, logo, logoMobile, className, blackMode, user, disableApps, ...rest }) => {
     const theme = useHoustonTheme();
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
@@ -67,7 +68,7 @@ const Topbar = React.memo<TopbarProps>(
 
     return (
       <TopbarContext.Provider value={contextValue}>
-        <div className={cx(className, { 'hst-topbar-black-mode': blackMode })}>
+        <div className={cx(className, { 'hst-topbar-black-mode': blackMode })} {...rest}>
           <header className='hst-topbar-header'>
             <div className='hst-topbar-start'>
               <Action
@@ -76,7 +77,7 @@ const Topbar = React.memo<TopbarProps>(
                 onClick={sidebarToogleOpened}
               />
 
-              <Apps />
+              {!disableApps && <Apps />}
 
               <div className='hst-topbar-logo'>
                 <img

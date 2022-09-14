@@ -9,12 +9,14 @@ const breakpoints = ['xs', 'sm', 'md', 'lg', 'xlg'] as const;
 type ColumnSize = typeof columnSizes[number];
 export type ColumnBreakPoints = typeof breakpoints[number];
 
-export interface ColumnProps extends StyledProp, Partial<Record<ColumnBreakPoints, ColumnSize>> {
-  children?: React.ReactNode;
-}
+export type ColumnProps = StyledProp &
+  Partial<Record<ColumnBreakPoints, ColumnSize>> &
+  React.HTMLAttributes<HTMLDivElement> & {
+    children?: React.ReactNode;
+  };
 
 const Column = React.forwardRef<HTMLDivElement, ColumnProps>(
-  ({ className, children, xs = 'fill', sm, md, lg, xlg }, ref) => {
+  ({ className, children, xs = 'fill', sm, md, lg, xlg, ...rest }, ref) => {
     return (
       <div
         ref={ref}
@@ -27,6 +29,7 @@ const Column = React.forwardRef<HTMLDivElement, ColumnProps>(
           lg && `hst-grid-column-lg-${lg}`,
           xlg && `hst-grid-column-xlg-${xlg}`
         )}
+        {...rest}
       >
         {children}
       </div>

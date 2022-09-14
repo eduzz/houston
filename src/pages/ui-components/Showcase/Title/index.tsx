@@ -1,21 +1,22 @@
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
-import Heading from '@eduzz/houston-ui/Typography/Heading';
+import Heading, { HeadingProps } from '@eduzz/houston-ui/Typography/Heading';
 
-export interface ShowcaseTitleProps {
+export interface ShowcaseTitleProps extends Omit<HeadingProps, 'size' | 'as' | 'color'> {
   disableTypography?: boolean;
 }
 
 const Title = ({
   children,
   className,
-  disableTypography
-}: ShowcaseTitleProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
+  disableTypography,
+  ...rest
+}: ShowcaseTitleProps & Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> & StyledProp) => {
   if (disableTypography) {
     return <>{children}</>;
   }
 
   return (
-    <Heading size='sm' as='h6' className={className} color='neutralColor.low.dark'>
+    <Heading size='sm' as='h6' className={className} color='neutralColor.low.dark' {...rest}>
       {children}
     </Heading>
   );

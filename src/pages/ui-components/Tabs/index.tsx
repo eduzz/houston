@@ -131,6 +131,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
     return (
       <>
         <Select
+          id={rest.id}
           renderValue={value => (
             <StyledOption>
               {tabs[value].props.icon}
@@ -151,6 +152,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
         </Select>
         {tabs?.map((tab, index) => (
           <Collapse
+            id={tab.props.id}
             key={index}
             timeout={0}
             visibled={activeTabValue === index}
@@ -223,6 +225,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
 
       {tabs?.map((tab, index) => (
         <Collapse
+          id={tab.props.id}
           key={index}
           timeout={0}
           visibled={activeTabValue === index}

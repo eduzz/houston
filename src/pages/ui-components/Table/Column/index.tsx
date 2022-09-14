@@ -14,6 +14,7 @@ export interface TableColumnProps extends StyledProp, React.ThHTMLAttributes<HTM
   children?: React.ReactNode;
   sortableField?: string;
 }
+
 const TableColumn = ({ sortableField, children, className, ...rest }: TableColumnProps) => {
   const onSort = useContextSelector(TableHeaderContext, context => context.onSort);
   const sortField = useContextSelector(TableHeaderContext, context => context.sortField);

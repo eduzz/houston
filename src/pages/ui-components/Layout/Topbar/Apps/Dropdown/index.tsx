@@ -13,15 +13,16 @@ import Spinner from '../../../../Loaders/Spinner';
 import Typography from '../../../../Typography';
 import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT } from '../../../context';
 
-export interface AppsDropdownProps extends StyledProp {
-  currentApplication: string | undefined;
-  applications: TopbarApplication[] | undefined;
-  opened: boolean;
-  onClose: () => void;
-}
+export type AppsDropdownProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    currentApplication: string | undefined;
+    applications: TopbarApplication[] | undefined;
+    opened: boolean;
+    onClose: () => void;
+  };
 
 const AppsDropdown = React.memo<AppsDropdownProps>(
-  ({ currentApplication, applications, className, opened, onClose }) => {
+  ({ currentApplication, applications, className, opened, onClose, ...rest }) => {
     const [expanded, toggleExpanded, , closeExpanded] = useBoolean();
 
     React.useEffect(() => {
@@ -44,6 +45,7 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
           'hst-topbar-apps-dropdown-opened': opened,
           'hst-topbar-apps-dropdown-expanded': expanded
         })}
+        {...rest}
       >
         <div className='hst-topbar-apps-dropdown-header'>
           <Typography weight='bold'>Lista de Apps</Typography>
@@ -59,6 +61,7 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
               <Spinner size={40} />
             </div>
           )}
+
           {applications?.map(app => {
             const isCurrent = app.application === currentApplication;
 
@@ -148,11 +151,11 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
     .hst-topbar-apps-dropdown-list-apps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-gap: ${theme.spacing.nano};
+      grid-gap: ${theme.spacing.stack.nano} ${theme.spacing.inline.nano};
       flex-wrap: wrap;
       justify-items: center;
       box-sizing: border-box;
-      padding: ${theme.spacing.xxxs};
+      padding: ${theme.spacing.inset.xs};
 
       .hst-topbar-apps-dropdown-loader {
         display: flex;
@@ -218,7 +221,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding: 0 ${theme.spacing.nano} 0 ${theme.spacing.xxxs};
+        padding: ${theme.spacing.nano} ${theme.spacing.inset.md};
         border-bottom: ${theme.border.width.xs} solid
           ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
       }
@@ -266,7 +269,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
         }
 
         ${theme.breakpoints.up('md')} {
-          padding: ${theme.spacing.xxs};
+          padding: ${theme.spacing.inset.md};
           grid-template-columns: repeat(2, 1fr);
           grid-gap: ${theme.spacing.xxs};
 
