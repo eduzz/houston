@@ -2,14 +2,15 @@ import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
 import Typography from '../../../../Typography';
 
-export interface UserMenuGroupProps extends StyledProp {
-  label: string;
-  children: React.ReactNode;
-}
+export type UserMenuGroupProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    label: string;
+    children: React.ReactNode;
+  };
 
-const UserMenuGroup: React.FC<UserMenuGroupProps> = ({ label, className, children }) => {
+const UserMenuGroup = ({ label, className, children, ...rest }: UserMenuGroupProps) => {
   return (
-    <div className={className}>
+    <div className={className} {...rest}>
       <Typography size='xxs' weight='semibold' className='houston-topbar-user-menu-group__label'>
         {label}
       </Typography>

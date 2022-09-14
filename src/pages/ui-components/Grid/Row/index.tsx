@@ -10,18 +10,22 @@ export type AlignItemsRow = typeof alignItems[number];
 export type JustifyContentRow = typeof justifyContent[number];
 export type Spacing = typeof spacing[number];
 
-export interface RowProps extends StyledProp {
-  children: React.ReactNode;
-  /**
-   * Defaults to 'xxxs'
-   */
-  spacing?: Spacing;
-  alignItems?: AlignItemsRow;
-  justifyContent?: JustifyContentRow;
-}
+export type RowProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    children: React.ReactNode;
+    /**
+     * Defaults to 'xxxs'
+     */
+    spacing?: Spacing;
+    alignItems?: AlignItemsRow;
+    justifyContent?: JustifyContentRow;
+  };
 
 const Row = React.forwardRef<HTMLDivElement, RowProps>(
-  ({ className, children, spacing = 'xxxs', justifyContent = 'flex-start', alignItems = 'flex-start' }, ref) => {
+  (
+    { className, children, spacing = 'xxxs', justifyContent = 'flex-start', alignItems = 'flex-start', ...rest },
+    ref
+  ) => {
     return (
       <div
         ref={ref}
@@ -31,6 +35,7 @@ const Row = React.forwardRef<HTMLDivElement, RowProps>(
           `--justify-content-${justifyContent}`,
           `--align-items-${alignItems}`
         )}
+        {...rest}
       >
         {children}
       </div>

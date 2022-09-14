@@ -19,6 +19,7 @@ type BreadcrumbLinkProps = {
    * Redirect path.
    */
   href?: string;
+  id?: string;
   icon?: React.ReactNode;
   children?: React.ReactNode;
 };

@@ -4,6 +4,7 @@ import IconArrowUp from '@eduzz/houston-icons/ArrowUp';
 import { cx } from '@eduzz/houston-styles';
 
 interface SortLabelProps {
+  id?: string;
   sortable?: boolean;
   active?: boolean;
   disabled?: boolean;
@@ -12,13 +13,14 @@ interface SortLabelProps {
   children?: React.ReactNode;
 }
 
-const SortLabel: React.FC<SortLabelProps> = ({ children, sortable, active, direction, disabled, onClick }) => {
+const SortLabel = ({ id, children, sortable, active, direction, disabled, onClick }: SortLabelProps) => {
   if (!sortable) {
     return <>{children}</>;
   }
 
   return (
     <div
+      id={id}
       className={cx('hts-table__column-sort', { '--hts-sort-rev': direction === 'desc' })}
       onClick={disabled ? undefined : onClick}
     >

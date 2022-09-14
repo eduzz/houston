@@ -13,15 +13,16 @@ import Spinner from '../../../../Loaders/Spinner';
 import Typography from '../../../../Typography';
 import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT } from '../../../context';
 
-export interface AppsDropdownProps extends StyledProp {
-  currentApplication: string | undefined;
-  applications: TopbarApplication[] | undefined;
-  opened: boolean;
-  onClose: () => void;
-}
+export type AppsDropdownProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    currentApplication: string | undefined;
+    applications: TopbarApplication[] | undefined;
+    opened: boolean;
+    onClose: () => void;
+  };
 
 const AppsDropdown = React.memo<AppsDropdownProps>(
-  ({ currentApplication, applications, className, opened, onClose }) => {
+  ({ currentApplication, applications, className, opened, onClose, ...rest }) => {
     const [expanded, toggleExpanded, , closeExpanded] = useBoolean();
 
     React.useEffect(() => {
@@ -39,7 +40,7 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
     }, [opened]);
 
     return (
-      <div className={cx(className, { '--opened': opened, '--expanded': expanded })}>
+      <div className={cx(className, { '--opened': opened, '--expanded': expanded })} {...rest}>
         <div className='houston-topbar-apps-dropdown__header'>
           <Typography weight='bold'>Menu de Apps</Typography>
 

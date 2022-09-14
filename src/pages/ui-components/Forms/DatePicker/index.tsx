@@ -2,6 +2,7 @@ import 'rc-picker/assets/index.css';
 
 import * as React from 'react';
 
+import isValid from 'date-fns/isValid';
 import Picker from 'rc-picker';
 import generateConfig from 'rc-picker/lib/generate/dateFns';
 import locale from 'rc-picker/lib/locale/pt_BR';
@@ -80,6 +81,26 @@ const DatePicker = ({
   fullWidth = true,
   ...inputProps
 }: DatePickerProps) => {
+  const disableDate = React.useCallback(
+    (date: Date | null) => {
+      if (!date) return true;
+      if (minDate) return date < minDate;
+      if (maxDate) return date > maxDate;
+      return false;
+    },
+    [maxDate, minDate]
+  );
+
+  const internalInputOnBlur = React.useCallback(
+    (value: string) => {
+      const [day, month, year] = value.split('/');
+      const date = new Date(+year, +month - 1, +day);
+      if (disableDate(date) || !isValid(date)) return;
+      onChange && onChange(date);
+    },
+    [disableDate, onChange]
+  );
+
   const inputRender = React.useCallback(
     (props: React.InputHTMLAttributes<HTMLInputElement>) => {
       return (
@@ -88,33 +109,16 @@ const DatePicker = ({
           {...props}
           id={id}
           size='default'
+          onBlur={internalInputOnBlur}
           fullWidth={fullWidth}
           disabled={disabled}
           nativeChangeEvent
-          readOnly
           name={undefined}
           endAdornment={<Calendar />}
         />
       );
     },
-    [id, disabled, inputProps, fullWidth]
-  );
-
-  const disableDate = React.useCallback(
-    (date: Date | undefined) => {
-      if (!date) return true;
-
-      if (minDate) {
-        return date < minDate;
-      }
-
-      if (maxDate) {
-        return date > maxDate;
-      }
-
-      return false;
-    },
-    [maxDate, minDate]
+    [id, disabled, inputProps, fullWidth, internalInputOnBlur]
   );
 
   return (

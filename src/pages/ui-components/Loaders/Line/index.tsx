@@ -2,19 +2,20 @@ import { useMemo } from 'react';
 
 import styled, { css, cx, keyframes, StyledProp } from '@eduzz/houston-styles';
 
-export interface LineLoaderProps extends StyledProp {
-  mode?: 'determinate' | 'indeterminate';
-  /**
-   * 0 to 1. Ex: 0.2 = 20%
-   */
-  value?: number;
-}
+export type LineLoaderProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    mode?: 'determinate' | 'indeterminate';
+    /**
+     * 0 to 1. Ex: 0.2 = 20%
+     */
+    value?: number;
+  };
 
-const LineLoader = ({ className, mode = 'indeterminate', value }: LineLoaderProps) => {
+const LineLoader = ({ className, mode = 'indeterminate', value, ...rest }: LineLoaderProps) => {
   const style = useMemo(() => (mode === 'determinate' ? { width: `${(value ?? 0) * 100}%` } : {}), [value, mode]);
 
   return (
-    <div className={cx(className, `--hts-line-loader-mode-${mode}`)}>
+    <div className={cx(className, `--hts-line-loader-mode-${mode}`)} {...rest}>
       <div style={style} />
     </div>
   );

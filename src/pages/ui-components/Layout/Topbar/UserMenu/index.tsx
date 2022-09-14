@@ -7,11 +7,12 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 import Portal from '../../../Portal';
 import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_MENU_MIN_WIDTH_IN_PX } from '../../context';
 
-export interface UserMenuProps extends StyledProp {
-  children: React.ReactNode;
-}
+export type UserMenuProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    children: React.ReactNode;
+  };
 
-const UserMenu: React.FC<UserMenuProps> = ({ className, children }) => {
+const UserMenu = ({ className, children, ...rest }: UserMenuProps) => {
   const opened = useContextSelector(LayoutContext, context => context.userMenu.opened);
   const register = useContextSelector(LayoutContext, context => context.userMenu.register);
   const container = useContextSelector(LayoutContext, context => context.userMenu.container);
@@ -25,7 +26,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ className, children }) => {
 
   return (
     <Portal target={container}>
-      <div className={cx(className, opened && '--opened')}>{children}</div>
+      <div className={cx(className, opened && '--opened')} {...rest}>
+        {children}
+      </div>
     </Portal>
   );
 };
@@ -36,6 +39,9 @@ export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
     flex-direction: column;
     width: fit-content;
     min-width: ${TOPBAR_MENU_MIN_WIDTH_IN_PX}px;
+    max-height: calc(95vh - ${TOPBAR_HEIGHT}px);
+    overflow-y: auto;
+    overflow-x: hidden;
     position: fixed;
     top: ${TOPBAR_HEIGHT}px;
     right: ${theme.spacing.inline.nano};
@@ -50,6 +56,20 @@ export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
     user-select: none;
     background: white;
     border-radius: ${theme.border.radius.sm};
+
+    &::-webkit-scrollbar {
+      width: 3px;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 4px;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background: ${theme.neutralColor.high.medium};
+    }
 
     &.--opened {
       visibility: visible;
