@@ -6,9 +6,9 @@ import { Playground } from 'dokz';
 
 import Accordion from './';
 
-# Accordions
+# Accordion
 
-O Accordions é um elemento se expande no local para expor informações ocultas.
+O Accordion é um elemento se expande no local para expor informações ocultas.
 
 ### Importação
 
@@ -41,7 +41,7 @@ import Accordion from '@eduzz/houston-ui/Accordion';
   </Accordion>
 </Playground>
 
-### Valor controlado, allowMultiple = false e disabled
+### Valor controlado
 
 <Playground>
   {() => {
@@ -73,14 +73,14 @@ import Accordion from '@eduzz/houston-ui/Accordion';
 
 ### Accordion props
 
-| prop           | tipo                          | obrigatório | padrão  | descrição                                                                                               |
-| -------------- | ----------------------------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------- |
-| children       | `React.ReactNode`             | `true`      | -       | -                                                                                                       |
-| values         | `number[]`                    | `false`     | -       | Índices dos items que serão expandidos                                                                  |
-| onChange       | `(values: number[]) => void;` | `false`     | -       | Passa pelo callback os índices dos items que estão expandidos                                           |
-| allowMultiple  | `boolean`                     | `false`     | `true`  | Se false apenas um item poderá ser expandido                                                            |
-| destroyOnClose | `boolean`                     | `false`     | `false` | Se true o componente que está dentro do Accordion.Content será desmontado depois que o item for fechado |
-| mountOnEnter   | `boolean`                     | `false`     | `false` | Se true o componente que está dentro do Accordion.Content só sera montado depois que o item for aberto  |
+| prop           | tipo              | obrigatório | padrão  | descrição                                                                                               |
+| -------------- | ----------------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| children       | `React.ReactNode` | `true`      | -       | -                                                                                                       |
+| values         | `number[]`        | `false`     | -       | Índices dos items que serão expandidos                                                                  |
+| onChange       | `function`        | `false`     | -       | Passa pelo callback os índices dos items que estão expandidos                                           |
+| allowMultiple  | `boolean`         | `false`     | `true`  | Se false apenas um item poderá ser expandido                                                            |
+| destroyOnClose | `boolean`         | `false`     | `false` | Se true o componente que está dentro do Accordion.Content será desmontado depois que o item for fechado |
+| mountOnEnter   | `boolean`         | `false`     | `false` | Se true o componente que está dentro do Accordion.Content só sera montado depois que o item for aberto  |
 
 ### Accordion.Item props
 

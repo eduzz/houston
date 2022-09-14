@@ -32,8 +32,8 @@ const ModalHeader = ({
   return (
     <header className={cx(className, 'hst-modal-header')} {...rest}>
       <div className='hst-modal-header__wrapper'>
-        <span className='hst-modal-header__title'>
-          {icon && <div className='hst-modal-header-title__icon'>{icon}</div>}
+        <span className='hst-modal-header-title'>
+          {icon && <div className='hst-modal-header-title-icon'>{icon}</div>}
 
           {!disableTypography ? (
             <Typography as='h6' size='sm'>
@@ -45,7 +45,7 @@ const ModalHeader = ({
         </span>
 
         {closeIcon && (
-          <IconButton className='hst-modal-header__close' aria-label='Fechar Modal' size='md' onClick={onClose}>
+          <IconButton className='hst-modal-header-close' aria-label='Fechar Modal' size='md' onClick={onClose}>
             <IconClose />
           </IconButton>
         )}
@@ -73,18 +73,18 @@ export default React.memo(styled(ModalHeader, { label: 'hst-modal-header' })`
         padding: ${theme.spacing.inset.xs};
       }
 
-      .hst-modal-header__title {
+      .hst-modal-header-title {
         display: flex;
         align-items: center;
 
-        .hst-modal-header-title__icon {
+        .hst-modal-header-title-icon {
           svg {
             margin-right: ${theme.spacing.inline.nano};
           }
         }
       }
 
-      .hst-modal-header__close {
+      .hst-modal-header-close {
         margin-left: ${theme.spacing.inline.xxs};
       }
     }

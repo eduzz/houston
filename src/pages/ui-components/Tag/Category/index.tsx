@@ -12,7 +12,7 @@ const TagCategory = ({ children, icon, ...rest }: TagCategoryProps) => (
   </span>
 );
 
-export default styled(TagCategory, { label: 'houston-tag-category' })(({ theme }) => {
+export default styled(TagCategory, { label: 'hst-tag-category' })(({ theme }) => {
   return css`
     font-size: ${theme.font.size.xxs};
     font-weight: ${theme.font.weight.regular};

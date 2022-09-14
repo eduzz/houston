@@ -271,8 +271,8 @@ const DragAndDrop = React.forwardRef<unknown, DragAndDropProps>(
     return (
       <div
         className={cx(className, {
-          '--hst-drag-and-drop-disabled': disabled,
-          '--hst-drag-and-drop-full-width': fullWidth
+          'hst-drag-and-drop-disabled': disabled,
+          'hst-drag-and-drop-full-width': fullWidth
         })}
       >
         <span className='hst-drag-and-drop-label'>{label}</span>
@@ -312,11 +312,11 @@ const StyledDragAndDrop = styled(withForm(DragAndDrop), { label: 'hst-drag-and-d
     min-width: ${theme.pxToRem(320)}rem;
     flex: 1;
 
-    &.--hst-drag-and-drop-full-width {
+    &.hst-drag-and-drop-full-width {
       width: 100%;
     }
 
-    &.--hst-drag-and-drop-disabled {
+    &.hst-drag-and-drop-disabled {
       opacity: ${theme.opacity.level[6]};
       cursor: not-allowed;
       user-select: none;

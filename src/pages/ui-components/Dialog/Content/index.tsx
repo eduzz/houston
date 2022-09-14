@@ -9,7 +9,7 @@ const DialogContent = ({
   ...rest
 }: DialogContentProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => <div {...rest}>{children}</div>;
 
-export default styled(DialogContent, { label: 'houston-dialog-content' })`
+export default styled(DialogContent, { label: 'hst-dialog-content' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.sm};
     overflow: auto;

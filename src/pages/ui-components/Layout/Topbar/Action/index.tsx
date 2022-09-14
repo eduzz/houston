@@ -15,41 +15,35 @@ export interface ActionProps extends StyledProp {
 
 const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className }) => {
   return (
-    <div className={cx(className, { '--has-label': !!label })} onClick={onClick}>
+    <div className={cx(className, { 'hst-topbar-action-has-label': !!label })} onClick={onClick}>
       {!!label && (
-        <Button
-          startIcon={icon}
-          variant='text'
-          fullWidth
-          active={active}
-          className='houston-topbar-action__text-button'
-        >
+        <Button startIcon={icon} variant='text' fullWidth active={active} className='hst-topbar-action-text-button'>
           {label}
         </Button>
       )}
 
-      <IconButton className='houston-topbar-action__icon-button' active={active}>
+      <IconButton className='hst-topbar-action-icon-button' active={active}>
         {icon}
       </IconButton>
     </div>
   );
 };
 
-export default styled(Action, { label: 'houston-topbar-action' })(
+export default styled(Action, { label: 'hst-topbar-action' })(
   ({ theme }) => css`
-    & .houston-topbar-action__icon-button,
-    & .houston-topbar-action__text-button.--text {
+    & .hst-topbar-action-icon-button,
+    & .hst-topbar-action-text-button.--text {
       color: inherit;
     }
 
     ${theme.breakpoints.up('lg')} {
-      &.--has-label .houston-topbar-action__icon-button {
+      &.hst-topbar-action-has-label .hst-topbar-action-icon-button {
         display: none;
       }
     }
 
     ${theme.breakpoints.down('lg')} {
-      & .houston-topbar-action__text-button {
+      & .hst-topbar-action-text-button {
         display: none;
       }
     }

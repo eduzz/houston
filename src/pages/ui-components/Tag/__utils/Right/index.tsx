@@ -22,7 +22,7 @@ const TagRight = ({ children, onClick: onClickProp, ...rest }: TagRightProps) =>
   );
 };
 
-export default styled(TagRight, { label: 'houston-tag-right' })(({ theme }) => {
+export default styled(TagRight, { label: 'hst-tag-right' })(({ theme }) => {
   return css`
     border-radius: ${theme.border.radius.circular};
     padding: ${theme.spacing.stack.quarck};

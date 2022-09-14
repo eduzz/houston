@@ -21,7 +21,7 @@ const ListItem = ({ children, className, disabled, isActive, ...rest }: ListItem
       <li
         role='listitem'
         tabIndex={0}
-        className={cx(className, { '--disabled': disabled }, { '--active': isActive })}
+        className={cx(className, { 'hst-list-item-disabled': disabled }, { 'hst-list-item-active': isActive })}
         {...rest}
       >
         {children}
@@ -32,25 +32,26 @@ const ListItem = ({ children, className, disabled, isActive, ...rest }: ListItem
   );
 };
 
-export default styled(ListItem, { label: 'houston-list-item' })(({ theme }) => {
+export default styled(ListItem, { label: 'hst-list-item' })(({ theme }) => {
   return css`
     display: flex;
     align-items: center;
     line-height: 0;
     padding: ${theme.spacing.inset.xs};
 
-    &.--disabled {
+    &.hst-list-item-disabled {
       opacity: ${theme.opacity.level[6]};
       pointer-events: none;
+      user-select: none;
     }
 
-    &.--active {
+    &.hst-list-item-active {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[1])};
       transition: 0.5s background-color;
     }
 
-    :hover:not(.--disabled),
-    :focus:not(.--disabled) {
+    :hover:not(.hst-list-item-disabled),
+    :focus:not(.hst-list-item-disabled) {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       transition: 0.5s background-color;
     }

@@ -31,20 +31,21 @@ const ToastBody = ({ className, content, type }: ToastBodyProps) => {
       warning('Toast', `text limit is ${TEXT_MAX_LENGTH} characters`);
     }
   }, [content]);
+
   return (
-    <div role='alertdialog' className={cx(className, `--type-${type}`)}>
-      <span role='img' className='__icon'>
+    <div role='alertdialog' className={cx(className, `hst-toast-body-type-${type}`)}>
+      <span role='img' className='hst-toast-body-icon'>
         {IconsMap[type]}
       </span>
-      <div className='__text'>{truncateText(content, TEXT_MAX_LENGTH)}</div>
-      <span className='__cancel-icon'>
+      <div className='hst-toast-body-text'>{truncateText(content, TEXT_MAX_LENGTH)}</div>
+      <span className='hst-toast-body-cancel-icon'>
         <CancelIcon />
       </span>
     </div>
   );
 };
 
-export default styled(ToastBody, { label: 'houston-toast-body' })`
+export default styled(ToastBody, { label: 'hst-toast-body' })`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
@@ -57,7 +58,7 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
       width: calc(100vw - ${theme.pxToRem(GUTTER_WIDTH)}rem);
     }
 
-    .__icon {
+    .hst-toast-body-icon {
       line-height: 0;
       margin-right: ${theme.spacing.inline.xxxs};
 
@@ -66,7 +67,7 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
       }
     }
 
-    .__cancel-icon {
+    .hst-toast-body-cancel-icon {
       line-height: 0;
       margin-left: ${theme.spacing.inline.xxxs};
 
@@ -75,22 +76,22 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
       }
     }
 
-    &.--type-informative {
+    &.hst-toast-body-type-informative {
       background-color: ${theme.feedbackColor.informative.light};
       border-color: ${theme.feedbackColor.informative.medium};
     }
 
-    &.--type-positive {
+    &.hst-toast-body-type-positive {
       background-color: ${theme.feedbackColor.positive.light};
       border-color: ${theme.feedbackColor.positive.medium};
     }
 
-    &.--type-negative {
+    &.hst-toast-body-type-negative {
       background-color: ${theme.feedbackColor.negative.light};
       border-color: ${theme.feedbackColor.negative.medium};
     }
 
-    &.--type-warning {
+    &.hst-toast-body-type-warning {
       background-color: ${theme.feedbackColor.warning.light};
       border-color: ${theme.feedbackColor.warning.medium};
     }
@@ -100,7 +101,7 @@ export default styled(ToastBody, { label: 'houston-toast-body' })`
       height: ${theme.pxToRem(24)}rem;
     }
 
-    .__text {
+    .hst-toast-body-text {
       font-family: ${theme.font.family.base};
       font-weight: ${theme.font.weight.regular};
       font-size: ${theme.font.size.xs};

@@ -38,7 +38,7 @@ const RadioGroup = ({ children, value, onChange, className, errorMessage }: Radi
 
   return (
     <div className={className}>
-      <div className='hst-radio-group-radios'>{mappedChildren}</div>
+      <div className='hst-radio-group-options'>{mappedChildren}</div>
       <span className='hst-radio-group-error-message'>{errorMessage}</span>
     </div>
   );
@@ -46,7 +46,7 @@ const RadioGroup = ({ children, value, onChange, className, errorMessage }: Radi
 
 export default styled(withForm(React.memo(RadioGroup)), { label: 'hst-radio-group' })`
   ${({ theme, spacing = 'xxxs' }) => css`
-    .hst-radio-group-radios {
+    .hst-radio-group-options {
       display: flex;
       flex-direction: column;
       gap: ${theme.spacing[spacing]};

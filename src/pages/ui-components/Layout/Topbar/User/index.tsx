@@ -32,25 +32,28 @@ const User = React.memo<StyledProp>(({ className }) => {
 
   return (
     <>
-      <div ref={wrapperMenuUser} className={cx(className, { '--active': hasMenu && opened, '--has-menu': hasMenu })}>
-        <div className='houston-topbar-user__label'>
-          <div className='houston-topbar-user__default'>
+      <div
+        ref={wrapperMenuUser}
+        className={cx(className, { 'hst-topbar-user-active': hasMenu && opened, 'hst-topbar-user-has-menu': hasMenu })}
+      >
+        <div className='hst-topbar-user-label'>
+          <div className='hst-topbar-user-default'>
             <Button
               variant='text'
-              className='houston-topbar-user__button'
+              className='hst-topbar-user-button'
               startIcon={
                 <Avatar src={user.avatar} size='sm'>
                   {user.name}
                 </Avatar>
               }
-              endIcon={hasMenu && <IconChevronDown className='houston-topbar-user__menu-arrow' size='md' />}
+              endIcon={hasMenu && <IconChevronDown className='hst-topbar-user-menu-arrow' size='md' />}
               onClick={toogleOpened}
             >
               {user.name} {!!user.isSupport && '(Suporte)'}
             </Button>
           </div>
 
-          <div className='houston-topbar-user__mobile'>
+          <div className='hst-topbar-user-mobile'>
             <IconButton onClick={toogleOpened}>
               <Avatar src={user.avatar} size='sm'>
                 {user.name}
@@ -65,35 +68,35 @@ const User = React.memo<StyledProp>(({ className }) => {
   );
 });
 
-export default styled(User, { label: 'houston-topbar-user' })(
+export default styled(User, { label: 'hst-topbar-user' })(
   ({ theme }) => css`
     position: relative;
     z-index: 1100;
     margin-left: ${theme.spacing.inline.nano};
     pointer-events: none;
 
-    &.--has-menu {
+    &.hst-topbar-user-has-menu {
       pointer-events: all;
     }
 
-    & .houston-topbar-user__button.--text {
+    & .hst-topbar-user-button.--text {
       color: inherit;
     }
 
-    & .houston-topbar-user__menu-arrow {
+    & .hst-topbar-user-menu-arrow {
       display: block;
       transition: 0.15s ease-out;
     }
 
-    &.--active .houston-topbar-user__menu-arrow {
+    &.hst-topbar-user-active .hst-topbar-user-menu-arrow {
       transform: rotateX(180deg);
     }
 
-    & .houston-topbar-user__default {
+    & .hst-topbar-user-default {
       display: none;
       position: relative;
 
-      & .houston-topbar-user__support {
+      & .hst-topbar-user-support {
         position: absolute;
         bottom: 0;
         left: 57px;
@@ -103,11 +106,11 @@ export default styled(User, { label: 'houston-topbar-user' })(
     }
 
     ${theme.breakpoints.up('md')} {
-      & .houston-topbar-user__default {
+      & .hst-topbar-user-default {
         display: block;
       }
 
-      & .houston-topbar-user__mobile {
+      & .hst-topbar-user-mobile {
         display: none;
       }
     }

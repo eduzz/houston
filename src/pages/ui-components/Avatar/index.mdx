@@ -24,16 +24,16 @@ Os tamanhos dísponiveis são: `xs`, `sm`, `md`, `lg `.
 
 <Playground>
   <Row alignItems='center'>
-    <Column>
+    <Column xs='auto'>
       <Avatar size='xs' />
     </Column>
-    <Column>
+    <Column xs='auto'>
       <Avatar size='sm' />
     </Column>
-    <Column>
+    <Column xs='auto'>
       <Avatar size='md' />
     </Column>
-    <Column>
+    <Column xs='auto'>
       <Avatar size='lg' />
     </Column>
   </Row>
@@ -47,13 +47,13 @@ Existem três tipos: ícone (padrão), texto e imagem.
 
 <Playground>
   <Row alignItems='center'>
-    <Column>
+    <Column xs='auto'>
       <Avatar size='lg' />
     </Column>
-    <Column>
+    <Column xs='auto'>
       <Avatar size='lg'>M</Avatar>
     </Column>
-    <Column>
+    <Column xs='auto'>
       <Avatar size='lg' src='https://www.fillmurray.com/100/100' />
     </Column>
   </Row>
@@ -61,42 +61,9 @@ Existem três tipos: ícone (padrão), texto e imagem.
 
 > O tipo texto é considerado se o `children` for do tipo `string` (igual o exemplo acima).
 
-> Use a prop `alt` para espeficiar o texto alternativo para imagem.
-
-### Cores
-
-Há possibilidade de inverter as cores para dar suporte a contextos específicos. As cores dísponiveis são: `primary` (padrão) e `high`.
-
-<Playground>
-  <Row alignItems='center' className='bg-dark' style={{ paddingBottom: 16 }}>
-    <Column>
-      <Avatar size='lg' />
-    </Column>
-    <Column>
-      <Avatar size='lg'>M</Avatar>
-    </Column>
-    <Column>
-      <Avatar size='lg' src='https://www.fillmurray.com/100/100' />
-    </Column>
-    <Column>
-      <Avatar size='lg' color='high' />
-    </Column>
-    <Column>
-      <Avatar size='lg' color='high'>
-        M
-      </Avatar>
-    </Column>
-    <Column>
-      <Avatar size='lg' color='high' src='https://www.fillmurray.com/100/100' />
-    </Column>
-  </Row>
-</Playground>
-
 ## Propriedades
 
-| prop  | tipo           | obrigatório | padrão    | descrição                                   |
-| ----- | -------------- | ----------- | --------- | ------------------------------------------- |
-| src   | `string`       | `false`     | -         | Caminho da imagem.                          |
-| alt   | `string`       | `false`     | -         | Texto alternativo quando não houver imagem. |
-| size  | `IAvatarSize`  | `false`     | `md`      | -                                           |
-| color | `IAvatarColor` | `false`     | `primary` | -                                           |
+| prop | tipo          | obrigatório | padrão | descrição          |
+| ---- | ------------- | ----------- | ------ | ------------------ |
+| src  | `string`      | `false`     | -      | Caminho da imagem. |
+| size | `IAvatarSize` | `false`     | `md`   | -                  |

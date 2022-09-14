@@ -5,7 +5,7 @@ export interface ShowcaseImageProps {
   alt: string;
 }
 
-const IMAGE_HEIGHT = 235;
+const IMAGE_CONTAINER = 235;
 
 const Image = ({ src, alt, ...rest }: ShowcaseImageProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
   return (
@@ -18,7 +18,7 @@ const Image = ({ src, alt, ...rest }: ShowcaseImageProps & React.HTMLAttributes<
 export default styled(Image, { label: 'hst-showcase-image' })`
   ${({ theme }) => css`
     width: 100%;
-    height: ${theme.pxToRem(IMAGE_HEIGHT)}rem;
+    height: ${theme.pxToRem(IMAGE_CONTAINER)}rem;
     border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
     display: flex;
     justify-content: center;

@@ -69,10 +69,10 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxRadioProps>(
     return (
       <label
         className={cx(className, {
-          '--hst-empty': !label,
-          '--hst-checked': isChecked,
-          '--hst-error': hasError,
-          '--hst-disabled': disabled
+          'hst-checkbox-empty': !label,
+          'hst-checkbox-checked': isChecked,
+          'hst-checkbox-error': hasError,
+          'hst-checkbox-disabled': disabled
         })}
         htmlFor={props.id}
       >
@@ -101,12 +101,12 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxRadioProps>(
   }
 );
 
-const StyledCheckbox = styled(withForm(React.memo(Checkbox)), { label: 'hst-checkbox' })(
+const CheckboxWrapper = styled(withForm(React.memo(Checkbox)), { label: 'hst-checkbox' })(
   ({ theme }) => css`
     display: flex;
     cursor: pointer;
 
-    &.--hst-empty {
+    &.hst-checkbox-empty {
       display: inline-block;
       margin: 0;
     }
@@ -165,7 +165,7 @@ const StyledCheckbox = styled(withForm(React.memo(Checkbox)), { label: 'hst-chec
       border-radius: ${theme.border.radius.xs};
     }
 
-    &.--hst-checked > .hst-checkbox-icon-container {
+    &.hst-checkbox-checked > .hst-checkbox-icon-container {
       color: white;
       background-color: ${theme.brandColor.primary.pure};
       border-color: ${theme.brandColor.primary.pure};
@@ -176,23 +176,23 @@ const StyledCheckbox = styled(withForm(React.memo(Checkbox)), { label: 'hst-chec
       }
     }
 
-    &.--hst-error:not(.--hst-checked) > .hst-checkbox-icon-container {
+    &.hst-checkbox-error:not(.hst-checkbox-checked) > .hst-checkbox-icon-container {
       background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
       border-color: ${theme.feedbackColor.negative.pure};
     }
 
-    &.--hst-error.--hst-checked > .hst-checkbox-icon-container {
+    &.hst-checkbox-error.hst-checkbox-checked > .hst-checkbox-icon-container {
       background-color: ${theme.feedbackColor.negative.pure};
       border-color: ${theme.feedbackColor.negative.pure};
     }
 
-    &.--hst-disabled {
+    &.hst-checkbox-disabled {
       cursor: not-allowed;
       opacity: ${theme.opacity.level[6]};
     }
   `
 );
 
-export default nestedComponent(StyledCheckbox, {
+export default nestedComponent(CheckboxWrapper, {
   Group
 });

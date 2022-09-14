@@ -24,13 +24,13 @@ import Button from '@eduzz/houston-ui/Button';
 
 <Playground>
   <Row>
-    <Column>
+    <Column xs='auto'>
       <Button>Contained</Button>
     </Column>
-    <Column>
+    <Column xs='auto'>
       <Button variant='outlined'>Outlined</Button>
     </Column>
-    <Column>
+    <Column xs='auto'>
       <Button variant='text'>Text</Button>
     </Column>
   </Row>
@@ -40,10 +40,10 @@ import Button from '@eduzz/houston-ui/Button';
 
 <Playground>
   <Row>
-    <Column>
+    <Column xs='auto'>
       <Button disabled>Disabled</Button>
     </Column>
-    <Column>
+    <Column xs='auto'>
       <Button loading>loading</Button>
     </Column>
   </Row>
@@ -53,10 +53,10 @@ import Button from '@eduzz/houston-ui/Button';
 
 <Playground>
   <Row>
-    <Column>
+    <Column xs='auto'>
       <Button startIcon={<FaceHappyOutlineIcon />}>Start</Button>
     </Column>
-    <Column>
+    <Column xs='auto'>
       <Button variant='outlined' endIcon={<FaceHappyOutlineIcon />}>
         End
       </Button>
@@ -64,14 +64,13 @@ import Button from '@eduzz/houston-ui/Button';
   </Row>
 </Playground>
 
-| prop      | tipo                                  | obrigatório | padrão      |
-| --------- | ------------------------------------- | ----------- | ----------- |
-| disabled  | `boolean`                             | `false`     | `false`     |
-| startIcon | `React.ReactNode`                     | `false`     | -           |
-| endIcon   | `React.ReactNode`                     | `false`     | -           |
-| variant   | contained &#124; outlined &#124; text | `false`     | `contained` |
-| href      | `string`                              | `false`     | -           |
-| endIcon   | `React.ReactNode`                     | `false`     | -           |
-| fullWidth | `boolean`                             | `false`     | `false`     |
-| loading   | `boolean`                             | `false`     | `false`     |
-| onClick   | `function`                            | `false`     | -           |
+| prop      | tipo              | obrigatório | padrão      |
+| --------- | ----------------- | ----------- | ----------- |
+| disabled  | `boolean`         | `false`     | `false`     |
+| startIcon | `React.ReactNode` | `false`     | -           |
+| endIcon   | `React.ReactNode` | `false`     | -           |
+| variant   | `ButtonVariant`   | `false`     | `contained` |
+| href      | `string`          | `false`     | -           |
+| endIcon   | `React.ReactNode` | `false`     | -           |
+| fullWidth | `boolean`         | `false`     | `false`     |
+| loading   | `boolean`         | `false`     | `false`     |

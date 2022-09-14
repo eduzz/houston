@@ -14,7 +14,7 @@ const ModalBase = ({ children, ...rest }: ModalBaseProps & StyledProp & React.HT
   );
 };
 
-export default styled(ModalBase)`
+export default styled(ModalBase, { label: 'hst-modal-base' })`
   ${({ theme }) => css`
     background-color: ${theme.neutralColor.high.pure};
     border-radius: ${theme.border.radius.sm};
