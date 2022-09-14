@@ -12,9 +12,10 @@ export interface SidebarGroupProps extends StyledProp {
   label?: React.ReactNode;
   children: React.ReactNode;
   tabIndex?: number;
+  id?: string;
 }
 
-const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label, tabIndex }) => {
+const SidebarGroup: React.FC<SidebarGroupProps> = ({ id, className, children, label, tabIndex }) => {
   const [isExpanded, toogleExpanded, trueExpanded] = useBoolean(true);
 
   const contextValue = React.useMemo<SidebarGroupContextType>(() => {
