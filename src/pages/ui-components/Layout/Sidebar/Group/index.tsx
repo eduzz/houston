@@ -12,9 +12,10 @@ export interface SidebarGroupProps extends StyledProp {
   label?: React.ReactNode;
   children: React.ReactNode;
   tabIndex?: number;
+  id?: string;
 }
 
-const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label, tabIndex }) => {
+const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroupProps) => {
   const [isExpanded, toogleExpanded, trueExpanded] = useBoolean(true);
 
   const contextValue = React.useMemo<SidebarGroupContextType>(() => {
@@ -23,7 +24,7 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label,
 
   return (
     <SidebarGroupContext.Provider value={contextValue}>
-      <li className={className}>
+      <li id={id} className={className}>
         {!!label && (
           <div className='hst-sidebar-group-item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
             <div className={cx('hst-sidebar-group-arrow', isExpanded && 'hst-sidebar-group-rotate')}>
