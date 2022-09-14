@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import styled, { css, StyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import Divider from '@eduzz/houston-ui/Divider';
 import IconButton from '@eduzz/houston-ui/IconButton';
 import Typography from '@eduzz/houston-ui/Typography';
 
@@ -29,6 +30,32 @@ const FinishedIcon = () => (
   </svg>
 );
 
+type ActiveType = {
+  number: number;
+  className?: string;
+  isActive?: boolean;
+};
+
+const ActiveIcon = ({ number, className, isActive }: ActiveType) => (
+  <div className={className}>
+    <Typography color='neutralColor.high.pure'> {number}</Typography>
+  </div>
+);
+
+const StyledActiveIcon = styled(ActiveIcon)(({ theme }) => {
+  return css`
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: black;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+});
+
 const ICON_SIZE = 32;
 
 const Stepper = ({ children, finished, onChange, destroyOnClose, mountOnEnter, ...rest }: StepperProps) => {
@@ -38,6 +65,8 @@ const Stepper = ({ children, finished, onChange, destroyOnClose, mountOnEnter, .
   const stepRefs = React.useRef<HTMLDivElement[]>([]);
   const [negativeMargins, setNegativeMargins] = React.useState<number[]>([]);
 
+  const isActive = 1;
+
   const passRefsToArray = React.useCallback(
     (index: number) => (el: HTMLDivElement) => {
       stepRefs.current[index] = el;
@@ -46,10 +75,13 @@ const Stepper = ({ children, finished, onChange, destroyOnClose, mountOnEnter, .
   );
 
   React.useEffect(() => {
-    const negativeMargins = stepRefs?.current?.map(
-      (tab: HTMLDivElement) => -(tab.getBoundingClientRect().width - ICON_SIZE)
-    );
-    setNegativeMargins(negativeMargins);
+    const timer = setTimeout(() => {
+      const negativeMargins = stepRefs?.current?.map(
+        (tab: HTMLDivElement) => -(tab.getBoundingClientRect().width - ICON_SIZE)
+      );
+      setNegativeMargins(negativeMargins);
+    }, 400);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -58,9 +90,13 @@ const Stepper = ({ children, finished, onChange, destroyOnClose, mountOnEnter, .
         const lastDivider = index === childrenProps.length - 1;
         return (
           <>
-            <div className='hst-step' key={label} ref={passRefsToArray(index)}>
+            <div
+              className={cx('hst-step', { '--hst-step-active': isActive === index })}
+              key={label}
+              ref={passRefsToArray(index)}
+            >
               <IconButton size='md' fill>
-                <FinishedIcon />
+                {isActive === index ? <StyledActiveIcon number={index} /> : <FinishedIcon />}
               </IconButton>
               <Typography color='neutralColor.low.light' size='xs'>
                 {label}
@@ -83,11 +119,18 @@ const StepperWrapper = React.memo(
       display: flex;
       gap: ${theme.spacing.nano};
 
+      .hst-step {
+        &.--hst-step-active {
+          pointer-events: none;
+        }
+      }
+
       .hst-step-divider {
         flex-grow: 1;
         border-color: blue;
         height: 1px;
         margin-top: 14px;
+        border-width: 0 0 ${theme.border.width.xs};
       }
     `;
   })
