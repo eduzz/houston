@@ -22,27 +22,27 @@ import UserMenuDivider from './UserMenu/Divider';
 import UserMenuItem from './UserMenu/Item';
 import UserMenuGroup from './UserMenu/ItemGroup';
 
-export type TopbarProps = StyledProp &
-  React.HTMLAttributes<HTMLDivElement> & {
-    children?: React.ReactNode;
-    logo?: string;
-    logoMobile?: string;
-    currentApplication?: string;
-    blackMode?: boolean;
-    user?: {
-      id?: number;
-      name: string;
-      email?: string;
-      avatar?: string;
-      belt?: string;
-      tag?: 'lite' | 'pro' | 'unity' | 'partner';
-      isSupport?: boolean;
-      supportId?: number;
-    };
+export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
+  disableApps?: boolean;
+  logo?: string;
+  logoMobile?: string;
+  currentApplication?: string;
+  blackMode?: boolean;
+  user?: {
+    id?: number;
+    name: string;
+    email?: string;
+    avatar?: string;
+    belt?: string;
+    tag?: 'lite' | 'pro' | 'unity' | 'partner';
+    isSupport?: boolean;
+    supportId?: number;
   };
+}
 
 const Topbar = React.memo<TopbarProps>(
-  ({ children, currentApplication, logo, logoMobile, className, blackMode, user, ...rest }) => {
+  ({ children, currentApplication, logo, logoMobile, className, blackMode, user, disableApps, ...rest }) => {
     const theme = useHoustonTheme();
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
@@ -77,7 +77,7 @@ const Topbar = React.memo<TopbarProps>(
                 onClick={sidebarToogleOpened}
               />
 
-              <Apps />
+              {!disableApps && <Apps />}
 
               <div className='houston-topbar__logo'>
                 <img
