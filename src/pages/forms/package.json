@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/houston-forms",
-  "version": "0.64.0",
+  "version": "0.64.1",
   "description": "Houston Forms",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -19,7 +19,7 @@
     "check-update-deps": "yarn ncu -u"
   },
   "dependencies": {
-    "@eduzz/houston-hooks": "0.64.0",
+    "@eduzz/houston-hooks": "0.64.1",
     "@hookform/error-message": "^2.0.0",
     "@hookform/resolvers": "^2",
     "formik": "^2.2.9",
