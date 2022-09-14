@@ -10,12 +10,12 @@ const LongTextToolTip = ({ children }: LongTextToolTip) => {
   if (typeof children === 'string' && children.length > 32) {
     return (
       <Tooltip placement='bottom' title={children}>
-        <span className='__text'>{children.slice(0, 32) + ' ...'}</span>
+        <span className='hst-breadcrumb-text'>{children.slice(0, 32) + ' ...'}</span>
       </Tooltip>
     );
   }
 
-  return <span className='__text'>{children}</span>;
+  return <span className='hst-breadcrumb-text'>{children}</span>;
 };
 
 export default React.memo(LongTextToolTip);

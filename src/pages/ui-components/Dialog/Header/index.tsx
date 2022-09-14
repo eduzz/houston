@@ -34,14 +34,14 @@ const DialogHeader = ({
 
   return (
     <header {...rest}>
-      <div className='dialog-header__wrapper'>
+      <div className='hst-dialog-header-wrapper'>
         {showTypeIcon && (
-          <span role='img' className='dialog-header__icon'>
+          <span role='img' className='hst-dialog-header-icon'>
             {IconMap[type]}
           </span>
         )}
 
-        <span className='dialog-header__title'>
+        <span className='dialog-header-title'>
           {!disableTypography ? (
             <Typography as='h6' size='sm'>
               {children}
@@ -57,14 +57,14 @@ const DialogHeader = ({
   );
 };
 
-export default React.memo(styled(DialogHeader, { label: 'houston-dialog-header' })`
+export default React.memo(styled(DialogHeader, { label: 'hst-dialog-header' })`
   ${({ theme }) => css`
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: 0%;
     border-radius: ${theme.border.radius.sm} ${theme.border.radius.sm} 0 0;
 
-    .dialog-header__wrapper {
+    .hst-dialog-header-wrapper {
       padding: ${theme.spacing.inset.sm};
       display: flex;
       align-items: center;
@@ -73,7 +73,7 @@ export default React.memo(styled(DialogHeader, { label: 'houston-dialog-header' 
         padding: ${theme.spacing.inset.xs};
       }
 
-      .dialog-header__icon {
+      .hst-dialog-header-icon {
         line-height: 0;
         margin-right: ${theme.spacing.inline.nano};
       }

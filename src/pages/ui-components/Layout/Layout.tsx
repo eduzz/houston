@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import { cx, StyledProp } from '@eduzz/houston-styles';
+import { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
@@ -90,19 +90,21 @@ const Layout = ({ className, children }: LayoutProps) => {
 
   return (
     <LayoutContext.Provider value={contextValue}>
-      <div className={cx(className, { '--hasTopbar': hasTopbar })}>{children}</div>
+      <div className={cx(className, { 'hst-layout-has-topbar': hasTopbar })}>{children}</div>
     </LayoutContext.Provider>
   );
 };
 
-const LayoutWrapper = styled(Layout, { label: 'houston-layout' })`
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
+const LayoutWrapper = styled(Layout, { label: 'hst-layout' })`
+  ${({ theme }) => css`
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
 
-  &.--hasTopbar {
-    padding-top: ${TOPBAR_HEIGHT}px;
-  }
+    &.hst-layout-has-topbar {
+      padding-top: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
+    }
+  `}
 `;
 
 export default nestedComponent(LayoutWrapper, {

@@ -46,10 +46,10 @@ const CollapseContent = ({
       <td
         colSpan={1000}
         className={cx(
-          'hts-table__collapse',
-          visible && '--hts-opened',
-          disableBackground && '--hts-no-background',
-          disabledPadding && '--hts-no-padding'
+          'hts-table-collapse',
+          visible && 'hts-table-collapse-opened',
+          disableBackground && 'hts-table-collapse-no-background',
+          disabledPadding && 'hts-table-collapse-no-padding'
         )}
       >
         <Collapse

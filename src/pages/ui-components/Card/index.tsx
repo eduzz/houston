@@ -29,9 +29,9 @@ const Card = ({
       {...(clickable && { tabIndex: 0, role: 'button', onClick })}
       className={cx(
         className,
-        `--hst-padding-${padding}`,
-        { '--hst-clickable': !disabled && clickable },
-        { '--hst-disabled': disabled }
+        `hst-card-padding-${padding}`,
+        { 'hst-card-clickable': !disabled && clickable },
+        { 'hst-card-disabled': disabled }
       )}
       {...rest}
     >
@@ -60,9 +60,9 @@ export default styled(Card, { label: 'hst-card' })`
       giant: theme.spacing.giant
     };
 
-    Object.entries(availableSpacing).forEach(([key, value]) =>
+    Object.entries(availableSpacing).forEach(([spacing, value]) =>
       modifiers.push(css`
-        &.--hst-padding-${key} {
+        &.hst-card-padding-${spacing} {
           padding: ${value};
         }
       `)
@@ -75,13 +75,13 @@ export default styled(Card, { label: 'hst-card' })`
 
       ${modifiers}
 
-      &.--hst-disabled {
+      &.hst-card-disabled {
         cursor: not-allowed;
         pointer-events: none;
         opacity: ${theme.opacity.level[6]};
       }
 
-      &.--hst-clickable {
+      &.hst-card-clickable {
         transition: 0.3s;
         cursor: pointer;
 

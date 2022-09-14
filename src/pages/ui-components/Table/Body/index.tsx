@@ -37,7 +37,11 @@ const TableBody = ({ children }: TableBodyProps) => {
         <tr>
           <td align='center' colSpan={1000}>
             <LineLoader />
-            <div className='hts-table__loading-text'>{loadingText}</div>
+            <div className='hts-table-loading-text'>
+              <Typography weight='regular' lineHeight='xl' className='hst-table-body-text'>
+                {loadingText}
+              </Typography>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -49,7 +53,7 @@ const TableBody = ({ children }: TableBodyProps) => {
       <tbody>
         <tr>
           <TableCell align='center' colSpan={1000}>
-            <Typography marginBottom='xxxs' weight='regular' lineHeight='xl' className='__text'>
+            <Typography marginBottom='xxxs' weight='regular' lineHeight='xl' className='hst-table-body-text'>
               {errorMessage}
             </Typography>
 
@@ -69,7 +73,9 @@ const TableBody = ({ children }: TableBodyProps) => {
       <tbody>
         <tr>
           <TableCell align='center' colSpan={1000}>
-            {emptyText}
+            <Typography weight='regular' lineHeight='xl' className='hst-table-body-text'>
+              {emptyText}
+            </Typography>
           </TableCell>
         </tr>
       </tbody>

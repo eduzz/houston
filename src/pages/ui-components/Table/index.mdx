@@ -354,7 +354,7 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 | errorOnRetry  | `function`        | `false`     | `false`                  | Funçao para recarregar caso um erro ocorra                  |
 | total         | `number`          | `false`     | -                        | Total de items, usado para mostrar a mensagem de vazio      |
 | emptyText     | `string`          | `false`     | `Nenhum dado encontrado` | Mensagem de vazio                                           |
-| sort          | `ITableSort`      | `false`     | -                        | Valor atual do sort                                         |
+| sort          | `TableSort`       | `false`     | -                        | Valor atual do sort                                         |
 | onSort        | `function`        | `false`     | -                        | Função chamada ao clicar em uma coluna com `sortableField`. |
 | size          | `Size`            | `false`     | `medium`                 | -                                                           |
 | minWidth      | `number`          | `false`     | -                        | Tamanho da tela que a tabela irá gerar barra de rolagem     |
@@ -365,7 +365,7 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 | ------------- | ----------------- | ----------- | ------ | ---------------------------- |
 | sortableField | `string`, `false` | `true`      | -      | Campo referência para o sort |
 | width         | `number`          | `false`     | -      | -                            |
-| align         | `ITableAlign`     | `false`     | `left` | -                            |
+| align         | `TableAlign`      | `false`     | `left` | -                            |
 
 ### Table.Row props
 
@@ -376,10 +376,10 @@ Você pode de uma maneira fácil utizar o hook **useObservablePaginated** do **@
 
 ### Table.Cell props
 
-| prop    | tipo          | obrigatório | padrão | descrição |
-| ------- | ------------- | ----------- | ------ | --------- |
-| align   | `ITableAlign` | `false`     | `left` | -         |
-| colSpan | `number`      | `false`     | -      | -         |
+| prop    | tipo         | obrigatório | padrão | descrição |
+| ------- | ------------ | ----------- | ------ | --------- |
+| align   | `TableAlign` | `false`     | `left` | -         |
+| colSpan | `number`     | `false`     | -      | -         |
 
 ### Table.Option props
 

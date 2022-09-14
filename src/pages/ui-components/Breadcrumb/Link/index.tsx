@@ -34,23 +34,24 @@ const BreadcrumbLink = ({ as: Tag = 'a', icon, children, className, ...rest }: B
 
   return (
     <li className={className}>
-      <Tag {...rest} className='__tag'>
-        {!!icon && <span className='__icon'>{icon}</span>}
+      <Tag {...rest} className='hst-breadcrumb-link-tag'>
+        {!!icon && <span className='hst-breadcrumb-link-icon'>{icon}</span>}
         {!!children && <LongTextToolTip>{children}</LongTextToolTip>}
       </Tag>
-      <span role='presentation' className='__separator'>
+
+      <span role='presentation' className='hst-breadcrumb-separator'>
         {separator ?? <SeparatorIcon />}
       </span>
     </li>
   );
 };
 
-export default React.memo(styled(BreadcrumbLink, { label: 'houston-breadcrumb-link' })`
+export default React.memo(styled(BreadcrumbLink, { label: 'hst-breadcrumb-link' })`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
 
-    .__tag {
+    .hst-breadcrumb-link-tag {
       display: flex;
       align-items: center;
       border-radius: ${theme.border.radius.xs};
@@ -77,7 +78,7 @@ export default React.memo(styled(BreadcrumbLink, { label: 'houston-breadcrumb-li
       color: ${theme.neutralColor.low.pure};
     }
 
-    .__icon {
+    .hst-breadcrumb-link-icon {
       line-height: 0;
       color: ${theme.neutralColor.low.pure};
       max-height: ${theme.pxToRem(16)}rem;
@@ -90,7 +91,7 @@ export default React.memo(styled(BreadcrumbLink, { label: 'houston-breadcrumb-li
       }
     }
 
-    .__icon ~ .__text {
+    .hst-breadcrumb-link-icon ~ .hst-breadcrumb-text {
       margin-left: ${theme.spacing.inset.xxxs};
     }
   `}

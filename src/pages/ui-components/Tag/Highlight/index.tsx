@@ -11,8 +11,10 @@ export interface TagHighlightProps extends StyledProp, React.HTMLAttributes<HTML
   variant?: 'outlined' | 'filled';
 }
 
+const MAX_HEIGHT_IN_PX = 22;
+
 const TagHighlight = ({ children, className, variant = 'filled', ...rest }: TagHighlightProps) => (
-  <span className={cx(className, `--${variant}`)} {...rest}>
+  <span className={cx(className, `hst-tag-highlight-variant-${variant}`)} {...rest}>
     {children}
   </span>
 );
@@ -38,31 +40,27 @@ function getColor(theme: HoustonThemeProps, color: string) {
   return result;
 }
 
-const MAX_HEIGHT_IN_PX = 22;
+export default styled(TagHighlight, { label: 'hst-tag-highlight' })(({ theme, color = 'neutralColor.high.medium' }) => {
+  const isDefaultColor = color === 'neutralColor.high.medium';
 
-export default styled(TagHighlight, { label: 'houston-tag-highlight' })(
-  ({ theme, color = 'neutralColor.high.medium' }) => {
-    const isDefaultColor = color === 'neutralColor.high.medium';
+  return css`
+    background-color: ${getColor(theme, color)};
+    border-radius: ${theme.border.radius.pill};
+    padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.xxxs};
+    display: inline-flex;
+    align-items: center;
+    color: ${color === 'brandColor.primary.pure' ? theme.neutralColor.high.pure : theme.neutralColor.low.pure};
+    line-height: ${theme.line.height.default};
+    font-size: ${theme.font.size.xxs};
+    font-weight: ${theme.font.weight.regular};
+    font-family: ${theme.font.family.base};
+    max-height: ${theme.pxToRem(MAX_HEIGHT_IN_PX)}rem;
 
-    return css`
-      background-color: ${getColor(theme, color)};
-      border-radius: ${theme.border.radius.pill};
-      padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.xxxs};
-      display: inline-flex;
-      align-items: center;
-      color: ${color === 'brandColor.primary.pure' ? theme.neutralColor.high.pure : theme.neutralColor.low.pure};
-      line-height: ${theme.line.height.default};
-      font-size: ${theme.font.size.xxs};
-      font-weight: ${theme.font.weight.regular};
-      font-family: ${theme.font.family.base};
-      max-height: ${theme.pxToRem(MAX_HEIGHT_IN_PX)}rem;
-
-      &.--outlined {
-        border: ${theme.border.width.xs} solid;
-        border-color: ${isDefaultColor ? theme.neutralColor.low.pure : getColor(theme, color)};
-        color: ${isDefaultColor ? theme.neutralColor.low.pure : getColor(theme, color)};
-        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
-      }
-    `;
-  }
-);
+    &.hst-tag-highlight-variant-outlined {
+      border: ${theme.border.width.xs} solid;
+      border-color: ${isDefaultColor ? theme.neutralColor.low.pure : getColor(theme, color)};
+      color: ${isDefaultColor ? theme.neutralColor.low.pure : getColor(theme, color)};
+      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
+    }
+  `;
+});

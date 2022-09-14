@@ -18,7 +18,7 @@ const TablePagination = ({ disabled, ...props }: TablePaginationProps) => {
         total={total ?? 0}
         mode='table'
         disabled={disabled ?? loading}
-        className='hts-table__pagination'
+        className='hts-table-pagination'
       />
     </Portal>
   );

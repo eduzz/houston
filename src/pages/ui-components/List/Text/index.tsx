@@ -14,7 +14,7 @@ export interface ListTitleProps
 }
 
 const ListText = ({ title, description, disableTypography = false, className, ...rest }: ListTitleProps) => (
-  <div className={cx('houston-list-item-text', className)} {...rest}>
+  <div className={cx('hst-list-item-text', className)} {...rest}>
     {!disableTypography ? (
       <Typography size='xs' weight='semibold' lineHeight='lg'>
         {title}

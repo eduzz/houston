@@ -153,7 +153,7 @@ const SelectField = ({
         disabled={disabled}
         onClickContainer={!disabled && !loading ? openPopover : undefined}
       >
-        <div id={id} className='__text'>
+        <div id={id} className='hst-input-text'>
           {text}
         </div>
       </Fieldset>

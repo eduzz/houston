@@ -25,22 +25,22 @@ const UserMenu: React.FC<UserMenuProps> = ({ className, children }) => {
 
   return (
     <Portal target={container}>
-      <div className={cx(className, opened && '--opened')}>{children}</div>
+      <div className={cx(className, opened && 'hst-topbar-user-menu-opened')}>{children}</div>
     </Portal>
   );
 };
 
-export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
+export default styled(UserMenu, { label: 'hst-topbar-user-menu' })(
   ({ theme }) => css`
     display: flex;
     flex-direction: column;
     width: fit-content;
-    min-width: ${TOPBAR_MENU_MIN_WIDTH_IN_PX}px;
-    max-height: calc(95vh - ${TOPBAR_HEIGHT}px);
+    min-width: ${theme.pxToRem(TOPBAR_MENU_MIN_WIDTH_IN_PX)}rem;
+    max-height: calc(95vh - ${theme.pxToRem(TOPBAR_HEIGHT)}rem);
     overflow-y: auto;
     overflow-x: hidden;
     position: fixed;
-    top: ${TOPBAR_HEIGHT}px;
+    top: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
     right: ${theme.spacing.inline.nano};
     box-shadow: ${theme.shadow.level[2]};
     padding: ${theme.spacing.nano};
@@ -51,7 +51,7 @@ export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
     visibility: hidden;
     opacity: 0;
     user-select: none;
-    background: white;
+    background: ${theme.neutralColor.high.pure};
     border-radius: ${theme.border.radius.sm};
 
     &::-webkit-scrollbar {
@@ -68,7 +68,7 @@ export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
       background: ${theme.neutralColor.high.medium};
     }
 
-    &.--opened {
+    &.hst-topbar-user-menu-opened {
       visibility: visible;
       opacity: 1;
       transform: scale(1);

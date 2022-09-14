@@ -8,9 +8,9 @@ export interface ProgressBarProps {
 
 const ProgressBar = ({ className, value, min, max }: ProgressBarProps & StyledProp) => {
   return (
-    <div className={cx(className, 'hst-progress__bar')}>
+    <div className={cx(className, 'hst-progress-bar')}>
       <span
-        className='hst-progress-bar__filled'
+        className='hst-progress-bar-filled'
         style={{ width: `${value > 0 ? value : 0}%` }}
         aria-valuemax={max}
         aria-valuemin={min}
@@ -28,7 +28,7 @@ const ProgressBarWrapper = styled(ProgressBar, { label: 'hst-progress-bar' })`
     border-radius: ${theme.border.radius.pill};
     overflow: hidden;
 
-    & > .hst-progress-bar__filled {
+    & > .hst-progress-bar-filled {
       height: 100%;
       display: block;
       background-color: ${theme.feedbackColor.positive.pure};

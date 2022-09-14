@@ -15,6 +15,13 @@ export interface SwitchProps
   errorMessage?: string;
 }
 
+const WIDTH_IN_PX = 40;
+const HEIGHT_IN_PX = 24;
+
+const THUMB_WIDTH_IN_PX = 16;
+const THUMB_HEIGHT_IN_PX = 16;
+const THUMB_OFFSET_IN_REM = 1;
+
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
   ({ children, className, onChange, disabled, value, id: idProp, errorMessage, ...rest }, ref) => {
     const handleChange = React.useCallback(() => {
@@ -24,11 +31,11 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     const [id] = React.useState(idProp ?? `hst-switch-id-${Math.floor(Math.random() * 1000)}`);
 
     return (
-      <div className={cx(className, { '--hst-switch-disabled': disabled })}>
+      <div className={cx(className, { 'hst-switch-disabled': disabled })}>
         <button
           id={id}
           role='switch'
-          className={cx('hst-switch__button', { '--error': !!errorMessage })}
+          className={cx('hst-switch-button', { 'hst-switch-error': !!errorMessage })}
           onClick={handleChange}
           disabled={disabled}
           aria-disabled={disabled}
@@ -38,30 +45,23 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         >
           <div
             tabIndex={0}
-            className={cx('hst-switch__track', {
-              '--checked': value,
-              '--error': !!errorMessage
+            className={cx('hst-switch-track', {
+              'hst-switch-checked': value,
+              'hst-switch-error': !!errorMessage
             })}
           >
-            <span className={cx('hst-switch__thumb', { '--checked': value })} />
+            <span className={cx('hst-switch-thumb', { 'hst-switch-checked': value })} />
           </div>
         </button>
 
-        <div className='__label'>
+        <div className='hst-switch-label'>
           {children && <label htmlFor={id}>{children}</label>}
-          {!!errorMessage && <div className='hst-switch__errorMessage'>{errorMessage}</div>}
+          {!!errorMessage && <div className='hst-switch-error-message'>{errorMessage}</div>}
         </div>
       </div>
     );
   }
 );
-
-const WIDTH_IN_PX = 40;
-const HEIGHT_IN_PX = 24;
-
-const THUMB_WIDTH_IN_PX = 16;
-const THUMB_HEIGHT_IN_PX = 16;
-const THUMB_OFFSET_IN_REM = 1;
 
 export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => {
   return css`
@@ -71,12 +71,12 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
     cursor: pointer;
     line-height: ${theme.line.height.lg};
 
-    &.--hst-switch-disabled {
+    &.hst-switch-disabled {
       opacity: ${theme.opacity.level[6]};
       cursor: not-allowed;
     }
 
-    .hst-switch__errorMessage {
+    .hst-switch-error-message {
       font-size: ${theme.font.size.xxs};
       font-family: ${theme.font.family.base};
       font-weight: ${theme.font.weight.regular};
@@ -84,7 +84,7 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
       color: ${theme.hexToRgba(theme.feedbackColor.negative.pure)};
     }
 
-    .hst-switch__button {
+    .hst-switch-button {
       all: unset;
       margin-bottom: auto;
 
@@ -93,17 +93,19 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
       }
     }
 
-    label {
-      all: unset;
-      color: ${theme.neutralColor.low.pure};
-      font-family: ${theme.font.family.base};
-      font-size: ${theme.font.size.xs};
-      font-weight: ${theme.font.weight.regular};
-      line-height: ${theme.line.height.default};
-      user-select: none;
+    .hst-switch-label {
+      label {
+        all: unset;
+        color: ${theme.neutralColor.low.pure};
+        font-family: ${theme.font.family.base};
+        font-size: ${theme.font.size.xs};
+        font-weight: ${theme.font.weight.regular};
+        line-height: ${theme.line.height.default};
+        user-select: none;
+      }
     }
 
-    .hst-switch__track {
+    .hst-switch-track {
       width: ${theme.pxToRem(WIDTH_IN_PX)}rem;
       height: ${theme.pxToRem(HEIGHT_IN_PX)}rem;
       background-color: ${theme.hexToRgba(theme.neutralColor.low.light, theme.opacity.level[8])};
@@ -123,15 +125,15 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
         outline: ${theme.border.width.sm} solid ${theme.feedbackColor.informative.pure};
       }
 
-      &.--checked {
+      &.hst-switch-checked {
         background-color: ${theme.brandColor.primary.pure};
       }
 
-      &.--error {
+      &.hst-switch-error {
         background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure)};
       }
 
-      .hst-switch__thumb {
+      .hst-switch-thumb {
         width: ${theme.pxToRem(THUMB_WIDTH_IN_PX)}rem;
         height: ${theme.pxToRem(THUMB_HEIGHT_IN_PX)}rem;
         background-color: ${theme.neutralColor.high.pure};
@@ -140,7 +142,7 @@ export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => 
         transition: all 0.2s;
         left: ${theme.spacing.quarck};
 
-        &.--checked {
+        &.hst-switch-checked {
           transform: translateX(${THUMB_OFFSET_IN_REM}rem);
         }
       }

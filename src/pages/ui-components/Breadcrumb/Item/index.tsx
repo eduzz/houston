@@ -21,29 +21,30 @@ const BreadcrumbItem = ({ children, className, isActive }: BreadcrumbItemProps) 
   const { separator } = useBreadcrumb();
 
   return (
-    <li className={cx(className, isActive && '--active')}>
-      <span className='__content' {...(isActive && { 'aria-current': 'page' })}>
+    <li className={cx(className, isActive && 'hst-breadcrumb-item-active')}>
+      <span className='hst-breadcrumb-item-content' {...(isActive && { 'aria-current': 'page' })}>
         <LongTextToolTip>{children}</LongTextToolTip>
       </span>
-      <span role='presentation' className='__separator'>
+
+      <span role='presentation' className='hst-breadcrumb-separator'>
         {separator ?? <SeparatorIcon />}
       </span>
     </li>
   );
 };
 
-export default React.memo(styled(BreadcrumbItem, { label: 'houston-breadcrumb-item' })`
+export default React.memo(styled(BreadcrumbItem, { label: 'hst-breadcrumb-item' })`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
 
-    .__content {
+    .hst-breadcrumb-item-content {
       display: flex;
       align-items: center;
       padding: ${theme.spacing.inset.xxxs};
     }
 
-    &.--active {
+    &.hst-breadcrumb-item-active {
       font-weight: ${theme.font.weight.semibold};
     }
   `}

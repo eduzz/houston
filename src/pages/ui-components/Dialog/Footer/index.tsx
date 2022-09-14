@@ -10,7 +10,7 @@ const DialogFooter = ({ children, ...rest }: DialogFooterProps & React.HTMLAttri
   return (
     <footer {...rest}>
       <Divider />
-      <div className='dialog-footer__wrapper'>{children}</div>
+      <div className='hst-dialog-footer-wrapper'>{children}</div>
     </footer>
   );
 };
@@ -19,7 +19,7 @@ export default styled(DialogFooter, { label: 'hst-dialog-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
 
-    .dialog-footer__wrapper {
+    .hst-dialog-footer-wrapper {
       padding: ${theme.spacing.squish.xs};
       display: flex;
       align-items: center;

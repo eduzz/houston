@@ -37,7 +37,8 @@ const AccordionTitle = ({ children, ...rest }: TitleProps) => {
         ) : (
           <>{children}</>
         )}
-        <span className={cx('hst-accordion__icon', { '--isExpanded': expandedItems.includes(itemId) })}>
+
+        <span className={cx('hst-accordion-icon', { 'hst-accordion-expanded': expandedItems.includes(itemId) })}>
           <ChevronIcon />
         </span>
       </div>
@@ -55,12 +56,12 @@ export default styled(AccordionTitle, { label: 'hst-accordion-title' })(({ theme
     transition-duration: 0.5s;
     transition-property: background-color, color;
 
-    .hst-accordion__icon {
+    .hst-accordion-icon {
       line-height: 0;
       margin-left: auto;
       transition: 0.15s linear;
 
-      &.--isExpanded {
+      &.hst-accordion-expanded {
         transform: rotateX(180deg);
       }
     }

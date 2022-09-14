@@ -14,7 +14,7 @@ const ModalFooter = ({
   return (
     <footer className={cx(className, 'hst-modal-footer')} {...rest}>
       <Divider />
-      <div className='hst-modal-footer__wrapper'>{children}</div>
+      <div className='hst-modal-footer-wrapper'>{children}</div>
     </footer>
   );
 };
@@ -23,7 +23,7 @@ export default styled(ModalFooter, { label: 'hst-modal-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
 
-    .hst-modal-footer__wrapper {
+    .hst-modal-footer-wrapper {
       padding: ${theme.spacing.squish.xs};
       display: flex;
       align-items: center;

@@ -57,31 +57,31 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, InternalFieldsetProps>(
         id={id}
         ref={ref}
         className={cx(className, {
-          '--hidden': hidden,
-          '--full-width': fullWidth ?? true,
-          '--error': !!errorMessage,
-          '--disabled': disabled,
-          '--loading': loading,
-          '--focused': focused,
-          '--clickable': !!onClickContainer,
-          [`--size-${size ?? 'default'}`]: true
+          'hst-fieldset-hidden': hidden,
+          'hst-fieldset-full-width': fullWidth ?? true,
+          'hst-fieldset-error': !!errorMessage,
+          'hst-fieldset-disabled': disabled,
+          'hst-fieldset-loading': loading,
+          'hst-fieldset-focused': focused,
+          'hst-fieldset-clickable': !!onClickContainer,
+          [`hst-fieldset-size-${size ?? 'default'}`]: true
         })}
       >
-        {!!label && <label className='__label'>{label}</label>}
+        {!!label && <label className='hst-fieldset-label'>{label}</label>}
 
-        <div className='__container' ref={containerRef} onClick={onClickContainer}>
-          {!!startAdornment && <span className='__startAdornment'>{startAdornment}</span>}
-          <div className='__content'>{children}</div>
-          {!!endAdornment && <span className='__endAdornment'>{endAdornment}</span>}
+        <div className='hst-fieldset-container' ref={containerRef} onClick={onClickContainer}>
+          {!!startAdornment && <span className='hst-fieldset-start-adornment'>{startAdornment}</span>}
+          <div className='hst-fieldset-content'>{children}</div>
+          {!!endAdornment && <span className='hst-fieldset-end-adornment'>{endAdornment}</span>}
         </div>
 
-        {!!helperText && <span className='__message'>{helperText}</span>}
+        {!!helperText && <span className='hst-fieldset-message'>{helperText}</span>}
       </fieldset>
     );
   }
 );
 
-export default styled(Fieldset, { label: 'houston-form-fieldset' })(
+export default styled(Fieldset, { label: 'hst-fieldset' })(
   ({ theme }) => css`
     border: none;
     position: relative;
@@ -91,7 +91,7 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
     display: inline-block;
     vertical-align: top;
 
-    & > .__container {
+    & > .hst-fieldset-container {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -103,8 +103,8 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       height: 48px;
       box-shadow: 0 0 0 2px transparent;
 
-      & > .__startAdornment,
-      & > .__endAdornment {
+      & > .hst-fieldset-start-adornment,
+      & > .hst-fieldset-end-adornment {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -115,19 +115,19 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
         }
       }
 
-      & > .__content {
+      & > .hst-fieldset-content {
         width: 100%;
       }
 
-      & > .__startAdornment {
+      & > .hst-fieldset-start-adornment {
         margin-left: ${theme.spacing.xxxs};
       }
 
-      & > .__endAdornment {
+      & > .hst-fieldset-end-adornment {
         margin-right: ${theme.spacing.xxxs};
       }
 
-      & .__text {
+      & .hst-input-text {
         padding: ${theme.spacing.squish.xxs};
         font-size: ${theme.font.size.xs};
         font-family: ${theme.font.family.base};
@@ -137,7 +137,7 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       }
     }
 
-    & > .__label {
+    & > .hst-fieldset-label {
       font-size: ${theme.font.size.xs};
       font-family: ${theme.font.family.base};
       font-weight: ${theme.font.weight.regular};
@@ -148,7 +148,7 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       align-items: center;
     }
 
-    & > .__message {
+    & > .hst-fieldset-message {
       display: block;
       font-size: ${theme.font.size.xxs};
       font-family: ${theme.font.family.base};
@@ -158,61 +158,61 @@ export default styled(Fieldset, { label: 'houston-form-fieldset' })(
       margin-top: ${theme.spacing.nano};
     }
 
-    &.--clickable:not(.--disabled) > .__container {
+    &.hst-fieldset-clickable:not(.hst-fieldset-disabled) > .hst-fieldset-container {
       cursor: pointer;
       user-select: none;
     }
 
-    &.--disabled {
+    &.hst-fieldset-disabled {
       opacity: ${theme.opacity.level[6]};
       cursor: not-allowed;
     }
 
-    &.--hidden {
+    &.hst-fieldset-hidden {
       display: none;
     }
 
-    &:not(.--disabled) > .__container:hover {
+    &:not(.hst-fieldset-disabled) > .hst-fieldset-container:hover {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
     }
 
-    &.--loading {
+    &.hst-fieldset-loading {
       cursor: progress;
     }
 
-    &.--focused {
-      & > .__container {
+    &.hst-fieldset-focused {
+      & > .hst-fieldset-container {
         box-shadow: 0 0 0 2px ${theme.feedbackColor.informative.pure};
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       }
     }
 
-    &.--error > .__container {
+    &.hst-fieldset-error > .hst-fieldset-container {
       background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
       border-color: ${theme.feedbackColor.negative.pure};
     }
 
-    &.--full-width {
+    &.hst-fieldset-full-width {
       width: 100%;
     }
 
-    &.--size-sm {
+    &.hst-fieldset-size-sm {
       margin: 0;
 
-      & .__container {
+      & .hst-fieldset-container {
         height: 35px;
 
-        & > .__startAdornment {
+        & > .hst-fieldset-start-adornment {
           margin-left: ${theme.spacing.nano};
         }
 
-        & > .__endAdornment {
+        & > .hst-fieldset-end-adornment {
           margin-right: ${theme.spacing.nano};
         }
       }
 
-      & .__text,
-      & > .__label {
+      & .hst-input-text,
+      & > .hst-fieldset-label {
         font-size: ${theme.font.size.xxs};
       }
     }
