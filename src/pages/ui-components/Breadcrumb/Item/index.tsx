@@ -6,6 +6,7 @@ import { useBreadcrumb } from '../context';
 import LongTextToolTip from '../internals/LongTextToolTip';
 
 export interface BreadcrumbItemProps extends StyledProp {
+  id?: string;
   isActive?: boolean;
   onClick?: () => void;
   children?: React.ReactNode;
@@ -17,11 +18,11 @@ const SeparatorIcon = () => (
   </svg>
 );
 
-const BreadcrumbItem = ({ children, className, isActive }: BreadcrumbItemProps) => {
+const BreadcrumbItem = ({ id, children, className, isActive }: BreadcrumbItemProps) => {
   const { separator } = useBreadcrumb();
 
   return (
-    <li className={cx(className, isActive && '--active')}>
+    <li id={id} className={cx(className, isActive && '--active')}>
       <span className='__content' {...(isActive && { 'aria-current': 'page' })}>
         <LongTextToolTip>{children}</LongTextToolTip>
       </span>

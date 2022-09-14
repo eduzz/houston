@@ -3,6 +3,7 @@ import * as React from 'react';
 import CollapseMUI from '@mui/material/Collapse';
 
 export interface CollapseProps {
+  id?: string;
   visibled: boolean;
   children?: React.ReactNode;
   onEnter?: () => void;
@@ -19,10 +20,12 @@ const Collapse = ({
   onEnter,
   onClose,
   mountOnEnter = false,
-  timeout = 500
+  timeout = 500,
+  id
 }: CollapseProps) => {
   return (
     <CollapseMUI
+      id={id}
       in={visibled}
       timeout={timeout}
       unmountOnExit={destroyOnClose}

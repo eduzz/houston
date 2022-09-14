@@ -8,7 +8,8 @@ import error from '../../utils/error';
 import withForm, { WithFormProps } from '../Form/withForm';
 
 export type CheckboxGroupProps = StyledProp &
-  WithFormProps<never> & {
+  WithFormProps<never> &
+  React.HTMLAttributes<HTMLDivElement> & {
     children: React.ReactElement<CheckboxRadioProps>[];
     name?: string;
     value?: any[];
@@ -21,7 +22,14 @@ export type CheckboxGroupProps = StyledProp &
     spacing?: keyof Omit<Spacing, 'fn'>;
   };
 
-const CheckboxGroup = ({ children, value: groupValue = [], onChange, className, errorMessage }: CheckboxGroupProps) => {
+const CheckboxGroup = ({
+  children,
+  value: groupValue = [],
+  onChange,
+  className,
+  errorMessage,
+  ...rest
+}: CheckboxGroupProps) => {
   React.useEffect(() => {
     if (!Array.isArray(groupValue)) {
       error(
@@ -50,7 +58,7 @@ const CheckboxGroup = ({ children, value: groupValue = [], onChange, className, 
   });
 
   return (
-    <div className={className}>
+    <div className={className} {...rest}>
       <div className='hst-checkbox-group-checkboxes'>{mappedChildren}</div>
       <span className='hst-checkbox-group-error-message'>{errorMessage}</span>
     </div>
