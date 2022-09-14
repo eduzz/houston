@@ -36,6 +36,9 @@ export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
     flex-direction: column;
     width: fit-content;
     min-width: ${TOPBAR_MENU_MIN_WIDTH_IN_PX}px;
+    max-height: calc(95vh - ${TOPBAR_HEIGHT}px);
+    overflow-y: auto;
+    overflow-x: hidden;
     position: fixed;
     top: ${TOPBAR_HEIGHT}px;
     right: ${theme.spacing.inline.nano};
@@ -50,6 +53,20 @@ export default styled(UserMenu, { label: 'houston-topbar-user-menu' })(
     user-select: none;
     background: white;
     border-radius: ${theme.border.radius.sm};
+
+    &::-webkit-scrollbar {
+      width: 3px;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 4px;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background: ${theme.neutralColor.high.medium};
+    }
 
     &.--opened {
       visibility: visible;
