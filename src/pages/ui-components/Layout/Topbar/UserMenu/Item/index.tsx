@@ -70,11 +70,11 @@ const UserMenuItem: React.FC<UserMenuItemProps> = ({
   return <>{content}</>;
 };
 
-export default styled(UserMenuItem, { label: 'houston-user-menu-item' })`
+export default styled(UserMenuItem, { label: 'hst-user-menu-item' })`
   justify-content: start;
   text-align: left;
 
-  &.--disabled {
+  &.hst-button-disabled {
     background-color: transparent;
   }
 `;

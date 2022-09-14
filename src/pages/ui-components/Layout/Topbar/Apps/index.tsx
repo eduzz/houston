@@ -61,7 +61,7 @@ const TopbarApps = React.memo<StyledProp>(({ className, ...rest }) => {
   );
 });
 
-export default styled(TopbarApps, { label: 'houston-topbar-apps' })`
+export default styled(TopbarApps, { label: 'hst-topbar-apps' })`
   width: auto;
   position: relative;
   box-sizing: border-box;

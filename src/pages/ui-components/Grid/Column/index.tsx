@@ -22,12 +22,12 @@ const Column = React.forwardRef<HTMLDivElement, ColumnProps>(
         ref={ref}
         className={cx(
           className,
-          '__houston_grid_column',
-          xs && `--xs-${xs}`,
-          sm && `--sm-${sm}`,
-          md && `--md-${md}`,
-          lg && `--lg-${lg}`,
-          xlg && `--xlg-${xlg}`
+          'hst-grid-column',
+          xs && `hst-grid-column-xs-${xs}`,
+          sm && `hst-grid-column-sm-${sm}`,
+          md && `hst-grid-column-md-${md}`,
+          lg && `hst-grid-column-lg-${lg}`,
+          xlg && `hst-grid-column-xlg-${xlg}`
         )}
         {...rest}
       >
@@ -37,11 +37,11 @@ const Column = React.forwardRef<HTMLDivElement, ColumnProps>(
   }
 );
 
-export default styled(Column, { label: 'houston-grid-column' })(({ theme }) =>
+export default styled(Column, { label: 'hst-grid-column' })(({ theme }) =>
   breakpoints.map(breakpoint => {
     const cssSize = columnSizes.map(
       size => css`
-        &.--${breakpoint}-${size} {
+        &.hst-grid-column-${breakpoint}-${size} {
           flex-basis: ${typeof size === 'string' ? 'auto' : `${(size / COLUMNS) * 100}%`};
           flex: ${size === 'fill' ? 1 : null};
         }

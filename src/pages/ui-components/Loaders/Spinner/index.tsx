@@ -38,7 +38,7 @@ const circleAnimation = (size: number) => keyframes`
   100% { stroke-dashoffset: ${(size / SIZE_BASE) * 187}; transform: rotate(450deg); }
 `;
 
-export default styled(Spinner, { label: 'houston-loader' })`
+export default styled(Spinner, { label: 'hst-loader' })`
   ${({ theme, color, size = SIZE_BASE }) => css`
     animation: ${rotationAnimation} 1.4s linear infinite;
     color: ${color === 'inherit' ? 'inherit' : getColorFallback(theme, color).pure};

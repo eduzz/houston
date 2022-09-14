@@ -86,39 +86,44 @@ const Alert = React.forwardRef<HTMLDivElement, AlertInterface>(
     }
 
     return (
-      <div {...rest} ref={ref} role='alert' className={cx(className, `--type-${type}`, { '--close-icon': closeIcon })}>
-        <span role='img' className='__icon'>
+      <div
+        {...rest}
+        ref={ref}
+        role='alert'
+        className={cx(className, `hst-alert-type-${type}`, { 'hst-alert-close-icon': closeIcon })}
+      >
+        <span role='img' className='hst-alert-icon'>
           {IconMap[type]}
         </span>
 
-        <div className='__wrapper'>
-          <div className='__content'>
+        <div className='hst-alert-wrapper'>
+          <div className='hst-alert-content'>
             {title && (
               <Typography
                 color='neutralColor.low.pure'
                 weight='semibold'
                 size='md'
                 lineHeight='default'
-                className='__title'
+                className='hst-alert-title'
               >
                 {title}
               </Typography>
             )}
 
-            <Typography.Paragraph color='neutralColor.low.pure' size='sm' lineHeight='lg'>
+            <Typography.Paragraph color='neutralColor.low.pure' size='md' lineHeight='lg'>
               {children}
             </Typography.Paragraph>
           </div>
 
           {!!buttonText && (
-            <div className='__action'>
+            <div className='hst-alert-action'>
               <Button {...buttonProps}>{buttonText}</Button>
             </div>
           )}
         </div>
 
         {closeIcon && (
-          <span role='button' className='__close' onClick={handleClose}>
+          <span role='button' className='hst-alert-close' onClick={handleClose}>
             <Icon.Close />
           </span>
         )}
@@ -127,17 +132,17 @@ const Alert = React.forwardRef<HTMLDivElement, AlertInterface>(
   }
 );
 
-export default styled(Alert, { label: 'houston-alert' })`
+export default styled(Alert, { label: 'hst-alert' })`
   ${({ theme }) => {
     const mobileSpacingCloseIcon = theme.remToPx(theme.cleanUnit(theme.spacing.inline.nano)) + CLOSE_ICON_SIZE;
     const modifiersTypes: CSSInterpolation[] = [];
 
     Object.keys(theme.feedbackColor).forEach(key =>
       modifiersTypes.push(css`
-        &.--type-${key} {
+        &.hst-alert-type-${key} {
           background-color: ${theme.feedbackColor[key].light};
 
-          .__icon svg {
+          .hst-alert-icon svg {
             fill: ${theme.feedbackColor[key].pure};
           }
         }
@@ -157,12 +162,12 @@ export default styled(Alert, { label: 'houston-alert' })`
       }
 
       ${theme.breakpoints.down('md')} {
-        &.--close-icon {
-          .__content {
+        &.hst-alert-close-icon {
+          .hst-alert-content {
             margin-right: ${theme.pxToRem(mobileSpacingCloseIcon)}rem;
           }
 
-          .__close {
+          .hst-alert-close {
             position: absolute;
             top: ${theme.spacing.inset.xs};
             right: ${theme.spacing.inset.xs};
@@ -173,7 +178,7 @@ export default styled(Alert, { label: 'houston-alert' })`
 
       ${modifiersTypes}
 
-      .__icon {
+      .hst-alert-icon {
         line-height: 0;
         margin: ${theme.pxToRem(2)}rem ${theme.spacing.inline.xxxs} 0 0;
 
@@ -182,10 +187,10 @@ export default styled(Alert, { label: 'houston-alert' })`
         }
       }
 
-      .__wrapper {
+      .hst-alert-wrapper {
         flex: 1;
 
-        .__title {
+        .hst-alert-title {
           margin-bottom: ${theme.spacing.stack.xxxs};
 
           ${theme.breakpoints.down('md')} {
@@ -194,20 +199,20 @@ export default styled(Alert, { label: 'houston-alert' })`
           }
         }
 
-        .__action {
+        .hst-alert-action {
           margin-top: ${theme.spacing.stack.xxxs};
 
           ${theme.breakpoints.down('md')} {
             margin-top: ${theme.spacing.stack.xxs};
 
-            button {
+            button.hst-button {
               width: 100%;
             }
           }
         }
       }
 
-      .__close {
+      .hst-alert-close {
         line-height: 0;
         margin: ${theme.pxToRem(4)}rem 0 0 ${theme.spacing.inline.xxxs};
         cursor: pointer;

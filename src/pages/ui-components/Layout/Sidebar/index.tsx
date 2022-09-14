@@ -48,10 +48,12 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
 
   return (
     <SidebarContext.Provider value={contextValue}>
-      <div className={cx(className, { '--visible': opened && isMobile, '--has-topbar': hasTopbar })}>
+      <div
+        className={cx(className, { 'hst-sidebar-visible': opened && isMobile, 'hst-sidebar-has-topbar': hasTopbar })}
+      >
         <Overlay visible={opened && isMobile} color='high' onClick={toggleMenu} underTopbar />
 
-        <aside className='houston-menu__container'>
+        <aside className='hst-sidebar-container'>
           <nav>
             <ul>{children}</ul>
           </nav>
@@ -61,13 +63,13 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
   );
 };
 
-const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
+const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
   ${({ theme }) => css`
     width: ${MENU_WIDTH}px;
     height: auto;
     position: relative;
 
-    & .houston-menu__container {
+    & .hst-sidebar-container {
       background: #fff;
       display: inline-flex;
       flex-direction: column;
@@ -110,21 +112,21 @@ const SidebarStyled = styled(Sidebar, { label: 'houston-menu' })`
       }
     }
 
-    &.--has-topbar .houston-menu__container {
+    &.hst-sidebar-has-topbar .hst-sidebar-container {
       top: ${TOPBAR_HEIGHT}px;
     }
 
     ${breakpoints.down('lg')} {
       width: 0;
 
-      & .houston-menu__container {
+      & .hst-sidebar-container {
         left: -${MENU_WIDTH}px;
         border: 0;
         opacity: 0;
         box-shadow: ${theme.shadow.level[1]};
       }
 
-      &.--visible .houston-menu__container {
+      &.hst-sidebar-visible .hst-sidebar-container {
         left: 0;
         opacity: 1;
       }

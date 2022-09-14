@@ -47,7 +47,7 @@ const RadioGroup = ({ children, value, onChange, className, errorMessage, ...res
 
 export default styled(withForm(React.memo(RadioGroup)), { label: 'hst-radio-group' })`
   ${({ theme, spacing = 'xxxs' }) => css`
-    .hst-radio-group-radios {
+    .hst-radio-group-options {
       display: flex;
       flex-direction: column;
       gap: ${theme.spacing[spacing]};

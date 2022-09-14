@@ -25,8 +25,8 @@ const DrawerHeader = ({
 
   return (
     <header {...rest}>
-      <div className='hst-drawer-header__wrapper'>
-        <span className='hst-drawer-header__title'>
+      <div className='hst-drawer-header-wrapper'>
+        <span className='hst-drawer-header-title'>
           {!disableTypography ? (
             <Typography as='h6' size='sm'>
               {children}
@@ -37,7 +37,7 @@ const DrawerHeader = ({
         </span>
 
         {closeIcon && (
-          <IconButton className='hst-drawer-header__close' aria-label='Fechar Drawer' size='md' onClick={onClose}>
+          <IconButton className='hst-drawer-header-close' aria-label='Fechar Drawer' size='md' onClick={onClose}>
             <IconClose />
           </IconButton>
         )}
@@ -54,7 +54,7 @@ export default React.memo(styled(DrawerHeader, { label: 'hst-drawer-header' })`
     flex-shrink: 1;
     flex-basis: 0%;
 
-    .hst-drawer-header__wrapper {
+    .hst-drawer-header-wrapper {
       padding: ${theme.spacing.inset.sm};
       display: flex;
       align-items: center;
@@ -64,7 +64,7 @@ export default React.memo(styled(DrawerHeader, { label: 'hst-drawer-header' })`
         padding: ${theme.spacing.inset.xs};
       }
 
-      .hst-drawer-header__close {
+      .hst-drawer-header-close {
         margin-left: ${theme.spacing.inline.xxs};
       }
     }

@@ -21,7 +21,7 @@ const TagLeft = ({ children, onClick: onClickProp, ...rest }: TagLeftProps) => {
   );
 };
 
-export default styled(TagLeft, { label: 'houston-tag-left' })(({ theme }) => {
+export default styled(TagLeft, { label: 'hst-tag-left' })(({ theme }) => {
   return css`
     border-radius: ${theme.border.radius.circular};
     padding: ${theme.spacing.stack.quarck};

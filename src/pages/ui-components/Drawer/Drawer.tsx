@@ -52,7 +52,7 @@ const Drawer = ({
             role='dialog'
             tabIndex={-1}
             aria-modal
-            className={cx(className, `--hst-drawer-size-${size}`, `--hst-drawer-placement-${placement}`)}
+            className={cx(className, `hst-drawer-size-${size}`, `hst-drawer-placement-${placement}`)}
             {...rest}
           >
             {children}
@@ -70,7 +70,7 @@ const DrawerWrapper = styled(Drawer, { label: 'hst-drawer' })`
 
     Object.entries(modalSizesInPx).forEach(([size, value]) =>
       modifiers.push(css`
-        &.--hst-drawer-size-${size} {
+        &.hst-drawer-size-${size} {
           width: ${theme.pxToRem(value)}rem;
         }
       `)
@@ -78,7 +78,7 @@ const DrawerWrapper = styled(Drawer, { label: 'hst-drawer' })`
 
     placementMap.forEach(placement =>
       modifiers.push(css`
-        &.--hst-drawer-placement-${placement} {
+        &.hst-drawer-placement-${placement} {
           ${placement}: 0%;
         }
       `)

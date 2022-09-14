@@ -10,7 +10,7 @@ const Text = ({ children, ...rest }: TextProps) => {
   return <span {...rest}>{children}</span>;
 };
 
-export default styled(Text, { label: 'houston-tag-text' })(({ theme }) => {
+export default styled(Text, { label: 'hst-tag-text' })(({ theme }) => {
   return css`
     font-family: ${theme.font.family.base};
     font-size: ${theme.font.size.xxs};

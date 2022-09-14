@@ -127,8 +127,8 @@ const DatePicker = ({
       locale={locale}
       value={value}
       defaultPickerValue={new Date()}
-      className={cx(className, { '--hst-datepicker-full-width': fullWidth })}
-      dropdownClassName={cx(className, { '--hst-datepicker-enable-seconds': enableSeconds })}
+      className={cx(className, { 'hst-datepicker-full-width': fullWidth })}
+      dropdownClassName={cx(className, { 'hst-datepicker-enable-seconds': enableSeconds })}
       format={displayFormat ?? defaultFormats[`${mode}${enableSeconds ? 'Seconds' : ''}`]}
       inputRender={inputRender}
       onChange={onChange}
@@ -149,13 +149,13 @@ const SIZE_BUTTON = `${pxToRem(48)}rem`;
 const HOUR_WIDTH_BUTTON = `${pxToRem(63)}rem`;
 
 export default withForm(
-  styled(React.memo(DatePicker), { label: 'houston-datepicker' })(
+  styled(React.memo(DatePicker), { label: 'hst-datepicker' })(
     ({ theme }) => css`
       &.rc-picker-focused {
         border: none;
       }
 
-      &.--hst-datepicker-full-width {
+      &.hst-datepicker-full-width {
         width: 100%;
       }
 
@@ -485,7 +485,7 @@ export default withForm(
           }
         }
 
-        &.--hst-datepicker-enable-seconds .rc-picker-time-panel .rc-picker-content {
+        &.hst-datepicker-enable-seconds .rc-picker-time-panel .rc-picker-content {
           grid-template-columns: repeat(3, ${HOUR_WIDTH_BUTTON});
 
           &::before {

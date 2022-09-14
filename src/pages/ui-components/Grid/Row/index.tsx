@@ -31,9 +31,9 @@ const Row = React.forwardRef<HTMLDivElement, RowProps>(
         ref={ref}
         className={cx(
           className,
-          `--spacing-${spacing}`,
-          `--justify-content-${justifyContent}`,
-          `--align-items-${alignItems}`
+          `hst-grid-row-spacing-${spacing}`,
+          `hst-grid-row-justify-content-${justifyContent}`,
+          `hst-grid-row-align-items-${alignItems}`
         )}
         {...rest}
       >
@@ -43,14 +43,14 @@ const Row = React.forwardRef<HTMLDivElement, RowProps>(
   }
 );
 
-export default styled(Row, { label: 'houston-grid-row' })(
+export default styled(Row, { label: 'hst-grid-row' })(
   ({ theme }) => css`
     display: flex;
     flex-wrap: wrap;
 
     ${justifyContent.map(
       justifyContent => css`
-        &.--justify-content-${justifyContent} {
+        &.hst-grid-row-justify-content-${justifyContent} {
           justify-content: ${justifyContent};
         }
       `
@@ -58,7 +58,7 @@ export default styled(Row, { label: 'houston-grid-row' })(
 
     ${alignItems.map(
       alignItems => css`
-        &.--align-items-${alignItems} {
+        &.hst-grid-row-align-items-${alignItems} {
           align-items: ${alignItems};
         }
       `
@@ -66,11 +66,11 @@ export default styled(Row, { label: 'houston-grid-row' })(
 
     ${spacing.map(
       spacing => css`
-        &.--spacing-${spacing} {
+        &.hst-grid-row-spacing-${spacing} {
           width: calc(100% + ${theme.spacing.inline[spacing] ?? '0rem'});
           margin: calc(-${theme.spacing.inline[spacing] ?? '0rem'} / 2);
 
-          & > .__houston_grid_column {
+          & > .hst-grid-column {
             box-sizing: border-box;
             padding: calc(${theme.spacing.inline[spacing] ?? '0rem'} / 2);
           }

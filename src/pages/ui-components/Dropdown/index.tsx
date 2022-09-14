@@ -132,10 +132,10 @@ const DropdownWrapper = styled(Dropdown)`
         background: ${theme.neutralColor.high.pure};
       }
 
-      &.popover[data-popper-placement='top'],
-      &.popover[data-popper-placement='top-start'],
-      &.popover[data-popper-placement='top-end'] {
-        & > .__container {
+      &.hst-popover[data-popper-placement='top'],
+      &.hst-popover[data-popper-placement='top-start'],
+      &.hst-popover[data-popper-placement='top-end'] {
+        & > .hst-popover-container {
           margin-bottom: ${ARROW_HALF_SIZE_IN_REM};
         }
 
@@ -148,10 +148,10 @@ const DropdownWrapper = styled(Dropdown)`
         }
       }
 
-      &.popover[data-popper-placement='bottom'],
-      &.popover[data-popper-placement='bottom-start'],
-      &.popover[data-popper-placement='bottom-end'] {
-        & > .__container {
+      &.hst-popover[data-popper-placement='bottom'],
+      &.hst-popover[data-popper-placement='bottom-start'],
+      &.hst-popover[data-popper-placement='bottom-end'] {
+        & > .hst-popover-container {
           margin-top: ${ARROW_HALF_SIZE_IN_REM};
         }
 
@@ -165,10 +165,10 @@ const DropdownWrapper = styled(Dropdown)`
         }
       }
 
-      &.popover[data-popper-placement='left'],
-      &.popover[data-popper-placement='left-start'],
-      &.popover[data-popper-placement='left-end'] {
-        & > .__container {
+      &.hst-popover[data-popper-placement='left'],
+      &.hst-popover[data-popper-placement='left-start'],
+      &.hst-popover[data-popper-placement='left-end'] {
+        & > .hst-popover-container {
           position: relative;
           left: -${ARROW_HALF_SIZE_IN_REM};
         }
@@ -183,10 +183,10 @@ const DropdownWrapper = styled(Dropdown)`
         }
       }
 
-      &.popover[data-popper-placement='right'],
-      &.popover[data-popper-placement='right-start'],
-      &.popover[data-popper-placement='right-end'] {
-        & > .__container {
+      &.hst-popover[data-popper-placement='right'],
+      &.hst-popover[data-popper-placement='right-start'],
+      &.hst-popover[data-popper-placement='right-end'] {
+        & > .hst-popover-container {
           position: relative;
           right: -${ARROW_HALF_SIZE_IN_REM};
         }

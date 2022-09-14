@@ -32,8 +32,8 @@ const UploadList = ({ className, items, onRemove }: UploadListProps) => {
             {(item.status === 'success' || item.status === 'error') && (
               <span
                 className={cx('hst-drag-and-drop-file-item-status', {
-                  '--hst-drag-and-drop-file-item-status-success': item.status === 'success',
-                  '--hst-drag-and-drop-file-item-status-error': item.status === 'error'
+                  'hst-drag-and-drop-file-item-status-success': item.status === 'success',
+                  'hst-drag-and-drop-file-item-status-error': item.status === 'error'
                 })}
               >
                 {getStatusMessage(item)}
@@ -89,11 +89,11 @@ export default styled(UploadList, { label: 'hst-drag-and-drop-file-list' })`
           font-family: ${theme.font.family.base};
           line-height: ${theme.line.height.md};
 
-          &.--hst-drag-and-drop-file-item-status-success {
+          &.hst-drag-and-drop-file-item-status-success {
             color: ${theme.feedbackColor.positive.medium};
           }
 
-          &.--hst-drag-and-drop-file-item-status-error {
+          &.hst-drag-and-drop-file-item-status-error {
             color: ${theme.feedbackColor.negative.medium};
           }
         }

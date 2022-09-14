@@ -15,7 +15,7 @@ const LineLoader = ({ className, mode = 'indeterminate', value, ...rest }: LineL
   const style = useMemo(() => (mode === 'determinate' ? { width: `${(value ?? 0) * 100}%` } : {}), [value, mode]);
 
   return (
-    <div className={cx(className, `--hts-line-loader-mode-${mode}`)} {...rest}>
+    <div className={cx(className, `hst-line-loader-mode-${mode}`)} {...rest}>
       <div style={style} />
     </div>
   );
@@ -33,7 +33,7 @@ const indeterminateShortAnimation = keyframes`
   100% { left: 107%; right: -8%; }
 `;
 
-export default styled(LineLoader, { label: 'houston-lineloader' })(
+export default styled(LineLoader, { label: 'hst-lineloader' })(
   ({ theme }) => css`
     position: relative;
     display: block;
@@ -46,7 +46,7 @@ export default styled(LineLoader, { label: 'houston-lineloader' })(
       background-color: ${theme.brandColor.primary.pure};
     }
 
-    &.--hts-line-loader-mode-indeterminate > div {
+    &.hst-line-loader-mode-indeterminate > div {
       &:before,
       &:after {
         content: '';
@@ -67,7 +67,7 @@ export default styled(LineLoader, { label: 'houston-lineloader' })(
       }
     }
 
-    &.--hts-line-loader-mode-determinate > div {
+    &.hst-line-loader-mode-determinate > div {
       position: absolute;
       top: 0;
       bottom: 0;

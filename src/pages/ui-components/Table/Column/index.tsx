@@ -32,7 +32,7 @@ const TableColumn = ({ sortableField, children, className, ...rest }: TableColum
   }, [onSort, sortableField, isSorted, sortDirection]);
 
   return (
-    <th className={cx(className, 'hts-table__column', { '--hts-disabled': loading })} {...rest}>
+    <th className={cx(className, 'hts-table-column', { 'hts-table-column-disabled': loading })} {...rest}>
       <SortLabel
         sortable={!!sortableField}
         active={isSorted}

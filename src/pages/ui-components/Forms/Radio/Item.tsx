@@ -38,10 +38,10 @@ const RadioItem = ({
   return (
     <label
       className={cx(className, {
-        '--hst-empty': !label,
-        '--hst-checked': checked,
-        '--hst-error': !!error,
-        '--hst-disabled': disabled
+        'hst-radio-item-empty': !label,
+        'hst-radio-item-checked': checked,
+        'hst-radio-item-error': !!error,
+        'hst-radio-item-disabled': disabled
       })}
       htmlFor={props.id}
     >
@@ -66,7 +66,7 @@ export default styled(React.memo(RadioItem), { label: 'hst-radio-item' })(
     display: flex;
     cursor: pointer;
 
-    &.--hst-empty {
+    &.hst-radio-item-empty {
       display: inline-block;
       margin: 0;
     }
@@ -84,8 +84,8 @@ export default styled(React.memo(RadioItem), { label: 'hst-radio-item' })(
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 16px;
-      height: 16px;
+      width: ${theme.pxToRem(16)}rem;
+      height: ${theme.pxToRem(16)}rem;
       line-height: 0;
       border: 1px solid ${theme.neutralColor.low.light};
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
@@ -116,7 +116,7 @@ export default styled(React.memo(RadioItem), { label: 'hst-radio-item' })(
       box-shadow: 0 0 0 1px transparent;
     }
 
-    &.--hst-checked > .hst-radio-item-icon-container {
+    &.hst-radio-item-checked > .hst-radio-item-icon-container {
       color: ${theme.brandColor.primary.pure};
       background-color: white;
       border-color: ${theme.brandColor.primary.pure};
@@ -128,19 +128,19 @@ export default styled(React.memo(RadioItem), { label: 'hst-radio-item' })(
       }
     }
 
-    &.--hst-error:not(.--hst-checked) > .hst-radio-item-icon-container {
+    &.hst-radio-item-error:not(.hst-radio-item-checked) > .hst-radio-item-icon-container {
       background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
       border-color: ${theme.feedbackColor.negative.pure};
     }
 
-    &.--hst-error.--hst-checked > .hst-radio-item-icon-container {
+    &.hst-radio-item-error.hst-radio-item-checked > .hst-radio-item-icon-container {
       color: ${theme.feedbackColor.negative.pure};
       background-color: ${theme.hexToRgba(theme.feedbackColor.negative.pure, theme.opacity.level[2])};
       border-color: ${theme.feedbackColor.negative.pure};
       box-shadow: 0 0 0 1px ${theme.feedbackColor.negative.pure};
     }
 
-    &.--hst-disabled {
+    &.hst-radio-item-disabled {
       cursor: not-allowed;
       opacity: ${theme.opacity.level[6]};
 

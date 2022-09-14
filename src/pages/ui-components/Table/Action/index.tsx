@@ -88,7 +88,7 @@ export default styled(React.memo(TableActionOption))`
   text-align: left;
   border-radius: 0;
 
-  &.--disabled {
+  &.hst-button-disabled {
     background-color: transparent;
   }
 `;

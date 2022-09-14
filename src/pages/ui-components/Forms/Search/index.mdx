@@ -67,23 +67,14 @@ import Search from '@eduzz/houston-ui/Forms/Search';
 
 ### Search Props
 
-| prop           | tipo                                                                | obrigatório | padrão  | descrição                                                                                                     |
-| -------------- | ------------------------------------------------------------------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------- |
-| id             | `string`                                                            | `false`     | -       | -                                                                                                             |
-| name           | `string`                                                            | `false`     | -       |                                                                                                               |
-| label          | `string`                                                            | `false`     | -       | -                                                                                                             |
-| disabled       | `boolean`                                                           | `false`     | `false` |                                                                                                               |
-| fullWidth      | `boolean`                                                           | `false`     | `true`  |                                                                                                               |
-| className      | `string`                                                            | `false`     | -       |                                                                                                               |
-| loading        | `boolean`                                                           | `false`     | -       | Exibe ícone de carregamento no componente                                                                     |
-| helperText     | `string`                                                            | `false`     | -       | Exibe texto de ajuda abaixo do componente de seleção                                                          |
-| placeholder    | `string`                                                            | `false`     | -       |                                                                                                               |
-| errorMessage   | `string`                                                            | `false`     | -       | Exibe uma mensagem de erro no componente de seleção, assim como indica erro no campo                          |
-| value          | `string`                                                            | `false`     | -       |                                                                                                               |
-| onChange       | `(value: string, e?: React.ChangeEvent<HTMLInputElement>) => any`   | `false`     | -       |                                                                                                               |
-| onSelect       | `(value: string, e?: React.MouseEvent<HTMLDivElement>) => any`      | `false`     | -       |                                                                                                               |
-| onEnter        | `(value: string, e?: React.KeyboardEvent<HTMLInputElement>) => any` | `false`     | -       |                                                                                                               |
-| filterStrategy | `(result: string, index?: number, results?: string[]) => boolean`   | `false`     | -       | Função para filtrar os resultados informados, para que um resultado seja exibido, a função deve retornar true |
+| prop           | tipo                                                                | obrigatório | padrão | descrição                                                                                                     |
+| -------------- | ------------------------------------------------------------------- | ----------- | ------ | ------------------------------------------------------------------------------------------------------------- |
+| onChange       | `(value: string, e?: React.ChangeEvent<HTMLInputElement>) => any`   | `false`     | -      |                                                                                                               |
+| onSelect       | `(value: string, e?: React.MouseEvent<HTMLDivElement>) => any`      | `false`     | -      |                                                                                                               |
+| onEnter        | `(value: string, e?: React.KeyboardEvent<HTMLInputElement>) => any` | `false`     | -      |                                                                                                               |
+| filterStrategy | `(result: string, index?: number, results?: string[]) => boolean`   | `false`     | -      | Função para filtrar os resultados informados, para que um resultado seja exibido, a função deve retornar true |
+
+E as props do componente [Input](/houston/ui-components/Forms/Input).
 
 ### Search.Result Props
 

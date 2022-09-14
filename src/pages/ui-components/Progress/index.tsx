@@ -81,11 +81,11 @@ const Progress = ({
   };
 
   return (
-    <div className={cx(className, `--hst-progress-size-${size}`, { '--hst-progress-has-label': hasLabel })} {...rest}>
+    <div className={cx(className, `hst-progress-size-${size}`, { 'hst-progress-has-label': hasLabel })} {...rest}>
       {hasLabelTop && (
         <div
-          className={cx('hst-progress-label__top', {
-            '--hst-progress-label-top-right': !!!labelTopStart && !!labelTopEnd
+          className={cx('hst-progress-label-top', {
+            'hst-progress-label-top-right': !!!labelTopStart && !!labelTopEnd
           })}
         >
           {!!labelTopStart && <Typography {...typographyLabelProps}>{labelTopStart}</Typography>}
@@ -93,9 +93,9 @@ const Progress = ({
         </div>
       )}
 
-      <div className='hst-progress__wrapper'>
+      <div className='hst-progress-wrapper'>
         {showInfo && (
-          <div className={cx('hst-progress__percent', { '--hst-progress-percent-right': infoPosition === 'right' })}>
+          <div className={cx('hst-progress-percent', { 'hst-progress-percent-right': infoPosition === 'right' })}>
             <Typography size='xxs' lineHeight='xs'>
               {percentage}
               {format === 'percentage' && '%'}
@@ -108,8 +108,8 @@ const Progress = ({
 
       {hasLabelBottom && (
         <div
-          className={cx('hst-progress-label__bottom', {
-            '--hst-progress-label-bottom-right': !!!labelBottomStart && !!labelBottomEnd
+          className={cx('hst-progress-label-bottom', {
+            'hst-progress-label-bottom-right': !!!labelBottomStart && !!labelBottomEnd
           })}
         >
           {!!labelBottomStart && <Typography {...typographyLabelProps}>{labelBottomStart}</Typography>}
@@ -124,45 +124,45 @@ const ProgressWrapper = styled(Progress, { label: 'hst-progress' })`
   ${({ theme }) => css`
     min-width: ${theme.pxToRem(MIN_WIDTH_DEFAULT)}rem;
 
-    &.--hst-progress-size-sm {
-      & > .hst-progress__wrapper {
-        & > .hst-progress__bar {
+    &.hst-progress-size-sm {
+      & > .hst-progress-wrapper {
+        & > .hst-progress-bar {
           height: ${theme.pxToRem(HEIGHT_BAR_SMALL)}rem;
         }
       }
     }
 
-    &.--hst-progress-size-md {
-      & > .hst-progress__wrapper {
-        & > .hst-progress__bar {
+    &.hst-progress-size-md {
+      & > .hst-progress-wrapper {
+        & > .hst-progress-bar {
           height: ${theme.pxToRem(HEIGHT_BAR_DEFAULT)}rem;
         }
       }
     }
 
-    &.--hst-progress-has-label {
+    &.hst-progress-has-label {
       min-width: ${theme.pxToRem(MIN_WIDTH_WHEN_LABEL)}rem;
     }
 
-    & > .hst-progress-label__top {
+    & > .hst-progress-label-top {
       display: flex;
       justify-content: space-between;
       margin-bottom: ${theme.spacing.inline.quarck};
 
-      &.--hst-progress-label-top-right {
+      &.hst-progress-label-top-right {
         justify-content: flex-end;
       }
     }
 
-    & > .hst-progress__wrapper {
+    & > .hst-progress-wrapper {
       display: flex;
       align-items: center;
 
-      & > .hst-progress__percent {
+      & > .hst-progress-percent {
         order: 0;
         margin-right: ${theme.spacing.inline.quarck};
 
-        &.--hst-progress-percent-right {
+        &.hst-progress-percent-right {
           order: 1;
           margin-left: ${theme.spacing.inline.quarck};
           margin-right: 0;
@@ -170,12 +170,12 @@ const ProgressWrapper = styled(Progress, { label: 'hst-progress' })`
       }
     }
 
-    & > .hst-progress-label__bottom {
+    & > .hst-progress-label-bottom {
       display: flex;
       justify-content: space-between;
       margin-top: ${theme.spacing.inline.quarck};
 
-      &.--hst-progress-label-bottom-right {
+      &.hst-progress-label-bottom-right {
         justify-content: flex-end;
       }
     }

@@ -97,7 +97,7 @@ const Pagination = ({
   );
 };
 
-export default styled(React.memo(Pagination), { label: 'houston-pagination' })(
+export default styled(React.memo(Pagination), { label: 'hst-pagination' })(
   ({ theme }) => css`
     display: flex;
     flex-direction: row;

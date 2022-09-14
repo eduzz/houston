@@ -30,6 +30,9 @@ const StyledOption = styled.div`
   gap: ${({ theme }) => theme.spacing.inline.nano};
 `;
 
+const NEGATIVE_SPACING_IN_PX = -2;
+const MIN_HEIGHT_IN_PX = 48;
+
 const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mountOnEnter, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
@@ -169,7 +172,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
         {isOverflowed && !isMobile && (
           <IconButton
             disabled={isDisabledLeftArrow}
-            className='hst-tabs__scrollButton'
+            className='hst-tabs-scrollButton'
             size='md'
             onClick={handleScroll('left')}
           >
@@ -179,17 +182,17 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
 
         <div
           ref={parentRef}
-          className='hst-tabs__parent'
+          className='hst-tabs-parent'
           {...(!isMobile && { onScroll: handleScrollArrows })}
           {...(isMobile && { onTouchStart: touchStartHandler, onTouchMove: touchMoveHandler })}
         >
-          <div ref={labelsRef} className='hst-tabs__labels'>
+          <div ref={labelsRef} className='hst-tabs-labels'>
             {childrenProps?.map(({ label, icon, disabled }, index) => (
               <div
                 role='button'
                 ref={passRefsToArray(index)}
                 tabIndex={0}
-                className={cx('hst-tabs__tab', { '--hst_tabs-disabled': disabled })}
+                className={cx('hst-tabs-tab', { 'hst-tabs-disabled': disabled })}
                 onClick={handleTabClick(index)}
                 key={label}
                 aria-disabled={disabled}
@@ -200,7 +203,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
             ))}
           </div>
           <span
-            className='hst-tabs__slider'
+            className='hst-tabs-slider'
             style={{
               width: sizes[activeTabValue],
               left: steps[activeTabValue]
@@ -211,7 +214,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
         {isOverflowed && !isMobile && (
           <IconButton
             disabled={isDisabledRightArrow}
-            className='hst-tabs__scrollButton'
+            className='hst-tabs-scrollButton'
             size='md'
             onClick={handleScroll('right')}
           >
@@ -236,40 +239,37 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
   );
 };
 
-const NEGATIVE_SPACING_IN_PX = -2;
-const MIN_HEIGHT_IN_PX = 48;
-
 const TabsWrapper = React.memo(
   styled(Tabs, { label: 'hst-tabs' })(({ theme }) => {
     return css`
       display: flex;
 
-      .hst-tabs__parent {
+      .hst-tabs-parent {
         position: relative;
         overflow-x: hidden;
         overflow-y: hidden;
         padding-bottom: ${theme.spacing.quarck};
       }
 
-      .hst-tabs__labels {
+      .hst-tabs-labels {
         display: flex;
         width: 100%;
         position: relative;
       }
 
-      .hst-tabs__scrollButton {
+      .hst-tabs-scrollButton {
         padding: ${theme.spacing.nano};
         margin: ${theme.spacing.nano};
       }
 
-      .hst-tabs__slider {
+      .hst-tabs-slider {
         position: absolute;
         transition: all 0.2s;
         height: ${theme.border.width.sm};
         background-color: ${theme.brandColor.primary.pure};
       }
 
-      .hst-tabs__tab {
+      .hst-tabs-tab {
         display: flex;
         align-items: center;
         line-height: 0;
@@ -301,7 +301,7 @@ const TabsWrapper = React.memo(
           outline-offset: ${NEGATIVE_SPACING_IN_PX}px;
         }
 
-        &.--hst_tabs-disabled {
+        &.hst-tabs-disabled {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
           opacity: ${theme.opacity.level[6]};
           pointer-events: none;

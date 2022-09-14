@@ -11,18 +11,18 @@ export type ContainerProps = StyledProp &
   };
 
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({ className, children, layout, ...rest }, ref) => (
-  <div ref={ref} className={cx(className, `--layout-${layout ?? 'solid'}`)} {...rest}>
+  <div ref={ref} className={cx(className, `hst-grid-container-${layout ?? 'solid'}`)} {...rest}>
     {children}
   </div>
 ));
 
-export default styled(Container, { label: 'houston-grid-container' })(
+export default styled(Container, { label: 'hst-grid-container' })(
   ({ theme }) => css`
     width: 100%;
     max-width: ${theme.breakpoints.xlg};
     margin: 0 auto;
 
-    &.--layout-fluid {
+    &.hst-grid-container-fluid {
       max-width: 100%;
     }
   `

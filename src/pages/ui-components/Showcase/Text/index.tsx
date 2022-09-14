@@ -1,7 +1,20 @@
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 import Paragraph, { ParagraphProps } from '@eduzz/houston-ui/Typography/Paragraph';
 
-const Text = ({ children, className, ...rest }: Omit<ParagraphProps, 'size' | 'color'> & StyledProp) => {
+export interface ShowcaseTextProps extends Omit<ParagraphProps, 'size' | 'color'> {
+  disableTypography?: boolean;
+}
+
+const Text = ({
+  children,
+  className,
+  disableTypography,
+  ...rest
+}: ShowcaseTextProps & Omit<React.HTMLAttributes<HTMLParagraphElement>, 'color'> & StyledProp) => {
+  if (disableTypography) {
+    return <>{children}</>;
+  }
+
   return (
     <Paragraph className={className} size='sm' color='neutralColor.low.medium' {...rest}>
       {children}

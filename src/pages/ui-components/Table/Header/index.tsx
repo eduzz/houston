@@ -28,13 +28,13 @@ const TableHeader = ({ id, children, disabledActionsColumn, columnActionTitle, .
 
   return (
     <TableHeaderContext.Provider value={contextValue}>
-      <thead id={id} className={columnActionHidden ? '--hts-action-column-hidden' : undefined}>
+      <thead id={id} className={columnActionHidden ? 'hst-table-action-column-hidden' : undefined}>
         <tr>
           {children}
 
           {!disabledActionsColumn && (
             <TableColumn
-              className={columnActionHidden ? '--hts-hidden' : undefined}
+              className={columnActionHidden ? 'hst-table-hidden' : undefined}
               width={hasActions && hasCollapse ? 100 : hasActions || hasCollapse ? 75 : 0}
               align='right'
             >

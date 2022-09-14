@@ -39,9 +39,9 @@ const Overlay = ({ className, visible, color = 'low', children, underTopbar, ...
       aria-hidden='true'
       tabIndex={-1}
       className={cx(className, {
-        '--hts-visible': visible,
-        '--hts-color-high': color === 'high',
-        '--hts-under-topbar': underTopbar
+        'hst-visible': visible,
+        'hst-color-high': color === 'high',
+        'hst-under-topbar': underTopbar
       })}
       {...rest}
     >
@@ -72,16 +72,16 @@ export default styled(Overlay, {
     backdrop-filter: blur(${theme.pxToRem(8)}rem);
     animation: ${fadeInAnimation} 200ms linear;
 
-    &.--hts-color-high {
+    &.hst-color-high {
       background: ${theme.hexToRgba(theme.neutralColor.high.pure, theme.opacity.level[6])};
     }
 
-    &.--hts-visible {
+    &.hst-visible {
       opacity: 1;
       visibility: visible;
     }
 
-    &.--hts-under-topbar {
+    &.hst-under-topbar {
       z-index: 104;
     }
   `

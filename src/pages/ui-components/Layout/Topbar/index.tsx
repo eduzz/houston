@@ -54,10 +54,10 @@ const Topbar = React.memo<TopbarProps>(
     }, [register]);
 
     React.useEffect(() => {
-      document.body.classList.add('houston-topbar-applied');
+      document.body.classList.add('hst-topbar-applied');
 
       return () => {
-        document.body.classList.remove('houston-topbar-applied');
+        document.body.classList.remove('hst-topbar-applied');
       };
     }, [theme]);
 
@@ -68,24 +68,24 @@ const Topbar = React.memo<TopbarProps>(
 
     return (
       <TopbarContext.Provider value={contextValue}>
-        <div className={cx(className, { '--black-mode': blackMode })} {...rest}>
-          <header className='houston-topbar__header'>
-            <div className='houston-topbar__start'>
+        <div className={cx(className, { 'hst-topbar-black-mode': blackMode })} {...rest}>
+          <header className='hst-topbar-header'>
+            <div className='hst-topbar-start'>
               <Action
-                className='houston-topbar__mobile-menu'
+                className='hst-topbar-mobile-menu'
                 icon={sidebarOpened ? <CancelIcon size={24} /> : <MenuLeft size={24} />}
                 onClick={sidebarToogleOpened}
               />
 
               {!disableApps && <Apps />}
 
-              <div className='houston-topbar__logo'>
+              <div className='hst-topbar-logo'>
                 <img
-                  className='houston-topbar__logo-default'
+                  className='hst-topbar-logo-default'
                   src={logo ?? `//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz${blackMode ? '' : '-colored'}.svg`}
                 />
                 <img
-                  className='houston-topbar__logo-mobile'
+                  className='hst-topbar-logo-mobile'
                   src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz-mobile.svg'}
                 />
               </div>
@@ -94,7 +94,7 @@ const Topbar = React.memo<TopbarProps>(
                 <Typography
                   lineHeight='default'
                   color='inherit'
-                  className={cx('houston-topbar__tag', `--${user.tag}`)}
+                  className={cx('hst-topbar-tag', `hst-topbar-tag-${user.tag}`)}
                   size='xs'
                 >
                   {user.tag}
@@ -102,7 +102,7 @@ const Topbar = React.memo<TopbarProps>(
               )}
             </div>
 
-            <div className='houston-topbar__quick-access'>
+            <div className='hst-topbar-quick-access'>
               <Belt />
 
               {children}
@@ -115,11 +115,11 @@ const Topbar = React.memo<TopbarProps>(
   }
 );
 
-const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
+const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
   ({ theme }) => css`
-    height: ${TOPBAR_HEIGHT}px;
+    height: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
 
-    & > .houston-topbar__header {
+    & > .hst-topbar-header {
       font-family: ${theme.font.family.base};
       background-color: white;
       color: ${theme.neutralColor.low.pure};
@@ -131,17 +131,17 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
       top: 0;
       left: 0;
       right: 0;
-      height: ${TOPBAR_HEIGHT}px;
+      height: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
       display: flex;
       justify-content: space-between;
       z-index: 105;
       transition: 0.15s ease-out;
 
-      & > .houston-topbar__start {
+      & > .hst-topbar-start {
         display: flex;
         align-items: center;
 
-        & .houston-topbar__mobile-menu {
+        & .hst-topbar-mobile-menu {
           cursor: pointer;
 
           ${breakpoints.up('lg')} {
@@ -149,7 +149,7 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
           }
         }
 
-        & .houston-topbar__logo {
+        & .hst-topbar-logo {
           height: 80%;
           width: auto;
           margin-inline: ${theme.spacing.inline.nano};
@@ -160,24 +160,24 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
             height: ${TOPBAR_HEIGHT}px;
           }
 
-          & > .houston-topbar__logo-mobile {
+          & > .hst-topbar-logo-mobile {
             display: none;
           }
 
           ${breakpoints.down('sm')} {
-            width: 32px;
+            width: ${theme.pxToRem(32)}rem;
 
-            & .houston-topbar__logo-default {
+            & .hst-topbar-logo-default {
               display: none;
             }
 
-            & .houston-topbar__logo-mobile {
+            & .hst-topbar-logo-mobile {
               display: block;
             }
           }
         }
 
-        .houston-topbar__tag {
+        .hst-topbar-tag {
           text-transform: capitalize;
           padding: ${theme.spacing.quarck};
           margin-top: 5px;
@@ -190,30 +190,30 @@ const TopbarStyled = styled(Topbar, { label: 'houston-topbar' })(
             display: block;
           }
 
-          &.--pro {
+          &.hst-topbar-tag-pro {
             border: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
           }
 
-          &.--unity {
+          &.hst-topbar-tag-unity {
             border: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
             background: ${theme.neutralColor.low.pure};
             color: white;
           }
 
-          &.--partner {
+          &.hst-topbar-tag-partner {
             background: ${theme.neutralColor.high.medium};
           }
         }
       }
 
-      & > .houston-topbar__quick-access {
+      & > .hst-topbar-quick-access {
         display: flex;
         align-items: center;
         justify-content: center;
       }
     }
 
-    &.--black-mode > .houston-topbar__header {
+    &.hst-topbar-black-mode > .hst-topbar-header {
       background-color: #272727;
       color: white;
     }
