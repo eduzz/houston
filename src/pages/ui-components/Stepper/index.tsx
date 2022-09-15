@@ -26,11 +26,21 @@ export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTML
   current?: number;
   onPrev?: (current: number) => void;
   onNext?: (current: number) => void;
+  mountOnEnter?: boolean;
+  destroyOnClose?: boolean;
 }
 
 const ICON_SIZE = 32;
 
-const Stepper = ({ children, current: currentProp, onPrev, onNext, ...rest }: StepperProps) => {
+const Stepper = ({
+  children,
+  current: currentProp,
+  onPrev,
+  onNext,
+  mountOnEnter,
+  destroyOnClose,
+  ...rest
+}: StepperProps) => {
   const childrenProps = useChildrenProps(children, Step);
   const steps = useChildrenComponent(children, Step);
 
@@ -91,11 +101,10 @@ const Stepper = ({ children, current: currentProp, onPrev, onNext, ...rest }: St
           };
 
           return (
-            <>
+            <React.Fragment key={label}>
               <div
                 onClick={isFinished ? handlePrev(index) : handleNext(index)}
                 className={cx('hst-step', { '--hst-step-active': isCurrent })}
-                key={label}
                 ref={passRefsToArray(index)}
               >
                 {isFinished && !error && <FinishedButton buttonProps={buttonProps} />}
@@ -109,13 +118,20 @@ const Stepper = ({ children, current: currentProp, onPrev, onNext, ...rest }: St
                   style={{ marginLeft: negativeMargins[index] }}
                 />
               )}
-            </>
+            </React.Fragment>
           );
         })}
       </div>
       <div>
         {steps?.map((step, index) => (
-          <Collapse id={step.props.id} key={index} timeout={0} visibled={currentStep === index}>
+          <Collapse
+            id={step.props.id}
+            key={index}
+            timeout={0}
+            visibled={currentStep === index}
+            mountOnEnter={mountOnEnter}
+            destroyOnClose={destroyOnClose}
+          >
             <div>{step.props.children}</div>
           </Collapse>
         ))}

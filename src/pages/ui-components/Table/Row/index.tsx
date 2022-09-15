@@ -82,10 +82,7 @@ const TableRow = ({ data, index, children, className, ...props }: TableRowProps)
       <tr {...props} className={className}>
         {children}
 
-        <td
-          align='right'
-          className={cx('hts-table-cell-action', !hasActionInRows && !hasCollapseInRows && 'hst-table-hidden')}
-        >
+        <td className={cx('hts-table-cell-action', !hasActionInRows && !hasCollapseInRows && 'hst-table-hidden')}>
           <Popover {...popoverProps} placement='bottom-end' keepMounted>
             <div id={portals.actions} className='hts-table-cell-action-menu' />
           </Popover>

@@ -76,16 +76,18 @@ Não há necessidade de controlar o estado do step ativo.
   }}
 </Playground>
 
-#### Stepper props
+### Stepper props
 
-| prop     | type               | required | default | description                          |
-| -------- | ------------------ | -------- | ------- | ------------------------------------ |
-| onPrev   | `(number) => void` | `false`  | -       | Passa pelo callback o índice do Step |
-| onNext   | `(number) => void` | `false`  | -       | Passa pelo callback o índice do Step |
-| current  | `number`           | `false`  | `false` | Índice do Step atual                 |
-| children | `React.ReactNode`  | `true`   | -       |                                      |
+| prop           | type               | required | default | description                                                                                |
+| -------------- | ------------------ | -------- | ------- | ------------------------------------------------------------------------------------------ |
+| onPrev         | `(number) => void` | `false`  | -       | Passa pelo callback o índice do Step                                                       |
+| onNext         | `(number) => void` | `false`  | -       | Passa pelo callback o índice do Step                                                       |
+| current        | `number`           | `false`  | `false` | Índice do Step atual                                                                       |
+| children       | `React.ReactNode`  | `true`   | -       |                                                                                            |
+| destroyOnClose | `boolean`          | `false`  | `false` | Se true o componente que está dentro do Step será desmontado depois que o Step for trocado |
+| mountOnEnter   | `boolean`          | `false`  | `false` | Se true o componente que está dentro do Step só será montado depois que o Step for trocado |
 
-#### Step props
+### Step props
 
 | prop        | type              | required | default | description |
 | ----------- | ----------------- | -------- | ------- | ----------- |
