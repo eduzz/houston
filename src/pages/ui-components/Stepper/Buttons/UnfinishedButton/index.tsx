@@ -2,7 +2,7 @@ import styled, { css } from '@eduzz/houston-styles';
 import IconButton from '@eduzz/houston-ui/IconButton';
 import Typography from '@eduzz/houston-ui/Typography';
 
-import { ButtonPropsType } from '..';
+import { ButtonPropsType } from '../..';
 
 type UnfinishedType = {
   number: number;
@@ -36,14 +36,16 @@ const UnfinishedButton = ({ buttonProps }: ButtonPropsType) => {
       <IconButton size='md' fill className='hst-step-iconbutton'>
         <StyledUnfinishedIcon number={number} />
       </IconButton>
-      <Typography size='xs' color='neutralColor.low.light' lineHeight='default' className='hst-step-label'>
-        {label}
-      </Typography>
-      {description && (
-        <Typography size='xxs' color='neutralColor.low.light' lineHeight='default'>
-          {description}
+      <div>
+        <Typography size='xs' color='neutralColor.low.light' lineHeight='default' className='hst-step-label'>
+          {label}
         </Typography>
-      )}
+        {description && (
+          <Typography size='xxs' color='neutralColor.low.light' lineHeight='default'>
+            {description}
+          </Typography>
+        )}
+      </div>
     </>
   );
 };

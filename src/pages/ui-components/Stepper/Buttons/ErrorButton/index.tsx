@@ -28,14 +28,16 @@ const ErrorButton = ({ buttonProps }: ButtonPropsType) => {
       <IconButton size='md' fill className='hst-step-iconbutton'>
         <ErrorSvg />
       </IconButton>
-      <Typography color='neutralColor.low.pure' size='xs' lineHeight='default' className='hst-step-label'>
-        {label}
-      </Typography>
-      {description && (
-        <Typography color='neutralColor.low.pure' size='xxs' lineHeight='default'>
-          {description}
+      <div>
+        <Typography color='neutralColor.low.pure' size='xs' lineHeight='default' className='hst-step-label'>
+          {label}
         </Typography>
-      )}
+        {description && (
+          <Typography color='neutralColor.low.pure' size='xxs' lineHeight='default'>
+            {description}
+          </Typography>
+        )}
+      </div>
     </>
   );
 };

@@ -2,7 +2,7 @@ import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import IconButton from '@eduzz/houston-ui/IconButton';
 import Typography from '@eduzz/houston-ui/Typography';
 
-import { ButtonPropsType } from '..';
+import { ButtonPropsType } from '../..';
 
 export const FinishedSvg = () => {
   const { brandColor } = useHoustonTheme();
@@ -28,14 +28,16 @@ const FinishedButton = ({ buttonProps }: ButtonPropsType) => {
       <IconButton size='md' fill className='hst-step-iconbutton'>
         <FinishedSvg />
       </IconButton>
-      <Typography color='neutralColor.low.light' size='xs' lineHeight='default' className='hst-step-label'>
-        {label}
-      </Typography>
-      {description && (
-        <Typography color='neutralColor.low.light' size='xxs' lineHeight='default'>
-          {description}
+      <div>
+        <Typography color='neutralColor.low.light' size='xs' lineHeight='default' className='hst-step-label'>
+          {label}
         </Typography>
-      )}
+        {description && (
+          <Typography color='neutralColor.low.light' size='xxs' lineHeight='default'>
+            {description}
+          </Typography>
+        )}
+      </div>
     </>
   );
 };

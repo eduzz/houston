@@ -3,24 +3,12 @@ import * as React from 'react';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 import Collapse from '@eduzz/houston-ui/Collapse';
 
-import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
-import nestedComponent from '../utils/nestedComponent';
-import CurrentButton from './Buttons/CurrentButton';
-import ErrorButton from './Buttons/ErrorButton';
-import FinishedButton from './Buttons/FinishedButton';
-import UnfinishedButton from './Buttons/UnfinishedButton';
-import Step from './Step';
-import Vertical from './Vertical';
-
-type ButtonType = {
-  label: string;
-  description?: string;
-  number: number;
-};
-
-export type ButtonPropsType = {
-  buttonProps: ButtonType;
-};
+import { useChildrenProps, useChildrenComponent } from '../../hooks/useChildrenProps';
+import CurrentButton from '../Buttons/CurrentButton';
+import ErrorButton from '../Buttons/ErrorButton';
+import FinishedButton from '../Buttons/FinishedButton';
+import UnfinishedButton from '../Buttons/UnfinishedButton';
+import Step from '../Step';
 
 export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   children: React.ReactNode;
@@ -31,9 +19,7 @@ export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTML
   destroyOnClose?: boolean;
 }
 
-const ICON_SIZE = 32;
-
-const Stepper = ({
+const Vertical = ({
   children,
   current: currentProp,
   onPrev,
@@ -48,17 +34,6 @@ const Stepper = ({
   const [current, setCurrent] = React.useState(0);
   const controlled = typeof currentProp !== 'undefined';
   const currentStep = controlled ? currentProp : current;
-
-  const stepRefs = React.useRef<HTMLDivElement[]>([]);
-
-  const [negativeMargins, setNegativeMargins] = React.useState<number[]>([]);
-
-  const passRefsToArray = React.useCallback(
-    (index: number) => (el: HTMLDivElement) => {
-      stepRefs.current[index] = el;
-    },
-    [stepRefs]
-  );
 
   const handlePrev = React.useCallback(
     (current: number) => () => {
@@ -76,19 +51,9 @@ const Stepper = ({
     [onNext, controlled]
   );
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      const negativeMargins = stepRefs?.current?.map(
-        (tab: HTMLDivElement) => -(tab.getBoundingClientRect().width - ICON_SIZE)
-      );
-      setNegativeMargins(negativeMargins);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <>
-      <div {...rest}>
+    <div {...rest}>
+      <div className='hst-step-vertical-steps'>
         {childrenProps?.map(({ label, description, error }, index) => {
           const last = index === childrenProps.length - 1;
           const isFinished = index < currentStep;
@@ -105,8 +70,7 @@ const Stepper = ({
             <React.Fragment key={label}>
               <div
                 onClick={isFinished ? handlePrev(index) : handleNext(index)}
-                className={cx('hst-step', { '--hst-step-active': isCurrent })}
-                ref={passRefsToArray(index)}
+                className={cx('hst-step-vertical', { '--hst-step-vertical-active': isCurrent })}
               >
                 {isFinished && !error && <FinishedButton buttonProps={buttonProps} />}
                 {isCurrent && !error && <CurrentButton buttonProps={buttonProps} />}
@@ -115,15 +79,14 @@ const Stepper = ({
               </div>
               {!last && (
                 <hr
-                  className={cx('hst-step-divider', { '--hst-step-divider-finished': isFinished })}
-                  style={{ marginLeft: negativeMargins[index] }}
+                  className={cx('hst-step-vertical-divider', { '--hst-step-vertical-divider-finished': isFinished })}
                 />
               )}
             </React.Fragment>
           );
         })}
       </div>
-      <div>
+      <div className='hst-step-vertical-content'>
         {steps?.map((step, index) => (
           <Collapse
             id={step.props.id}
@@ -137,50 +100,48 @@ const Stepper = ({
           </Collapse>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
-const MARGIN_TOP_IN_PX = 16;
+const LINE_HEIGHT_IN_PX = 24;
+const MARGIN_LEFT_IN_PX = 15;
 
-const StepperWrapper = React.memo(
-  styled(Stepper, { label: 'hst-stepper' })(({ theme }) => {
+export default React.memo(
+  styled(Vertical, { label: 'hst-stepper-vertical' })(({ theme }) => {
     return css`
       display: flex;
-      gap: ${theme.spacing.nano};
 
-      .hst-step {
-        &.--hst-step-active {
-          pointer-events: none;
+      .hst-step-vertical-steps {
+        display: flex;
+        gap: ${theme.spacing.nano};
+        flex-direction: column;
+
+        .hst-step-vertical {
+          display: flex;
+          align-items: center;
+          gap: ${theme.spacing.inline.nano};
+
+          &.--hst-step-vertical-active {
+            pointer-events: none;
+          }
+
+          .hst-step-label {
+            margin-bottom: ${theme.spacing.stack.quarck};
+          }
         }
 
-        .hst-step-iconbutton {
-          margin-bottom: ${theme.spacing.stack.nano};
-        }
+        .hst-step-vertical-divider {
+          all: unset;
+          height: ${LINE_HEIGHT_IN_PX}px;
+          border-left: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
+          margin-left: ${MARGIN_LEFT_IN_PX}px;
 
-        .hst-step-label {
-          margin-bottom: ${theme.spacing.stack.quarck};
-        }
-      }
-
-      .hst-step-divider {
-        all: unset;
-        flex-grow: 1;
-        border-color: ${theme.neutralColor.low.pure};
-        height: ${theme.border.width.xs};
-        margin-top: ${MARGIN_TOP_IN_PX}px;
-        border-width: 0 0 ${theme.border.width.xs};
-
-        &.--hst-step-divider-finished {
-          border-color: ${theme.brandColor.primary.pure};
+          &.--hst-step-vertical-divider-finished {
+            border-color: ${theme.brandColor.primary.pure};
+          }
         }
       }
     `;
   })
 );
-
-export default nestedComponent(StepperWrapper, {
-  Stepper,
-  Vertical,
-  Step
-});
