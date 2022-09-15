@@ -20,7 +20,7 @@ export interface ListProps extends StyledProp, React.HTMLAttributes<HTMLUListEle
 const List = ({ children, className, dividers = false, ...rest }: ListProps) => {
   return (
     <ListContextProvider dividers={dividers}>
-      <ul role='list' className={cx(className, { '--dividers': dividers })} {...rest}>
+      <ul role='list' className={cx(className, { 'hst-list-dividers': dividers })} {...rest}>
         {children}
       </ul>
     </ListContextProvider>
@@ -28,15 +28,15 @@ const List = ({ children, className, dividers = false, ...rest }: ListProps) => 
 };
 
 const ListWrapper = React.memo(
-  styled(List, { label: 'houston-list' })(() => {
-    return css`
-      &.--dividers {
+  styled(List, { label: 'hst-list' })(
+    () => css`
+      &.hst-list-dividers {
         hr:last-of-type {
           display: none;
         }
       }
-    `;
-  })
+    `
+  )
 );
 
 export default nestedComponent(ListWrapper, {

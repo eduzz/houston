@@ -1,16 +1,18 @@
+import * as React from 'react';
+
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-export interface ProgressBarProps {
+export type ProgressBarProps = React.HTMLAttributes<HTMLDivElement> & {
   value: number;
   max: number;
   min: number;
-}
+};
 
-const ProgressBar = ({ className, value, min, max }: ProgressBarProps & StyledProp) => {
+const ProgressBar = ({ className, value, min, max, ...rest }: ProgressBarProps & StyledProp) => {
   return (
-    <div className={cx(className, 'hst-progress__bar')}>
+    <div className={cx(className, 'hst-progress-bar')} {...rest}>
       <span
-        className='hst-progress-bar__filled'
+        className='hst-progress-bar-filled'
         style={{ width: `${value > 0 ? value : 0}%` }}
         aria-valuemax={max}
         aria-valuemin={min}
@@ -28,7 +30,7 @@ const ProgressBarWrapper = styled(ProgressBar, { label: 'hst-progress-bar' })`
     border-radius: ${theme.border.radius.pill};
     overflow: hidden;
 
-    & > .hst-progress-bar__filled {
+    & > .hst-progress-bar-filled {
       height: 100%;
       display: block;
       background-color: ${theme.feedbackColor.positive.pure};

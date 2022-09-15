@@ -67,13 +67,13 @@ const Modal = ({
       <Overlay visible={visible}>
         <ModalContextProvider value={contextValue}>
           {fullscreen && (
-            <div className={cx(className, '--hst-modal-fullscreen')} role='dialog' aria-modal {...rest}>
+            <div className={cx(className, 'hst-modal-fullscreen')} role='dialog' aria-modal {...rest}>
               {children}
             </div>
           )}
 
           {!fullscreen && (
-            <ModalBase className={cx(className, `--hst-modal-size-${size}`)} aria-modal {...rest}>
+            <ModalBase className={cx(className, `hst-modal-size-${size}`)} aria-modal {...rest}>
               {children}
             </ModalBase>
           )}
@@ -89,7 +89,7 @@ const ModalWrapper = styled(Modal, { label: 'hst-modal' })`
 
     Object.entries(modalSizesInPx).forEach(([size, value]) =>
       modifiers.push(css`
-        &.--hst-modal-size-${size} {
+        &.hst-modal-size-${size} {
           width: ${theme.pxToRem(value)}rem;
         }
       `)
@@ -109,7 +109,7 @@ const ModalWrapper = styled(Modal, { label: 'hst-modal' })`
         }
       }
 
-      &.--hst-modal-fullscreen {
+      &.hst-modal-fullscreen {
         width: 100vw;
         height: 100vh;
         max-height: 100vh;
@@ -129,7 +129,7 @@ const ModalWrapper = styled(Modal, { label: 'hst-modal' })`
         }
       }
 
-      &:not(.--hst-modal-fullscreen) > .hst-modal-header .hst-modal-header-title__icon {
+      &:not(.hst-modal-fullscreen) > .hst-modal-header .hst-modal-header-title__icon {
         display: none;
       }
 

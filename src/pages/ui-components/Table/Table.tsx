@@ -42,7 +42,7 @@ const Table = ({
 }: TableProps) => {
   const scroller = React.useRef<HTMLDivElement>(null);
 
-  const [paginationPortal] = React.useState(() => `hts-table__pagination-${++tablePortalIncremeter}`);
+  const [paginationPortal] = React.useState(() => `hts-table-pagination-${++tablePortalIncremeter}`);
 
   const [rows, setRows] = React.useState<TableRow[]>([]);
   const registerRow = React.useCallback((row: Omit<TableRow, 'key'>) => {
@@ -109,8 +109,8 @@ const Table = ({
       if (apply !== previousState) {
         previousState = apply;
         apply
-          ? scroller.current?.parentElement?.classList.add('--hts-scrollable')
-          : scroller.current?.parentElement?.classList.remove('--hts-scrollable');
+          ? scroller.current?.parentElement?.classList.add('hst-table-scrollable')
+          : scroller.current?.parentElement?.classList.remove('hst-table-scrollable');
       }
 
       setTimeout(() => (wait = false), 200);
@@ -127,9 +127,9 @@ const Table = ({
 
   return (
     <TableContext.Provider value={contextValue}>
-      <div className={cx(className, `--hts-table-size-${size}`)}>
-        <div className='hts-table__scroller-shadow'>
-          <div className='hts-table__scroller'>
+      <div className={cx(className, `hst-table-size-${size}`)}>
+        <div className='hts-table-scroller-shadow'>
+          <div className='hts-table-scroller'>
             <div ref={scroller}>
               <table {...tableProps} style={{ minWidth }}>
                 {children}
@@ -143,13 +143,13 @@ const Table = ({
   );
 };
 
-export default styled(React.memo(Table), { label: 'houston-table' })(
+export default styled(React.memo(Table), { label: 'hst-table' })(
   ({ theme }) => css`
-    & > .hts-table__scroller-shadow {
+    & > .hts-table-scroller-shadow {
       position: relative;
       overflow: hidden;
 
-      & > .hts-table__scroller {
+      & > .hts-table-scroller {
         &:before {
           content: ' ';
           position: absolute;
@@ -160,7 +160,7 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
           transition: 0.15s;
         }
 
-        &.--hts-scrollable:before {
+        &.hst-table-scrollable:before {
           box-shadow: ${theme.shadow.level[2]};
         }
 
@@ -169,7 +169,7 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
         }
       }
 
-      & > .hts-table__scroller > div > table {
+      & > .hts-table-scroller > div > table {
         width: 100%;
         border-spacing: 0px;
 
@@ -185,121 +185,121 @@ export default styled(React.memo(Table), { label: 'houston-table' })(
               border-top-right-radius: ${theme.border.radius.sm};
             }
 
-            &.hts-table__column {
+            &.hts-table-column {
               font-weight: ${theme.font.weight.bold};
 
               &:not([align]) {
                 text-align: left;
               }
 
-              & .hts-table__column-sort {
+              & .hts-table-column-sort {
                 display: inline-flex;
                 align-items: center;
                 cursor: pointer;
 
-                & > .hts-table__column-sort-icon {
+                & > .hts-table-column-sort-icon {
                   transition: 0.2s linear;
                 }
 
-                &.--hts-sort-rev > .hts-table__column-sort-icon {
+                &.hts-table-column-sort-rev > .hts-table-column-sort-icon {
                   transform: rotateX(-180deg);
                 }
               }
 
-              &.--hts-disabled {
+              &.hts-table-column-disabled {
                 color: ${theme.neutralColor.low.light};
 
-                & .hts-table__column-sort {
+                & .hts-table-column-sort {
                   cursor: not-allowed;
                 }
               }
             }
           }
 
-          &.--hts-action-column-hidden > tr > th:nth-last-of-type(2) {
+          &.hst-table-action-column-hidden > tr > th:nth-last-of-type(2) {
             border-top-right-radius: ${theme.border.radius.sm};
           }
         }
 
-        & > tbody > tr > td.hts-table__cell {
+        & > tbody > tr > td.hts-table-cell {
           font-weight: ${theme.font.weight.regular};
         }
 
-        & > thead > tr > th.hts-table__column,
-        & > tbody > tr > td.hts-table__cell,
-        & > tbody > tr > td > .hts-table__loading-text {
+        & > thead > tr > th.hts-table-column,
+        & > tbody > tr > td.hts-table-cell,
+        & > tbody > tr > td > .hts-table-loading-text {
           font-family: ${theme.font.family.base};
           font-size: ${theme.font.size.xxs};
           line-height: ${theme.line.height.xs};
           color: ${theme.neutralColor.low.dark};
         }
 
-        & > thead > tr > th.hts-table__column,
-        & > tbody > tr > td.hts-table__cell,
-        & > tbody > tr > td.hts-table__cell-action,
-        & > tbody > tr > td.hts-table__cell-collapse,
-        & > tbody > tr > td > .hts-table__loading-text {
+        & > thead > tr > th.hts-table-column,
+        & > tbody > tr > td.hts-table-cell,
+        & > tbody > tr > td.hts-table-cell-action,
+        & > tbody > tr > td.hts-table-cell-collapse,
+        & > tbody > tr > td > .hts-table-loading-text {
           padding: ${theme.spacing.inset.xs};
           border-bottom: ${theme.border.width.xs} solid
             ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
         }
 
-        & > tbody > tr > td.hts-table__cell-action {
+        & > tbody > tr > td.hts-table-cell-action {
           padding: 0;
           text-align: right;
 
-          & .hts-table__cell-action-menu {
+          & .hts-table-cell-action-menu {
             display: flex;
             flex-direction: column;
           }
 
-          & .hts-table__cell-collapse-arrow {
+          & .hts-table-cell-collapse-arrow {
             transition: 0.15s ease-out;
 
-            &.--hts-active {
+            &.hts-table-cell-collapse-arrow-active {
               transform: rotateX(180deg);
             }
           }
         }
 
-        & > tbody > tr > td.hts-table__cell-collapse {
+        & > tbody > tr > td.hts-table-cell-collapse {
           padding: 0;
           text-align: center;
         }
 
-        & > thead > tr > th.--hts-hidden,
-        & > tbody > tr > td.--hts-hidden {
+        & > thead > tr > th.hst-table-hidden,
+        & > tbody > tr > td.hst-table-hidden {
           display: none;
         }
 
-        & > tbody > tr > td.hts-table__collapse {
+        & > tbody > tr > td.hts-table-collapse {
           transition: 0.3s;
 
-          &:not(.--hts-no-background) {
+          &:not(.hts-table-collapse-background) {
             background-color: ${theme.neutralColor.high.light};
           }
 
-          &.--hts-opened:not(.--hts-no-padding) {
+          &.hts-table-collapse-opened:not(.hts-table-collapse-padding) {
             padding: ${theme.spacing.xxxs};
           }
         }
       }
     }
 
-    & .hts-table__pagination {
+    & .hts-table-pagination {
       padding: ${theme.spacing.inset.xxs};
       background-color: ${theme.neutralColor.high.light};
       border-bottom-left-radius: ${theme.border.radius.sm};
       border-bottom-right-radius: ${theme.border.radius.sm};
     }
 
-    &.--hts-table-size-sm {
-      & > .hts-table__scroller-shadow > .hts-table__scroller > div > table {
-        & > thead > tr > th.hts-table__column,
-        & > tbody > tr > td.hts-table__cell,
-        & > tbody > tr > td.hts-table__cell-action,
-        & > tbody > tr > td.hts-table__cell-collapse,
-        & > tbody > tr > td > .hts-table__loading-text {
+    &.hst-table-size-sm {
+      & > .hts-table-scroller-shadow > .hts-table-scroller > div > table {
+        & > thead > tr > th.hts-table-column,
+        & > tbody > tr > td.hts-table-cell,
+        & > tbody > tr > td.hts-table-cell-action,
+        & > tbody > tr > td.hts-table-cell-collapse,
+        & > tbody > tr > td > .hts-table-loading-text {
           padding: ${theme.spacing.squish.xxs};
         }
       }

@@ -8,15 +8,15 @@ export interface LayoutContentProps extends StyledProp {
 }
 
 const LayoutContent = ({ children, className, disablePadding }: LayoutContentProps) => {
-  return <div className={cx(className, { '--disable-padding': disablePadding })}>{children}</div>;
+  return <div className={cx(className, { 'hst-sidebar-content-disable-padding': disablePadding })}>{children}</div>;
 };
 
-export default styled(LayoutContent, { label: 'houston-sidebar-content' })(
+export default styled(LayoutContent, { label: 'hst-sidebar-content' })(
   ({ theme }) => css`
     flex: 1;
     min-width: 0;
 
-    &:not(.--disable-padding) {
+    &:not(.hst-sidebar-content-disable-padding) {
       padding: ${theme.spacing.stack.lg} ${theme.spacing.xs};
 
       ${theme.breakpoints.down('md')} {

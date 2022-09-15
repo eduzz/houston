@@ -33,13 +33,18 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     <button
       role='button'
       disabled={disabled}
-      className={cx(className, `--hst-${size ?? 'lg'}`, { '--hst-active': active })}
+      className={cx(className, `hst-icon-button-size-${size ?? 'lg'}`, { 'hst-icon-button-active': active })}
       aria-disabled={disabled}
       {...rest}
       ref={ref}
     >
       <div
-        className={cx('__hst-icon', `--hst-${size ?? 'lg'}`, { '--hst-disabled': disabled }, { '--hst-fill': fill })}
+        className={cx(
+          'hst-icon-content',
+          `hst-icon-content-size-${size ?? 'lg'}`,
+          { '--hst-icon-content-disabled': disabled },
+          { '--hst-icon-content-fill': fill }
+        )}
       >
         {children}
       </div>
@@ -53,7 +58,7 @@ const LG_ICON_SIZE = 24;
 const MD_SIZE = 32;
 const MD_ICON_SIZE = 16;
 
-export default styled(IconButton, { label: 'houston-icon-button' })`
+export default styled(IconButton, { label: 'hst-icon-button' })`
   ${({ theme }) => css`
     border: none;
     background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
@@ -67,15 +72,15 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
       transition: 0.3s;
     }
 
-    &.--hst-lg,
-    &.--hst-large {
+    &.hst-icon-button-size-lg,
+    &.hst-icon-button-size-large {
       width: ${theme.pxToRem(LG_SIZE)}rem;
       height: ${theme.pxToRem(LG_SIZE)}rem;
     }
 
-    &.--hst-md,
-    &.--hst-medium,
-    &.--hst-small {
+    &.hst-icon-button-size-md,
+    &.hst-icon-button-size-medium,
+    &.hst-icon-button-size-small {
       width: ${theme.pxToRem(MD_SIZE)}rem;
       height: ${theme.pxToRem(MD_SIZE)}rem;
     }
@@ -84,18 +89,18 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
       cursor: default;
     }
 
-    .__hst-icon {
+    .hst-icon-content {
       display: flex;
       align-items: center;
       justify-content: center;
 
-      &.--hst-disabled {
+      &.--hst-icon-content-disabled {
         fill: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
         color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
       }
 
-      &.--hst-lg,
-      &.--hst-large {
+      &.hst-icon-content-size-lg,
+      &.hst-icon-content-size-large {
         width: ${theme.pxToRem(LG_ICON_SIZE)}rem;
         height: ${theme.pxToRem(LG_ICON_SIZE)}rem;
 
@@ -104,15 +109,15 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
           font-size: ${theme.pxToRem(LG_ICON_SIZE)}rem;
         }
 
-        &.--hst-fill {
+        &.--hst-icon-content-fill {
           width: ${theme.pxToRem(LG_SIZE)}rem;
           height: ${theme.pxToRem(LG_SIZE)}rem;
         }
       }
 
-      &.--hst-md,
-      &.--hst-medium,
-      &.--hst-small {
+      &.hst-icon-content-size-md,
+      &.hst-icon-content-size-medium,
+      &.hst-icon-content-size-small {
         width: ${theme.pxToRem(MD_ICON_SIZE)}rem;
         height: ${theme.pxToRem(MD_ICON_SIZE)}rem;
 
@@ -121,7 +126,7 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
           font-size: ${theme.pxToRem(MD_ICON_SIZE)}rem;
         }
 
-        &.--hst-fill {
+        &.--hst-icon-content-fill {
           width: ${theme.pxToRem(MD_SIZE)}rem;
           height: ${theme.pxToRem(MD_SIZE)}rem;
         }
@@ -134,7 +139,7 @@ export default styled(IconButton, { label: 'houston-icon-button' })`
 
     &:hover:not(:disabled),
     &:focus,
-    &.--hst-active {
+    &.hst-icon-button-active {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
     }
   `}

@@ -19,14 +19,14 @@ const SearchResult = ({ className, children }: SearchResultProps) => {
 
   return (
     <div ref={divRef} className={className} onClick={handleClick}>
-      <Typography className='__text' size='xs'>
+      <Typography className='hst-input-search-option-text' size='xs'>
         {children}
       </Typography>
     </div>
   );
 };
 
-export default styled(React.memo(SearchResult), { label: 'houston-form-search-option' })(
+export default styled(React.memo(SearchResult), { label: 'hst-input-search-option' })(
   ({ theme }) => css`
     cursor: pointer;
     padding: ${theme.spacing.squish.xs};
@@ -47,7 +47,7 @@ export default styled(React.memo(SearchResult), { label: 'houston-form-search-op
       border-bottom: ${theme.border.width.xs} solid ${theme.neutralColor.high.medium};
     }
 
-    & > .__text {
+    & > .hst-input-search-option-text {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

@@ -1,16 +1,9 @@
-import styled, { StyledProp, css } from '@eduzz/houston-styles';
+import Divider, { DividerProps } from '../../../../Divider';
 
-import Divider from '../../../../Divider';
+type UserMenuDividerProps = DividerProps;
 
-const UserMenuDivider: React.FC<StyledProp> = ({ className }) => {
-  return <Divider className={className} />;
+const UserMenuDivider = (props: UserMenuDividerProps) => {
+  return <Divider {...props} />;
 };
 
-export default styled(UserMenuDivider, { label: 'houston-topbar-user-menu-divider' })(
-  ({ theme }) => css`
-    &.--horizontal {
-      margin: ${theme.spacing.nano} -8px;
-      width: calc(100% + 16px);
-    }
-  `
-);
+export default UserMenuDivider;

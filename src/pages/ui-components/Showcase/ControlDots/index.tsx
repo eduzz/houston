@@ -6,31 +6,40 @@ import { ShowcaseContext } from '../context';
 
 const DOTS_DIMENSION_SIZE = 10;
 
-const ControlDots = ({ className }: StyledProp) => {
+type ControlDotsProps = StyledProp & React.HTMLAttributes<HTMLDivElement>;
+
+const ControlDots = (props: ControlDotsProps) => {
   const currentStep = useContextSelector(ShowcaseContext, context => context.currentStep);
   const controlDots = useContextSelector(ShowcaseContext, context => context.controlDots);
   const totalSteps = useContextSelector(ShowcaseContext, context => context.totalSteps);
 
-  if (!controlDots) return null;
+  if (!controlDots) {
+    return null;
+  }
 
   const dots = Array(totalSteps).fill(0);
 
   return (
-    <div className={className}>
+    <div {...props}>
       {dots.map((_, index) => {
         const activeDot = currentStep - 1 === index;
 
-        return <span key={`dot-${index}`} className={cx('hst-dots', `${activeDot && '--hst-dots-active'}`)} />;
+        return (
+          <span
+            key={`dot-${index}`}
+            className={cx('hst-showcase-control-dots', `${activeDot && 'hst-showcase-control-dots-active'}`)}
+          />
+        );
       })}
     </div>
   );
 };
 
-export default styled(ControlDots, { label: 'hst-control-dots' })`
+export default styled(ControlDots, { label: 'hst-showcase-control-dots' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.sm};
 
-    & .hst-dots {
+    & .hst-showcase-control-dots {
       height: ${theme.pxToRem(DOTS_DIMENSION_SIZE)}rem;
       width: ${theme.pxToRem(DOTS_DIMENSION_SIZE)}rem;
       margin-right: ${theme.pxToRem(DOTS_DIMENSION_SIZE)}rem;
@@ -40,7 +49,7 @@ export default styled(ControlDots, { label: 'hst-control-dots' })`
       display: inline-block;
     }
 
-    & .--hst-dots-active {
+    & .hst-showcase-control-dots-active {
       background-color: ${theme.brandColor.primary.pure};
       border: none;
     }

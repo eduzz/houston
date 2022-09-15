@@ -43,14 +43,14 @@ const SelectOption = ({ children, value, label, className, disabled, id }: Selec
       id={id}
       ref={divRef}
       className={cx(className, {
-        [`--size-${inputSize ?? 'default'}`]: true,
-        '--disabled': disabled
+        [`hst-select-option-size-${inputSize ?? 'default'}`]: true,
+        'hst-select-option-disabled': disabled
       })}
       onClick={handleClick}
     >
-      <div className='__content'>
-        {multiple && !isEmptyOption && <Checkbox checked={isSelected} className='__checkbox' />}
-        {multiple && isEmptyOption && <Cancel className='__icon' />}
+      <div className='hst-select-option-content'>
+        {multiple && !isEmptyOption && <Checkbox checked={isSelected} className='hst-select-option-checkbox' />}
+        {multiple && isEmptyOption && <Cancel className='hst-select-option-icon' />}
 
         {typeof children === 'string' ? (
           <Typography size={inputSize === 'sm' ? 'xxs' : 'xs'} weight={isSelected ? 'semibold' : 'regular'}>
@@ -64,7 +64,7 @@ const SelectOption = ({ children, value, label, className, disabled, id }: Selec
   );
 };
 
-export default styled(React.memo(SelectOption), { label: 'houston-form-select-option' })(
+export default styled(React.memo(SelectOption), { label: 'hst-select-option' })(
   ({ theme }) => css`
     cursor: pointer;
     padding: ${theme.spacing.squish.xs};
@@ -85,26 +85,26 @@ export default styled(React.memo(SelectOption), { label: 'houston-form-select-op
       border-bottom: ${theme.border.width.xs} solid ${theme.neutralColor.high.medium};
     }
 
-    & > .__content {
+    & > .hst-select-option-content {
       display: flex;
       align-items: center;
 
-      & > .__checkbox,
-      & > .__icon {
+      & > .hst-select-option-checkbox,
+      & > .hst-select-option-icon {
         margin-right: ${theme.spacing.nano};
       }
     }
 
-    &.--disabled {
+    &.hst-select-option-disabled {
       cursor: not-allowed;
 
-      & > .__content {
+      & > .hst-select-option-content {
         opacity: ${theme.opacity.level[6]};
         pointer-events: none;
       }
     }
 
-    &.--size-sm {
+    &.hst-select-option-size-sm {
       padding: ${theme.spacing.squish.xxs};
 
       &:not(:last-child):after {

@@ -52,7 +52,7 @@ const Accordion = ({
     }
   }, [controlled, values]);
 
-  const mappedChildren = React.Children.map(children, (child, i: number) => {
+  const mappedChildren = React.Children.map(children, (child, i) => {
     return React.cloneElement(child, {
       index: i
     });

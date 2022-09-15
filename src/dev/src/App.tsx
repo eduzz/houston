@@ -46,10 +46,10 @@ function App() {
               <Topbar.UserMenuItem>Minhas Compras</Topbar.UserMenuItem>
 
               <Topbar.UserMenuGroup label='Contas:'>
-                <Topbar.UserMenuItem href='http://google.com' target='_blank'>
+                <Topbar.UserMenuItem disabled href='http://google.com' target='_blank'>
                   John Doe
                 </Topbar.UserMenuItem>
-                <Topbar.UserMenuItem disabled>John Doe 2</Topbar.UserMenuItem>
+                <Topbar.UserMenuItem>John Doe 2</Topbar.UserMenuItem>
               </Topbar.UserMenuGroup>
 
               <Topbar.UserMenuDivider />

@@ -29,9 +29,10 @@ const TableRow = ({ data, index, children, className, ...props }: TableRowProps)
 
   const [portals] = React.useState(() => {
     const ref = ++actionIncremeter;
+
     return {
-      actions: `hts-table__row-actions-${ref}`,
-      collapse: `hts-table__row-collapse-${ref}`
+      actions: `hts-table-row-actions-${ref}`,
+      collapse: `hts-table-row-collapse-${ref}`
     };
   });
 
@@ -83,10 +84,10 @@ const TableRow = ({ data, index, children, className, ...props }: TableRowProps)
 
         <td
           align='right'
-          className={cx('hts-table__cell-action', !hasActionInRows && !hasCollapseInRows && '--hts-hidden')}
+          className={cx('hts-table-cell-action', !hasActionInRows && !hasCollapseInRows && 'hst-table-hidden')}
         >
           <Popover {...popoverProps} placement='bottom-end' keepMounted>
-            <div id={portals.actions} className='hts-table__cell-action-menu' />
+            <div id={portals.actions} className='hts-table-cell-action-menu' />
           </Popover>
 
           {hasActions && (
@@ -97,7 +98,9 @@ const TableRow = ({ data, index, children, className, ...props }: TableRowProps)
 
           {hasCollapse && (
             <IconButton onClick={toogleShowCollapse}>
-              <IconChevronDown className={cx('hts-table__cell-collapse-arrow', showCollapse && '--hts-active')} />
+              <IconChevronDown
+                className={cx('hts-table-cell-collapse-arrow', showCollapse && 'hts-table-cell-collapse-arrow-active')}
+              />
             </IconButton>
           )}
         </td>

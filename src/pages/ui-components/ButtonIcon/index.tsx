@@ -3,7 +3,7 @@ import IconButton, { IconButtonProps } from '../IconButton';
 export interface ButtonIcon extends IconButtonProps {}
 
 /**
- * @deprecated Migrar para IconButton
+ * @deprecated Migrate to IconButton
  */
 const ButtonIcon = (props: ButtonIcon) => {
   return <IconButton {...props} />;

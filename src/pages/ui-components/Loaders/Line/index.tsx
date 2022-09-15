@@ -2,19 +2,20 @@ import { useMemo } from 'react';
 
 import styled, { css, cx, keyframes, StyledProp } from '@eduzz/houston-styles';
 
-export interface LineLoaderProps extends StyledProp {
-  mode?: 'determinate' | 'indeterminate';
-  /**
-   * 0 to 1. Ex: 0.2 = 20%
-   */
-  value?: number;
-}
+export type LineLoaderProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    mode?: 'determinate' | 'indeterminate';
+    /**
+     * 0 to 1. Ex: 0.2 = 20%
+     */
+    value?: number;
+  };
 
-const LineLoader = ({ className, mode = 'indeterminate', value }: LineLoaderProps) => {
+const LineLoader = ({ className, mode = 'indeterminate', value, ...rest }: LineLoaderProps) => {
   const style = useMemo(() => (mode === 'determinate' ? { width: `${(value ?? 0) * 100}%` } : {}), [value, mode]);
 
   return (
-    <div className={cx(className, `--hts-line-loader-mode-${mode}`)}>
+    <div className={cx(className, `hst-line-loader-mode-${mode}`)} {...rest}>
       <div style={style} />
     </div>
   );
@@ -32,7 +33,7 @@ const indeterminateShortAnimation = keyframes`
   100% { left: 107%; right: -8%; }
 `;
 
-export default styled(LineLoader, { label: 'houston-lineloader' })(
+export default styled(LineLoader, { label: 'hst-lineloader' })(
   ({ theme }) => css`
     position: relative;
     display: block;
@@ -45,7 +46,7 @@ export default styled(LineLoader, { label: 'houston-lineloader' })(
       background-color: ${theme.brandColor.primary.pure};
     }
 
-    &.--hts-line-loader-mode-indeterminate > div {
+    &.hst-line-loader-mode-indeterminate > div {
       &:before,
       &:after {
         content: '';
@@ -66,7 +67,7 @@ export default styled(LineLoader, { label: 'houston-lineloader' })(
       }
     }
 
-    &.--hts-line-loader-mode-determinate > div {
+    &.hst-line-loader-mode-determinate > div {
       position: absolute;
       top: 0;
       bottom: 0;

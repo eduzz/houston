@@ -23,10 +23,12 @@ export interface TableActionOptionProp {
   icon?: React.ReactNode;
   disabled?: boolean;
   onClick: (data: unknown, index: number, event?: React.MouseEvent<HTMLButtonElement>) => any | Promise<any>;
+  id?: string;
   children: string;
 }
 
 const TableActionOption = ({
+  id,
   as: Tag,
   children,
   disabled,
@@ -65,13 +67,17 @@ const TableActionOption = ({
   );
 
   let content = (
-    <Button startIcon={icon} variant='text' onClick={handleClick} className={className} disabled={disabled}>
+    <Button id={id} startIcon={icon} variant='text' onClick={handleClick} className={className} disabled={disabled}>
       <Typography color='inherit'>{children}</Typography>
     </Button>
   );
 
   if (Tag) {
-    content = <Tag {...rest}>{content}</Tag>;
+    content = (
+      <Tag id={id} {...rest}>
+        {content}
+      </Tag>
+    );
   }
 
   return <Portal target={portal}>{content}</Portal>;
@@ -82,7 +88,7 @@ export default styled(React.memo(TableActionOption))`
   text-align: left;
   border-radius: 0;
 
-  &.--disabled {
+  &.hst-button-disabled {
     background-color: transparent;
   }
 `;

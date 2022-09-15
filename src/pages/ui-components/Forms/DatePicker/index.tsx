@@ -2,6 +2,7 @@ import 'rc-picker/assets/index.css';
 
 import * as React from 'react';
 
+import isValid from 'date-fns/isValid';
 import Picker from 'rc-picker';
 import generateConfig from 'rc-picker/lib/generate/dateFns';
 import locale from 'rc-picker/lib/locale/pt_BR';
@@ -80,6 +81,26 @@ const DatePicker = ({
   fullWidth = true,
   ...inputProps
 }: DatePickerProps) => {
+  const disableDate = React.useCallback(
+    (date: Date | null) => {
+      if (!date) return true;
+      if (minDate) return date < minDate;
+      if (maxDate) return date > maxDate;
+      return false;
+    },
+    [maxDate, minDate]
+  );
+
+  const internalInputOnBlur = React.useCallback(
+    (value: string) => {
+      const [day, month, year] = value.split('/');
+      const date = new Date(+year, +month - 1, +day);
+      if (disableDate(date) || !isValid(date)) return;
+      onChange && onChange(date);
+    },
+    [disableDate, onChange]
+  );
+
   const inputRender = React.useCallback(
     (props: React.InputHTMLAttributes<HTMLInputElement>) => {
       return (
@@ -88,33 +109,16 @@ const DatePicker = ({
           {...props}
           id={id}
           size='default'
+          onBlur={internalInputOnBlur}
           fullWidth={fullWidth}
           disabled={disabled}
           nativeChangeEvent
-          readOnly
           name={undefined}
           endAdornment={<Calendar />}
         />
       );
     },
-    [id, disabled, inputProps, fullWidth]
-  );
-
-  const disableDate = React.useCallback(
-    (date: Date | undefined) => {
-      if (!date) return true;
-
-      if (minDate) {
-        return date < minDate;
-      }
-
-      if (maxDate) {
-        return date > maxDate;
-      }
-
-      return false;
-    },
-    [maxDate, minDate]
+    [id, disabled, inputProps, fullWidth, internalInputOnBlur]
   );
 
   return (
@@ -123,8 +127,8 @@ const DatePicker = ({
       locale={locale}
       value={value}
       defaultPickerValue={new Date()}
-      className={cx(className, { '--hst-datepicker-full-width': fullWidth })}
-      dropdownClassName={cx(className, { '--hst-datepicker-enable-seconds': enableSeconds })}
+      className={cx(className, { 'hst-datepicker-full-width': fullWidth })}
+      dropdownClassName={cx(className, { 'hst-datepicker-enable-seconds': enableSeconds })}
       format={displayFormat ?? defaultFormats[`${mode}${enableSeconds ? 'Seconds' : ''}`]}
       inputRender={inputRender}
       onChange={onChange}
@@ -145,13 +149,13 @@ const SIZE_BUTTON = `${pxToRem(48)}rem`;
 const HOUR_WIDTH_BUTTON = `${pxToRem(63)}rem`;
 
 export default withForm(
-  styled(React.memo(DatePicker), { label: 'houston-datepicker' })(
+  styled(React.memo(DatePicker), { label: 'hst-datepicker' })(
     ({ theme }) => css`
       &.rc-picker-focused {
         border: none;
       }
 
-      &.--hst-datepicker-full-width {
+      &.hst-datepicker-full-width {
         width: 100%;
       }
 
@@ -481,7 +485,7 @@ export default withForm(
           }
         }
 
-        &.--hst-datepicker-enable-seconds .rc-picker-time-panel .rc-picker-content {
+        &.hst-datepicker-enable-seconds .rc-picker-time-panel .rc-picker-content {
           grid-template-columns: repeat(3, ${HOUR_WIDTH_BUTTON});
 
           &::before {

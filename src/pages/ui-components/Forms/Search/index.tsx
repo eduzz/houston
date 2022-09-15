@@ -126,7 +126,7 @@ const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
           startAdornment={<SearchOutlineIcon size='md' />}
           endAdornment={
             <IconButton
-              className={clsx(shouldHideCleanBtn && '--hidden')}
+              className={clsx(shouldHideCleanBtn && 'hst-input-search-hidden')}
               aria-hidden={shouldHideCleanBtn}
               hidden={shouldHideCleanBtn}
               onClick={resetField}
@@ -150,7 +150,7 @@ const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
             disabled={disabled}
             placeholder={placeholder}
             value={value}
-            className='__input'
+            className='hst-input-search-input'
           />
         </Fieldset>
       </SearchContextProvider>
@@ -158,12 +158,12 @@ const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
   }
 );
 
-const StyledSearchField = styled(withForm(SearchField), { label: 'hostoun-form-search-field' })`
+const StyledSearchField = styled(withForm(SearchField), { label: 'hst-input-search' })`
   ${({ theme }) => css`
-    .__content {
+    .hst-fieldset-content {
       overflow: hidden;
 
-      .__input {
+      .hst-input-search-input {
         width: 100%;
         white-space: nowrap;
         overflow: hidden;
@@ -183,7 +183,7 @@ const StyledSearchField = styled(withForm(SearchField), { label: 'hostoun-form-s
       }
     }
 
-    .--hidden {
+    .hst-input-search-hidden {
       visibility: hidden;
     }
   `}

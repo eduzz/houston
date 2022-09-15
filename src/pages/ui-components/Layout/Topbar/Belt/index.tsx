@@ -40,10 +40,11 @@ const Belt = React.memo<StyledProp>(({ className }) => {
   }
 
   return (
-    <div className={cx(className, `--${beltClass}`)}>
-      <div className='houston-topbar-belt__badge'>
-        <BeltIcon size={25} className='houston-topbar-belt__icon' />
-        <Typography color='inherit' className='houston-topbar-belt__text' weight='semibold'>
+    <div className={cx(className, `hst-topbar-belt-color-${beltClass}`)}>
+      <div className='hst-topbar-belt-badge'>
+        <BeltIcon size={25} className='hst-topbar-belt-icon' />
+
+        <Typography color='inherit' className='hst-topbar-belt-text' weight='semibold'>
           {beltColor}
         </Typography>
       </div>
@@ -51,13 +52,13 @@ const Belt = React.memo<StyledProp>(({ className }) => {
   );
 });
 
-export default styled(Belt, { label: 'houston-topbar-belt' })(
+export default styled(Belt, { label: 'hst-topbar-belt' })(
   ({ theme }) => css`
     color: white;
     display: flex;
     align-items: center;
     padding: ${theme.spacing.squish.xxs};
-    border-radius: 20px;
+    border-radius: ${theme.border.radius.md};
     border-top-left-radius: 0;
     border-bottom-right-radius: 0;
     margin-right: ${theme.spacing.inline.xxs};
@@ -68,7 +69,7 @@ export default styled(Belt, { label: 'houston-topbar-belt' })(
     }
 
     ${theme.breakpoints.down('lg')} {
-      & .houston-topbar-belt__text {
+      & .hst-topbar-belt-text {
         display: none;
       }
     }
@@ -77,42 +78,42 @@ export default styled(Belt, { label: 'houston-topbar-belt' })(
       display: none;
     }
 
-    &.--white {
+    &.hst-topbar-belt-color-white {
       background-color: ${theme.beltColor.white};
       color: ${theme.beltColor.white};
     }
 
-    &.--red {
+    &.hst-topbar-belt-color-red {
       background-color: ${theme.beltColor.red};
       color: ${theme.beltColor.red};
     }
 
-    &.--orange {
+    &.hst-topbar-belt-color-orange {
       background-color: ${theme.beltColor.orange};
       color: ${theme.beltColor.orange};
     }
 
-    &.--green {
+    &.hst-topbar-belt-color-green {
       background-color: ${theme.beltColor.green};
       color: ${theme.beltColor.green};
     }
 
-    &.--black {
+    &.hst-topbar-belt-color-black {
       background-color: ${theme.beltColor.black};
       color: ${theme.beltColor.black};
     }
 
-    &.--golden {
+    &.hst-topbar-belt-color-golden {
       background-color: ${theme.beltColor.golden};
       color: ${theme.beltColor.golden};
     }
 
-    .houston-topbar-belt__badge {
+    .hst-topbar-belt-badge {
       color: white;
       display: flex;
       align-items: center;
 
-      & > .houston-topbar-belt__text {
+      & > .hst-topbar-belt-text {
         white-space: nowrap;
         text-transform: uppercase;
         font-style: italic;
@@ -120,8 +121,8 @@ export default styled(Belt, { label: 'houston-topbar-belt' })(
       }
     }
 
-    .houston-topbar-belt__icon {
-      min-width: 32px;
+    .hst-topbar-belt-icon {
+      min-width: ${theme.pxToRem(32)}rem;
       display: flex;
       align-items: center;
     }

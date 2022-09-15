@@ -7,24 +7,24 @@ import { BreadcrumbProvider } from './context';
 import Item from './Item';
 import Link from './Link';
 
-export interface BreadcrumbProps extends StyledProp {
+export interface BreadcrumbProps extends StyledProp, React.HTMLAttributes<HTMLElement> {
   separator?: React.ReactNode;
   children: React.ReactNode;
 }
 
-const Breadcrumb = ({ children, className, separator }: BreadcrumbProps) => {
+const Breadcrumb = ({ children, className, separator, ...rest }: BreadcrumbProps) => {
   return (
     <BreadcrumbProvider separator={separator}>
-      <nav aria-label='breadcrumb' className={className}>
-        <ol className='__list'>{children}</ol>
+      <nav aria-label='breadcrumb' className={className} {...rest}>
+        <ol className='hst-breadcrumb-list'>{children}</ol>
       </nav>
     </BreadcrumbProvider>
   );
 };
 
-const BreadcrumbWrapper = styled(Breadcrumb, { label: 'houston-breadcrumb' })`
+const BreadcrumbWrapper = styled(Breadcrumb, { label: 'hst-breadcrumb' })`
   ${({ theme }) => css`
-    .__list {
+    .hst-breadcrumb-list {
       display: flex;
       align-items: center;
       font-family: ${theme.font.family.base};
@@ -33,11 +33,11 @@ const BreadcrumbWrapper = styled(Breadcrumb, { label: 'houston-breadcrumb' })`
       line-height: ${theme.line.height.lg};
       color: ${theme.neutralColor.low.pure};
 
-      li:last-child .__separator {
+      li:last-child .hst-breadcrumb-separator {
         display: none;
       }
 
-      .__separator {
+      .hst-breadcrumb-separator {
         display: flex;
         align-items: center;
         margin: 0 ${theme.spacing.inset.xxxs};

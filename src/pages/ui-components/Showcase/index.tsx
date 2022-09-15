@@ -35,7 +35,9 @@ const Showcase = ({
   controlDots,
   ...rest
 }: ShowcaseProps & React.HTMLAttributes<HTMLDivElement> & StyledProp) => {
-  if (!open) return null;
+  if (!open) {
+    return null;
+  }
 
   const [showcaseContent] = children as React.ReactElement[];
 
@@ -61,12 +63,12 @@ const Showcase = ({
   );
 };
 
-const StyledShowcase = styled(Showcase, { label: 'houston-showcase' })`
+const StyledShowcase = styled(Showcase, { label: 'hst-showcase' })`
   ${({ theme, widthSize }) => {
     return css`
       width: ${theme.pxToRem(widthSize - OFFSET)}rem;
       max-width: ${theme.pxToRem(MAX_SHOWCASE_WIDTH)}rem;
-      max-height: 90%;
+      max-height: 90vw;
       overflow-x: hidden;
       box-shadow: none;
     `;

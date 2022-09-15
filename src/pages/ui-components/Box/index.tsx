@@ -28,7 +28,6 @@ export interface BoxProps extends Pick<BoxPropsMui, BoxPropsExtends> {
 
 const Box = (props: BoxProps) => {
   const { children, className, paper, ...rest } = props;
-
   const classes = useStyles(props);
 
   return (

@@ -10,6 +10,7 @@ import { ItemProvider } from './context';
 type ReceivedFromParentProps = {
   index?: number;
 };
+
 export interface ItemProps extends React.HTMLAttributes<HTMLDivElement>, ReceivedFromParentProps {
   children: React.ReactNode;
   disabled?: boolean;
@@ -24,7 +25,7 @@ const AccordionItem = ({ children, className, disabled, index, ...rest }: ItemPr
 
   return (
     <ItemProvider itemId={index as number}>
-      <div className={cx(className, { '--disabled': disabled })} {...rest} onClick={onClick}>
+      <div className={cx(className, { 'hst-accordion-disabled': disabled })} {...rest} onClick={onClick}>
         {children}
       </div>
     </ItemProvider>
@@ -33,7 +34,7 @@ const AccordionItem = ({ children, className, disabled, index, ...rest }: ItemPr
 
 const AccordionItemWrapper = styled(AccordionItem, { label: 'hst-accordion-item' })(({ theme }) => {
   return css`
-    &.--disabled {
+    &.hst-accordion-disabled {
       opacity: ${theme.opacity.level[6]};
       pointer-events: none;
     }

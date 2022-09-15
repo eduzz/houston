@@ -44,14 +44,14 @@ const Badge = ({
       {...rest}
       className={cx(
         className,
-        `--hst-badge-color-${color}`,
-        `--hst-badge-offset-${offset}`,
-        { '--hst-badge-has-not-children': !hasChildren },
-        { '--hst-badge-dot': dot || !hasCount },
-        { '--hst-badge-number': hasCount && !dot }
+        `hst-badge-color-${color}`,
+        `hst-badge-offset-${offset}`,
+        { 'hst-badge-has-not-children': !hasChildren },
+        { 'hst-badge-dot': dot || !hasCount },
+        { 'hst-badge-number': hasCount && !dot }
       )}
     >
-      <sup className='hst-badge__count'>{!dot && displayCount}</sup>
+      <sup className='hst-badge-count'>{!dot && displayCount}</sup>
       {children}
     </span>
   );
@@ -64,8 +64,8 @@ const BadgeWrapper = styled(Badge, { label: 'hst-badge' })`
     Object.keys(theme.feedbackColor).forEach(key => {
       if (key === 'warning') {
         return modifiers.push(css`
-          &.--hst-badge-color-warning {
-            & > .hst-badge__count {
+          &.hst-badge-color-warning {
+            & > .hst-badge-count {
               background-color: ${theme.feedbackColor[key].dark};
             }
           }
@@ -73,8 +73,8 @@ const BadgeWrapper = styled(Badge, { label: 'hst-badge' })`
       }
 
       return modifiers.push(css`
-        &.--hst-badge-color-${key} {
-          & > .hst-badge__count {
+        &.hst-badge-color-${key} {
+          & > .hst-badge-count {
             background-color: ${theme.feedbackColor[key].pure};
           }
         }
@@ -89,47 +89,47 @@ const BadgeWrapper = styled(Badge, { label: 'hst-badge' })`
 
       ${modifiers}
 
-      &.--hst-badge-dot {
-        & > .hst-badge__count {
+      &.hst-badge-dot {
+        & > .hst-badge-count {
           min-width: ${theme.pxToRem(MIN_WITH_DOT)}rem;
           height: ${theme.pxToRem(MIN_WITH_DOT)}rem;
           padding: 0;
         }
       }
 
-      &.--hst-badge-number {
-        & > .hst-badge__count {
+      &.hst-badge-number {
+        & > .hst-badge-count {
           min-width: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
           min-height: ${theme.pxToRem(MIN_WITH_NUMBER)}rem;
         }
       }
 
-      &.--hst-badge-offset-xs {
-        & > .hst-badge__count {
+      &.hst-badge-offset-xs {
+        & > .hst-badge-count {
           transform: translate(30%, -30%);
         }
       }
 
-      &.--hst-badge-offset-sm {
-        & > .hst-badge__count {
+      &.hst-badge-offset-sm {
+        & > .hst-badge-count {
           transform: translate(40%, -40%);
         }
       }
 
-      &.--hst-badge-offset-md {
-        & > .hst-badge__count {
+      &.hst-badge-offset-md {
+        & > .hst-badge-count {
           transform: translate(50%, -50%);
         }
       }
 
-      &.--hst-badge-has-not-children {
-        & > .hst-badge__count {
+      &.hst-badge-has-not-children {
+        & > .hst-badge-count {
           position: relative;
           transform: none;
         }
       }
 
-      & > .hst-badge__count {
+      & > .hst-badge-count {
         position: absolute;
         display: inline-flex;
         top: 0;

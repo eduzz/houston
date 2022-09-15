@@ -10,14 +10,14 @@ const DrawerFooter = ({ children, ...rest }: DrawerFooterProps & React.HTMLAttri
   return (
     <footer {...rest}>
       <Divider />
-      <div className='hst-drawer-footer__wrapper'>{children}</div>
+      <div className='hst-drawer-footer-wrapper'>{children}</div>
     </footer>
   );
 };
 
 export default styled(DrawerFooter, { label: 'hst-drawer-footer' })`
   ${({ theme }) => css`
-    .hst-drawer-footer__wrapper {
+    .hst-drawer-footer-wrapper {
       padding: ${theme.spacing.squish.xs};
       display: flex;
       align-items: center;
