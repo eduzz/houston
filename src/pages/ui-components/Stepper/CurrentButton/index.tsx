@@ -15,13 +15,14 @@ const CurrentIcon = ({ number, className }: CurrentType) => (
   </div>
 );
 
+const ICON_SIZE_IN_PX = 32;
+
 export const StyledCurrentIcon = styled(CurrentIcon)(({ theme }) => {
   return css`
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
-    background-color: black;
-
+    width: ${theme.pxToRem(ICON_SIZE_IN_PX)}rem;
+    height: ${theme.pxToRem(ICON_SIZE_IN_PX)}rem;
+    border-radius: ${theme.border.radius.circular};
+    background-color: ${theme.neutralColor.low.pure};
     display: flex;
     align-items: center;
     justify-content: center;

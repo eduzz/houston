@@ -11,15 +11,17 @@ type UnfinishedType = {
 
 const UnfinishedIcon = ({ number, className }: UnfinishedType) => (
   <div className={className}>
-    <Typography color='neutralColor.low.pure'> {number}</Typography>
+    <Typography color='neutralColor.low.pure'>{number}</Typography>
   </div>
 );
 
+const ICON_SIZE_IN_PX = 32;
+
 export const StyledUnfinishedIcon = styled(UnfinishedIcon)(({ theme }) => {
   return css`
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
+    width: ${theme.pxToRem(ICON_SIZE_IN_PX)}rem;
+    height: ${theme.pxToRem(ICON_SIZE_IN_PX)}rem;
+    border-radius: ${theme.border.radius.circular};
     outline: solid ${theme.border.width.xs} ${theme.neutralColor.low.pure};
     display: flex;
     align-items: center;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import Collapse from '@eduzz/houston-ui/Collapse';
 
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
 import nestedComponent from '../utils/nestedComponent';
@@ -31,7 +32,7 @@ const ICON_SIZE = 32;
 
 const Stepper = ({ children, current: currentProp, onPrev, onNext, ...rest }: StepperProps) => {
   const childrenProps = useChildrenProps(children, Step);
-  const Stepper = useChildrenComponent(children, Step);
+  const steps = useChildrenComponent(children, Step);
 
   const [current, setCurrent] = React.useState(0);
   const controlled = typeof currentProp !== 'undefined';
@@ -75,44 +76,55 @@ const Stepper = ({ children, current: currentProp, onPrev, onNext, ...rest }: St
   }, []);
 
   return (
-    <div {...rest}>
-      {childrenProps?.map(({ label, description, error }, index) => {
-        const last = index === childrenProps.length - 1;
-        const isFinished = index < currentStep;
-        const isUnfinished = index > currentStep;
-        const isCurrent = index === currentStep;
+    <>
+      <div {...rest}>
+        {childrenProps?.map(({ label, description, error }, index) => {
+          const last = index === childrenProps.length - 1;
+          const isFinished = index < currentStep;
+          const isUnfinished = index > currentStep;
+          const isCurrent = index === currentStep;
 
-        const buttonProps = {
-          label,
-          description,
-          number: index
-        };
+          const buttonProps = {
+            label,
+            description,
+            number: index
+          };
 
-        return (
-          <>
-            <div
-              onClick={isFinished ? handlePrev(index) : handleNext(index)}
-              className={cx('hst-step', { '--hst-step-active': isCurrent })}
-              key={label}
-              ref={passRefsToArray(index)}
-            >
-              {isFinished && !error && <FinishedButton buttonProps={buttonProps} />}
-              {isCurrent && !error && <CurrentButton buttonProps={buttonProps} />}
-              {isUnfinished && !error && <UnfinishedButton buttonProps={buttonProps} />}
-              {error && <ErrorButton buttonProps={buttonProps} />}
-            </div>
-            {!last && (
-              <hr
-                className={cx('hst-step-divider', { '--hst-step-divider-finished': isFinished })}
-                style={{ marginLeft: negativeMargins[index] }}
-              />
-            )}
-          </>
-        );
-      })}
-    </div>
+          return (
+            <>
+              <div
+                onClick={isFinished ? handlePrev(index) : handleNext(index)}
+                className={cx('hst-step', { '--hst-step-active': isCurrent })}
+                key={label}
+                ref={passRefsToArray(index)}
+              >
+                {isFinished && !error && <FinishedButton buttonProps={buttonProps} />}
+                {isCurrent && !error && <CurrentButton buttonProps={buttonProps} />}
+                {isUnfinished && !error && <UnfinishedButton buttonProps={buttonProps} />}
+                {error && <ErrorButton buttonProps={buttonProps} />}
+              </div>
+              {!last && (
+                <hr
+                  className={cx('hst-step-divider', { '--hst-step-divider-finished': isFinished })}
+                  style={{ marginLeft: negativeMargins[index] }}
+                />
+              )}
+            </>
+          );
+        })}
+      </div>
+      <div>
+        {steps?.map((step, index) => (
+          <Collapse id={step.props.id} key={index} timeout={0} visibled={currentStep === index}>
+            <div>{step.props.children}</div>
+          </Collapse>
+        ))}
+      </div>
+    </>
   );
 };
+
+const MARGIN_TOP_IN_PX = 16;
 
 const StepperWrapper = React.memo(
   styled(Stepper, { label: 'hst-stepper' })(({ theme }) => {
@@ -137,8 +149,8 @@ const StepperWrapper = React.memo(
       .hst-step-divider {
         flex-grow: 1;
         border-color: ${theme.neutralColor.low.pure};
-        height: 1px;
-        margin-top: 14px;
+        height: ${theme.border.width.xs};
+        margin-top: ${theme.pxToRem(MARGIN_TOP_IN_PX)}rem;
         border-width: 0 0 ${theme.border.width.xs};
 
         &.--hst-step-divider-finished {
