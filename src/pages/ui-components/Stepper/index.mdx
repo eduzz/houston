@@ -1,0 +1,95 @@
+---
+name: Stepper
+---
+
+import { Playground } from 'dokz';
+
+import Stepper from './';
+
+# Stepper
+
+O Stepper tem como objetivo mostrar ao usuário a quantidade de etapas dentro de um fluxo, bem como indicar qualquer etapa que está sendo apresentada.
+
+### Importação
+
+```js
+import Stepper from '@eduzz/houston-ui/Stepper';
+const { Step } = Stepper;
+```
+
+### Auto gerenciável
+
+Não há necessidade de controlar o estado do step ativo.
+
+<Playground>
+  {() => {
+    const { Step } = Stepper;
+    return (
+      <Stepper>
+        <Step label='Label 1'>Conteúdo 1</Step>
+        <Step label='Label 2'>Conteúdo 2</Step>
+        <Step label='Label 3'>Conteúdo 3</Step>
+        <Step label='Label 4'>Conteúdo 4</Step>
+      </Stepper>
+    );
+  }}
+</Playground>
+
+### Valor controlado e error
+
+<Playground>
+  {() => {
+    const { Step } = Stepper;
+    const [current, setCurrent] = React.useState(1);
+    return (
+      <Stepper current={current} onPrev={current => setCurrent(current)} onNext={current => setCurrent(current)}>
+        <Step label='Básico'>
+          <div>Conteúdo1</div>
+        </Step>
+        <Step label='Personalização' description='Personalize seu produto'>
+          <div>Conteúdo2</div>
+        </Step>
+        <Step label='Comunicação' error description='Comunicação é muito importante'>
+          <div>Conteúdo3</div>
+        </Step>
+        <Step label='Avançado'>
+          <div>Conteúdo4</div>
+        </Step>
+      </Stepper>
+    );
+  }}
+</Playground>
+
+### Somente como indicador, sem conteúdo
+
+<Playground>
+  {() => {
+    const { Step } = Stepper;
+    return (
+      <Stepper>
+        <Step label='Básico' />
+        <Step label='Personalização' description='Personalize seu produto' />
+        <Step label='Comunicação' description='Comunicação é muito importante' />
+        <Step label='Avançado' />
+      </Stepper>
+    );
+  }}
+</Playground>
+
+#### Stepper props
+
+| prop     | type               | required | default | description                          |
+| -------- | ------------------ | -------- | ------- | ------------------------------------ |
+| onPrev   | `(number) => void` | `false`  | -       | Passa pelo callback o índice do Step |
+| onNext   | `(number) => void` | `false`  | -       | Passa pelo callback o índice do Step |
+| current  | `number`           | `false`  | `false` | Índice do Step atual                 |
+| children | `React.ReactNode`  | `true`   | -       |                                      |
+
+#### Step props
+
+| prop        | type              | required | default | description |
+| ----------- | ----------------- | -------- | ------- | ----------- |
+| children    | `React.ReactNode` | `false`  | -       |             |
+| error       | `boolean`         | `false`  | `false` |             |
+| label       | `string`          | `true`   | -       |             |
+| description | `string`          | `false`  | -       |             |
