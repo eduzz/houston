@@ -24,7 +24,7 @@ const FinishedButton = ({ buttonProps }: ButtonPropsType) => {
       <IconButton size='md' fill className='hst-step-iconbutton'>
         <FinishedSvg />
       </IconButton>
-      <Typography color='neutralColor.low.light' size='xs' lineHeight='default'>
+      <Typography color='neutralColor.low.light' size='xs' lineHeight='default' className='hst-step-label'>
         {label}
       </Typography>
       {description && (

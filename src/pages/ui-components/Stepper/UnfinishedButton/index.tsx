@@ -34,7 +34,7 @@ const UnfinishedButton = ({ buttonProps }: ButtonPropsType) => {
       <IconButton size='md' fill className='hst-step-iconbutton'>
         <StyledUnfinishedIcon number={number} />
       </IconButton>
-      <Typography size='xs' color='neutralColor.low.light' lineHeight='default'>
+      <Typography size='xs' color='neutralColor.low.light' lineHeight='default' className='hst-step-label'>
         {label}
       </Typography>
       {description && (
