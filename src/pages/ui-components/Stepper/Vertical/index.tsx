@@ -15,6 +15,7 @@ export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTML
   current?: number;
   onPrev?: (current: number) => void;
   onNext?: (current: number) => void;
+  noClick?: boolean;
   mountOnEnter?: boolean;
   destroyOnClose?: boolean;
 }
@@ -24,6 +25,7 @@ const Vertical = ({
   current: currentProp,
   onPrev,
   onNext,
+  noClick,
   mountOnEnter,
   destroyOnClose,
   ...rest
@@ -70,7 +72,7 @@ const Vertical = ({
             <React.Fragment key={label}>
               <div
                 onClick={isFinished ? handlePrev(index) : handleNext(index)}
-                className={cx('hst-step-vertical', { '--hst-step-vertical-active': isCurrent })}
+                className={cx('hst-step-vertical', { '--hst-step-vertical-noclick': isCurrent || noClick })}
               >
                 {isFinished && !error && <FinishedButton buttonProps={buttonProps} />}
                 {isCurrent && !error && <CurrentButton buttonProps={buttonProps} />}
@@ -122,7 +124,7 @@ export default React.memo(
           align-items: center;
           gap: ${theme.spacing.inline.nano};
 
-          &.--hst-step-vertical-active {
+          &.--hst-step-vertical-noclick {
             pointer-events: none;
           }
 

@@ -27,6 +27,7 @@ export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTML
   current?: number;
   onPrev?: (current: number) => void;
   onNext?: (current: number) => void;
+  noClick?: boolean;
   mountOnEnter?: boolean;
   destroyOnClose?: boolean;
 }
@@ -38,6 +39,7 @@ const Stepper = ({
   current: currentProp,
   onPrev,
   onNext,
+  noClick,
   mountOnEnter,
   destroyOnClose,
   ...rest
@@ -105,7 +107,7 @@ const Stepper = ({
             <React.Fragment key={label}>
               <div
                 onClick={isFinished ? handlePrev(index) : handleNext(index)}
-                className={cx('hst-step', { '--hst-step-active': isCurrent })}
+                className={cx('hst-step', { '--hst-step-noclick': isCurrent || noClick })}
                 ref={passRefsToArray(index)}
               >
                 {isFinished && !error && <FinishedButton buttonProps={buttonProps} />}
@@ -150,7 +152,9 @@ const StepperWrapper = React.memo(
       gap: ${theme.spacing.nano};
 
       .hst-step {
-        &.--hst-step-active {
+        cursor: pointer;
+
+        &.--hst-step-noclick {
           pointer-events: none;
         }
 
@@ -164,7 +168,6 @@ const StepperWrapper = React.memo(
       }
 
       .hst-step-divider {
-        all: unset;
         flex-grow: 1;
         border-color: ${theme.neutralColor.low.pure};
         height: ${theme.border.width.xs};
