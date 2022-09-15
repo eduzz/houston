@@ -1,0 +1,221 @@
+---
+name: Charts
+---
+
+import { useState } from 'react';
+
+import { Playground } from 'dokz';
+
+import Button from '../Button';
+import Column from '../Grid/Column';
+import Container from '../Grid/Container';
+import Row from '../Grid/Row';
+import Chart from './index';
+
+# Showcase
+
+Gráficos utilizados para apresentação de dados de forma comparativa, ilustrados de diferentes formas (barras, pizza,
+linhas e donut).
+
+### Importação
+
+```ts
+import Chart from '@eduzz/houston-ui/Chart';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const bar = [
+      {
+        name: 'Page A',
+        bars: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page B',
+        bars: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page C',
+        bars: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page D',
+        bars: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page E',
+        bars: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page F',
+        bars: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page G',
+        bars: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      }
+    ];
+    const line = [
+      {
+        name: 'Page A',
+        lines: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 2400 },
+          { label: 'amt', value: 2400 }
+        ]
+      },
+      {
+        name: 'Page B',
+        lines: [
+          { label: 'uv', value: 3000 },
+          { label: 'pv', value: 1398 },
+          { label: 'amt', value: 2210 }
+        ]
+      },
+      {
+        name: 'Page C',
+        lines: [
+          { label: 'uv', value: 2000 },
+          { label: 'pv', value: 9800 },
+          { label: 'amt', value: 2290 }
+        ]
+      },
+      {
+        name: 'Page D',
+        lines: [
+          { label: 'uv', value: 2780 },
+          { label: 'pv', value: 3908 },
+          { label: 'amt', value: 2000 }
+        ]
+      },
+      {
+        name: 'Page E',
+        lines: [
+          { label: 'uv', value: 1890 },
+          { label: 'pv', value: 4800 },
+          { label: 'amt', value: 2181 }
+        ]
+      },
+      {
+        name: 'Page F',
+        lines: [
+          { label: 'uv', value: 2390 },
+          { label: 'pv', value: 3800 },
+          { label: 'amt', value: 2500 }
+        ]
+      },
+      {
+        name: 'Page G',
+        lines: [
+          { label: 'uv', value: 3490 },
+          { label: 'pv', value: 4300 },
+          { label: 'amt', value: 2100 }
+        ]
+      }
+    ];
+    const donut = [
+      { name: 'Group A', value: 400, color: '#82ca9d' },
+      { name: 'Group B', value: 300, color: '#8884d8' },
+      { name: 'Group C', value: 300, color: '#82ca9d' },
+      { name: 'Group D', value: 200, color: '#8884d8' },
+      { name: 'Group E', value: 278, color: '#82ca9d' },
+      { name: 'Group F', value: 189, color: '#8884d8' }
+    ];
+    const pizza = [
+      { name: 'Group A', value: 2400, color: '#82ca9d' },
+      { name: 'Group B', value: 4567, color: '#8884d8' },
+      { name: 'Group C', value: 1398, color: '#82ca9d' },
+      { name: 'Group D', value: 9800, color: '#8884d8' },
+      { name: 'Group E', value: 3908, color: '#82ca9d' },
+      { name: 'Group F', value: 4800, color: '#8884d8' }
+    ];
+    return (
+      <Container>
+        <Row justifyContent='space-around'>
+          <Column xs={12} md={4}>
+            <Chart data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={500} height={300} />
+            <Chart.Bar data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={600} height={400} />
+            <Chart.Line color={{ pv: '#8884d8', uv: '#82ca9d' }} data={line} width={600} height={400} />
+            <Chart.Donut data={donut} width={400} height={400} radius={80} />
+            <Chart.Pizza data={pizza} width={400} height={400} radius={80} />
+          </Column>
+        </Row>
+      </Container>
+    );
+  }}
+</Playground>
+
+### Chart
+
+| prop   | tipo                                                         | obrigatório | padrão | descrição                      |
+| ------ | ------------------------------------------------------------ | ----------- | ------ | ------------------------------ |
+| data   | `{ name: string; bars: { label: string, value: number }[] }` | `true`      | -      | Popula o gráfico com dados     |
+| height | `number`                                                     | `true`      | -      | Determina a altura do gráfico  |
+| width  | `number`                                                     | `true`      | -      | Determina a largura do gráfico |
+| color  | `{ [key: string]: string }`                                  | `true`      | -      | Determina as cores das colunas |
+
+### Chart.Bar
+
+| prop   | tipo                                                         | obrigatório | padrão | descrição                      |
+| ------ | ------------------------------------------------------------ | ----------- | ------ | ------------------------------ |
+| data   | `{ name: string; bars: { label: string, value: number }[] }` | `true`      | -      | Popula o gráfico com dados     |
+| height | `number`                                                     | `true`      | -      | Determina a altura do gráfico  |
+| width  | `number`                                                     | `true`      | -      | Determina a largura do gráfico |
+| color  | `{ [key: string]: string }`                                  | `true`      | -      | Determina as cores das colunas |
+
+### Chart.Line
+
+| prop   | tipo                                                          | obrigatório | padrão | descrição                      |
+| ------ | ------------------------------------------------------------- | ----------- | ------ | ------------------------------ |
+| data   | `{ name: string; lines: { label: string, value: number }[] }` | `true`      | -      | Popula o gráfico com dados     |
+| height | `number`                                                      | `true`      | -      | Determina a altura do gráfico  |
+| width  | `number`                                                      | `true`      | -      | Determina a largura do gráfico |
+| color  | `{ [key: string]: string }`                                   | `true`      | -      | Determina as cores das linhas  |
+
+### Chart.Donut
+
+| prop   | tipo                                               | obrigatório | padrão | descrição                             |
+| ------ | -------------------------------------------------- | ----------- | ------ | ------------------------------------- |
+| data   | `{ name: string; value: number; color: string }[]` | `true`      | -      | Popula o gráfico com dados            |
+| height | `number`                                           | `true`      | -      | Determina a altura do gráfico         |
+| width  | `number`                                           | `true`      | -      | Determina a largura do gráfico        |
+| radius | `number`                                           | `true`      | -      | Determina o raio do gráfico em pixels |
+
+### Chart.Pizza
+
+| prop   | tipo                                               | obrigatório | padrão | descrição                             |
+| ------ | -------------------------------------------------- | ----------- | ------ | ------------------------------------- |
+| data   | `{ name: string; value: number; color: string }[]` | `true`      | -      | Popula o gráfico com dados            |
+| height | `number`                                           | `true`      | -      | Determina a altura do gráfico         |
+| width  | `number`                                           | `true`      | -      | Determina a largura do gráfico        |
+| radius | `number`                                           | `true`      | -      | Determina o raio do gráfico em pixels |

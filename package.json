@@ -61,6 +61,7 @@
     "ora": "^5",
     "patch-package": "*",
     "prettier": "^2.7.1",
+    "recharts": "2.1.14",
     "semver": "^7.3.7",
     "typescript": "^4.7",
     "ultra-runner": "^3.10.5"
