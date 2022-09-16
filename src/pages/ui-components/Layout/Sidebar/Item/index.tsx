@@ -73,6 +73,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
     transition: 0.15s linear;
     display: block;
     outline: none;
+    user-select: none;
 
     &:focus {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
@@ -97,7 +98,6 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
       grid-gap: ${theme.spacing.inline.nano};
       text-decoration: none;
       white-space: nowrap;
-      margin-bottom: ${theme.spacing.stack.xxxs};
 
       & .hst-sidebar-item-label {
         grid-column: 2;
