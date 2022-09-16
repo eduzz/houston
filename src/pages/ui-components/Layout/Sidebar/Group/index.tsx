@@ -57,7 +57,7 @@ const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroup
 
 export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
   ({ theme }) => css`
-    margin-bottom: ${theme.spacing.stack.xxxs};
+    user-select: none;
 
     .hst-sidebar-group-item {
       padding: ${theme.spacing.squish.xxs};

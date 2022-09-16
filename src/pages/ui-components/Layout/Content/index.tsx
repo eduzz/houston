@@ -17,11 +17,7 @@ export default styled(LayoutContent, { label: 'hst-sidebar-content' })(
     min-width: 0;
 
     &:not(.hst-sidebar-content-disable-padding) {
-      padding: ${theme.spacing.stack.lg} ${theme.spacing.xs};
-
-      ${theme.breakpoints.down('md')} {
-        padding: ${theme.spacing.stack.sm} ${theme.spacing.xs};
-      }
+      padding: ${theme.spacing.xs};
 
       ${theme.breakpoints.down('sm')} {
         padding: ${theme.spacing.stack.xxxs} ${theme.spacing.xxxs};
