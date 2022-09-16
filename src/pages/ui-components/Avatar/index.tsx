@@ -18,6 +18,7 @@ const AvatarIcon = () => (
 );
 
 export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, StyledProp {
+  alt?: string;
   src?: string;
   /**
    * Default `md`
@@ -26,7 +27,7 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, Style
   children?: React.ReactNode;
 }
 
-const Avatar = ({ src, children, className, size = 'md', ...rest }: AvatarProps) => {
+const Avatar = ({ src, children, className, size = 'md', alt, ...rest }: AvatarProps) => {
   const hasImage = !!src;
   const hasText = typeof children === 'string';
 
@@ -34,7 +35,7 @@ const Avatar = ({ src, children, className, size = 'md', ...rest }: AvatarProps)
 
   return (
     <span className={cx(className, `hst-avatar-size-${size}`)} {...rest}>
-      {hasImage && <img className='hst-avatar-image' src={src} alt='Avatar' />}
+      {hasImage && <img className='hst-avatar-image' src={src} alt={alt ?? 'Avatar'} />}
       {!hasImage && hasText && <span className='hst-avatar-text'>{firstLetter}</span>}
       {!hasImage && !hasText && (
         <span className='hst-avatar-icon' role='img' aria-label='usuário'>
