@@ -130,7 +130,7 @@ const Stepper = ({
           <Collapse
             id={step.props.id}
             key={index}
-            timeout={0}
+            timeout={10}
             visibled={currentStep === index}
             mountOnEnter={mountOnEnter}
             destroyOnClose={destroyOnClose}

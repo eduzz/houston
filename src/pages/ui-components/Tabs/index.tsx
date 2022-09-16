@@ -113,10 +113,10 @@ const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mount
   const handleTabClick = React.useCallback(
     (index: number) => (e: React.MouseEvent<HTMLDivElement>) => {
       onChange && onChange(index);
-      setActiveTab(index);
+      !controlled && setActiveTab(index);
       handleLastVisibleTabAdjustment(e);
     },
-    [onChange, handleLastVisibleTabAdjustment]
+    [onChange, handleLastVisibleTabAdjustment, controlled]
   );
 
   const handleSelectChange = React.useCallback(

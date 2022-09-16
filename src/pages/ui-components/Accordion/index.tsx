@@ -27,12 +27,12 @@ const Accordion = ({
   ...rest
 }: AccordionProps) => {
   const [expandedItems, setExpandedItems] = React.useState<number[]>(values ?? []);
-
   const controlled = typeof values !== 'undefined';
+  const expandedItemsValue = controlled ? values : expandedItems;
 
   const setTheExpandedItems = React.useCallback(
     (index: number) => {
-      let newExpandedItems = new Set(expandedItems);
+      let newExpandedItems = new Set(expandedItemsValue);
 
       if (allowMultiple) {
         newExpandedItems.has(index) ? newExpandedItems.delete(index) : newExpandedItems.add(index);
@@ -41,16 +41,10 @@ const Accordion = ({
       }
 
       onChange && onChange([...newExpandedItems]);
-      setExpandedItems([...newExpandedItems]);
+      !controlled && setExpandedItems([...newExpandedItems]);
     },
-    [expandedItems, onChange, allowMultiple]
+    [expandedItemsValue, onChange, allowMultiple, controlled]
   );
-
-  React.useEffect(() => {
-    if (controlled) {
-      setExpandedItems(values);
-    }
-  }, [controlled, values]);
 
   const mappedChildren = React.Children.map(children, (child, i) => {
     return React.cloneElement(child, {
@@ -61,7 +55,7 @@ const Accordion = ({
   return (
     <AccordionProvider
       setTheExpandedItems={setTheExpandedItems}
-      expandedItems={expandedItems}
+      expandedItems={expandedItemsValue}
       destroyOnClose={destroyOnClose}
       mountOnEnter={mountOnEnter}
     >
