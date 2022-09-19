@@ -2,7 +2,7 @@ import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import IconButton from '@eduzz/houston-ui/IconButton';
 import Typography from '@eduzz/houston-ui/Typography';
 
-import { ButtonPropsType } from '..';
+import { ButtonPropsType } from '../..';
 
 export const ErrorSvg = () => {
   const { feedbackColor } = useHoustonTheme();
