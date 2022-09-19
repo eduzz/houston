@@ -60,10 +60,9 @@ function App() {
           <Sidebar currentLocation={location.pathname}>
             <Item isActive={true}>Resumo</Item>
 
-            <Group>
-              <Item>Item 1</Item>
-              <Item>Item 2</Item>
-            </Group>
+            <Item>Relatórios</Item>
+            <Item>Financeiro</Item>
+            <Item>Soluções</Item>
 
             <Group label='Submenu'>
               <Item>Item 1</Item>

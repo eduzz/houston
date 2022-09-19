@@ -123,8 +123,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
       font-family: ${theme.font.family.base};
       background-color: white;
       color: ${theme.neutralColor.low.pure};
-      border-bottom: ${theme.border.width.xs} solid
-        ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
+      border-bottom: 3px solid ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
       box-sizing: border-box;
       position: fixed;
       padding: ${theme.spacing.squish.xxs};

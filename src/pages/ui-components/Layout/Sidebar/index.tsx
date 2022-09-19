@@ -70,7 +70,8 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
     position: relative;
 
     & .hst-sidebar-container {
-      background: #fff;
+      /* não temos tokens e foi pedido pelo Dan Palmieri */
+      background-color: #fcfcfc;
       display: inline-flex;
       flex-direction: column;
       width: ${MENU_WIDTH}px;
@@ -90,7 +91,7 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
       & > nav {
         overflow-y: auto;
         overflow-x: hidden;
-        padding: ${theme.spacing.stack.xs} 0;
+        padding: ${theme.spacing.stack.xs} 0 ${theme.spacing.stack.sm} 0;
 
         &::-webkit-scrollbar {
           width: 3px;

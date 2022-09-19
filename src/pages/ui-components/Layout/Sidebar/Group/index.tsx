@@ -27,7 +27,7 @@ const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroup
       <li id={id} className={className}>
         {!!label && (
           <div className='hst-sidebar-group-item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
-            <div className={cx('hst-sidebar-group-arrow', isExpanded && 'hst-sidebar-group-rotate')}>
+            <div className={cx('hst-sidebar-group-arrow', isExpanded && 'hst-sidebar-group-active')}>
               <ChevronDownIcon size='md' />
             </div>
 
@@ -47,7 +47,7 @@ const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroup
 
         <ul className='hst-sidebar-group-items'>
           <Collapse timeout={350} visibled={isExpanded}>
-            {children}
+            <div className='hst-sidebar-group-items-content'>{children}</div>
           </Collapse>
         </ul>
       </li>
@@ -90,7 +90,7 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
         transition: 0.15s linear;
         text-align: center;
 
-        &.hst-sidebar-group-rotate {
+        &.hst-sidebar-group-active {
           transform: rotateX(180deg);
         }
       }
@@ -112,8 +112,12 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
       margin: 0;
       padding: 0;
 
-      & li {
-        margin-bottom: 0;
+      .hst-sidebar-group-items-content {
+        padding-bottom: 1rem;
+
+        & li {
+          margin-bottom: 0;
+        }
       }
     }
   `
