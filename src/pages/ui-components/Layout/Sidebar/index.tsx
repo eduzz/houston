@@ -70,6 +70,7 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
     position: relative;
 
     & .hst-sidebar-container {
+      /* não temos tokens e foi pedido pelo Dan Palmieri */
       background-color: #fcfcfc;
       display: inline-flex;
       flex-direction: column;

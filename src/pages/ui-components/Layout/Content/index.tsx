@@ -15,6 +15,7 @@ export default styled(LayoutContent, { label: 'hst-sidebar-content' })(
   ({ theme }) => css`
     flex: 1;
     min-width: 0;
+    /* não temos tokens e foi pedido pelo Dan Palmieri */
     background-color: #fcfcfc;
 
     &:not(.hst-sidebar-content-disable-padding) {
