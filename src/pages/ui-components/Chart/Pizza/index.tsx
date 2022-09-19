@@ -1,32 +1,7 @@
-import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+import PieWrapper, { PieChartProps } from '../PieWrapper';
 
-export type DonutProps = {
-  data: { name: string; value: number; color: string }[];
-  height: number;
-  width: number;
-  radius: number;
-};
-
-const Pizza = ({ data, width, height, radius }: DonutProps) => {
-  return (
-    <PieChart width={width} height={height}>
-      <Pie
-        dataKey='value'
-        isAnimationActive={false}
-        data={data}
-        cx='50%'
-        cy='50%'
-        outerRadius={radius}
-        fill='#8884d8'
-        label
-      >
-        {data.map((item, index) => (
-          <Cell key={`pizza-${index}`} fill={item.color} />
-        ))}
-      </Pie>
-      <Tooltip />
-    </PieChart>
-  );
+const Pizza = (props: PieChartProps) => {
+  return <PieWrapper {...props} />;
 };
 
 export default Pizza;

@@ -12,7 +12,7 @@ import Container from '../Grid/Container';
 import Row from '../Grid/Row';
 import Chart from './index';
 
-# Showcase
+# Chart
 
 Gráficos utilizados para apresentação de dados de forma comparativa, ilustrados de diferentes formas (barras, pizza,
 linhas e donut).
@@ -20,17 +20,97 @@ linhas e donut).
 ### Importação
 
 ```ts
-import Chart from '@eduzz/houston-ui/Chart';
+import Chart, { ColumnChartData } from '@eduzz/houston-ui/Chart';
 ```
 
 ### Exemplo
 
 <Playground>
   {() => {
+    const bar: ColumnChartData[] = [
+      {
+        name: 'Page A',
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page B',
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page C',
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page D',
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page E',
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page F',
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      },
+      {
+        name: 'Page G',
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
+        ]
+      }
+    ];
+    return (
+      <Container>
+        <Row justifyContent='space-around'>
+          <Column xs={12} md={4}>
+            <Chart data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={500} height={300} />
+          </Column>
+        </Row>
+      </Container>
+    );
+  }}
+</Playground>
+
+### Bar Chart
+
+### Importação
+
+```ts
+import Bar from '@eduzz/houston-ui/Chart/Bar';
+```
+
+<Playground>
+  {() => {
     const bar = [
       {
         name: 'Page A',
-        bars: [
+        columns: [
           { label: 'uv', value: 4000 },
           { label: 'pv', value: 4000 },
           { label: 'amt', value: 4000 }
@@ -38,7 +118,7 @@ import Chart from '@eduzz/houston-ui/Chart';
       },
       {
         name: 'Page B',
-        bars: [
+        columns: [
           { label: 'uv', value: 4000 },
           { label: 'pv', value: 4000 },
           { label: 'amt', value: 4000 }
@@ -46,7 +126,7 @@ import Chart from '@eduzz/houston-ui/Chart';
       },
       {
         name: 'Page C',
-        bars: [
+        columns: [
           { label: 'uv', value: 4000 },
           { label: 'pv', value: 4000 },
           { label: 'amt', value: 4000 }
@@ -54,7 +134,7 @@ import Chart from '@eduzz/houston-ui/Chart';
       },
       {
         name: 'Page D',
-        bars: [
+        columns: [
           { label: 'uv', value: 4000 },
           { label: 'pv', value: 4000 },
           { label: 'amt', value: 4000 }
@@ -62,7 +142,7 @@ import Chart from '@eduzz/houston-ui/Chart';
       },
       {
         name: 'Page E',
-        bars: [
+        columns: [
           { label: 'uv', value: 4000 },
           { label: 'pv', value: 4000 },
           { label: 'amt', value: 4000 }
@@ -70,7 +150,7 @@ import Chart from '@eduzz/houston-ui/Chart';
       },
       {
         name: 'Page F',
-        bars: [
+        columns: [
           { label: 'uv', value: 4000 },
           { label: 'pv', value: 4000 },
           { label: 'amt', value: 4000 }
@@ -78,71 +158,119 @@ import Chart from '@eduzz/houston-ui/Chart';
       },
       {
         name: 'Page G',
-        bars: [
+        columns: [
           { label: 'uv', value: 4000 },
           { label: 'pv', value: 4000 },
           { label: 'amt', value: 4000 }
         ]
       }
     ];
+    return (
+      <Container>
+        <Row justifyContent='space-around'>
+          <Column xs={12} md={4}>
+            <Chart.Bar data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={600} height={400} />
+          </Column>
+        </Row>
+      </Container>
+    );
+  }}
+</Playground>
+
+### Line Chart
+
+### Importação
+
+```ts
+import Line from '@eduzz/houston-ui/Chart/Line';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
     const line = [
       {
         name: 'Page A',
-        lines: [
+        columns: [
           { label: 'uv', value: 4000 },
-          { label: 'pv', value: 2400 },
-          { label: 'amt', value: 2400 }
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
         ]
       },
       {
         name: 'Page B',
-        lines: [
-          { label: 'uv', value: 3000 },
-          { label: 'pv', value: 1398 },
-          { label: 'amt', value: 2210 }
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
         ]
       },
       {
         name: 'Page C',
-        lines: [
-          { label: 'uv', value: 2000 },
-          { label: 'pv', value: 9800 },
-          { label: 'amt', value: 2290 }
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
         ]
       },
       {
         name: 'Page D',
-        lines: [
-          { label: 'uv', value: 2780 },
-          { label: 'pv', value: 3908 },
-          { label: 'amt', value: 2000 }
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
         ]
       },
       {
         name: 'Page E',
-        lines: [
-          { label: 'uv', value: 1890 },
-          { label: 'pv', value: 4800 },
-          { label: 'amt', value: 2181 }
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
         ]
       },
       {
         name: 'Page F',
-        lines: [
-          { label: 'uv', value: 2390 },
-          { label: 'pv', value: 3800 },
-          { label: 'amt', value: 2500 }
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
         ]
       },
       {
         name: 'Page G',
-        lines: [
-          { label: 'uv', value: 3490 },
-          { label: 'pv', value: 4300 },
-          { label: 'amt', value: 2100 }
+        columns: [
+          { label: 'uv', value: 4000 },
+          { label: 'pv', value: 4000 },
+          { label: 'amt', value: 4000 }
         ]
       }
     ];
+    return (
+      <Container>
+        <Row justifyContent='space-around'>
+          <Column xs={12} md={4}>
+            <Chart.Line color={{ pv: '#8884d8', uv: '#82ca9d' }} data={line} width={600} height={400} />
+          </Column>
+        </Row>
+      </Container>
+    );
+  }}
+</Playground>
+
+### Donut Chart
+
+### Importação
+
+```ts
+import Donut from '@eduzz/houston-ui/Chart/Donut';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
     const donut = [
       { name: 'Group A', value: 400, color: '#82ca9d' },
       { name: 'Group B', value: 300, color: '#8884d8' },
@@ -151,6 +279,30 @@ import Chart from '@eduzz/houston-ui/Chart';
       { name: 'Group E', value: 278, color: '#82ca9d' },
       { name: 'Group F', value: 189, color: '#8884d8' }
     ];
+    return (
+      <Container>
+        <Row justifyContent='space-around'>
+          <Column xs={12} md={4}>
+            <Chart.Donut data={donut} width={400} height={400} radius={80} />
+          </Column>
+        </Row>
+      </Container>
+    );
+  }}
+</Playground>
+
+### Pizza Chart
+
+### Importação
+
+```ts
+import Pizza from '@eduzz/houston-ui/Chart/Pizza';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
     const pizza = [
       { name: 'Group A', value: 2400, color: '#82ca9d' },
       { name: 'Group B', value: 4567, color: '#8884d8' },
@@ -163,10 +315,6 @@ import Chart from '@eduzz/houston-ui/Chart';
       <Container>
         <Row justifyContent='space-around'>
           <Column xs={12} md={4}>
-            <Chart data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={500} height={300} />
-            <Chart.Bar data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={600} height={400} />
-            <Chart.Line color={{ pv: '#8884d8', uv: '#82ca9d' }} data={line} width={600} height={400} />
-            <Chart.Donut data={donut} width={400} height={400} radius={80} />
             <Chart.Pizza data={pizza} width={400} height={400} radius={80} />
           </Column>
         </Row>
@@ -177,45 +325,45 @@ import Chart from '@eduzz/houston-ui/Chart';
 
 ### Chart
 
-| prop   | tipo                                                         | obrigatório | padrão | descrição                      |
-| ------ | ------------------------------------------------------------ | ----------- | ------ | ------------------------------ |
-| data   | `{ name: string; bars: { label: string, value: number }[] }` | `true`      | -      | Popula o gráfico com dados     |
-| height | `number`                                                     | `true`      | -      | Determina a altura do gráfico  |
-| width  | `number`                                                     | `true`      | -      | Determina a largura do gráfico |
-| color  | `{ [key: string]: string }`                                  | `true`      | -      | Determina as cores das colunas |
+| prop   | tipo                        | obrigatório | padrão | descrição                      |
+| ------ | --------------------------- | ----------- | ------ | ------------------------------ |
+| data   | `ColumnChartProps`          | `true`      | -      | Popula o gráfico com dados     |
+| height | `number`                    | `true`      | -      | Determina a altura do gráfico  |
+| width  | `number`                    | `true`      | -      | Determina a largura do gráfico |
+| color  | `{ [key: string]: string }` | `true`      | -      | Determina as cores das colunas |
 
 ### Chart.Bar
 
-| prop   | tipo                                                         | obrigatório | padrão | descrição                      |
-| ------ | ------------------------------------------------------------ | ----------- | ------ | ------------------------------ |
-| data   | `{ name: string; bars: { label: string, value: number }[] }` | `true`      | -      | Popula o gráfico com dados     |
-| height | `number`                                                     | `true`      | -      | Determina a altura do gráfico  |
-| width  | `number`                                                     | `true`      | -      | Determina a largura do gráfico |
-| color  | `{ [key: string]: string }`                                  | `true`      | -      | Determina as cores das colunas |
+| prop   | tipo                        | obrigatório | padrão | descrição                      |
+| ------ | --------------------------- | ----------- | ------ | ------------------------------ |
+| data   | `ColumnChartProps`          | `true`      | -      | Popula o gráfico com dados     |
+| height | `number`                    | `true`      | -      | Determina a altura do gráfico  |
+| width  | `number`                    | `true`      | -      | Determina a largura do gráfico |
+| color  | `{ [key: string]: string }` | `true`      | -      | Determina as cores das colunas |
 
 ### Chart.Line
 
-| prop   | tipo                                                          | obrigatório | padrão | descrição                      |
-| ------ | ------------------------------------------------------------- | ----------- | ------ | ------------------------------ |
-| data   | `{ name: string; lines: { label: string, value: number }[] }` | `true`      | -      | Popula o gráfico com dados     |
-| height | `number`                                                      | `true`      | -      | Determina a altura do gráfico  |
-| width  | `number`                                                      | `true`      | -      | Determina a largura do gráfico |
-| color  | `{ [key: string]: string }`                                   | `true`      | -      | Determina as cores das linhas  |
+| prop   | tipo                        | obrigatório | padrão | descrição                      |
+| ------ | --------------------------- | ----------- | ------ | ------------------------------ |
+| data   | `ColumnChartProps`          | `true`      | -      | Popula o gráfico com dados     |
+| height | `number`                    | `true`      | -      | Determina a altura do gráfico  |
+| width  | `number`                    | `true`      | -      | Determina a largura do gráfico |
+| color  | `{ [key: string]: string }` | `true`      | -      | Determina as cores das linhas  |
 
 ### Chart.Donut
 
-| prop   | tipo                                               | obrigatório | padrão | descrição                             |
-| ------ | -------------------------------------------------- | ----------- | ------ | ------------------------------------- |
-| data   | `{ name: string; value: number; color: string }[]` | `true`      | -      | Popula o gráfico com dados            |
-| height | `number`                                           | `true`      | -      | Determina a altura do gráfico         |
-| width  | `number`                                           | `true`      | -      | Determina a largura do gráfico        |
-| radius | `number`                                           | `true`      | -      | Determina o raio do gráfico em pixels |
+| prop   | tipo            | obrigatório | padrão | descrição                             |
+| ------ | --------------- | ----------- | ------ | ------------------------------------- |
+| data   | `PieChartProps` | `true`      | -      | Popula o gráfico com dados            |
+| height | `number`        | `true`      | -      | Determina a altura do gráfico         |
+| width  | `number`        | `true`      | -      | Determina a largura do gráfico        |
+| radius | `number`        | `true`      | -      | Determina o raio do gráfico em pixels |
 
 ### Chart.Pizza
 
-| prop   | tipo                                               | obrigatório | padrão | descrição                             |
-| ------ | -------------------------------------------------- | ----------- | ------ | ------------------------------------- |
-| data   | `{ name: string; value: number; color: string }[]` | `true`      | -      | Popula o gráfico com dados            |
-| height | `number`                                           | `true`      | -      | Determina a altura do gráfico         |
-| width  | `number`                                           | `true`      | -      | Determina a largura do gráfico        |
-| radius | `number`                                           | `true`      | -      | Determina o raio do gráfico em pixels |
+| prop   | tipo            | obrigatório | padrão | descrição                             |
+| ------ | --------------- | ----------- | ------ | ------------------------------------- |
+| data   | `PieChartProps` | `true`      | -      | Popula o gráfico com dados            |
+| height | `number`        | `true`      | -      | Determina a altura do gráfico         |
+| width  | `number`        | `true`      | -      | Determina a largura do gráfico        |
+| radius | `number`        | `true`      | -      | Determina o raio do gráfico em pixels |

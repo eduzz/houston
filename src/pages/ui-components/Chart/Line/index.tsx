@@ -1,8 +1,10 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+import { formatData } from '..';
 
 export type LineType = { label: string; value: number };
 
-export type LineDataType = { name: string; lines: LineType[] };
+export type LineDataType = { name: string; columns: LineType[] };
 
 export type LineProps = {
   data: LineDataType[];
@@ -12,41 +14,39 @@ export type LineProps = {
 };
 
 const HSTLine = ({ data, color, height, width }: LineProps) => {
-  const lineChartData = data.map((item: { lines: LineType[]; name: string }) => {
-    const lines = item.lines.map((line: { label: string; value: number }) => ({ [line.label]: line.value }));
+  const lineChartData = formatData(data);
 
-    return Object.assign({}, { name: item.name }, ...lines);
-  });
-
-  const { lines } = data[0];
+  const { columns } = data[0];
 
   return (
-    <LineChart
-      height={height}
-      width={width}
-      data={lineChartData}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5
-      }}
-    >
-      <CartesianGrid strokeDasharray='3 3' />
-      <XAxis dataKey='name' />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      {lines.map((line, index) => (
-        <Line
-          key={`line-${index}`}
-          type='linear'
-          dataKey={line.label}
-          stroke={color[line.label]}
-          activeDot={{ r: 8 }}
-        />
-      ))}
-    </LineChart>
+    <ResponsiveContainer width='100%' height='100%'>
+      <LineChart
+        height={height}
+        width={width}
+        data={lineChartData}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5
+        }}
+      >
+        <CartesianGrid strokeDasharray='3 3' />
+        <XAxis dataKey='name' />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        {columns.map((line, index) => (
+          <Line
+            key={`line-${index}`}
+            type='linear'
+            dataKey={line.label}
+            stroke={color[line.label]}
+            activeDot={{ r: 8 }}
+          />
+        ))}
+      </LineChart>
+    </ResponsiveContainer>
   );
 };
 

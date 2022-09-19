@@ -1,8 +1,14 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
+import { formatData } from '..';
+
+export type BarRadius = [number, number, number, number];
 
 export type BarType = { label: string; value: number };
 
-export type BarDataType = { name: string; bars: BarType[] };
+export type BarDataType = { name: string; columns: BarType[] };
 
 export type BarChartProps = {
   data: BarDataType[];
@@ -12,40 +18,56 @@ export type BarChartProps = {
 };
 
 const HSTBar = ({ data, color, ...rest }: BarChartProps) => {
-  const barchartData = data.map((item: BarDataType) => {
-    const bars = item.bars.map((bar: BarType) => ({ [bar.label]: bar.value }));
+  const barchartData = formatData(data);
 
-    return Object.assign({}, { name: item.name }, ...bars);
-  });
+  const { columns } = data[0];
 
-  const { bars } = data[0];
+  const theme = useHoustonTheme();
+
+  const rounded = [theme.border.radius.xs, theme.border.radius.xs, theme.border.radius.none, theme.border.radius.none];
+  const straight = [
+    theme.border.radius.none,
+    theme.border.radius.none,
+    theme.border.radius.none,
+    theme.border.radius.none
+  ];
+
+  const formatRadius = (data: string[]) => {
+    return data.map(item => theme.cleanUnit(item)).map(item => theme.remToPx(item)) as BarRadius;
+  };
+
+  const formatMargin = (data: string) => {
+    return theme.remToPx(theme.cleanUnit(data));
+  };
 
   return (
-    <BarChart
-      {...rest}
-      data={barchartData}
-      margin={{
-        top: 20,
-        right: 30,
-        left: 20,
-        bottom: 5
-      }}
-    >
-      <CartesianGrid strokeDasharray='3 3' />
-      <XAxis dataKey='name' />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      {bars.map((bar, index) => (
-        <Bar
-          key={`bar-${index}`}
-          dataKey={bar.label}
-          stackId='a'
-          fill={color[bar.label]}
-          radius={index === bars.length - 1 ? [5, 5, 0, 0] : [0, 0, 0, 0]}
-        />
-      ))}
-    </BarChart>
+    <ResponsiveContainer width='100%' height='100%'>
+      <BarChart
+        {...rest}
+        data={barchartData}
+        margin={{
+          top: formatMargin(theme.spacing.xxxs),
+          right: formatMargin(theme.spacing.xxs),
+          left: formatMargin(theme.spacing.xxxs),
+          bottom: formatMargin(theme.spacing.quarck)
+        }}
+      >
+        <CartesianGrid strokeDasharray='3 3' />
+        <XAxis dataKey='name' fontFamily={theme.font.family.base} />
+        <YAxis fontFamily={theme.font.family.base} />
+        <Tooltip />
+        <Legend />
+        {columns.map((bar, index) => (
+          <Bar
+            key={`bar-${index}`}
+            dataKey={bar.label}
+            stackId='a'
+            fill={color[bar.label]}
+            radius={index === data.length - 1 ? formatRadius(rounded) : formatRadius(straight)}
+          />
+        ))}
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
 

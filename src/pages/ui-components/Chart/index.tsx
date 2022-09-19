@@ -1,10 +1,32 @@
 import nestedComponent from '../utils/nestedComponent';
-import Bar, { BarChartProps } from './Bar';
+import Bar from './Bar';
 import Donut from './Donut';
 import Line from './Line';
+import type { PieChartProps } from './PieWrapper';
 import Pizza from './Pizza';
 
-const Chart = (props: BarChartProps) => <Bar {...props} />;
+export type ColumnsData = { label: string; value: number };
+
+export type { PieChartProps };
+
+export type ColumnChartData = { name: string; columns: ColumnsData[] };
+
+export type ChartWrapperProps = {
+  data: ColumnChartData[];
+  height: number;
+  width: number;
+  color: { [key: string]: string };
+};
+
+export const formatData = (data: ColumnChartData[]) => {
+  return data.map((item: ColumnChartData) => {
+    const data = item.columns.map((bar: ColumnsData) => ({ [bar.label]: bar.value }));
+
+    return Object.assign({}, { name: item.name }, ...data);
+  });
+};
+
+const Chart = (props: ChartWrapperProps) => <Bar {...props} />;
 
 export default nestedComponent(Chart, {
   Bar,
