@@ -1,6 +1,8 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-import { formatData } from '..';
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
+import { formatData, useFormatMargin } from '..';
 
 export type LineType = { label: string; value: number };
 
@@ -18,6 +20,8 @@ const HSTLine = ({ data, color, height, width }: LineProps) => {
 
   const { columns } = data[0];
 
+  const theme = useHoustonTheme();
+
   return (
     <ResponsiveContainer width='100%' height='100%'>
       <LineChart
@@ -25,10 +29,10 @@ const HSTLine = ({ data, color, height, width }: LineProps) => {
         width={width}
         data={lineChartData}
         margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5
+          top: useFormatMargin(theme.spacing.xxxs),
+          right: useFormatMargin(theme.spacing.xxs),
+          left: useFormatMargin(theme.spacing.xxxs),
+          bottom: useFormatMargin(theme.spacing.quarck)
         }}
       >
         <CartesianGrid strokeDasharray='3 3' />

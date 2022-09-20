@@ -1,5 +1,5 @@
 ---
-name: Charts
+name: Chart
 ---
 
 import { useState } from 'react';
@@ -20,68 +20,68 @@ linhas e donut).
 ### Importação
 
 ```ts
-import Chart, { ColumnChartData } from '@eduzz/houston-ui/Chart';
+import Chart from '@eduzz/houston-ui/Chart';
 ```
 
 ### Exemplo
 
 <Playground>
   {() => {
-    const bar: ColumnChartData[] = [
+    const bar = [
       {
         name: 'Page A',
         columns: [
           { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'pv', value: 2400 },
+          { label: 'amt', value: 2400 }
         ]
       },
       {
         name: 'Page B',
         columns: [
           { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'pv', value: 1398 },
+          { label: 'amt', value: 2210 }
         ]
       },
       {
         name: 'Page C',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 3000 },
+          { label: 'pv', value: 1398 },
+          { label: 'amt', value: 2210 }
         ]
       },
       {
         name: 'Page D',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 2000 },
+          { label: 'pv', value: 9800 },
+          { label: 'amt', value: 2290 }
         ]
       },
       {
         name: 'Page E',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 2780 },
+          { label: 'pv', value: 3908 },
+          { label: 'amt', value: 2000 }
         ]
       },
       {
         name: 'Page F',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 1890 },
+          { label: 'pv', value: 4800 },
+          { label: 'amt', value: 2181 }
         ]
       },
       {
         name: 'Page G',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 2390 },
+          { label: 'pv', value: 4300 },
+          { label: 'amt', value: 2100 }
         ]
       }
     ];
@@ -89,7 +89,9 @@ import Chart, { ColumnChartData } from '@eduzz/houston-ui/Chart';
       <Container>
         <Row justifyContent='space-around'>
           <Column xs={12} md={4}>
-            <Chart data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={500} height={300} />
+            <div style={{ width: 600, height: 500 }}>
+              <Chart data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={500} height={300} />
+            </div>
           </Column>
         </Row>
       </Container>
@@ -112,56 +114,56 @@ import Bar from '@eduzz/houston-ui/Chart/Bar';
         name: 'Page A',
         columns: [
           { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'pv', value: 2400 },
+          { label: 'amt', value: 2400 }
         ]
       },
       {
         name: 'Page B',
         columns: [
           { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'pv', value: 1398 },
+          { label: 'amt', value: 2210 }
         ]
       },
       {
         name: 'Page C',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 3000 },
+          { label: 'pv', value: 1398 },
+          { label: 'amt', value: 2210 }
         ]
       },
       {
         name: 'Page D',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 2000 },
+          { label: 'pv', value: 9800 },
+          { label: 'amt', value: 2290 }
         ]
       },
       {
         name: 'Page E',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 2780 },
+          { label: 'pv', value: 3908 },
+          { label: 'amt', value: 2000 }
         ]
       },
       {
         name: 'Page F',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 1890 },
+          { label: 'pv', value: 4800 },
+          { label: 'amt', value: 2181 }
         ]
       },
       {
         name: 'Page G',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 2390 },
+          { label: 'pv', value: 4300 },
+          { label: 'amt', value: 2100 }
         ]
       }
     ];
@@ -169,7 +171,9 @@ import Bar from '@eduzz/houston-ui/Chart/Bar';
       <Container>
         <Row justifyContent='space-around'>
           <Column xs={12} md={4}>
-            <Chart.Bar data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={600} height={400} />
+            <div style={{ width: 600, height: 500 }}>
+              <Chart.Bar data={bar} color={{ pv: '#8884d8', uv: '#82ca9d' }} width={600} height={400} />
+            </div>
           </Column>
         </Row>
       </Container>
@@ -194,56 +198,56 @@ import Line from '@eduzz/houston-ui/Chart/Line';
         name: 'Page A',
         columns: [
           { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'pv', value: 2400 },
+          { label: 'amt', value: 2400 }
         ]
       },
       {
         name: 'Page B',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 3000 },
+          { label: 'pv', value: 1398 },
+          { label: 'amt', value: 2210 }
         ]
       },
       {
         name: 'Page C',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 2000 },
+          { label: 'pv', value: 9800 },
+          { label: 'amt', value: 2290 }
         ]
       },
       {
         name: 'Page D',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 2780 },
+          { label: 'pv', value: 3908 },
+          { label: 'amt', value: 2000 }
         ]
       },
       {
         name: 'Page E',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 1890 },
+          { label: 'pv', value: 4800 },
+          { label: 'amt', value: 2181 }
         ]
       },
       {
         name: 'Page F',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 2390 },
+          { label: 'pv', value: 3800 },
+          { label: 'amt', value: 2500 }
         ]
       },
       {
         name: 'Page G',
         columns: [
-          { label: 'uv', value: 4000 },
-          { label: 'pv', value: 4000 },
-          { label: 'amt', value: 4000 }
+          { label: 'uv', value: 3490 },
+          { label: 'pv', value: 4300 },
+          { label: 'amt', value: 2100 }
         ]
       }
     ];
@@ -251,7 +255,9 @@ import Line from '@eduzz/houston-ui/Chart/Line';
       <Container>
         <Row justifyContent='space-around'>
           <Column xs={12} md={4}>
-            <Chart.Line color={{ pv: '#8884d8', uv: '#82ca9d' }} data={line} width={600} height={400} />
+            <div style={{ width: 600, height: 500 }}>
+              <Chart.Line color={{ pv: '#8884d8', uv: '#82ca9d' }} data={line} width={600} height={400} />
+            </div>
           </Column>
         </Row>
       </Container>
@@ -283,7 +289,9 @@ import Donut from '@eduzz/houston-ui/Chart/Donut';
       <Container>
         <Row justifyContent='space-around'>
           <Column xs={12} md={4}>
-            <Chart.Donut data={donut} width={400} height={400} radius={80} />
+            <div style={{ width: 600, height: 500 }}>
+              <Chart.Donut data={donut} width={400} height={400} radius={80} />
+            </div>
           </Column>
         </Row>
       </Container>
@@ -315,7 +323,9 @@ import Pizza from '@eduzz/houston-ui/Chart/Pizza';
       <Container>
         <Row justifyContent='space-around'>
           <Column xs={12} md={4}>
-            <Chart.Pizza data={pizza} width={400} height={400} radius={80} />
+            <div style={{ width: 600, height: 500 }}>
+              <Chart.Pizza data={pizza} width={400} height={400} radius={80} />
+            </div>
           </Column>
         </Row>
       </Container>

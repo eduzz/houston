@@ -2,7 +2,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
-import { formatData } from '..';
+import { formatData, useFormatMargin } from '..';
 
 export type BarRadius = [number, number, number, number];
 
@@ -36,20 +36,16 @@ const HSTBar = ({ data, color, ...rest }: BarChartProps) => {
     return data.map(item => theme.cleanUnit(item)).map(item => theme.remToPx(item)) as BarRadius;
   };
 
-  const formatMargin = (data: string) => {
-    return theme.remToPx(theme.cleanUnit(data));
-  };
-
   return (
     <ResponsiveContainer width='100%' height='100%'>
       <BarChart
         {...rest}
         data={barchartData}
         margin={{
-          top: formatMargin(theme.spacing.xxxs),
-          right: formatMargin(theme.spacing.xxs),
-          left: formatMargin(theme.spacing.xxxs),
-          bottom: formatMargin(theme.spacing.quarck)
+          top: useFormatMargin(theme.spacing.xxxs),
+          right: useFormatMargin(theme.spacing.xxs),
+          left: useFormatMargin(theme.spacing.xxxs),
+          bottom: useFormatMargin(theme.spacing.quarck)
         }}
       >
         <CartesianGrid strokeDasharray='3 3' />
@@ -63,7 +59,7 @@ const HSTBar = ({ data, color, ...rest }: BarChartProps) => {
             dataKey={bar.label}
             stackId='a'
             fill={color[bar.label]}
-            radius={index === data.length - 1 ? formatRadius(rounded) : formatRadius(straight)}
+            radius={index === columns.length - 1 ? formatRadius(rounded) : formatRadius(straight)}
           />
         ))}
       </BarChart>

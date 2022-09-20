@@ -1,3 +1,5 @@
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+
 import nestedComponent from '../utils/nestedComponent';
 import Bar from './Bar';
 import Donut from './Donut';
@@ -24,6 +26,11 @@ export const formatData = (data: ColumnChartData[]) => {
 
     return Object.assign({}, { name: item.name }, ...data);
   });
+};
+
+export const useFormatMargin = (data: string) => {
+  const theme = useHoustonTheme();
+  return theme.remToPx(theme.cleanUnit(data));
 };
 
 const Chart = (props: ChartWrapperProps) => <Bar {...props} />;
