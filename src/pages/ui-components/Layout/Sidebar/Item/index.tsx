@@ -75,7 +75,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
     outline: none;
     user-select: none;
 
-    &:focus {
+    &:focus-visible {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
     }
