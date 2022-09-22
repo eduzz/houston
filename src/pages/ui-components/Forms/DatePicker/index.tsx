@@ -1,5 +1,4 @@
-import 'rc-picker/assets/index.css';
-
+/* eslint-disable max-lines */
 import * as React from 'react';
 
 import isValid from 'date-fns/isValid';
@@ -15,6 +14,7 @@ import { pxToRem } from '@eduzz/houston-tokens/variables/utils';
 
 import withForm, { WithFormProps } from '../Form/withForm';
 import Input, { InputProps } from '../Input';
+import styles from './styles';
 import { DateFormat } from './types';
 
 const defaultFormats = {
@@ -36,6 +36,12 @@ generateConfig.locale.parse = (locale, text, formats) => {
   }
 
   return originalParse(locale, text, formats);
+};
+
+const styleContent = {
+  __html: `
+      ${styles}
+    `
 };
 
 export interface DatePickerProps
@@ -122,26 +128,29 @@ const DatePicker = ({
   );
 
   return (
-    <Picker<Date>
-      generateConfig={generateConfig}
-      locale={locale}
-      value={value}
-      defaultPickerValue={new Date()}
-      className={cx(className, { 'hst-datepicker-full-width': fullWidth })}
-      dropdownClassName={cx(className, { 'hst-datepicker-enable-seconds': enableSeconds })}
-      format={displayFormat ?? defaultFormats[`${mode}${enableSeconds ? 'Seconds' : ''}`]}
-      inputRender={inputRender}
-      onChange={onChange}
-      disabled={disabled}
-      prevIcon={<ChevronLeft />}
-      nextIcon={<ChevronRight />}
-      superPrevIcon={<ChevronLeft />}
-      superNextIcon={<ChevronRight />}
-      showTime={mode === 'datetime'}
-      showSecond={enableSeconds ?? false}
-      disabledDate={mode === 'time' ? undefined : disableDate}
-      picker={mode === 'time' ? 'time' : undefined}
-    />
+    <>
+      <style dangerouslySetInnerHTML={styleContent} />
+      <Picker<Date>
+        generateConfig={generateConfig}
+        locale={locale}
+        value={value}
+        defaultPickerValue={new Date()}
+        className={cx(className, { 'hst-datepicker-full-width': fullWidth })}
+        dropdownClassName={cx(className, { 'hst-datepicker-enable-seconds': enableSeconds })}
+        format={displayFormat ?? defaultFormats[`${mode}${enableSeconds ? 'Seconds' : ''}`]}
+        inputRender={inputRender}
+        onChange={onChange}
+        disabled={disabled}
+        prevIcon={<ChevronLeft />}
+        nextIcon={<ChevronRight />}
+        superPrevIcon={<ChevronLeft />}
+        superNextIcon={<ChevronRight />}
+        showTime={mode === 'datetime'}
+        showSecond={enableSeconds ?? false}
+        disabledDate={mode === 'time' ? undefined : disableDate}
+        picker={mode === 'time' ? 'time' : undefined}
+      />
+    </>
   );
 };
 
