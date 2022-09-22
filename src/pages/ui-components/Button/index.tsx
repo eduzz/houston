@@ -4,13 +4,13 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
 import Spinner from '../Loaders/Spinner';
 
-export type IButtonVariant = 'contained' | 'outlined' | 'text';
+export type ButtonVariant = 'contained' | 'outlined' | 'text';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     React.RefAttributes<HTMLButtonElement>,
     StyledProp {
-  variant?: IButtonVariant;
+  variant?: ButtonVariant;
   loading?: boolean;
   fullWidth?: boolean;
   startIcon?: React.ReactNode;
@@ -41,27 +41,32 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     <button
       ref={ref}
       role='button'
-      className={cx(className, 'hst-button', `--${variant ?? 'contained'}`, {
-        '--full-width': fullWidth,
-        '--disabled': disabled || loading,
-        '--active': active
+      className={cx(className, 'hst-button', `hst-button-variant-${variant ?? 'contained'}`, {
+        'hst-button-full-width': fullWidth,
+        'hst-button-disabled': disabled || loading,
+        'hst-button-active': active
       })}
       type={type}
       {...rest}
       disabled={disabled || loading}
       aria-disabled={disabled}
     >
-      {!!startIcon && <span className={cx('__startIcon', { '--hidden': loading })}>{startIcon}</span>}
-      {!loading && <span className='__text'>{children}</span>}
+      {!!startIcon && (
+        <span className={cx('hst-button-start-icon', { 'hst-button-hidden': loading })}>{startIcon}</span>
+      )}
+
+      {!loading && <span className='hst-button-text'>{children}</span>}
+
       {loading && (
         <>
-          <span className='__loader'>
+          <span className='hst-button-loader'>
             <Spinner size={20} color='inherit' />
           </span>
-          <span className='__text --hidden'>{children}</span>
+          <span className='hst-button-text hst-button-hidden'>{children}</span>
         </>
       )}
-      {!!endIcon && <span className={cx('__endIcon', { '--hidden': loading })}>{endIcon}</span>}
+
+      {!!endIcon && <span className={cx('hst-button-end-icon', { 'hst-button-hidden': loading })}>{endIcon}</span>}
     </button>
   )
 );
@@ -70,7 +75,7 @@ const HEIGHT = 48;
 const MIN_WIDTH = 96;
 const ICON_SIZE = 24;
 
-export default styled(Button, { label: 'houston-button' })(({ theme }) => {
+export default styled(Button, { label: 'hst-button' })(({ theme }) => {
   return css`
     border: none;
     cursor: pointer;
@@ -93,22 +98,22 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
     }
 
     :focus,
-    .--active {
+    .hst-button-active {
       outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
     }
 
-    &.--contained {
+    &.hst-button-variant-contained {
       background-color: ${theme.brandColor.primary.pure};
       color: ${theme.neutralColor.high.pure};
 
       &:hover:not(:disabled),
       &:focus,
-      &.--active {
+      &.hst-button-active {
         background-color: ${theme.hexToRgba(theme.brandColor.primary.pure, theme.opacity.level[8])};
       }
     }
 
-    &.--outlined {
+    &.hst-button-variant-outlined {
       background-color: transparent;
       border: ${theme.border.width.xs} solid;
       border-color: ${theme.neutralColor.low.pure};
@@ -116,60 +121,59 @@ export default styled(Button, { label: 'houston-button' })(({ theme }) => {
 
       &:hover:not(:disabled),
       &:focus,
-      &.--active {
+      &.hst-button-active {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       }
     }
 
-    &.--text {
+    &.hst-button-variant-text {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
       color: ${theme.neutralColor.low.pure};
 
       &:hover:not(:disabled),
       &:focus,
-      &.--active {
+      &.hst-button-active {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       }
     }
 
-    &.--disabled {
+    &.hst-button-disabled {
       border: none;
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[6])};
       cursor: not-allowed;
     }
 
-    &.--full-width {
+    &.hst-button-full-width {
       width: 100%;
     }
 
-    & > .__loader {
+    & > .hst-button-loader {
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0);
     }
 
-    & > .--hidden {
+    & > .hst-button-hidden {
       visibility: hidden;
     }
 
-    & > .__startIcon {
+    & > .hst-button-start-icon {
       margin-right: ${theme.spacing.inline.nano};
     }
 
-    & > .__endIcon {
+    & > .hst-button-end-icon {
       margin-left: ${theme.spacing.inline.nano};
     }
 
-    & > .__startIcon,
-    & > .__endIcon {
+    & > .hst-button-start-icon,
+    & > .hst-button-end-icon {
       line-height: 0;
-    }
 
-    & > .__startIcon > svg,
-    & > .__endIcon > svg {
-      vertical-align: middle;
-      font-size: ${theme.pxToRem(ICON_SIZE)}rem;
+      svg {
+        vertical-align: middle;
+        font-size: ${theme.pxToRem(ICON_SIZE)}rem;
+      }
     }
   `;
 });

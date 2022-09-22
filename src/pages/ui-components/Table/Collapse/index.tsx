@@ -9,6 +9,7 @@ import Portal from '../../Portal';
 import TableRowContext from '../Row/context';
 
 export interface TableCollapseContentProps {
+  id?: string;
   onOpen?: (data: unknown, index: number) => void;
   onClose?: (data: unknown, index: number) => void;
   disabled?: boolean;
@@ -19,6 +20,7 @@ export interface TableCollapseContentProps {
 }
 
 const CollapseContent = ({
+  id,
   onOpen,
   onClose,
   keepMounted,
@@ -44,12 +46,13 @@ const CollapseContent = ({
   return (
     <Portal target={portal}>
       <td
+        id={id}
         colSpan={1000}
         className={cx(
-          'hts-table__collapse',
-          visible && '--hts-opened',
-          disableBackground && '--hts-no-background',
-          disabledPadding && '--hts-no-padding'
+          'hts-table-collapse',
+          visible && 'hts-table-collapse-opened',
+          disableBackground && 'hts-table-collapse-no-background',
+          disabledPadding && 'hts-table-collapse-no-padding'
         )}
       >
         <Collapse

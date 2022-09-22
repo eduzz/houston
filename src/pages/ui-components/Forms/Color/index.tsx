@@ -33,7 +33,7 @@ const Color = ({ className, value, errorMessage, disabled, loading, onChange, ..
         {...props}
         value={value}
         ref={popoverTargetProps.ref}
-        disabled={disabled}
+        disabled={disabled || loading}
         loading={loading}
         errorMessage={errorMessage}
         onChange={handleChange}

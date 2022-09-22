@@ -12,9 +12,10 @@ export interface SidebarGroupProps extends StyledProp {
   label?: React.ReactNode;
   children: React.ReactNode;
   tabIndex?: number;
+  id?: string;
 }
 
-const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label, tabIndex }) => {
+const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroupProps) => {
   const [isExpanded, toogleExpanded, trueExpanded] = useBoolean(true);
 
   const contextValue = React.useMemo<SidebarGroupContextType>(() => {
@@ -23,16 +24,16 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label,
 
   return (
     <SidebarGroupContext.Provider value={contextValue}>
-      <li className={className}>
+      <li id={id} className={className}>
         {!!label && (
-          <div className='houston-sidebar-group__item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
-            <div className={cx('houston-sidebar-group__arrow', isExpanded && '--rotate')}>
+          <div className='hst-sidebar-group-item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
+            <div className={cx('hst-sidebar-group-arrow', isExpanded && 'hst-sidebar-group-active')}>
               <ChevronDownIcon size='md' />
             </div>
 
-            <div className='houston-sidebar-group__content'>
+            <div className='hst-sidebar-group-content'>
               <Typography
-                className='houston-sidebar-group__label'
+                className='hst-sidebar-group-label'
                 color='neutralColor.low.medium'
                 weight='regular'
                 size='xxs'
@@ -44,9 +45,9 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label,
           </div>
         )}
 
-        <ul className='houston-sidebar-group__items'>
+        <ul className='hst-sidebar-group-items'>
           <Collapse timeout={350} visibled={isExpanded}>
-            {children}
+            <div className='hst-sidebar-group-items-content'>{children}</div>
           </Collapse>
         </ul>
       </li>
@@ -54,11 +55,11 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({ className, children, label,
   );
 };
 
-export default styled(React.memo(SidebarGroup), { label: 'houston-sidebar-group' })(
+export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
   ({ theme }) => css`
-    margin-bottom: ${theme.spacing.stack.xxxs};
+    user-select: none;
 
-    .houston-sidebar-group__item {
+    .hst-sidebar-group-item {
       padding: ${theme.spacing.squish.xxs};
       display: grid;
       grid-template-columns: ${theme.pxToRem(26)}rem 1fr;
@@ -83,21 +84,21 @@ export default styled(React.memo(SidebarGroup), { label: 'houston-sidebar-group'
         background-color: rgba(0, 0, 0, 0.12);
       }
 
-      & .houston-sidebar-group__arrow {
+      & .hst-sidebar-group-arrow {
         line-height: 0;
 
         transition: 0.15s linear;
         text-align: center;
 
-        &.--rotate {
+        &.hst-sidebar-group-active {
           transform: rotateX(180deg);
         }
       }
 
-      & .houston-sidebar-group__content {
+      & .hst-sidebar-group-content {
         min-width: 0;
 
-        & .houston-sidebar-group__label {
+        & .hst-sidebar-group-label {
           text-transform: uppercase;
           white-space: nowrap;
           word-break: break-all;
@@ -107,12 +108,16 @@ export default styled(React.memo(SidebarGroup), { label: 'houston-sidebar-group'
       }
     }
 
-    & .houston-sidebar-group__items {
+    & .hst-sidebar-group-items {
       margin: 0;
       padding: 0;
 
-      & li {
-        margin-bottom: 0;
+      .hst-sidebar-group-items-content {
+        padding-bottom: 1rem;
+
+        & li {
+          margin-bottom: 0;
+        }
       }
     }
   `

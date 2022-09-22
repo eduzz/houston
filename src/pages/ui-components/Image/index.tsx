@@ -27,32 +27,32 @@ const ImageComponent = React.forwardRef<HTMLImageElement, ImageProps>(
       image.onload = () => setSrc(srcProp);
     }, [srcProp, fallbackSrc]);
 
-    return <img ref={ref} className={cx(className, fit && `--fit-${fit}`)} src={src} {...props} />;
+    return <img ref={ref} className={cx(className, fit && `hst-image-fit-${fit}`)} src={src} {...props} />;
   }
 );
 
-const StyledImage = styled(ImageComponent, { label: 'houston-image' })`
+const StyledImage = styled(ImageComponent, { label: 'hst-image' })`
   display: block;
   max-width: 100%;
   height: auto;
 
-  &.--fit-fill {
+  &.hst-image-fit-fill {
     object-fit: fill;
   }
 
-  &.--fit-contain {
+  &.hst-image-fit-contain {
     object-fit: contain;
   }
 
-  &.--fit-cover {
+  &.hst-image-fit-cover {
     object-fit: cover;
   }
 
-  &.--fit-none {
+  &.hst-image-fit-none {
     object-fit: none;
   }
 
-  &.--fit-scale-down {
+  &.hst-image-fit-scale-down {
     object-fit: scale-down;
   }
 `;

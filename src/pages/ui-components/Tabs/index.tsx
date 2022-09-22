@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles';
+import Collapse from '@eduzz/houston-ui/Collapse';
 import Select from '@eduzz/houston-ui/Forms/Select';
 
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
@@ -19,6 +20,8 @@ export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDiv
   value?: number;
   onChange?: (value: number) => void;
   selectOnMobile?: boolean;
+  destroyOnClose?: boolean;
+  mountOnEnter?: boolean;
 }
 
 const StyledOption = styled.div`
@@ -27,11 +30,17 @@ const StyledOption = styled.div`
   gap: ${({ theme }) => theme.spacing.inline.nano};
 `;
 
-const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps) => {
+const NEGATIVE_SPACING_IN_PX = -2;
+const MIN_HEIGHT_IN_PX = 48;
+
+const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mountOnEnter, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
-  const [activeTab, setActiveTab] = React.useState(value ?? 0);
+  const [activeTab, setActiveTab] = React.useState(0);
+  const controlled = typeof value !== 'undefined';
+  const activeTabValue = controlled ? value : activeTab;
+
   const [isOverflowed, setIsOverflowed] = React.useState(false);
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
@@ -50,13 +59,15 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
       const labelsWidth = labelsRef?.current?.clientWidth as number;
 
       labelsScrollWidth > labelsWidth ? setIsOverflowed(true) : setIsOverflowed(false);
+
+      handleScrollArrows();
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [handleScrollArrows]);
 
   const scrollBy = React.useCallback((position: 'right' | 'left', value: number) => {
     const goToRight = value;
@@ -120,6 +131,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
     return (
       <>
         <Select
+          id={rest.id}
           renderValue={value => (
             <StyledOption>
               {tabs[value].props.icon}
@@ -127,7 +139,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
             </StyledOption>
           )}
           onChange={handleSelectChange}
-          value={value ?? activeTab}
+          value={activeTabValue}
         >
           {childrenProps?.map(({ icon, label, disabled }, index) => (
             <Select.Option value={index} key={label} disabled={disabled} aria-disabled={disabled}>
@@ -138,7 +150,18 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
             </Select.Option>
           ))}
         </Select>
-        <div>{tabs[value ?? activeTab].props.children}</div>
+        {tabs?.map((tab, index) => (
+          <Collapse
+            id={tab.props.id}
+            key={index}
+            timeout={0}
+            visibled={activeTabValue === index}
+            destroyOnClose={destroyOnClose}
+            mountOnEnter={mountOnEnter}
+          >
+            <div>{tab.props.children}</div>
+          </Collapse>
+        ))}
       </>
     );
   }
@@ -149,7 +172,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
         {isOverflowed && !isMobile && (
           <IconButton
             disabled={isDisabledLeftArrow}
-            className='hst-tabs__scrollButton'
+            className='hst-tabs-scrollButton'
             size='md'
             onClick={handleScroll('left')}
           >
@@ -159,17 +182,17 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
 
         <div
           ref={parentRef}
-          className='hst-tabs__parent'
+          className='hst-tabs-parent'
           {...(!isMobile && { onScroll: handleScrollArrows })}
           {...(isMobile && { onTouchStart: touchStartHandler, onTouchMove: touchMoveHandler })}
         >
-          <div ref={labelsRef} className='hst-tabs__labels'>
+          <div ref={labelsRef} className='hst-tabs-labels'>
             {childrenProps?.map(({ label, icon, disabled }, index) => (
               <div
                 role='button'
                 ref={passRefsToArray(index)}
                 tabIndex={0}
-                className={cx('hst-tabs__tab', { '--hst_tabs-disabled': disabled })}
+                className={cx('hst-tabs-tab', { 'hst-tabs-disabled': disabled })}
                 onClick={handleTabClick(index)}
                 key={label}
                 aria-disabled={disabled}
@@ -180,10 +203,10 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
             ))}
           </div>
           <span
-            className='hst-tabs__slider'
+            className='hst-tabs-slider'
             style={{
-              width: sizes[value ?? activeTab],
-              left: steps[value ?? activeTab]
+              width: sizes[activeTabValue],
+              left: steps[activeTabValue]
             }}
           />
         </div>
@@ -191,7 +214,7 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
         {isOverflowed && !isMobile && (
           <IconButton
             disabled={isDisabledRightArrow}
-            className='hst-tabs__scrollButton'
+            className='hst-tabs-scrollButton'
             size='md'
             onClick={handleScroll('right')}
           >
@@ -199,45 +222,54 @@ const Tabs = ({ children, value, onChange, selectOnMobile, ...rest }: TabsProps)
           </IconButton>
         )}
       </div>
-      <div>{tabs[value ?? activeTab].props.children}</div>
+
+      {tabs?.map((tab, index) => (
+        <Collapse
+          id={tab.props.id}
+          key={index}
+          timeout={0}
+          visibled={activeTabValue === index}
+          destroyOnClose={destroyOnClose}
+          mountOnEnter={mountOnEnter}
+        >
+          <div>{tab.props.children}</div>
+        </Collapse>
+      ))}
     </>
   );
 };
-
-const NEGATIVE_SPACING_IN_PX = -2;
-const MIN_HEIGHT_IN_PX = 48;
 
 const TabsWrapper = React.memo(
   styled(Tabs, { label: 'hst-tabs' })(({ theme }) => {
     return css`
       display: flex;
 
-      .hst-tabs__parent {
+      .hst-tabs-parent {
         position: relative;
         overflow-x: hidden;
         overflow-y: hidden;
         padding-bottom: ${theme.spacing.quarck};
       }
 
-      .hst-tabs__labels {
+      .hst-tabs-labels {
         display: flex;
         width: 100%;
         position: relative;
       }
 
-      .hst-tabs__scrollButton {
+      .hst-tabs-scrollButton {
         padding: ${theme.spacing.nano};
         margin: ${theme.spacing.nano};
       }
 
-      .hst-tabs__slider {
+      .hst-tabs-slider {
         position: absolute;
         transition: all 0.2s;
         height: ${theme.border.width.sm};
         background-color: ${theme.brandColor.primary.pure};
       }
 
-      .hst-tabs__tab {
+      .hst-tabs-tab {
         display: flex;
         align-items: center;
         line-height: 0;
@@ -254,6 +286,11 @@ const TabsWrapper = React.memo(
         transition-duration: 0.5s;
         transition-property: background-color, color;
         margin-bottom: ${NEGATIVE_SPACING_IN_PX}px;
+        cursor: pointer;
+
+        > svg {
+          pointer-events: none;
+        }
 
         :hover {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
@@ -264,7 +301,7 @@ const TabsWrapper = React.memo(
           outline-offset: ${NEGATIVE_SPACING_IN_PX}px;
         }
 
-        &.--hst_tabs-disabled {
+        &.hst-tabs-disabled {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
           opacity: ${theme.opacity.level[6]};
           pointer-events: none;

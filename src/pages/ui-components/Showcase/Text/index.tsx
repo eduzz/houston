@@ -1,8 +1,29 @@
-import * as React from 'react';
+import styled, { css, StyledProp } from '@eduzz/houston-styles';
+import Paragraph, { ParagraphProps } from '@eduzz/houston-ui/Typography/Paragraph';
 
-export interface ShowcaseTextProps {
-  content?: string;
-  children?: React.ReactNode;
+export interface ShowcaseTextProps extends Omit<ParagraphProps, 'size' | 'color'> {
+  disableTypography?: boolean;
 }
 
-export default (() => null) as React.FC<ShowcaseTextProps>;
+const Text = ({
+  children,
+  className,
+  disableTypography,
+  ...rest
+}: ShowcaseTextProps & Omit<React.HTMLAttributes<HTMLParagraphElement>, 'color'> & StyledProp) => {
+  if (disableTypography) {
+    return <>{children}</>;
+  }
+
+  return (
+    <Paragraph className={className} size='sm' color='neutralColor.low.medium' {...rest}>
+      {children}
+    </Paragraph>
+  );
+};
+
+export default styled(Text, { label: 'hst-showcase-text' })`
+  ${({ theme }) => css`
+    padding: ${theme.spacing.inset.sm};
+  `}
+`;

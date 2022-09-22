@@ -44,10 +44,14 @@ const Dialog = ({
   }
 
   return (
-    <Portal target='houston-dialog'>
+    <Portal target='hst-dialog'>
       <Overlay visible={visible}>
         <DialogContextProvider value={contextValue}>
-          <ModalBase className={cx(className, `--dialog-size-${size}`, `--dialog-type-${type}`)} aria-modal {...rest}>
+          <ModalBase
+            className={cx(className, `hst-dialog-size-${size}`, `hst-dialog-type-${type}`)}
+            aria-modal
+            {...rest}
+          >
             {children}
           </ModalBase>
         </DialogContextProvider>
@@ -56,14 +60,14 @@ const Dialog = ({
   );
 };
 
-const DialogWrapper = styled(Dialog, { label: 'houston-dialog' })`
+const DialogWrapper = styled(Dialog, { label: 'hst-dialog' })`
   ${({ theme }) => {
     const modifiersSizes: CSSInterpolation[] = [];
     const modifiersTypes: CSSInterpolation[] = [];
 
     Object.entries(modalSizesInPx).forEach(([size, value]) =>
       modifiersSizes.push(css`
-        &.--dialog-size-${size} {
+        &.hst-dialog-size-${size} {
           width: ${theme.pxToRem(value)}rem;
         }
       `)
@@ -71,9 +75,9 @@ const DialogWrapper = styled(Dialog, { label: 'houston-dialog' })`
 
     Object.keys(theme.feedbackColor).forEach(color =>
       modifiersTypes.push(css`
-        &.--dialog-type-${color} {
-          .dialog-header__wrapper {
-            .dialog-header__icon {
+        &.hst-dialog-type-${color} {
+          .hst-dialog-header-wrapper {
+            .hst-dialog-header-icon {
               svg {
                 fill: ${theme.feedbackColor[color].pure};
               }
@@ -104,7 +108,6 @@ export default nestedComponent(React.memo(DialogWrapper), {
   Header,
   Content,
   Footer,
-  // Evita referência circular, pois o Global depende do Dialog
   alert: (params: Parameters<typeof showAlert>[0]) => showAlert(params),
   confirm: (params: Parameters<typeof showConfirm>[0]) => showConfirm(params)
 });

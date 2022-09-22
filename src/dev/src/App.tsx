@@ -36,7 +36,7 @@ function App() {
               tag: 'unity'
             }}
           >
-            {/* <Topbar.SupportChat /> */}
+            {/* <Topbar.UnitySupportChat /> */}
 
             <Topbar.Action icon={<NotificationOutline size={25} />} />
             <Topbar.Action icon={<InfoChatOutline size={25} />} />
@@ -46,10 +46,10 @@ function App() {
               <Topbar.UserMenuItem>Minhas Compras</Topbar.UserMenuItem>
 
               <Topbar.UserMenuGroup label='Contas:'>
-                <Topbar.UserMenuItem href='http://google.com' target='_blank'>
+                <Topbar.UserMenuItem disabled href='http://google.com' target='_blank'>
                   John Doe
                 </Topbar.UserMenuItem>
-                <Topbar.UserMenuItem disabled>John Doe 2</Topbar.UserMenuItem>
+                <Topbar.UserMenuItem>John Doe 2</Topbar.UserMenuItem>
               </Topbar.UserMenuGroup>
 
               <Topbar.UserMenuDivider />
@@ -60,10 +60,9 @@ function App() {
           <Sidebar currentLocation={location.pathname}>
             <Item isActive={true}>Resumo</Item>
 
-            <Group>
-              <Item>Item 1</Item>
-              <Item>Item 2</Item>
-            </Group>
+            <Item>Relatórios</Item>
+            <Item>Financeiro</Item>
+            <Item>Soluções</Item>
 
             <Group label='Submenu'>
               <Item>Item 1</Item>

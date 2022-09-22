@@ -17,16 +17,19 @@ export interface TagProps extends StyledProp, React.HTMLAttributes<HTMLSpanEleme
   onClose?: () => void;
 }
 
+const MIN_HEIGHT_IN_PX = 32;
+
 const Tag = ({ children, disabled, isActive, onClick: onClickProp, className, onClose, ...rest }: TagProps) => {
   return (
     <span
       aria-disabled={disabled}
-      className={cx(className, { '--disabled': disabled }, { '--active': isActive })}
+      className={cx(className, { 'hst-tag-disabled': disabled }, { 'hst-tag-active': isActive })}
       {...(onClickProp && { role: 'button', tabIndex: 0 })}
       onClick={onClickProp}
       {...rest}
     >
       {children}
+
       {onClose && (
         <Right onClick={onClose}>
           <Cancel size='sm' />
@@ -36,9 +39,7 @@ const Tag = ({ children, disabled, isActive, onClick: onClickProp, className, on
   );
 };
 
-const MIN_HEIGHT_IN_PX = 32;
-
-const TagWrapper = styled(Tag, { label: 'houston-tag' })(({ theme }) => {
+const TagWrapper = styled(Tag, { label: 'hst-tag' })(({ theme }) => {
   return css`
     display: inline-flex;
     align-items: center;
@@ -54,7 +55,7 @@ const TagWrapper = styled(Tag, { label: 'houston-tag' })(({ theme }) => {
     outline: none;
 
     :hover,
-    &.--active {
+    &.hst-tag-active {
       background-color: ${theme.brandColor.primary.pure};
       color: ${theme.neutralColor.high.pure};
     }
@@ -63,7 +64,7 @@ const TagWrapper = styled(Tag, { label: 'houston-tag' })(({ theme }) => {
       box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
     }
 
-    &.--disabled {
+    &.hst-tag-disabled {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       opacity: ${theme.opacity.level[6]};
       pointer-events: none;

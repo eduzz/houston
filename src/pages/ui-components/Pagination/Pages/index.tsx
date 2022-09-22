@@ -160,7 +160,7 @@ const PaginationPages = ({
 
   return (
     <div className={className}>
-      <div className='hts-pagination__pages-buttons'>
+      <div className='hts-pagination-pages-buttons'>
         {pages?.map(({ page, onClick }) => (
           <Button
             key={page}
@@ -168,35 +168,35 @@ const PaginationPages = ({
             disabled={disabled}
             active={page === currentPage}
             onClick={onClick}
-            className='hts-pagination__pages-button'
+            className='hts-pagination-pages-button'
           >
             {typeof page === 'number' ? (
               page
             ) : (
               <>
-                <DotsHorizontalIcon className='--hts-hidden-hover' />
+                <DotsHorizontalIcon className='hst-pagination-pages-hidden-hover' />
                 {page === 'previous' ? (
-                  <ChevronLeft className='--hts-show-hover' />
+                  <ChevronLeft className='hst-pagination-pages-show-hover' />
                 ) : (
-                  <ChevronRight className='--hts-show-hover' />
+                  <ChevronRight className='hst-pagination-pages-show-hover' />
                 )}
               </>
             )}
           </Button>
         ))}
       </div>
-      <div className='hts-pagination__pages-mobile'>
+      <div className='hts-pagination-pages-mobile'>
         <Input
           size='sm'
           disabled={disabled}
           value={pageInput}
-          className='hts-pagination__pages-mobile-input'
+          className='hts-pagination-pages-mobile-input'
           onChange={handlePageInputChange as any}
           onKeyUp={handlePageInputChange}
           onBlur={handlePageInputChange as any}
         />
 
-        <Typography size='xs' weight='regular' className='hts-pagination__pages-mobile-text'>
+        <Typography size='xs' weight='regular' className='hts-pagination-pages-mobile-text'>
           de {maxPage}
         </Typography>
       </div>
@@ -204,44 +204,44 @@ const PaginationPages = ({
   );
 };
 
-export default styled(PaginationPages, { label: 'houston-pagination-pages' })(
+export default styled(PaginationPages, { label: 'hst-pagination-pages' })(
   ({ theme }) => css`
-    & .hts-pagination__pages-buttons {
+    & .hts-pagination-pages-buttons {
       align-items: center;
       display: flex;
       width: 100%;
 
-      & .hts-pagination__pages-button {
+      & .hts-pagination-pages-button {
         min-width: 0;
         font-weight: ${theme.font.weight.regular};
 
-        & .--hts-show-hover {
+        & .hst-pagination-pages-show-hover {
           display: none;
         }
 
         &:hover {
-          & .--hts-show-hover {
+          & .hst-pagination-pages-show-hover {
             display: initial;
           }
 
-          & .--hts-hidden-hover {
+          & .hst-pagination-pages-hidden-hover {
             display: none;
           }
         }
       }
     }
 
-    & .hts-pagination__pages-mobile {
+    & .hts-pagination-pages-mobile {
       display: none;
       align-items: center;
       justify-content: center;
       gap: ${theme.spacing.nano};
 
-      & .hts-pagination__pages-mobile-input {
+      & .hts-pagination-pages-mobile-input {
         width: 60px;
       }
 
-      & .hts-pagination__pages-mobile-text {
+      & .hts-pagination-pages-mobile-text {
         white-space: nowrap;
       }
     }
@@ -249,11 +249,11 @@ export default styled(PaginationPages, { label: 'houston-pagination-pages' })(
     ${theme.breakpoints.down('md')} {
       width: 100%;
 
-      & .hts-pagination__pages-buttons {
+      & .hts-pagination-pages-buttons {
         display: none;
       }
 
-      & .hts-pagination__pages-mobile {
+      & .hts-pagination-pages-mobile {
         display: flex;
       }
     }

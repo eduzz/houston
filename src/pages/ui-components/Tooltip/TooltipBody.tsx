@@ -45,7 +45,7 @@ const TooltipBody = ({ className, title }: TooltipBody) => {
   );
 };
 
-export default React.memo(styled(TooltipBody, { label: 'houston-tooltip' })`
+export default React.memo(styled(TooltipBody, { label: 'hst-tooltip' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.xxs};
     border-radius: ${theme.border.radius.xs};

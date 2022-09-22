@@ -8,7 +8,7 @@ export interface ListRightProps extends StyledProp, React.HTMLAttributes<HTMLDiv
 
 const ListRight = ({ children, ...rest }: ListRightProps) => <div {...rest}>{children}</div>;
 
-export default styled(ListRight, { label: 'houston-list-item-right' })(() => {
+export default styled(ListRight, { label: 'hst-list-item-right' })(() => {
   return css`
     margin-left: auto;
   `;

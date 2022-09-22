@@ -9,10 +9,11 @@ import TableCell from '../Cell';
 import TableContext from '../context';
 
 export interface TableBodyProps {
+  id?: string;
   children: React.ReactNode;
 }
 
-const TableBody = ({ children }: TableBodyProps) => {
+const TableBody = ({ id, children }: TableBodyProps) => {
   const loading = useContextSelector(TableContext, context => context.loading);
   const loadingText = useContextSelector(TableContext, context => context.loadingText);
   const error = useContextSelector(TableContext, context => context.error);
@@ -33,11 +34,15 @@ const TableBody = ({ children }: TableBodyProps) => {
 
   if (loading) {
     return (
-      <tbody>
+      <tbody id={id}>
         <tr>
           <td align='center' colSpan={1000}>
             <LineLoader />
-            <div className='hts-table__loading-text'>{loadingText}</div>
+            <div className='hts-table-loading-text'>
+              <Typography weight='regular' lineHeight='xl' className='hst-table-body-text'>
+                {loadingText}
+              </Typography>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -46,10 +51,10 @@ const TableBody = ({ children }: TableBodyProps) => {
 
   if (error) {
     return (
-      <tbody>
+      <tbody id={id}>
         <tr>
           <TableCell align='center' colSpan={1000}>
-            <Typography marginBottom='xxxs' weight='regular' lineHeight='xl' className='__text'>
+            <Typography marginBottom='xxxs' weight='regular' lineHeight='xl' className='hst-table-body-text'>
               {errorMessage}
             </Typography>
 
@@ -66,10 +71,12 @@ const TableBody = ({ children }: TableBodyProps) => {
 
   if (total === 0) {
     return (
-      <tbody>
+      <tbody id={id}>
         <tr>
           <TableCell align='center' colSpan={1000}>
-            {emptyText}
+            <Typography weight='regular' lineHeight='xl' className='hst-table-body-text'>
+              {emptyText}
+            </Typography>
           </TableCell>
         </tr>
       </tbody>

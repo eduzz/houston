@@ -2,19 +2,26 @@ import styled, { StyledProp, keyframes, css } from '@eduzz/houston-styles';
 
 import getColorFallback from '../../utils/getColorFallback';
 
-export interface LoaderProps extends StyledProp {
-  size?: number;
-  color?: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'inherit';
-}
+export type SpinnerProps = StyledProp &
+  React.HTMLAttributes<HTMLOrSVGElement> & {
+    size?: number;
+    color?: 'positive' | 'negative' | 'warning' | 'informative' | 'primary' | 'inherit';
+  };
 
 const SIZE_BASE = 65;
 const CIRCLE_SIZE_BASE = 30;
 
-const Spinner = ({ className, size = SIZE_BASE }: LoaderProps) => {
+const Spinner = ({ className, size = SIZE_BASE, ...rest }: SpinnerProps) => {
   const round = (size / SIZE_BASE) * CIRCLE_SIZE_BASE;
 
   return (
-    <svg className={className} width={`${size}px`} height={`${size}px`} viewBox={`0 0 ${size + 1} ${size + 1}`}>
+    <svg
+      className={className}
+      width={`${size}px`}
+      height={`${size}px`}
+      viewBox={`0 0 ${size + 1} ${size + 1}`}
+      {...rest}
+    >
       <circle fill='none' strokeLinecap='round' cx={round + round * 0.1} cy={round + round * 0.1} r={round}></circle>
     </svg>
   );
@@ -31,7 +38,7 @@ const circleAnimation = (size: number) => keyframes`
   100% { stroke-dashoffset: ${(size / SIZE_BASE) * 187}; transform: rotate(450deg); }
 `;
 
-export default styled(Spinner, { label: 'houston-loader' })`
+export default styled(Spinner, { label: 'hst-loader' })`
   ${({ theme, color, size = SIZE_BASE }) => css`
     animation: ${rotationAnimation} 1.4s linear infinite;
     color: ${color === 'inherit' ? 'inherit' : getColorFallback(theme, color).pure};

@@ -3,21 +3,28 @@ import * as React from 'react';
 import { ErrorMessage as ErrorMessageHook } from '@hookform/error-message';
 import { useFormState } from 'react-hook-form';
 
+import { cx } from '@eduzz/houston-styles';
+
 import Typography from '../../Typography';
 
 export interface ErrorMessageProps {
+  id?: string;
   name: string;
   className?: string;
 }
 
-const ErrorMessage = ({ name, className }: ErrorMessageProps) => {
+const ErrorMessage = ({ id, name, className }: ErrorMessageProps) => {
   const formState = useFormState({ name, exact: true });
 
   return (
     <ErrorMessageHook
       errors={formState.errors}
       name={name}
-      render={({ message }) => <Typography className={className}>{message}</Typography>}
+      render={({ message }) => (
+        <Typography id={id} className={cx(className, 'hst-form-error-message')}>
+          {message}
+        </Typography>
+      )}
     />
   );
 };

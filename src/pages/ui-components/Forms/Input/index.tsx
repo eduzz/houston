@@ -116,13 +116,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         disabled={disabled}
         hidden={type === 'hidden'}
         className={cx(className, {
-          '--multiline': multiline,
-          [`--multiline-rows-${rows ?? 4}`]: multiline,
-          '--disable-auto-resize': disableAutoResize
+          'hst-input-multiline': multiline,
+          [`hst-input-multiline-rows-${rows ?? 4}`]: multiline,
+          'hst-input-disable-auto-resize': disableAutoResize
         })}
       >
-        <div className='__wrapperAutoSizer'>
-          {!!multiline && !disableAutoResize && <div className='__autoSizer __text'>{value + ' '}</div>}
+        <div className='hst-input-wrapper-auto-sizer'>
+          {!!multiline && !disableAutoResize && (
+            <div className='hst-input-auto-sizer hst-input-text'>{value + ' '}</div>
+          )}
+
           {React.createElement(multiline ? 'textarea' : 'input', {
             ref,
             value: maskedValue ?? '',
@@ -130,7 +133,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             name,
             disabled,
             type,
-            className: '__input __text',
+            className: 'hst-input-input hst-input-text',
             readOnly: readOnly ?? loading,
             onChange: handleChange,
             onFocus: handleFocus,
@@ -143,15 +146,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-export default styled(withForm(React.memo(Input)), { label: 'houston-form-text' })(
+export default styled(withForm(React.memo(Input)), { label: 'hst-input' })(
   ({ theme }) => css`
-    & .__wrapperAutoSizer {
+    & .hst-input-wrapper-auto-sizer {
       display: grid;
       grid-template-columns: 100%;
       width: 100%;
       min-height: 100%;
 
-      & .__autoSizer {
+      & .hst-input-auto-sizer {
         pointer-events: none;
         white-space: pre-wrap;
         word-wrap: break-word;
@@ -160,7 +163,7 @@ export default styled(withForm(React.memo(Input)), { label: 'houston-form-text' 
         grid-area: 1 / 1 / 2 / 2;
       }
 
-      & .__input {
+      & .hst-input-input {
         grid-area: 1 / 1 / 2 / 2;
         height: 100%;
         width: 100%;
@@ -176,53 +179,53 @@ export default styled(withForm(React.memo(Input)), { label: 'houston-form-text' 
       }
     }
 
-    &.--multiline {
-      & .__container {
+    &.hst-input-multiline {
+      & .hst-fieldset-container {
         align-items: flex-start;
         height: auto;
 
-        & .__startAdornment,
-        & .__endAdornment {
+        & .hst-fieldset-start-adornment,
+        & .hst-fieldset-end-adornment {
           align-items: flex-start;
           margin-top: ${theme.spacing.xxxs};
         }
 
-        & .__input {
+        & .hst-input-input {
           resize: none;
           overflow: hidden;
         }
 
-        & .__autoSizer,
-        & .__input {
+        & .hst-fieldset-auto-sizer,
+        & .hst-input-input {
           padding: ${theme.spacing.xxxs};
         }
       }
 
-      &.--disable-auto-resize {
-        & .__input {
+      &.hst-input-disable-auto-resize {
+        & .hst-input-input {
           overflow: auto;
         }
       }
 
       ${ROWS.map(
         n => css`
-          &.--multiline-rows-${n} .__wrapperAutoSizer {
+          &.hst-input-multiline-rows-${n} .hst-input-wrapper-auto-sizer {
             min-height: calc(${n * 19}px + ${theme.spacing.xs});
           }
         `
       )}
     }
 
-    &.--disabled {
-      & .__label,
-      & .__input {
+    &.hst-input-disabled {
+      & .hst-input-label,
+      & .hst-input-input {
         cursor: not-allowed;
       }
     }
 
-    &.--loading {
-      & .__label,
-      & .__input {
+    &.hst-input-loading {
+      & .hst-input-label,
+      & .hst-input-input {
         cursor: progress;
       }
     }

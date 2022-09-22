@@ -14,6 +14,7 @@ export interface TableColumnProps extends StyledProp, React.ThHTMLAttributes<HTM
   children?: React.ReactNode;
   sortableField?: string;
 }
+
 const TableColumn = ({ sortableField, children, className, ...rest }: TableColumnProps) => {
   const onSort = useContextSelector(TableHeaderContext, context => context.onSort);
   const sortField = useContextSelector(TableHeaderContext, context => context.sortField);
@@ -31,7 +32,7 @@ const TableColumn = ({ sortableField, children, className, ...rest }: TableColum
   }, [onSort, sortableField, isSorted, sortDirection]);
 
   return (
-    <th className={cx(className, 'hts-table__column', { '--hts-disabled': loading })} {...rest}>
+    <th className={cx(className, 'hts-table-column', { 'hts-table-column-disabled': loading })} {...rest}>
       <SortLabel
         sortable={!!sortableField}
         active={isSorted}

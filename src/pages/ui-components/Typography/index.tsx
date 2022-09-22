@@ -99,17 +99,18 @@ const Typography = React.forwardRef<any, TypographyProps>(({ as: Tag = 'p', clas
     marginBottom = false,
     ...forwardProps
   } = props;
+
   const margin: TypographyMargin | null = marginBottom === true ? 'nano' : marginBottom === false ? null : marginBottom;
 
   return (
     <Tag
       ref={ref}
       className={cx(className, {
-        [`--hst-size-${size}`]: true,
-        [`--hst-line-${lineHeight}`]: true,
-        [`--hst-weight-${weight}`]: true,
-        [`--hst-margin-${margin}`]: !!margin,
-        [`--hst-color-${getColorName(color)}`]: true
+        [`hst-typography-size-${size}`]: true,
+        [`hst-typography-line-${lineHeight}`]: true,
+        [`hst-typography-weight-${weight}`]: true,
+        [`hst-typography-margin-${margin}`]: !!margin,
+        [`hst-typography-color-${getColorName(color)}`]: true
       })}
       {...forwardProps}
     />
@@ -139,13 +140,13 @@ function getColor(theme: HoustonThemeProps, color: TypographyColors) {
   return result;
 }
 
-const TypographyWrapper = styled(Typography, { label: 'houston-typography' })(({ theme }) => {
+const TypographyWrapper = styled(Typography, { label: 'hst-typography-typography' })(({ theme }) => {
   return css`
     margin: 0;
 
     ${Object.keys(theme.font.size).map(
       size => css`
-        &.--hst-size-${size} {
+        &.hst-typography-size-${size} {
           font-size: ${theme.font.size[size]};
         }
       `
@@ -153,7 +154,7 @@ const TypographyWrapper = styled(Typography, { label: 'houston-typography' })(({
 
     ${Object.keys(theme.line.height).map(
       lineHeight => css`
-        &.--hst-line-${lineHeight} {
+        &.hst-typography-line-${lineHeight} {
           line-height: ${theme.line.height[lineHeight]};
         }
       `
@@ -161,7 +162,7 @@ const TypographyWrapper = styled(Typography, { label: 'houston-typography' })(({
 
     ${Object.keys(theme.font.weight).map(
       weight => css`
-        &.--hst-weight-${weight} {
+        &.hst-typography-weight-${weight} {
           font-weight: ${theme.font.weight[weight]};
         }
       `
@@ -169,7 +170,7 @@ const TypographyWrapper = styled(Typography, { label: 'houston-typography' })(({
 
     ${SUPPORTED_COLORS.map(
       color => css`
-        &.--hst-color-${getColorName(color)} {
+        &.hst-typography-color-${getColorName(color)} {
           color: ${getColor(theme, color)};
         }
       `
@@ -177,7 +178,7 @@ const TypographyWrapper = styled(Typography, { label: 'houston-typography' })(({
 
     ${SUPPORTED_MARGINS.map(
       margin => css`
-        &.--hst-margin-${margin} {
+        &.hst-typography-margin-${margin} {
           margin-bottom: ${theme.spacing[margin]};
         }
       `

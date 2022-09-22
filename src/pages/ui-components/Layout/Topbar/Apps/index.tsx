@@ -13,16 +13,20 @@ import Action from '../Action';
 import TopbarContext from '../context';
 import Dropdown from './Dropdown';
 
-export interface TopbarApplication {
+export type TopbarApplication = React.HTMLAttributes<HTMLDivElement> & {
   application: string;
   label: string;
   icon: string;
   beta?: boolean;
   description?: string;
   url: string;
-}
+};
 
-const TopbarApps = React.memo<StyledProp>(({ className }) => {
+type TopbarAppsProps = StyledProp & {
+  id?: string;
+};
+
+const TopbarApps = React.memo<TopbarAppsProps>(({ id, className, ...rest }) => {
   const isSupport = useContextSelector(TopbarContext, context => context.user?.isSupport ?? false);
   const currentApplication = useContextSelector(TopbarContext, context => context.currentApplication);
 
@@ -48,22 +52,20 @@ const TopbarApps = React.memo<StyledProp>(({ className }) => {
   }, [openedDropdown]);
 
   return (
-    <>
-      <div ref={wrapperDropdownRef} className={className}>
-        <Action icon={<AppsIcon />} active={openedDropdown} onClick={toogleDropdown} />
+    <div id={'hst-topbar-apps' + id} ref={wrapperDropdownRef} className={className} {...rest}>
+      <Action icon={<AppsIcon />} active={openedDropdown} onClick={toogleDropdown} />
 
-        <Dropdown
-          applications={applications}
-          currentApplication={currentApplication}
-          opened={openedDropdown}
-          onClose={closeDropdown}
-        />
-      </div>
-    </>
+      <Dropdown
+        applications={applications}
+        currentApplication={currentApplication}
+        opened={openedDropdown}
+        onClose={closeDropdown}
+      />
+    </div>
   );
 });
 
-export default styled(TopbarApps, { label: 'houston-topbar-apps' })`
+export default styled(TopbarApps, { label: 'hst-topbar-apps' })`
   width: auto;
   position: relative;
   box-sizing: border-box;

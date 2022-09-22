@@ -16,7 +16,6 @@ const AccordionContent = ({ children, ...rest }: ContentProps) => {
   const expandedItems = useContextSelector(AccordionContext, context => context.expandedItems);
   const destroyOnClose = useContextSelector(AccordionContext, context => context.destroyOnClose);
   const mountOnEnter = useContextSelector(AccordionContext, context => context.mountOnEnter);
-
   const itemId = useContextSelector(ItemContext, context => context.itemId);
 
   const isExpanded = expandedItems.includes(itemId);

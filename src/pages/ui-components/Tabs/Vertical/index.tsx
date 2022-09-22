@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import Collapse from '@eduzz/houston-ui/Collapse';
 
 import { useChildrenProps, useChildrenComponent } from '../../hooks/useChildrenProps';
 import Tab from '../Tab';
@@ -10,15 +11,23 @@ export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDiv
   children: React.ReactNode;
   value?: number;
   onChange?: (value: number) => void;
+  destroyOnClose?: boolean;
+  mountOnEnter?: boolean;
 }
 
-const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
+const MIN_HEIGHT_IN_PX = 48;
+const MIN_WIDTH_IN_PX = 80;
+const NEGATIVE_SPACING_IN_PX = -2;
+
+const Tabs = ({ children, value, onChange, destroyOnClose, mountOnEnter, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
 
   const { passRefsToArray, steps, sizes } = useTabSteps('vertical');
 
   const [activeTab, setActiveTab] = React.useState(value ?? 0);
+  const controlled = typeof value !== 'undefined';
+  const activeTabValue = controlled ? value : activeTab;
 
   const labelsRef = React.useRef<HTMLDivElement>(null);
 
@@ -32,13 +41,13 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
 
   return (
     <div {...rest}>
-      <div ref={labelsRef} className='hst-tabs-vertical__labels'>
+      <div ref={labelsRef} className='hst-tabs-vertical-labels'>
         {childrenProps?.map(({ label, icon, disabled }, index) => (
           <div
             role='button'
             ref={passRefsToArray(index)}
             tabIndex={0}
-            className={cx('hst-tabs-vertical__tab', { '--hst-tabs-vertical-disabled': disabled })}
+            className={cx('hst-tabs-vertical-tab', { 'hst-tabs-vertical-disabled': disabled })}
             onClick={handleTabClick(index)}
             key={label}
             aria-disabled={disabled}
@@ -48,43 +57,52 @@ const Tabs = ({ children, value, onChange, ...rest }: TabsProps) => {
           </div>
         ))}
         <span
-          className='hst-tabs-vertical__slider'
+          className='hst-tabs-vertical-slider'
           style={{
-            height: sizes[value ?? activeTab],
-            top: steps[value ?? activeTab],
+            height: sizes[activeTabValue],
+            top: steps[activeTabValue],
             left: labelsRef.current?.getBoundingClientRect().width
           }}
         />
       </div>
-      <div className='hst-tabs-vertical-content'>{tabs[value ?? activeTab].props.children}</div>
+
+      <div className='hst-tabs-vertical-content'>
+        {tabs?.map((tab, index) => (
+          <Collapse
+            key={index}
+            timeout={0}
+            visibled={activeTabValue === index}
+            destroyOnClose={destroyOnClose}
+            mountOnEnter={mountOnEnter}
+          >
+            {tab.props.children}
+          </Collapse>
+        ))}
+      </div>
     </div>
   );
 };
-
-const MIN_HEIGHT_IN_PX = 48;
-const MIN_WIDTH_IN_PX = 80;
-const NEGATIVE_SPACING_IN_PX = -2;
 
 export default React.memo(
   styled(Tabs, { label: 'hst-tabs-vertical' })(({ theme }) => {
     return css`
       display: flex;
 
-      .hst-tabs-vertical__labels {
+      .hst-tabs-vertical-labels {
         display: flex;
         margin-right: ${theme.spacing.quarck};
         flex-direction: column;
         position: relative;
       }
 
-      .hst-tabs-vertical__slider {
+      .hst-tabs-vertical-slider {
         position: absolute;
         transition: all 0.2s;
         width: ${theme.border.width.sm};
         background-color: ${theme.brandColor.primary.pure};
       }
 
-      .hst-tabs-vertical__tab {
+      .hst-tabs-vertical-tab {
         display: flex;
         align-items: center;
         line-height: 0;
@@ -111,7 +129,7 @@ export default React.memo(
           outline-offset: ${NEGATIVE_SPACING_IN_PX}px;
         }
 
-        &.--hst-tabs-vertical-disabled {
+        &.hst-tabs-vertical-disabled {
           background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
           opacity: ${theme.opacity.level[6]};
           pointer-events: none;

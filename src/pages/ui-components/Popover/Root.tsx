@@ -33,7 +33,7 @@ const PopoverRoot = ({ children }: PopoverProps) => {
 
   React.useEffect(() => {
     if (!state.opened) {
-      popoverContent.current?.classList?.remove('--opened');
+      popoverContent.current?.classList?.remove('hst-popover-opened');
       return undefined;
     }
 
@@ -49,16 +49,16 @@ const PopoverRoot = ({ children }: PopoverProps) => {
         {
           name: 'offset',
           options: {
-            offset: [0, 8]
+            offset: [0, 12]
           }
         }
       ]
     });
 
-    popoverContent.current?.classList?.add('--opened');
+    popoverContent.current?.classList?.add('hst-popover-opened');
 
     return () => {
-      popoverContent.current?.classList?.remove('--opened');
+      popoverContent.current?.classList?.remove('hst-popover-opened');
       setTimeout(() => instance.destroy(), 100);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

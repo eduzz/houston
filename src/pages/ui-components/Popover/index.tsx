@@ -43,6 +43,7 @@ const Popover = React.forwardRef<PopoverRef, PopoverProps>(
           }
 
           setRender(true);
+
           closeRef.current = setState({
             opened: true,
             target: targetRef.current,
@@ -61,8 +62,8 @@ const Popover = React.forwardRef<PopoverRef, PopoverProps>(
     );
 
     return (
-      <div id={id} ref={contentRef} className={cx(className, 'popover')}>
-        <div className={cx('__container', `render: ${render}`, { [`--${variant}`]: !!variant })}>
+      <div id={id} ref={contentRef} className={cx(className, 'hst-popover')}>
+        <div className={cx('hst-popover-container', { [`hst-popover-variant-${variant}`]: !!variant })}>
           {render && children}
         </div>
       </div>
@@ -80,7 +81,7 @@ const hideAnimation = keyframes`
   100% { transform: scale(0.9); opacity: 0; }
 `;
 
-export default styled(Popover, { label: 'houston-popover' })(
+export default styled(Popover, { label: 'hst-popover' })(
   ({ theme }) => css`
     box-sizing: border-box;
     max-width: 100vw;
@@ -90,30 +91,30 @@ export default styled(Popover, { label: 'houston-popover' })(
     top: calc(100vh * -1000);
     left: calc(100vh * -1000);
 
-    & > .__container {
+    & > .hst-popover-container {
       width: 100%;
       max-height: 50vh;
       overflow-y: auto;
       overflow-x: hidden;
-      background-color: white;
-      box-shadow: ${theme.shadow.level[1]};
-      border-radius: ${theme.border.radius.xs};
+      background-color: ${theme.neutralColor.high.pure};
+      box-shadow: ${theme.shadow.level[3]};
+      border-radius: ${theme.border.radius.sm};
       box-sizing: border-box;
       transform-origin: top center;
       animation-duration: 0.2s;
       animation-name: ${hideAnimation};
       animation-fill-mode: forwards;
 
-      &.--tooltip {
+      &.hst-popover-variant-tooltip {
         overflow-y: unset;
         overflow-x: unset;
       }
     }
 
-    &.--opened {
+    &.hst-popover-opened {
       pointer-events: auto;
 
-      & > .__container {
+      & > .hst-popover-container {
         animation-name: ${showAnimation};
       }
     }

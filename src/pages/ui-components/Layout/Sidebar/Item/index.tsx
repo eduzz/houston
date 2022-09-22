@@ -46,11 +46,17 @@ const SidebarItem = ({
 
   return React.createElement(
     Component ?? 'a',
-    { ...rest, to, tabIndex: tabIndex ?? 1, className: cx(className, { '--active': active, '--disabled': disabled }) },
+    {
+      ...rest,
+      to,
+      tabIndex: tabIndex ?? 1,
+      className: cx(className, { 'hst-sidebar-item-active': active, 'hst-sidebar-item-disabled': disabled })
+    },
     <li>
-      <Bullet className='houston-sidebar-item__icon' size='md' />
+      <Bullet className='hst-sidebar-item-icon' size='md' />
+
       <Typography
-        className='houston-sidebar-item__label'
+        className='hst-sidebar-item-label'
         size='xs'
         color='neutralColor.low.pure'
         lineHeight='lg'
@@ -62,13 +68,14 @@ const SidebarItem = ({
   );
 };
 
-export default styled(React.memo(SidebarItem), { label: 'houston-sidebar-item' })(
+export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
   ({ theme }) => css`
     transition: 0.15s linear;
     display: block;
     outline: none;
+    user-select: none;
 
-    &:focus {
+    &:focus-visible {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
       box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
     }
@@ -91,9 +98,8 @@ export default styled(React.memo(SidebarItem), { label: 'houston-sidebar-item' }
       grid-gap: ${theme.spacing.inline.nano};
       text-decoration: none;
       white-space: nowrap;
-      margin-bottom: ${theme.spacing.stack.xxxs};
 
-      & .houston-sidebar-item__label {
+      & .hst-sidebar-item-label {
         grid-column: 2;
         transition: 0.15s ease-in;
         overflow: hidden;
@@ -101,7 +107,7 @@ export default styled(React.memo(SidebarItem), { label: 'houston-sidebar-item' }
         min-width: 0;
       }
 
-      & .houston-sidebar-item__icon {
+      & .hst-sidebar-item-icon {
         transform: scale(0);
         opacity: 0;
         transition: 0.15s ease-in;
@@ -109,21 +115,20 @@ export default styled(React.memo(SidebarItem), { label: 'houston-sidebar-item' }
       }
     }
 
-    &.--active > li {
+    &.hst-sidebar-item-active > li {
       &::before {
         background: ${theme.brandColor.secondary.pure};
       }
 
-      & .houston-sidebar-item__icon {
+      & .hst-sidebar-item-icon {
         transform: scale(1);
         opacity: 1;
       }
     }
 
-    &.--disabled {
+    &.hst-sidebar-item-disabled {
       opacity: ${theme.opacity.level[6]};
       pointer-events: none;
     }
   `
-  // Por causa da prop `[key: string]` estava perdendo as outras props definidas
 ) as typeof SidebarItem;

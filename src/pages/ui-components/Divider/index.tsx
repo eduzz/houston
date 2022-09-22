@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-export interface Divider extends StyledProp {
+export interface DividerProps extends StyledProp, React.HTMLAttributes<HTMLHRElement> {
   vertical?: boolean;
 }
 
-const Divider = ({ className, vertical }: Divider) => {
+const Divider = ({ className, vertical, ...rest }: DividerProps) => {
   const ref = React.useRef<HTMLHRElement>(null);
 
   React.useEffect(() => {
@@ -15,21 +15,19 @@ const Divider = ({ className, vertical }: Divider) => {
     }
   }, [vertical]);
 
-  return <hr ref={ref} className={cx(className, `--${vertical ? 'vertical' : 'horizontal'}`)} />;
+  return <hr ref={ref} className={cx(className, { 'hst-divider-vertical': vertical })} {...rest} />;
 };
 
-export default React.memo(styled(Divider, { label: 'houston-divider' })`
+export default React.memo(styled(Divider, { label: 'hst-divider' })`
   ${({ theme }) => css`
     border-style: solid;
     opacity: ${theme.opacity.level[3]};
     border-color: ${theme.neutralColor.low.pure};
+    border-width: 0 0 ${theme.border.width.xs};
+    width: 100%;
 
-    &.--horizontal {
-      width: 100%;
-      border-width: 0 0 ${theme.border.width.xs};
-    }
-
-    &.--vertical {
+    &.hst-divider-vertical {
+      width: auto;
       border-width: 0 0 0 ${theme.border.width.xs};
       display: inline-flex;
     }

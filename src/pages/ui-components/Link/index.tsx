@@ -1,6 +1,8 @@
 import ArrowRight from '@eduzz/houston-icons/ArrowRight';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
+export type LinkSizes = 'xs' | 'sm' | 'md' | 'inherit';
+
 export interface LinkProps extends StyledProp, React.HTMLAttributes<HTMLAnchorElement> {
   /**
    * Allow to provide more props to the `as` Component
@@ -19,18 +21,18 @@ export interface LinkProps extends StyledProp, React.HTMLAttributes<HTMLAnchorEl
   /**
    * Defaults to 'inherit'
    */
-  size?: 'xs' | 'sm' | 'md' | 'inherit';
+  size?: LinkSizes;
   children: React.ReactNode;
 }
 
 const Link = ({ as: Tag = 'a', className, showIcon, size = 'inherit', children, ...rest }: LinkProps) => (
-  <Tag tabIndex={0} className={cx(className, `--link-size-${size}`)} {...rest}>
+  <Tag tabIndex={0} className={cx(className, `hst-link-size-${size}`)} {...rest}>
     {children}
     {showIcon && <ArrowRight size={size === 'md' ? 'md' : 'sm'} />}
   </Tag>
 );
 
-export default styled(Link, { label: 'houston-link' })(({ theme }) => {
+export default styled(Link, { label: 'hst-link' })(({ theme }) => {
   return css`
     all: unset;
     line-height: ${theme.line.height.default};
@@ -43,19 +45,19 @@ export default styled(Link, { label: 'houston-link' })(({ theme }) => {
     border-radius: ${theme.border.radius.xs};
     cursor: pointer;
 
-    &.--link-size-xs {
+    &.hst-link-size-xs {
       font-size: ${theme.font.size.xxs};
     }
 
-    &.--link-size-sm {
+    &.hst-link-size-sm {
       font-size: ${theme.font.size.xs};
     }
 
-    &.--link-size-md {
+    &.hst-link-size-md {
       font-size: ${theme.font.size.sm};
     }
 
-    &.--link-size-inherit {
+    &.hst-link-size-inherit {
       font-size: inherit;
     }
 

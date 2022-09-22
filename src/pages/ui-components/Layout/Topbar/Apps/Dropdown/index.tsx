@@ -13,15 +13,16 @@ import Spinner from '../../../../Loaders/Spinner';
 import Typography from '../../../../Typography';
 import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT } from '../../../context';
 
-export interface AppsDropdownProps extends StyledProp {
-  currentApplication: string | undefined;
-  applications: TopbarApplication[] | undefined;
-  opened: boolean;
-  onClose: () => void;
-}
+export type AppsDropdownProps = StyledProp &
+  React.HTMLAttributes<HTMLDivElement> & {
+    currentApplication: string | undefined;
+    applications: TopbarApplication[] | undefined;
+    opened: boolean;
+    onClose: () => void;
+  };
 
 const AppsDropdown = React.memo<AppsDropdownProps>(
-  ({ currentApplication, applications, className, opened, onClose }) => {
+  ({ currentApplication, applications, className, opened, onClose, ...rest }) => {
     const [expanded, toggleExpanded, , closeExpanded] = useBoolean();
 
     React.useEffect(() => {
@@ -39,8 +40,14 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
     }, [opened]);
 
     return (
-      <div className={cx(className, { '--opened': opened, '--expanded': expanded })}>
-        <div className='houston-topbar-apps-dropdown__header'>
+      <div
+        className={cx(className, {
+          'hst-topbar-apps-dropdown-opened': opened,
+          'hst-topbar-apps-dropdown-expanded': expanded
+        })}
+        {...rest}
+      >
+        <div className='hst-topbar-apps-dropdown-header'>
           <Typography weight='bold'>Lista de Apps</Typography>
 
           <IconButton onClick={toggleExpanded}>
@@ -48,38 +55,35 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
           </IconButton>
         </div>
 
-        <div className='houston-topbar-apps-dropdown__list-apps'>
+        <div className='hst-topbar-apps-dropdown-list-apps'>
           {!applications?.length && (
-            <div className='houston-topbar-apps-dropdown__loader'>
+            <div className='hst-topbar-apps-dropdown-loader'>
               <Spinner size={40} />
             </div>
           )}
+
           {applications?.map(app => {
             const isCurrent = app.application === currentApplication;
 
             return (
               <a
-                className={cx('houston-topbar-apps-dropdown__item', isCurrent && '--current')}
+                className={cx('hst-topbar-apps-dropdown-item', isCurrent && 'hst-topbar-apps-dropdown-current')}
                 key={app.application}
                 href={isCurrent ? undefined : app.url}
                 rel='noopener noreferrer'
                 target='_blank'
                 onClick={isCurrent ? onClose : undefined}
               >
-                <img src={app.icon} className='houston-topbar-apps-dropdown__icon' />
+                <img src={app.icon} className='hst-topbar-apps-dropdown-icon' />
 
                 <Typography
                   lineHeight='default'
-                  className='houston-topbar-apps-dropdown__label'
+                  className='hst-topbar-apps-dropdown-label'
                   size={expanded ? 'xs' : 'xxs'}
                 >
                   {app.label}
                 </Typography>
-                <Typography
-                  size='xs'
-                  color='neutralColor.low.medium'
-                  className='houston-topbar-apps-dropdown__description'
-                >
+                <Typography size='xs' color='neutralColor.low.medium' className='hst-topbar-apps-dropdown-description'>
                   {app.description}
                 </Typography>
               </a>
@@ -88,10 +92,10 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
         </div>
 
         {!!applications?.length && (
-          <div className='houston-topbar-apps-dropdown__expand'>
+          <div className='hst-topbar-apps-dropdown-expand'>
             <Divider />
 
-            <div className='houston-topbar-apps-dropdown__expand-button'>
+            <div className='hst-topbar-apps-dropdown-expand-button'>
               <Button startIcon={<ExpandIcon />} variant='text' color='inherit' fullWidth onClick={toggleExpanded}>
                 Expandir
               </Button>
@@ -104,20 +108,19 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
 );
 
 const descriptionAnimation = keyframes`
-0% { text-indent: -1000px; }
+  0% { text-indent: -1000px; }
   100% {  text-indent: 0px; }
 `;
 
-export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
+export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
   ({ theme }) => css`
-    width: ${TOPBAR_DROPDOWN_WIDTH}px;
+    width: ${theme.pxToRem(TOPBAR_DROPDOWN_WIDTH)}rem;
     position: fixed;
-
-    background: #fff;
+    background: ${theme.neutralColor.high.pure};
     box-shadow: ${theme.shadow.level[2]};
-    top: ${TOPBAR_HEIGHT}px;
+    top: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
     left: ${theme.spacing.inline.nano};
-    border-radius: ${theme.border.radius.sm};
+    border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
     z-index: 105;
     transition: 0.15s ease-in-out;
     opacity: 0;
@@ -126,33 +129,35 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
     box-sizing: border-box;
     transform: scale(0.1);
     transform-origin: top left;
+    max-height: calc(100vh - ${theme.pxToRem(TOPBAR_HEIGHT)}rem);
+    overflow-y: auto;
 
     ${theme.breakpoints.down('sm')} {
       width: 100%;
       left: 0;
     }
 
-    &.--opened {
+    &.hst-topbar-apps-dropdown-opened {
       opacity: 1;
       transform: scale(1);
       visibility: visible;
       user-select: initial;
     }
 
-    .houston-topbar-apps-dropdown__header {
+    .hst-topbar-apps-dropdown-header {
       display: none;
     }
 
-    .houston-topbar-apps-dropdown__list-apps {
+    .hst-topbar-apps-dropdown-list-apps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-gap: ${theme.spacing.nano};
+      grid-gap: ${theme.spacing.stack.nano} ${theme.spacing.inline.nano};
       flex-wrap: wrap;
       justify-items: center;
       box-sizing: border-box;
-      padding: ${theme.spacing.xxxs};
+      padding: ${theme.spacing.inset.xs};
 
-      .houston-topbar-apps-dropdown__loader {
+      .hst-topbar-apps-dropdown-loader {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -162,7 +167,7 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
         padding: ${theme.spacing.md};
       }
 
-      .houston-topbar-apps-dropdown__item {
+      .hst-topbar-apps-dropdown-item {
         width: 100%;
         text-align: center;
         transition: 0.15s ease-out;
@@ -172,13 +177,13 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
         padding: ${theme.spacing.xxxs} ${theme.spacing.nano};
         display: block;
 
-        .houston-topbar-apps-dropdown__icon {
-          max-width: 40px;
-          max-height: 40px;
+        .hst-topbar-apps-dropdown-icon {
+          max-width: ${theme.pxToRem(40)}rem;
+          max-height: ${theme.pxToRem(40)}rem;
           margin-bottom: ${theme.spacing.nano};
         }
 
-        .houston-topbar-apps-dropdown__description {
+        .hst-topbar-apps-dropdown-description {
           display: none;
           overflow: hidden;
 
@@ -189,7 +194,7 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
           }
         }
 
-        &.--current {
+        &.hst-topbar-apps-dropdown-current {
           background: rgba(0, 0, 0, 0.04);
         }
 
@@ -199,11 +204,11 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
       }
     }
 
-    .houston-topbar-apps-dropdown__expand .houston-topbar-apps-dropdown__expand-button {
+    .hst-topbar-apps-dropdown-expand .hst-topbar-apps-dropdown-expand-button {
       margin: ${theme.spacing.nano};
     }
 
-    &.--expanded {
+    &.hst-topbar-apps-dropdown-expanded {
       width: 100%;
       left: 0;
       height: calc(100% - ${TOPBAR_HEIGHT}px);
@@ -211,30 +216,30 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
       box-shadow: none;
       border-radius: 0;
 
-      .houston-topbar-apps-dropdown__header {
+      .hst-topbar-apps-dropdown-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding: 0 ${theme.spacing.nano} 0 ${theme.spacing.xxxs};
+        padding: ${theme.spacing.nano} ${theme.spacing.inset.md};
         border-bottom: ${theme.border.width.xs} solid
           ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
       }
 
-      .houston-topbar-apps-dropdown__expand {
+      .hst-topbar-apps-dropdown-expand {
         display: none;
       }
 
-      .houston-topbar-apps-dropdown__list-apps {
+      .hst-topbar-apps-dropdown-list-apps {
         padding: 0;
         grid-template-columns: repeat(1, 1fr);
         grid-gap: 0;
 
-        .houston-topbar-apps-dropdown__item {
+        .hst-topbar-apps-dropdown-item {
           height: 100%;
           display: grid;
-          grid-template-columns: 25px 1fr;
-          grid-template-rows: 25px auto;
+          grid-template-columns: ${theme.pxToRem(25)}rem 1fr;
+          grid-template-rows: ${theme.pxToRem(25)}rem auto;
           grid-gap: ${theme.spacing.nano};
           text-align: left;
           padding: ${theme.spacing.xxs};
@@ -242,20 +247,20 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
             ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
           align-items: center;
 
-          .houston-topbar-apps-dropdown__icon {
-            max-width: 25px;
-            max-height: 25px;
+          .hst-topbar-apps-dropdown-icon {
+            max-width: ${theme.pxToRem(25)}rem;
+            max-height: ${theme.pxToRem(25)}rem;
             grid-column: 1;
             grid-row: 1;
             margin-bottom: 0;
           }
 
-          .houston-topbar-apps-dropdown__label {
+          .hst-topbar-apps-dropdown-label {
             grid-column: 2;
             grid-row: 1;
           }
 
-          .houston-topbar-apps-dropdown__description {
+          .hst-topbar-apps-dropdown-description {
             grid-column-start: 1;
             grid-column-end: 3;
             grid-row: 2;
@@ -264,28 +269,28 @@ export default styled(AppsDropdown, { label: 'houston-topbar-apps-dropdown' })(
         }
 
         ${theme.breakpoints.up('md')} {
-          padding: ${theme.spacing.xxs};
+          padding: ${theme.spacing.inset.md};
           grid-template-columns: repeat(2, 1fr);
           grid-gap: ${theme.spacing.xxs};
 
-          .houston-topbar-apps-dropdown__item {
+          .hst-topbar-apps-dropdown-item {
             margin: auto;
             border: ${theme.border.width.xs} solid
               ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
-            grid-template-columns: 60px 1fr;
-            grid-template-rows: 20px auto;
+            grid-template-columns: ${theme.pxToRem(60)}rem 1fr;
+            grid-template-rows: ${theme.pxToRem(20)}rem auto;
             padding: ${theme.spacing.xxxs};
             grid-gap: ${theme.spacing.quarck};
             align-items: start;
 
-            .houston-topbar-apps-dropdown__icon {
+            .hst-topbar-apps-dropdown-icon {
               grid-row-start: 1;
               grid-row-end: 3;
-              max-width: 50px;
-              max-height: 50px;
+              max-width: ${theme.pxToRem(50)}rem;
+              max-height: ${theme.pxToRem(50)}rem;
             }
 
-            .houston-topbar-apps-dropdown__description {
+            .hst-topbar-apps-dropdown-description {
               grid-column-start: 2;
               grid-column-end: 2;
             }
