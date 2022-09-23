@@ -3,8 +3,6 @@ import * as React from 'react';
 
 import isValid from 'date-fns/isValid';
 import Picker from 'rc-picker';
-import generateConfig from 'rc-picker/lib/generate/dateFns';
-import locale from 'rc-picker/lib/locale/pt_BR';
 
 import Calendar from '@eduzz/houston-icons/Calendar';
 import ChevronLeft from '@eduzz/houston-icons/ChevronLeft';
@@ -12,37 +10,10 @@ import ChevronRight from '@eduzz/houston-icons/ChevronRight';
 import styled, { css, cx } from '@eduzz/houston-styles';
 import { pxToRem } from '@eduzz/houston-tokens/variables/utils';
 
+import { defaultFormats, pickerProps } from '../_utils/datepicker';
 import withForm, { WithFormProps } from '../Form/withForm';
 import Input, { InputProps } from '../Input';
-import styles from './styles';
 import { DateFormat } from './types';
-
-const defaultFormats = {
-  date: 'dd/MM/yyyy',
-  datetime: 'dd/MM/yyyy HH:mm',
-  datetimeSeconds: 'dd/MM/yyyy HH:mm:ss',
-  time: 'HH:mm',
-  timeSeconds: 'HH:mm:ss'
-} as const;
-
-locale.ok = 'Confirmar';
-
-const originalParse = generateConfig.locale.parse;
-
-generateConfig.locale.parse = (locale, text, formats) => {
-  // fix for https://github.com/date-fns/date-fns/issues/942
-  if (!formats.some(format => text?.length === format.length)) {
-    return null;
-  }
-
-  return originalParse(locale, text, formats);
-};
-
-const styleContent = {
-  __html: `
-      ${styles}
-    `
-};
 
 export interface DatePickerProps
   extends Omit<
@@ -128,29 +99,25 @@ const DatePicker = ({
   );
 
   return (
-    <>
-      <style dangerouslySetInnerHTML={styleContent} />
-      <Picker<Date>
-        generateConfig={generateConfig}
-        locale={locale}
-        value={value}
-        defaultPickerValue={new Date()}
-        className={cx(className, { 'hst-datepicker-full-width': fullWidth })}
-        dropdownClassName={cx(className, { 'hst-datepicker-enable-seconds': enableSeconds })}
-        format={displayFormat ?? defaultFormats[`${mode}${enableSeconds ? 'Seconds' : ''}`]}
-        inputRender={inputRender}
-        onChange={onChange}
-        disabled={disabled}
-        prevIcon={<ChevronLeft />}
-        nextIcon={<ChevronRight />}
-        superPrevIcon={<ChevronLeft />}
-        superNextIcon={<ChevronRight />}
-        showTime={mode === 'datetime'}
-        showSecond={enableSeconds ?? false}
-        disabledDate={mode === 'time' ? undefined : disableDate}
-        picker={mode === 'time' ? 'time' : undefined}
-      />
-    </>
+    <Picker<Date>
+      {...pickerProps}
+      value={value}
+      defaultPickerValue={new Date()}
+      className={cx(className, { 'hst-datepicker-full-width': fullWidth })}
+      dropdownClassName={cx(className, { 'hst-datepicker-enable-seconds': enableSeconds })}
+      format={displayFormat ?? defaultFormats[`${mode}${enableSeconds ? 'Seconds' : ''}`]}
+      inputRender={inputRender}
+      onChange={onChange}
+      disabled={disabled}
+      prevIcon={<ChevronLeft />}
+      nextIcon={<ChevronRight />}
+      superPrevIcon={<ChevronLeft />}
+      superNextIcon={<ChevronRight />}
+      showTime={mode === 'datetime'}
+      showSecond={enableSeconds ?? false}
+      disabledDate={mode === 'time' ? undefined : disableDate}
+      picker={mode === 'time' ? 'time' : undefined}
+    />
   );
 };
 

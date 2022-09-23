@@ -3,42 +3,19 @@ import 'rc-picker/assets/index.css';
 import * as React from 'react';
 
 import { RangePicker } from 'rc-picker';
-import generateConfig from 'rc-picker/lib/generate/dateFns';
 import { PanelMode, RangeValue } from 'rc-picker/lib/interface';
-import locale from 'rc-picker/lib/locale/pt_BR';
 
 import Calendar from '@eduzz/houston-icons/Calendar';
 import ChevronLeft from '@eduzz/houston-icons/ChevronLeft';
 import ChevronRight from '@eduzz/houston-icons/ChevronRight';
 import styled, { cx } from '@eduzz/houston-styles';
 
+import { defaultFormats, pickerProps } from '../_utils/datepicker';
 import Fieldset from '../_utils/Fieldset';
+import { DateFormat } from '../DatePicker/types';
 import withForm, { WithFormProps } from '../Form/withForm';
 import { InputProps } from '../Input';
 import { styles } from './styles';
-
-export type DateFormat = 'dd/MM/yyyy' | 'MM/dd/yyyy' | 'yyyy-MM-dd' | 'dd-MM-yyyy' | string;
-
-const defaultFormats = {
-  date: 'dd/MM/yyyy',
-  datetime: 'dd/MM/yyyy HH:mm',
-  datetimeSeconds: 'dd/MM/yyyy HH:mm:ss',
-  time: 'HH:mm',
-  timeSeconds: 'HH:mm:ss'
-} as const;
-
-locale.ok = 'Confirmar';
-
-const originalParse = generateConfig.locale.parse;
-
-generateConfig.locale.parse = (locale, text, formats) => {
-  // fix for https://github.com/date-fns/date-fns/issues/942
-  if (!formats.some(format => text?.length === format.length)) {
-    return null;
-  }
-
-  return originalParse(locale, text, formats);
-};
 
 export interface DateRangePickerProps
   extends Omit<
@@ -121,8 +98,7 @@ const DateRangePicker = ({
     >
       <RangePicker<Date>
         id={id}
-        generateConfig={generateConfig}
-        locale={locale}
+        {...pickerProps}
         value={value}
         defaultPickerValue={[new Date(), new Date()]}
         placeholder={placeholder}

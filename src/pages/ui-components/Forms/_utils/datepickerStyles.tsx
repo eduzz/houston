@@ -1,6 +1,7 @@
-/* eslint-disable max-lines */
-const styles = `
-.rc-picker {
+import { css, Global } from '@emotion/react';
+
+const styles = css`
+  .rc-picker {
     display: inline-flex;
   }
   .rc-picker-rtl {
@@ -344,7 +345,11 @@ const styles = `
     display: inline-block;
     vertical-align: top;
     transition: margin 0.3s;
-  }  
+  }
 `;
 
-export default styles;
+const DatepickerStyles = () => {
+  return <Global styles={styles} />;
+};
+
+export default DatepickerStyles;

@@ -10,6 +10,7 @@ import { HoustonThemeProps } from '@eduzz/houston-styles';
 import createThemeStyles from '@eduzz/houston-styles/createTheme';
 
 import DialogGlobal from '../Dialog/Global';
+import DatepickerStyles from '../Forms/_utils/datepickerStyles';
 import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
@@ -67,6 +68,7 @@ function ThemeProvider({
           {!disableDialogs && <DialogGlobal />}
           {!disableCssBaseline && <CssBaseline />}
           {!disableResetStyles && <GlobalStyles />}
+          <DatepickerStyles />
           {children}
         </PopoverRoot>
       </MUIThemeProvider>
