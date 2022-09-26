@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@eduzz/houston-workspaces",
-  "version": "0.64.6",
+  "version": "0.64.7",
   "workspaces": [
     "src/pages/*",
     "src/dev",
