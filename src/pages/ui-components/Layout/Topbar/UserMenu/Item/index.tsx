@@ -25,50 +25,44 @@ export interface UserMenuItemProps extends StyledProp {
   children: string;
 }
 
-const UserMenuItem: React.FC<UserMenuItemProps> = ({
-  id,
-  className,
-  icon,
-  disabled,
-  onClick,
-  children,
-  as: Tag,
-  ...rest
-}) => {
-  const close = useContextSelector(LayoutContext, context => context.userMenu.falseOpened);
+const UserMenuItem = React.forwardRef<HTMLButtonElement, UserMenuItemProps>(
+  ({ id, className, icon, disabled, onClick, children, as: Tag, ...rest }, ref) => {
+    const close = useContextSelector(LayoutContext, context => context.userMenu.falseOpened);
 
-  const handleClick = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      onClick && onClick(e);
-      close();
-    },
-    [close, onClick]
-  );
-
-  let content = (
-    <Button
-      id={id}
-      startIcon={icon}
-      fullWidth
-      variant='text'
-      onClick={handleClick}
-      className={className}
-      disabled={disabled}
-    >
-      <Typography color='inherit'>{children}</Typography>
-    </Button>
-  );
-
-  if (Tag) {
-    content = (
-      <Tag id={id} {...rest}>
-        {content}
-      </Tag>
+    const handleClick = React.useCallback(
+      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        onClick && onClick(e);
+        close();
+      },
+      [close, onClick]
     );
-  }
 
-  return <>{content}</>;
-};
+    let content = (
+      <Button
+        id={id}
+        startIcon={icon}
+        ref={ref}
+        fullWidth
+        variant='text'
+        onClick={handleClick}
+        className={className}
+        disabled={disabled}
+      >
+        <Typography color='inherit'>{children}</Typography>
+      </Button>
+    );
+
+    if (Tag) {
+      content = (
+        <Tag id={id} {...rest}>
+          {content}
+        </Tag>
+      );
+    }
+
+    return <>{content}</>;
+  }
+);
 
 export default styled(UserMenuItem, { label: 'hst-user-menu-item' })`
   justify-content: start;
