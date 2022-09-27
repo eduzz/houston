@@ -1,14 +1,14 @@
 import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 import Collapse from '@eduzz/houston-ui/Collapse';
+import IconButton from '@eduzz/houston-ui/IconButton';
+import Typography from '@eduzz/houston-ui/Typography';
 
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
 import nestedComponent from '../utils/nestedComponent';
-import CurrentButton from './Buttons/CurrentButton';
-import ErrorButton from './Buttons/ErrorButton';
-import FinishedButton from './Buttons/FinishedButton';
-import UnfinishedButton from './Buttons/UnfinishedButton';
+import { CurrentIcon, UnfinishedIcon, ErrorIcon, FinishedIcon } from './Icons';
 import Step from './Step';
 import Vertical from './Vertical';
 
@@ -27,19 +27,36 @@ export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTML
   current?: number;
   onPrev?: (current: number) => void;
   onNext?: (current: number) => void;
-  noClick?: boolean;
+  disableClick?: boolean;
   mountOnEnter?: boolean;
   destroyOnClose?: boolean;
 }
 
-const ICON_SIZE = 32;
+const Icons = (number: number) => ({
+  current: <CurrentIcon number={number} />,
+  unfinished: <UnfinishedIcon number={number} />,
+  finished: <FinishedIcon />,
+  error: <ErrorIcon />
+});
+
+const Colors = {
+  current: 'neutralColor.low.pure',
+  unfinished: 'neutralColor.low.light',
+  finished: 'neutralColor.low.light',
+  error: 'neutralColor.low.pure'
+};
+
+const decideStatus = (isFinished: boolean, isUnfinished: boolean, isCurrent: boolean, isError: boolean) => {
+  const booleans = { error: isError, current: isCurrent, unfinished: isUnfinished, finished: isFinished };
+  return Object.keys(booleans).filter(key => booleans[key])[0];
+};
 
 const Stepper = ({
   children,
   current: currentProp,
   onPrev,
   onNext,
-  noClick,
+  disableClick,
   mountOnEnter,
   destroyOnClose,
   ...rest
@@ -47,13 +64,13 @@ const Stepper = ({
   const childrenProps = useChildrenProps(children, Step);
   const steps = useChildrenComponent(children, Step);
 
+  const [dividersWidth, setDividersWidth] = React.useState<number[]>([]);
+
   const [current, setCurrent] = React.useState(0);
   const controlled = typeof currentProp !== 'undefined';
   const currentStep = controlled ? currentProp : current;
 
   const stepRefs = React.useRef<HTMLDivElement[]>([]);
-
-  const [negativeMargins, setNegativeMargins] = React.useState<number[]>([]);
 
   const passRefsToArray = React.useCallback(
     (index: number) => (el: HTMLDivElement) => {
@@ -78,50 +95,50 @@ const Stepper = ({
     [onNext, controlled]
   );
 
+  const ICON_SIZE_IN_PX = 32;
+  const theme = useHoustonTheme();
+  const SPACING_INLINE_IN_PX = theme.remToPx(theme.cleanUnit(theme.spacing.inline.nano));
+
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      const negativeMargins = stepRefs?.current?.map(
-        (tab: HTMLDivElement) => -(tab.getBoundingClientRect().width - ICON_SIZE)
-      );
-      setNegativeMargins(negativeMargins);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, []);
+    const dividersWidth = stepRefs.current.map(
+      step => step.getBoundingClientRect().width - ICON_SIZE_IN_PX - SPACING_INLINE_IN_PX * 2
+    );
+    setDividersWidth(dividersWidth);
+  }, [SPACING_INLINE_IN_PX]);
 
   return (
     <>
       <div {...rest}>
         {childrenProps?.map(({ label, description, error }, index) => {
-          const last = index === childrenProps.length - 1;
           const isFinished = index < currentStep;
           const isUnfinished = index > currentStep;
           const isCurrent = index === currentStep;
-
-          const buttonProps = {
-            label,
-            description,
-            number: index
-          };
+          const isError = error ?? false;
+          const status = decideStatus(isFinished, isUnfinished, isCurrent, isError);
 
           return (
-            <React.Fragment key={label}>
+            <div className='hst-step' ref={passRefsToArray(index)} key={label + index}>
               <div
+                className={cx('hst-step-button', { 'hst-step-disableclick': disableClick })}
                 onClick={isFinished ? handlePrev(index) : handleNext(index)}
-                className={cx('hst-step', { '--hst-step-noclick': isCurrent || noClick })}
-                ref={passRefsToArray(index)}
               >
-                {isFinished && !error && <FinishedButton buttonProps={buttonProps} />}
-                {isCurrent && !error && <CurrentButton buttonProps={buttonProps} />}
-                {isUnfinished && !error && <UnfinishedButton buttonProps={buttonProps} />}
-                {error && <ErrorButton buttonProps={buttonProps} />}
+                <IconButton size='md' fill className='hst-step-iconbutton'>
+                  {Icons(index)[status]}
+                </IconButton>
+                <Typography size='xs' color={Colors[status]} lineHeight='default' className='hst-step-label'>
+                  {label}
+                </Typography>
+                {description && (
+                  <Typography size='xxs' color={Colors[status]} lineHeight='default'>
+                    {description}
+                  </Typography>
+                )}
               </div>
-              {!last && (
-                <hr
-                  className={cx('hst-step-divider', { '--hst-step-divider-finished': isFinished })}
-                  style={{ marginLeft: negativeMargins[index] }}
-                />
-              )}
-            </React.Fragment>
+              <hr
+                className={cx('hst-step-divider', { 'hst-step-divider-finished': isFinished })}
+                style={{ width: dividersWidth[index], left: ICON_SIZE_IN_PX + SPACING_INLINE_IN_PX }}
+              />
+            </div>
           );
         })}
       </div>
@@ -151,11 +168,20 @@ const StepperWrapper = React.memo(
       display: flex;
       gap: ${theme.spacing.nano};
 
-      .hst-step {
-        cursor: pointer;
+      div:last-child > hr:last-child {
+        display: none;
+      }
 
-        &.--hst-step-noclick {
-          pointer-events: none;
+      .hst-step {
+        display: flex;
+        position: relative;
+        flex: 1 1 0px;
+
+        .hst-step-button {
+          cursor: pointer;
+          &.hst-step-disableclick {
+            pointer-events: none;
+          }
         }
 
         .hst-step-iconbutton {
@@ -168,7 +194,7 @@ const StepperWrapper = React.memo(
       }
 
       .hst-step-divider {
-        flex-grow: 1;
+        position: absolute;
         border-color: ${theme.neutralColor.low.pure};
         height: ${theme.border.width.xs};
         margin-top: ${MARGIN_TOP_IN_PX}px;
