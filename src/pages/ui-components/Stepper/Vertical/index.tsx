@@ -2,12 +2,11 @@ import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 import Collapse from '@eduzz/houston-ui/Collapse';
+import IconButton from '@eduzz/houston-ui/IconButton';
+import Typography from '@eduzz/houston-ui/Typography';
 
+import { Icons, Colors, decideStatus } from '../';
 import { useChildrenProps, useChildrenComponent } from '../../hooks/useChildrenProps';
-import CurrentButton from '../Buttons/CurrentButton';
-import ErrorButton from '../Buttons/ErrorButton';
-import FinishedButton from '../Buttons/FinishedButton';
-import UnfinishedButton from '../Buttons/UnfinishedButton';
 import Step from '../Step';
 
 export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
@@ -15,7 +14,7 @@ export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTML
   current?: number;
   onPrev?: (current: number) => void;
   onNext?: (current: number) => void;
-  noClick?: boolean;
+  disableClick?: boolean;
   mountOnEnter?: boolean;
   destroyOnClose?: boolean;
 }
@@ -25,7 +24,7 @@ const Vertical = ({
   current: currentProp,
   onPrev,
   onNext,
-  noClick,
+  disableClick,
   mountOnEnter,
   destroyOnClose,
   ...rest
@@ -57,33 +56,33 @@ const Vertical = ({
     <div {...rest}>
       <div className='hst-step-vertical-steps'>
         {childrenProps?.map(({ label, description, error }, index) => {
-          const last = index === childrenProps.length - 1;
           const isFinished = index < currentStep;
           const isUnfinished = index > currentStep;
           const isCurrent = index === currentStep;
-
-          const buttonProps = {
-            label,
-            description,
-            number: index
-          };
+          const isError = error ?? false;
+          const status = decideStatus(isFinished, isUnfinished, isCurrent, isError);
 
           return (
             <React.Fragment key={label}>
               <div
                 onClick={isFinished ? handlePrev(index) : handleNext(index)}
-                className={cx('hst-step-vertical', { '--hst-step-vertical-noclick': isCurrent || noClick })}
+                className={cx('hst-step-vertical', { '--hst-step-vertical-disableclick': isCurrent || disableClick })}
               >
-                {isFinished && !error && <FinishedButton buttonProps={buttonProps} />}
-                {isCurrent && !error && <CurrentButton buttonProps={buttonProps} />}
-                {isUnfinished && !error && <UnfinishedButton buttonProps={buttonProps} />}
-                {error && <ErrorButton buttonProps={buttonProps} />}
+                <IconButton size='md' fill className='hst-step-iconbutton'>
+                  {Icons(index)[status]}
+                </IconButton>
+                <div>
+                  <Typography size='xs' color={Colors[status]} lineHeight='default' className='hst-step-label'>
+                    {label}
+                  </Typography>
+                  {description && (
+                    <Typography size='xxs' color={Colors[status]} lineHeight='default'>
+                      {description}
+                    </Typography>
+                  )}
+                </div>
               </div>
-              {!last && (
-                <hr
-                  className={cx('hst-step-vertical-divider', { '--hst-step-vertical-divider-finished': isFinished })}
-                />
-              )}
+              <hr className={cx('hst-step-vertical-divider', { 'hst-step-vertical-divider-finished': isFinished })} />
             </React.Fragment>
           );
         })}
@@ -119,12 +118,17 @@ export default React.memo(
         gap: ${theme.spacing.nano};
         flex-direction: column;
 
+        hr:last-child {
+          display: none;
+        }
+
         .hst-step-vertical {
           display: flex;
           align-items: center;
           gap: ${theme.spacing.inline.nano};
+          cursor: pointer;
 
-          &.--hst-step-vertical-noclick {
+          &.--hst-step-vertical-disableclick {
             pointer-events: none;
           }
 
@@ -139,7 +143,7 @@ export default React.memo(
           border-left: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
           margin-left: ${MARGIN_LEFT_IN_PX}px;
 
-          &.--hst-step-vertical-divider-finished {
+          &.hst-step-vertical-divider-finished {
             border-color: ${theme.brandColor.primary.pure};
           }
         }

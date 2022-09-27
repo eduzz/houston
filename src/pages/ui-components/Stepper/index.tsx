@@ -12,16 +12,6 @@ import { CurrentIcon, UnfinishedIcon, ErrorIcon, FinishedIcon } from './Icons';
 import Step from './Step';
 import Vertical from './Vertical';
 
-type ButtonType = {
-  label: string;
-  description?: string;
-  number: number;
-};
-
-export type ButtonPropsType = {
-  buttonProps: ButtonType;
-};
-
 export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   children: React.ReactNode;
   current?: number;
@@ -32,21 +22,21 @@ export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTML
   destroyOnClose?: boolean;
 }
 
-const Icons = (number: number) => ({
+export const Icons = (number: number) => ({
   current: <CurrentIcon number={number} />,
   unfinished: <UnfinishedIcon number={number} />,
   finished: <FinishedIcon />,
   error: <ErrorIcon />
 });
 
-const Colors = {
+export const Colors = {
   current: 'neutralColor.low.pure',
   unfinished: 'neutralColor.low.light',
   finished: 'neutralColor.low.light',
   error: 'neutralColor.low.pure'
 };
 
-const decideStatus = (isFinished: boolean, isUnfinished: boolean, isCurrent: boolean, isError: boolean) => {
+export const decideStatus = (isFinished: boolean, isUnfinished: boolean, isCurrent: boolean, isError: boolean) => {
   const booleans = { error: isError, current: isCurrent, unfinished: isUnfinished, finished: isFinished };
   return Object.keys(booleans).filter(key => booleans[key])[0];
 };
@@ -100,10 +90,18 @@ const Stepper = ({
   const SPACING_INLINE_IN_PX = theme.remToPx(theme.cleanUnit(theme.spacing.inline.nano));
 
   React.useEffect(() => {
-    const dividersWidth = stepRefs.current.map(
-      step => step.getBoundingClientRect().width - ICON_SIZE_IN_PX - SPACING_INLINE_IN_PX * 2
-    );
-    setDividersWidth(dividersWidth);
+    const setTheDividersWidth = () => {
+      const dividersWidth = stepRefs.current.map(
+        step => step.getBoundingClientRect().width - ICON_SIZE_IN_PX - SPACING_INLINE_IN_PX * 2
+      );
+      setDividersWidth(dividersWidth);
+    };
+    setTheDividersWidth();
+
+    window.addEventListener('resize', setTheDividersWidth);
+    return () => {
+      window.removeEventListener('resize', setTheDividersWidth);
+    };
   }, [SPACING_INLINE_IN_PX]);
 
   return (
@@ -166,7 +164,6 @@ const StepperWrapper = React.memo(
   styled(Stepper, { label: 'hst-stepper' })(({ theme }) => {
     return css`
       display: flex;
-      gap: ${theme.spacing.nano};
 
       div:last-child > hr:last-child {
         display: none;
@@ -200,7 +197,7 @@ const StepperWrapper = React.memo(
         margin-top: ${MARGIN_TOP_IN_PX}px;
         border-width: 0 0 ${theme.border.width.xs};
 
-        &.--hst-step-divider-finished {
+        &.hst-step-divider-finished {
           border-color: ${theme.brandColor.primary.pure};
         }
       }
