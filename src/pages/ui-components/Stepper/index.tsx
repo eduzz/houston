@@ -14,7 +14,7 @@ import Vertical from './Vertical';
 
 export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   children: React.ReactNode;
-  current?: number;
+  current: number;
   onPrev?: (current: number) => void;
   onNext?: (current: number) => void;
   disableClick?: boolean;
@@ -56,10 +56,6 @@ const Stepper = ({
 
   const [dividersWidth, setDividersWidth] = React.useState<number[]>([]);
 
-  const [current, setCurrent] = React.useState(0);
-  const controlled = typeof currentProp !== 'undefined';
-  const currentStep = controlled ? currentProp : current;
-
   const stepRefs = React.useRef<HTMLDivElement[]>([]);
 
   const passRefsToArray = React.useCallback(
@@ -72,17 +68,15 @@ const Stepper = ({
   const handlePrev = React.useCallback(
     (current: number) => () => {
       onPrev && onPrev(current);
-      !controlled && setCurrent(current);
     },
-    [onPrev, controlled]
+    [onPrev]
   );
 
   const handleNext = React.useCallback(
     (current: number) => () => {
       onNext && onNext(current);
-      !controlled && setCurrent(current);
     },
-    [onNext, controlled]
+    [onNext]
   );
 
   const ICON_SIZE_IN_PX = 32;
@@ -108,14 +102,18 @@ const Stepper = ({
     <>
       <div {...rest}>
         {childrenProps?.map(({ label, description, error }, index) => {
-          const isFinished = index < currentStep;
-          const isUnfinished = index > currentStep;
-          const isCurrent = index === currentStep;
+          const isFinished = index < currentProp;
+          const isUnfinished = index > currentProp;
+          const isCurrent = index === currentProp;
           const isError = error ?? false;
+          const isLast = index === childrenProps.length - 1;
           const status = decideStatus(isFinished, isUnfinished, isCurrent, isError);
-
           return (
-            <div className='hst-step' ref={passRefsToArray(index)} key={label + index}>
+            <div
+              className={cx('hst-step', { 'hst-step-last': isLast })}
+              ref={passRefsToArray(index)}
+              key={label + index}
+            >
               <div
                 className={cx('hst-step-button', { 'hst-step-disableclick': disableClick })}
                 onClick={isFinished ? handlePrev(index) : handleNext(index)}
@@ -146,7 +144,7 @@ const Stepper = ({
             id={step.props.id}
             key={index}
             timeout={10}
-            visibled={currentStep === index}
+            visibled={currentProp === index}
             mountOnEnter={mountOnEnter}
             destroyOnClose={destroyOnClose}
           >
@@ -173,6 +171,10 @@ const StepperWrapper = React.memo(
         display: flex;
         position: relative;
         flex: 1 1 0px;
+
+        &.hst-step-last {
+          flex: 0;
+        }
 
         .hst-step-button {
           cursor: pointer;

@@ -20,7 +20,7 @@ import Stepper from '@eduzz/houston-ui/Stepper';
 const { Step } = Stepper;
 ```
 
-### Valor controlado e prop noClick
+### Exemplo
 
 <Playground>
   {() => {
@@ -33,7 +33,7 @@ const { Step } = Stepper;
       setCurrent(current - 1);
     };
     return (
-      <Stepper.Vertical current={current} noClick>
+      <Stepper.Vertical current={current} disableClick>
         <Step label='Básico'>
           <div>Conteúdo1</div>
           <Row>
@@ -86,33 +86,14 @@ const { Step } = Stepper;
   }}
 </Playground>
 
-### Auto gerenciável
-
-Não há necessidade de controlar o estado do step ativo.
-
-<Playground>
-  {() => {
-    const { Step } = Stepper;
-    return (
-      <Stepper.Vertical>
-        <Step label='Passo 1'>Conteúdo 1</Step>
-        <Step label='Passo 2'>Conteúdo 2</Step>
-        <Step label='Passo 3'>Conteúdo 3</Step>
-        <Step label='Passo 4' description='Etapa final'>
-          Conteúdo 4
-        </Step>
-      </Stepper.Vertical>
-    );
-  }}
-</Playground>
-
 ### Somente como indicador(sem conteúdo) e error
 
 <Playground>
   {() => {
     const { Step } = Stepper;
+    const [current, setCurrent] = React.useState(0);
     return (
-      <Stepper.Vertical>
+      <Stepper.Vertical current={current} onPrev={index => setCurrent(index)} onNext={index => setCurrent(index)}>
         <Step label='Básico' />
         <Step label='Personalização' description='Personalize seu produto' />
         <Step error label='Comunicação' description='Comunicação é muito importante' />
@@ -128,9 +109,9 @@ Não há necessidade de controlar o estado do step ativo.
 | -------------- | ------------------ | -------- | ------- | ------------------------------------------------------------------------------------------ |
 | onPrev         | `(number) => void` | `false`  | -       | Passa pelo callback o índice do Step                                                       |
 | onNext         | `(number) => void` | `false`  | -       | Passa pelo callback o índice do Step                                                       |
-| current        | `number`           | `false`  | `false` | Índice do Step atual                                                                       |
+| current        | `number`           | `true`   | -       | Índice do Step atual                                                                       |
 | children       | `React.ReactNode`  | `true`   | -       |                                                                                            |
-| clickable      | `boolean`          | `false`  | `false` | Habilita o click no Step                                                                   |
+| disableClick   | `boolean`          | `false`  | `false` | Desabilita o click no Step                                                                 |
 | destroyOnClose | `boolean`          | `false`  | `false` | Se true o componente que está dentro do Step será desmontado depois que o Step for trocado |
 | mountOnEnter   | `boolean`          | `false`  | `false` | Se true o componente que está dentro do Step só será montado depois que o Step for trocado |
 

@@ -11,7 +11,7 @@ import Step from '../Step';
 
 export interface StepperProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   children: React.ReactNode;
-  current?: number;
+  current: number;
   onPrev?: (current: number) => void;
   onNext?: (current: number) => void;
   disableClick?: boolean;
@@ -32,33 +32,27 @@ const Vertical = ({
   const childrenProps = useChildrenProps(children, Step);
   const steps = useChildrenComponent(children, Step);
 
-  const [current, setCurrent] = React.useState(0);
-  const controlled = typeof currentProp !== 'undefined';
-  const currentStep = controlled ? currentProp : current;
-
   const handlePrev = React.useCallback(
     (current: number) => () => {
       onPrev && onPrev(current);
-      !controlled && setCurrent(current);
     },
-    [onPrev, controlled]
+    [onPrev]
   );
 
   const handleNext = React.useCallback(
     (current: number) => () => {
       onNext && onNext(current);
-      !controlled && setCurrent(current);
     },
-    [onNext, controlled]
+    [onNext]
   );
 
   return (
     <div {...rest}>
       <div className='hst-step-vertical-steps'>
         {childrenProps?.map(({ label, description, error }, index) => {
-          const isFinished = index < currentStep;
-          const isUnfinished = index > currentStep;
-          const isCurrent = index === currentStep;
+          const isFinished = index < currentProp;
+          const isUnfinished = index > currentProp;
+          const isCurrent = index === currentProp;
           const isError = error ?? false;
           const status = decideStatus(isFinished, isUnfinished, isCurrent, isError);
 
@@ -93,7 +87,7 @@ const Vertical = ({
             id={step.props.id}
             key={index}
             timeout={10}
-            visibled={currentStep === index}
+            visibled={currentProp === index}
             mountOnEnter={mountOnEnter}
             destroyOnClose={destroyOnClose}
           >
