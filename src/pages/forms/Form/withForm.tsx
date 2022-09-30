@@ -1,21 +1,32 @@
 import * as React from 'react';
 
+import { Form as AntdForm } from 'antd';
 import { Controller, useFormContext } from 'react-hook-form';
 
 export interface WithFormProps<R> {
   label?: string;
   name?: string;
-  errorMessage?: string;
   disabled?: boolean;
   genericRef?: R;
+  help?: React.ReactNode;
+  error?: string;
 }
 
 const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P>) =>
-  React.forwardRef<P['genericRef'], Omit<P, 'genericRef'>>(({ name, errorMessage, disabled, ...props }, ref) => {
+  React.forwardRef<P['genericRef'], Omit<P, 'genericRef'>>(({ name, disabled, label, help, error, ...props }, ref) => {
     const form = useFormContext();
 
     if (!form || !name) {
-      return <Component {...(props as any)} name={name} errorMessage={errorMessage} disabled={disabled} ref={ref} />;
+      return (
+        <AntdForm.Item
+          label={label}
+          labelCol={{ span: 24 }}
+          validateStatus={error ? 'error' : undefined}
+          help={error ?? help}
+        >
+          <Component {...(props as any)} name={name} disabled={disabled} ref={ref} />
+        </AntdForm.Item>
+      );
     }
 
     return (
@@ -23,17 +34,22 @@ const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P
         control={form.control}
         name={name}
         render={({ field, fieldState, formState }) => (
-          <Component
-            {...(props as any)}
-            {...field}
-            onBlur={(value: any, e: any) => {
-              field.onBlur();
-              (props as any)?.onBlur?.(value, e);
-            }}
-            disabled={disabled || formState?.isSubmitting}
-            errorMessage={errorMessage ?? fieldState?.error?.message}
-            ref={ref}
-          />
+          <AntdForm.Item
+            label={label}
+            validateStatus={fieldState?.error?.message ? 'error' : undefined}
+            help={error ?? fieldState?.error?.message ?? help}
+          >
+            <Component
+              {...(props as any)}
+              {...field}
+              onBlur={(value: any, e: any) => {
+                field.onBlur();
+                (props as any)?.onBlur?.(value, e);
+              }}
+              disabled={disabled || formState?.isSubmitting}
+              ref={ref}
+            />
+          </AntdForm.Item>
         )}
       />
     );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input as AntdInput, InputProps as AntdInputProps, InputRef, Form as AntdForm } from 'antd';
+import { Input as AntdInput, InputProps as AntdInputProps, InputRef } from 'antd';
 
 import withForm, { WithFormProps } from '../Form/withForm';
 import useMask, { BuildInMask, MaskAdapter } from '../masks';
@@ -10,15 +10,12 @@ export interface InputProps
     WithFormProps<InputRef> {
   mask?: BuildInMask | MaskAdapter;
   onChange?: (value: string | number | null | undefined, event: React.ChangeEvent<HTMLInputElement>) => any;
-  onBlur?: (
-    value: string | number | null | undefined,
-    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => any;
+  onBlur?: (value: string | number | null | undefined, event: React.FocusEvent<HTMLInputElement>) => any;
   onPressEnter?: (value: string | number | null | undefined) => any;
 }
 
 const Input = React.forwardRef<InputRef, InputProps>(
-  ({ mask, value, onChange, onBlur, onPressEnter, label, errorMessage, ...props }, ref) => {
+  ({ mask, value, onChange, onBlur, onPressEnter, ...props }, ref) => {
     const { maskClean, maskedValue } = useMask(mask, value);
 
     const handleChange = React.useCallback(
@@ -49,16 +46,14 @@ const Input = React.forwardRef<InputRef, InputProps>(
     );
 
     return (
-      <AntdForm.Item label={label} validateStatus={errorMessage ? 'error' : undefined} help={errorMessage}>
-        <AntdInput
-          ref={ref}
-          value={maskedValue}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onPressEnter={handlePressEnter}
-          {...props}
-        />
-      </AntdForm.Item>
+      <AntdInput
+        ref={ref}
+        value={maskedValue}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onPressEnter={handlePressEnter}
+        {...props}
+      />
     );
   }
 );
