@@ -17,6 +17,7 @@
     "dokz": "2.0.9",
     "framer-motion": "latest",
     "next": "^12",
+    "next-with-less": "^2.0.5",
     "react": "^18",
     "react-dom": "^18"
   },

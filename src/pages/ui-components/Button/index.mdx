@@ -1,5 +1,5 @@
 ---
-name: Button
+name: Button (deprecated)
 ---
 
 import { Playground } from 'dokz';
@@ -10,67 +10,38 @@ import Column from '../Grid/Column';
 import Row from '../Grid/Row';
 import Button from './';
 
-# Button
+# Button (deprecated)
 
-Botões permitem que os usuários tomem ações e decisões com um simples toque.
+Utilizar o Button do AntD (https://ant.design/components/button)
 
-### Importação
+## Como migrar
 
-```js
-import Button from '@eduzz/houston-ui/Button';
+Diferenças de implementação:
+
+- Se não tiver variant colocar **type="primary"**.
+- Utilizar os icons do próprio AntD (https://ant.design/components/icon)
+
+```diff
+- import Button from '@eduzz/houston-ui/Button'
++ import { Button } from antd
+
+ <Button
+-  startIcon={...}
++  icon={...}
+-  type='submit'
++  htmlType='submit'
+-  variant='contained'
++  type='primary' // contained=primary outlined=default text=text
+
+-  fullWidth
+-  endIcon
+-  active
+ />
+
 ```
 
-### Variações
-
-<Playground>
-  <Row>
-    <Column xs='auto'>
-      <Button>Contained</Button>
-    </Column>
-    <Column xs='auto'>
-      <Button variant='outlined'>Outlined</Button>
-    </Column>
-    <Column xs='auto'>
-      <Button variant='text'>Text</Button>
-    </Column>
-  </Row>
-</Playground>
-
-### Estados
-
-<Playground>
-  <Row>
-    <Column xs='auto'>
-      <Button disabled>Disabled</Button>
-    </Column>
-    <Column xs='auto'>
-      <Button loading>loading</Button>
-    </Column>
-  </Row>
-</Playground>
-
-### Com ícones
-
-<Playground>
-  <Row>
-    <Column xs='auto'>
-      <Button startIcon={<FaceHappyOutlineIcon />}>Start</Button>
-    </Column>
-    <Column xs='auto'>
-      <Button variant='outlined' endIcon={<FaceHappyOutlineIcon />}>
-        End
-      </Button>
-    </Column>
-  </Row>
-</Playground>
-
-| prop      | tipo              | obrigatório | padrão      |
-| --------- | ----------------- | ----------- | ----------- |
-| disabled  | `boolean`         | `false`     | `false`     |
-| startIcon | `React.ReactNode` | `false`     | -           |
-| endIcon   | `React.ReactNode` | `false`     | -           |
-| variant   | `ButtonVariant`   | `false`     | `contained` |
-| href      | `string`          | `false`     | -           |
-| endIcon   | `React.ReactNode` | `false`     | -           |
-| fullWidth | `boolean`         | `false`     | `false`     |
-| loading   | `boolean`         | `false`     | `false`     |
+| Variant   | AntD Type |
+| --------- | --------- |
+| contained | primary   |
+| outlined  | default   |
+| text      | text      |

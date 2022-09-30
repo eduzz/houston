@@ -1,10 +1,11 @@
-const withPlugins = require('next-compose-plugins');
 const { withDokz } = require('dokz/dist/plugin');
-const withTM = require('next-transpile-modules')([
-    "@mui/material"
-])
+const withPlugins = require('next-compose-plugins');
+const withTM = require('next-transpile-modules')(['@mui/material']);
+const withLess = require("next-with-less");
 
-module.exports = withPlugins([withTM, withDokz], {
+module.exports = withPlugins(
+  [[withLess, { lessLoaderOptions: { lessOptions: { javascriptEnabled: true } } }], withTM, withDokz],
+  {
     swcMinify: true,
     debug: true,
     basePath: '/houston',
@@ -13,10 +14,10 @@ module.exports = withPlugins([withTM, withDokz], {
     distDir: 'build',
     pageExtensions: ['page.js', 'page.jsx', 'md', 'mdx', 'page.ts', 'page.tsx'],
     eslint: {
-        ignoreDuringBuilds: true,
+      ignoreDuringBuilds: true
     },
     typescript: {
-        ignoreBuildErrors: true
+      ignoreBuildErrors: true
     }
-})
-
+  }
+);

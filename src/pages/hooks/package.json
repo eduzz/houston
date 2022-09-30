@@ -20,6 +20,6 @@
   },
   "dependencies": {
     "lodash": "^4",
-    "rxjs": "^7.5.6"
+    "rxjs": "^7"
   }
 }
