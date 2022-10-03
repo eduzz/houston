@@ -38,6 +38,10 @@ const circleAnimation = (size: number) => keyframes`
   100% { stroke-dashoffset: ${(size / SIZE_BASE) * 187}; transform: rotate(450deg); }
 `;
 
+/**
+ * @deprecated Use Spin from Antd
+ * https://ant.design/components/spin/
+ */
 export default styled(Spinner, { label: 'hst-loader' })`
   ${({ theme, color, size = SIZE_BASE }) => css`
     animation: ${rotationAnimation} 1.4s linear infinite;

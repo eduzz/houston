@@ -15,6 +15,10 @@ const DialogFooter = ({ children, ...rest }: DialogFooterProps & React.HTMLAttri
   );
 };
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export default styled(DialogFooter, { label: 'hst-dialog-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};

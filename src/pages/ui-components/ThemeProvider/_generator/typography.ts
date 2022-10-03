@@ -1,8 +1,8 @@
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 
-import { HoustonTheme } from '@eduzz/houston-styles';
+import { HoustonThemeProps } from '@eduzz/houston-styles';
 
-export default function typography(theme: HoustonTheme): TypographyOptions {
+export default function typography(theme: HoustonThemeProps): TypographyOptions {
   const fontInPx = theme.remToPx(theme.cleanUnit(theme.font.size.xs));
 
   return {

@@ -11,4 +11,8 @@ const IconBelt = memo<IconProps>(({ ...props }) => (
   </Icon>
 ));
 
+/**
+ * @deprecated Use Icon from Antd
+ * https://ant.design/components/icon/
+ */
 export default IconBelt;

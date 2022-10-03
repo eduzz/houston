@@ -6,19 +6,20 @@ import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/ma
 import { ptBR } from 'date-fns/locale';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
 
-import { HoustonTheme } from '@eduzz/houston-styles';
-import createThemeStyles from '@eduzz/houston-styles/createTheme';
-
 import DialogGlobal from '../Dialog/Global';
 import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
 import { setCurrentTheme } from './_state';
+import createThemeInternal from './createTheme';
+import { HoustonTheme } from './createTheme/types';
 import GlobalStyles from './reset';
+
+export * from './createTheme/types';
 
 setDefaultOptions({ locale: ptBR });
 
-export const createTheme = createThemeStyles;
+export const createTheme = createThemeInternal;
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
   theme?: HoustonTheme;

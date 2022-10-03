@@ -52,6 +52,10 @@ const AccordionTitle = ({ children, ...rest }: TitleProps) => {
   );
 };
 
+/**
+ * @deprecated Use Collapse with accordion prop from Antd
+ * https://ant.design/components/collapse/#components-collapse-demo-accordion
+ */
 export default styled(AccordionTitle, { label: 'hst-accordion-title' })(({ theme }) => {
   return css`
     display: flex;

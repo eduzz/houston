@@ -1,26 +1,26 @@
-import { Theme as AntdTheme } from 'antd/lib/config-provider/context';
-
 import { HoustonTokens } from '@eduzz/houston-tokens';
 
-import { mediaUtils } from './media';
 import styled from './styled';
 
 export * from './styled';
 
+/**
+ * @deprecated Import from `@emotion/styled`
+ */
 export default styled;
 
+/**
+ * @deprecated Use `HoustonTheme` from `@eduzz/houston-ui`
+ */
 export interface HoustonThemeCustomVariables {}
 
-export interface HoustonTheme extends HoustonTokens, AntdTheme {
-  media: typeof mediaUtils;
+/**
+ * @deprecated Use `HoustonTheme` from `@eduzz/houston-ui`
+ */
+export interface HoustonThemeProps extends HoustonTokens {
   variables?: HoustonThemeCustomVariables;
 }
 
-/**
- * @depreacted Use `HoustonTheme` instead
- */
-export type HoustonThemeProps = HoustonTheme;
-
 declare module '@emotion/react' {
-  interface Theme extends HoustonTheme {}
+  interface Theme extends HoustonThemeProps {}
 }

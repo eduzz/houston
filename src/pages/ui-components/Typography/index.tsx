@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { HoustonTheme, css, cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { HoustonThemeProps, css, cx, StyledProp } from '@eduzz/houston-styles';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import nestedComponent from '../utils/nestedComponent';
@@ -88,11 +88,6 @@ export interface TypographyProps extends StyledProp, React.HTMLAttributes<HTMLEl
    */
   as?: TypographyTags;
 }
-
-/**
- * @deprecated Use Typography from Antd
- * https://ant.design/components/typography/
- */
 const Typography = React.forwardRef<any, TypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {
@@ -125,7 +120,7 @@ function getColorName(color: string) {
   return color.replace(/\./gim, '-');
 }
 
-function getColor(theme: HoustonTheme, color: TypographyColors) {
+function getColor(theme: HoustonThemeProps, color: TypographyColors) {
   if (color === 'inherit') {
     return 'inherit';
   }
@@ -190,6 +185,10 @@ const TypographyWrapper = styled(Typography, { label: 'hst-typography-typography
   `;
 });
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 export default nestedComponent(TypographyWrapper, {
   Caption,
   Heading,

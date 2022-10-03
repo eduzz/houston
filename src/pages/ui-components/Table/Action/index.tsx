@@ -83,6 +83,10 @@ const TableActionOption = ({
   return <Portal target={portal}>{content}</Portal>;
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default styled(React.memo(TableActionOption))`
   justify-content: start;
   text-align: left;
