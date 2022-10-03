@@ -24,4 +24,8 @@ const TablePagination = ({ disabled, ...props }: TablePaginationProps) => {
   );
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default TablePagination;

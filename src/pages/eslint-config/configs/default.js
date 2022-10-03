@@ -39,8 +39,8 @@ module.exports = {
     'prefer-const': ['error', { destructuring: 'all' }],
     'no-extra-semi': ['error'],
     'no-var': ['error'],
-    quotes: ['error', 'single', { avoidEscape: true }],
-    eqeqeq: 0,
+    'quotes': ['error', 'single', { avoidEscape: true }],
+    'eqeqeq': 0,
     'quote-props': 'off',
     'no-useless-escape': 'off',
     'unused-imports/no-unused-imports-ts': 'error',
@@ -58,10 +58,10 @@ module.exports = {
     'import/order': [
       'error',
       {
-        alphabetize: { order: 'asc', caseInsensitive: true },
-        groups: ['builtin', ['external', 'internal'], ['parent', 'sibling', 'index'], 'object'],
+        'alphabetize': { order: 'asc', caseInsensitive: true },
+        'groups': ['builtin', ['external', 'internal'], ['parent', 'sibling', 'index'], 'object'],
         'newlines-between': 'always',
-        pathGroups: [
+        'pathGroups': [
           { pattern: 'react', group: 'external', position: 'before' },
           { pattern: '@nestjs/**', group: 'external', position: 'before' },
           { pattern: '@eduzz/**', group: 'internal', position: 'after' },

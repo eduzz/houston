@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@eduzz/houston-workspaces",
-  "version": "0.64.7",
+  "version": "0.65.0-beta.2",
   "workspaces": [
     "src/pages/*",
     "src/dev",
@@ -11,6 +11,8 @@
     "commit": "node ./scripts/git-check-files.js && git-cz",
     "prebuild": "yarn clean",
     "build": "yarn tsc -p .",
+    "postbuild": "yarn build:theme",
+    "build:theme": "yarn lessc --js ./src/pages/ui-components/ThemeProvider/theme.less ./src/pages/ui-components/ThemeProvider/theme.css -x",
     "build:dev": "yarn swc ./src/pages -d ./src",
     "build:docs": "(cd src && yarn build)",
     "start": "node ./scripts/start.js",
@@ -72,6 +74,7 @@
     "**/@emotion/styled": "^11",
     "gatsby-plugin-emotion": "^6",
     "react": "^18",
-    "theme-ui": "^0.6"
+    "theme-ui": "^0.6",
+    "rxjs": "^7"
   }
 }

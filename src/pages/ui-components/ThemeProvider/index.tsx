@@ -3,25 +3,27 @@ import * as React from 'react';
 import { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import ConfigProvider from 'antd/lib/config-provider';
 import { ptBR } from 'date-fns/locale';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
-
-import { HoustonThemeProps } from '@eduzz/houston-styles';
-import createThemeStyles from '@eduzz/houston-styles/createTheme';
 
 import DialogGlobal from '../Dialog/Global';
 import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
 import { setCurrentTheme } from './_state';
+import createThemeInternal from './createTheme';
+import { HoustonTheme } from './createTheme/types';
 import GlobalStyles from './reset';
+
+export * from './createTheme/types';
 
 setDefaultOptions({ locale: ptBR });
 
-export const createTheme = createThemeStyles;
+export const createTheme = createThemeInternal;
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
-  theme?: HoustonThemeProps;
+  theme?: HoustonTheme;
   disableResetStyles?: boolean;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
@@ -56,6 +58,12 @@ function ThemeProvider({
 
     return () => styleElement.remove();
   }, [disabledFontBase]);
+
+  React.useEffect(() => {
+    ConfigProvider.config({
+      theme: { primaryColor: theme.primaryColor }
+    });
+  }, [theme.primaryColor]);
 
   React.useEffect(() => setCurrentTheme(theme), [theme]);
 

@@ -1,6 +1,6 @@
-import FormMaskAdapter from './maskAdapter';
+import { MaskAdapter } from '.';
 
-const phoneMask: FormMaskAdapter = {
+const phoneMask: MaskAdapter = {
   apply: (value: string) => {
     if (!value) return '';
 
