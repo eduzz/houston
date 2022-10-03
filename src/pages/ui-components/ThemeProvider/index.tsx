@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import ConfigProvider from 'antd/lib/config-provider';
 import { ptBR } from 'date-fns/locale';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
 
@@ -57,6 +58,12 @@ function ThemeProvider({
 
     return () => styleElement.remove();
   }, [disabledFontBase]);
+
+  React.useEffect(() => {
+    ConfigProvider.config({
+      theme: { primaryColor: theme.primaryColor }
+    });
+  }, [theme.primaryColor]);
 
   React.useEffect(() => setCurrentTheme(theme), [theme]);
 
