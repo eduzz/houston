@@ -36,6 +36,10 @@ const mobileSizesMap: SizesMap = {
   sm: 'sm'
 };
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 const Subtitle = React.forwardRef<HTMLHeadingElement | HTMLParagraphElement, SubtitleProps>(
   ({ as = 'h2', children, size: sizeProp = 'lg', ...props }, ref) => {
     const { breakpoints } = useHoustonTheme();

@@ -6,6 +6,10 @@ type ToastPropsExtends = 'onOpen' | 'onClose' | 'onClick';
 
 export interface ToastProps extends Pick<ToastOptions, ToastPropsExtends> {}
 
+/**
+ * @deprecated Use Notification from Antd
+ * https://ant.design/components/notification/
+ */
 const Toast = {
   info(content: string, options?: ToastProps) {
     toast(<ToastBody content={content} type='informative' />, options);

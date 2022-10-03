@@ -21,6 +21,10 @@ export interface ButtonProps
   active?: boolean;
 }
 
+/**
+ * @deprecated Use Button from Antd
+ * https://ant.design/components/button/
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {

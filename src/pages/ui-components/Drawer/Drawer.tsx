@@ -21,6 +21,10 @@ export interface DrawerProps extends ModalProps {
   placement?: DrawerPlacement;
 }
 
+/**
+ * @deprecated Use Drawer from Antd
+ * https://ant.design/components/drawer/
+ */
 const Drawer = ({
   visible,
   disableEscapeKey,

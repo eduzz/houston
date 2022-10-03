@@ -16,6 +16,10 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fit?: ImageFits;
 }
 
+/**
+ * @deprecated Use Image from Antd
+ * https://ant.design/components/image/
+ */
 const ImageComponent = React.forwardRef<HTMLImageElement, ImageProps>(
   ({ fallbackSrc, src: srcProp, className, fit = 'cover', ...props }, ref) => {
     const [src, setSrc] = React.useState(fallbackSrc || srcProp);

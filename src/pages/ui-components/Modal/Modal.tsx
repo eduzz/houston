@@ -39,6 +39,10 @@ export interface ModalProps {
   fullscreen?: boolean;
 }
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 const Modal = ({
   visible,
   className,

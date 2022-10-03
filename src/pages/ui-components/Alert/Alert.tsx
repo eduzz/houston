@@ -49,6 +49,10 @@ const IconMap: IconMap = {
 
 const CLOSE_ICON_SIZE = 16;
 
+/**
+ * @deprecated Use Alert from Antd
+ * https://ant.design/components/alert/
+ */
 const Alert = React.forwardRef<HTMLDivElement, AlertInterface>(
   (
     {

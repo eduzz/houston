@@ -6,6 +6,10 @@ export interface DividerProps extends StyledProp, React.HTMLAttributes<HTMLHREle
   vertical?: boolean;
 }
 
+/**
+ * @deprecated Use Divider from Antd
+ * https://ant.design/components/divider/
+ */
 const Divider = ({ className, vertical, ...rest }: DividerProps) => {
   const ref = React.useRef<HTMLHRElement>(null);
 

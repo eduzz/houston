@@ -11,6 +11,10 @@ export interface CaptionProps extends StyledProp, Omit<TypographyProps, 'size' |
   as?: 'figcaption' | 'p';
 }
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 const Caption = React.forwardRef<HTMLParagraphElement | HTMLElement, CaptionProps>(
   ({ as = 'figcaption', children, ...props }, ref) => {
     return (

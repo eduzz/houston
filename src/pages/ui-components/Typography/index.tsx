@@ -89,6 +89,10 @@ export interface TypographyProps extends StyledProp, React.HTMLAttributes<HTMLEl
   as?: TypographyTags;
 }
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 const Typography = React.forwardRef<any, TypographyProps>(({ as: Tag = 'p', className, ...props }, ref) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {

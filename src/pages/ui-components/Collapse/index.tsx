@@ -13,6 +13,10 @@ export interface CollapseProps {
   timeout?: number;
 }
 
+/**
+ * @deprecated Use Collapse from Antd
+ * https://ant.design/components/collapse/
+ */
 const Collapse = ({
   children,
   visibled,
