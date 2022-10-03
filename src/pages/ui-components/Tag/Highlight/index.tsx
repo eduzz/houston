@@ -1,4 +1,4 @@
-import styled, { css, cx, HoustonThemeProps, StyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, HoustonTheme, StyledProp } from '@eduzz/houston-styles';
 
 import warning from '../../utils/warning';
 
@@ -19,7 +19,7 @@ const TagHighlight = ({ children, className, variant = 'filled', ...rest }: TagH
   </span>
 );
 
-function getColor(theme: HoustonThemeProps, color: string) {
+function getColor(theme: HoustonTheme, color: string) {
   if (!color) return;
 
   if (color === 'inherit') {

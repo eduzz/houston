@@ -1,7 +1,7 @@
 import { Palette } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-import { HoustonThemeProps } from '@eduzz/houston-styles';
+import { HoustonTheme } from '@eduzz/houston-styles';
 
 import components from './components';
 import palette from './palette';
@@ -17,7 +17,7 @@ declare module '@mui/material/styles' {
   }
 }
 
-export default function generateTheme(theme: HoustonThemeProps) {
+export default function generateTheme(theme: HoustonTheme) {
   const newPalette = palette(theme);
 
   const muiTheme = createTheme({

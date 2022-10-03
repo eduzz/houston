@@ -1,4 +1,7 @@
 /* eslint-disable max-lines */
+/**
+ * @deprecated
+ */
 export type Color = {
   pure: string;
   light: string;
@@ -6,6 +9,9 @@ export type Color = {
   dark: string;
 };
 
+/**
+ * @deprecated
+ */
 export type BeltColor = {
   white: '#D6D6D6';
   red: '#FF4141';
@@ -15,6 +21,9 @@ export type BeltColor = {
   golden: '#FFCE00';
 };
 
+/**
+ * @deprecated
+ */
 export type Spacing = {
   /**
    * A helper function that returns a value following
@@ -81,6 +90,9 @@ export type Spacing = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type Border = Readonly<{
   width: {
     none: '0';
@@ -99,6 +111,9 @@ export type Border = Readonly<{
   };
 }>;
 
+/**
+ * @deprecated
+ */
 export type Opacity = {
   level: {
     0: 0;
@@ -113,6 +128,9 @@ export type Opacity = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type Shadow = {
   level: {
     1: '0px 4px 8px rgba(0, 0, 0, 0.16)';
@@ -122,6 +140,9 @@ export type Shadow = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type Font = {
   size: {
     xxxs: '0.75rem';
@@ -146,6 +167,9 @@ export type Font = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type Line = {
   height: {
     default: '100%';
@@ -158,6 +182,9 @@ export type Line = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type NeutralColor = {
   low: {
     pure: '#000000';
@@ -173,6 +200,9 @@ export type NeutralColor = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type FeedbackColor = {
   positive: {
     pure: '#4CAF50';
@@ -200,11 +230,17 @@ export type FeedbackColor = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type BrandColor = {
   primary: Color;
   secondary: Color;
 };
 
+/**
+ * @deprecated
+ */
 export type BrandColors = {
   eduzz: {
     primary: {
@@ -334,8 +370,14 @@ export type BrandColors = {
   };
 };
 
+/**
+ * @deprecated
+ */
 export type Brands = keyof BrandColors;
 
+/**
+ * @deprecated
+ */
 export type Breakpoints = {
   xs: '320px';
   sm: '576px';
@@ -344,11 +386,17 @@ export type Breakpoints = {
   xlg: '1400px';
 };
 
+/**
+ * @deprecated
+ */
 export type BreakpointsUtils = {
   down(key: keyof Breakpoints): string;
   up(key: keyof Breakpoints): string;
 };
 
+/**
+ * @deprecated
+ */
 export type HoustonTokens = {
   spacing: Spacing;
   border: Border;

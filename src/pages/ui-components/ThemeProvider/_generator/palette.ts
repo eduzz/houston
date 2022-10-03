@@ -1,8 +1,8 @@
 import { Palette } from '@mui/material';
 
-import { HoustonThemeProps } from '@eduzz/houston-styles';
+import { HoustonTheme } from '@eduzz/houston-styles';
 
-export default function palette(theme: HoustonThemeProps): Partial<Palette> {
+export default function palette(theme: HoustonTheme): Partial<Palette> {
   return {
     background: {
       paper: '#fff',

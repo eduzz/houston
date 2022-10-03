@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { HoustonThemeProps, css, cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { HoustonTheme, css, cx, StyledProp } from '@eduzz/houston-styles';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
 import nestedComponent from '../utils/nestedComponent';
@@ -121,7 +121,7 @@ function getColorName(color: string) {
   return color.replace(/\./gim, '-');
 }
 
-function getColor(theme: HoustonThemeProps, color: TypographyColors) {
+function getColor(theme: HoustonTheme, color: TypographyColors) {
   if (color === 'inherit') {
     return 'inherit';
   }

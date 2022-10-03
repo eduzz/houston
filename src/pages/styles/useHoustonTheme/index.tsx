@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 
-import { HoustonThemeProps } from '..';
+import { HoustonTheme } from '..';
 
-export default function useHoustonTheme(): HoustonThemeProps {
+export default function useHoustonTheme(): HoustonTheme {
   return useTheme();
 }

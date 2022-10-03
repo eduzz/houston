@@ -23,7 +23,8 @@
     "@emotion/cache": "^11",
     "@emotion/css": "^11",
     "@emotion/react": "^11",
-    "@emotion/styled": "^11"
+    "@emotion/styled": "^11",
+    "antd": "^4"
   },
   "devDependencies": {}
 }

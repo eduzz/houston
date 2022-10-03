@@ -6,7 +6,7 @@ import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/ma
 import { ptBR } from 'date-fns/locale';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
 
-import { HoustonThemeProps } from '@eduzz/houston-styles';
+import { HoustonTheme } from '@eduzz/houston-styles';
 import createThemeStyles from '@eduzz/houston-styles/createTheme';
 
 import DialogGlobal from '../Dialog/Global';
@@ -21,7 +21,7 @@ setDefaultOptions({ locale: ptBR });
 export const createTheme = createThemeStyles;
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
-  theme?: HoustonThemeProps;
+  theme?: HoustonTheme;
   disableResetStyles?: boolean;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;

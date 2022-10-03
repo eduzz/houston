@@ -4,6 +4,8 @@ import emotionStyled from '@emotion/styled';
 
 import { breakpoinstUtils } from '@eduzz/houston-tokens/variables/breakpoints';
 
+import { mediaUtils } from '../media';
+
 export interface StyledProp {
   className?: string;
 }
@@ -14,7 +16,11 @@ export const keyframes = keyframesEmotion;
 export const cx = cxEmotion;
 export const clsx = cxEmotion;
 export const css = cssEmotion;
+/**
+ * @deprecated Use `media` instead
+ */
 export const breakpoints = breakpoinstUtils;
+export const media = mediaUtils;
 
 const styled = emotionStyled;
 export default styled;
