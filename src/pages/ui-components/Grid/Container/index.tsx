@@ -16,6 +16,10 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(({ className,
   </div>
 ));
 
+/**
+ * @deprecated Use Grid from Antd
+ * https://ant.design/components/grid/
+ */
 export default styled(Container, { label: 'hst-grid-container' })(
   ({ theme }) => css`
     width: 100%;

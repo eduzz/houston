@@ -10,6 +10,10 @@ const Text = ({ children, ...rest }: TextProps) => {
   return <span {...rest}>{children}</span>;
 };
 
+/**
+ * @deprecated Use Tag from Antd
+ * https://ant.design/components/tag/
+ */
 export default styled(Text, { label: 'hst-tag-text' })(({ theme }) => {
   return css`
     font-family: ${theme.font.family.base};

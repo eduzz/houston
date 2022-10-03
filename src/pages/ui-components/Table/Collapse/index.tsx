@@ -69,4 +69,8 @@ const CollapseContent = ({
   );
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default React.memo(CollapseContent);

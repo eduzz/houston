@@ -15,6 +15,9 @@ type Style<Props, ClassKey extends string> =
   | StyleResult<Props, ClassKey>
   | ((theme: HoustonThemeProps) => StyleResult<Props, ClassKey>);
 
+/**
+ * @deprecated Migrate to styled
+ */
 export default function createUseStyles<Props extends Record<string, any>, ClassKey extends string = string>(
   generator: Style<Props, ClassKey>
 ): (props?: Partial<Props>) => Record<ClassKey, string> {

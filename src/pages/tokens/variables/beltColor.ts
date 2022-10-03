@@ -1,5 +1,8 @@
 import { BeltColor } from '../types';
 
+/**
+ * @deprecated
+ */
 export const beltColor: BeltColor = {
   white: '#D6D6D6',
   red: '#FF4141',

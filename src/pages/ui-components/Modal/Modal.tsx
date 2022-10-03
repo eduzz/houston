@@ -12,6 +12,10 @@ import ModalContextProvider from './context';
 import Footer from './Footer';
 import Header from './Header';
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export const modalSizesInPx: Record<ModalSizes, number> = { xs: 400, sm: 560, md: 640, lg: 800, xl: 1200 };
 
 export type ModalSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -38,11 +42,6 @@ export interface ModalProps {
    */
   fullscreen?: boolean;
 }
-
-/**
- * @deprecated Use Modal from Antd
- * https://ant.design/components/modal/
- */
 const Modal = ({
   visible,
   className,
@@ -142,6 +141,10 @@ const ModalWrapper = styled(Modal, { label: 'hst-modal' })`
   }}
 `;
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export default nestedComponent(React.memo(ModalWrapper), {
   Header,
   Content,

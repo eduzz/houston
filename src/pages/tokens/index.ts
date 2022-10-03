@@ -14,6 +14,9 @@ import { pxToRem, hexToRgba, remToPx, cleanUnit } from './variables/utils';
 
 export * from './types';
 
+/**
+ * @deprecated
+ */
 export default function createTokens(brand: Brands | BrandColor): HoustonTokens {
   return {
     spacing,
