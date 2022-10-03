@@ -27,6 +27,10 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, Style
   children?: React.ReactNode;
 }
 
+/**
+ * @deprecated Use Avatar from Antd
+ * https://ant.design/components/avatar/
+ */
 const Avatar = ({ src, children, className, size = 'md', alt, ...rest }: AvatarProps) => {
   const hasImage = !!src;
   const hasText = typeof children === 'string';

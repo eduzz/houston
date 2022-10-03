@@ -12,6 +12,10 @@ export interface BreadcrumbProps extends StyledProp, React.HTMLAttributes<HTMLEl
   children: React.ReactNode;
 }
 
+/**
+ * @deprecated Use Breadcrumb from Antd
+ * https://ant.design/components/breadcrumb/
+ */
 const Breadcrumb = ({ children, className, separator, ...rest }: BreadcrumbProps) => {
   return (
     <BreadcrumbProvider separator={separator}>

@@ -26,6 +26,10 @@ const MIN_WITH_DOT = 8;
 const MIN_WITH_NUMBER = 20;
 const MAX_COUNT = 99;
 
+/**
+ * @deprecated Use Badge from Antd
+ * https://ant.design/components/badge/
+ */
 const Badge = ({
   count,
   className,

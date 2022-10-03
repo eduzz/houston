@@ -38,6 +38,10 @@ const mobileSizesMap: SizesMap = {
   lg: 'sm'
 };
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 const Paragraph = React.forwardRef<HTMLParagraphElement | HTMLSpanElement | HTMLElement, ParagraphProps>(
   ({ as = 'p', children, size: sizeProp = 'lg', ...props }, ref) => {
     const { breakpoints } = useHoustonTheme();
