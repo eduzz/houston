@@ -27,6 +27,10 @@ export interface IconButtonProps
   active?: boolean;
 }
 
+/**
+ * @deprecated Use Button with icon prop from Antd
+ * https://ant.design/components/button/
+ */
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ className, size, children, disabled = false, active, ...rest }, ref) => (
     <button

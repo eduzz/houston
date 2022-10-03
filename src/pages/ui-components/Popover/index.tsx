@@ -25,6 +25,10 @@ export interface PopoverRef {
   close(): void;
 }
 
+/**
+ * @deprecated Use Popover from Antd
+ * https://ant.design/components/popover/
+ */
 const Popover = React.forwardRef<PopoverRef, PopoverProps>(
   ({ targetRef, children, className, fullWidth, placement, id, variant, keepMounted }, ref) => {
     const setState = useContextSelector(PopoverContext, context => context.setState);

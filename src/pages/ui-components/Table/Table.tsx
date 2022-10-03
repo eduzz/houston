@@ -24,6 +24,10 @@ export interface TableProps extends StyledProp, React.TableHTMLAttributes<HTMLTa
   emptyText?: string;
 }
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 const Table = ({
   size = 'md',
   children,

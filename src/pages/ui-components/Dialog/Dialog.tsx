@@ -27,6 +27,10 @@ export interface DialogProps extends Omit<ModalProps, 'closeIcon' | 'disableEsca
   showTypeIcon?: boolean;
 }
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 const Dialog = ({
   visible,
   className,

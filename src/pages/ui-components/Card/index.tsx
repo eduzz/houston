@@ -14,6 +14,10 @@ export interface CardProps {
   padding?: CardPadding;
 }
 
+/**
+ * @deprecated Use Card from Antd
+ * https://ant.design/components/card/
+ */
 const Card = ({
   children,
   padding = 'xs',
