@@ -12,7 +12,6 @@ export interface CollapseProps {
   mountOnEnter?: boolean;
   timeout?: number;
 }
-
 const Collapse = ({
   children,
   visibled,
@@ -37,4 +36,9 @@ const Collapse = ({
     </CollapseMUI>
   );
 };
+
+/**
+ * @deprecated Use Collapse from Antd
+ * https://ant.design/components/collapse/
+ */
 export default React.memo(Collapse);

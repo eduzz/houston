@@ -32,6 +32,10 @@ const ListItem = ({ children, className, disabled, isActive, ...rest }: ListItem
   );
 };
 
+/**
+ * @deprecated Use List from Antd
+ * https://ant.design/components/list/
+ */
 export default styled(ListItem, { label: 'hst-list-item' })(({ theme }) => {
   return css`
     display: flex;

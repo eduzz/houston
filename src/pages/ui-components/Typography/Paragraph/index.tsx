@@ -53,4 +53,8 @@ const Paragraph = React.forwardRef<HTMLParagraphElement | HTMLSpanElement | HTML
   }
 );
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 export default Paragraph;

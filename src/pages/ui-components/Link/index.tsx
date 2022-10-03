@@ -24,7 +24,6 @@ export interface LinkProps extends StyledProp, React.HTMLAttributes<HTMLAnchorEl
   size?: LinkSizes;
   children: React.ReactNode;
 }
-
 const Link = ({ as: Tag = 'a', className, showIcon, size = 'inherit', children, ...rest }: LinkProps) => (
   <Tag tabIndex={0} className={cx(className, `hst-link-size-${size}`)} {...rest}>
     {children}
@@ -32,6 +31,10 @@ const Link = ({ as: Tag = 'a', className, showIcon, size = 'inherit', children, 
   </Tag>
 );
 
+/**
+ * @deprecated Use Typography.Link from Antd
+ * https://ant.design/components/typography/#components-typography-demo-text
+ */
 export default styled(Link, { label: 'hst-link' })(({ theme }) => {
   return css`
     all: unset;

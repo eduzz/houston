@@ -14,6 +14,10 @@ const Thumbnail = React.forwardRef<HTMLImageElement, ThumbnailProps>(({ size = '
   return <Image ref={ref} className={cx(className, size && `hst-thumbnail-size-${size}`)} {...props} />;
 });
 
+/**
+ * @deprecated Use Image from Antd
+ * https://ant.design/components/image/
+ */
 export default styled(Thumbnail, { label: 'hst-thumbnail' })`
   ${({ theme }) => css`
     border-radius: ${theme.border.radius.xs};

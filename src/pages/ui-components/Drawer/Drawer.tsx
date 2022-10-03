@@ -20,7 +20,6 @@ export interface DrawerProps extends ModalProps {
    */
   placement?: DrawerPlacement;
 }
-
 const Drawer = ({
   visible,
   disableEscapeKey,
@@ -99,6 +98,10 @@ const DrawerWrapper = styled(Drawer, { label: 'hst-drawer' })`
   }}
 `;
 
+/**
+ * @deprecated Use Drawer from Antd
+ * https://ant.design/components/drawer/
+ */
 export default nestedComponent(React.memo(DrawerWrapper), {
   Header,
   Content,

@@ -88,4 +88,8 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   }
 );
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 export default Heading;

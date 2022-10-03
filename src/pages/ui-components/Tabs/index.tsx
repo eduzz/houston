@@ -32,7 +32,6 @@ const StyledOption = styled.div`
 
 const NEGATIVE_SPACING_IN_PX = -2;
 const MIN_HEIGHT_IN_PX = 48;
-
 const Tabs = ({ children, value, onChange, selectOnMobile, destroyOnClose, mountOnEnter, ...rest }: TabsProps) => {
   const childrenProps = useChildrenProps(children, Tab);
   const tabs = useChildrenComponent(children, Tab);
@@ -311,6 +310,10 @@ const TabsWrapper = React.memo(
   })
 );
 
+/**
+ * @deprecated Use Tabs from Antd
+ * https://ant.design/components/tabs/
+ */
 export default nestedComponent(TabsWrapper, {
   Tab,
   Vertical

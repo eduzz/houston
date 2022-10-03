@@ -51,4 +51,8 @@ const Subtitle = React.forwardRef<HTMLHeadingElement | HTMLParagraphElement, Sub
   }
 );
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 export default Subtitle;

@@ -5,7 +5,6 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 export interface DividerProps extends StyledProp, React.HTMLAttributes<HTMLHRElement> {
   vertical?: boolean;
 }
-
 const Divider = ({ className, vertical, ...rest }: DividerProps) => {
   const ref = React.useRef<HTMLHRElement>(null);
 
@@ -18,6 +17,10 @@ const Divider = ({ className, vertical, ...rest }: DividerProps) => {
   return <hr ref={ref} className={cx(className, { 'hst-divider-vertical': vertical })} {...rest} />;
 };
 
+/**
+ * @deprecated Use Divider from Antd
+ * https://ant.design/components/divider/
+ */
 export default React.memo(styled(Divider, { label: 'hst-divider' })`
   ${({ theme }) => css`
     border-style: solid;

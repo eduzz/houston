@@ -11,7 +11,6 @@ export interface BreadcrumbProps extends StyledProp, React.HTMLAttributes<HTMLEl
   separator?: React.ReactNode;
   children: React.ReactNode;
 }
-
 const Breadcrumb = ({ children, className, separator, ...rest }: BreadcrumbProps) => {
   return (
     <BreadcrumbProvider separator={separator}>
@@ -51,6 +50,10 @@ const BreadcrumbWrapper = styled(Breadcrumb, { label: 'hst-breadcrumb' })`
   `}
 `;
 
+/**
+ * @deprecated Use Breadcrumb from Antd
+ * https://ant.design/components/breadcrumb/
+ */
 export default nestedComponent(React.memo(BreadcrumbWrapper), {
   Item,
   Link

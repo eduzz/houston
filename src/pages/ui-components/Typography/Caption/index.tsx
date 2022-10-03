@@ -21,4 +21,8 @@ const Caption = React.forwardRef<HTMLParagraphElement | HTMLElement, CaptionProp
   }
 );
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 export default Caption;

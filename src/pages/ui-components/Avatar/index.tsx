@@ -26,7 +26,6 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, Style
   size?: AvatarSize;
   children?: React.ReactNode;
 }
-
 const Avatar = ({ src, children, className, size = 'md', alt, ...rest }: AvatarProps) => {
   const hasImage = !!src;
   const hasText = typeof children === 'string';
@@ -46,6 +45,10 @@ const Avatar = ({ src, children, className, size = 'md', alt, ...rest }: AvatarP
   );
 };
 
+/**
+ * @deprecated Use Avatar from Antd
+ * https://ant.design/components/avatar/
+ */
 export default styled(React.memo(Avatar), { label: 'hst-avatar' })(({ theme }) => {
   const fontMap: FontMap = {
     xs: theme.font.size.xxs,

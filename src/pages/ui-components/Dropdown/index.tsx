@@ -45,7 +45,6 @@ export interface DropdownProps {
 
 export const ARROW_SIZE = 12;
 export const ARROW_HALF_SIZE = ARROW_SIZE / 2;
-
 const Dropdown = ({
   children,
   onOpen,
@@ -204,4 +203,8 @@ const DropdownWrapper = styled(Dropdown)`
   }}
 `;
 
+/**
+ * @deprecated Use Dropdown from Antd
+ * https://ant.design/components/dropdown/
+ */
 export default React.memo(DropdownWrapper);

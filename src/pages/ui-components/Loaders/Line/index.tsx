@@ -33,6 +33,10 @@ const indeterminateShortAnimation = keyframes`
   100% { left: 107%; right: -8%; }
 `;
 
+/**
+ * @deprecated Use Spin from Antd
+ * https://ant.design/components/spin/
+ */
 export default styled(LineLoader, { label: 'hst-lineloader' })(
   ({ theme }) => css`
     position: relative;

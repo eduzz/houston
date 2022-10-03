@@ -23,7 +23,6 @@ export interface TableProps extends StyledProp, React.TableHTMLAttributes<HTMLTa
   total?: number;
   emptyText?: string;
 }
-
 const Table = ({
   size = 'md',
   children,
@@ -143,6 +142,10 @@ const Table = ({
   );
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default styled(React.memo(Table), { label: 'hst-table' })(
   ({ theme }) => css`
     & > .hts-table-scroller-shadow {

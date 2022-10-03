@@ -24,7 +24,6 @@ export interface PopoverRef {
   open(): void;
   close(): void;
 }
-
 const Popover = React.forwardRef<PopoverRef, PopoverProps>(
   ({ targetRef, children, className, fullWidth, placement, id, variant, keepMounted }, ref) => {
     const setState = useContextSelector(PopoverContext, context => context.setState);
@@ -81,6 +80,10 @@ const hideAnimation = keyframes`
   100% { transform: scale(0.9); opacity: 0; }
 `;
 
+/**
+ * @deprecated Use Popover from Antd
+ * https://ant.design/components/popover/
+ */
 export default styled(Popover, { label: 'hst-popover' })(
   ({ theme }) => css`
     box-sizing: border-box;

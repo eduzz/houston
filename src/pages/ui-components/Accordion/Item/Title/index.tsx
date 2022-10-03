@@ -26,10 +26,15 @@ const ChevronIcon = () => (
 const AccordionTitle = ({ children, ...rest }: TitleProps) => {
   const expandedItems = useContextSelector(AccordionContext, context => context.expandedItems);
   const itemId = useContextSelector(ItemContext, context => context.itemId);
+  const setTheExpandedItems = useContextSelector(AccordionContext, context => context.setTheExpandedItems);
+
+  const onClick = React.useCallback(() => {
+    setTheExpandedItems(itemId);
+  }, [itemId, setTheExpandedItems]);
 
   return (
     <>
-      <div tabIndex={0} {...rest}>
+      <div tabIndex={0} {...rest} onClick={onClick}>
         {typeof children === 'string' ? (
           <Typography lineHeight='default' weight='semibold' as='span'>
             {children}
@@ -47,6 +52,10 @@ const AccordionTitle = ({ children, ...rest }: TitleProps) => {
   );
 };
 
+/**
+ * @deprecated Use Collapse with accordion prop from Antd
+ * https://ant.design/components/collapse/#components-collapse-demo-accordion
+ */
 export default styled(AccordionTitle, { label: 'hst-accordion-title' })(({ theme }) => {
   return css`
     display: flex;
@@ -55,6 +64,7 @@ export default styled(AccordionTitle, { label: 'hst-accordion-title' })(({ theme
     padding: ${theme.spacing.squish.xxs};
     transition-duration: 0.5s;
     transition-property: background-color, color;
+    cursor: pointer;
 
     .hst-accordion-icon {
       line-height: 0;

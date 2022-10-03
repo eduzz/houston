@@ -132,6 +132,10 @@ const Alert = React.forwardRef<HTMLDivElement, AlertInterface>(
   }
 );
 
+/**
+ * @deprecated Use Alert from Antd
+ * https://ant.design/components/alert/
+ */
 export default styled(Alert, { label: 'hst-alert' })`
   ${({ theme }) => {
     const mobileSpacingCloseIcon = theme.remToPx(theme.cleanUnit(theme.spacing.inline.nano)) + CLOSE_ICON_SIZE;

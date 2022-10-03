@@ -97,6 +97,10 @@ const Pagination = ({
   );
 };
 
+/**
+ * @deprecated Use Pagination from Antd
+ * https://ant.design/components/pagination/
+ */
 export default styled(React.memo(Pagination), { label: 'hst-pagination' })(
   ({ theme }) => css`
     display: flex;
