@@ -61,8 +61,6 @@ function ThemeProvider({
   }, [disabledFontBase]);
 
   React.useEffect(() => {
-    if (!theme.primaryColor) return;
-
     setTwoToneColor(theme.primaryColor);
     ConfigProvider.config({ theme: { primaryColor: theme.primaryColor } });
   }, [theme.primaryColor]);

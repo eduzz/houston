@@ -5,6 +5,9 @@ import { brands as deprecatedBrands } from '@eduzz/houston-tokens/variables/bran
 import { mediaUtils } from '../media';
 import { BrandsBuildin, brandsPrimaryColor } from './brands';
 import { HoustonTheme, HoustonThemeCustomVariables } from './types';
+import { hexToRgba, spacing } from './utils';
+
+const DEFAULT_PRIMARY_COLOR = '#0d2772';
 
 export default function createTheme(brand: BrandsBuildin, variables?: HoustonThemeCustomVariables): HoustonTheme;
 export default function createTheme(primaryColor: `#${string}`, variables?: HoustonThemeCustomVariables): HoustonTheme;
@@ -20,10 +23,18 @@ export default function createTheme(
   variables?: HoustonThemeCustomVariables
 ): HoustonTheme {
   const brandColor = resolveBrandColor(brand);
+  const { spacing: spacingTokens, ...tokens } = createTokens(brandColor.deprecated);
+
+  Object.keys(spacingTokens).forEach(key => {
+    spacing[key] = spacingTokens[key];
+  });
+
   return {
-    primaryColor: brandColor.antd,
+    ...tokens,
+    primaryColor: brandColor.antd ?? DEFAULT_PRIMARY_COLOR,
     media: mediaUtils,
-    ...createTokens(brandColor.deprecated),
+    spacing: spacing as any,
+    hexToRgba,
     variables
   };
 }

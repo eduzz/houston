@@ -1,8 +1,7 @@
 import { Palette } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-import { HoustonThemeProps } from '@eduzz/houston-styles';
-
+import { HoustonTheme } from '../createTheme/types';
 import components from './components';
 import palette from './palette';
 import typography from './typography';
@@ -17,14 +16,14 @@ declare module '@mui/material/styles' {
   }
 }
 
-export default function generateTheme(theme: HoustonThemeProps) {
+export default function generateTheme(theme: HoustonTheme) {
   const newPalette = palette(theme);
 
   const muiTheme = createTheme({
     palette: newPalette,
     components: components(newPalette as Palette, theme),
     typography: typography(theme),
-    spacing: theme.spacing.fn,
+    spacing: theme.spacing,
     breakpoints: {
       values: Object.keys(theme.breakpoints).reduce((acc, key) => {
         if (['up', 'down'].includes(key)) return acc;
