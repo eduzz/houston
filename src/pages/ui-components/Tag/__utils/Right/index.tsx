@@ -22,6 +22,10 @@ const TagRight = ({ children, onClick: onClickProp, ...rest }: TagRightProps) =>
   );
 };
 
+/**
+ * @deprecated Use Tag from Antd
+ * https://ant.design/components/tag/
+ */
 export default styled(TagRight, { label: 'hst-tag-right' })(({ theme }) => {
   return css`
     border-radius: ${theme.border.radius.circular};

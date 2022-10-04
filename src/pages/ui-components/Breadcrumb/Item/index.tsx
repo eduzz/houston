@@ -34,6 +34,10 @@ const BreadcrumbItem = ({ id, children, className, isActive }: BreadcrumbItemPro
   );
 };
 
+/**
+ * @deprecated Use Breadcrumb from Antd
+ * https://ant.design/components/breadcrumb/
+ */
 export default React.memo(styled(BreadcrumbItem, { label: 'hst-breadcrumb-item' })`
   ${({ theme }) => css`
     display: flex;

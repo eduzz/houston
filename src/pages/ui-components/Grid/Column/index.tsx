@@ -37,6 +37,10 @@ const Column = React.forwardRef<HTMLDivElement, ColumnProps>(
   }
 );
 
+/**
+ * @deprecated Use Grid from Antd
+ * https://ant.design/components/grid/
+ */
 export default styled(Column, { label: 'hst-grid-column' })(({ theme }) =>
   breakpoints.map(breakpoint => {
     const cssSize = columnSizes.map(

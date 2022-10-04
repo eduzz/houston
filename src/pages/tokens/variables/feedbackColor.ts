@@ -1,5 +1,8 @@
 import type { FeedbackColor } from '../types';
 
+/**
+ * @deprecated
+ */
 export const feedbackColor: FeedbackColor = {
   positive: {
     pure: '#4CAF50',
