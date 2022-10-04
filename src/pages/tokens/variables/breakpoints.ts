@@ -2,6 +2,9 @@ import type { Breakpoints, BreakpointsUtils } from '../types';
 
 const DEFAULT_DISTANCE_BETWEEN_BREAKPOINTS = 5;
 
+/**
+ * @deprecated
+ */
 export const breakpoints: Breakpoints = {
   xs: '320px',
   sm: '576px',
@@ -14,6 +17,9 @@ const formatBreakpointValue = (value: string) => {
   return Number(value.replace('px', ''));
 };
 
+/**
+ * @deprecated
+ */
 export const breakpoinstUtils: BreakpointsUtils = {
   down: (key: keyof Breakpoints) => `@media (max-width:${formatBreakpointValue(breakpoints[key])}px)`,
   up: (key: keyof Breakpoints) =>

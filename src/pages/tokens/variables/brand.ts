@@ -1,6 +1,9 @@
 import type { BrandColor, BrandColors, Brands } from '../types';
 
-const brands = {
+/**
+ * @deprecated
+ */
+export const brands = {
   eduzz: {
     primary: {
       pure: '#0D2772',
@@ -129,6 +132,9 @@ const brands = {
   }
 } as BrandColors;
 
+/**
+ * @deprecated
+ */
 export function createBrandColors(brand: Brands | BrandColor): BrandColor {
   const brandVariables = typeof brand === 'string' ? brands[brand] : brand;
 
@@ -139,4 +145,7 @@ export function createBrandColors(brand: Brands | BrandColor): BrandColor {
   return brandVariables;
 }
 
+/**
+ * @deprecated
+ */
 export const getSupportedBrands = () => Object.keys(brands);

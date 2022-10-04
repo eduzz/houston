@@ -14,4 +14,8 @@ const TableCell = ({ children, className, ...props }: TableCellProps) => {
   );
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default TableCell;

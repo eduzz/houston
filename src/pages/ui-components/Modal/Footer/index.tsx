@@ -19,6 +19,10 @@ const ModalFooter = ({
   );
 };
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export default styled(ModalFooter, { label: 'hst-modal-footer' })`
   ${({ theme }) => css`
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};

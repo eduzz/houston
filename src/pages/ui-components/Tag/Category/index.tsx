@@ -12,6 +12,10 @@ const TagCategory = ({ children, icon, ...rest }: TagCategoryProps) => (
   </span>
 );
 
+/**
+ * @deprecated Use Tag from Antd
+ * https://ant.design/components/tag/
+ */
 export default styled(TagCategory, { label: 'hst-tag-category' })(({ theme }) => {
   return css`
     font-size: ${theme.font.size.xxs};

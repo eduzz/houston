@@ -18,11 +18,6 @@ export interface TagProps extends StyledProp, React.HTMLAttributes<HTMLSpanEleme
 }
 
 const MIN_HEIGHT_IN_PX = 32;
-
-/**
- * @deprecated Use Tag from Antd
- * https://ant.design/components/tag/
- */
 const Tag = ({ children, disabled, isActive, onClick: onClickProp, className, onClose, ...rest }: TagProps) => {
   return (
     <span
@@ -76,6 +71,10 @@ const TagWrapper = styled(Tag, { label: 'hst-tag' })(({ theme }) => {
   `;
 });
 
+/**
+ * @deprecated Use Tag from Antd
+ * https://ant.design/components/tag/
+ */
 export default nestedComponent(TagWrapper, {
   Left,
   Right,

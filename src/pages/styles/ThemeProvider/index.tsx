@@ -9,6 +9,9 @@ export interface ThemeProviderProps {
   children?: React.ReactNode;
 }
 
+/**
+ * @deprecated
+ */
 const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme, children }) => {
   return <ThemeProviderEmotion theme={theme}>{children}</ThemeProviderEmotion>;
 };

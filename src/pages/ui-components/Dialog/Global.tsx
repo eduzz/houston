@@ -105,12 +105,24 @@ function callComponent(params: DialogShowParams): Promise<boolean> {
   }));
 }
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export function showAlert(params: string | Omit<DialogShowParams, 'confirmation' | 'onCancel'>) {
   return callComponent(typeof params === 'string' ? { message: params } : params);
 }
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export function showConfirm(params: string | Omit<DialogShowParams, 'confirmation'>) {
   return callComponent({ ...(typeof params === 'string' ? { message: params } : params), confirmation: true });
 }
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export default DialogGlobal;
