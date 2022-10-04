@@ -16,11 +16,6 @@ export interface ListProps extends StyledProp, React.HTMLAttributes<HTMLUListEle
    */
   dividers?: boolean;
 }
-
-/**
- * @deprecated Use List from Antd
- * https://ant.design/components/list/
- */
 const List = ({ children, className, dividers = false, ...rest }: ListProps) => {
   return (
     <ListContextProvider dividers={dividers}>
@@ -43,6 +38,10 @@ const ListWrapper = React.memo(
   )
 );
 
+/**
+ * @deprecated Use List from Antd
+ * https://ant.design/components/list/
+ */
 export default nestedComponent(ListWrapper, {
   Item,
   Text,

@@ -40,6 +40,10 @@ function getColor(theme: HoustonThemeProps, color: string) {
   return result;
 }
 
+/**
+ * @deprecated Use Tag from Antd
+ * https://ant.design/components/tag/
+ */
 export default styled(TagHighlight, { label: 'hst-tag-highlight' })(({ theme, color = 'neutralColor.high.medium' }) => {
   const isDefaultColor = color === 'neutralColor.high.medium';
 

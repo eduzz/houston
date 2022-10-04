@@ -37,4 +37,7 @@ const Box = (props: BoxProps) => {
   );
 };
 
+/**
+ * @deprecated
+ */
 export default React.memo(Box);

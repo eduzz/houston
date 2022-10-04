@@ -5,6 +5,10 @@ import { useContextSelector } from 'use-context-selector';
 import { PopoverRef } from '.';
 import PopoverContext from './context';
 
+/**
+ * @deprecated Use Popover from Antd
+ * https://ant.design/components/popover/
+ */
 export default function usePopover() {
   const openedTarget = useContextSelector(PopoverContext, context => context.openedTarget);
 
