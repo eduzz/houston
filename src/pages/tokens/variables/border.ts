@@ -1,5 +1,8 @@
 import type { Border } from '../types';
 
+/**
+ * @deprecated
+ */
 export const border: Border = {
   width: {
     none: '0',

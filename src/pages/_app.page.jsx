@@ -9,12 +9,12 @@ import createTheme from '@eduzz/houston-styles/createTheme';
 import ThemeProvider from '@eduzz/houston-styles/ThemeProvider';
 import ToastContainer from '@eduzz/houston-ui/Toast/Container';
 
-import './_app.page.css';
+import './_app.page.less';
 
 const sidebarOrdering = {
   'index.mdx': true,
   'README.mdx': true,
-  styles: { 'README.mdx': true },
+  'styles': { 'README.mdx': true },
   'ui-components': { 'README.mdx': true }
 };
 

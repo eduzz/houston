@@ -40,4 +40,8 @@ const ProgressBarWrapper = styled(ProgressBar, { label: 'hst-progress-bar' })`
   `}
 `;
 
+/**
+ * @deprecated Use Progress from Antd
+ * https://ant.design/components/progress/
+ */
 export default ProgressBarWrapper;

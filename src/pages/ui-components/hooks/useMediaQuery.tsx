@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /**
- * @param query {string} - For example: (max-width: 575.95px)
+ * @deprecated
  */
 export default function useMediaQuery(query: string): boolean {
   const formattedQuery = query.replace('@media', '').trim();

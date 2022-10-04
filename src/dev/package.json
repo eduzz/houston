@@ -1,25 +1,27 @@
 {
   "name": "@eduzz/houston-dev",
-  "version": "0.64.7",
+  "version": "0.65.0-beta.7",
   "private": true,
   "dependencies": {
-    "@eduzz/houston-forms": "0.64.7",
-    "@eduzz/houston-hooks": "0.64.7",
-    "@eduzz/houston-icons": "0.64.7",
-    "@eduzz/houston-ui": "0.64.7",
+    "@eduzz/houston-forms": "0.65.0-beta.7",
+    "@eduzz/houston-hooks": "0.65.0-beta.7",
+    "@eduzz/houston-icons": "0.65.0-beta.7",
+    "@eduzz/houston-ui": "0.65.0-beta.7",
     "react-dom": "^18",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
     "react": "^18"
   },
   "devDependencies": {
     "@types/node": "^18",
     "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/react-dom": "^18",
+    "@craco/craco":"^6.4.5",
+    "craco-less": "^2.0.0"
   },
   "scripts": {
-    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
-    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "start": "DISABLE_ESLINT_PLUGIN=true craco start",
+    "build": "DISABLE_ESLINT_PLUGIN=true craco build",
     "check-update-deps": "yarn ncu -u"
   },
   "browserslist": {

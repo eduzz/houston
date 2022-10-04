@@ -10,6 +10,9 @@ export type SupportedColors =
   | 'low'
   | 'high';
 
+/**
+ * @deprecated
+ */
 export default function getColorFallback(theme: HoustonTokens, colorKey: SupportedColors = 'primary'): Color {
   if (['low', 'high'].includes(colorKey)) {
     return theme.neutralColor[colorKey];

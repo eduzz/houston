@@ -1,6 +1,6 @@
-import FormMaskAdapter from './maskAdapter';
+import { MaskAdapter } from '.';
 
-const moneyMask: FormMaskAdapter = {
+const moneyMask: MaskAdapter = {
   apply: (value: number | string) => {
     if (value === null || value === undefined || value === '') return '';
 
