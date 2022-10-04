@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-tokens",
   "description": "Eduzz Houston Tokens",
-  "version": "0.65.0-beta.2",
+  "version": "v0.65.0-beta.3",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",

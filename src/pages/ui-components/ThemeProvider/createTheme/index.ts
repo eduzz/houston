@@ -3,7 +3,7 @@ import createTokens, { BrandColor as DeprecatedBrandColor } from '@eduzz/houston
 import { brands as deprecatedBrands } from '@eduzz/houston-tokens/variables/brand';
 
 import { mediaUtils } from '../media';
-import { BrandsBuildin } from './brands';
+import { BrandsBuildin, brandsPrimaryColor } from './brands';
 import { HoustonTheme, HoustonThemeCustomVariables } from './types';
 
 export default function createTheme(brand: BrandsBuildin, variables?: HoustonThemeCustomVariables): HoustonTheme;
@@ -50,7 +50,7 @@ function resolveBrandColor(brand: BrandsBuildin | `#${string}` | DeprecatedBrand
   }
 
   return {
-    antd: brand[brand],
+    antd: brandsPrimaryColor[brand],
     deprecated: deprecatedBrands[brand]
   };
 }

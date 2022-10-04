@@ -60,6 +60,7 @@ function ThemeProvider({
   }, [disabledFontBase]);
 
   React.useEffect(() => {
+    console.log(theme.primaryColor);
     ConfigProvider.config({
       theme: { primaryColor: theme.primaryColor }
     });
