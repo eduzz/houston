@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { setTwoToneColor } from '@ant-design/icons/lib/components/twoTonePrimaryColor';
+import { setTwoToneColor } from '@ant-design/icons';
 import { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
@@ -32,7 +32,7 @@ export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'chi
   disableDialogs?: boolean;
 }
 
-const defaultTheme = createTheme('eduzz');
+const defaultTheme = createTheme('blinket');
 
 function ThemeProvider({
   theme = defaultTheme,
