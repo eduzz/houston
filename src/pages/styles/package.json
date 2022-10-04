@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-styles",
   "description": "Eduzz Houston Style",
-  "version": "v0.65.0-beta.3",
+  "version": "v0.65.0-beta.4",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -19,7 +19,7 @@
     "check-update-deps": "yarn ncu -u"
   },
   "dependencies": {
-    "@eduzz/houston-tokens": "v0.65.0-beta.3",
+    "@eduzz/houston-tokens": "v0.65.0-beta.4",
     "@emotion/cache": "^11",
     "@emotion/css": "^11",
     "@emotion/react": "^11",

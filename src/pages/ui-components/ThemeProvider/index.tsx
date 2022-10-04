@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { setTwoToneColor } from '@ant-design/icons/lib/components/twoTonePrimaryColor';
 import { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
@@ -60,10 +61,10 @@ function ThemeProvider({
   }, [disabledFontBase]);
 
   React.useEffect(() => {
-    console.log(theme.primaryColor);
-    ConfigProvider.config({
-      theme: { primaryColor: theme.primaryColor }
-    });
+    if (!theme.primaryColor) return;
+
+    setTwoToneColor(theme.primaryColor);
+    ConfigProvider.config({ theme: { primaryColor: theme.primaryColor } });
   }, [theme.primaryColor]);
 
   React.useEffect(() => setCurrentTheme(theme), [theme]);
