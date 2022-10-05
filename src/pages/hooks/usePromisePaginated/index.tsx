@@ -164,9 +164,23 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
   );
 
   const handleSort = React.useCallback(
-    (sortField: string, sortDirection: 'asc' | 'desc') =>
+    (sortField: string | undefined | null, sortDirection?: 'asc' | 'desc') =>
       mergeParams({ sortField, sortDirection, page: initialParams.page } as P),
     [initialParams.page, mergeParams]
+  );
+
+  const handleAntdChange = React.useCallback<NonNullable<TableProps<R>['onChange']>>(
+    (pagination, filters, sorter) => {
+      pagination.current && handleChangePage(pagination.current);
+      pagination.pageSize && handleChangePerPage(pagination.pageSize);
+
+      const sort = Array.isArray(sorter) ? sorter[0] : sorter;
+      handleSort(
+        sort.field as any,
+        sort.order === 'ascend' ? 'asc' : sort.order === 'descend' ? 'desc' : (undefined as any)
+      );
+    },
+    [handleChangePage, handleChangePerPage, handleSort]
   );
 
   return {
@@ -185,6 +199,9 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
     handleChangePerPage,
     antd: {
       loading: isLoading,
+      rowKey: 'id',
+      onChange: handleAntdChange,
+      showSorterTooltip: true,
       pagination: {
         disabled: isLoading,
         responsive: true,
