@@ -63,7 +63,7 @@ const TableActionOption = ({
         setLoading(false);
       }
     },
-    [data, index, onClick]
+    [closeMenu, data, index, onClick, setLoading]
   );
 
   let content = (

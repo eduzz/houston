@@ -4,8 +4,12 @@ import { setTwoToneColor } from '@ant-design/icons';
 import { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import ConfigProvider from 'antd/lib/config-provider';
-import { ptBR } from 'date-fns/locale';
+import { ConfigProvider } from 'antd';
+import { Locale as AntdLocale } from 'antd/es/locale-provider';
+import antdLocalePtBR from 'antd/es/locale/pt_BR';
+// eslint-disable-next-line no-restricted-imports
+import type { Locale as DateLocale } from 'date-fns';
+import { ptBR as datePtBR } from 'date-fns/locale';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
 
 import DialogGlobal from '../Dialog/Global';
@@ -18,13 +22,13 @@ import { HoustonTheme } from './createTheme/types';
 import GlobalStyles from './reset';
 
 export * from './createTheme/types';
-
-setDefaultOptions({ locale: ptBR });
-
+setDefaultOptions({ locale: datePtBR });
 export const createTheme = createThemeInternal;
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
   theme?: HoustonTheme;
+  antdLocale?: AntdLocale;
+  dateFnsLocale?: DateLocale;
   disableResetStyles?: boolean;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
@@ -36,6 +40,8 @@ const defaultTheme = createTheme('blinket');
 
 function ThemeProvider({
   theme = defaultTheme,
+  antdLocale = antdLocalePtBR,
+  dateFnsLocale = datePtBR,
   children,
   disableResetStyles,
   disableCssBaseline,
@@ -67,16 +73,22 @@ function ThemeProvider({
 
   React.useEffect(() => setCurrentTheme(theme), [theme]);
 
+  React.useEffect(() => {
+    setDefaultOptions({ locale: dateFnsLocale });
+  }, [dateFnsLocale]);
+
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
-        <PopoverRoot>
-          {!disableToast && <ToastContainer />}
-          {!disableDialogs && <DialogGlobal />}
-          {!disableCssBaseline && <CssBaseline />}
-          {!disableResetStyles && <GlobalStyles />}
-          {children}
-        </PopoverRoot>
+        <ConfigProvider locale={antdLocale}>
+          <PopoverRoot>
+            {!disableToast && <ToastContainer />}
+            {!disableDialogs && <DialogGlobal />}
+            {!disableCssBaseline && <CssBaseline />}
+            {!disableResetStyles && <GlobalStyles />}
+            {children}
+          </PopoverRoot>
+        </ConfigProvider>
       </MUIThemeProvider>
     </StyledEngineProvider>
   );

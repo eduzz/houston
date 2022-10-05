@@ -16,6 +16,9 @@
 @height-lg: 42px;
 @height-sm: 32px;
 
+// Pagination
+@pagination-item-size: 32px;
+
 // Radius
 @border-radius-base: 4px;
 @border-radius-sm: 4px;
@@ -46,4 +49,22 @@
 
 .ant-col-24.ant-form-item-label > label {
   height: auto;
+}
+
+.ant-select {
+  width: 100%;
+}
+
+.ant-pagination-options {
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    height: @pagination-item-size;
+  }
+
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+    height: calc(@pagination-item-size - 3px);
+  }
+
+  .ant-select-single .ant-select-selector .ant-select-selection-item, .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+    line-height: calc(@pagination-item-size - 3px);
+  }
 }
