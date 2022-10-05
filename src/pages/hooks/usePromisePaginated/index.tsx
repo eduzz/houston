@@ -54,7 +54,7 @@ export interface UsePromisePaginated<P extends PaginationParams, R> {
   /** Sintax sugar for `mergeParams` to change the sort  */
   handleSort: (sortField: string, sortDirection: 'asc' | 'desc') => void;
 
-  antd: TableProps<R>;
+  tableProps: TableProps<R>;
 }
 
 /**
@@ -158,10 +158,6 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
 
   const handleChangePage = React.useCallback((page: number) => mergeParams({ page } as P), [mergeParams]);
   const handleChangePerPage = React.useCallback((perPage: number) => mergeParams({ perPage } as P), [mergeParams]);
-  const handleChangePageAndPerPage = React.useCallback(
-    (page: number, perPage: number) => mergeParams({ page, perPage } as P),
-    [mergeParams]
-  );
 
   const handleSort = React.useCallback(
     (sortField: string | undefined | null, sortDirection?: 'asc' | 'desc') =>
@@ -171,16 +167,19 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
 
   const handleAntdChange = React.useCallback<NonNullable<TableProps<R>['onChange']>>(
     (pagination, filters, sorter) => {
-      pagination.current && handleChangePage(pagination.current);
-      pagination.pageSize && handleChangePerPage(pagination.pageSize);
-
       const sort = Array.isArray(sorter) ? sorter[0] : sorter;
-      handleSort(
-        sort.field as any,
-        sort.order === 'ascend' ? 'asc' : sort.order === 'descend' ? 'desc' : (undefined as any)
+
+      mergeParams(
+        current =>
+          ({
+            page: pagination.current ?? current.page,
+            perPage: pagination.pageSize ?? current.perPage,
+            sortField: sort.field,
+            sortDirection: sort.order === 'ascend' ? 'asc' : sort.order === 'descend' ? 'desc' : undefined
+          } as Partial<P>)
       );
     },
-    [handleChangePage, handleChangePerPage, handleSort]
+    [mergeParams]
   );
 
   return {
@@ -197,7 +196,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
     handleSort,
     handleChangePage,
     handleChangePerPage,
-    antd: {
+    tableProps: {
       loading: isLoading,
       rowKey: 'id',
       onChange: handleAntdChange,
@@ -207,8 +206,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
         responsive: true,
         pageSize: params.perPage,
         current: params.page,
-        total: data.total,
-        onChange: handleChangePageAndPerPage
+        total: data.total
       }
     }
   };

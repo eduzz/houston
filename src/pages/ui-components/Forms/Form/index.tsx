@@ -20,4 +20,7 @@ const Form = ({ context, onSubmit, ...rest }: FormProps) => {
   );
 };
 
+/**
+ * @deprecated Use Form from @eduzz/houston-forms or Antd
+ */
 export default Form;

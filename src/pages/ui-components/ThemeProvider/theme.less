@@ -3,7 +3,7 @@
 // overrides theme
 
 // Font
-@font-size-base: 15px;
+@font-size-base: 14px;
 
 // colors
 @primary-color: var(--ant-primary-color, #0d2772);
@@ -44,14 +44,22 @@
 @select-item-selected-bg: #ddd;
 
 .ant-form-item {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.ant-form-item-explain-error {
+  font-size: 13px;
+}
+
+.ant-form-vertical .ant-form-item-label {
+  padding-bottom: 4px;
 }
 
 .ant-col-24.ant-form-item-label > label {
   height: auto;
 }
 
-.ant-select {
+.ant-select, .ant-picker {
   width: 100%;
 }
 
@@ -67,4 +75,13 @@
   .ant-select-single .ant-select-selector .ant-select-selection-item, .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
     line-height: calc(@pagination-item-size - 3px);
   }
+}
+
+.ant-table table {
+  border: 1px solid @table-border-color;
+  border-bottom: none;
+}
+
+.ant-space {
+  display: flex;
 }

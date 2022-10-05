@@ -3,14 +3,14 @@ import * as React from 'react';
 import { Form as AntdForm } from 'antd';
 import { Controller, useFormContext } from 'react-hook-form';
 
-export interface WithFormProps<R> {
+export type WithFormProps<R> = {
   label?: string;
   name?: string;
   disabled?: boolean;
   genericRef?: R;
   help?: React.ReactNode;
   error?: string;
-}
+};
 
 const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P>) =>
   React.forwardRef<P['genericRef'], Omit<P, 'genericRef'>>(({ name, disabled, label, help, error, ...props }, ref) => {

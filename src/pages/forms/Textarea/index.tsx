@@ -27,7 +27,7 @@ const Textarea = React.forwardRef<TextAreaRef, TextAreaProps>(({ value, onChange
     [onBlur]
   );
 
-  return <AntdInput.TextArea ref={ref} value={value} onChange={handleChange} onBlur={handleBlur} {...props} />;
+  return <AntdInput.TextArea ref={ref} value={value} onChange={handleChange} onBlur={handleBlur} rows={4} {...props} />;
 });
 
-export default withForm(React.memo(Textarea));
+export default withForm(Textarea);

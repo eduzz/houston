@@ -146,6 +146,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
+/**
+ * @deprecated Use Input from @eduzz/houston-forms or Antd
+ */
 export default styled(withForm(React.memo(Input)), { label: 'hst-input' })(
   ({ theme }) => css`
     & .hst-input-wrapper-auto-sizer {

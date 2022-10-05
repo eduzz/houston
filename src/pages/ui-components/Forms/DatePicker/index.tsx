@@ -157,6 +157,9 @@ const DatePicker = ({
 const SIZE_BUTTON = `${pxToRem(48)}rem`;
 const HOUR_WIDTH_BUTTON = `${pxToRem(63)}rem`;
 
+/**
+ * @deprecated Use Datepicker from @eduzz/houston-forms or Antd
+ */
 export default withForm(
   styled(React.memo(DatePicker), { label: 'hst-datepicker' })(
     ({ theme }) => css`

@@ -58,4 +58,4 @@ const Input = React.forwardRef<InputRef, InputProps>(
   }
 );
 
-export default withForm(React.memo(Input));
+export default withForm(Input);

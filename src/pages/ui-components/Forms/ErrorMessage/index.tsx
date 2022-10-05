@@ -13,6 +13,9 @@ export interface ErrorMessageProps {
   className?: string;
 }
 
+/**
+ * @deprecated
+ */
 const ErrorMessage = ({ id, name, className }: ErrorMessageProps) => {
   const formState = useFormState({ name, exact: true });
 

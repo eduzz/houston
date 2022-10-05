@@ -43,6 +43,9 @@ const Color = ({ className, value, errorMessage, disabled, loading, onChange, ..
   );
 };
 
+/**
+ * @deprecated
+ */
 export default styled(withForm(React.memo(Color)))`
   & .react-colorful {
     width: 170px;

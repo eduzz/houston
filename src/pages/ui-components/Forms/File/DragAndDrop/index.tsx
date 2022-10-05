@@ -17,6 +17,9 @@ import { DragAndDropProps, UploadChangeParam, UploadFile } from './types';
 import UploadList from './UploadList';
 import { file2Obj, getFileItem, removeFileItem, updateFileList } from './utils';
 
+/**
+ * @deprecated
+ */
 export const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`;
 
 const DragAndDrop = React.forwardRef<unknown, DragAndDropProps>(
@@ -383,6 +386,9 @@ const StyledDragAndDrop = styled(withForm(DragAndDrop), { label: 'hst-drag-and-d
   `}
 `;
 
+/**
+ * @deprecated
+ */
 export default nestedComponent(StyledDragAndDrop, {
   LIST_IGNORE
 });
