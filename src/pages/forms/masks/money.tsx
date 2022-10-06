@@ -1,12 +1,13 @@
-import FormMaskAdapter from './maskAdapter';
+import { MaskAdapter } from '.';
 
-const moneyMask: FormMaskAdapter = {
+const moneyMask: MaskAdapter = {
   apply: (value: number | string) => {
     if (value === null || value === undefined || value === '') return '';
 
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
-      currency: 'BRL'
+      currency: 'BRL',
+      currencyDisplay: 'none'
     }).format(Number(value) || 0);
   },
   clean: value => {

@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { flushSync } from 'react-dom';
 
 import RcUpload from 'rc-upload';
 import type { UploadProps as RcUploadProps } from 'rc-upload';
 import type { RcFile, UploadProgressEvent } from 'rc-upload/lib/interface';
 import useMergedState from 'rc-util/lib/hooks/useMergedState';
-import { flushSync } from 'react-dom';
 import * as yup from 'yup';
 
 import UploadIcon from '@eduzz/houston-icons/Upload';
@@ -17,6 +17,9 @@ import { DragAndDropProps, UploadChangeParam, UploadFile } from './types';
 import UploadList from './UploadList';
 import { file2Obj, getFileItem, removeFileItem, updateFileList } from './utils';
 
+/**
+ * @deprecated
+ */
 export const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`;
 
 const DragAndDrop = React.forwardRef<unknown, DragAndDropProps>(
@@ -383,6 +386,9 @@ const StyledDragAndDrop = styled(withForm(DragAndDrop), { label: 'hst-drag-and-d
   `}
 `;
 
+/**
+ * @deprecated
+ */
 export default nestedComponent(StyledDragAndDrop, {
   LIST_IGNORE
 });

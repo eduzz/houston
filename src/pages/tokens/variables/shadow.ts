@@ -1,5 +1,8 @@
 import type { Shadow } from '../types';
 
+/**
+ * @deprecated
+ */
 export const shadow: Shadow = {
   level: {
     1: '0px 4px 8px rgba(0, 0, 0, 0.16)',

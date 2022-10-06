@@ -1,5 +1,8 @@
 import type { NeutralColor } from '../types';
 
+/**
+ * @deprecated
+ */
 export const neutralColor: NeutralColor = {
   low: {
     pure: '#000000',

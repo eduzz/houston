@@ -65,6 +65,9 @@ const CheckboxGroup = ({
   );
 };
 
+/**
+ * @deprecated
+ */
 export default styled(withForm(React.memo(CheckboxGroup)), { label: 'hst-checkbox-group' })`
   ${({ theme, spacing = 'xxxs' }) => css`
     .hst-checkbox-group-checkboxes {

@@ -1,12 +1,13 @@
 import React, { memo } from 'react';
 
-import styled, { css, StyledProp } from '@eduzz/houston-styles';
-import Button from '@eduzz/houston-ui/Button';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { Button } from 'antd';
 
-const ComponentsDev = memo<StyledProp>(({ className }) => {
+const ComponentsDev = memo<{ className?: string }>(({ className }) => {
   return (
     <div className={className}>
-      <Button>Button</Button>
+      <Button type='primary'>Button</Button>
     </div>
   );
 });

@@ -52,11 +52,6 @@ const HEIGHT_BAR_SMALL = 4;
 
 const MIN_WIDTH_WHEN_LABEL = 160;
 const MIN_WIDTH_DEFAULT = 88;
-
-/**
- * @deprecated Use Progress from Antd
- * https://ant.design/components/progress/
- */
 const Progress = ({
   className,
   value,
@@ -186,4 +181,8 @@ const ProgressWrapper = styled(Progress, { label: 'hst-progress' })`
   `}
 `;
 
+/**
+ * @deprecated Use Progress from Antd
+ * https://ant.design/components/progress/
+ */
 export default ProgressWrapper;

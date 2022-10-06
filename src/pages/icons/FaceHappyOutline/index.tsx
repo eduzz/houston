@@ -15,4 +15,8 @@ const FaceHappyOutline = (props: IconProps) => {
   );
 };
 
+/**
+ * @deprecated Use Icon from Antd
+ * https://ant.design/components/icon/
+ */
 export default FaceHappyOutline;

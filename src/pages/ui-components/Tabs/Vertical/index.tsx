@@ -83,6 +83,10 @@ const Tabs = ({ children, value, onChange, destroyOnClose, mountOnEnter, ...rest
   );
 };
 
+/**
+ * @deprecated Use Tabs from Antd
+ * https://ant.design/components/tabs/
+ */
 export default React.memo(
   styled(Tabs, { label: 'hst-tabs-vertical' })(({ theme }) => {
     return css`

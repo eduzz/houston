@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { flushSync } from 'react-dom';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
@@ -45,11 +44,6 @@ export interface DropdownProps {
 
 export const ARROW_SIZE = 12;
 export const ARROW_HALF_SIZE = ARROW_SIZE / 2;
-
-/**
- * @deprecated Use Dropdown from Antd
- * https://ant.design/components/dropdown/
- */
 const Dropdown = ({
   children,
   onOpen,
@@ -208,4 +202,8 @@ const DropdownWrapper = styled(Dropdown)`
   }}
 `;
 
+/**
+ * @deprecated Use Dropdown from Antd
+ * https://ant.design/components/dropdown/
+ */
 export default React.memo(DropdownWrapper);

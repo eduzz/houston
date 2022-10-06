@@ -9,4 +9,8 @@ export interface TabProps extends StyledProp, React.HTMLAttributes<HTMLDivElemen
   label: string;
 }
 
+/**
+ * @deprecated Use Tabs from Antd
+ * https://ant.design/components/tabs/
+ */
 export default (() => null) as React.FC<TabProps>;

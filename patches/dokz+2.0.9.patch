@@ -92,7 +92,7 @@ index bd52c7f..35a26cb 100644
              }))));
  }
 diff --git a/node_modules/dokz/dist/plugin/index.js b/node_modules/dokz/dist/plugin/index.js
-index 808d06b..43d61d9 100644
+index 808d06b..e3fb921 100644
 --- a/node_modules/dokz/dist/plugin/index.js
 +++ b/node_modules/dokz/dist/plugin/index.js
 @@ -102,7 +102,7 @@ var writeMdxIndex = throttle_1.default(function () {
@@ -111,11 +111,11 @@ index 808d06b..43d61d9 100644
 +const names ={
 +    'ui-components': '@eduzz/houston-ui',
 +    'hooks': '@eduzz/houston-hooks',
-+    'icons': '@eduzz/houston-icons',
-+    'experimental': '@eduzz/houston-experimental',
++    'icons': '@eduzz/houston-icons (deprecated)',
++    'experimental': '@eduzz/houston-experimental  (deprecated)',
 +    'forms': '@eduzz/houston-forms',
-+    'tokens': '@eduzz/houston-tokens',
-+    'styles': '@eduzz/houston-styles',
++    'tokens': '@eduzz/houston-tokens (deprecated)',
++    'styles': '@eduzz/houston-styles (deprecated)',
 +}
 +function clean(node) {
 +    if(names[node.name]) node.title = names[node.name];

@@ -26,11 +26,6 @@ export interface DialogProps extends Omit<ModalProps, 'closeIcon' | 'disableEsca
    */
   showTypeIcon?: boolean;
 }
-
-/**
- * @deprecated Use Modal from Antd
- * https://ant.design/components/modal/
- */
 const Dialog = ({
   visible,
   className,
@@ -108,10 +103,22 @@ const DialogWrapper = styled(Dialog, { label: 'hst-dialog' })`
   }}
 `;
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export default nestedComponent(React.memo(DialogWrapper), {
   Header,
   Content,
   Footer,
+  /**
+   * @deprecated Use Modal from Antd
+   * https://ant.design/components/modal/
+   */
   alert: (params: Parameters<typeof showAlert>[0]) => showAlert(params),
+  /**
+   * @deprecated Use Modal from Antd
+   * https://ant.design/components/modal/
+   */
   confirm: (params: Parameters<typeof showConfirm>[0]) => showConfirm(params)
 });
