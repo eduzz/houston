@@ -1,12 +1,14 @@
 import './locale';
 
+import { useCallback } from 'react';
 import {
   DefaultValues,
   useForm as useFormHook,
   UseFormProps,
   useFieldArray as useFieldArrayHook,
-  UseFormReturn,
-  FieldValues
+  UseFormReturn as HookUseFormReturn,
+  FieldValues,
+  UseFormReset
 } from 'react-hook-form';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,7 +24,11 @@ export interface UseFormParams<T extends FieldValues> extends UseFormProps<T> {
   validationSchema?: yup.SchemaOf<T> | ((yup: Yup) => yup.SchemaOf<T>) | undefined;
 }
 
-export type FormModel<Form> = Form extends UseFormReturn<infer M> ? M : Form;
+export type FormModel<Form> = Form extends HookUseFormReturn<infer M> ? M : Form;
+
+export interface UseFormReturn<T extends FieldValues> extends HookUseFormReturn<T, any> {
+  setValues: UseFormReset<T>;
+}
 
 /**
  * Hook implemation of react-hook-form with Yup
@@ -33,7 +39,7 @@ export default function useForm<T extends FieldValues>({
   defaultValues,
   initialValues,
   ...params
-}: UseFormParams<T>) {
+}: UseFormParams<T>): UseFormReturn<T> {
   const hookParams = {
     ...params,
     defaultValues: defaultValues ?? initialValues
@@ -45,7 +51,14 @@ export default function useForm<T extends FieldValues>({
     });
   }
 
-  return useFormHook<T>(hookParams);
+  const form = useFormHook<T>(hookParams);
+
+  const setValues = useCallback<UseFormReset<T>>(
+    (values, keepStateOptions = {}) => form.reset(values, { keepDefaultValues: true, ...keepStateOptions }),
+    [form]
+  );
+
+  return { ...form, setValues };
 }
 
 export const useFieldArray = useFieldArrayHook;
