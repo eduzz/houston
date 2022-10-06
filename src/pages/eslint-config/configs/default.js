@@ -63,10 +63,12 @@ module.exports = {
         'newlines-between': 'always',
         'pathGroupsExcludedImportTypes': ['react', 'antd'],
         'pathGroups': [
-          { pattern: 'react', group: 'external', position: 'before' },
-          { pattern: 'antd', group: 'external', position: 'before' },
+          { pattern: 'react**', group: 'builtin', position: 'before' },
+          { pattern: 'antd', group: 'builtin' },
+          { pattern: '@ant-design/**', group: 'builtin' },
           { pattern: '@nestjs/**', group: 'external', position: 'before' },
           { pattern: '@eduzz/**', group: 'internal', position: 'after' },
+          { pattern: '@myeduzz-vertical/**', group: 'internal', position: 'after' },
           { pattern: '~/**', group: 'internal', position: 'after' },
           { pattern: '@/**', group: 'internal', position: 'after' }
         ]
