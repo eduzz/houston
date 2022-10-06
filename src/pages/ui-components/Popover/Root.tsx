@@ -110,4 +110,8 @@ const PopoverRoot = ({ children }: PopoverProps) => {
   return <PopoverContext.Provider value={contextValue}>{children}</PopoverContext.Provider>;
 };
 
+/**
+ * @deprecated Use Popover from Antd
+ * https://ant.design/components/popover/
+ */
 export default PopoverRoot;

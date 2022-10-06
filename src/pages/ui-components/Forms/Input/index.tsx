@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import FormMaskAdapter from '@eduzz/houston-forms/masks/maskAdapter';
+import { MaskAdapter } from '@eduzz/houston-forms/masks';
 import styled, { css, cx } from '@eduzz/houston-styles';
 
 import useMask from '../../hooks/useMask';
@@ -12,7 +12,7 @@ const ROWS: Array<Rows> = [2, 4, 6, 8, 10, 14, 18, 24];
 
 interface OwnProperties<V = any> extends FieldsetProps {
   value?: V | null | undefined;
-  mask?: FormMaskAdapter;
+  mask?: MaskAdapter;
   multiline?: boolean;
   rows?: Rows;
   disableAutoResize?: boolean;
@@ -146,6 +146,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
+/**
+ * @deprecated Use Input from @eduzz/houston-forms or Antd
+ */
 export default styled(withForm(React.memo(Input)), { label: 'hst-input' })(
   ({ theme }) => css`
     & .hst-input-wrapper-auto-sizer {

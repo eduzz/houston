@@ -8,6 +8,10 @@ export interface ListLeftProps extends StyledProp, React.HTMLAttributes<HTMLDivE
 
 const ListLeft = ({ children, ...rest }: ListLeftProps) => <div {...rest}>{children}</div>;
 
+/**
+ * @deprecated Use List from Antd
+ * https://ant.design/components/list/
+ */
 export default styled(ListLeft, { label: 'hst-list-item-left' })(({ theme }) => {
   return css`
     margin-right: ${theme.spacing.inline.xxxs};

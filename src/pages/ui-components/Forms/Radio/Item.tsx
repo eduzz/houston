@@ -61,6 +61,9 @@ const RadioItem = ({
   );
 };
 
+/**
+ * @deprecated Use Radio from Antd
+ */
 export default styled(React.memo(RadioItem), { label: 'hst-radio-item' })(
   ({ theme }) => css`
     display: flex;

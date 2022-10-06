@@ -8,6 +8,10 @@ const ModalContent = ({ children, ...rest }: ModalContentProps & React.HTMLAttri
   <div {...rest}>{children}</div>
 );
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export default styled(ModalContent, { label: 'hst-modal-content' })`
   ${({ theme }) => css`
     padding: ${theme.spacing.inset.sm};

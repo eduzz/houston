@@ -10,14 +10,14 @@ export interface ThumbnailProps extends ImageProps {
   size?: ThumbnailSizes;
 }
 
-/**
- * @deprecated Use Image from Antd
- * https://ant.design/components/image/
- */
 const Thumbnail = React.forwardRef<HTMLImageElement, ThumbnailProps>(({ size = 'md', className, ...props }, ref) => {
   return <Image ref={ref} className={cx(className, size && `hst-thumbnail-size-${size}`)} {...props} />;
 });
 
+/**
+ * @deprecated Use Image from Antd
+ * https://ant.design/components/image/
+ */
 export default styled(Thumbnail, { label: 'hst-thumbnail' })`
   ${({ theme }) => css`
     border-radius: ${theme.border.radius.xs};

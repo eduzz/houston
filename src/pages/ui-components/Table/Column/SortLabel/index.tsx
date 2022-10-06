@@ -31,4 +31,8 @@ const SortLabel = ({ id, children, sortable, active, direction, disabled, onClic
   );
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default SortLabel;

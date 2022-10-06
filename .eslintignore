@@ -5,3 +5,4 @@ examples
 *.js
 *.d.ts
 *.md
+!craco.config.js

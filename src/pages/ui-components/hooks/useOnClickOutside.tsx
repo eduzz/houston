@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 type AnyEvent = MouseEvent | TouchEvent;
-
 function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   ref: React.RefObject<T>,
   handler: (event: AnyEvent) => void,
@@ -31,4 +30,7 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   }, [ref, callback, mouseEvent]);
 }
 
+/**
+ * @deprecated
+ */
 export default useOnClickOutside;

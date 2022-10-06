@@ -16,11 +16,6 @@ interface AccordionProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivEl
   values?: number[];
   onChange?: (values: number[]) => void;
 }
-
-/**
- * @deprecated Use Collapse with accordion prop from Antd
- * https://ant.design/components/collapse/#components-collapse-demo-accordion
- */
 const Accordion = ({
   children,
   values,
@@ -76,6 +71,10 @@ const Accordion = ({
   );
 };
 
+/**
+ * @deprecated Use Collapse with accordion prop from Antd
+ * https://ant.design/components/collapse/#components-collapse-demo-accordion
+ */
 export default nestedComponent(React.memo(Accordion), {
   Item,
   Content,

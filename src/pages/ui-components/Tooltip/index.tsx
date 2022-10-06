@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { flushSync } from 'react-dom';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
@@ -32,11 +31,6 @@ export interface TooltipProps extends StyledProp {
   onClose?: () => void;
   onOpen?: () => void;
 }
-
-/**
- * @deprecated Use Tooltip from Antd
- * https://ant.design/components/tooltip/
- */
 const Tooltip = ({ children, title, placement = 'top', id: idProp, disabled, onOpen, onClose }: TooltipProps) => {
   const { openPopover, closePopover, popoverTargetProps, popoverProps } = usePopover();
   const [isPopoverCreated, , createPopover, deletePopover] = useBoolean();
@@ -81,4 +75,8 @@ const Tooltip = ({ children, title, placement = 'top', id: idProp, disabled, onO
   );
 };
 
+/**
+ * @deprecated Use Tooltip from Antd
+ * https://ant.design/components/tooltip/
+ */
 export default React.memo(Tooltip);

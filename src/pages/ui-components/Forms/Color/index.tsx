@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { HexColorPicker } from 'react-colorful';
 
 import styled, { StyledProp } from '@eduzz/houston-styles';
@@ -43,6 +42,9 @@ const Color = ({ className, value, errorMessage, disabled, loading, onChange, ..
   );
 };
 
+/**
+ * @deprecated
+ */
 export default styled(withForm(React.memo(Color)))`
   & .react-colorful {
     width: 170px;

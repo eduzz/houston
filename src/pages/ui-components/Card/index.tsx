@@ -14,10 +14,6 @@ export interface CardProps {
   padding?: CardPadding;
 }
 
-/**
- * @deprecated Use Card from Antd
- * https://ant.design/components/card/
- */
 const Card = ({
   children,
   padding = 'xs',
@@ -44,6 +40,10 @@ const Card = ({
   );
 };
 
+/**
+ * @deprecated Use Card from Antd
+ * https://ant.design/components/card/
+ */
 export default styled(Card, { label: 'hst-card' })`
   ${({ theme }) => {
     const modifiers: CSSInterpolation[] = [];

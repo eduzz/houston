@@ -193,6 +193,9 @@ const CheckboxWrapper = styled(withForm(React.memo(Checkbox)), { label: 'hst-che
   `
 );
 
+/**
+ * @deprecated
+ */
 export default nestedComponent(CheckboxWrapper, {
   Group
 });
