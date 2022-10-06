@@ -1,0 +1,26 @@
+diff --git a/node_modules/react-dom/cjs/react-dom.development.js b/node_modules/react-dom/cjs/react-dom.development.js
+index e4ed5ae..2ce88bf 100644
+--- a/node_modules/react-dom/cjs/react-dom.development.js
++++ b/node_modules/react-dom/cjs/react-dom.development.js
+@@ -12504,7 +12504,7 @@ function shouldClientRenderOnMismatch(fiber) {
+ }
+ 
+ function throwOnHydrationMismatch(fiber) {
+-  throw new Error('Hydration failed because the initial UI does not match what was ' + 'rendered on the server.');
++  // throw new Error('Hydration failed because the initial UI does not match what was ' + 'rendered on the server.');
+ }
+ 
+ function tryToClaimNextHydratableInstance(fiber) {
+diff --git a/node_modules/react-dom/umd/react-dom.development.js b/node_modules/react-dom/umd/react-dom.development.js
+index aadc619..a563970 100644
+--- a/node_modules/react-dom/umd/react-dom.development.js
++++ b/node_modules/react-dom/umd/react-dom.development.js
+@@ -12514,7 +12514,7 @@
+   }
+ 
+   function throwOnHydrationMismatch(fiber) {
+-    throw new Error('Hydration failed because the initial UI does not match what was ' + 'rendered on the server.');
++    // throw new Error('Hydration failed because the initial UI does not match what was ' + 'rendered on the server.');
+   }
+ 
+   function tryToClaimNextHydratableInstance(fiber) {

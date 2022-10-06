@@ -72,10 +72,6 @@ const weightsMap: FontPropMap<'weight'> = {
   xs: 'bold'
 };
 
-/**
- * @deprecated Use Typography from Antd
- * https://ant.design/components/typography/
- */
 const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ as = 'h1', children, size: sizeProp, ...props }, ref) => {
     const { breakpoints } = useHoustonTheme();
@@ -92,4 +88,8 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   }
 );
 
+/**
+ * @deprecated Use Typography from Antd
+ * https://ant.design/components/typography/
+ */
 export default Heading;

@@ -1,12 +1,13 @@
 import './locale';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   useForm as useFormHook,
   UseFormProps,
   UseFormReturn,
   useFieldArray as useFieldArrayHook
 } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 type Zod = typeof z;

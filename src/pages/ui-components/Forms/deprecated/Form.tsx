@@ -18,4 +18,7 @@ const Form = ({ context, ...rest }: FormProps) => {
   );
 };
 
+/**
+ * @deprecated
+ */
 export default React.memo(Form);

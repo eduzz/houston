@@ -33,4 +33,8 @@ const ListText = ({ title, description, disableTypography = false, className, ..
   </div>
 );
 
+/**
+ * @deprecated Use List from Antd
+ * https://ant.design/components/list/
+ */
 export default ListText;

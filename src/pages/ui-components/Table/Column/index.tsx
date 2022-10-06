@@ -46,4 +46,8 @@ const TableColumn = ({ sortableField, children, className, ...rest }: TableColum
   );
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default React.memo(TableColumn);

@@ -1,6 +1,6 @@
-import FormMaskAdapter from './maskAdapter';
+import { MaskAdapter } from '.';
 
-const zipcodeMask: FormMaskAdapter = {
+const zipcodeMask: MaskAdapter = {
   apply: (value: string) => {
     if (!value) return '';
     return value.replace(/^(\d{0,5})(\d{0,3}).*/, '$1-$2').replace(/-$/, '');

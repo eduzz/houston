@@ -32,4 +32,8 @@ const AccordionItemWrapper = styled(AccordionItem, { label: 'hst-accordion-item'
   `;
 });
 
+/**
+ * @deprecated Use Collapse with accordion prop from Antd
+ * https://ant.design/components/collapse/#components-collapse-demo-accordion
+ */
 export default AccordionItemWrapper;

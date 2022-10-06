@@ -1,16 +1,18 @@
 import * as React from 'react';
 
+import type { TableProps } from 'antd';
+
 import { getConfig } from '../config';
 import usePromiseEffect from '../usePromiseEffect';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const isEqual = require('lodash/isEqual');
 
-export interface PaginationParams {
+export interface PaginationParams<D extends Record<string, any> = Record<string, any>> {
   [key: string]: any;
   page: number;
   perPage: number;
-  sortField?: string;
+  sortField?: keyof D;
   sortDirection?: 'asc' | 'desc';
 }
 
@@ -51,6 +53,8 @@ export interface UsePromisePaginated<P extends PaginationParams, R> {
   handleChangePerPage: (perPage: number) => void;
   /** Sintax sugar for `mergeParams` to change the sort  */
   handleSort: (sortField: string, sortDirection: 'asc' | 'desc') => void;
+
+  tableProps: TableProps<R>;
 }
 
 /**
@@ -74,7 +78,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
     () =>
       ({
         page: getConfig()?.pagination?.pageStart ?? 1,
-        perPage: getConfig()?.pagination?.perPage ?? 40,
+        perPage: getConfig()?.pagination?.perPage ?? 10,
         ...(initialParamsOption ?? {})
       } as P)
   );
@@ -103,6 +107,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
   );
 
   usePromiseEffect(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     async isSubscribed => {
       try {
         setIsLoading(!infintyScroll || params.page === initialParams.page);
@@ -153,10 +158,28 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
 
   const handleChangePage = React.useCallback((page: number) => mergeParams({ page } as P), [mergeParams]);
   const handleChangePerPage = React.useCallback((perPage: number) => mergeParams({ perPage } as P), [mergeParams]);
+
   const handleSort = React.useCallback(
-    (sortField: string, sortDirection: 'asc' | 'desc') =>
+    (sortField: string | undefined | null, sortDirection?: 'asc' | 'desc') =>
       mergeParams({ sortField, sortDirection, page: initialParams.page } as P),
     [initialParams.page, mergeParams]
+  );
+
+  const handleAntdChange = React.useCallback<NonNullable<TableProps<R>['onChange']>>(
+    (pagination, filters, sorter) => {
+      const sort = Array.isArray(sorter) ? sorter[0] : sorter;
+
+      mergeParams(
+        current =>
+          ({
+            page: pagination.current ?? current.page,
+            perPage: pagination.pageSize ?? current.perPage,
+            sortField: sort.field,
+            sortDirection: sort.order === 'ascend' ? 'asc' : sort.order === 'descend' ? 'desc' : undefined
+          } as Partial<P>)
+      );
+    },
+    [mergeParams]
   );
 
   return {
@@ -172,6 +195,19 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
     mergeParams,
     handleSort,
     handleChangePage,
-    handleChangePerPage
+    handleChangePerPage,
+    tableProps: {
+      loading: isLoading,
+      rowKey: 'id',
+      onChange: handleAntdChange,
+      showSorterTooltip: true,
+      pagination: {
+        disabled: isLoading,
+        responsive: true,
+        pageSize: params.perPage,
+        current: params.page,
+        total: data.total
+      }
+    }
   };
 }
