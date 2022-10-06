@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { flushSync } from 'react-dom';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';

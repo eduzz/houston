@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import { Form as AntdForm } from 'antd';
-import { Controller, useFormContext } from 'react-hook-form';
 
 export type WithFormProps<R> = {
   label?: string;
@@ -36,6 +36,7 @@ const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P
         render={({ field, fieldState, formState }) => (
           <AntdForm.Item
             label={label}
+            labelCol={{ span: 24 }}
             validateStatus={fieldState?.error?.message ? 'error' : undefined}
             help={error ?? fieldState?.error?.message ?? help}
           >

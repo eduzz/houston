@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { HexColorPicker } from 'react-colorful';
 
 import styled, { StyledProp } from '@eduzz/houston-styles';

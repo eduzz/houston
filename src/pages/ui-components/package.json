@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-ui",
   "description": "Eduzz Houston Components UI",
-  "version": "0.65.0-beta.12",
+  "version": "0.65.0-beta.13",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -20,10 +20,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@eduzz/houston-forms": "0.65.0-beta.12",
-    "@eduzz/houston-hooks": "0.65.0-beta.12",
-    "@eduzz/houston-icons": "0.65.0-beta.12",
-    "@eduzz/houston-styles": "0.65.0-beta.12",
+    "@eduzz/houston-forms": "0.65.0-beta.13",
+    "@eduzz/houston-hooks": "0.65.0-beta.13",
+    "@eduzz/houston-icons": "0.65.0-beta.13",
+    "@eduzz/houston-styles": "0.65.0-beta.13",
     "@emotion/cache": "^11",
     "@emotion/css": "^11",
     "@emotion/react": "^11",

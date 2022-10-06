@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { useFormState } from 'react-hook-form';
 
 import { ErrorMessage as ErrorMessageHook } from '@hookform/error-message';
-import { useFormState } from 'react-hook-form';
 
 import { cx } from '@eduzz/houston-styles';
 

@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { flushSync } from 'react-dom';
 
 import RcUpload from 'rc-upload';
 import type { UploadProps as RcUploadProps } from 'rc-upload';
 import type { RcFile, UploadProgressEvent } from 'rc-upload/lib/interface';
 import useMergedState from 'rc-util/lib/hooks/useMergedState';
-import { flushSync } from 'react-dom';
 import * as yup from 'yup';
 
 import UploadIcon from '@eduzz/houston-icons/Upload';

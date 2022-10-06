@@ -1,6 +1,5 @@
 import './locale';
 
-import { yupResolver } from '@hookform/resolvers/yup';
 import {
   DefaultValues,
   useForm as useFormHook,
@@ -9,6 +8,8 @@ import {
   UseFormReturn,
   FieldValues
 } from 'react-hook-form';
+
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 type Yup = typeof yup;

@@ -1,6 +1,4 @@
 import * as React from 'react';
-
-import { Form as AntdForm } from 'antd';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 export interface FormProps {
@@ -16,7 +14,7 @@ const Form = ({ context, onSubmit, ...rest }: FormProps) => {
 
   return (
     <FormProvider {...context}>
-      <AntdForm {...rest} onReset={handleReset} layout='vertical' onFinish={context.handleSubmit(onSubmit)} />
+      <form {...rest} onReset={handleReset} onSubmit={context.handleSubmit(onSubmit)} noValidate />
     </FormProvider>
   );
 };
