@@ -81,6 +81,9 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, InternalFieldsetProps>(
   }
 );
 
+/**
+ * @deprecated
+ */
 export default styled(Fieldset, { label: 'hst-fieldset' })(
   ({ theme }) => css`
     border: none;

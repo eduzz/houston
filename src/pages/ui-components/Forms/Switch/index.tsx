@@ -63,6 +63,9 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
   }
 );
 
+/**
+ * @deprecated Use Switch from Antd
+ */
 export default styled(withForm(Switch), { label: 'hst-switch' })(({ theme }) => {
   return css`
     display: inline-flex;

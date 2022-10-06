@@ -27,10 +27,6 @@ export interface IconButtonProps
   active?: boolean;
 }
 
-/**
- * @deprecated Use Button with icon prop from Antd
- * https://ant.design/components/button/
- */
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ className, size, children, disabled = false, active, ...rest }, ref) => (
     <button
@@ -58,8 +54,12 @@ const LG_ICON_SIZE = 24;
 const MD_SIZE = 32;
 const MD_ICON_SIZE = 16;
 
-export default styled(IconButton, { label: 'hst-icon-button' })`
-  ${({ theme }) => css`
+/**
+ * @deprecated Use Button with icon prop from Antd
+ * https://ant.design/components/button/
+ */
+export default styled(IconButton, { label: 'hst-icon-button' })(
+  ({ theme }) => css`
     border: none;
     background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[0])};
     border-radius: ${theme.border.radius.circular};
@@ -132,5 +132,5 @@ export default styled(IconButton, { label: 'hst-icon-button' })`
     &.hst-icon-button-active {
       background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
     }
-  `}
-`;
+  `
+);

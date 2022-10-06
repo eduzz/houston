@@ -189,6 +189,9 @@ const StyledSearchField = styled(withForm(SearchField), { label: 'hst-input-sear
   `}
 `;
 
+/**
+ * @deprecated Use Search from Antd
+ */
 export default nestedComponent(React.memo(StyledSearchField), {
   Result
 });

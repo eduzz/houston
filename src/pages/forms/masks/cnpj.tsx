@@ -1,6 +1,6 @@
-import FormMaskAdapter from './maskAdapter';
+import { MaskAdapter } from '.';
 
-const cnpjMask: FormMaskAdapter = {
+const cnpjMask: MaskAdapter = {
   apply: (value: string) => {
     if (!value) return '';
 

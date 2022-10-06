@@ -1,27 +1,35 @@
 import * as React from 'react';
 
+import { setTwoToneColor } from '@ant-design/icons';
+import { ConfigProvider } from 'antd';
+
 import { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import { ptBR } from 'date-fns/locale';
+import { Locale as AntdLocale } from 'antd/es/locale-provider';
+import antdLocalePtBR from 'antd/es/locale/pt_BR';
+// eslint-disable-next-line no-restricted-imports
+import type { Locale as DateLocale } from 'date-fns';
+import { ptBR as datePtBR } from 'date-fns/locale';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
-
-import { HoustonThemeProps } from '@eduzz/houston-styles';
-import createThemeStyles from '@eduzz/houston-styles/createTheme';
 
 import DialogGlobal from '../Dialog/Global';
 import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
 import generateTheme from './_generator';
 import { setCurrentTheme } from './_state';
+import createThemeInternal from './createTheme';
+import { HoustonTheme } from './createTheme/types';
 import GlobalStyles from './reset';
 
-setDefaultOptions({ locale: ptBR });
-
-export const createTheme = createThemeStyles;
+export * from './createTheme/types';
+setDefaultOptions({ locale: datePtBR });
+export const createTheme = createThemeInternal;
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
-  theme?: HoustonThemeProps;
+  theme?: HoustonTheme;
+  antdLocale?: AntdLocale;
+  dateFnsLocale?: DateLocale;
   disableResetStyles?: boolean;
   disableCssBaseline?: boolean;
   disabledFontBase?: boolean;
@@ -29,10 +37,12 @@ export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'chi
   disableDialogs?: boolean;
 }
 
-const defaultTheme = createTheme('eduzz');
+const defaultTheme = createTheme('blinket');
 
 function ThemeProvider({
   theme = defaultTheme,
+  antdLocale = antdLocalePtBR,
+  dateFnsLocale = datePtBR,
   children,
   disableResetStyles,
   disableCssBaseline,
@@ -57,18 +67,29 @@ function ThemeProvider({
     return () => styleElement.remove();
   }, [disabledFontBase]);
 
+  React.useEffect(() => {
+    setTwoToneColor(theme.primaryColor);
+    ConfigProvider.config({ theme: { primaryColor: theme.primaryColor } });
+  }, [theme.primaryColor]);
+
   React.useEffect(() => setCurrentTheme(theme), [theme]);
+
+  React.useEffect(() => {
+    setDefaultOptions({ locale: dateFnsLocale });
+  }, [dateFnsLocale]);
 
   return (
     <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={muiTheme}>
-        <PopoverRoot>
-          {!disableToast && <ToastContainer />}
-          {!disableDialogs && <DialogGlobal />}
-          {!disableCssBaseline && <CssBaseline />}
-          {!disableResetStyles && <GlobalStyles />}
-          {children}
-        </PopoverRoot>
+        <ConfigProvider locale={antdLocale}>
+          <PopoverRoot>
+            {!disableToast && <ToastContainer />}
+            {!disableDialogs && <DialogGlobal />}
+            {!disableCssBaseline && <CssBaseline />}
+            {!disableResetStyles && <GlobalStyles />}
+            {children}
+          </PopoverRoot>
+        </ConfigProvider>
       </MUIThemeProvider>
     </StyledEngineProvider>
   );

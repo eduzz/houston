@@ -43,6 +43,10 @@ const Row = React.forwardRef<HTMLDivElement, RowProps>(
   }
 );
 
+/**
+ * @deprecated Use Grid from Antd
+ * https://ant.design/components/grid/
+ */
 export default styled(Row, { label: 'hst-grid-row' })(
   ({ theme }) => css`
     display: flex;
