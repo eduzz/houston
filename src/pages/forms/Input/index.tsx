@@ -52,6 +52,7 @@ const Input = React.forwardRef<InputRef, InputProps>(
         onChange={handleChange}
         onBlur={handleBlur}
         onPressEnter={handlePressEnter}
+        prefix={mask === 'money' ? 'R$' : undefined}
         {...props}
       />
     );

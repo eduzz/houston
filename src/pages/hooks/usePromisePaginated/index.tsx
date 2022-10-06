@@ -54,7 +54,7 @@ export interface UsePromisePaginated<P extends PaginationParams, R> {
   /** Sintax sugar for `mergeParams` to change the sort  */
   handleSort: (sortField: string, sortDirection: 'asc' | 'desc') => void;
 
-  tableProps: TableProps<R>;
+  antdTableProps: TableProps<R>;
 }
 
 /**
@@ -182,6 +182,23 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
     [mergeParams]
   );
 
+  const antdTableProps = React.useMemo(
+    () => ({
+      loading: isLoading,
+      rowKey: 'id',
+      onChange: handleAntdChange,
+      showSorterTooltip: true,
+      pagination: {
+        disabled: isLoading,
+        responsive: true,
+        pageSize: params.perPage,
+        current: params.page,
+        total: data.total
+      }
+    }),
+    [data.total, handleAntdChange, isLoading, params.page, params.perPage]
+  );
+
   return {
     params,
     initialParams,
@@ -196,18 +213,6 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
     handleSort,
     handleChangePage,
     handleChangePerPage,
-    tableProps: {
-      loading: isLoading,
-      rowKey: 'id',
-      onChange: handleAntdChange,
-      showSorterTooltip: true,
-      pagination: {
-        disabled: isLoading,
-        responsive: true,
-        pageSize: params.perPage,
-        current: params.page,
-        total: data.total
-      }
-    }
+    antdTableProps
   };
 }

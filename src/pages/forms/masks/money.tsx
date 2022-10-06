@@ -6,7 +6,8 @@ const moneyMask: MaskAdapter = {
 
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
-      currency: 'BRL'
+      currency: 'BRL',
+      currencyDisplay: 'none'
     }).format(Number(value) || 0);
   },
   clean: value => {
