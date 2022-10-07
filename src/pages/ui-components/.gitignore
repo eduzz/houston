@@ -23,3 +23,5 @@ yarn-error.log*
 
 !mui.d.ts
 !.prettierrc.js
+
+ThemeProvider/theme.css

@@ -54,4 +54,8 @@ const ToastContainer = (props: ToastContainerProps) => {
   );
 };
 
+/**
+ * @deprecated Use Notification from Antd
+ * https://ant.design/components/notification/
+ */
 export default ToastContainer;

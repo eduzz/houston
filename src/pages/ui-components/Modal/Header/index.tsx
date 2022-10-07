@@ -56,6 +56,10 @@ const ModalHeader = ({
   );
 };
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export default React.memo(styled(ModalHeader, { label: 'hst-modal-header' })`
   ${({ theme }) => css`
     flex-grow: 0;
