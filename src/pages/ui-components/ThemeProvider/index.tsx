@@ -6,8 +6,8 @@ import { ConfigProvider } from 'antd';
 import { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import { Locale as AntdLocale } from 'antd/es/locale-provider';
-import antdLocalePtBR from 'antd/es/locale/pt_BR';
+import { Locale as AntdLocale } from 'antd/lib/locale-provider';
+import antdLocalePtBR from 'antd/lib/locale/pt_BR';
 // eslint-disable-next-line no-restricted-imports
 import type { Locale as DateLocale } from 'date-fns';
 import { ptBR as datePtBR } from 'date-fns/locale';
@@ -37,7 +37,7 @@ export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'chi
   disableDialogs?: boolean;
 }
 
-const defaultTheme = createTheme('blinket');
+const defaultTheme = createTheme('eduzz');
 
 function ThemeProvider({
   theme = defaultTheme,

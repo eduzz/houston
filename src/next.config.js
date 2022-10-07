@@ -8,7 +8,6 @@ module.exports = withPlugins(
   {
     swcMinify: true,
     debug: true,
-    basePath: '/houston',
     poweredByHeader: false,
     reactStrictMode: true,
     distDir: 'build',
