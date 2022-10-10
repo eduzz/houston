@@ -1,24 +1,19 @@
 import React from 'react';
 
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
+import { ChakraProvider, ColorModeScript, Button } from '@chakra-ui/react';
 import { DokzProvider, GithubLink } from 'dokz';
 import Head from 'next/head';
 import theme from 'prism-react-renderer/themes/nightOwl';
-
-import createTheme from '@eduzz/houston-styles/createTheme';
-import ThemeProvider from '@eduzz/houston-styles/ThemeProvider';
-import ToastContainer from '@eduzz/houston-ui/Toast/Container';
 
 import './_app.page.less';
 
 const sidebarOrdering = {
   'index.mdx': true,
   'README.mdx': true,
-  'styles': { 'README.mdx': true },
-  'ui-components': { 'README.mdx': true }
+  'ui-components': { 'README.mdx': true },
+  'forms': { 'README.mdx': true },
+  'hooks': { 'README.mdx': true }
 };
-
-const houstonTheme = createTheme('orbita');
 
 export default function App(props) {
   const { Component, pageProps } = props;
@@ -30,10 +25,6 @@ export default function App(props) {
         <link href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700' rel='stylesheet' />
       </Head>
 
-      <ThemeProvider theme={houstonTheme}>
-        <ToastContainer />
-      </ThemeProvider>
-
       <DokzProvider
         animate
         footer={<footer className='houston-footer'>Houston - Feito com ❤️ pela Eduzz</footer>}
@@ -41,7 +32,17 @@ export default function App(props) {
         fontFamily='Open Sans'
         initialColorMode='light'
         headerLogo={<img src='/houston/img/logo.svg' height='60px' />}
-        headerItems={[<GithubLink key='1' url='https://github.com/eduzz/houston' />]}
+        headerItems={[
+          <Button
+            key='0'
+            onClick={() =>
+              window.open('http://eduzz-houston-deprecated-docs.s3-website-us-east-1.amazonaws.com', '_blank')
+            }
+          >
+            <small>Ver documentação da versão anterior</small>
+          </Button>,
+          <GithubLink key='1' url='https://github.com/eduzz/houston' />
+        ]}
         sidebarOrdering={sidebarOrdering}
         prismTheme={{ light: theme, dark: theme }}
       >

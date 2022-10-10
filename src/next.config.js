@@ -7,6 +7,7 @@ module.exports = withPlugins(
   [[withLess, { lessLoaderOptions: { lessOptions: { javascriptEnabled: true } } }], withTM, withDokz],
   {
     swcMinify: true,
+    basePath: '/houston',
     debug: true,
     poweredByHeader: false,
     reactStrictMode: true,
