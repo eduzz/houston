@@ -2,9 +2,9 @@
 import createTokens, { BrandColor as DeprecatedBrandColor } from '@eduzz/houston-tokens';
 import { brands as deprecatedBrands } from '@eduzz/houston-tokens/variables/brand';
 
+import { HoustonThemeCustomVariables, HoustonTheme } from '..';
 import { mediaUtils } from '../media';
 import { BrandsBuildin, brandsPrimaryColor } from './brands';
-import { HoustonTheme, HoustonThemeCustomVariables } from './types';
 import { hexToRgba, spacing } from './utils';
 
 const DEFAULT_PRIMARY_COLOR = '#0d2772';

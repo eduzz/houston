@@ -1,7 +1,7 @@
 import { Palette } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-import { HoustonTheme } from '../createTheme/types';
+import { HoustonTheme } from '..';
 import components from './components';
 import palette from './palette';
 import typography from './typography';
