@@ -68,6 +68,10 @@ export default React.memo(styled(DrawerHeader, { label: 'hst-drawer-header' })`
         padding: ${theme.spacing.inset.xs};
       }
 
+      .hst-drawer-header-title {
+        flex-grow: 1;
+      }
+
       .hst-drawer-header-close {
         margin-left: ${theme.spacing.inline.xxs};
       }
