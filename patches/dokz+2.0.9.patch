@@ -91,8 +91,22 @@ index bd52c7f..35a26cb 100644
 +                return react_1.jsx(TableItem, __assign({ key: table.slug || 'key-' + ++keyCounter }, table));
              }))));
  }
+diff --git a/node_modules/dokz/dist/components/Wrapper.js b/node_modules/dokz/dist/components/Wrapper.js
+index 4e35179..42b1205 100644
+--- a/node_modules/dokz/dist/components/Wrapper.js
++++ b/node_modules/dokz/dist/components/Wrapper.js
+@@ -47,8 +47,7 @@ function Wrapper(props) {
+     var Faded = provider_1.useAnimationComponent();
+     return (react_3.jsx(PropagatedThemeProvider, { theme: react_1.theme },
+         react_3.jsx(head_1.default, null, name && (react_3.jsx("title", null,
+-            headTitlePrefix,
+-            name))),
++            headTitlePrefix + name))),
+         react_3.jsx(provider_1.TableOfContentsContext.Provider, { value: { tableOfContents: tableOfContents } },
+             react_3.jsx(react_4.Global, { styles: support_1.globalStyles }),
+             react_3.jsx(react_2.Stack, { className: 'dokz visibleInPrint noMarginInPrint', align: 'center', minHeight: '100%', color: bodyColor[colorMode], fontSize: fontSize, fontFamily: fontFamily, fontWeight: fontWeight },
 diff --git a/node_modules/dokz/dist/plugin/index.js b/node_modules/dokz/dist/plugin/index.js
-index 808d06b..43d61d9 100644
+index 808d06b..98c6f94 100644
 --- a/node_modules/dokz/dist/plugin/index.js
 +++ b/node_modules/dokz/dist/plugin/index.js
 @@ -102,7 +102,7 @@ var writeMdxIndex = throttle_1.default(function () {
@@ -100,11 +114,11 @@ index 808d06b..43d61d9 100644
      return getMdxFilesIndex_1.getMdxFilesIndex()
          .then(function (index) {
 -        return fs_1.default.promises.writeFile('sidebar.json', JSON.stringify(index, null, 4));
-+        return fs_1.default.promises.writeFile('sidebar.json', JSON.stringify(clean(index), null, 4));
++        return fs_1.default.promises.writeFile('sidebar.json', JSON.stringify(sidebarFix(index), null, 4));
      })
          .catch(function (e) {
          console.error('could not write mdx sidebar file');
-@@ -119,3 +119,31 @@ function unique(arr) {
+@@ -119,3 +119,52 @@ function unique(arr) {
      }
      return a;
  }
@@ -116,6 +130,27 @@ index 808d06b..43d61d9 100644
 +    'forms': '@eduzz/houston-forms',
 +    'tokens': '@eduzz/houston-tokens',
 +    'styles': '@eduzz/houston-styles',
++}
++function sidebarFix(sidebar) {
++    sidebar = clean(sidebar);
++    const hooks = sidebar.children.find(c => c.name === 'hooks');
++    hooks.children.push(
++        {
++            path: "",
++            name: "Promise",
++            children: hooks.children.filter(c => c.title?.startsWith('usePromise'))
++        }
++    );
++    hooks.children.push(
++        {
++            path: "",
++            name: "Observable",
++            children: hooks.children.filter(c => c.title?.startsWith('useObservable'))
++        }
++    );
++
++    hooks.children = hooks.children.filter(c => !c.title?.startsWith('usePromise') && !c.title?.startsWith('useObservable'))
++    return sidebar;
 +}
 +function clean(node) {
 +    if(names[node.name]) node.title = names[node.name];
