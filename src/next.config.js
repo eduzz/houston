@@ -1,10 +1,9 @@
 const { withDokz } = require('dokz/dist/plugin');
 const withPlugins = require('next-compose-plugins');
-const withTM = require('next-transpile-modules')(['@mui/material']);
 const withLess = require("next-with-less");
 
 module.exports = withPlugins(
-  [[withLess, { lessLoaderOptions: { lessOptions: { javascriptEnabled: true } } }], withTM, withDokz],
+  [[withLess, { lessLoaderOptions: { lessOptions: { javascriptEnabled: true } } }], withDokz],
   {
     swcMinify: true,
     basePath: '/houston',

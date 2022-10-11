@@ -3,7 +3,7 @@ import createTokens, { BrandColor as DeprecatedBrandColor } from '@eduzz/houston
 import { brands as deprecatedBrands } from '@eduzz/houston-tokens/variables/brand';
 
 import { HoustonThemeCustomVariables, HoustonTheme } from '..';
-import { mediaUtils } from '../media';
+import { mediaUtils } from '../mediaQuery';
 import { BrandsBuildin, brandsPrimaryColor } from './brands';
 import { hexToRgba, spacing } from './utils';
 
@@ -32,7 +32,7 @@ export default function createTheme(
   return {
     ...tokens,
     primaryColor: brandColor.antd ?? DEFAULT_PRIMARY_COLOR,
-    media: mediaUtils,
+    mediaQuery: mediaUtils,
     spacing: spacing as any,
     hexToRgba,
     variables

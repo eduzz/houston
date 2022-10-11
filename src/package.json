@@ -22,7 +22,6 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "next-compose-plugins": "^2",
-    "next-transpile-modules": "^9"
+    "next-compose-plugins": "^2"
   }
 }

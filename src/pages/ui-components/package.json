@@ -28,7 +28,6 @@
     "@emotion/css": "^11",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@mui/material": "^5",
     "@popperjs/core": "^2.11.6",
     "antd": "^4",
     "date-fns": "^2",

@@ -19,7 +19,7 @@ import DialogGlobal from '../Dialog/Global';
 import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
 import createThemeInternal from './createTheme';
-import { mediaUtils } from './media';
+import { mediaUtils } from './mediaQuery';
 
 setDefaultOptions({ locale: datePtBR });
 export const createTheme = createThemeInternal;
@@ -28,10 +28,10 @@ export interface HoustonThemeCustomVariables {}
 
 export interface HoustonTheme extends Omit<HoustonTokens, 'hexToRgba' | 'spacing'>, AntdTheme {
   primaryColor: string;
-  media: typeof mediaUtils;
+  mediaQuery: typeof mediaUtils;
   hexToRgba: (hexColor: string, opacity?: number) => string;
   variables?: HoustonThemeCustomVariables;
-  spacing: ((unit?: number) => number) & Spacing;
+  spacing: ((unit?: number) => string) & Spacing;
 }
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {

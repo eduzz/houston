@@ -6,7 +6,7 @@ function decimalToHexadecimal(value: string) {
 }
 
 export function spacing(unit = 1) {
-  return UNIT_BASE * unit;
+  return `${UNIT_BASE * unit}px`;
 }
 
 export function hexToRgba(hexColor: string, opacity = 1) {
