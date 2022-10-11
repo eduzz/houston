@@ -45,6 +45,9 @@ const RadioGroup = ({ children, value, onChange, className, errorMessage, ...res
   );
 };
 
+/**
+ * @deprecated Use Radio from Antd
+ */
 export default styled(withForm(React.memo(RadioGroup)), { label: 'hst-radio-group' })`
   ${({ theme, spacing = 'xxxs' }) => css`
     .hst-radio-group-options {

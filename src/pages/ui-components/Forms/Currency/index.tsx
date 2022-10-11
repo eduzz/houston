@@ -9,4 +9,7 @@ const InputCurrency = (props: InputCurrencyProps) => {
   return <Input {...props} mask={maskMoney} />;
 };
 
+/**
+ * @deprecated
+ */
 export default InputCurrency;

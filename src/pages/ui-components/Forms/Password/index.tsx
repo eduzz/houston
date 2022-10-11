@@ -29,4 +29,7 @@ const InputPassword = (props: InputPasswordProps) => {
   );
 };
 
+/**
+ * @deprecated Use Input from Antd
+ */
 export default React.memo(InputPassword);

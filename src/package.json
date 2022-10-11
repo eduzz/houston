@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/docs",
-  "version": "0.64.8",
+  "version": "1.0.0-rc.1",
   "private": true,
   "scripts": {
     "start": "next dev",
@@ -8,20 +8,20 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
-    "@eduzz/houston-forms": "0.64.8",
-    "@eduzz/houston-hooks": "0.64.8",
-    "@eduzz/houston-icons": "0.64.8",
-    "@eduzz/houston-ui": "0.64.8",
+    "@eduzz/houston-forms": "1.0.0-rc.1",
+    "@eduzz/houston-hooks": "1.0.0-rc.1",
+    "@eduzz/houston-icons": "1.0.0-rc.1",
+    "@eduzz/houston-ui": "1.0.0-rc.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "dokz": "2.0.9",
     "framer-motion": "latest",
     "next": "^12",
+    "next-with-less": "^2.0.5",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
-    "next-compose-plugins": "^2",
-    "next-transpile-modules": "^9"
+    "next-compose-plugins": "^2"
   }
 }

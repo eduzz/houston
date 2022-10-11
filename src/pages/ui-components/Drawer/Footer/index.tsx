@@ -15,6 +15,10 @@ const DrawerFooter = ({ children, ...rest }: DrawerFooterProps & React.HTMLAttri
   );
 };
 
+/**
+ * @deprecated Use Drawer from Antd
+ * https://ant.design/components/drawer/
+ */
 export default styled(DrawerFooter, { label: 'hst-drawer-footer' })`
   ${({ theme }) => css`
     .hst-drawer-footer-wrapper {

@@ -1,9 +1,15 @@
 import type { Spacing } from '../types';
 
+/**
+ * @deprecated
+ */
 function spacingFn(mult: number) {
   return `${mult * 0.25}rem`;
 }
 
+/**
+ * @deprecated
+ */
 export const spacing: Spacing = {
   fn: spacingFn,
   quarck: '0.25rem',

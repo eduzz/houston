@@ -48,6 +48,10 @@ const DrawerHeader = ({
   );
 };
 
+/**
+ * @deprecated Use Drawer from Antd
+ * https://ant.design/components/drawer/
+ */
 export default React.memo(styled(DrawerHeader, { label: 'hst-drawer-header' })`
   ${({ theme }) => css`
     flex-grow: 0;

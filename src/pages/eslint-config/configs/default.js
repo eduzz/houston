@@ -39,8 +39,8 @@ module.exports = {
     'prefer-const': ['error', { destructuring: 'all' }],
     'no-extra-semi': ['error'],
     'no-var': ['error'],
-    quotes: ['error', 'single', { avoidEscape: true }],
-    eqeqeq: 0,
+    'quotes': ['error', 'single', { avoidEscape: true }],
+    'eqeqeq': 0,
     'quote-props': 'off',
     'no-useless-escape': 'off',
     'unused-imports/no-unused-imports-ts': 'error',
@@ -58,14 +58,19 @@ module.exports = {
     'import/order': [
       'error',
       {
-        alphabetize: { order: 'asc', caseInsensitive: true },
-        groups: ['builtin', ['external', 'internal'], ['parent', 'sibling', 'index'], 'object'],
+        'alphabetize': { order: 'asc', caseInsensitive: true },
+        'groups': ['builtin', ['external', 'internal'], ['parent', 'sibling', 'index'], 'object'],
         'newlines-between': 'always',
-        pathGroups: [
-          { pattern: 'react', group: 'external', position: 'before' },
+        'pathGroupsExcludedImportTypes': ['react', 'antd'],
+        'pathGroups': [
+          { pattern: 'react**', group: 'builtin', position: 'before' },
+          { pattern: 'antd', group: 'builtin' },
+          { pattern: '@ant-design/**', group: 'builtin' },
           { pattern: '@nestjs/**', group: 'external', position: 'before' },
           { pattern: '@eduzz/**', group: 'internal', position: 'after' },
-          { pattern: '~/**', group: 'internal', position: 'after' }
+          { pattern: '@myeduzz-vertical/**', group: 'internal', position: 'after' },
+          { pattern: '~/**', group: 'internal', position: 'after' },
+          { pattern: '@/**', group: 'internal', position: 'after' }
         ]
       }
     ]

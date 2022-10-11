@@ -1,5 +1,8 @@
 import type { Line } from '../types';
 
+/**
+ * @deprecated
+ */
 export const line: Line = {
   height: {
     default: '100%',

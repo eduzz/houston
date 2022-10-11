@@ -57,6 +57,10 @@ const DialogHeader = ({
   );
 };
 
+/**
+ * @deprecated Use Modal from Antd
+ * https://ant.design/components/modal/
+ */
 export default React.memo(styled(DialogHeader, { label: 'hst-dialog-header' })`
   ${({ theme }) => css`
     flex-grow: 0;

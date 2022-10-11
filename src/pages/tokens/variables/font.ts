@@ -1,5 +1,8 @@
 import type { Font } from '../types';
 
+/**
+ * @deprecated
+ */
 export const font: Font = {
   size: {
     xxxs: '0.75rem',

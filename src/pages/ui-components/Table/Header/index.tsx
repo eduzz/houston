@@ -47,4 +47,8 @@ const TableHeader = ({ id, children, disabledActionsColumn, columnActionTitle, .
   );
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default React.memo(TableHeader);

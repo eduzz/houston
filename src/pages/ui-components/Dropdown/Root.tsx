@@ -19,4 +19,8 @@ const DropdownRoot = ({ children, arrow, ...rest }: DropdownRootProps & React.HT
   );
 };
 
+/**
+ * @deprecated Use Dropdown from Antd
+ * https://ant.design/components/dropdown/
+ */
 export default React.memo(DropdownRoot);

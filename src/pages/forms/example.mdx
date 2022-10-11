@@ -2,17 +2,13 @@
 name: Exemplo
 ---
 
+import { DeleteOutlined } from '@ant-design/icons';
+import { Button, Space } from 'antd';
+
 import { Playground } from 'dokz';
 
-import moneyMask from '@eduzz/houston-forms/masks/money';
+import { Form, Input, Select, ErrorMessage } from '@eduzz/houston-forms';
 import useForm, { useFieldArray } from '@eduzz/houston-forms/useForm';
-import TrashOutline from '@eduzz/houston-icons/TrashOutline';
-import Button from '@eduzz/houston-ui/Button';
-import ErrorMessage from '@eduzz/houston-ui/Forms/ErrorMessage';
-import Form from '@eduzz/houston-ui/Forms/Form';
-import Input from '@eduzz/houston-ui/Forms/Input';
-import Select from '@eduzz/houston-ui/Forms/Select';
-import IconButton from '@eduzz/houston-ui/IconButton';
 
 # Exemplo de Validação
 
@@ -65,15 +61,17 @@ import Form from '@eduzz/houston-ui/Forms/Form';
         {/* a prop name que irá dizer o campo que receberá o valor */}
         <Input label='Name' name='name' />
         {/* você passar uma função de mascara, você pode importar uma pronta ou criar a sua */}
-        <Input label='Money' name='money' mask={moneyMask} />
+        <Input label='Money' name='money' mask='money' />
         <Select label='Options' name='option' options={options} />
-        <Button type='submit' loading={form.formState.isSubmitting}>
-          Submit
-        </Button>
-        {/* Por ser um type reset não precisa passar o form.handleReset */}
-        <Button variant='text' type='reset' disabled={form.formState.isSubmitting}>
-          Reset
-        </Button>
+        <Space>
+          <Button htmlType='submit' type='primary' loading={form.formState.isSubmitting}>
+            Submit
+          </Button>
+          {/* Por ser um type reset não precisa passar o form.handleReset */}
+          <Button danger type='text' htmlType='reset' disabled={form.formState.isSubmitting}>
+            Reset
+          </Button>
+        </Space>
       </Form>
     );
   }}
@@ -110,19 +108,21 @@ import Form from '@eduzz/houston-ui/Forms/Form';
     return (
       <Form context={form} onSubmit={onSubmit}>
         {fields.map((user, index) => (
-          <div key={user.id}>
+          <Space key={user.id}>
             <Input name={`users.${index}.name`} label='Nome' fullWidth={false} />
             <Input name={`users.${index}.age`} label='Idade' fullWidth={false} />
-            <IconButton style={{ marginTop: 30 }} onClick={() => handleClickRemove(index)}>
-              <TrashOutline />
-            </IconButton>
-          </div>
+            <Button danger icon={<DeleteOutlined />} shape='circle' onClick={() => handleClickRemove(index)}></Button>
+          </Space>
         ))}
         <ErrorMessage name='users' />
-        <Button variant='text' onClick={handleClickAdd}>
-          Adicionar linha
-        </Button>
-        <Button type='submit'>Enviar</Button>
+        <Space>
+          <Button type='text' onClick={handleClickAdd}>
+            Adicionar linha
+          </Button>
+          <Button htmlType='submit' type='primary'>
+            Enviar
+          </Button>
+        </Space>
       </Form>
     );
   }}
