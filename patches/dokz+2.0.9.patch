@@ -106,7 +106,7 @@ index 4e35179..42b1205 100644
              react_3.jsx(react_4.Global, { styles: support_1.globalStyles }),
              react_3.jsx(react_2.Stack, { className: 'dokz visibleInPrint noMarginInPrint', align: 'center', minHeight: '100%', color: bodyColor[colorMode], fontSize: fontSize, fontFamily: fontFamily, fontWeight: fontWeight },
 diff --git a/node_modules/dokz/dist/plugin/index.js b/node_modules/dokz/dist/plugin/index.js
-index 808d06b..98c6f94 100644
+index 808d06b..28cee89 100644
 --- a/node_modules/dokz/dist/plugin/index.js
 +++ b/node_modules/dokz/dist/plugin/index.js
 @@ -102,7 +102,7 @@ var writeMdxIndex = throttle_1.default(function () {
@@ -136,14 +136,14 @@ index 808d06b..98c6f94 100644
 +    const hooks = sidebar.children.find(c => c.name === 'hooks');
 +    hooks.children.push(
 +        {
-+            path: "",
++            path: hooks.path + "/usePromise",
 +            name: "Promise",
 +            children: hooks.children.filter(c => c.title?.startsWith('usePromise'))
 +        }
 +    );
 +    hooks.children.push(
 +        {
-+            path: "",
++            path:  hooks.path + "/useObservable",
 +            name: "Observable",
 +            children: hooks.children.filter(c => c.title?.startsWith('useObservable'))
 +        }

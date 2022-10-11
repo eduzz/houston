@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/eslint-config-houston",
   "private": false,
-  "version": "0.65.0-beta.17",
+  "version": "1.0.0-rc.1",
   "description": "Eduzz Houston Eslint Config",
   "author": "Eduzz Team",
   "license": "MIT",
