@@ -1,4 +1,5 @@
 import DatePickerComponent from './DatePicker';
+import ErrorMessageComponent from './ErrorMessage';
 import FormComponent from './Form';
 import InputComponent from './Input';
 import SelectComponent from './Select';
@@ -12,5 +13,6 @@ export const Input = InputComponent;
 export const Select = SelectComponent;
 export const DatePicker = DatePickerComponent;
 export const Textarea = TextareaComponent;
+export const ErrorMessage = ErrorMessageComponent;
 
 export const useForm = useFormHook;

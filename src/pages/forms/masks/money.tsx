@@ -1,10 +1,19 @@
 import { MaskAdapter } from '.';
 
+let formatter: Intl.NumberFormat;
+
+function getIntl() {
+  if (!formatter) {
+    formatter = new Intl.NumberFormat('pt-BR', { style: 'decimal', currency: 'BRL', minimumFractionDigits: 2 });
+  }
+
+  return formatter;
+}
+
 const moneyMask: MaskAdapter = {
   apply: (value: number | string) => {
     if (value === null || value === undefined || value === '') return '';
-
-    return new Intl.NumberFormat('pt-BR', { style: 'decimal', currency: 'BRL' }).format(Number(value) || 0);
+    return getIntl().format(Number(value) || 0);
   },
   clean: value => {
     value = (value || '').toString().replace(/[^\d,]/gi, '');

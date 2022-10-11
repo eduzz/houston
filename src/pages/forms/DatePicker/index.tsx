@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import generatePicker, { PickerProps } from 'antd/es/date-picker/generatePicker';
+import generatePicker, { PickerProps } from 'antd/lib/date-picker/generatePicker';
 import dateFnsGenerateConfig from 'rc-picker/lib/generate/dateFns';
 
 import withForm, { WithFormProps } from '../Form/withForm';

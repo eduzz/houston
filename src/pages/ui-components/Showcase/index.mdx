@@ -4,9 +4,10 @@ name: Showcase
 
 import { useState } from 'react';
 
+import { Button } from 'antd';
+
 import { Playground } from 'dokz';
 
-import Button from '../Button';
 import Column from '../Grid/Column';
 import Container from '../Grid/Container';
 import Row from '../Grid/Row';
@@ -34,7 +35,7 @@ import Showcase from '@eduzz/houston-ui/Showcase';
       <Container>
         <Row justifyContent='space-around'>
           <Column xs={12} md={4}>
-            <Button onClick={() => setOpen(true)} variant='outlined'>
+            <Button onClick={() => setOpen(true)} type='primary'>
               Abrir Showcase
             </Button>
             <Showcase open={open} currentStep={step} controlDots>
@@ -87,21 +88,21 @@ import Showcase from '@eduzz/houston-ui/Showcase';
               <Showcase.Footer>
                 {isFirstStep ? (
                   <>
-                    <Button onClick={() => setOpen(false)} variant='text'>
+                    <Button onClick={() => setOpen(false)} type='text'>
                       Agora não
                     </Button>
                     <Button onClick={() => setStep(step => step + 1)}>Próximo</Button>
                   </>
                 ) : isLastStep ? (
                   <>
-                    <Button variant='text' onClick={() => setStep(step => step - 1)}>
+                    <Button type='text' onClick={() => setStep(step => step - 1)}>
                       Anterior
                     </Button>
                     <Button onClick={() => setOpen(false)}>Entendi</Button>
                   </>
                 ) : (
                   <>
-                    <Button variant='text' onClick={() => setStep(step => step - 1)}>
+                    <Button type='text' onClick={() => setStep(step => step - 1)}>
                       Anterior
                     </Button>
                     <Button onClick={() => setStep(step => step + 1)}>Próximo</Button>

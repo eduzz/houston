@@ -21,9 +21,9 @@ const buildInMasks = {
   zipcode: zipcodeMask
 } as const;
 
-export type BuildInMask = keyof typeof buildInMasks;
+export type BuildInMasks = keyof typeof buildInMasks;
 
-export default function useMask(mask: BuildInMask | MaskAdapter | undefined, value: any) {
+export default function useMask(mask: BuildInMasks | MaskAdapter | undefined, value: any) {
   const { apply: maskApply, clean: maskClean } = React.useMemo<MaskAdapter>(() => {
     const maskFunction = typeof mask === 'string' ? buildInMasks[mask] : mask;
     return maskFunction ?? ({ apply: v => v, clean: v => v } as MaskAdapter);

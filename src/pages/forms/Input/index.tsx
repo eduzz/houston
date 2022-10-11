@@ -3,12 +3,12 @@ import * as React from 'react';
 import { Input as AntdInput, InputProps as AntdInputProps, InputRef } from 'antd';
 
 import withForm, { WithFormProps } from '../Form/withForm';
-import useMask, { BuildInMask, MaskAdapter } from '../masks';
+import useMask, { BuildInMasks, MaskAdapter } from '../masks';
 
 export interface InputProps
   extends Omit<AntdInputProps, 'onChange' | 'onBlur' | 'onPressEnter'>,
     WithFormProps<InputRef> {
-  mask?: BuildInMask | MaskAdapter;
+  mask?: BuildInMasks | MaskAdapter;
   onChange?: (value: string | number | null | undefined, event: React.ChangeEvent<HTMLInputElement>) => any;
   onBlur?: (value: string | number | null | undefined, event: React.FocusEvent<HTMLInputElement>) => any;
   onPressEnter?: (value: string | number | null | undefined) => any;
@@ -17,6 +17,7 @@ export interface InputProps
 const Input = React.forwardRef<InputRef, InputProps>(
   ({ mask, value, onChange, onBlur, onPressEnter, ...props }, ref) => {
     const { maskClean, maskedValue } = useMask(mask, value);
+    console.log({ maskedValue, mask });
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
