@@ -20,11 +20,6 @@ export interface ButtonProps
    */
   active?: boolean;
 }
-
-/**
- * @deprecated Use Button from Antd
- * https://ant.design/components/button/
- */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -79,6 +74,10 @@ const HEIGHT = 48;
 const MIN_WIDTH = 96;
 const ICON_SIZE = 24;
 
+/**
+ * @deprecated Use Button from Antd
+ * https://ant.design/components/button/
+ */
 export default styled(Button, { label: 'hst-button' })(({ theme }) => {
   return css`
     border: none;

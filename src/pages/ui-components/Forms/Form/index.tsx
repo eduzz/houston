@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 
 export interface FormProps {
@@ -20,4 +19,7 @@ const Form = ({ context, onSubmit, ...rest }: FormProps) => {
   );
 };
 
+/**
+ * @deprecated Use Form from @eduzz/houston-forms or Antd
+ */
 export default Form;

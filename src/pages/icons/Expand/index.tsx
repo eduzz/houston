@@ -12,4 +12,8 @@ const Expand = (props: IconProps) => {
   );
 };
 
+/**
+ * @deprecated Use Icon from Antd
+ * https://ant.design/components/icon/
+ */
 export default Expand;

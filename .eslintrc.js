@@ -1,3 +1,5 @@
+const generator = require('./src/pages/eslint-config/configs/generator');
+
 module.exports = {
   "overrides": [
     {
@@ -13,7 +15,8 @@ module.exports = {
       "rules": {
         "@typescript-eslint/ban-ts-comment": "off",
         "max-lines": ["error", 500],
-        "no-restricted-imports": ["error", "date-fns", "mdi-react", "lodash", "@material-ui/core", "@material-ui/styles", "@eduzz/houston-ui/*"]
+        "no-restricted-imports": ["error", "date-fns", "mdi-react", "lodash", "@material-ui/core", "@material-ui/styles", "@eduzz/houston-ui/*"],
+        'react-hooks/exhaustive-deps': generator.exhaustiveDeps('warn', [], true, true)
       }
     }
   ]

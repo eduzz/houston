@@ -64,6 +64,9 @@ const SelectOption = ({ children, value, label, className, disabled, id }: Selec
   );
 };
 
+/**
+ * @deprecated Use Select from @eduzz/houston-forms or Antd
+ */
 export default styled(React.memo(SelectOption), { label: 'hst-select-option' })(
   ({ theme }) => css`
     cursor: pointer;

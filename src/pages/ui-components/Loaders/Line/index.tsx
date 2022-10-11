@@ -1,15 +1,16 @@
 import { useMemo } from 'react';
 
-import styled, { css, cx, keyframes, StyledProp } from '@eduzz/houston-styles';
+import { cx } from '@emotion/css';
+import { css, keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
 
-export type LineLoaderProps = StyledProp &
-  React.HTMLAttributes<HTMLDivElement> & {
-    mode?: 'determinate' | 'indeterminate';
-    /**
-     * 0 to 1. Ex: 0.2 = 20%
-     */
-    value?: number;
-  };
+export interface LineLoaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  mode?: 'determinate' | 'indeterminate';
+  /**
+   * 0 to 1. Ex: 0.2 = 20%
+   */
+  value?: number;
+}
 
 const LineLoader = ({ className, mode = 'indeterminate', value, ...rest }: LineLoaderProps) => {
   const style = useMemo(() => (mode === 'determinate' ? { width: `${(value ?? 0) * 100}%` } : {}), [value, mode]);
@@ -39,11 +40,11 @@ export default styled(LineLoader, { label: 'hst-lineloader' })(
     display: block;
     width: 100%;
     overflow: hidden;
-    height: ${theme.pxToRem(4)}rem;
-    background-color: ${theme.hexToRgba(theme.brandColor.primary.light, theme.opacity.level[5])};
+    height: 4px;
+    background-color: ${theme.hexToRgba(theme.primaryColor, 0.25)};
 
     & > div {
-      background-color: ${theme.brandColor.primary.pure};
+      background-color: ${theme.primaryColor};
     }
 
     &.hst-line-loader-mode-indeterminate > div {

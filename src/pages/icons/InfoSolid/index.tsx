@@ -12,4 +12,8 @@ const InfoSolid = (props: IconProps) => {
   );
 };
 
+/**
+ * @deprecated Use Icon from Antd
+ * https://ant.design/components/icon/
+ */
 export default InfoSolid;

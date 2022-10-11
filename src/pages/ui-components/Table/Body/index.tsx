@@ -86,4 +86,8 @@ const TableBody = ({ id, children }: TableBodyProps) => {
   return <tbody>{children}</tbody>;
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default TableBody;

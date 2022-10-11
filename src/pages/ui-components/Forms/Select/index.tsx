@@ -161,6 +161,9 @@ const SelectField = ({
   );
 };
 
+/**
+ * @deprecated Use Select from @eduzz/houston-forms or Antd
+ */
 export default nestedComponent(withForm(React.memo(SelectField)), {
   Option: SelectOption
 });

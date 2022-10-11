@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+//@ts-ignore
 import BoxMUI, { BoxProps as BoxPropsMui } from '@mui/material/Box';
 
 import { cx } from '@eduzz/houston-styles';
@@ -37,4 +38,7 @@ const Box = (props: BoxProps) => {
   );
 };
 
+/**
+ * @deprecated
+ */
 export default React.memo(Box);
