@@ -6,15 +6,11 @@
     },
     {
       "name": "dev",
-      "path": "./src/dev"
+      "path": "./src/dev",
     },
     {
       "name": "@eduzz/houston-ui",
       "path": "./src/pages/ui-components"
-    },
-    {
-      "name": "@eduzz/houston-icons",
-      "path": "./src/pages/icons"
     },
     {
       "name": "@eduzz/houston-forms",
@@ -27,14 +23,6 @@
     {
       "name": "@eduzz/eslint-config-houston",
       "path": "./src/pages/eslint-config"
-    },
-    {
-      "name": "@eduzz/houston-tokens",
-      "path": "./src/pages/tokens"
-    },
-    {
-      "name": "@eduzz/houston-styles",
-      "path": "./src/pages/styles"
     }
   ],
   "settings": {

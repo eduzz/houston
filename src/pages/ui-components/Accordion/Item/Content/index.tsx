@@ -27,6 +27,10 @@ const AccordionContent = ({ children, ...rest }: ContentProps) => {
   );
 };
 
+/**
+ * @deprecated Use Collapse with accordion prop from Antd
+ * https://ant.design/components/collapse/#components-collapse-demo-accordion
+ */
 export default styled(AccordionContent, { label: 'hst-accordion-content' })(({ theme }) => {
   return css`
     background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[1])};

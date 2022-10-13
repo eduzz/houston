@@ -1,5 +1,8 @@
 import type { Opacity } from '../types';
 
+/**
+ * @deprecated
+ */
 export const opacity: Opacity = {
   level: {
     0: 0,

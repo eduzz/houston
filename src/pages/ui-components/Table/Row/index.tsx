@@ -111,4 +111,8 @@ const TableRow = ({ data, index, children, className, ...props }: TableRowProps)
   );
 };
 
+/**
+ * @deprecated Use Table from Antd
+ * https://ant.design/components/table/
+ */
 export default React.memo(TableRow);

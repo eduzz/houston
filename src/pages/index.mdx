@@ -4,29 +4,63 @@ name: Instalação
 
 # Instalação
 
-Para instalar o Houston basta adicionar cada package:
+> Todos o houston foi pensando para trabalhar junto com o [AntD](https://ant.design).
+
+Para instalar o Houston seguir os passos:
+
+1. [Instalar os packages](#instalar-os-packages).
+2. [Configurar o eslint](#configurar-o-eslint) _(opcional)_.
+3. [Configurar o Tema](#configurar-o-tema).
+
+## Instalar os packages
 
 ```bash
 yarn add @eduzz/houston-ui @eduzz/houston-forms @eduzz/houston-hooks
 ```
 
+## Configurar o eslint
+
 Para configurar no padrão do Houston no eslint, você deve adicionar as dependências, pois o eslint exige que plugins devem,
 ser adicionados no projeto principal:
 
-```bash
-yarn add --dev @eduzz/eslint-config-houston @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-eslint-plugin eslint-plugin-import eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports prettier eslint-plugin-sonarjs eslint
+```sh
+yarn add --dev eslint @eduzz/eslint-config-houston eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-eslint-plugin eslint-plugin-import eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports eslint-plugin-sonarjs prettier
 ```
 
-Veja mais sobre as configurações no menu [ESLint](/eslint).
+```js
+// .eslintrc
+{
+  "extends": ["@eduzz/eslint-config-houston"]
+}
 
-## Individual
+// .prettierrc.js
+module.exports = {
+  ...require('@eduzz/eslint-config-houston/.prettierrc')
+};
+```
 
-| Package                      | Descrição                                  | Link                                                  | Version                                                                                                                             |
-| ---------------------------- | ------------------------------------------ | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| @eduzz/houston-ui            | Componentes UI para web                    | [Visualizar](/houston/ui-components/README)           | [![version](https://img.shields.io/npm/v/@eduzz/houston-ui)](https://www.npmjs.com/package/@eduzz/houston-ui)                       |
-| @eduzz/houston-styles        | Criador de estilos com suporte aos tokens  | [Visualizar](/houston/styles/README)                  | [![version](https://img.shields.io/npm/v/@eduzz/houston-styles)](https://www.npmjs.com/package/@eduzz/houston-styles)               |
-| @eduzz/houston-tokens        | Variaveis globais do Design System         | [Visualizar](/houston/tokens/README)                  | [![version](https://img.shields.io/npm/v/@eduzz/houston-tokens)](https://www.npmjs.com/package/@eduzz/houston-tokens)               |
-| @eduzz/houston-mobile        | Componentes UI para mobile                 | [Visualizar](https://github.com/eduzz/houston-mobile) | [![version](https://img.shields.io/npm/v/@eduzz/houston-mobile)](https://www.npmjs.com/package/@eduzz/houston-mobile)               |
-| @eduzz/eslint-config-houston | Configuração padrão para o eslint/prettier | [Visualizar](/houston/eslint-config/README)           | [![version](https://img.shields.io/npm/v/@eduzz/eslint-config-houston)](https://www.npmjs.com/package/@eduzz/eslint-config-houston) |
-| @eduzz/houston-forms         | Hooks para validação de formulários        | [Visualizar](/houston/forms/README)                   | [![version](https://img.shields.io/npm/v/@eduzz/houston-forms)](https://www.npmjs.com/package/@eduzz/houston-forms)                 |
-| @eduzz/houston-hooks         | Hooks de suporte                           | [Visualizar](/houston/hooks/README)                   | [![version](https://img.shields.io/npm/v/@eduzz/houston-hooks)](https://www.npmjs.com/package/@eduzz/houston-hooks)                 |
+Veja mais sobre as configurações no menu [ESLint](/houston/eslint-config).
+
+### Configurar o Tema
+
+No arquivo raiz de seu projeto, defina sua paleta de cores e adicione o provedor da seguinte maneira:
+
+```tsx
+import '@eduzz/houston-ui/ThemeProvider/theme.css'; // <~importar css base
+import ThemeProvider, { createTheme } from '@eduzz/houston-ui/ThemeProvider';
+
+const theme = createTheme('eduzz'); // ou um hex: '#0D47A1'
+
+<ThemeProvider theme={theme}>...</ThemeProvider>;
+```
+
+Veja mais no menu [Tema e Estilos](/houston/styles).
+
+## Packages
+
+| Package                      | Descrição                                  | Link                                        | Version                                                                                                                             |
+| ---------------------------- | ------------------------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| @eduzz/houston-ui            | Componentes UI para web                    | [Visualizar](/houston/ui-components/README) | [![version](https://img.shields.io/npm/v/@eduzz/houston-ui)](https://www.npmjs.com/package/@eduzz/houston-ui)                       |
+| @eduzz/houston-forms         | Validação de formulários                   | [Visualizar](/houston/forms/README)         | [![version](https://img.shields.io/npm/v/@eduzz/houston-forms)](https://www.npmjs.com/package/@eduzz/houston-forms)                 |
+| @eduzz/houston-hooks         | Hooks diversos                             | [Visualizar](/houston/hooks/README)         | [![version](https://img.shields.io/npm/v/@eduzz/houston-hooks)](https://www.npmjs.com/package/@eduzz/houston-hooks)                 |
+| @eduzz/eslint-config-houston | Configuração padrão para o eslint/prettier | [Visualizar](/houston/eslint-config/README) | [![version](https://img.shields.io/npm/v/@eduzz/eslint-config-houston)](https://www.npmjs.com/package/@eduzz/eslint-config-houston) |

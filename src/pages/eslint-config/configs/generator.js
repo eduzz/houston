@@ -3,16 +3,23 @@ const houstonHooks = [
   'useCallbackGenerator',
   'useObservable',
   'useObservableCallback',
-  'useObservableRefresh',
-  'usePromise',
-  'usePromiseRefresh'
+  'useObservableEffect',
+  'useObservableRefresh'
 ];
 
+const asyncHoustonHooks = ['usePromise', 'usePromiseRefresh', 'usePromiseCallback', 'usePromiseEffect'];
+
 module.exports = {
-  exhaustiveDeps: (warnOrError = 'warn', customHooks = [], useHoustonHooks = true) => {
+  exhaustiveDeps: (warnOrError = 'warn', customHooks = [], useHoustonHooks = true, useHoustonAsyncHooks = false) => {
     return [
       warnOrError,
-      { additionalHooks: `^(${[...customHooks, ...(useHoustonHooks ? houstonHooks : [])].join('|')})$` }
+      {
+        additionalHooks: `^(${[
+          ...customHooks,
+          ...(useHoustonHooks ? houstonHooks : []),
+          ...(useHoustonAsyncHooks ? asyncHoustonHooks : [])
+        ].join('|')})$`
+      }
     ];
   }
 };

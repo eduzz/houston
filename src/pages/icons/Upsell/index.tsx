@@ -20,4 +20,8 @@ const Upsell = (props: IconProps) => {
   );
 };
 
+/**
+ * @deprecated Use Icon from Antd
+ * https://ant.design/components/icon/
+ */
 export default Upsell;

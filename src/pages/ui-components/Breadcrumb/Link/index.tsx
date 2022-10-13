@@ -47,6 +47,10 @@ const BreadcrumbLink = ({ as: Tag = 'a', icon, children, className, ...rest }: B
   );
 };
 
+/**
+ * @deprecated Use Breadcrumb from Antd
+ * https://ant.design/components/breadcrumb/
+ */
 export default React.memo(styled(BreadcrumbLink, { label: 'hst-breadcrumb-link' })`
   ${({ theme }) => css`
     display: flex;

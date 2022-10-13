@@ -1,0 +1,111 @@
+@import './reset.less';
+@import 'antd/dist/antd.variable.less';
+
+ol {
+  list-style: decimal;
+}
+
+// overrides theme
+
+// Font
+@font-size-base: 14px;
+
+// colors
+@primary-color: var(--ant-primary-color, #0d2772);
+
+// support colors
+@info-color: #1890ff;
+
+// Height general
+@height-base: 42px;
+@height-lg: 42px;
+@height-sm: 32px;
+
+// Pagination
+@pagination-item-size: 32px;
+
+// Radius
+@border-radius-base: 4px;
+@border-radius-sm: 4px;
+
+// Vertical paddings
+@padding-lg: 24px; // containers
+@padding-md: 24px; // small containers and buttons
+@padding-sm: 16px; // Form controls and items
+
+// Buttons
+@btn-font-weight: 500;
+
+// Line Height
+@line-height-base: 1.35;
+
+// Typography
+@typography-title-margin-bottom: 0rem;
+
+// Spin
+@spin-dot-size: 28px;
+
+// Select
+@select-item-selected-bg: #ddd;
+
+.ant-form-item {
+  margin-bottom: 20px;
+}
+
+.ant-form-item-explain-error {
+  font-size: 13px;
+}
+
+.ant-form-vertical .ant-form-item-label,
+.ant-col-24.ant-form-item-label {
+  padding-bottom: 4px;
+}
+
+.ant-col-24.ant-form-item-label > label {
+  height: auto;
+}
+
+.ant-select, .ant-picker {
+  width: 100%;
+}
+
+.ant-pagination-options {
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    height: @pagination-item-size;
+  }
+
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+    height: calc(@pagination-item-size - 3px);
+  }
+
+  .ant-select-single .ant-select-selector .ant-select-selection-item, .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+    line-height: calc(@pagination-item-size - 3px);
+  }
+}
+
+.ant-table table {
+  border: 1px solid @table-border-color;
+  border-bottom: none;
+}
+
+.ant-space {
+  display: flex;
+}
+
+.ant-empty-image {
+  height: 80px;
+
+  .anticon {
+    font-size: 60px; 
+  }
+}
+
+th.houston-table-action {
+  text-align: center;
+  width: 80px;
+}
+
+td.houston-table-action {
+  padding: 0 !important;
+  text-align: center;
+}
