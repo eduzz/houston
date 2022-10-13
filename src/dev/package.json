@@ -1,12 +1,12 @@
 {
   "name": "@eduzz/houston-dev",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@eduzz/houston-forms": "1.0.0-rc.1",
-    "@eduzz/houston-hooks": "1.0.0-rc.1",
-    "@eduzz/houston-icons": "1.0.0-rc.1",
-    "@eduzz/houston-ui": "1.0.0-rc.1",
+    "@eduzz/houston-forms": "1.0.0",
+    "@eduzz/houston-hooks": "1.0.0",
+    "@eduzz/houston-icons": "1.0.0",
+    "@eduzz/houston-ui": "1.0.0",
     "react-dom": "^18",
     "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
