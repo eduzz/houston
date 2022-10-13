@@ -4,57 +4,45 @@ name: Tema e Estilos
 
 # Tema e Estilos
 
-> Utilizamos o [emotion](https://emotion.sh) como engine.
+Todos o houston foi pensando para trabalhar junto com o [AntD](https://ant.design).
 
-## Standalone
+> **Não é necessário importar o css e o ConfigProvider** do AntD
 
-Caso seja necessário é possível criar estilos usando o tema do houston como base sem usar os componentes de ui completo:
-
-- [@eduzz/houston-styles](/houston/styles/README): package com emotion configurado, ThemeProvider, styled e etc...
-- [@eduzz/houston-tokens](/houston/tokens/README): Caso queira apenas os valores (font-size, padding e etc...)
+Utilizamos o [emotion](https://emotion.sh) como engine de styled component.
 
 ## Uso
 
-O ThemeProvider não substituirá o tema atual do projeto por completo (se ainda utilizar o MUI4), apenas estilizará os componentes do Houston,
-possibilitando a migração de componentes gradativamente sem interferir na estilização já existente do projeto.
-
 No arquivo raiz de seu projeto, defina sua paleta de cores e adicione o provedor da seguinte maneira:
 
-```tsx
-import createTheme, { HoustonThemeProps } from '@eduzz/houston-styles/createTheme';
-import ThemeProvider from '@eduzz/houston-ui/ThemeProvider'; // deve importar do ui
+1. Importe o css no componente raiz do projeto.
+2. Configure o ThemeProvider no componente raiz.
+3. Pronto.
 
-const theme: HoustonThemeProps = createTheme('orbita');
-// ou
-const theme: HoustonThemeProps = createTheme({
-  primary: {
-    pure: '#0D47A1',
-    light: '#9EB5D9',
-    medium: '#265AAB',
-    dark: '#072D83'
-  }
-});
+```tsx
+import '@eduzz/houston-ui/ThemeProvider/theme.css'; // <~importar css base (que tem o css do AntD)
+import ThemeProvider, { createTheme } from '@eduzz/houston-ui/ThemeProvider';
+
+const theme = createTheme('eduzz'); // ou um hex: '#0D47A1'
 
 <ThemeProvider theme={theme}>...</ThemeProvider>;
 ```
 
 ### Variáveis customizadas
 
-Caso seja necessário você pode adicionar variáveis extras no theme, que ficaram acessiveis pelo **theme.variables**.
+Caso seja necessário você pode adicionar variáveis extras no theme, que ficarão acessiveis pelo **theme.variables**.
 
 ```tsx
-import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
-import { HoustonThemeBuilder } from '@eduzz/houston-ui/styles/types';
+import ThemeProvider, { createTheme } from '@eduzz/houston-ui/ThemeProvider';
 
 // declara a definição dessa variáveis para poder tipar pelo typescript
-declare module '@eduzz/houston-styles' {
-  interface HoustonThemePropsCustomVariables {
+declare module '@eduzz/houston-ui/ThemeProvider' {
+  interface HoustonThemeCustomVariables {
     customVar: string;
     customObject: { prop: number; };
   }
 }
 
-const theme: HoustonThemeProps = createTheme('orbita', {
+const theme = createTheme('eduzz', {
   customVar: 'custom value',
   customObject: { prop: 1 };
 });
@@ -64,15 +52,12 @@ const theme: HoustonThemeProps = createTheme('orbita', {
 
 ### Estilizando um componente
 
-Existem duas maneiras de estilar, mas ambos usam o emotion e tem o mesmo impacto de performance, fica mais a critério de
-gosto, mas recomendamos o styled para padronizar:
+Se estiver usando o VsCode instale a extensão [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components)
 
-- [styled](/houston/styles/styled) (_Recomendado_): estilar os componentes no estilo styled-components.
+```tsx
+import styled from '@emotion/styled';
 
-```js
-import styled, { StyledProp } from '@eduzz/houston-styles';
-
-const Component: React.FC<StyledProp> = ({ className }) => {
+const Component: React.FC<{ className?: string }> = ({ className }) => {
   return <div className={className} />;
 };
 
@@ -81,43 +66,55 @@ export default styled(Component)`
 `;
 ```
 
-- [useStyles](/houston/styles/createUseStyles): estilar usando o padrão do JSS.
+### Performance
 
-```js
-import createUseStyles from '@eduzz/houston-styles/createUseStyles';
+Se criar um component que <u>**será muito utilizado**</u> (ex. button, typography)
+não acesse as props dentro do styled, se não cada instância do
+componente terá sua própria classe invês de compartilhar a mesma.
 
-const useStyles = createUseStyles(() => {
-  container: {
-    background: 'red';
-  }
-});
+Veja o exemplo a seguir:
 
-const Component: React.FC = props => {
-  const styles = useStyles(props);
+```tsx
+import styled from '@emotion/styled';
 
-  return <div className={styles.container} />;
+const Component: React.FC<{ active: boolean; className?: string }> = ({ className }) => {
+  return <div className={className} />;
 };
 
-export default Component;
+export default styled(Component)`
+  background-color: ${({ theme, active }) => (active ? theme.primaryColor : 'grey')};
+`;
 ```
 
-### useHoustonTheme
+Prefira criar uma classe a auxiliar e adicionar essa classe dependendo da prop:
+
+```tsx
+import styled from '@emotion/styled';
+import { cx } from '@emotion/css';
+
+const Component: React.FC<{ active: boolean; className?: string }> = ({ className }) => {
+  return <div className={cx(className, { 'is-active': active })} />;
+};
+
+export default styled(Component)`
+  background-color: grey;
+
+  &.is-active {
+    /* O theme pode ser acessado sem problemas */
+    background-color: ${({ theme }) => theme.primaryColor};
+  }
+`;
+```
+
+### useTheme
 
 Caso queria apenas utlizar as variáveis sem criar um estilo é possível utilizar esse hook.
 
 ```tsx
-import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
+import { useTheme } from '@emotion/react';
 
 const ComponentsDev = memo<IProps>(props => {
-  const theme = useHoustonTheme();
-  return <div>Tamanho: {theme.font.size.xs}</div>;
+  const theme = useTheme();
+  return <div>Color: {theme.primaryColor}</div>;
 });
 ```
-
-### Objeto Tema (HoustonThemeProps)
-
-Veja [aqui os tokens](/houston/tokens/tokens)
-
-### Outros
-
-Para mais informações veja a seção **@eduzz/houston-styles** no menu lateral;

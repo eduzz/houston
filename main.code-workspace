@@ -6,7 +6,7 @@
     },
     {
       "name": "dev",
-      "path": "./src/dev"
+      "path": "./src/dev",
     },
     {
       "name": "@eduzz/houston-ui",
