@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { z, ZodIssueCode } from 'zod';
 
 z.setErrorMap((issue, ctx) => {

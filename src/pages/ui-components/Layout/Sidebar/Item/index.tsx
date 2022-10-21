@@ -74,14 +74,16 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
     display: block;
     outline: none;
     user-select: none;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
 
     &:focus-visible {
-      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+      background-color: rgba(0, 0, 0, 0.03);
       box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
     }
 
     &:hover {
-      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+      background-color: rgba(0, 0, 0, 0.03);
     }
 
     &:active {

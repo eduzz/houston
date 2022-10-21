@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import * as React from 'react';
 
 import { createPopper } from '@popperjs/core';

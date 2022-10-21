@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import * as React from 'react';
 
 import Done from '@eduzz/houston-icons/Done';

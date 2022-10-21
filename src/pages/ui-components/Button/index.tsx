@@ -102,7 +102,7 @@ export default styled(Button, { label: 'hst-button' })(({ theme }) => {
 
     :focus,
     .hst-button-active {
-      outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
+      outline: none;
     }
 
     &.hst-button-variant-contained {

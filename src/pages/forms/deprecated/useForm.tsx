@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import '../locale';
 
 import { useCallback, useEffect, useRef } from 'react';

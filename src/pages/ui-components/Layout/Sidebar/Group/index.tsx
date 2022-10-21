@@ -72,9 +72,11 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
       min-height: ${theme.pxToRem(48)}rem;
       outline: none;
       position: relative;
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
 
       &:hover {
-        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
+        background-color: rgba(0, 0, 0, 0.03);
       }
 
       &:active {
