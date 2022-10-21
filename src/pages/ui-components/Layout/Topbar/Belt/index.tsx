@@ -71,6 +71,7 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
     ${theme.breakpoints.down('lg')} {
       & .hst-topbar-belt-text {
         display: none;
+        padding: 8px 16px 8px 16px;
       }
     }
 
