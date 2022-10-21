@@ -34,7 +34,7 @@ export default styled(Action, { label: 'hst-topbar-action' })(
   ({ theme }) => css`
     & .hst-topbar-action-icon-button,
     & .hst-topbar-action-text-button.--text {
-      color: inherit;
+      color: #666666;
     }
 
     ${theme.breakpoints.up('lg')} {

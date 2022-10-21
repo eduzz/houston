@@ -44,7 +44,7 @@ const Belt = React.memo<StyledProp>(({ className }) => {
       <div className='hst-topbar-belt-badge'>
         <BeltIcon size={25} className='hst-topbar-belt-icon' />
 
-        <Typography color='inherit' className='hst-topbar-belt-text' weight='semibold'>
+        <Typography color='inherit' className='hst-topbar-belt-text'>
           {beltColor}
         </Typography>
       </div>
@@ -57,8 +57,8 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
     color: white;
     display: flex;
     align-items: center;
-    padding: ${theme.spacing.squish.xxs};
-    border-radius: ${theme.border.radius.md};
+    padding: 8px 22px 8px 16px;
+    border-radius: 50px;
     border-top-left-radius: 0;
     border-bottom-right-radius: 0;
     margin-right: ${theme.spacing.inline.xxs};
@@ -117,6 +117,7 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
         white-space: nowrap;
         text-transform: uppercase;
         font-style: italic;
+        font-size: 14px;
         margin-left: ${theme.spacing.inline.quarck};
       }
     }

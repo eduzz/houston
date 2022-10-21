@@ -59,19 +59,25 @@ function App() {
           </Topbar>
 
           <Sidebar currentLocation={location.pathname}>
-            <Item isActive={true}>Resumo</Item>
+            <Group>
+              <Item isActive={true}>Resumo</Item>
+            </Group>
 
-            <Item>Relatórios</Item>
-            <Item>Financeiro</Item>
-            <Item>Soluções</Item>
+            <Group>
+              <Item>Relatórios</Item>
+              <Item>Financeiro</Item>
+              <Item>Soluções</Item>
+            </Group>
 
             <Group label='Submenu'>
               <Item>Item 1</Item>
               <Item>Item 2</Item>
             </Group>
 
-            <Item>Central de Notificações</Item>
-            <Item>Configurações</Item>
+            <Group label='Configurações'>
+              <Item>Central de Notificações</Item>
+              <Item>Configurações</Item>
+            </Group>
           </Sidebar>
 
           <Content>

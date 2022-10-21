@@ -4,7 +4,6 @@ import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
 import CancelIcon from '@eduzz/houston-icons/Cancel';
-import MenuLeft from '@eduzz/houston-icons/MenuLeft';
 import styled, { css, StyledProp, breakpoints } from '@eduzz/houston-styles';
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
@@ -73,7 +72,15 @@ const Topbar = React.memo<TopbarProps>(
             <div className='hst-topbar-start'>
               <Action
                 className='hst-topbar-mobile-menu'
-                icon={sidebarOpened ? <CancelIcon size={24} /> : <MenuLeft size={24} />}
+                icon={
+                  sidebarOpened ? (
+                    <CancelIcon size={24} />
+                  ) : (
+                    <svg width='23' height='23' fill='currentColor' viewBox='0 0 16 16'>
+                      <path d='M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z' />
+                    </svg>
+                  )
+                }
                 onClick={sidebarToogleOpened}
               />
 
@@ -82,11 +89,11 @@ const Topbar = React.memo<TopbarProps>(
               <div className='hst-topbar-logo'>
                 <img
                   className='hst-topbar-logo-default'
-                  src={logo ?? `//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz${blackMode ? '' : '-colored'}.svg`}
+                  src={logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz.svg'}
                 />
                 <img
                   className='hst-topbar-logo-mobile'
-                  src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/eduzz-mobile.svg'}
+                  src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'}
                 />
               </div>
 
@@ -123,7 +130,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
       font-family: ${theme.font.family.base};
       background-color: white;
       color: ${theme.neutralColor.low.pure};
-      border-bottom: 3px solid ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[3])};
+      border-bottom: 3px solid #f4f4f4;
       box-sizing: border-box;
       position: fixed;
       padding: ${theme.spacing.squish.xxs};
@@ -178,11 +185,12 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
 
         .hst-topbar-tag {
           text-transform: capitalize;
-          padding: ${theme.spacing.quarck};
-          margin-top: 5px;
+          padding: 4px 8px 4px 8px;
           letter-spacing: 0.5px;
           display: none;
           border-radius: 3px;
+          font-size: 14px;
+          text-transform: uppercase;
           margin-left: ${theme.spacing.nano};
 
           ${theme.breakpoints.up('sm')} {
@@ -190,7 +198,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
           }
 
           &.hst-topbar-tag-pro {
-            border: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
+            border: ${theme.border.width.xs} solid #bababa;
           }
 
           &.hst-topbar-tag-unity {
@@ -200,7 +208,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
           }
 
           &.hst-topbar-tag-partner {
-            background: ${theme.neutralColor.high.medium};
+            background: #ededed;
           }
         }
       }

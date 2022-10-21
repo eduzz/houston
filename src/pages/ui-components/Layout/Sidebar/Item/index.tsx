@@ -105,6 +105,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
         overflow: hidden;
         text-overflow: ellipsis;
         min-width: 0;
+        font-size: 15.5px;
       }
 
       & .hst-sidebar-item-icon {

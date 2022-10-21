@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
 import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
 
 import Collapse from '../../../Collapse';
@@ -26,10 +25,12 @@ const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroup
     <SidebarGroupContext.Provider value={contextValue}>
       <li id={id} className={className}>
         {!!label && (
-          <div className='hst-sidebar-group-item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
-            <div className={cx('hst-sidebar-group-arrow', isExpanded && 'hst-sidebar-group-active')}>
-              <ChevronDownIcon size='md' />
-            </div>
+          <div
+            className={cx('hst-sidebar-group-item', isExpanded && 'hst-sidebar-group-item-expanded')}
+            onClick={toogleExpanded}
+            tabIndex={tabIndex ?? 1}
+          >
+            <div className='hst-sidebar-group-indicator' />
 
             <div className='hst-sidebar-group-content'>
               <Typography
@@ -70,33 +71,30 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
       transition: 0.15s linear;
       min-height: ${theme.pxToRem(48)}rem;
       outline: none;
+      position: relative;
 
       &:hover {
         background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-      }
-
-      &:focus {
-        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-        box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
       }
 
       &:active {
         background-color: rgba(0, 0, 0, 0.12);
       }
 
-      & .hst-sidebar-group-arrow {
-        line-height: 0;
-
-        transition: 0.15s linear;
-        text-align: center;
-
-        &.hst-sidebar-group-active {
-          transform: rotateX(180deg);
-        }
+      & .hst-sidebar-group-indicator {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -1px;
+        height: 2px;
+        background-color: #c7c7c7;
+        width: 30px;
+        transition: 0.3s;
       }
 
       & .hst-sidebar-group-content {
         min-width: 0;
+        grid-column: 2;
 
         & .hst-sidebar-group-label {
           text-transform: uppercase;
@@ -104,6 +102,22 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
           word-break: break-all;
           overflow: hidden;
           text-overflow: ellipsis;
+          font-size: 14px;
+          letter-spacing: 0.03em;
+          color: #6f6f6f;
+        }
+      }
+
+      &.hst-sidebar-group-item-expanded {
+        & .hst-sidebar-group-indicator {
+          top: calc(50% - 1px);
+          height: 1px;
+          margin-top: -0.5px;
+          background-color: #dedede;
+        }
+
+        & .hst-sidebar-group-label {
+          color: #8e8e8e;
         }
       }
     }
