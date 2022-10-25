@@ -31,7 +31,7 @@ function App() {
           <Topbar
             currentApplication='orbita'
             user={{
-              name: 'Houston',
+              name: 'Eduzz Tecnologia',
               belt: 'Red Belt',
               avatar: houston,
               tag: 'unity'

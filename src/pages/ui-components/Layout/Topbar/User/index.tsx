@@ -79,8 +79,17 @@ export default styled(User, { label: 'hst-topbar-user' })(
       pointer-events: all;
     }
 
-    & .hst-topbar-user-button.--text {
-      color: inherit;
+    & .hst-topbar-user-button {
+      &.--text {
+        color: inherit;
+      }
+
+      & .hst-button-text {
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     & .hst-topbar-user-menu-arrow {

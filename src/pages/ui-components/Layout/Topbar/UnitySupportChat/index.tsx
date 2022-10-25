@@ -1,8 +1,8 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import { css, GlobalStyles } from '@eduzz/houston-styles';
+import { css, GlobalStyles } from '@eduzz/houston-ui/styled';
 
 import TopbarContext from '../context';
 import chatInit from './chat';
@@ -10,7 +10,7 @@ import chatInit from './chat';
 const TopbarUnitySupportChat = () => {
   const user = useContextSelector(TopbarContext, context => context.user);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!user?.isClubeBlack) return;
     const destroy = chatInit(user);
     return () => destroy();
@@ -19,16 +19,10 @@ const TopbarUnitySupportChat = () => {
   return (
     <GlobalStyles
       styles={css`
-        #lhc_status_container.lhc_container--delete {
-          animation: eduzzToolbarFadeOut;
-          animation-duration: 500ms;
-          animation-fill-mode: both;
-        }
-
-        #lhc_status_container.lhc_container--fix-position {
-          left: auto;
-          bottom: 0;
-          z-index: 102;
+        #lhc_status_widget_v2 {
+          left: auto !important;
+          bottom: 0 !important;
+          z-index: 102 !important;
         }
       `}
     />

@@ -35,6 +35,7 @@ export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivEle
     avatar?: string;
     belt?: string;
     tag?: 'lite' | 'pro' | 'unity' | 'partner';
+    isClubeBlack?: boolean;
     isSupport?: boolean;
     supportId?: number;
   };
