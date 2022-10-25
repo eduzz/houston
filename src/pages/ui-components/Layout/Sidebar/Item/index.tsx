@@ -76,6 +76,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
     user-select: none;
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
+    margin-right: 5px;
 
     &:focus-visible {
       background-color: rgba(0, 0, 0, 0.03);
@@ -91,7 +92,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
     }
 
     & > li {
-      padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.xxxs};
+      padding: 0.07rem 1rem;
       align-items: center;
       line-height: 1.2;
       cursor: pointer;

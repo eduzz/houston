@@ -69,7 +69,7 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
       line-height: 1.15;
       cursor: pointer;
       transition: 0.15s linear;
-      min-height: ${theme.pxToRem(48)}rem;
+      min-height: 2.2rem;
       outline: none;
       position: relative;
       border-top-right-radius: 50px;
@@ -129,7 +129,7 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
       padding: 0;
 
       .hst-sidebar-group-items-content {
-        padding-bottom: 1rem;
+        padding-bottom: 0.7rem;
 
         & li {
           margin-bottom: 0;
