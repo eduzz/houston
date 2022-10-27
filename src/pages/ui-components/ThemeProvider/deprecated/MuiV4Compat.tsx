@@ -11,9 +11,6 @@ const generateClassName = createGenerateClassName({ disableGlobal: true });
 
 interface MuiV4Props extends ThemeProviderProps {}
 
-/**
- * @deprecated
- */
 const MuiV4Compat = React.memo(({ children, ...props }: MuiV4Props) => {
   return (
     <ThemeProvider {...props}>
