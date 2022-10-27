@@ -5,6 +5,7 @@ import { createTheme } from '@mui/material/styles';
 
 import { HoustonThemeProps } from '@eduzz/houston-styles';
 
+import createThemeNew from '../../createTheme';
 import components from './components';
 import palette from './palette';
 import typography from './typography';
@@ -36,6 +37,12 @@ export default function generateTheme(theme: HoustonThemeProps) {
     }
   });
 
+  const newTheme = createThemeNew(theme.brandColor);
+  theme = {
+    ...newTheme,
+    ...theme
+  };
+
   Object.keys(theme).forEach(key => {
     if (!muiTheme[key]) {
       muiTheme[key] = theme[key];
@@ -47,6 +54,5 @@ export default function generateTheme(theme: HoustonThemeProps) {
       muiTheme[key][childKey] = theme[key][childKey];
     });
   });
-
   return muiTheme;
 }
