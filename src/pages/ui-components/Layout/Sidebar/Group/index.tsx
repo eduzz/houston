@@ -3,7 +3,7 @@ import * as React from 'react';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
 
-import Collapse from '../../../Collapse';
+import CollapseEffect from '../../../CollapseEffect';
 import Typography from '../../../Typography';
 import SidebarGroupContext, { SidebarGroupContextType } from './context';
 
@@ -47,9 +47,9 @@ const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroup
         )}
 
         <ul className='hst-sidebar-group-items'>
-          <Collapse timeout={350} visibled={isExpanded}>
+          <CollapseEffect visibled={isExpanded}>
             <div className='hst-sidebar-group-items-content'>{children}</div>
-          </Collapse>
+          </CollapseEffect>
         </ul>
       </li>
     </SidebarGroupContext.Provider>
