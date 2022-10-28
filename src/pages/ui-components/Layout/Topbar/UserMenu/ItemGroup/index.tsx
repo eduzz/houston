@@ -25,7 +25,7 @@ export default styled(UserMenuGroup, { label: 'hst-topbar-user-menu-group' })`
     margin-top: 0.5rem;
     padding: 0.5rem 1rem 0.5rem 1rem;
     cursor: default;
-    font-size: 12px;
+    letter-spacing: 0.3px;
     font-weight: bold;
   }
 `;

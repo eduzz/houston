@@ -53,7 +53,7 @@ function App() {
 
               <Topbar.UserMenuGroup label='Contas:'>
                 <Topbar.UserMenuItem disabled href='http://google.com' target='_blank' icon={<Avatar>J</Avatar>}>
-                  John Doe
+                  John DoeJohn DoeJohn DoeJohn DoeJohn DoeJohn Doe
                 </Topbar.UserMenuItem>
                 <Topbar.UserMenuItem>John Doe 2</Topbar.UserMenuItem>
               </Topbar.UserMenuGroup>

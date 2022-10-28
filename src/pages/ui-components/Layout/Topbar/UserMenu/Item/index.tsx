@@ -69,8 +69,23 @@ export default styled(UserMenuItem, { label: 'hst-user-menu-item' })`
   font-size: 16px;
   padding: 8px 16px;
 
+  & > span:not(.anticon, .ant-avatar) {
+    max-width: 170px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  & > .anticon {
+    vertical-align: middle;
+    font-size: 20px;
+  }
+
+  & > .ant-avatar {
+    margin-top: -13px;
+  }
+
   & > svg {
-    width: 20px;
+    width: 24px;
     vertical-align: middle;
     margin-right: 5px;
   }
