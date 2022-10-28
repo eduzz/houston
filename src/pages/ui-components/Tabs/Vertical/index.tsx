@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
-import Collapse from '@eduzz/houston-ui/Collapse';
 
+import Collapse from '../../Collapse';
 import { useChildrenProps, useChildrenComponent } from '../../hooks/useChildrenProps';
 import Tab from '../Tab';
 import useTabSteps from '../useTabSteps';

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import Bullet from '@eduzz/houston-icons/Bullet';
-import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
+import styled, { cx, css, StyledProp } from '@eduzz/houston-ui/styled';
 
 import Typography from '../../../Typography';
 import SidebarContext from '../context';
@@ -80,7 +80,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
 
     &:focus-visible {
       background-color: rgba(0, 0, 0, 0.03);
-      box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
+      box-shadow: 0 0 0 2px ${theme.feedbackColor.informative.pure} inset;
     }
 
     &:hover {
@@ -98,7 +98,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
       cursor: pointer;
       display: grid;
       grid-template-columns: ${theme.pxToRem(26)}rem 1fr;
-      grid-gap: ${theme.spacing.inline.nano};
+      grid-gap: 0.5rem;
       text-decoration: none;
       white-space: nowrap;
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
 
 export interface LayoutContentProps extends StyledProp {
   children?: React.ReactNode;
@@ -19,10 +19,10 @@ export default styled(LayoutContent, { label: 'hst-sidebar-content' })(
     background-color: #fcfcfc;
 
     &:not(.hst-sidebar-content-disable-padding) {
-      padding: ${theme.spacing.xs};
+      padding: 2rem;
 
-      ${theme.breakpoints.down('sm')} {
-        padding: ${theme.spacing.stack.xxxs} ${theme.spacing.xxxs};
+      ${theme.mediaQuery.down('sm')} {
+        padding: 1rem;
       }
     }
   `

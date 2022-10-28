@@ -1,4 +1,4 @@
-import styled, { StyledProp, css } from '@eduzz/houston-styles';
+import styled, { StyledProp, css } from '@eduzz/houston-ui/styled';
 
 import Typography from '../../../../Typography';
 
@@ -26,8 +26,8 @@ export default styled(UserMenuGroup, { label: 'hst-topbar-user-menu-group' })(
     flex-direction: column;
 
     & > .hst-topbar-user-menu-group-label {
-      margin-top: ${theme.spacing.nano};
-      padding: ${theme.spacing.squish.xxs};
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem 0.5rem 1rem;
       cursor: default;
     }
   `

@@ -6,3 +6,4 @@ examples
 *.d.ts
 *.md
 !craco.config.js
+!.eslintrc.js

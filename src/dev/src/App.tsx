@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import InfoChatOutline from '@eduzz/houston-icons/InfoChatOutline';
+import { MessageOutlined, BellOutlined } from '@ant-design/icons';
+
 import NotificationOutline from '@eduzz/houston-icons/NotificationOutline';
 import Layout from '@eduzz/houston-ui/Layout';
 import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
@@ -33,6 +34,8 @@ function App() {
             user={{
               name: 'Eduzz Tecnologia',
               belt: 'Red Belt',
+              supportId: 1,
+              isSupport: true,
               avatar: houston,
               tag: 'unity'
             }}
@@ -40,7 +43,8 @@ function App() {
             {/* <Topbar.UnitySupportChat /> */}
 
             <Topbar.Action icon={<NotificationOutline size={25} />} />
-            <Topbar.Action icon={<InfoChatOutline size={25} />} />
+            <Topbar.Action icon={<BellOutlined />} />
+            <Topbar.Action icon={<MessageOutlined />} label='Chat' />
 
             <Topbar.UserMenu>
               <Topbar.UserMenuItem>Meus Dados</Topbar.UserMenuItem>

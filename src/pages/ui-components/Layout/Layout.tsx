@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import { css, cx, StyledProp } from '@eduzz/houston-styles';
+import { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
 
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';

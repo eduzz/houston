@@ -1,11 +1,12 @@
 import * as React from 'react';
 
+import { Typography } from 'antd';
+
 import { useContextSelector } from 'use-context-selector';
 
-import BeltIcon from '@eduzz/houston-icons/Belt';
-import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import BeltIcon from '@eduzz/houston-ui/Icons/Belt';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
 
-import Typography from '../../../Typography';
 import TopbarContext from '../context';
 
 const supportedBelts = ['white', 'red', 'orange', 'green', 'black', 'golden'];
@@ -44,9 +45,7 @@ const Belt = React.memo<StyledProp>(({ className }) => {
       <div className='hst-topbar-belt-badge'>
         <BeltIcon size={25} className='hst-topbar-belt-icon' />
 
-        <Typography color='inherit' className='hst-topbar-belt-text'>
-          {beltColor}
-        </Typography>
+        <Typography className='hst-topbar-belt-text'>{beltColor}</Typography>
       </div>
     </div>
   );
@@ -61,17 +60,21 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
     border-radius: 50px;
     border-top-left-radius: 0;
     border-bottom-right-radius: 0;
-    margin-right: ${theme.spacing.inline.xxs};
+    margin-right: 1.5rem;
     height: ${theme.pxToRem(32)}rem;
 
-    ${theme.breakpoints.down('md')} {
+    ${theme.mediaQuery.down('md')} {
       display: none;
     }
 
-    ${theme.breakpoints.down('lg')} {
+    ${theme.mediaQuery.down('lg')} {
+      padding: 8px 18px 8px 16px;
+      border-radius: 30px;
+      border-top-left-radius: 0;
+      border-bottom-right-radius: 0;
+
       & .hst-topbar-belt-text {
         display: none;
-        padding: 8px 16px 8px 16px;
       }
     }
 
@@ -115,11 +118,12 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
       align-items: center;
 
       & > .hst-topbar-belt-text {
+        color: inherit;
         white-space: nowrap;
         text-transform: uppercase;
         font-style: italic;
         font-size: 14px;
-        margin-left: ${theme.spacing.inline.quarck};
+        margin-left: 0.25rem;
       }
     }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
+import styled, { cx, css, StyledProp } from '@eduzz/houston-ui/styled';
 
 import CollapseEffect from '../../../CollapseEffect';
 import Typography from '../../../Typography';
@@ -61,10 +61,10 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
     user-select: none;
 
     .hst-sidebar-group-item {
-      padding: ${theme.spacing.squish.xxs};
+      padding: 0.5rem 1rem 0.5rem 1rem;
       display: grid;
       grid-template-columns: ${theme.pxToRem(26)}rem 1fr;
-      grid-gap: ${theme.spacing.inline.nano};
+      grid-gap: 0.5rem;
       align-items: center;
       line-height: 1.15;
       cursor: pointer;
