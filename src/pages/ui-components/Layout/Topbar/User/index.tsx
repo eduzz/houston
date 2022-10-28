@@ -5,10 +5,9 @@ import { Button, Avatar } from 'antd';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
-
 import useOnClickOutside from '../../../hooks/useClickOutside';
 import useEscapeKey from '../../../hooks/useEscapeKey';
+import styled, { css, cx, StyledProp } from '../../../styled';
 import LayoutContext from '../../context';
 import TopbarContext from '../context';
 
@@ -37,8 +36,13 @@ const User = React.memo<StyledProp>(({ className }) => {
       >
         <div className='hst-topbar-user-label'>
           <div className='hst-topbar-user-default'>
-            <Button className='hst-topbar-user-button' type='text' shape='round' onClick={toogleOpened}>
-              <Avatar src={user.avatar}>{user.name?.charAt(0)}</Avatar>
+            <Button
+              className='hst-topbar-user-button'
+              icon={<Avatar src={user.avatar}>{user.name?.charAt(0)}</Avatar>}
+              type='text'
+              shape='round'
+              onClick={toogleOpened}
+            >
               <span className='hst-topbar-user-name'>
                 {user.name} {!!user.isSupport && '(Suporte)'}
               </span>
@@ -65,12 +69,6 @@ export default styled(User, { label: 'hst-topbar-user' })(
     z-index: 1100;
     margin-left: 8px;
     pointer-events: none;
-
-    & .ant-avatar {
-      background-color: ${theme.primaryColor};
-      text-transform: uppercase;
-      cursor: pointer;
-    }
 
     &.hst-topbar-user-has-menu {
       pointer-events: all;
@@ -102,7 +100,15 @@ export default styled(User, { label: 'hst-topbar-user' })(
         align-items: center;
         padding: 10.5px 10.5px 10.5px 6px;
 
-        .hst-topbar-user-name {
+        & .ant-avatar {
+          background-color: ${theme.primaryColor};
+          text-transform: uppercase;
+          cursor: pointer;
+          margin-top: 0;
+          margin-right: 0;
+        }
+
+        & .hst-topbar-user-name {
           max-width: 100px;
           white-space: nowrap;
           overflow: hidden;
@@ -111,7 +117,7 @@ export default styled(User, { label: 'hst-topbar-user' })(
           font-size: 16px;
         }
 
-        .anticon {
+        & .anticon {
           font-size: 12px;
           margin-bottom: -5px;
         }

@@ -124,7 +124,7 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
         left: -${MENU_WIDTH}px;
         border: 0;
         opacity: 0;
-        box-shadow: ${theme.shadow.level[1]};
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16);
       }
 
       &.hst-sidebar-visible .hst-sidebar-container {

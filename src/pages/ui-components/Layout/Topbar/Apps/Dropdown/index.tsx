@@ -4,9 +4,9 @@ import { FullscreenOutlined, CloseOutlined } from '@ant-design/icons';
 import { Typography, Button, Spin } from 'antd';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import styled, { css, StyledProp, cx, keyframes } from '@eduzz/houston-ui/styled';
 
 import { TopbarApplication } from '..';
+import styled, { css, StyledProp, cx, keyframes } from '../../../../styled';
 import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT } from '../../../context';
 
 export type AppsDropdownProps = StyledProp &
@@ -204,7 +204,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
         justify-content: space-between;
         width: 100%;
         padding: 0.5rem 2rem;
-        border-bottom: 1px solid ${theme.hexToRgba('#000', 0.12)};
+        border-bottom: 1px solid ${theme.hexToRgba('#000000', 0.12)};
       }
 
       .hst-topbar-apps-dropdown-expand {
@@ -224,7 +224,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
           grid-gap: 0.5rem;
           text-align: left;
           padding: 1.5rem;
-          border-bottom: 1px solid ${theme.hexToRgba('#000', 0.12)};
+          border-bottom: 1px solid ${theme.hexToRgba('#000000', 0.12)};
           align-items: center;
 
           .hst-topbar-apps-dropdown-icon {
@@ -256,7 +256,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
 
           .hst-topbar-apps-dropdown-item {
             margin: auto;
-            border: 1px solid ${theme.hexToRgba('#000', 0.12)};
+            border: 1px solid ${theme.hexToRgba('#000000', 0.12)};
             grid-template-columns: ${theme.pxToRem(60)}rem 1fr;
             grid-template-rows: ${theme.pxToRem(20)}rem auto;
             padding: 1rem;

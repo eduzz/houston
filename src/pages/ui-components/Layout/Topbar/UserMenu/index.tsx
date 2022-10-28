@@ -2,9 +2,8 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
-
 import Portal from '../../../Portal';
+import styled, { css, cx, StyledProp } from '../../../styled';
 import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_MENU_MIN_WIDTH_IN_PX } from '../../context';
 
 export type UserMenuProps = StyledProp &

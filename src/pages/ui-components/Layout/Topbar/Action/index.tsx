@@ -1,7 +1,6 @@
 import { Button } from 'antd';
 
-import styled, { StyledProp, cx } from '@eduzz/houston-ui/styled';
-
+import styled, { StyledProp, cx } from '../../../styled';
 import { useMediaQueryDown } from '../../../ThemeProvider/mediaQuery/useMediaQuery';
 
 export type ActionProps = StyledProp &

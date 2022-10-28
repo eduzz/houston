@@ -1,10 +1,11 @@
 import * as React from 'react';
 
+import { Typography } from 'antd';
+
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import styled, { cx, css, StyledProp } from '@eduzz/houston-ui/styled';
 
 import CollapseEffect from '../../../CollapseEffect';
-import Typography from '../../../Typography';
+import styled, { cx, css, StyledProp } from '../../../styled';
 import SidebarGroupContext, { SidebarGroupContextType } from './context';
 
 export interface SidebarGroupProps extends StyledProp {
@@ -33,15 +34,7 @@ const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroup
             <div className='hst-sidebar-group-indicator' />
 
             <div className='hst-sidebar-group-content'>
-              <Typography
-                className='hst-sidebar-group-label'
-                color='neutralColor.low.medium'
-                weight='regular'
-                size='xxs'
-                lineHeight='lg'
-              >
-                {label}
-              </Typography>
+              <Typography.Text className='hst-sidebar-group-label'>{label}</Typography.Text>
             </div>
           </div>
         )}
@@ -61,7 +54,7 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
     user-select: none;
 
     .hst-sidebar-group-item {
-      padding: 0.5rem 1rem 0.5rem 1rem;
+      padding: 0.5rem 1rem;
       display: grid;
       grid-template-columns: ${theme.pxToRem(26)}rem 1fr;
       grid-gap: 0.5rem;

@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { ReactNode } from 'react';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
+import styled, { css, cx, StyledProp } from '../../styled';
 
 export interface LayoutContentProps extends StyledProp {
-  children?: React.ReactNode;
+  children?: ReactNode;
   disablePadding?: boolean;
 }
 

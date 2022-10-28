@@ -1,13 +1,12 @@
 import * as React from 'react';
 
+import { CloseOutlined } from '@ant-design/icons';
+import { Typography } from 'antd';
+
 import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import CancelIcon from '@eduzz/houston-icons/Cancel';
-import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
-import styled, { css, StyledProp } from '@eduzz/houston-ui/styled';
-
-import Typography from '../../Typography';
+import styled, { css, StyledProp } from '../../styled';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { TOPBAR_HEIGHT } from '../context';
 import Action from './Action';
@@ -42,7 +41,6 @@ export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivEle
 
 const Topbar = React.memo<TopbarProps>(
   ({ children, currentApplication, logo, logoMobile, className, user, disableApps, ...rest }) => {
-    const theme = useHoustonTheme();
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
     const sidebarOpened = useContextSelector(LayoutContext, context => context.sidebar.opened);
@@ -58,7 +56,7 @@ const Topbar = React.memo<TopbarProps>(
       return () => {
         document.body.classList.remove('hst-topbar-applied');
       };
-    }, [theme]);
+    }, []);
 
     const contextValue = React.useMemo<TopbarContextType>(
       () => ({ currentApplication, user }),
@@ -76,9 +74,15 @@ const Topbar = React.memo<TopbarProps>(
                 className='hst-topbar-mobile-menu'
                 icon={
                   sidebarOpened ? (
-                    <CancelIcon size={24} />
+                    <CloseOutlined />
                   ) : (
-                    <svg width='23' height='23' fill='currentColor' viewBox='0 0 16 16'>
+                    <svg
+                      width='23'
+                      height='23'
+                      className='hst-topbar-mobile-menu-icon'
+                      fill='currentColor'
+                      viewBox='0 0 16 16'
+                    >
                       <path d='M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z' />
                     </svg>
                   )
@@ -100,14 +104,7 @@ const Topbar = React.memo<TopbarProps>(
               </div>
 
               {!!user?.tag && (
-                <Typography
-                  lineHeight='default'
-                  color='inherit'
-                  className={cx('hst-topbar-tag', `hst-topbar-tag-${user.tag}`)}
-                  size='xs'
-                >
-                  {user.tag}
-                </Typography>
+                <Typography className={cx('hst-topbar-tag', `hst-topbar-tag-${user.tag}`)}>{user.tag}</Typography>
               )}
             </div>
 
@@ -141,7 +138,6 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
     }
 
     & > .hst-topbar-header {
-      font-family: ${theme.font.family.base};
       background-color: white;
       color: #000;
       border-bottom: 3px solid #f4f4f4;
@@ -163,6 +159,10 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
 
         & .hst-topbar-mobile-menu {
           cursor: pointer;
+
+          & .hst-topbar-mobile-menu-icon {
+            margin-top: -2px;
+          }
 
           ${theme.mediaQuery.up('xl')} {
             display: none;
@@ -206,6 +206,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
           font-size: 14px;
           text-transform: uppercase;
           margin-left: 0.5rem;
+          line-height: 14px;
 
           ${theme.mediaQuery.up('sm')} {
             display: block;

@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import { css, GlobalStyles } from '@eduzz/houston-ui/styled';
-
+import { css, GlobalStyles } from '../../../styled';
 import TopbarContext from '../context';
 import chatInit from './chat';
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { MessageOutlined, BellOutlined } from '@ant-design/icons';
+import { Avatar } from 'antd';
 
 import NotificationOutline from '@eduzz/houston-icons/NotificationOutline';
 import Layout from '@eduzz/houston-ui/Layout';
@@ -47,11 +48,11 @@ function App() {
             <Topbar.Action icon={<MessageOutlined />} label='Chat' />
 
             <Topbar.UserMenu>
-              <Topbar.UserMenuItem>Meus Dados</Topbar.UserMenuItem>
-              <Topbar.UserMenuItem>Minhas Compras</Topbar.UserMenuItem>
+              <Topbar.UserMenuItem icon={<BellOutlined />}>Meus Dados</Topbar.UserMenuItem>
+              <Topbar.UserMenuItem icon={<NotificationOutline />}>Minhas Compras</Topbar.UserMenuItem>
 
               <Topbar.UserMenuGroup label='Contas:'>
-                <Topbar.UserMenuItem disabled href='http://google.com' target='_blank'>
+                <Topbar.UserMenuItem disabled href='http://google.com' target='_blank' icon={<Avatar>J</Avatar>}>
                   John Doe
                 </Topbar.UserMenuItem>
                 <Topbar.UserMenuItem>John Doe 2</Topbar.UserMenuItem>

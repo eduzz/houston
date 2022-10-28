@@ -28,6 +28,7 @@ export interface HoustonThemeCustomVariables {}
 
 export interface HoustonTheme extends Omit<HoustonTokens, 'hexToRgba' | 'spacing'>, AntdTheme {
   primaryColor: string;
+  secondaryColor: string;
   mediaQuery: typeof mediaUtils;
   hexToRgba: (hexColor: string, opacity?: number) => string;
   variables?: HoustonThemeCustomVariables;

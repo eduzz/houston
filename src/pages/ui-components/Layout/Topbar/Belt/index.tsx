@@ -5,8 +5,8 @@ import { Typography } from 'antd';
 import { useContextSelector } from 'use-context-selector';
 
 import BeltIcon from '@eduzz/houston-ui/Icons/Belt';
-import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
 
+import styled, { css, cx, StyledProp } from '../../../styled';
 import TopbarContext from '../context';
 
 const supportedBelts = ['white', 'red', 'orange', 'green', 'black', 'golden'];

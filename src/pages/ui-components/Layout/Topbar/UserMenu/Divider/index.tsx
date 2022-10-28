@@ -1,9 +1,12 @@
-import Divider, { DividerProps } from '../../../../Divider';
+import { Divider } from 'antd';
 
-type UserMenuDividerProps = DividerProps;
+import styled, { StyledProp } from '../../../../styled';
 
-const UserMenuDivider = (props: UserMenuDividerProps) => {
-  return <Divider {...props} />;
+const UserMenuDivider = ({ className }: StyledProp) => {
+  return <Divider className={className} />;
 };
 
-export default UserMenuDivider;
+export default styled(UserMenuDivider)`
+  margin-top: 7px;
+  margin-bottom: 7px;
+`;
