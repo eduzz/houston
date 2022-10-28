@@ -1,11 +1,11 @@
 import * as React from 'react';
 
+import { Typography } from 'antd';
+
 import { useContextSelector } from 'use-context-selector';
 
-import Bullet from '@eduzz/houston-icons/Bullet';
-import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
-
-import Typography from '../../../Typography';
+import IconBullet from '../../../Icons/Bullet';
+import styled, { cx, css, StyledProp } from '../../../styled';
 import SidebarContext from '../context';
 import SidebarGroupContext from '../Group/context';
 
@@ -53,17 +53,11 @@ const SidebarItem = ({
       className: cx(className, { 'hst-sidebar-item-active': active, 'hst-sidebar-item-disabled': disabled })
     },
     <li>
-      <Bullet className='hst-sidebar-item-icon' size='md' />
+      <IconBullet className='hst-sidebar-item-icon' size='md' />
 
-      <Typography
-        className='hst-sidebar-item-label'
-        size='xs'
-        color='neutralColor.low.pure'
-        lineHeight='lg'
-        weight={active ? 'bold' : 'regular'}
-      >
+      <Typography.Text className='hst-sidebar-item-label' strong={active}>
         {children}
-      </Typography>
+      </Typography.Text>
     </li>
   );
 };
@@ -80,7 +74,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
 
     &:focus-visible {
       background-color: rgba(0, 0, 0, 0.03);
-      box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
+      box-shadow: 0 0 0 2px #039be5 inset;
     }
 
     &:hover {
@@ -98,9 +92,14 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
       cursor: pointer;
       display: grid;
       grid-template-columns: ${theme.pxToRem(26)}rem 1fr;
-      grid-gap: ${theme.spacing.inline.nano};
+      grid-gap: 0.5rem;
       text-decoration: none;
       white-space: nowrap;
+      transition: 0.3s;
+
+      ${theme.mediaQuery.down('lg')} {
+        padding: 0.3rem 1rem;
+      }
 
       & .hst-sidebar-item-label {
         grid-column: 2;
@@ -115,13 +114,13 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
         transform: scale(0);
         opacity: 0;
         transition: 0.15s ease-in;
-        color: ${theme.brandColor.secondary.pure};
+        color: ${theme.secondaryColor};
       }
     }
 
     &.hst-sidebar-item-active > li {
       &::before {
-        background: ${theme.brandColor.secondary.pure};
+        background: ${theme.secondaryColor};
       }
 
       & .hst-sidebar-item-icon {
@@ -131,7 +130,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
     }
 
     &.hst-sidebar-item-disabled {
-      opacity: ${theme.opacity.level[6]};
+      opacity: 0.32;
       pointer-events: none;
     }
   `

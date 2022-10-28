@@ -1,13 +1,12 @@
 import * as React from 'react';
 
+import { CloseOutlined } from '@ant-design/icons';
+import { Typography } from 'antd';
+
 import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import CancelIcon from '@eduzz/houston-icons/Cancel';
-import styled, { css, StyledProp, breakpoints } from '@eduzz/houston-styles';
-import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
-
-import Typography from '../../Typography';
+import styled, { css, StyledProp } from '../../styled';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { TOPBAR_HEIGHT } from '../context';
 import Action from './Action';
@@ -27,7 +26,6 @@ export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivEle
   logo?: string;
   logoMobile?: string;
   currentApplication?: string;
-  blackMode?: boolean;
   user?: {
     id?: number;
     name: string;
@@ -42,8 +40,7 @@ export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivEle
 }
 
 const Topbar = React.memo<TopbarProps>(
-  ({ children, currentApplication, logo, logoMobile, className, blackMode, user, disableApps, ...rest }) => {
-    const theme = useHoustonTheme();
+  ({ children, currentApplication, logo, logoMobile, className, user, disableApps, ...rest }) => {
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
     const sidebarOpened = useContextSelector(LayoutContext, context => context.sidebar.opened);
@@ -59,7 +56,7 @@ const Topbar = React.memo<TopbarProps>(
       return () => {
         document.body.classList.remove('hst-topbar-applied');
       };
-    }, [theme]);
+    }, []);
 
     const contextValue = React.useMemo<TopbarContextType>(
       () => ({ currentApplication, user }),
@@ -68,16 +65,24 @@ const Topbar = React.memo<TopbarProps>(
 
     return (
       <TopbarContext.Provider value={contextValue}>
-        <div className={cx(className, { 'hst-topbar-black-mode': blackMode })} {...rest}>
+        <div className={className} {...rest}>
           <header className='hst-topbar-header'>
+            {user?.isSupport && <div className='hst-topbar-user-support'>Suporte</div>}
+
             <div className='hst-topbar-start'>
               <Action
                 className='hst-topbar-mobile-menu'
                 icon={
                   sidebarOpened ? (
-                    <CancelIcon size={24} />
+                    <CloseOutlined />
                   ) : (
-                    <svg width='23' height='23' fill='currentColor' viewBox='0 0 16 16'>
+                    <svg
+                      width='23'
+                      height='23'
+                      className='hst-topbar-mobile-menu-icon'
+                      fill='currentColor'
+                      viewBox='0 0 16 16'
+                    >
                       <path d='M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z' />
                     </svg>
                   )
@@ -99,14 +104,7 @@ const Topbar = React.memo<TopbarProps>(
               </div>
 
               {!!user?.tag && (
-                <Typography
-                  lineHeight='default'
-                  color='inherit'
-                  className={cx('hst-topbar-tag', `hst-topbar-tag-${user.tag}`)}
-                  size='xs'
-                >
-                  {user.tag}
-                </Typography>
+                <Typography className={cx('hst-topbar-tag', `hst-topbar-tag-${user.tag}`)}>{user.tag}</Typography>
               )}
             </div>
 
@@ -127,14 +125,25 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
   ({ theme }) => css`
     height: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
 
+    .hst-topbar-user-support {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: #fbcd02;
+      padding: 4px 8px;
+      color: white;
+      text-transform: uppercase;
+      font-size: 11px;
+      border-bottom-left-radius: 5px;
+    }
+
     & > .hst-topbar-header {
-      font-family: ${theme.font.family.base};
       background-color: white;
-      color: ${theme.neutralColor.low.pure};
+      color: #000;
       border-bottom: 3px solid #f4f4f4;
       box-sizing: border-box;
       position: fixed;
-      padding: ${theme.spacing.squish.xxs};
+      padding: 0.5rem 1rem 0.5rem 1rem;
       top: 0;
       left: 0;
       right: 0;
@@ -151,7 +160,11 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
         & .hst-topbar-mobile-menu {
           cursor: pointer;
 
-          ${breakpoints.up('lg')} {
+          & .hst-topbar-mobile-menu-icon {
+            margin-top: -2px;
+          }
+
+          ${theme.mediaQuery.up('xl')} {
             display: none;
           }
         }
@@ -159,7 +172,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
         & .hst-topbar-logo {
           height: 80%;
           width: auto;
-          margin-inline: ${theme.spacing.inline.nano};
+          margin-inline: 0.5rem;
 
           & > img {
             max-width: 100%;
@@ -171,7 +184,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
             display: none;
           }
 
-          ${breakpoints.down('sm')} {
+          ${theme.mediaQuery.down('lg')} {
             width: ${theme.pxToRem(32)}rem;
 
             & .hst-topbar-logo-default {
@@ -192,19 +205,20 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
           border-radius: 3px;
           font-size: 14px;
           text-transform: uppercase;
-          margin-left: ${theme.spacing.nano};
+          margin-left: 0.5rem;
+          line-height: 14px;
 
-          ${theme.breakpoints.up('sm')} {
+          ${theme.mediaQuery.up('sm')} {
             display: block;
           }
 
           &.hst-topbar-tag-pro {
-            border: ${theme.border.width.xs} solid #bababa;
+            border: 1px solid #bababa;
           }
 
           &.hst-topbar-tag-unity {
-            border: ${theme.border.width.xs} solid ${theme.neutralColor.low.pure};
-            background: ${theme.neutralColor.low.pure};
+            border: 1px solid #000;
+            background: #000;
             color: white;
           }
 
@@ -219,11 +233,6 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
         align-items: center;
         justify-content: center;
       }
-    }
-
-    &.hst-topbar-black-mode > .hst-topbar-header {
-      background-color: #272727;
-      color: white;
     }
   `
 );

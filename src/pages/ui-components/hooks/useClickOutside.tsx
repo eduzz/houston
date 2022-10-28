@@ -15,15 +15,18 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
     if (!el) return undefined;
 
     let throttle = false;
+    const setThrottle = () => {
+      throttle = true;
+      setTimeout(() => (throttle = false), 500);
+    };
 
     const listener = (event: AnyEvent) => {
       if (!el || !el.contains || el.contains(event.target as Node) || throttle) {
+        setThrottle();
         return;
       }
 
-      throttle = true;
-      setTimeout(() => (throttle = false), 500);
-
+      setThrottle();
       callback(event);
     };
 

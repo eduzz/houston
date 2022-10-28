@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles';
-import Collapse from '@eduzz/houston-ui/Collapse';
-import Select from '@eduzz/houston-ui/Forms/Select';
 
+import Collapse from '../Collapse';
+import Select from '../Forms/Select';
 import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
 import useMediaQuery from '../hooks/useMediaQuery';
 import IconButton from '../IconButton';

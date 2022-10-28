@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
 
-import useMediaQuery from '../../hooks/useMediaQuery';
 import Overlay from '../../Overlay';
+import { useMediaQueryDown } from '../../ThemeProvider/mediaQuery/useMediaQuery';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { MENU_WIDTH, TOPBAR_HEIGHT } from '../context';
 import SidebarContext, { SidebarContextType } from './context';
@@ -21,7 +21,7 @@ export interface SidebarProps extends StyledProp {
 }
 
 const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
-  const isMobile = useMediaQuery(breakpoints.down('lg'));
+  const isMobile = useMediaQueryDown('lg');
 
   const hasTopbar = useContextSelector(LayoutContext, context => context.topbar.exists);
   const register = useContextSelector(LayoutContext, context => context.sidebar.register);
@@ -70,7 +70,6 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
     position: relative;
 
     & .hst-sidebar-container {
-      /* não temos tokens e foi pedido pelo Dan Palmieri */
       background-color: #fcfcfc;
       display: inline-flex;
       flex-direction: column;
@@ -91,7 +90,7 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
       & > nav {
         overflow-y: auto;
         overflow-x: hidden;
-        padding: ${theme.spacing.stack.xs} 0 ${theme.spacing.stack.sm} 0;
+        padding: 2rem 0 2.5rem 0;
 
         &::-webkit-scrollbar {
           width: 3px;
@@ -104,7 +103,7 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
         }
 
         &:hover::-webkit-scrollbar-thumb {
-          background: ${theme.neutralColor.high.medium};
+          background: #e0e0e0;
         }
 
         ul {
@@ -117,14 +116,15 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
       top: ${TOPBAR_HEIGHT}px;
     }
 
-    ${breakpoints.down('lg')} {
+    ${theme.mediaQuery.down('lg')} {
       width: 0;
 
       & .hst-sidebar-container {
+        background-color: #fff;
         left: -${MENU_WIDTH}px;
         border: 0;
         opacity: 0;
-        box-shadow: ${theme.shadow.level[1]};
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16);
       }
 
       &.hst-sidebar-visible .hst-sidebar-container {

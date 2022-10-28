@@ -12,3 +12,5 @@ export const clsx = cxEmotion;
 export const css = cssEmotion;
 export const styled = emotionStyled;
 export const GlobalStyles = GlobalEmotion;
+
+export default styled;
