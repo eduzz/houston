@@ -96,7 +96,7 @@ export default styled(User, { label: 'hst-topbar-user' })(
 
       & .hst-topbar-user-button {
         display: flex;
-        gap: 2px;
+        gap: 5px;
         align-items: center;
         padding: 10.5px 10.5px 10.5px 6px;
 

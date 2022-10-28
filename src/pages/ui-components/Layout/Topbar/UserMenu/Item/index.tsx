@@ -65,9 +65,11 @@ const UserMenuItem = React.forwardRef<HTMLButtonElement, UserMenuItemProps>(
 
 export default styled(UserMenuItem, { label: 'hst-user-menu-item' })`
   justify-content: start;
+  align-items: center;
   text-align: left;
   font-size: 16px;
   padding: 8px 16px;
+  display: flex;
 
   & > span:not(.anticon, .ant-avatar) {
     max-width: 170px;
@@ -76,17 +78,11 @@ export default styled(UserMenuItem, { label: 'hst-user-menu-item' })`
   }
 
   & > .anticon {
-    vertical-align: middle;
     font-size: 20px;
-  }
-
-  & > .ant-avatar {
-    margin-top: -13px;
   }
 
   & > svg {
     width: 24px;
-    vertical-align: middle;
     margin-right: 5px;
   }
 
