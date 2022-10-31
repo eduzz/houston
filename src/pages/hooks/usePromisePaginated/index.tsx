@@ -96,6 +96,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
         }
 
         const newState = { ...(reset ? initialParams : params), ...newParams } as P;
+
         if (isEqual(newState, params)) {
           return params;
         }

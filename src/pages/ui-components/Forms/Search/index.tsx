@@ -68,9 +68,11 @@ const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
       const value = e.currentTarget.value;
       onChange && onChange(value, e);
+
       if (value?.length && !isPopoverOpened) {
         openPopover();
       }
+
       if (!value?.length && isPopoverOpened) {
         closePopover();
       }
@@ -79,9 +81,11 @@ const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
     function handleInputFocus(e: React.FocusEvent<HTMLInputElement>) {
       const value = e.currentTarget.value;
       onFocus && onFocus(value, e);
+
       if (value?.length && !isPopoverOpened) {
         openPopover();
       }
+
       if (!value?.length && isPopoverOpened) {
         closePopover();
       }
@@ -106,6 +110,7 @@ const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
         const arrayChildren = React.Children.toArray(children) as React.ReactElement[];
         return arrayChildren.filter(child => filterStrategy(child.props.children));
       }
+
       return children;
     }, [children, filterStrategy]);
 

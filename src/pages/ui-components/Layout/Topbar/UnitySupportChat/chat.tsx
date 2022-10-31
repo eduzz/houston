@@ -65,6 +65,7 @@ async function loadScript() {
 
     scriptImport.onload = async () => {
       let count = 0;
+
       while (!window.$_LHC && count < 20) {
         count++;
         await new Promise<void>(resolve => setTimeout(() => resolve(), 1000));

@@ -95,6 +95,7 @@ const DragAndDrop = React.forwardRef<unknown, DragAndDropProps>(
           await fileValidationSchema(yup).validate(file, { abortEarly: true });
           return true;
         }
+
         await fileValidationSchema?.validate(file, { abortEarly: true });
         return true;
       } catch (err: any) {
@@ -120,6 +121,7 @@ const DragAndDrop = React.forwardRef<unknown, DragAndDropProps>(
           const error = fileValidationSchema ? await validateFile(fileObj) : false;
           // Replace file if exist
           const hasError = typeof error === 'string';
+
           if (hasError) {
             const invalidatedFile: UploadFile = { ...fileObj, status: 'error', errorMessage: error };
             newFileList = updateFileList(invalidatedFile, newFileList);
@@ -127,6 +129,7 @@ const DragAndDrop = React.forwardRef<unknown, DragAndDropProps>(
             isLastItem && resolve(true);
             return;
           }
+
           newFileList = updateFileList(fileObj, newFileList);
           isLastItem && resolve(true);
         })
@@ -228,6 +231,7 @@ const DragAndDrop = React.forwardRef<unknown, DragAndDropProps>(
           currentFile = { ...file, status: 'removed' };
           mergedFileList?.forEach(item => {
             const matchKey = currentFile.uid !== undefined ? 'uid' : 'name';
+
             if (item[matchKey] === currentFile[matchKey] && !Object.isFrozen(item)) {
               item.status = 'removed';
             }
@@ -255,6 +259,7 @@ const DragAndDrop = React.forwardRef<unknown, DragAndDropProps>(
 
         // Hack for LIST_IGNORE, we add additional info to remove from the list
         delete file[LIST_IGNORE];
+
         if (result === LIST_IGNORE) {
           Object.defineProperty(file, LIST_IGNORE, {
             value: true,

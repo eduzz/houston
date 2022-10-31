@@ -44,6 +44,7 @@ export interface DropdownProps {
 
 export const ARROW_SIZE = 12;
 export const ARROW_HALF_SIZE = ARROW_SIZE / 2;
+
 const Dropdown = ({
   children,
   onOpen,

@@ -42,6 +42,7 @@ export interface ModalProps {
    */
   fullscreen?: boolean;
 }
+
 const Modal = ({
   visible,
   className,

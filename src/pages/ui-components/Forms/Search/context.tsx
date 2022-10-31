@@ -37,9 +37,11 @@ function SearchContextProvider({ children, onChange, closePopover, onSelect }: S
 
 function useSearch() {
   const ctx = useContext(SearchContext);
+
   if (!ctx) {
     throw new Error('You must provide a `SearchContextProvider` in order to use `useSearch`');
   }
+
   return ctx;
 }
 

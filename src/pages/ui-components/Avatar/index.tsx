@@ -26,6 +26,7 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, Style
   size?: AvatarSize;
   children?: React.ReactNode;
 }
+
 const Avatar = ({ src, children, className, size = 'md', alt, ...rest }: AvatarProps) => {
   const hasImage = !!src;
   const hasText = typeof children === 'string';

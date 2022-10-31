@@ -5,6 +5,7 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 export interface DividerProps extends StyledProp, React.HTMLAttributes<HTMLHRElement> {
   vertical?: boolean;
 }
+
 const Divider = ({ className, vertical, ...rest }: DividerProps) => {
   const ref = React.useRef<HTMLHRElement>(null);
 

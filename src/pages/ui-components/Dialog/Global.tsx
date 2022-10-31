@@ -74,6 +74,7 @@ const DialogGlobal = memo(() => {
 
   useEffect(() => {
     componentCallback = onReceiveParams;
+
     return () => {
       componentCallback = null;
     };

@@ -24,6 +24,7 @@ const withForm =
             onChange={info => {
               onChange && onChange(info);
               const fileErrors = info.fileList.filter(file => file.status === 'error' && file.errorMessage);
+
               if (!!fileErrors.length) {
                 form.setError(field.name, {
                   type: 'custom',
@@ -31,6 +32,7 @@ const withForm =
                 });
                 return;
               }
+
               const isEveryFileSuccess = info.fileList.every(file => file.status === 'success');
               if (!isEveryFileSuccess) return;
               field.onChange(info.fileList);

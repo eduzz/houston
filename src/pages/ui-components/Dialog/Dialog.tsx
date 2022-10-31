@@ -26,6 +26,7 @@ export interface DialogProps extends Omit<ModalProps, 'closeIcon' | 'disableEsca
    */
   showTypeIcon?: boolean;
 }
+
 const Dialog = ({
   visible,
   className,

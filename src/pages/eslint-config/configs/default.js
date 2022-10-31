@@ -16,6 +16,15 @@ module.exports = {
   },
   rules: {
     'no-restricted-globals': ['error'],
+    'object-shorthand': ['error', 'always', { avoidQuotes: true }],
+    'padding-line-between-statements': [
+      'error',
+      { blankLine: 'always', prev: ['block-like', 'function'], next: '*' },
+      { blankLine: 'always', prev: ['*'], next: ['block-like', 'function'] },
+      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
+      { blankLine: 'any', prev: ['export', 'import'], next: ['export', 'import'] },
+      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['export'] }
+    ],
     'no-restricted-imports': [
       'error',
       'date-fns',

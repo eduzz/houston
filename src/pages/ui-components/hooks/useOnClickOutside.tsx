@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 type AnyEvent = MouseEvent | TouchEvent;
+
 function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   ref: React.RefObject<T>,
   handler: (event: AnyEvent) => void,
@@ -15,6 +16,7 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   React.useEffect(() => {
     const listener = (event: AnyEvent) => {
       const el = ref?.current;
+
       if (!el || el.contains(event.target as Node)) {
         return;
       }

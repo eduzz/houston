@@ -7,3 +7,4 @@ examples
 *.md
 !craco.config.js
 !.eslintrc.js
+!**/eslint-config/**/*.js

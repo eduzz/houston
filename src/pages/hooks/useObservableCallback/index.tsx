@@ -6,6 +6,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { getConfig } from '../config';
 
 type ExtractObservableValue<P> = P extends Observable<infer T> ? T : never;
+
 /**
  * Create a memoized callback that uses an observable and unsubscribe automatically if component unmount
  * @param observableCallback Function to return a observable

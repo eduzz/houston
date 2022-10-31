@@ -16,6 +16,7 @@ export interface ListProps extends StyledProp, React.HTMLAttributes<HTMLUListEle
    */
   dividers?: boolean;
 }
+
 const List = ({ children, className, dividers = false, ...rest }: ListProps) => {
   return (
     <ListContextProvider dividers={dividers}>

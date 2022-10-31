@@ -24,6 +24,7 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
     React.useEffect(() => {
       const oldValue = document.body.style.overflow;
       document.body.style.overflow = expanded ? 'hidden' : oldValue;
+
       return () => {
         document.body.style.overflow = oldValue;
       };

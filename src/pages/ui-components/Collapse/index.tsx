@@ -13,6 +13,7 @@ export interface CollapseProps {
   mountOnEnter?: boolean;
   timeout?: number;
 }
+
 const Collapse = ({
   children,
   visibled,

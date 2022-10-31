@@ -86,6 +86,7 @@ const PopoverRoot = ({ children }: PopoverProps) => {
 
       setState(currentState => {
         const waitPreviousclose = !!currentState.closedTarget;
+
         if (waitPreviousclose) {
           setTimeout(() => setState(resolveNewState), 100);
           return currentState;
