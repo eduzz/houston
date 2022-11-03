@@ -59,7 +59,7 @@ function ThemeProvider({
   }, [disabledFontBase]);
 
   return (
-    <StyledEngineProvider injectFirst>
+    <StyledEngineProvider injectFirst={false}>
       <MUIThemeProvider theme={muiTheme}>
         <PopoverRoot>
           {!disableToast && <ToastContainer />}
