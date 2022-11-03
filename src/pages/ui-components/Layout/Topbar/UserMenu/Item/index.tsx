@@ -72,7 +72,7 @@ export default styled(UserMenuItem, { label: 'hst-user-menu-item' })`
   display: flex;
 
   & > span:not(.anticon, .ant-avatar) {
-    max-width: 170px;
+    max-width: 235px;
     text-overflow: ellipsis;
     overflow: hidden;
   }
