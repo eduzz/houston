@@ -15,13 +15,11 @@
   "devDependencies": {
     "@types/node": "^18",
     "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "@craco/craco":"^6.4.5",
-    "craco-less": "^2.0.0"
+    "@types/react-dom": "^18"
   },
   "scripts": {
-    "start": "DISABLE_ESLINT_PLUGIN=true craco start",
-    "build": "DISABLE_ESLINT_PLUGIN=true craco build",
+    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "check-update-deps": "yarn ncu -u"
   },
   "browserslist": {

@@ -15,8 +15,8 @@ export default styled(LayoutContent, { label: 'hst-sidebar-content' })(
   ({ theme }) => css`
     flex: 1;
     min-width: 0;
-    /* não temos tokens e foi pedido pelo Dan Palmieri */
-    /* background-color: #fcfcfc; */
+    background-color: ${theme.antd.colorBgContainer};
+    transition: background-color 0.3s;
 
     &:not(.hst-sidebar-content-disable-padding) {
       padding: 2rem;

@@ -1,4 +1,4 @@
-import { css, GlobalStyles } from '../styled';
+import { css, GlobalStyles } from '../../styled';
 
 const ResetCss = () => {
   return (

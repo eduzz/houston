@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { MessageOutlined, BellOutlined } from '@ant-design/icons';
+import { MessageOutlined, BellOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
 import { Avatar } from 'antd';
 
 import NotificationOutline from '@eduzz/houston-icons/NotificationOutline';
 import Layout from '@eduzz/houston-ui/Layout';
 import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
+import createTheme from '@eduzz/houston-ui/ThemeProvider/createTheme';
 
 import houston from './assets/houston.png';
 import ComponentDev from './components';
 
+const theme = createTheme('nutror');
 const { Sidebar, Topbar, Content } = Layout;
 const { Item, Group } = Sidebar;
 
@@ -24,9 +26,15 @@ declare module '@eduzz/houston-styles' {
 }
 
 function App() {
+  const [themeMode, setThemeMode] = React.useState<'dark' | 'light'>('light');
+
+  const toogleTheme = React.useCallback(() => {
+    setThemeMode(theme => (theme === 'dark' ? 'light' : 'dark'));
+  }, []);
+
   return (
     <BrowserRouter>
-      <ThemeProvider>
+      <ThemeProvider theme={theme} mode={themeMode}>
         <Layout>
           <Topbar
             currentApplication='orbita'
@@ -41,8 +49,8 @@ function App() {
           >
             {/* <Topbar.UnitySupportChat /> */}
 
+            <Topbar.Action icon={themeMode === 'light' ? <BulbOutlined /> : <BulbFilled />} onClick={toogleTheme} />
             <Topbar.Action icon={<NotificationOutline size={25} />} />
-            <Topbar.Action icon={<BellOutlined />} />
             <Topbar.Action icon={<MessageOutlined />} label='Chat' />
 
             <Topbar.UserMenu>

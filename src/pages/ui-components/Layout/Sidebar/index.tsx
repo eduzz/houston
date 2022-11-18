@@ -70,11 +70,11 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
     position: relative;
 
     & .hst-sidebar-container {
-      background-color: #fcfcfc;
+      background-color: ${theme.antd.colorBgContainer};
       display: inline-flex;
       flex-direction: column;
       width: ${MENU_WIDTH}px;
-      transition: 0.2s ease-out, top 0s;
+      transition: 0.2s ease-out, top 0s, background-color 0.3s;
       z-index: 104;
       flex-grow: 1;
       position: fixed;

@@ -4,25 +4,28 @@ import { brands as deprecatedBrands } from '@eduzz/houston-tokens/variables/bran
 
 import { HoustonThemeCustomVariables, HoustonTheme } from '..';
 import { mediaUtils } from '../mediaQuery';
+import antdTheme from './antd';
 import { BrandColor, BrandsBuildin, brandsColors } from './brands';
 import { hexToRgba, spacing } from './utils';
 
 const DEFAULT_PRIMARY_COLOR = '#0d2772';
 const DEFAULT_SECONDARY_COLOR = '#FFBC00';
 
-export default function createTheme(brand: BrandsBuildin, variables?: HoustonThemeCustomVariables): HoustonTheme;
-export default function createTheme(brand: BrandColor, variables?: HoustonThemeCustomVariables): HoustonTheme;
+export type CreateTheme = { light: HoustonTheme; dark: HoustonTheme };
+
+export default function createTheme(brand: BrandsBuildin, variables?: HoustonThemeCustomVariables): CreateTheme;
+export default function createTheme(brand: BrandColor, variables?: HoustonThemeCustomVariables): CreateTheme;
 /**
  * @deprecated use other overload, passing a `brand string (ex. eduzz)` or a `simple primary/secondary color (ex. { primary: '#ff0', secondary: '#ff0' })`
  */
 export default function createTheme(
   deprecated: DeprecatedBrandColor,
   variables?: HoustonThemeCustomVariables
-): HoustonTheme;
+): CreateTheme;
 export default function createTheme(
   brand: BrandsBuildin | BrandColor | DeprecatedBrandColor,
   variables?: HoustonThemeCustomVariables
-): HoustonTheme {
+): CreateTheme {
   const brandColor = resolveBrandColor(brand);
   const { spacing: spacingTokens, ...tokens } = createTokens(brandColor.deprecated);
 
@@ -30,7 +33,7 @@ export default function createTheme(
     spacing[key] = spacingTokens[key];
   });
 
-  return {
+  const base = {
     ...tokens,
     primaryColor: brandColor.antd.primary ?? DEFAULT_PRIMARY_COLOR,
     secondaryColor: brandColor.antd.secondary ?? DEFAULT_SECONDARY_COLOR,
@@ -38,6 +41,11 @@ export default function createTheme(
     spacing: spacing as any,
     hexToRgba,
     variables
+  };
+
+  return {
+    light: { mode: 'light', ...base, antd: antdTheme(brandColor.antd, 'light') },
+    dark: { mode: 'dark', ...base, antd: antdTheme(brandColor.antd, 'dark') }
   };
 }
 

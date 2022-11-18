@@ -2,11 +2,10 @@ import * as React from 'react';
 
 import { setTwoToneColor } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
-import type { Theme as AntdTheme, ThemeConfig } from 'antd/es/config-provider/context';
+import type { ThemeConfig as AntdThemeConfig } from 'antd/es/config-provider/context';
 import type { Locale as AntdLocale } from 'antd/es/locale-provider';
 import antdLocalePtBR from 'antd/locale/pt_BR';
 
-import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 // eslint-disable-next-line no-restricted-imports
 import type { Locale as DateLocale } from 'date-fns';
@@ -18,26 +17,35 @@ import type { HoustonTokens, Spacing } from '@eduzz/houston-tokens';
 import DialogGlobal from '../Dialog/Global';
 import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
-import createThemeInternal from './createTheme';
+import ConfigEmotion from './ConfigEmotion';
+import createThemeInternal, { CreateTheme } from './createTheme';
+import CustomCss from './css/custom';
+import ResetCss from './css/reset';
 import { mediaUtils } from './mediaQuery';
-import ResetCss from './reset';
 
 setDefaultOptions({ locale: datePtBR });
 export const createTheme = createThemeInternal;
 
 export interface HoustonThemeCustomVariables {}
 
-export interface HoustonTheme extends Omit<HoustonTokens, 'hexToRgba' | 'spacing'>, AntdTheme {
+export interface HoustonTheme extends Omit<HoustonTokens, 'hexToRgba' | 'spacing'> {
+  mode: 'dark' | 'light';
   primaryColor: string;
   secondaryColor: string;
   mediaQuery: typeof mediaUtils;
   hexToRgba: (hexColor: string, opacity?: number) => string;
   variables?: HoustonThemeCustomVariables;
   spacing: ((unit?: number) => string) & Spacing;
+
+  antd: AntdThemeConfig;
 }
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
-  theme?: HoustonTheme;
+  theme?: CreateTheme;
+  /**
+   * Dark mode experimental
+   */
+  mode?: 'dark' | 'light';
   antdLocale?: AntdLocale;
   dateFnsLocale?: DateLocale;
   disableResetStyles?: boolean;
@@ -55,24 +63,9 @@ export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'chi
 
 const defaultTheme = createTheme('eduzz');
 
-declare module '@emotion/react' {
-  interface Theme extends HoustonTheme {}
-}
-
-const antdTokens: ThemeConfig = {
-  token: {
-    colorPrimary: 'red',
-    controlHeight: 42,
-    fontFamily: 'Albert Sans',
-    fontSize: 14
-  },
-  components: {
-    Button: {}
-  }
-};
-
 function ThemeProvider({
   theme = defaultTheme,
+  mode = 'light',
   antdLocale = antdLocalePtBR,
   dateFnsLocale = datePtBR,
   children,
@@ -80,9 +73,11 @@ function ThemeProvider({
   disableResetStyles,
   disableToast
 }: ThemeProviderProps) {
+  const currentTheme = theme[mode];
+
   React.useEffect(() => {
-    setTwoToneColor(theme.primaryColor);
-  }, [theme.primaryColor]);
+    setTwoToneColor(currentTheme.primaryColor);
+  }, [currentTheme.primaryColor]);
 
   React.useEffect(() => {
     setDefaultOptions({ locale: dateFnsLocale });
@@ -100,17 +95,19 @@ function ThemeProvider({
   }, []);
 
   return (
-    <EmotionThemeProvider theme={theme}>
-      {!disableResetStyles && <ResetCss />}
+    <ConfigProvider locale={antdLocale} theme={currentTheme.antd}>
+      <ConfigEmotion theme={currentTheme}>
+        {!disableResetStyles && <ResetCss />}
+        <CustomCss />
 
-      <ConfigProvider locale={antdLocale} theme={antdTokens}>
         <PopoverRoot>
           {!disableToast && <ToastContainer />}
           {!disableDialogs && <DialogGlobal />}
+
           {children}
         </PopoverRoot>
-      </ConfigProvider>
-    </EmotionThemeProvider>
+      </ConfigEmotion>
+    </ConfigProvider>
   );
 }
 

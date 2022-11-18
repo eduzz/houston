@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@eduzz/houston-hooks": "1.1.4",
-    "@hookform/error-message": "^2.0.0",
+    "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^2",
     "formik": "^2.2.9",
     "react-hook-form": "^7",

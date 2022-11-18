@@ -137,9 +137,9 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
     }
 
     & > .hst-topbar-header {
-      background-color: white;
+      background-color: ${theme.antd.colorBgElevated};
       color: #000;
-      border-bottom: 3px solid #f4f4f4;
+      border-bottom: 3px solid ${theme.antd.colorBorder};
       box-sizing: border-box;
       position: fixed;
       padding: 0.5rem 1rem 0.5rem 1rem;
@@ -150,7 +150,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
       display: flex;
       justify-content: space-between;
       z-index: 105;
-      transition: 0.15s ease-out;
+      transition: 0.15s ease-out, background-color 0.3s, border-bottom-color 0.3s;
 
       & > .hst-topbar-start {
         display: flex;
