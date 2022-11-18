@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { setTwoToneColor } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
+import type { Theme as AntdTheme, ThemeConfig } from 'antd/es/config-provider/context';
+import type { Locale as AntdLocale } from 'antd/es/locale-provider';
+import antdLocalePtBR from 'antd/locale/pt_BR';
 
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
-import { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
-import type { Theme as AntdTheme } from 'antd/lib/config-provider/context';
-import { Locale as AntdLocale } from 'antd/lib/locale-provider';
-import antdLocalePtBR from 'antd/lib/locale/pt_BR';
+import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
 // eslint-disable-next-line no-restricted-imports
 import type { Locale as DateLocale } from 'date-fns';
 import { ptBR as datePtBR } from 'date-fns/locale';
@@ -20,6 +20,7 @@ import PopoverRoot from '../Popover/Root';
 import ToastContainer from '../Toast/Container';
 import createThemeInternal from './createTheme';
 import { mediaUtils } from './mediaQuery';
+import ResetCss from './reset';
 
 setDefaultOptions({ locale: datePtBR });
 export const createTheme = createThemeInternal;
@@ -39,9 +40,6 @@ export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'chi
   theme?: HoustonTheme;
   antdLocale?: AntdLocale;
   dateFnsLocale?: DateLocale;
-  /**
-   * @deprecated
-   */
   disableResetStyles?: boolean;
   /**
    * @deprecated
@@ -61,26 +59,51 @@ declare module '@emotion/react' {
   interface Theme extends HoustonTheme {}
 }
 
+const antdTokens: ThemeConfig = {
+  token: {
+    colorPrimary: 'red',
+    controlHeight: 42,
+    fontFamily: 'Albert Sans',
+    fontSize: 14
+  },
+  components: {
+    Button: {}
+  }
+};
+
 function ThemeProvider({
   theme = defaultTheme,
   antdLocale = antdLocalePtBR,
   dateFnsLocale = datePtBR,
   children,
   disableDialogs,
+  disableResetStyles,
   disableToast
 }: ThemeProviderProps) {
   React.useEffect(() => {
     setTwoToneColor(theme.primaryColor);
-    ConfigProvider.config({ theme: { primaryColor: theme.primaryColor } });
   }, [theme.primaryColor]);
 
   React.useEffect(() => {
     setDefaultOptions({ locale: dateFnsLocale });
   }, [dateFnsLocale]);
 
+  React.useEffect(() => {
+    const styleElement = document.createElement('link');
+
+    styleElement.rel = 'stylesheet';
+    styleElement.href = '//fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700';
+
+    document.head.appendChild(styleElement);
+
+    return () => styleElement.remove();
+  }, []);
+
   return (
     <EmotionThemeProvider theme={theme}>
-      <ConfigProvider locale={antdLocale}>
+      {!disableResetStyles && <ResetCss />}
+
+      <ConfigProvider locale={antdLocale} theme={antdTokens}>
         <PopoverRoot>
           {!disableToast && <ToastContainer />}
           {!disableDialogs && <DialogGlobal />}

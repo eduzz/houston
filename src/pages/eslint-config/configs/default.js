@@ -71,6 +71,7 @@ module.exports = {
         'pathGroups': [
           { pattern: 'react**', group: 'builtin', position: 'before' },
           { pattern: 'antd', group: 'builtin' },
+          { pattern: 'antd/**', group: 'builtin' },
           { pattern: '@ant-design/**', group: 'builtin' },
           { pattern: '@nestjs/**', group: 'external', position: 'before' },
           { pattern: '@eduzz/**', group: 'internal', position: 'after' },

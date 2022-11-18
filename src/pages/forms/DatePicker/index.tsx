@@ -1,13 +1,10 @@
 import * as React from 'react';
 
-import generatePicker, { PickerProps } from 'antd/lib/date-picker/generatePicker';
-import dateFnsGenerateConfig from 'rc-picker/lib/generate/dateFns';
+import { DatePicker as AndtDatePicker, DatePickerProps as AntdDatePickerProps } from 'antd';
 
 import withForm, { WithFormProps } from '../Form/withForm';
 
-const AndtDatePicker = generatePicker<Date>(dateFnsGenerateConfig);
-
-export type DatePickerProps = PickerProps<Date> &
+export type DatePickerProps = AntdDatePickerProps &
   WithFormProps<any> & {
     minDate?: Date;
     maxDate?: Date;

@@ -11,8 +11,6 @@ import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
 import houston from './assets/houston.png';
 import ComponentDev from './components';
 
-import '@eduzz/houston-ui/ThemeProvider/theme.less';
-
 const { Sidebar, Topbar, Content } = Layout;
 const { Item, Group } = Sidebar;
 
