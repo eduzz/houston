@@ -17,4 +17,21 @@ import '@eduzz/houston-ui/ThemeProvider/theme-without-reset.css'; // <~se tiver 
 
 <img src='/houston/img/deprecation.png' style={{ width: 300, marginTop: 0 }} />
 
-> EM CONSTRUÇÃO
+3. Migre o `styled` e se atente os tokens que foram descotinuados:
+
+```diff
+- import styled from '@eduzz/houston-styles';
++ import styled from '@eduzz/houston-ui/styled';
+```
+
+4. Se utilize o `@eduzz/houston-forms`:
+
+```diff
+import useForm from '@eduzz/houston-forms/useForm';
+- import Input from '@eduzz/houston-ui/Forms/Input';
++ import Input from '@eduzz/houston-forms/Input';
+- import Form from '@eduzz/houston-ui/Forms/Form';
++ import Form from '@eduzz/houston-forms/Form';
+```
+
+4. Pronto.
