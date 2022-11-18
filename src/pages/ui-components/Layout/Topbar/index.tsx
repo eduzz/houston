@@ -3,10 +3,9 @@ import * as React from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 
-import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { css, StyledProp } from '../../styled';
+import styled, { css, cx, StyledProp } from '../../styled';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { TOPBAR_HEIGHT } from '../context';
 import Action from './Action';

@@ -1,0 +1,110 @@
+---
+name: Select
+---
+
+import { Playground } from 'dokz';
+
+import Select from './';
+
+# Select
+
+[Select do Antd](https://ant.design/components/select/) com a
+configuração do [react-form-hook](https://react-hook-form.com).
+
+### Importação
+
+```js
+import Select from '@eduzz/houston-forms/Select';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const [text, setText] = React.useState('');
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', gap: 16 }}>
+        <Select label='Com opção em branco' value={text} onChange={setText}>
+          <Select.Option>Selecione...</Select.Option>
+          <Select.Option value={1}>Opção 1</Select.Option>
+          <Select.Option value={2}>Opção 2</Select.Option>
+          <Select.Option value={3} disabled>
+            Opção 3
+          </Select.Option>
+        </Select>
+        <Select label='Desativado' disabled value={text} onChange={setText}>
+          <Select.Option>Selecione...</Select.Option>
+          <Select.Option value={1}>Opção 1</Select.Option>
+          <Select.Option value={2}>Opção 2</Select.Option>
+          <Select.Option value={3} disabled>
+            Opção 3
+          </Select.Option>
+        </Select>
+        <Select label='Carregamento' loading value={text} onChange={setText}>
+          <Select.Option>Selecione...</Select.Option>
+          <Select.Option value={1}>Opção 1</Select.Option>
+          <Select.Option value={2}>Opção 2</Select.Option>
+          <Select.Option value={3} disabled>
+            Opção 3
+          </Select.Option>
+        </Select>
+        <Select label='Com texto de ajuda' help='Exemplo de texto de ajuda' value={text} onChange={setText}>
+          <Select.Option>Selecione...</Select.Option>
+          <Select.Option value={1}>Opção 1</Select.Option>
+          <Select.Option value={2}>Opção 2</Select.Option>
+          <Select.Option value={3} disabled>
+            Opção 3
+          </Select.Option>
+        </Select>
+        <Select label='Com mensagem de erro' error='Mensagem de erro' value={text} onChange={setText}>
+          <Select.Option>Selecione...</Select.Option>
+          <Select.Option value={1}>Opção 1</Select.Option>
+          <Select.Option value={2}>Opção 2</Select.Option>
+          <Select.Option value={3} disabled>
+            Opção 3
+          </Select.Option>
+        </Select>
+      </div>
+    );
+  }}
+</Playground>
+
+### Seleção de múltiplas opções
+
+<Playground>
+  {() => {
+    const [multiple, setMultiple] = React.useState([]);
+    const [options] = React.useState(() => [
+      { value: 1, label: 'Opção 1' },
+      { value: 2, label: 'Opção 2' },
+      { value: 3, label: 'Opção 3 (desabilitada)', disabled: true },
+      { value: 4, label: 'Opção 4' },
+      { value: 5, label: 'Opção 5' }
+    ]);
+    return (
+      <Select label='Componente de seleção' mode='multiple' value={multiple} onChange={setMultiple}>
+        <Select.Option>Limpar</Select.Option>
+        {options.map(option => (
+          <Select.Option key={option.value} value={option.value} disabled={option.disabled}>
+            {option.label}
+          </Select.Option>
+        ))}
+      </Select>
+    );
+  }}
+</Playground>
+
+### Select Props
+
+Todas as props do Select do Antd são validos, abaixos as props extras.
+
+| prop  | tipo     | obrigatório | padrão | descrição                                                                           |
+| ----- | -------- | ----------- | ------ | ----------------------------------------------------------------------------------- |
+| name  | `string` | `false`     | -      | O name é importante para poder linkar o campo com o formulário                      |
+| label | `string` | `false`     | -      | -                                                                                   |
+| help  | `string` | `false`     | -      | Exibe texto de ajuda abaixo do componente de texto.                                 |
+| error | `string` | `false`     | -      | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |
+
+### Select.Option Props
+
+Todas as props do Select.Options do Antd são validos
