@@ -5,7 +5,7 @@ import { DokzProvider, GithubLink } from 'dokz';
 import Head from 'next/head';
 import theme from 'prism-react-renderer/themes/nightOwl';
 
-import './_app.page.less';
+import './_app.page.css';
 
 const sidebarOrdering = {
   'index.mdx': true,

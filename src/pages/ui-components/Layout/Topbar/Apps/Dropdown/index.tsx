@@ -7,7 +7,7 @@ import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import { TopbarApplication } from '..';
 import styled, { css, StyledProp, cx, keyframes } from '../../../../styled';
-import { TOPBAR_DROPDOWN_WIDTH, TOPBAR_HEIGHT } from '../../../context';
+import { TOPBAR_DROPDOWN_WIDTH } from '../../../context';
 
 export type AppsDropdownProps = StyledProp &
   React.HTMLAttributes<HTMLDivElement> & {
@@ -99,9 +99,9 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
   ({ theme }) => css`
     width: ${theme.pxToRem(TOPBAR_DROPDOWN_WIDTH)}rem;
     position: fixed;
-    background: #fff;
+    background: ${theme.antd.colorBgElevated};
     box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.16);
-    top: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
+    top: ${theme.pxToRem(theme.components.topBarHeight)}rem;
     left: 0.5rem;
     border-radius: 0 0 0.5rem 0.5rem;
     z-index: 105;
@@ -112,7 +112,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
     box-sizing: border-box;
     transform: scale(0.1);
     transform-origin: top left;
-    max-height: calc(100vh - ${theme.pxToRem(TOPBAR_HEIGHT)}rem);
+    max-height: calc(100vh - ${theme.pxToRem(theme.components.topBarHeight)}rem);
     overflow-y: auto;
 
     ${theme.mediaQuery.down('sm')} {
@@ -171,7 +171,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
           overflow: hidden;
           opacity: 0.8;
           font-size: 16px;
-          color: #666666;
+          color: ${theme.antd.colorTextDescription};
           margin-top: 2px;
 
           ${theme.mediaQuery.up('md')} {
@@ -194,7 +194,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
     &.hst-topbar-apps-dropdown-expanded {
       width: 100%;
       left: 0;
-      height: calc(100% - ${TOPBAR_HEIGHT}px);
+      height: calc(100% - ${theme.components.topBarHeight}px);
       overflow-x: auto;
       box-shadow: none;
       border-radius: 0;
