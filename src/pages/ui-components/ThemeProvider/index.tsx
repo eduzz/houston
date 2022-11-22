@@ -37,6 +37,10 @@ export interface HoustonTheme extends Omit<HoustonTokens, 'hexToRgba' | 'spacing
   variables?: HoustonThemeCustomVariables;
   spacing: ((unit?: number) => string) & Spacing;
 
+  components: {
+    topBarHeight: number;
+  };
+
   antd: AntdThemeConfig;
 }
 

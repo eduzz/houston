@@ -7,7 +7,7 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
 import Overlay from '../../Overlay';
 import { useMediaQueryDown } from '../../ThemeProvider/mediaQuery/useMediaQuery';
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { MENU_WIDTH, TOPBAR_HEIGHT } from '../context';
+import LayoutContext, { MENU_WIDTH } from '../context';
 import SidebarContext, { SidebarContextType } from './context';
 import Group from './Group';
 import Item from './Item';
@@ -113,7 +113,7 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
     }
 
     &.hst-sidebar-has-topbar .hst-sidebar-container {
-      top: ${TOPBAR_HEIGHT}px;
+      top: ${theme.components.topBarHeight}px;
     }
 
     ${theme.mediaQuery.down('lg')} {

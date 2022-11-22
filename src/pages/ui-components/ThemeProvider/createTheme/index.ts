@@ -40,6 +40,9 @@ export default function createTheme(
     mediaQuery: mediaUtils,
     spacing: spacing as any,
     hexToRgba,
+    components: {
+      topBarHeight: 64
+    },
     variables
   };
 

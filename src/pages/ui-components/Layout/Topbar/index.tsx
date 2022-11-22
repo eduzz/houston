@@ -7,7 +7,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { css, cx, StyledProp } from '../../styled';
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { TOPBAR_HEIGHT } from '../context';
+import LayoutContext from '../context';
 import Action from './Action';
 import Apps from './Apps';
 import Belt from './Belt';
@@ -133,7 +133,7 @@ const Topbar = React.memo<TopbarProps>(
 
 const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
   ({ theme }) => css`
-    height: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
+    height: ${theme.pxToRem(theme.components.topBarHeight)}rem;
 
     .hst-topbar-user-support {
       position: absolute;
@@ -157,7 +157,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
       top: 0;
       left: 0;
       right: 0;
-      height: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
+      height: ${theme.pxToRem(theme.components.topBarHeight)}rem;
       display: flex;
       justify-content: space-between;
       z-index: 105;
@@ -187,7 +187,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
           & > img {
             max-width: 100%;
             max-height: 100%;
-            height: ${TOPBAR_HEIGHT}px;
+            height: ${theme.components.topBarHeight}px;
           }
 
           & > .hst-topbar-logo-mobile {
