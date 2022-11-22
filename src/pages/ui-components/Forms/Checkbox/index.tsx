@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import * as React from 'react';
 
 import Done from '@eduzz/houston-icons/Done';
@@ -52,13 +53,16 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxRadioProps>(
     function onInternalChange(e: React.ChangeEvent<HTMLInputElement>) {
       if (isCheckedControlled) {
         const isValueControlled = value !== undefined;
+
         if (isValueControlled) {
           onChange && onChange(typeof value === 'boolean' ? !value : value, e);
           return;
         }
+
         onChange && onChange(!checkedProp, e);
         return;
       }
+
       setCheckedState(state => !state);
       onChange && onChange(!isChecked, e);
     }

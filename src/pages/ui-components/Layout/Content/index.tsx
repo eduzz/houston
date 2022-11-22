@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { ReactNode } from 'react';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import styled, { css, cx, StyledProp } from '../../styled';
 
 export interface LayoutContentProps extends StyledProp {
-  children?: React.ReactNode;
+  children?: ReactNode;
   disablePadding?: boolean;
 }
 
@@ -15,14 +15,14 @@ export default styled(LayoutContent, { label: 'hst-sidebar-content' })(
   ({ theme }) => css`
     flex: 1;
     min-width: 0;
-    /* não temos tokens e foi pedido pelo Dan Palmieri */
-    background-color: #fcfcfc;
+    background-color: ${theme.antd.colorBgContainer};
+    transition: background-color 0.3s;
 
     &:not(.hst-sidebar-content-disable-padding) {
-      padding: ${theme.spacing.xs};
+      padding: 2rem;
 
-      ${theme.breakpoints.down('sm')} {
-        padding: ${theme.spacing.stack.xxxs} ${theme.spacing.xxxs};
+      ${theme.mediaQuery.down('sm')} {
+        padding: 1rem;
       }
     }
   `

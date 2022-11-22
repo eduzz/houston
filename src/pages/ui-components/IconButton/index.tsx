@@ -123,10 +123,6 @@ export default styled(IconButton, { label: 'hst-icon-button' })(
       }
     }
 
-    &:focus {
-      outline: solid ${theme.border.width.sm} ${theme.feedbackColor.informative.pure};
-    }
-
     &:hover:not(:disabled),
     &:focus,
     &.hst-icon-button-active {

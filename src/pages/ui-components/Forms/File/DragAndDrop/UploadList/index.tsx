@@ -19,6 +19,7 @@ const UploadList = ({ className, items, onRemove }: UploadListProps) => {
     if (file.status === 'success') {
       return 'Concluído';
     }
+
     return file.errorMessage ?? 'O upload falhou';
   };
 

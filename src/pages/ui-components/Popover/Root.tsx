@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import * as React from 'react';
 
 import { createPopper } from '@popperjs/core';
@@ -85,6 +86,7 @@ const PopoverRoot = ({ children }: PopoverProps) => {
 
       setState(currentState => {
         const waitPreviousclose = !!currentState.closedTarget;
+
         if (waitPreviousclose) {
           setTimeout(() => setState(resolveNewState), 100);
           return currentState;

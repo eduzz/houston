@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import ChevronDownIcon from '@eduzz/houston-icons/ChevronDown';
-import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
+import { Typography } from 'antd';
 
-import Collapse from '../../../Collapse';
-import Typography from '../../../Typography';
+import useBoolean from '@eduzz/houston-hooks/useBoolean';
+
+import CollapseEffect from '../../../CollapseEffect';
+import styled, { cx, css, StyledProp } from '../../../styled';
 import SidebarGroupContext, { SidebarGroupContextType } from './context';
 
 export interface SidebarGroupProps extends StyledProp {
@@ -26,29 +26,23 @@ const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroup
     <SidebarGroupContext.Provider value={contextValue}>
       <li id={id} className={className}>
         {!!label && (
-          <div className='hst-sidebar-group-item' onClick={toogleExpanded} tabIndex={tabIndex ?? 1}>
-            <div className={cx('hst-sidebar-group-arrow', isExpanded && 'hst-sidebar-group-active')}>
-              <ChevronDownIcon size='md' />
-            </div>
+          <div
+            className={cx('hst-sidebar-group-item', isExpanded && 'hst-sidebar-group-item-expanded')}
+            onClick={toogleExpanded}
+            tabIndex={tabIndex ?? 1}
+          >
+            <div className='hst-sidebar-group-indicator' />
 
             <div className='hst-sidebar-group-content'>
-              <Typography
-                className='hst-sidebar-group-label'
-                color='neutralColor.low.medium'
-                weight='regular'
-                size='xxs'
-                lineHeight='lg'
-              >
-                {label}
-              </Typography>
+              <Typography.Text className='hst-sidebar-group-label'>{label}</Typography.Text>
             </div>
           </div>
         )}
 
         <ul className='hst-sidebar-group-items'>
-          <Collapse timeout={350} visibled={isExpanded}>
+          <CollapseEffect visibled={isExpanded}>
             <div className='hst-sidebar-group-items-content'>{children}</div>
-          </Collapse>
+          </CollapseEffect>
         </ul>
       </li>
     </SidebarGroupContext.Provider>
@@ -60,43 +54,40 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
     user-select: none;
 
     .hst-sidebar-group-item {
-      padding: ${theme.spacing.squish.xxs};
+      padding: 0.5rem 1rem;
       display: grid;
       grid-template-columns: ${theme.pxToRem(26)}rem 1fr;
-      grid-gap: ${theme.spacing.inline.nano};
+      grid-gap: 0.5rem;
       align-items: center;
       line-height: 1.15;
       cursor: pointer;
       transition: 0.15s linear;
-      min-height: ${theme.pxToRem(48)}rem;
+      min-height: 2.2rem;
       outline: none;
+      position: relative;
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
 
-      &:hover {
-        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-      }
-
-      &:focus {
-        background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-        box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
-      }
-
+      &:hover,
       &:active {
-        background-color: rgba(0, 0, 0, 0.12);
+        background-color: ${theme.antd.colorBgTextHover};
       }
 
-      & .hst-sidebar-group-arrow {
-        line-height: 0;
-
-        transition: 0.15s linear;
-        text-align: center;
-
-        &.hst-sidebar-group-active {
-          transform: rotateX(180deg);
-        }
+      & .hst-sidebar-group-indicator {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -2px;
+        height: 2px;
+        background-color: ${theme.antd.colorTextLabel};
+        opacity: 0.3;
+        width: 30px;
+        transition: 0.3s;
       }
 
       & .hst-sidebar-group-content {
         min-width: 0;
+        grid-column: 2;
 
         & .hst-sidebar-group-label {
           text-transform: uppercase;
@@ -104,6 +95,23 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
           word-break: break-all;
           overflow: hidden;
           text-overflow: ellipsis;
+          font-size: 14px;
+          letter-spacing: 0.03em;
+          color: ${theme.antd.colorTextLabel};
+        }
+      }
+
+      &.hst-sidebar-group-item-expanded {
+        & .hst-sidebar-group-indicator {
+          top: calc(50% - 1px);
+          height: 1px;
+          margin-top: -0.5px;
+          background-color: ${theme.antd.colorTextDescription};
+          opacity: 0.3;
+        }
+
+        & .hst-sidebar-group-label {
+          color: ${theme.antd.colorTextDescription};
         }
       }
     }
@@ -113,7 +121,7 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
       padding: 0;
 
       .hst-sidebar-group-items-content {
-        padding-bottom: 1rem;
+        padding-bottom: 0.7rem;
 
         & li {
           margin-bottom: 0;

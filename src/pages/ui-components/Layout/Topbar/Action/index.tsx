@@ -1,7 +1,7 @@
-import styled, { StyledProp, css, cx } from '@eduzz/houston-styles';
+import { Button } from 'antd';
 
-import Button from '../../../Button';
-import IconButton from '../../../IconButton';
+import styled, { StyledProp, cx, css } from '../../../styled';
+import { useMediaQueryDown } from '../../../ThemeProvider/mediaQuery/useMediaQuery';
 
 export type ActionProps = StyledProp &
   React.HTMLAttributes<HTMLDivElement> & {
@@ -15,38 +15,32 @@ export type ActionProps = StyledProp &
   };
 
 const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className, ...rest }) => {
-  return (
-    <div className={cx(className, { 'hst-topbar-action-has-label': !!label })} onClick={onClick} {...rest}>
-      {!!label && (
-        <Button startIcon={icon} variant='text' fullWidth active={active} className='hst-topbar-action-text-button'>
-          {label}
-        </Button>
-      )}
+  const hideLabel = useMediaQueryDown('md');
+  label = hideLabel ? undefined : label;
 
-      <IconButton className='hst-topbar-action-icon-button' active={active}>
-        {icon}
-      </IconButton>
+  return (
+    <div className={cx(className, { '--hst-active': active })} onClick={onClick} {...rest}>
+      <Button shape={!label ? 'circle' : 'round'} icon={icon} type='text'>
+        {label}
+      </Button>
     </div>
   );
 };
 
 export default styled(Action, { label: 'hst-topbar-action' })(
   ({ theme }) => css`
-    & .hst-topbar-action-icon-button,
-    & .hst-topbar-action-text-button.--text {
-      color: inherit;
+    & .anticon {
+      font-size: 20px;
+      vertical-align: text-bottom;
     }
 
-    ${theme.breakpoints.up('lg')} {
-      &.hst-topbar-action-has-label .hst-topbar-action-icon-button {
-        display: none;
-      }
+    button {
+      color: ${theme.antd.colorText};
+      margin-top: 2px;
     }
 
-    ${theme.breakpoints.down('lg')} {
-      & .hst-topbar-action-text-button {
-        display: none;
-      }
+    &.--hst-active button {
+      background-color: ${theme.antd.colorBgTextHover};
     }
   `
 );

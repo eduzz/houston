@@ -17,7 +17,6 @@ export interface InputProps
 const Input = React.forwardRef<InputRef, InputProps>(
   ({ mask, value, onChange, onBlur, onPressEnter, ...props }, ref) => {
     const { maskClean, maskedValue } = useMask(mask, value);
-    console.log({ maskedValue, mask });
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -31,6 +31,7 @@ export interface TooltipProps extends StyledProp {
   onClose?: () => void;
   onOpen?: () => void;
 }
+
 const Tooltip = ({ children, title, placement = 'top', id: idProp, disabled, onOpen, onClose }: TooltipProps) => {
   const { openPopover, closePopover, popoverTargetProps, popoverProps } = usePopover();
   const [isPopoverCreated, , createPopover, deletePopover] = useBoolean();

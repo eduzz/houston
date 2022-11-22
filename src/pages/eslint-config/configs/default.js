@@ -15,10 +15,16 @@ module.exports = {
     ecmaFeatures: { modules: true, jsx: true }
   },
   rules: {
-    'sonarjs/cognitive-complexity': ['warn', 45],
-    'sonarjs/no-duplicate-string': 'off',
-    'sonarjs/no-nested-template-literals': 'off',
     'no-restricted-globals': ['error'],
+    'object-shorthand': ['error', 'always', { avoidQuotes: true }],
+    'padding-line-between-statements': [
+      'error',
+      { blankLine: 'always', prev: ['block-like', 'function'], next: '*' },
+      { blankLine: 'always', prev: ['*'], next: ['block-like', 'function'] },
+      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
+      { blankLine: 'any', prev: ['export', 'import'], next: ['export', 'import'] },
+      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['export'] }
+    ],
     'no-restricted-imports': [
       'error',
       'date-fns',
@@ -65,6 +71,7 @@ module.exports = {
         'pathGroups': [
           { pattern: 'react**', group: 'builtin', position: 'before' },
           { pattern: 'antd', group: 'builtin' },
+          { pattern: 'antd/**', group: 'builtin' },
           { pattern: '@ant-design/**', group: 'builtin' },
           { pattern: '@nestjs/**', group: 'external', position: 'before' },
           { pattern: '@eduzz/**', group: 'internal', position: 'after' },

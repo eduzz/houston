@@ -1,11 +1,11 @@
 import * as React from 'react';
 
+import { Typography } from 'antd';
+
 import { useContextSelector } from 'use-context-selector';
 
-import Bullet from '@eduzz/houston-icons/Bullet';
-import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
-
-import Typography from '../../../Typography';
+import IconBullet from '../../../Icons/Bullet';
+import styled, { cx, css, StyledProp } from '../../../styled';
 import SidebarContext from '../context';
 import SidebarGroupContext from '../Group/context';
 
@@ -53,17 +53,11 @@ const SidebarItem = ({
       className: cx(className, { 'hst-sidebar-item-active': active, 'hst-sidebar-item-disabled': disabled })
     },
     <li>
-      <Bullet className='hst-sidebar-item-icon' size='md' />
+      <IconBullet className='hst-sidebar-item-icon' size='md' />
 
-      <Typography
-        className='hst-sidebar-item-label'
-        size='xs'
-        color='neutralColor.low.pure'
-        lineHeight='lg'
-        weight={active ? 'bold' : 'regular'}
-      >
+      <Typography.Text className='hst-sidebar-item-label' strong={active}>
         {children}
-      </Typography>
+      </Typography.Text>
     </li>
   );
 };
@@ -74,30 +68,35 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
     display: block;
     outline: none;
     user-select: none;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    margin-right: 5px;
 
     &:focus-visible {
-      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-      box-shadow: 0 0 0 ${theme.border.width.sm} ${theme.feedbackColor.informative.pure} inset;
+      background-color: ${theme.antd.colorBgTextHover};
+      box-shadow: 0 0 0 2px #039be5 inset;
     }
 
-    &:hover {
-      background-color: ${theme.hexToRgba(theme.neutralColor.low.pure, theme.opacity.level[2])};
-    }
-
+    &:hover,
     &:active {
-      background-color: rgba(0, 0, 0, 0.12);
+      background-color: ${theme.antd.colorBgTextHover};
     }
 
     & > li {
-      padding: ${theme.spacing.stack.quarck} ${theme.spacing.inline.xxxs};
+      padding: 0.07rem 1rem;
       align-items: center;
       line-height: 1.2;
       cursor: pointer;
       display: grid;
       grid-template-columns: ${theme.pxToRem(26)}rem 1fr;
-      grid-gap: ${theme.spacing.inline.nano};
+      grid-gap: 0.5rem;
       text-decoration: none;
       white-space: nowrap;
+      transition: 0.3s;
+
+      ${theme.mediaQuery.down('lg')} {
+        padding: 0.3rem 1rem;
+      }
 
       & .hst-sidebar-item-label {
         grid-column: 2;
@@ -105,19 +104,20 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
         overflow: hidden;
         text-overflow: ellipsis;
         min-width: 0;
+        font-size: 15.5px;
       }
 
       & .hst-sidebar-item-icon {
         transform: scale(0);
         opacity: 0;
         transition: 0.15s ease-in;
-        color: ${theme.brandColor.secondary.pure};
+        color: ${theme.secondaryColor};
       }
     }
 
     &.hst-sidebar-item-active > li {
       &::before {
-        background: ${theme.brandColor.secondary.pure};
+        background: ${theme.secondaryColor};
       }
 
       & .hst-sidebar-item-icon {
@@ -127,7 +127,7 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
     }
 
     &.hst-sidebar-item-disabled {
-      opacity: ${theme.opacity.level[6]};
+      opacity: 0.32;
       pointer-events: none;
     }
   `

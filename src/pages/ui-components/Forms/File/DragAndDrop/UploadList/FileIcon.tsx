@@ -17,12 +17,15 @@ const FileIcon = ({ className, file }: FileIconProps) => {
   if (file.type === 'application/x-zip-compressed') {
     Icon = FolderZipOutlineIcon;
   }
+
   if (file.type?.includes('image')) {
     Icon = ImageIcon;
   }
+
   if (file.type?.includes('video')) {
     Icon = VideoOutlineIcon;
   }
+
   if (file.type?.includes('audio')) {
     Icon = MicrophoneOutlineIcon;
   }

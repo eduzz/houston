@@ -23,6 +23,7 @@ export interface TableProps extends StyledProp, React.TableHTMLAttributes<HTMLTa
   total?: number;
   emptyText?: string;
 }
+
 const Table = ({
   size = 'md',
   children,

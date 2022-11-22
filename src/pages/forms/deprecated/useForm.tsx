@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import '../locale';
 
 import { useCallback, useEffect, useRef } from 'react';
@@ -123,10 +124,10 @@ export default function useForm<Values = Record<string, never>>({
     handleChange,
     handleReset: () => formik.resetForm({ values: initialValues }),
     setValues: formik.setValues,
-    setErrors: setErrors,
-    getFieldValue: getFieldValue,
-    setFieldValue: setFieldValue,
-    getFieldError: getFieldError,
+    setErrors,
+    getFieldValue,
+    setFieldValue,
+    getFieldError,
     setFieldTouched: formik.setFieldTouched,
     reset: values => formik.resetForm({ values: values === undefined ? initialValues : values }),
     initialValues: formik.initialValues,

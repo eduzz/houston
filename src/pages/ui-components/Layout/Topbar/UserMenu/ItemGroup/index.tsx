@@ -1,6 +1,6 @@
-import styled, { StyledProp, css } from '@eduzz/houston-styles';
+import { Typography } from 'antd';
 
-import Typography from '../../../../Typography';
+import styled, { StyledProp } from '../../../../styled';
 
 export type UserMenuGroupProps = StyledProp &
   React.HTMLAttributes<HTMLDivElement> & {
@@ -11,24 +11,21 @@ export type UserMenuGroupProps = StyledProp &
 const UserMenuGroup = ({ label, className, children, ...rest }: UserMenuGroupProps) => {
   return (
     <div className={className} {...rest}>
-      <Typography size='xxs' weight='semibold' className='hst-topbar-user-menu-group-label'>
-        {label}
-      </Typography>
-
+      <Typography className='hst-topbar-user-menu-group-label'>{label}</Typography>
       {children}
     </div>
   );
 };
 
-export default styled(UserMenuGroup, { label: 'hst-topbar-user-menu-group' })(
-  ({ theme }) => css`
-    display: flex;
-    flex-direction: column;
+export default styled(UserMenuGroup, { label: 'hst-topbar-user-menu-group' })`
+  display: flex;
+  flex-direction: column;
 
-    & > .hst-topbar-user-menu-group-label {
-      margin-top: ${theme.spacing.nano};
-      padding: ${theme.spacing.squish.xxs};
-      cursor: default;
-    }
-  `
-);
+  & > .hst-topbar-user-menu-group-label {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    cursor: default;
+    letter-spacing: 0.3px;
+    font-weight: bold;
+  }
+`;

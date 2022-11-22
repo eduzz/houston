@@ -2,9 +2,8 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
-
 import Portal from '../../../Portal';
+import styled, { css, cx, StyledProp } from '../../../styled';
 import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_MENU_MIN_WIDTH_IN_PX } from '../../context';
 
 export type UserMenuProps = StyledProp &
@@ -44,9 +43,9 @@ export default styled(UserMenu, { label: 'hst-topbar-user-menu' })(
     overflow-x: hidden;
     position: fixed;
     top: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
-    right: ${theme.spacing.inline.nano};
+    right: 0.5rem;
     box-shadow: ${theme.shadow.level[2]};
-    padding: ${theme.spacing.nano};
+    padding: 0.5rem;
     transition: 0.15s ease-out;
     transform: scale(0.1);
     transform-origin: top right;
@@ -54,8 +53,8 @@ export default styled(UserMenu, { label: 'hst-topbar-user-menu' })(
     visibility: hidden;
     opacity: 0;
     user-select: none;
-    background: ${theme.neutralColor.high.pure};
-    border-radius: ${theme.border.radius.sm};
+    background: ${theme.antd.colorBgElevated};
+    border-radius: 0.5rem;
 
     &::-webkit-scrollbar {
       width: 3px;
@@ -68,7 +67,7 @@ export default styled(UserMenu, { label: 'hst-topbar-user-menu' })(
     }
 
     &:hover::-webkit-scrollbar-thumb {
-      background: ${theme.neutralColor.high.medium};
+      background: #e0e0e0;
     }
 
     &.hst-topbar-user-menu-opened {

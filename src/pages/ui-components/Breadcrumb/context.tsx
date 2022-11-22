@@ -18,9 +18,11 @@ function BreadcrumbProvider({ children, separator }: BreadcrumbProviderProps) {
 
 function useBreadcrumb() {
   const ctx = React.useContext(BreadcrumbContext);
+
   if (!ctx) {
     throw new Error('You must provide a `BreadcrumbProvider` in order to use `useBreadcrumb`');
   }
+
   return ctx;
 }
 

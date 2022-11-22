@@ -1,10 +1,8 @@
 import * as React from 'react';
 
-import styled from '@emotion/styled';
-
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
-import { css, cx, StyledProp } from '@eduzz/houston-styles';
 
+import styled, { css, cx, StyledProp } from '../styled';
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import LayoutContext, { LayoutContextType, TOPBAR_HEIGHT } from './context';

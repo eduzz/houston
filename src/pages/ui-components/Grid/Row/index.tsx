@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';

@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import InfoChatOutline from '@eduzz/houston-icons/InfoChatOutline';
+import { MessageOutlined, BellOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
+import { Avatar } from 'antd';
+
 import NotificationOutline from '@eduzz/houston-icons/NotificationOutline';
 import Layout from '@eduzz/houston-ui/Layout';
 import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
+import createTheme from '@eduzz/houston-ui/ThemeProvider/createTheme';
 
 import houston from './assets/houston.png';
 import ComponentDev from './components';
 
-import '@eduzz/houston-ui/ThemeProvider/theme.less';
-
+const theme = createTheme('nutror');
 const { Sidebar, Topbar, Content } = Layout;
 const { Item, Group } = Sidebar;
 
@@ -24,31 +26,40 @@ declare module '@eduzz/houston-styles' {
 }
 
 function App() {
+  const [themeMode, setThemeMode] = React.useState<'dark' | 'light'>('light');
+
+  const toogleTheme = React.useCallback(() => {
+    setThemeMode(theme => (theme === 'dark' ? 'light' : 'dark'));
+  }, []);
+
   return (
     <BrowserRouter>
-      <ThemeProvider>
+      <ThemeProvider theme={theme} mode={themeMode}>
         <Layout>
           <Topbar
             currentApplication='orbita'
             user={{
-              name: 'Houston',
+              name: 'Eduzz Tecnologia',
               belt: 'Red Belt',
+              supportId: 1,
+              isSupport: true,
               avatar: houston,
               tag: 'unity'
             }}
           >
             {/* <Topbar.UnitySupportChat /> */}
 
-            <Topbar.Action icon={<NotificationOutline size={25} />} />
-            <Topbar.Action icon={<InfoChatOutline size={25} />} />
+            <Topbar.Action icon={themeMode === 'light' ? <BulbOutlined /> : <BulbFilled />} onClick={toogleTheme} />
+            <Topbar.Action active icon={<NotificationOutline size={25} />} />
+            <Topbar.Action icon={<MessageOutlined />} label='Chat' />
 
             <Topbar.UserMenu>
-              <Topbar.UserMenuItem>Meus Dados</Topbar.UserMenuItem>
-              <Topbar.UserMenuItem>Minhas Compras</Topbar.UserMenuItem>
+              <Topbar.UserMenuItem icon={<BellOutlined />}>Meus Dados</Topbar.UserMenuItem>
+              <Topbar.UserMenuItem icon={<NotificationOutline />}>Minhas Compras</Topbar.UserMenuItem>
 
               <Topbar.UserMenuGroup label='Contas:'>
-                <Topbar.UserMenuItem disabled href='http://google.com' target='_blank'>
-                  John Doe
+                <Topbar.UserMenuItem disabled href='http://google.com' target='_blank' icon={<Avatar>J</Avatar>}>
+                  John DoeJohn DoeJohn DoeJohn DoeJohn DoeJohn Doe
                 </Topbar.UserMenuItem>
                 <Topbar.UserMenuItem>John Doe 2</Topbar.UserMenuItem>
               </Topbar.UserMenuGroup>
@@ -59,19 +70,25 @@ function App() {
           </Topbar>
 
           <Sidebar currentLocation={location.pathname}>
-            <Item isActive={true}>Resumo</Item>
+            <Group>
+              <Item isActive={true}>Resumo</Item>
+            </Group>
 
-            <Item>Relatórios</Item>
-            <Item>Financeiro</Item>
-            <Item>Soluções</Item>
+            <Group>
+              <Item>Relatórios</Item>
+              <Item>Financeiro</Item>
+              <Item>Soluções</Item>
+            </Group>
 
             <Group label='Submenu'>
               <Item>Item 1</Item>
               <Item>Item 2</Item>
             </Group>
 
-            <Item>Central de Notificações</Item>
-            <Item>Configurações</Item>
+            <Group label='Configurações'>
+              <Item>Central de Notificações</Item>
+              <Item>Configurações</Item>
+            </Group>
           </Sidebar>
 
           <Content>

@@ -1,6 +1,7 @@
 import IconButton, { IconButtonProps } from '../IconButton';
 
 export interface ButtonIcon extends IconButtonProps {}
+
 const ButtonIcon = (props: ButtonIcon) => {
   return <IconButton {...props} />;
 };

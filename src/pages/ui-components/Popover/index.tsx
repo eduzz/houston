@@ -1,12 +1,11 @@
 import * as React from 'react';
 
-import { keyframes, css } from '@emotion/react';
-import styled from '@emotion/styled';
 import { Placement } from '@popperjs/core';
 import { useContextSelector } from 'use-context-selector';
 
 import { StyledProp, cx } from '@eduzz/houston-styles';
 
+import styled, { css, keyframes } from '../styled';
 import warning from '../utils/warning';
 import PopoverContext from './context';
 

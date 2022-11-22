@@ -11,6 +11,7 @@ export interface BreadcrumbProps extends StyledProp, React.HTMLAttributes<HTMLEl
   separator?: React.ReactNode;
   children: React.ReactNode;
 }
+
 const Breadcrumb = ({ children, className, separator, ...rest }: BreadcrumbProps) => {
   return (
     <BreadcrumbProvider separator={separator}>

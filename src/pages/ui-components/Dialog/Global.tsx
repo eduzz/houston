@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { memo, useState, useEffect } from 'react';
 
 import usePromiseCallback from '@eduzz/houston-hooks/usePromiseCallback';
@@ -73,6 +74,7 @@ const DialogGlobal = memo(() => {
 
   useEffect(() => {
     componentCallback = onReceiveParams;
+
     return () => {
       componentCallback = null;
     };

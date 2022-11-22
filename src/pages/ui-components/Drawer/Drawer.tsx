@@ -20,6 +20,7 @@ export interface DrawerProps extends ModalProps {
    */
   placement?: DrawerPlacement;
 }
+
 const Drawer = ({
   visible,
   disableEscapeKey,

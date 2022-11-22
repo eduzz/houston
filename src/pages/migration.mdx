@@ -1,0 +1,36 @@
+---
+name: Migração
+---
+
+# Migração
+
+1. Importe o css do tema.
+
+```tsx
+import '@eduzz/houston-ui/ThemeProvider/theme.css'; // <~ já possui o css do AntD
+import '@eduzz/houston-ui/ThemeProvider/theme-without-reset.css'; // <~se tiver algum problema pode importar sem o reset.css
+```
+
+2. Quando ver componentes **marcados** procure migrar para seu equivalente do AntD:
+
+<img src='/houston/img/deprecation.png' style={{ width: 300, marginTop: 0 }} />
+
+3. Migre o `styled` e se atente aos tokens que foram descontinuados:
+
+```diff
+- import styled from '@eduzz/houston-styles';
++ import styled from '@eduzz/houston-ui/styled';
+```
+
+4. Se utilize o `@eduzz/houston-forms`, é possível ainda utilizar o `react-form-hooks`,
+   apenas altere os imports:
+
+```diff
+import useForm from '@eduzz/houston-forms/useForm';
+- import Input from '@eduzz/houston-ui/Forms/Input';
++ import Input from '@eduzz/houston-forms/Input';
+- import Form from '@eduzz/houston-ui/Forms/Form';
++ import Form from '@eduzz/houston-forms/Form';
+```
+
+4. Pronto.

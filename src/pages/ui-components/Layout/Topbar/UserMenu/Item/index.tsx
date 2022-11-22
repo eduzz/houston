@@ -1,11 +1,10 @@
 import * as React from 'react';
 
+import { Button } from 'antd';
+
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { StyledProp } from '@eduzz/houston-styles';
-
-import Button from '../../../../Button';
-import Typography from '../../../../Typography';
+import styled, { StyledProp } from '../../../../styled';
 import LayoutContext from '../../../context';
 
 export interface UserMenuItemProps extends StyledProp {
@@ -40,15 +39,15 @@ const UserMenuItem = React.forwardRef<HTMLButtonElement, UserMenuItemProps>(
     let content = (
       <Button
         id={id}
-        startIcon={icon}
+        icon={icon}
         ref={ref}
-        fullWidth
-        variant='text'
+        block
+        type='text'
         onClick={handleClick}
         className={className}
         disabled={disabled}
       >
-        <Typography color='inherit'>{children}</Typography>
+        {children}
       </Button>
     );
 
@@ -66,7 +65,26 @@ const UserMenuItem = React.forwardRef<HTMLButtonElement, UserMenuItemProps>(
 
 export default styled(UserMenuItem, { label: 'hst-user-menu-item' })`
   justify-content: start;
+  align-items: center;
   text-align: left;
+  font-size: 16px;
+  padding: 8px 16px;
+  display: flex;
+
+  & > span:not(.anticon, .ant-avatar) {
+    max-width: 235px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  & > .anticon {
+    font-size: 20px;
+  }
+
+  & > svg {
+    width: 24px;
+    margin-right: 5px;
+  }
 
   &.hst-button-disabled {
     background-color: transparent;

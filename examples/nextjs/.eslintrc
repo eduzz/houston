@@ -1,9 +1,0 @@
-{
-  "root": true,
-  "extends": [
-    "@eduzz/eslint-config-houston"
-  ],
-  "rules": {
-    "react/react-in-jsx-scope": ["off"]
-  }
-}

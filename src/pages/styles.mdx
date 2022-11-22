@@ -20,6 +20,8 @@ No arquivo raiz de seu projeto, defina sua paleta de cores e adicione o provedor
 
 ```tsx
 import '@eduzz/houston-ui/ThemeProvider/theme.css'; // <~importar css base (que tem o css do AntD)
+import '@eduzz/houston-ui/ThemeProvider/theme-without-reset.css'; // <~se tiver algum problema pode importar sem o reset.css
+
 import ThemeProvider, { createTheme } from '@eduzz/houston-ui/ThemeProvider';
 
 const theme = createTheme('eduzz'); // ou um hex: '#0D47A1'

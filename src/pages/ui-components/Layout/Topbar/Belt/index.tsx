@@ -1,11 +1,12 @@
 import * as React from 'react';
 
+import { Typography } from 'antd';
+
 import { useContextSelector } from 'use-context-selector';
 
-import BeltIcon from '@eduzz/houston-icons/Belt';
-import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
+import BeltIcon from '@eduzz/houston-ui/Icons/Belt';
 
-import Typography from '../../../Typography';
+import styled, { css, cx, StyledProp } from '../../../styled';
 import TopbarContext from '../context';
 
 const supportedBelts = ['white', 'red', 'orange', 'green', 'black', 'golden'];
@@ -43,10 +44,7 @@ const Belt = React.memo<StyledProp>(({ className }) => {
     <div className={cx(className, `hst-topbar-belt-color-${beltClass}`)}>
       <div className='hst-topbar-belt-badge'>
         <BeltIcon size={25} className='hst-topbar-belt-icon' />
-
-        <Typography color='inherit' className='hst-topbar-belt-text' weight='semibold'>
-          {beltColor}
-        </Typography>
+        <Typography className='hst-topbar-belt-text'>{beltColor}</Typography>
       </div>
     </div>
   );
@@ -57,18 +55,23 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
     color: white;
     display: flex;
     align-items: center;
-    padding: ${theme.spacing.squish.xxs};
-    border-radius: ${theme.border.radius.md};
+    padding: 8px 22px 8px 16px;
+    border-radius: 50px;
     border-top-left-radius: 0;
     border-bottom-right-radius: 0;
-    margin-right: ${theme.spacing.inline.xxs};
+    margin-right: 1.5rem;
     height: ${theme.pxToRem(32)}rem;
 
-    ${theme.breakpoints.down('md')} {
+    ${theme.mediaQuery.down('md')} {
       display: none;
     }
 
-    ${theme.breakpoints.down('lg')} {
+    ${theme.mediaQuery.down('lg')} {
+      padding: 8px 18px 8px 16px;
+      border-radius: 30px;
+      border-top-left-radius: 0;
+      border-bottom-right-radius: 0;
+
       & .hst-topbar-belt-text {
         display: none;
       }
@@ -114,10 +117,12 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
       align-items: center;
 
       & > .hst-topbar-belt-text {
+        color: inherit;
         white-space: nowrap;
         text-transform: uppercase;
         font-style: italic;
-        margin-left: ${theme.spacing.inline.quarck};
+        font-size: 14px;
+        margin-left: 0.25rem;
       }
     }
 

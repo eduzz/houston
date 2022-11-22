@@ -16,6 +16,7 @@ interface AccordionProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivEl
   values?: number[];
   onChange?: (values: number[]) => void;
 }
+
 const Accordion = ({
   children,
   values,
