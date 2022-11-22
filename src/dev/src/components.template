@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 import { Button } from 'antd';
+
+import styled, { css } from '@eduzz/houston-ui/styled';
 
 const ComponentsDev = memo<{ className?: string }>(({ className }) => {
   return (

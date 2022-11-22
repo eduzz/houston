@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DatePicker as AndtDatePicker, DatePickerProps as AntdDatePickerProps } from 'antd';
+import { TimePicker as AndtTimePicker, TimePickerProps as AntdTimePickerProps } from 'antd';
 
 import 'dayjs/locale/en';
 import 'dayjs/locale/pt-br';
@@ -20,23 +20,17 @@ dayjs.extend(localeData);
 
 dayjs.locale('pt-br');
 
-export type DatePickerProps = Omit<AntdDatePickerProps, 'value' | 'onChange'> &
+export type TimePickerProps = Omit<AntdTimePickerProps, 'value' | 'onChange'> &
   WithFormProps<any> & {
     minDate?: Date;
     maxDate?: Date;
     value?: Date;
     onChange?: (value: Date) => void;
-    showTime?: boolean;
   };
 
-const defaultFormats = {
-  date: 'DD/MM/YYYY',
-  datetime: 'DD/MM/YYYY HH:mm'
-} as const;
-
-const DatePicker = React.forwardRef<any, any>(
+const TimePicker = React.forwardRef<any, any>(
   ({ value, format, showTime, minDate, maxDate, onChange, ...props }, ref) => {
-    format = format ?? defaultFormats[`${showTime ? 'datetime' : 'date'}`];
+    format = format ?? props.showSecond ? 'HH:mm:ss' : 'HH:mm';
 
     const handleChange = React.useCallback((date: Dayjs) => onChange(date.toDate()), [onChange]);
 
@@ -53,7 +47,7 @@ const DatePicker = React.forwardRef<any, any>(
     const dayjsValue = React.useMemo(() => (value ? dayjs(value) : value), [value]);
 
     return (
-      <AndtDatePicker
+      <AndtTimePicker
         ref={ref}
         disabledDate={disableDate}
         format={format}
@@ -66,4 +60,4 @@ const DatePicker = React.forwardRef<any, any>(
   }
 );
 
-export default withForm(DatePicker as any) as React.ComponentType<DatePickerProps>;
+export default withForm(TimePicker as any) as React.ComponentType<TimePickerProps>;

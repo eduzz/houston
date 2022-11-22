@@ -1,6 +1,5 @@
 import { createContext } from 'use-context-selector';
 
-export const TOPBAR_HEIGHT = 64;
 export const TOPBAR_DROPDOWN_WIDTH = 336;
 export const TOPBAR_MENU_MIN_WIDTH_IN_PX = 260;
 
