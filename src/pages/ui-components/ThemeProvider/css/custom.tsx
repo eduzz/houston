@@ -8,6 +8,31 @@ const CustomCss = () => {
           list-style: decimal;
         }
 
+        /* workaround for Modal.confirm */
+        .ant-modal-confirm-btns {
+          .ant-btn-default {
+            height: 42px;
+
+            &:hover,
+            &:focus,
+            &:active {
+              border-color: ${theme.antd.colorPrimaryHover};
+              color: ${theme.antd.colorPrimary};
+            }
+          }
+
+          .ant-btn-primary {
+            background-color: ${theme.antd.colorPrimary};
+            height: 42px;
+
+            &:hover,
+            &:focus,
+            &:active {
+              background-color: ${theme.antd.colorPrimaryHover};
+            }
+          }
+        }
+
         .ant-form-item {
           margin-bottom: 20px;
         }
