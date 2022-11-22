@@ -18,7 +18,7 @@ const CustomCss = () => {
 
         .ant-form-vertical .ant-form-item-label,
         .ant-col-24.ant-form-item-label {
-          padding-bottom: 4px;
+          padding-bottom: 2px;
         }
 
         .ant-col-24.ant-form-item-label > label {
