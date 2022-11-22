@@ -3,11 +3,20 @@ import { css, GlobalStyles } from '../../styled';
 const ResetCss = () => {
   return (
     <GlobalStyles
-      styles={css`
+      styles={theme => css`
+        html,
+        body {
+          background-color: ${theme.antd.colorBgLayout} !important;
+        }
+
         *,
         *::before,
         *::after {
           box-sizing: border-box;
+        }
+
+        a:any-link {
+          text-decoration: none;
         }
 
         html,

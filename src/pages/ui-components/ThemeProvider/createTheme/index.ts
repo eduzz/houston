@@ -33,7 +33,7 @@ export default function createTheme(
     spacing[key] = spacingTokens[key];
   });
 
-  const base = {
+  const base: Omit<HoustonTheme, 'mode' | 'antd'> = {
     ...tokens,
     primaryColor: brandColor.antd.primary ?? DEFAULT_PRIMARY_COLOR,
     secondaryColor: brandColor.antd.secondary ?? DEFAULT_SECONDARY_COLOR,

@@ -3,7 +3,7 @@ import { css, GlobalStyles } from '../../styled';
 const CustomCss = () => {
   return (
     <GlobalStyles
-      styles={css`
+      styles={theme => css`
         ol {
           list-style: decimal;
         }
@@ -46,8 +46,7 @@ const CustomCss = () => {
         }
 
         .ant-table table {
-          border: 1px solid red;
-          border-bottom: none;
+          border: 1px solid ${theme.antd.colorSplit};
         }
 
         .ant-space {
@@ -82,8 +81,7 @@ const CustomCss = () => {
         }
 
         .ant-btn > .ant-avatar {
-          vertical-align: middle;
-          margin-top: -5px;
+          vertical-align: text-bottom;
           margin-right: 5px;
         }
       `}

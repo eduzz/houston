@@ -12,7 +12,7 @@ import createTheme from '@eduzz/houston-ui/ThemeProvider/createTheme';
 import houston from './assets/houston.png';
 import ComponentDev from './components';
 
-const theme = createTheme('nutror');
+const theme = createTheme('eduzz');
 const { Sidebar, Topbar, Content } = Layout;
 const { Item, Group } = Sidebar;
 

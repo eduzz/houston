@@ -51,7 +51,7 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
       <div
         className={cx(className, { 'hst-sidebar-visible': opened && isMobile, 'hst-sidebar-has-topbar': hasTopbar })}
       >
-        <Overlay visible={opened && isMobile} color='high' onClick={toggleMenu} underTopbar />
+        <Overlay visible={opened && isMobile} onClick={toggleMenu} underTopbar />
 
         <aside className='hst-sidebar-container'>
           <nav>
@@ -70,7 +70,7 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
     position: relative;
 
     & .hst-sidebar-container {
-      background-color: ${theme.antd.colorBgContainer};
+      background-color: ${theme.antd.colorBgLayout};
       display: inline-flex;
       flex-direction: column;
       width: ${MENU_WIDTH}px;
@@ -120,7 +120,7 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
       width: 0;
 
       & .hst-sidebar-container {
-        background-color: #fff;
+        background-color: ${theme.antd.colorBgElevated};
         left: -${MENU_WIDTH}px;
         border: 0;
         opacity: 0;
