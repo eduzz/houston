@@ -80,9 +80,8 @@ function ThemeProvider({
   const currentTheme = theme[mode];
 
   React.useEffect(() => {
-    ConfigProvider.config({ theme: { primaryColor: currentTheme.primaryColor } });
     setTwoToneColor(currentTheme.primaryColor);
-  }, [currentTheme]);
+  }, [currentTheme.primaryColor]);
 
   React.useEffect(() => {
     setDefaultOptions({ locale: dateFnsLocale });
@@ -100,7 +99,7 @@ function ThemeProvider({
   }, []);
 
   return (
-    <ConfigProvider locale={antdLocale} theme={currentTheme.antd} prefixCls='prado'>
+    <ConfigProvider locale={antdLocale} theme={currentTheme.antd}>
       <ConfigEmotion theme={currentTheme}>
         {!disableResetStyles && <ResetCss />}
         <CustomCss />
