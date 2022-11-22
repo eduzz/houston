@@ -3,16 +3,16 @@ import * as React from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 
-import { cx } from '@emotion/css';
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { css, StyledProp } from '../../styled';
+import styled, { css, cx, StyledProp } from '../../styled';
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { TOPBAR_HEIGHT } from '../context';
+import LayoutContext from '../context';
 import Action from './Action';
 import Apps from './Apps';
 import Belt from './Belt';
 import TopbarContext, { TopbarContextType } from './context';
+import Logo from './Logo';
 import UnitySupportChat from './UnitySupportChat';
 import User from './User';
 import UserMenu from './UserMenu';
@@ -25,6 +25,8 @@ export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivEle
   disableApps?: boolean;
   logo?: string;
   logoMobile?: string;
+  logoDarkMode?: string;
+  logoMobileDarkMode?: string;
   currentApplication?: string;
   user?: {
     id?: number;
@@ -40,11 +42,21 @@ export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivEle
 }
 
 const Topbar = React.memo<TopbarProps>(
-  ({ children, currentApplication, logo, logoMobile, className, user, disableApps, ...rest }) => {
+  ({
+    children,
+    currentApplication,
+    logo,
+    logoMobile,
+    logoDarkMode,
+    logoMobileDarkMode,
+    className,
+    user,
+    disableApps,
+    ...rest
+  }) => {
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
     const sidebarOpened = useContextSelector(LayoutContext, context => context.sidebar.opened);
-
     React.useEffect(() => {
       const unregister = register();
       return () => unregister();
@@ -93,13 +105,11 @@ const Topbar = React.memo<TopbarProps>(
               {!disableApps && <Apps />}
 
               <div className='hst-topbar-logo'>
-                <img
-                  className='hst-topbar-logo-default'
-                  src={logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz.svg'}
-                />
-                <img
-                  className='hst-topbar-logo-mobile'
-                  src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'}
+                <Logo
+                  logo={logo}
+                  logoMobile={logoMobile}
+                  logoDarkMode={logoDarkMode}
+                  logoMobileDarkMode={logoMobileDarkMode}
                 />
               </div>
 
@@ -123,7 +133,7 @@ const Topbar = React.memo<TopbarProps>(
 
 const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
   ({ theme }) => css`
-    height: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
+    height: ${theme.pxToRem(theme.components.topBarHeight)}rem;
 
     .hst-topbar-user-support {
       position: absolute;
@@ -138,20 +148,20 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
     }
 
     & > .hst-topbar-header {
-      background-color: white;
-      color: #000;
-      border-bottom: 3px solid #f4f4f4;
+      background-color: ${theme.antd.colorBgElevated};
+      color: ${theme.antd.colorText};
+      border-bottom: 3px solid ${theme.antd.colorBorder};
       box-sizing: border-box;
       position: fixed;
       padding: 0.5rem 1rem 0.5rem 1rem;
       top: 0;
       left: 0;
       right: 0;
-      height: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
+      height: ${theme.pxToRem(theme.components.topBarHeight)}rem;
       display: flex;
       justify-content: space-between;
       z-index: 105;
-      transition: 0.15s ease-out;
+      transition: 0.15s ease-out, background-color 0.3s, border-bottom-color 0.3s;
 
       & > .hst-topbar-start {
         display: flex;
@@ -177,7 +187,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
           & > img {
             max-width: 100%;
             max-height: 100%;
-            height: ${TOPBAR_HEIGHT}px;
+            height: ${theme.components.topBarHeight}px;
           }
 
           & > .hst-topbar-logo-mobile {

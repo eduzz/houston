@@ -68,21 +68,19 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
       border-top-right-radius: 50px;
       border-bottom-right-radius: 50px;
 
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.03);
-      }
-
+      &:hover,
       &:active {
-        background-color: rgba(0, 0, 0, 0.12);
+        background-color: ${theme.antd.colorBgTextHover};
       }
 
       & .hst-sidebar-group-indicator {
         position: absolute;
         left: 0;
         top: 50%;
-        margin-top: -1px;
+        margin-top: -2px;
         height: 2px;
-        background-color: #c7c7c7;
+        background-color: ${theme.antd.colorTextLabel};
+        opacity: 0.3;
         width: 30px;
         transition: 0.3s;
       }
@@ -99,7 +97,7 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
           text-overflow: ellipsis;
           font-size: 14px;
           letter-spacing: 0.03em;
-          color: #6f6f6f;
+          color: ${theme.antd.colorTextLabel};
         }
       }
 
@@ -108,11 +106,12 @@ export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
           top: calc(50% - 1px);
           height: 1px;
           margin-top: -0.5px;
-          background-color: #dedede;
+          background-color: ${theme.antd.colorTextDescription};
+          opacity: 0.3;
         }
 
         & .hst-sidebar-group-label {
-          color: #8e8e8e;
+          color: ${theme.antd.colorTextDescription};
         }
       }
     }

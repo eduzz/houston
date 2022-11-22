@@ -4,7 +4,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import Portal from '../../../Portal';
 import styled, { css, cx, StyledProp } from '../../../styled';
-import LayoutContext, { TOPBAR_HEIGHT, TOPBAR_MENU_MIN_WIDTH_IN_PX } from '../../context';
+import LayoutContext, { TOPBAR_MENU_MIN_WIDTH_IN_PX } from '../../context';
 
 export type UserMenuProps = StyledProp &
   React.HTMLAttributes<HTMLDivElement> & {
@@ -38,11 +38,11 @@ export default styled(UserMenu, { label: 'hst-topbar-user-menu' })(
     flex-direction: column;
     width: fit-content;
     min-width: ${theme.pxToRem(TOPBAR_MENU_MIN_WIDTH_IN_PX)}rem;
-    max-height: calc(95vh - ${theme.pxToRem(TOPBAR_HEIGHT)}rem);
+    max-height: calc(95vh - ${theme.pxToRem(theme.components.topBarHeight)}rem);
     overflow-y: auto;
     overflow-x: hidden;
     position: fixed;
-    top: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
+    top: ${theme.pxToRem(theme.components.topBarHeight)}rem;
     right: 0.5rem;
     box-shadow: ${theme.shadow.level[2]};
     padding: 0.5rem;
@@ -53,7 +53,7 @@ export default styled(UserMenu, { label: 'hst-topbar-user-menu' })(
     visibility: hidden;
     opacity: 0;
     user-select: none;
-    background: #fff;
+    background: ${theme.antd.colorBgElevated};
     border-radius: 0.5rem;
 
     &::-webkit-scrollbar {
