@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 import { Input as AntdInput, InputRef } from 'antd';
-
-import type { TextAreaProps as AntdTextAreaProps, TextAreaRef } from 'antd/es/input/TextArea';
+import type { TextAreaProps as AntdTextAreaProps, TextAreaRef } from 'antd/lib/input/TextArea';
 
 import withForm, { WithFormProps } from '../Form/withForm';
 

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { theme } from 'antd';
-import { AliasToken } from 'antd/es/theme/interface';
+import type { AliasToken } from 'antd/lib/theme/interface';
 
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 

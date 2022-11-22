@@ -53,7 +53,7 @@ export default styled(UserMenu, { label: 'hst-topbar-user-menu' })(
     visibility: hidden;
     opacity: 0;
     user-select: none;
-    background: #fff;
+    background: ${theme.antd.colorBgElevated};
     border-radius: 0.5rem;
 
     &::-webkit-scrollbar {

@@ -50,7 +50,7 @@ function App() {
             {/* <Topbar.UnitySupportChat /> */}
 
             <Topbar.Action icon={themeMode === 'light' ? <BulbOutlined /> : <BulbFilled />} onClick={toogleTheme} />
-            <Topbar.Action icon={<NotificationOutline size={25} />} />
+            <Topbar.Action active icon={<NotificationOutline size={25} />} />
             <Topbar.Action icon={<MessageOutlined />} label='Chat' />
 
             <Topbar.UserMenu>

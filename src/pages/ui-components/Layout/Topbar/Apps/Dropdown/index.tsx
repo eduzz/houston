@@ -99,7 +99,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
   ({ theme }) => css`
     width: ${theme.pxToRem(TOPBAR_DROPDOWN_WIDTH)}rem;
     position: fixed;
-    background: #fff;
+    background: ${theme.antd.colorBgElevated};
     box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.16);
     top: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
     left: 0.5rem;
@@ -171,7 +171,7 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
           overflow: hidden;
           opacity: 0.8;
           font-size: 16px;
-          color: #666666;
+          color: ${theme.antd.colorTextDescription};
           margin-top: 2px;
 
           ${theme.mediaQuery.up('md')} {

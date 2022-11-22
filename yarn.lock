@@ -17,10 +17,10 @@
   dependencies:
     "@ctrl/tinycolor" "^3.4.0"
 
-"@ant-design/cssinjs@^0.0.0-alpha.44":
-  version "0.0.0-alpha.60"
-  resolved "https://registry.yarnpkg.com/@ant-design/cssinjs/-/cssinjs-0.0.0-alpha.60.tgz#17998ea8da0ca734747876045e455e0c28f19a97"
-  integrity sha512-EQlU5f20flZMQ9XDbR/RL5MhQedgkHXR6o4pfbe6cMv0YMXK/jv669++N8msC7ZoNnGf2OxbmGRkvVS0OqG3iw==
+"@ant-design/cssinjs@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@ant-design/cssinjs/-/cssinjs-1.0.0.tgz#c2f3457f85449c9997d05aed4bef54d9e908cc57"
+  integrity sha512-MXrr59WU03RMK2Zlp1zjJzevC8bqNiK4Hkv/WUEounBH35qirbx83DbY2ASkVSn6pdEGI9lCF2LS4oVytDOauQ==
   dependencies:
     "@babel/runtime" "^7.11.1"
     "@emotion/hash" "^0.8.0"
@@ -4418,13 +4418,13 @@ ansi-styles@^6.1.0:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.1.0.tgz#87313c102b8118abd57371afab34618bf7350ed3"
   integrity sha512-VbqNsoz55SYGczauuup0MFUyXNQviSpFTj1RQtFzmQLk18qbVSpTFFGMT293rmDaQuKCT6InmbuEyUne4mTuxQ==
 
-antd@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-5.0.0.tgz#bc8cb87931fa832dd664c4bec8b7047310a7d9ab"
-  integrity sha512-3IGHXl3KokGrkYIk2P2fQytDloTmdw9vgMHJzFsusBrAEnRXoN8oSWrN/N6D7f5hWqRusSaAIlPTsYSIcPHFrQ==
+antd@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-5.0.1.tgz#c4fd63034131947d1d55f37f7695c19fe201c3dd"
+  integrity sha512-t+YqAWW2smxdQsxTTtNHt9nErESnCS/pcuze4EgPNOi5M++fv7wXBhmk1ZJgxNTDKKxoy134H9vL1ZFq3cWpgQ==
   dependencies:
     "@ant-design/colors" "^6.0.0"
-    "@ant-design/cssinjs" "^0.0.0-alpha.44"
+    "@ant-design/cssinjs" "^1.0.0"
     "@ant-design/icons" "^4.7.0"
     "@ant-design/react-slick" "~0.29.1"
     "@babel/runtime" "^7.18.3"
@@ -4449,7 +4449,7 @@ antd@^5.0.0:
     rc-motion "^2.6.1"
     rc-notification "~5.0.0-alpha.9"
     rc-pagination "~3.2.0"
-    rc-picker "~3.0.0-4"
+    rc-picker "~3.1.1"
     rc-progress "~3.4.1"
     rc-rate "~2.9.0"
     rc-resize-observer "^1.2.0"
@@ -11676,16 +11676,13 @@ rc-picker@^2.6.10:
     rc-util "^5.4.0"
     shallowequal "^1.1.0"
 
-rc-picker@~3.0.0-4:
-  version "3.0.0-4"
-  resolved "https://registry.yarnpkg.com/rc-picker/-/rc-picker-3.0.0-4.tgz#08a77f05be3cd51971ad9352df030fe96e264de1"
-  integrity sha512-2otFBRBCACE/cubgLgkhtuo+M6AAuYssgjQmRmD+g/R+RDPQVV0MZTRDYhy6YOmlK8yj+gUc73YfUEYhfecBZw==
+rc-picker@~3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/rc-picker/-/rc-picker-3.1.1.tgz#f9a2988e73d429d4dbb0bc4fe5940823640a977c"
+  integrity sha512-Z61U2upedvnMJ0SafnGF89tyiQd421lYrkZCTZmywOcJpC4zKieuVmsGD/uHnlx4gMtcwooVWNCuVezomNtk8g==
   dependencies:
     "@babel/runtime" "^7.10.1"
     classnames "^2.2.1"
-    date-fns "2.x"
-    dayjs "1.x"
-    moment "^2.24.0"
     rc-trigger "^5.0.4"
     rc-util "^5.4.0"
     shallowequal "^1.1.0"

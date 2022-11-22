@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { setTwoToneColor } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
-import type { ThemeConfig as AntdThemeConfig } from 'antd/es/config-provider/context';
-import type { Locale as AntdLocale } from 'antd/es/locale-provider';
+import type { ThemeConfig as AntdThemeConfig } from 'antd/lib/config-provider/context';
+import type { Locale as AntdLocale } from 'antd/lib/locale-provider';
 import antdLocalePtBR from 'antd/locale/pt_BR';
 
 import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';

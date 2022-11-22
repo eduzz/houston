@@ -4,6 +4,12 @@ const ResetCss = () => {
   return (
     <GlobalStyles
       styles={css`
+        *,
+        *::before,
+        *::after {
+          box-sizing: border-box;
+        }
+
         html,
         body,
         div,
