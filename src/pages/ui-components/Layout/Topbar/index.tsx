@@ -150,7 +150,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
     & > .hst-topbar-header {
       background-color: ${theme.antd.colorBgElevated};
       color: ${theme.antd.colorText};
-      border-bottom: 3px solid ${theme.antd.colorBorder};
+      border-bottom: 3px solid ${theme.hexToRgba(theme.antd.colorBorder, 0.3)};
       box-sizing: border-box;
       position: fixed;
       padding: 0.5rem 1rem 0.5rem 1rem;

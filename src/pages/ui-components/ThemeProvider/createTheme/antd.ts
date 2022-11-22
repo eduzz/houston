@@ -10,7 +10,6 @@ export default function antdTheme(brancColor: BrandColor, mode: 'dark' | 'light'
     algorithm: mode == 'dark' ? [darkAlgorithm] : [],
     token: removeUndef({
       colorPrimary: brancColor.primary,
-      colorBorder: mode === 'light' ? '#f4f4f4' : undefined,
       colorBgLayout: mode === 'light' ? '#fcfcfc' : undefined,
       colorBgTextHover: mode === 'light' ? 'rgba(0, 0, 0, 0.03)' : undefined,
       controlHeight: 42,
