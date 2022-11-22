@@ -1,20 +1,20 @@
 ---
-name: DatePicker
+name: TimePicker
 ---
 
 import { Playground } from 'dokz';
 
-import DatePicker from '.';
+import TimePicker from '.';
 
 # Date Picker
 
-[Datepicker do Antd](https://ant.design/components/date-picker) com a
+[TimePicker do Antd](https://ant.design/components/date-picker) com a
 configuração do [react-form-hook](https://react-hook-form.com).
 
 ### Importação
 
 ```js
-import DatePicker from '@eduzz/houston-forms/DatePicker';
+import TimePicker from '@eduzz/houston-forms/TimePicker';
 ```
 
 ### Exemplo
@@ -24,8 +24,7 @@ import DatePicker from '@eduzz/houston-forms/DatePicker';
     const [value, setValue] = React.useState(null);
     return (
       <>
-        <DatePicker label='Data' value={value} onChange={value => setValue(value)} />
-        <DatePicker label='Data e Hora' showTime value={value} onChange={value => setValue(value)} />
+        <TimePicker label='Hora' value={value} onChange={value => setValue(value)} />
       </>
     );
   }}
@@ -33,7 +32,7 @@ import DatePicker from '@eduzz/houston-forms/DatePicker';
 
 ## Props
 
-Todas as props do DatePicker do Antd são validos, abaixos as props extras.
+Todas as props do TimePicker do Antd são validos, abaixos as props extras.
 
 | prop    | tipo     | obrigatório | padrão | descrição                                                                           |
 | ------- | -------- | ----------- | ------ | ----------------------------------------------------------------------------------- |

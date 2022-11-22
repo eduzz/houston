@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 
-import styled, { StyledProp, cx } from '../../../styled';
+import styled, { StyledProp, cx, css } from '../../../styled';
 import { useMediaQueryDown } from '../../../ThemeProvider/mediaQuery/useMediaQuery';
 
 export type ActionProps = StyledProp &
@@ -27,18 +27,20 @@ const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className
   );
 };
 
-export default styled(Action, { label: 'hst-topbar-action' })`
-  & .anticon {
-    font-size: 20px;
-    vertical-align: middle;
-  }
+export default styled(Action, { label: 'hst-topbar-action' })(
+  ({ theme }) => css`
+    & .anticon {
+      font-size: 20px;
+      vertical-align: text-bottom;
+    }
 
-  button {
-    color: #666666;
-    margin-top: 2px;
-  }
+    button {
+      color: ${theme.antd.colorText};
+      margin-top: 2px;
+    }
 
-  &.--hst-active button {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-`;
+    &.--hst-active button {
+      background-color: ${theme.antd.colorBgTextHover};
+    }
+  `
+);

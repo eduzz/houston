@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@eduzz/houston-workspaces",
-  "version": "1.1.4",
+  "version": "1.2.0-beta.2",
   "workspaces": [
     "src/pages/*",
     "src/dev",
@@ -11,9 +11,6 @@
     "commit": "node ./scripts/git-check-files.js && git-cz",
     "prebuild": "yarn clean",
     "build": "yarn tsc -p .",
-    "postbuild": "yarn build:theme",
-    "build:theme": "yarn lessc --js ./src/pages/ui-components/ThemeProvider/theme-without-reset.less ./src/pages/ui-components/ThemeProvider/theme-without-reset.css -x",
-    "postbuild:theme": "yarn lessc --js ./src/pages/ui-components/ThemeProvider/theme.less ./src/pages/ui-components/ThemeProvider/theme.css -x",
     "build:dev": "yarn swc ./src/pages -d ./src",
     "build:docs": "(cd src && yarn build)",
     "start": "node ./scripts/start.js",

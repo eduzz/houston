@@ -73,16 +73,13 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
     margin-right: 5px;
 
     &:focus-visible {
-      background-color: rgba(0, 0, 0, 0.03);
+      background-color: ${theme.antd.colorBgTextHover};
       box-shadow: 0 0 0 2px #039be5 inset;
     }
 
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.03);
-    }
-
+    &:hover,
     &:active {
-      background-color: rgba(0, 0, 0, 0.12);
+      background-color: ${theme.antd.colorBgTextHover};
     }
 
     & > li {

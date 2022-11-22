@@ -1,13 +1,11 @@
 import * as React from 'react';
 
-import styled from '@emotion/styled';
-
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
-import { css, cx, StyledProp } from '../styled';
+import styled, { css, cx, StyledProp } from '../styled';
 import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
-import LayoutContext, { LayoutContextType, TOPBAR_HEIGHT } from './context';
+import LayoutContext, { LayoutContextType } from './context';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
@@ -105,7 +103,7 @@ const LayoutWrapper = styled(Layout, { label: 'hst-layout' })`
     min-height: 100vh;
 
     &.hst-layout-has-topbar {
-      padding-top: ${theme.pxToRem(TOPBAR_HEIGHT)}rem;
+      padding-top: ${theme.pxToRem(theme.components.topBarHeight)}rem;
     }
   `}
 `;

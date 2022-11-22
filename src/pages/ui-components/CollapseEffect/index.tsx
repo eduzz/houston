@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Collapse as AntdCollapse } from 'antd';
 
-import styled from '@emotion/styled';
+import styled from '../styled';
 
 export interface CollapseProps {
   id?: string;
