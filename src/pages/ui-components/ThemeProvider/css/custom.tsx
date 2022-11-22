@@ -30,17 +30,17 @@ const CustomCss = () => {
           width: 100%;
         }
 
-        .ant-pagination-options {
-          .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+        .ant-pagination-options .ant-select-single:not(.ant-select-customize-input) {
+          .ant-select-selector {
             height: 32px;
+
+            .ant-select-selection-item {
+              line-height: 32px;
+            }
           }
 
-          .ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
-            height: calc(32px - 3px);
-          }
-
-          .ant-select-single .ant-select-selector .ant-select-selection-item,
-          .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+          .ant-pagination-item .ant-select-selector .ant-select-selection-item,
+          .ant-pagination-item .ant-select-selector .ant-select-selection-placeholder {
             line-height: calc(32px - 3px);
           }
         }

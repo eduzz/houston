@@ -19,6 +19,9 @@ export default function antdTheme(brancColor: BrandColor, mode: 'dark' | 'light'
     components: {
       Avatar: {
         controlHeight: 32
+      },
+      Pagination: {
+        controlHeight: 32
       }
     }
   };
