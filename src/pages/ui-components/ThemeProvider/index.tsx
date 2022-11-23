@@ -4,6 +4,7 @@ import { setTwoToneColor } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import type { ThemeConfig as AntdThemeConfig } from 'antd/lib/config-provider/context';
 import type { Locale as AntdLocale } from 'antd/lib/locale-provider';
+import type { AliasToken } from 'antd/lib/theme/interface';
 import antdLocalePtBR from 'antd/locale/pt_BR';
 
 import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
@@ -38,6 +39,12 @@ export interface HoustonTheme extends Omit<HoustonTokens, 'hexToRgba' | 'spacing
   };
 
   antd: AntdThemeConfig;
+}
+
+declare module '@emotion/react' {
+  interface Theme extends Omit<HoustonTheme, 'antd'> {
+    antd: AliasToken;
+  }
 }
 
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
