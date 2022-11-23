@@ -183,7 +183,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
     [mergeParams]
   );
 
-  const antdTableProps = React.useMemo(
+  const antdTableProps = React.useMemo<TableProps<any>>(
     () => ({
       loading: isLoading,
       rowKey: 'id',
@@ -194,6 +194,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
         responsive: true,
         pageSize: params.perPage,
         current: params.page,
+        showSizeChanger: true,
         total: data.total
       }
     }),
