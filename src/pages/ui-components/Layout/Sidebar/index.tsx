@@ -7,7 +7,7 @@ import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
 import Overlay from '../../Overlay';
 import { useMediaQueryDown } from '../../ThemeProvider/mediaQuery/useMediaQuery';
 import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext, { MENU_WIDTH, TOPBAR_HEIGHT } from '../context';
+import LayoutContext, { MENU_WIDTH } from '../context';
 import SidebarContext, { SidebarContextType } from './context';
 import Group from './Group';
 import Item from './Item';
@@ -51,7 +51,7 @@ const Sidebar = ({ currentLocation, children, className }: SidebarProps) => {
       <div
         className={cx(className, { 'hst-sidebar-visible': opened && isMobile, 'hst-sidebar-has-topbar': hasTopbar })}
       >
-        <Overlay visible={opened && isMobile} color='high' onClick={toggleMenu} underTopbar />
+        <Overlay visible={opened && isMobile} onClick={toggleMenu} underTopbar />
 
         <aside className='hst-sidebar-container'>
           <nav>
@@ -70,11 +70,11 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
     position: relative;
 
     & .hst-sidebar-container {
-      background-color: #fcfcfc;
+      background-color: ${theme.antd.colorBgLayout};
       display: inline-flex;
       flex-direction: column;
       width: ${MENU_WIDTH}px;
-      transition: 0.2s ease-out, top 0s;
+      transition: 0.2s ease-out, top 0s, background-color 0.3s;
       z-index: 104;
       flex-grow: 1;
       position: fixed;
@@ -113,14 +113,14 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
     }
 
     &.hst-sidebar-has-topbar .hst-sidebar-container {
-      top: ${TOPBAR_HEIGHT}px;
+      top: ${theme.components.topBarHeight}px;
     }
 
     ${theme.mediaQuery.down('lg')} {
       width: 0;
 
       & .hst-sidebar-container {
-        background-color: #fff;
+        background-color: ${theme.antd.colorBgElevated};
         left: -${MENU_WIDTH}px;
         border: 0;
         opacity: 0;

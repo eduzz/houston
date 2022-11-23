@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 
-import { cx } from '@emotion/css';
-import { css, keyframes } from '@emotion/react';
-import styled from '@emotion/styled';
+import styled, { css, cx, keyframes } from '../../styled';
 
 export interface LineLoaderProps extends React.HTMLAttributes<HTMLDivElement> {
   mode?: 'determinate' | 'indeterminate';
