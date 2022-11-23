@@ -7,10 +7,6 @@ import type { Locale as AntdLocale } from 'antd/lib/locale-provider';
 import antdLocalePtBR from 'antd/locale/pt_BR';
 
 import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
-// eslint-disable-next-line no-restricted-imports
-import type { Locale as DateLocale } from 'date-fns';
-import { ptBR as datePtBR } from 'date-fns/locale';
-import setDefaultOptions from 'date-fns/setDefaultOptions';
 
 import type { HoustonTokens, Spacing } from '@eduzz/houston-tokens';
 
@@ -23,7 +19,7 @@ import CustomCss from './css/custom';
 import ResetCss from './css/reset';
 import { mediaUtils } from './mediaQuery';
 
-setDefaultOptions({ locale: datePtBR });
+const mediaDark = window?.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 export const createTheme = createThemeInternal;
 
 export interface HoustonThemeCustomVariables {}
@@ -49,9 +45,8 @@ export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'chi
   /**
    * Dark mode experimental
    */
-  mode?: 'dark' | 'light';
+  mode?: 'dark' | 'light' | 'system';
   antdLocale?: AntdLocale;
-  dateFnsLocale?: DateLocale;
   disableResetStyles?: boolean;
   /**
    * @deprecated
@@ -69,23 +64,34 @@ const defaultTheme = createTheme('eduzz');
 
 function ThemeProvider({
   theme = defaultTheme,
-  mode = 'light',
+  mode: modeProp = 'light',
   antdLocale = antdLocalePtBR,
-  dateFnsLocale = datePtBR,
   children,
   disableDialogs,
   disableResetStyles,
   disableToast
 }: ThemeProviderProps) {
+  const [mode, setMode] = React.useState<'light' | 'dark'>(() => {
+    if (modeProp !== 'system') {
+      return modeProp;
+    }
+
+    return mediaDark?.matches ? 'dark' : 'light';
+  });
+
   const currentTheme = theme[mode];
+
+  React.useEffect(() => {
+    if (modeProp !== 'system' || !mediaDark) return () => null;
+
+    const listner = (event: MediaQueryListEvent) => setMode(() => (event.matches ? 'dark' : 'light'));
+    mediaDark.addEventListener('change', listner);
+    return () => mediaDark.removeEventListener('change', listner);
+  }, [modeProp]);
 
   React.useEffect(() => {
     setTwoToneColor(currentTheme.primaryColor);
   }, [currentTheme.primaryColor]);
-
-  React.useEffect(() => {
-    setDefaultOptions({ locale: dateFnsLocale });
-  }, [dateFnsLocale]);
 
   React.useEffect(() => {
     const styleElement = document.createElement('link');

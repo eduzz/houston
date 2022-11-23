@@ -2,6 +2,8 @@
 import * as React from 'react';
 
 import isValid from 'date-fns/isValid';
+import { ptBR as datePtBR } from 'date-fns/locale';
+import setDefaultOptions from 'date-fns/setDefaultOptions';
 import Picker from 'rc-picker';
 import generateConfig from 'rc-picker/lib/generate/dateFns';
 import locale from 'rc-picker/lib/locale/pt_BR';
@@ -16,6 +18,8 @@ import withForm, { WithFormProps } from '../Form/withForm';
 import Input, { InputProps } from '../Input';
 import styles from './styles';
 import { DateFormat } from './types';
+
+setDefaultOptions({ locale: datePtBR });
 
 const defaultFormats = {
   date: 'dd/MM/yyyy',
