@@ -14,24 +14,7 @@ export default function antdTheme(brancColor: BrandColor, mode: 'dark' | 'light'
       colorBgTextHover: mode === 'light' ? 'rgba(0, 0, 0, 0.03)' : undefined,
       fontFamily: 'Albert Sans',
       fontSize: 14
-    }),
-    components: {
-      Button: {
-        controlHeight: 42
-      },
-      Input: {
-        controlHeight: 42
-      },
-      Select: {
-        controlHeight: 42
-      },
-      DatePicker: {
-        controlHeight: 42
-      },
-      InputNumber: {
-        controlHeight: 42
-      }
-    }
+    })
   };
 }
 

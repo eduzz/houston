@@ -8,10 +8,15 @@ const CustomCss = () => {
           list-style: decimal;
         }
 
+        /* fix search input height */
+        .ant-input-search-large > .ant-input-group > .ant-input {
+          height: 40px;
+        }
+
         /* workaround for Modal.confirm */
         .ant-modal-confirm-btns {
           .ant-btn-default {
-            height: 42px;
+            height: 40px;
 
             &:hover,
             &:focus,
@@ -23,7 +28,7 @@ const CustomCss = () => {
 
           .ant-btn-primary {
             background-color: ${theme.antd.colorPrimary};
-            height: 42px;
+            height: 40px;
 
             &:hover,
             &:focus,
@@ -33,14 +38,7 @@ const CustomCss = () => {
           }
         }
 
-        .ant-form-item {
-          margin-bottom: 20px;
-        }
-
-        .ant-form-item-explain-error {
-          font-size: 13px;
-        }
-
+        /* fix forms */
         .ant-form-vertical .ant-form-item-label,
         .ant-col-24.ant-form-item-label {
           padding-bottom: 2px;
@@ -55,35 +53,22 @@ const CustomCss = () => {
           width: 100%;
         }
 
-        .ant-pagination-options .ant-select-single:not(.ant-select-customize-input) {
-          .ant-select-selector {
-            height: 32px;
-
-            .ant-select-selection-item {
-              line-height: 32px;
-            }
-          }
-
-          .ant-pagination-item .ant-select-selector .ant-select-selection-item,
-          .ant-pagination-item .ant-select-selector .ant-select-selection-placeholder {
-            line-height: calc(32px - 3px);
-          }
-        }
-
-        .ant-table table {
-          border: 1px solid ${theme.antd.colorSplit};
-        }
-
         .ant-space {
           display: flex;
         }
 
+        /* fix empty image with icon */
         .ant-empty-image {
-          height: 80px;
+          height: 80px !important;
 
           .anticon {
-            font-size: 60px;
+            font-size: 70px;
           }
+        }
+
+        /* table config  */
+        .ant-table table {
+          border: 1px solid ${theme.antd.colorSplit};
         }
 
         th.houston-table-action {
@@ -96,15 +81,13 @@ const CustomCss = () => {
           text-align: center;
         }
 
-        .ant-input-search-button {
-          height: calc(32px - 1px);
-        }
-
+        /* add blur to modal */
         .ant-modal-mask {
           backdrop-filter: blur(0.5rem);
           -webkit-backdrop-filter: blur(0.5rem);
         }
 
+        /* fix avatar inside of a button  */
         .ant-btn > .ant-avatar {
           vertical-align: text-bottom;
           margin-right: 5px;

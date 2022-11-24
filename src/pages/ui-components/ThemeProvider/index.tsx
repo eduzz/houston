@@ -112,7 +112,7 @@ function ThemeProvider({
   }, []);
 
   return (
-    <ConfigProvider locale={antdLocale} theme={currentTheme.antd}>
+    <ConfigProvider locale={antdLocale} theme={currentTheme.antd} componentSize='large'>
       <ConfigEmotion theme={currentTheme}>
         {!disableResetStyles && <ResetCss />}
         <CustomCss />

@@ -1,4 +1,6 @@
-import { Button } from 'antd';
+import { memo } from 'react';
+
+import { Button, Badge } from 'antd';
 
 import styled, { StyledProp, cx, css } from '../../../styled';
 import { useMediaQueryDown } from '../../../ThemeProvider/mediaQuery/useMediaQuery';
@@ -11,23 +13,26 @@ export type ActionProps = StyledProp &
     active?: boolean;
     icon: React.ReactNode;
     label?: React.ReactNode;
+    badgeCount?: number;
+    badgeDot?: boolean;
     onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
   };
 
-const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className, ...rest }) => {
+const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className, badgeCount, badgeDot, ...rest }) => {
   const hideLabel = useMediaQueryDown('md');
   label = hideLabel ? undefined : label;
 
   return (
     <div className={cx(className, { '--hst-active': active })} onClick={onClick} {...rest}>
-      <Button shape={!label ? 'circle' : 'round'} icon={icon} type='text'>
-        {label}
-      </Button>
+      <Badge count={badgeCount} dot={badgeDot} offset={[-4, 8]}>
+        <Button shape={!label ? 'circle' : 'round'} icon={icon} type='text'>
+          {label}
+        </Button>
+      </Badge>
     </div>
   );
 };
-
-export default styled(Action, { label: 'hst-topbar-action' })(
+export default styled(memo(Action), { label: 'hst-topbar-action' })(
   ({ theme }) => css`
     & .anticon {
       font-size: 20px;
