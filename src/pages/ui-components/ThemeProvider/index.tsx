@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { setTwoToneColor } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
+import { AliasToken } from 'antd/es/theme';
 import type { ThemeConfig as AntdThemeConfig } from 'antd/lib/config-provider/context';
 import type { Locale as AntdLocale } from 'antd/lib/locale-provider';
-import type { AliasToken } from 'antd/lib/theme/interface';
 import antdLocalePtBR from 'antd/locale/pt_BR';
 
 import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';

@@ -14,9 +14,14 @@ const CustomCss = () => {
         }
 
         /* workaround for Modal.confirm */
+        .ant-modal .ant-modal-content {
+          border-radius: ${theme.antd.borderRadius};
+        }
+
         .ant-modal-confirm-btns {
           .ant-btn-default {
             height: 40px;
+            border-radius: ${theme.antd.borderRadius};
 
             &:hover,
             &:focus,
@@ -29,6 +34,7 @@ const CustomCss = () => {
           .ant-btn-primary {
             background-color: ${theme.antd.colorPrimary};
             height: 40px;
+            border-radius: ${theme.antd.borderRadius};
 
             &:hover,
             &:focus,

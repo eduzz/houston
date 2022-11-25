@@ -13,7 +13,8 @@ export default function antdTheme(brancColor: BrandColor, mode: 'dark' | 'light'
       colorBgLayout: mode === 'light' ? '#fcfcfc' : undefined,
       colorBgTextHover: mode === 'light' ? 'rgba(0, 0, 0, 0.03)' : undefined,
       fontFamily: 'Albert Sans',
-      fontSize: 14
+      fontSize: 14,
+      borderRadius: 4
     })
   };
 }
