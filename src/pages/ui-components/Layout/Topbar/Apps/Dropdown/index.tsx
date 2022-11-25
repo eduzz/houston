@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import { FullscreenOutlined, CloseOutlined } from '@ant-design/icons';
+import { FullscreenOutlined } from '@ant-design/icons';
 import { Typography, Button, Spin } from 'antd';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import { TopbarApplication } from '..';
+import IconClose from '../../../../Icons/Close';
 import styled, { css, StyledProp, cx, keyframes } from '../../../../styled';
 import { TOPBAR_DROPDOWN_WIDTH } from '../../../context';
 
@@ -46,8 +47,7 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
       >
         <div className='hst-topbar-apps-dropdown-header'>
           <Typography.Title level={5}>Lista de Apps</Typography.Title>
-
-          <Button icon={<CloseOutlined />} shape='circle' type='text' onClick={toggleExpanded} />
+          <Button icon={<IconClose size={18} />} shape='circle' type='text' onClick={toggleExpanded} />
         </div>
 
         <div className='hst-topbar-apps-dropdown-list-apps'>
@@ -131,6 +131,10 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
       display: none;
     }
 
+    .hst-topbar-apps-dropdown-expand button {
+      height: 50px;
+    }
+
     .hst-topbar-apps-dropdown-list-apps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -206,6 +210,12 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
         width: 100%;
         padding: 0.5rem 2rem;
         border-bottom: 1px solid ${theme.hexToRgba('#000000', 0.12)};
+
+        button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
 
       .hst-topbar-apps-dropdown-expand {

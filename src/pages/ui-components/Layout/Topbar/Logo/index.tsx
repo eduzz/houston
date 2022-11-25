@@ -1,4 +1,4 @@
-import { useTheme } from '../../styled';
+import { useTheme } from '../../../styled';
 
 export interface LogoProps {
   logo?: string;

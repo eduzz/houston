@@ -41,8 +41,6 @@ function App() {
             user={{
               name: 'Eduzz Tecnologia',
               belt: 'Red Belt',
-              supportId: 1,
-              isSupport: true,
               avatar: houston,
               tag: 'unity'
             }}
@@ -54,8 +52,8 @@ function App() {
               icon={themeMode === 'light' ? <BulbOutlined /> : <BulbFilled />}
               onClick={toogleTheme}
             />
-            <Topbar.Action badgeCount={2} active icon={<NotificationOutline size={25} />} />
-            <Topbar.Action badgeCount={4} icon={<MessageOutlined />} label='Chat' />
+            <Topbar.Action badgeCount={1} active icon={<NotificationOutline size={25} />} />
+            <Topbar.Action badgeCount={3} icon={<MessageOutlined />} label='Chat' />
 
             <Topbar.UserMenu>
               <Topbar.UserMenuItem icon={<BellOutlined />}>Meus Dados</Topbar.UserMenuItem>
