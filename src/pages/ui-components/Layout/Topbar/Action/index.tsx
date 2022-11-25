@@ -1,9 +1,12 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
 import { Button, Badge } from 'antd';
 
+import { useContext } from 'use-context-selector';
+
 import styled, { StyledProp, cx, css } from '../../../styled';
 import { useMediaQueryDown } from '../../../ThemeProvider/mediaQuery/useMediaQuery';
+import TopbarActionsContext from '../Actions/context';
 
 export type ActionProps = StyledProp &
   React.HTMLAttributes<HTMLDivElement> & {
@@ -19,12 +22,19 @@ export type ActionProps = StyledProp &
   };
 
 const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className, badgeCount, badgeDot, ...rest }) => {
+  const registerAction = useContext(TopbarActionsContext);
+
   const hideLabel = useMediaQueryDown('md');
   label = hideLabel ? undefined : label;
 
+  useEffect(() => {
+    const unregister = registerAction({ badgeCount: badgeCount ?? 0, badgeDot: badgeDot ?? false });
+    return () => unregister();
+  }, [badgeCount, badgeDot, registerAction]);
+
   return (
     <div className={cx(className, { '--hst-active': active })} onClick={onClick} {...rest}>
-      <Badge count={badgeCount} dot={badgeDot} offset={[-4, 8]}>
+      <Badge count={badgeCount === 0 ? undefined : badgeCount} dot={badgeCount ? false : badgeDot} offset={[-4, 8]}>
         <Button shape={!label ? 'circle' : 'round'} icon={icon} type='text'>
           {label}
         </Button>
@@ -32,6 +42,7 @@ const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className
     </div>
   );
 };
+
 export default styled(memo(Action), { label: 'hst-topbar-action' })(
   ({ theme }) => css`
     & .anticon {
@@ -42,6 +53,9 @@ export default styled(memo(Action), { label: 'hst-topbar-action' })(
     button {
       color: ${theme.antd.colorText};
       margin-top: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &.--hst-active button {

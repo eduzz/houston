@@ -5,7 +5,7 @@ import { Button, Avatar } from 'antd';
 
 import { useContextSelector } from 'use-context-selector';
 
-import useOnClickOutside from '../../../hooks/useClickOutside';
+import useClickOutside from '../../../hooks/useClickOutside';
 import useEscapeKey from '../../../hooks/useEscapeKey';
 import styled, { css, cx, StyledProp } from '../../../styled';
 import LayoutContext from '../../context';
@@ -21,7 +21,7 @@ const User = React.memo<StyledProp>(({ className }) => {
   const falseOpened = useContextSelector(LayoutContext, context => context.userMenu.falseOpened);
   const registerContainer = useContextSelector(LayoutContext, context => context.userMenu.registerContainer);
 
-  useOnClickOutside(wrapperMenuUser, () => hasMenu && falseOpened(), [hasMenu]);
+  useClickOutside(wrapperMenuUser, () => hasMenu && falseOpened(), [hasMenu]);
   useEscapeKey(() => hasMenu && falseOpened(), [hasMenu]);
 
   if (!user) {

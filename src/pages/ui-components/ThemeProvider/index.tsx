@@ -89,7 +89,8 @@ function ThemeProvider({
   const currentTheme = theme[mode];
 
   React.useEffect(() => {
-    if (modeProp !== 'system' || !mediaDark) return () => null;
+    if (modeProp !== 'system') return setMode(modeProp ?? 'light');
+    if (!mediaDark) return setMode('light');
 
     const listner = (event: MediaQueryListEvent) => setMode(() => (event.matches ? 'dark' : 'light'));
     mediaDark.addEventListener('change', listner);

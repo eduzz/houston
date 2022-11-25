@@ -1,14 +1,16 @@
 import * as React from 'react';
 
-import { CloseOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 
 import { useContextSelector } from 'use-context-selector';
 
+import IconClose from '../../Icons/Close';
+import IconMenu from '../../Icons/Menu';
 import styled, { css, cx, StyledProp } from '../../styled';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext from '../context';
 import Action from './Action';
+import Actions from './Actions';
 import Apps from './Apps';
 import Belt from './Belt';
 import TopbarContext, { TopbarContextType } from './context';
@@ -57,6 +59,7 @@ const Topbar = React.memo<TopbarProps>(
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
     const sidebarOpened = useContextSelector(LayoutContext, context => context.sidebar.opened);
+
     React.useEffect(() => {
       const unregister = register();
       return () => unregister();
@@ -86,17 +89,9 @@ const Topbar = React.memo<TopbarProps>(
                 className='hst-topbar-mobile-menu'
                 icon={
                   sidebarOpened ? (
-                    <CloseOutlined />
+                    <IconClose size={18} />
                   ) : (
-                    <svg
-                      width='23'
-                      height='23'
-                      className='hst-topbar-mobile-menu-icon'
-                      fill='currentColor'
-                      viewBox='0 0 16 16'
-                    >
-                      <path d='M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z' />
-                    </svg>
+                    <IconMenu size={22} className='hst-topbar-mobile-menu-icon' />
                   )
                 }
                 onClick={sidebarToogleOpened}
@@ -120,8 +115,7 @@ const Topbar = React.memo<TopbarProps>(
 
             <div className='hst-topbar-quick-access'>
               <Belt />
-
-              {children}
+              <Actions>{children}</Actions>
               <User />
             </div>
           </header>
@@ -162,6 +156,10 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
       justify-content: space-between;
       z-index: 105;
       transition: 0.15s ease-out, background-color 0.3s, border-bottom-color 0.3s;
+
+      ${theme.mediaQuery.down('xs')} {
+        padding: 0.5rem 0.5rem 0.5rem 0.3rem;
+      }
 
       & > .hst-topbar-start {
         display: flex;
