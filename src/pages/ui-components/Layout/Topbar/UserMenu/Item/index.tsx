@@ -32,7 +32,7 @@ const UserMenuItem = React.forwardRef<HTMLButtonElement, UserMenuItemProps>(
     const handleClick = React.useCallback(
       (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         onClick && onClick(e);
-        preventClose && close();
+        !preventClose && close();
       },
       [close, onClick, preventClose]
     );
