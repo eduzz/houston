@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { forwardRef, memo, useEffect } from 'react';
 
 import { Button, Badge } from 'antd';
 
@@ -21,27 +21,29 @@ export type ActionProps = StyledProp &
     onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
   };
 
-const Action: React.FC<ActionProps> = ({ active, icon, label, onClick, className, badgeCount, badgeDot, ...rest }) => {
-  const registerAction = useContext(TopbarActionsContext);
+const Action = forwardRef<HTMLDivElement, ActionProps>(
+  ({ active, icon, label, onClick, className, badgeCount, badgeDot, ...rest }, ref) => {
+    const registerAction = useContext(TopbarActionsContext);
 
-  const hideLabel = useMediaQueryDown('md');
-  label = hideLabel ? undefined : label;
+    const hideLabel = useMediaQueryDown('md');
+    label = hideLabel ? undefined : label;
 
-  useEffect(() => {
-    const unregister = registerAction({ badgeCount: badgeCount ?? 0, badgeDot: badgeDot ?? false });
-    return () => unregister();
-  }, [badgeCount, badgeDot, registerAction]);
+    useEffect(() => {
+      const unregister = registerAction({ badgeCount: badgeCount ?? 0, badgeDot: badgeDot ?? false });
+      return () => unregister();
+    }, [badgeCount, badgeDot, registerAction]);
 
-  return (
-    <div className={cx(className, { '--hst-active': active })} onClick={onClick} {...rest}>
-      <Badge count={badgeCount === 0 ? undefined : badgeCount} dot={badgeCount ? false : badgeDot} offset={[-4, 8]}>
-        <Button shape={!label ? 'circle' : 'round'} icon={icon} type='text'>
-          {label}
-        </Button>
-      </Badge>
-    </div>
-  );
-};
+    return (
+      <div className={cx(className, { '--hst-active': active })} onClick={onClick} {...rest} ref={ref}>
+        <Badge count={badgeCount === 0 ? undefined : badgeCount} dot={badgeCount ? false : badgeDot} offset={[-4, 8]}>
+          <Button shape={!label ? 'circle' : 'round'} icon={icon} type='text'>
+            {label}
+          </Button>
+        </Badge>
+      </div>
+    );
+  }
+);
 
 export default styled(memo(Action), { label: 'hst-topbar-action' })(
   ({ theme }) => css`
