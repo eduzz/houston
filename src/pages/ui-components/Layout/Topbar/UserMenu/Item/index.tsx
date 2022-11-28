@@ -20,20 +20,21 @@ export interface UserMenuItemProps extends StyledProp {
   icon?: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
+  preventClose?: boolean;
   id?: string;
   children: string;
 }
 
 const UserMenuItem = React.forwardRef<HTMLButtonElement, UserMenuItemProps>(
-  ({ id, className, icon, disabled, onClick, children, as: Tag, ...rest }, ref) => {
+  ({ id, className, icon, disabled, onClick, children, preventClose, as: Tag, ...rest }, ref) => {
     const close = useContextSelector(LayoutContext, context => context.userMenu.falseOpened);
 
     const handleClick = React.useCallback(
       (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         onClick && onClick(e);
-        close();
+        preventClose && close();
       },
-      [close, onClick]
+      [close, onClick, preventClose]
     );
 
     let content = (
