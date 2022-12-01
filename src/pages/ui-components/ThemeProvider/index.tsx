@@ -20,7 +20,8 @@ import CustomCss from './css/custom';
 import ResetCss from './css/reset';
 import { mediaUtils } from './mediaQuery';
 
-const mediaDark = window?.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+const mediaDark =
+  typeof window !== 'undefined' && window?.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 export const createTheme = createThemeInternal;
 
 export interface HoustonThemeCustomVariables {}
