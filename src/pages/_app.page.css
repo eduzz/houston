@@ -59,3 +59,7 @@ footer.houston-footer {
 ol + pre {
   margin-top: 0 !important;
 }
+
+body {
+  line-height: var(--chakra-lineHeights-base) !important;
+}
