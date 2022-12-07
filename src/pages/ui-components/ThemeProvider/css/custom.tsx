@@ -98,6 +98,14 @@ const CustomCss = () => {
           vertical-align: text-bottom;
           margin-right: 5px;
         }
+
+        .ant-tooltip {
+          pointer-events: none;
+        }
+
+        .ant-tooltip .ant-tooltip-inner {
+          box-shadow: none;
+        }
       `}
     />
   );

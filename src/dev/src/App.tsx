@@ -51,6 +51,7 @@ function App() {
               badgeDot
               icon={themeMode === 'light' ? <BulbOutlined /> : <BulbFilled />}
               onClick={toogleTheme}
+              tooltip='Theme'
             />
             <Topbar.Action badgeCount={1} active icon={<NotificationOutline size={25} />} />
             <Topbar.Action badgeCount={3} icon={<MessageOutlined />} label='Chat' />

@@ -1,6 +1,6 @@
 import { forwardRef, memo, useEffect } from 'react';
 
-import { Button, Badge } from 'antd';
+import { Button, Badge, Tooltip } from 'antd';
 
 import { useContext } from 'use-context-selector';
 
@@ -14,6 +14,7 @@ export type ActionProps = StyledProp &
      * If `true`, the item will be highlighted.
      */
     active?: boolean;
+    tooltip?: string;
     icon: React.ReactNode;
     label?: React.ReactNode;
     badgeCount?: number;
@@ -22,7 +23,7 @@ export type ActionProps = StyledProp &
   };
 
 const Action = forwardRef<HTMLDivElement, ActionProps>(
-  ({ active, icon, label, onClick, className, badgeCount, badgeDot, ...rest }, ref) => {
+  ({ active, icon, label, onClick, className, tooltip, badgeCount, badgeDot, ...rest }, ref) => {
     const registerAction = useContext(TopbarActionsContext);
 
     const hideLabel = useMediaQueryDown('md');
@@ -35,11 +36,13 @@ const Action = forwardRef<HTMLDivElement, ActionProps>(
 
     return (
       <div className={cx(className, { '--hst-active': active })} onClick={onClick} {...rest} ref={ref}>
-        <Badge count={badgeCount === 0 ? undefined : badgeCount} dot={badgeCount ? false : badgeDot} offset={[-4, 8]}>
-          <Button shape={!label ? 'circle' : 'round'} icon={icon} type='text'>
-            {label}
-          </Button>
-        </Badge>
+        <Tooltip title={tooltip}>
+          <Badge count={badgeCount === 0 ? undefined : badgeCount} dot={badgeCount ? false : badgeDot} offset={[-4, 8]}>
+            <Button shape={!label ? 'circle' : 'round'} icon={icon} type='text'>
+              {label}
+            </Button>
+          </Badge>
+        </Tooltip>
       </div>
     );
   }

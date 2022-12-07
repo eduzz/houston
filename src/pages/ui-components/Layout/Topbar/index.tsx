@@ -99,14 +99,12 @@ const Topbar = React.memo<TopbarProps>(
 
               {!disableApps && <Apps />}
 
-              <div className='hst-topbar-logo'>
-                <Logo
-                  logo={logo}
-                  logoMobile={logoMobile}
-                  logoDarkMode={logoDarkMode}
-                  logoMobileDarkMode={logoMobileDarkMode}
-                />
-              </div>
+              <Logo
+                logo={logo}
+                logoMobile={logoMobile}
+                logoDarkMode={logoDarkMode}
+                logoMobileDarkMode={logoMobileDarkMode}
+              />
 
               {!!user?.tag && (
                 <Typography className={cx('hst-topbar-tag', `hst-topbar-tag-${user.tag}`)}>{user.tag}</Typography>
@@ -177,48 +175,16 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
           }
         }
 
-        & .hst-topbar-logo {
-          height: 80%;
-          width: auto;
-          margin-inline: 0.5rem;
-
-          & > img {
-            max-width: 100%;
-            max-height: 100%;
-            height: ${theme.components.topBarHeight}px;
-          }
-
-          & > .hst-topbar-logo-mobile {
-            display: none;
-          }
-
-          ${theme.mediaQuery.down('lg')} {
-            width: ${theme.pxToRem(32)}rem;
-
-            & .hst-topbar-logo-default {
-              display: none;
-            }
-
-            & .hst-topbar-logo-mobile {
-              display: block;
-            }
-          }
-        }
-
         .hst-topbar-tag {
           text-transform: capitalize;
           padding: 4px 8px 4px 8px;
           letter-spacing: 0.5px;
-          display: none;
+          display: block;
           border-radius: 3px;
           font-size: 14px;
           text-transform: uppercase;
           margin-left: 0.5rem;
           line-height: 14px;
-
-          ${theme.mediaQuery.up('sm')} {
-            display: block;
-          }
 
           &.hst-topbar-tag-pro {
             border: 1px solid #bababa;
