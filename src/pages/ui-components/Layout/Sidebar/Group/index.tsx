@@ -15,39 +15,41 @@ export interface SidebarGroupProps extends StyledProp {
   id?: string;
 }
 
-const SidebarGroup = ({ id, className, children, label, tabIndex }: SidebarGroupProps) => {
-  const [isExpanded, toogleExpanded, trueExpanded] = useBoolean(true);
+const SidebarGroup = React.forwardRef<HTMLLIElement, SidebarGroupProps>(
+  ({ id, className, children, label, tabIndex }, ref) => {
+    const [isExpanded, toogleExpanded, trueExpanded] = useBoolean(true);
 
-  const contextValue = React.useMemo<SidebarGroupContextType>(() => {
-    return { onItemActive: trueExpanded };
-  }, [trueExpanded]);
+    const contextValue = React.useMemo<SidebarGroupContextType>(() => {
+      return { onItemActive: trueExpanded };
+    }, [trueExpanded]);
 
-  return (
-    <SidebarGroupContext.Provider value={contextValue}>
-      <li id={id} className={className}>
-        {!!label && (
-          <div
-            className={cx('hst-sidebar-group-item', isExpanded && 'hst-sidebar-group-item-expanded')}
-            onClick={toogleExpanded}
-            tabIndex={tabIndex ?? 1}
-          >
-            <div className='hst-sidebar-group-indicator' />
+    return (
+      <SidebarGroupContext.Provider value={contextValue}>
+        <li id={id} className={className} ref={ref}>
+          {!!label && (
+            <div
+              className={cx('hst-sidebar-group-item', isExpanded && 'hst-sidebar-group-item-expanded')}
+              onClick={toogleExpanded}
+              tabIndex={tabIndex ?? 1}
+            >
+              <div className='hst-sidebar-group-indicator' />
 
-            <div className='hst-sidebar-group-content'>
-              <Typography.Text className='hst-sidebar-group-label'>{label}</Typography.Text>
+              <div className='hst-sidebar-group-content'>
+                <Typography.Text className='hst-sidebar-group-label'>{label}</Typography.Text>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        <ul className='hst-sidebar-group-items'>
-          <CollapseEffect visibled={isExpanded}>
-            <div className='hst-sidebar-group-items-content'>{children}</div>
-          </CollapseEffect>
-        </ul>
-      </li>
-    </SidebarGroupContext.Provider>
-  );
-};
+          <ul className='hst-sidebar-group-items'>
+            <CollapseEffect visibled={isExpanded}>
+              <div className='hst-sidebar-group-items-content'>{children}</div>
+            </CollapseEffect>
+          </ul>
+        </li>
+      </SidebarGroupContext.Provider>
+    );
+  }
+);
 
 export default styled(React.memo(SidebarGroup), { label: 'hst-sidebar-group' })(
   ({ theme }) => css`
