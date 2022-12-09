@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import styled, { css, StyledProp, useTheme } from '../../../styled';
 
 export interface LogoProps extends StyledProp {
@@ -5,36 +7,41 @@ export interface LogoProps extends StyledProp {
   logoMobile?: string;
   logoDarkMode?: string;
   logoMobileDarkMode?: string;
+  wrapper?: React.JSXElementConstructor<{ children: React.ReactNode; className: string }>;
 }
 
-const Logo = ({ logo, logoMobile, logoDarkMode, logoMobileDarkMode, className }: LogoProps) => {
+const Logo = ({ logo, logoMobile, logoDarkMode, logoMobileDarkMode, className, wrapper: Wrapper }: LogoProps) => {
   const theme = useTheme();
 
-  if (theme.mode === 'dark') {
+  function getLogos() {
+    if (theme.mode === 'dark') {
+      return {
+        desktop: logoDarkMode ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-white.svg',
+        mobile: logoMobileDarkMode ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'
+      };
+    }
+
+    return {
+      desktop: logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz.svg',
+      mobile: logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'
+    };
+  }
+
+  const logos = getLogos();
+
+  if (Wrapper) {
     return (
-      <div className={className}>
-        <img
-          className='hst-topbar-logo-default'
-          src={logoDarkMode ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-white.svg'}
-        />
-        <img
-          className='hst-topbar-logo-mobile'
-          src={logoMobileDarkMode ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'}
-        />
-      </div>
+      <Wrapper className={className as string}>
+        <img className='hst-topbar-logo-default' src={logos.desktop} />
+        <img className='hst-topbar-logo-mobile' src={logos.mobile} />
+      </Wrapper>
     );
   }
 
   return (
     <div className={className}>
-      <img
-        className='hst-topbar-logo-default'
-        src={logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz.svg'}
-      />
-      <img
-        className='hst-topbar-logo-mobile'
-        src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'}
-      />
+      <img className='hst-topbar-logo-default' src={logos.desktop} />
+      <img className='hst-topbar-logo-mobile' src={logos.mobile} />
     </div>
   );
 };

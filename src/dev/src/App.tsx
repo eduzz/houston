@@ -25,6 +25,14 @@ declare module '@eduzz/houston-styles' {
   }
 }
 
+const LogoWrapper = ({ children, className }: { children: React.ReactNode; className: string }) => {
+  return (
+    <a className={className} href='https://orbita.eduzz.com/producer/dashboard' target='_blank' rel='noreferrer'>
+      {children}
+    </a>
+  );
+};
+
 function App() {
   const [themeMode, setThemeMode] = React.useState<'dark' | 'light'>('light');
 
@@ -44,6 +52,7 @@ function App() {
               avatar: houston,
               tag: 'unity'
             }}
+            logoWrapper={LogoWrapper}
           >
             {/* <Topbar.UnitySupportChat /> */}
 
