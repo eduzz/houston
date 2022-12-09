@@ -14,19 +14,27 @@ Utilizamos o [emotion](https://emotion.sh) como engine de styled component.
 
 No arquivo raiz de seu projeto, defina sua paleta de cores e adicione o provedor da seguinte maneira:
 
-1. Importe o css no componente raiz do projeto.
-2. Configure o ThemeProvider no componente raiz.
-3. Pronto.
+1. Configure o ThemeProvider no componente raiz.
+2. Pronto.
 
 ```tsx
-import '@eduzz/houston-ui/ThemeProvider/theme.css'; // <~importar css base (que tem o css do AntD)
-import '@eduzz/houston-ui/ThemeProvider/theme-without-reset.css'; // <~se tiver algum problema pode importar sem o reset.css
-
 import ThemeProvider, { createTheme } from '@eduzz/houston-ui/ThemeProvider';
 
 const theme = createTheme('eduzz'); // ou um hex: '#0D47A1'
 
 <ThemeProvider theme={theme}>...</ThemeProvider>;
+```
+
+### Dark Mode
+
+> Ainda em **BETA**.
+
+Basta configurar no ThemeProvider a prop `mode`.
+
+```tsx
+<ThemeProvider theme={theme} mode='dark'>
+  ...
+</ThemeProvider>
 ```
 
 ### Variáveis customizadas

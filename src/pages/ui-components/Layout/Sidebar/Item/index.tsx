@@ -24,43 +24,37 @@ export interface SidebarItemProps extends StyledProp {
   as?: React.ElementType;
 }
 
-const SidebarItem = ({
-  className,
-  children,
-  isActive: isActiveProp,
-  tabIndex,
-  as: Component,
-  disabled,
-  to,
-  ...rest
-}: SidebarItemProps) => {
-  const isActiveItem = useContextSelector(SidebarContext, context => context.isActiveItem);
-  const onItemActive = useContextSelector(SidebarGroupContext, context => context.onItemActive);
+const SidebarItem = React.forwardRef<HTMLElement, SidebarItemProps>(
+  ({ className, children, isActive: isActiveProp, tabIndex, as: Component, disabled, to, ...rest }, ref) => {
+    const isActiveItem = useContextSelector(SidebarContext, context => context.isActiveItem);
+    const onItemActive = useContextSelector(SidebarGroupContext, context => context.onItemActive);
 
-  const active = isActiveProp ?? isActiveItem(to);
+    const active = isActiveProp ?? isActiveItem(to);
 
-  React.useEffect(() => {
-    if (!active) return;
-    onItemActive();
-  }, [active, onItemActive]);
+    React.useEffect(() => {
+      if (!active) return;
+      onItemActive();
+    }, [active, onItemActive]);
 
-  return React.createElement(
-    Component ?? 'a',
-    {
-      ...rest,
-      to,
-      tabIndex: tabIndex ?? 1,
-      className: cx(className, { 'hst-sidebar-item-active': active, 'hst-sidebar-item-disabled': disabled })
-    },
-    <li>
-      <IconBullet className='hst-sidebar-item-icon' size='md' />
+    return React.createElement(
+      Component ?? 'a',
+      {
+        ...rest,
+        ref,
+        to,
+        tabIndex: tabIndex ?? 1,
+        className: cx(className, { 'hst-sidebar-item-active': active, 'hst-sidebar-item-disabled': disabled })
+      },
+      <li>
+        <IconBullet className='hst-sidebar-item-icon' size='md' />
 
-      <Typography.Text className='hst-sidebar-item-label' strong={active}>
-        {children}
-      </Typography.Text>
-    </li>
-  );
-};
+        <Typography.Text className='hst-sidebar-item-label' strong={active}>
+          {children}
+        </Typography.Text>
+      </li>
+    );
+  }
+);
 
 export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
   ({ theme }) => css`
@@ -131,4 +125,4 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
       pointer-events: none;
     }
   `
-) as typeof SidebarItem;
+);

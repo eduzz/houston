@@ -2,15 +2,12 @@ import * as React from 'react';
 
 import { setTwoToneColor } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
+import { AliasToken } from 'antd/es/theme';
 import type { ThemeConfig as AntdThemeConfig } from 'antd/lib/config-provider/context';
 import type { Locale as AntdLocale } from 'antd/lib/locale-provider';
 import antdLocalePtBR from 'antd/locale/pt_BR';
 
 import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
-// eslint-disable-next-line no-restricted-imports
-import type { Locale as DateLocale } from 'date-fns';
-import { ptBR as datePtBR } from 'date-fns/locale';
-import setDefaultOptions from 'date-fns/setDefaultOptions';
 
 import type { HoustonTokens, Spacing } from '@eduzz/houston-tokens';
 
@@ -23,7 +20,8 @@ import CustomCss from './css/custom';
 import ResetCss from './css/reset';
 import { mediaUtils } from './mediaQuery';
 
-setDefaultOptions({ locale: datePtBR });
+const mediaDark =
+  typeof window !== 'undefined' && window?.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 export const createTheme = createThemeInternal;
 
 export interface HoustonThemeCustomVariables {}
@@ -44,14 +42,19 @@ export interface HoustonTheme extends Omit<HoustonTokens, 'hexToRgba' | 'spacing
   antd: AntdThemeConfig;
 }
 
+declare module '@emotion/react' {
+  interface Theme extends Omit<HoustonTheme, 'antd'> {
+    antd: AliasToken;
+  }
+}
+
 export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
   theme?: CreateTheme;
   /**
    * Dark mode experimental
    */
-  mode?: 'dark' | 'light';
+  mode?: 'dark' | 'light' | 'system';
   antdLocale?: AntdLocale;
-  dateFnsLocale?: DateLocale;
   disableResetStyles?: boolean;
   /**
    * @deprecated
@@ -69,23 +72,35 @@ const defaultTheme = createTheme('eduzz');
 
 function ThemeProvider({
   theme = defaultTheme,
-  mode = 'light',
+  mode: modeProp = 'light',
   antdLocale = antdLocalePtBR,
-  dateFnsLocale = datePtBR,
   children,
   disableDialogs,
   disableResetStyles,
   disableToast
 }: ThemeProviderProps) {
+  const [mode, setMode] = React.useState<'light' | 'dark'>(() => {
+    if (modeProp !== 'system') {
+      return modeProp;
+    }
+
+    return mediaDark?.matches ? 'dark' : 'light';
+  });
+
   const currentTheme = theme[mode];
+
+  React.useEffect(() => {
+    if (modeProp !== 'system') return setMode(modeProp ?? 'light');
+    if (!mediaDark) return setMode('light');
+
+    const listner = (event: MediaQueryListEvent) => setMode(() => (event.matches ? 'dark' : 'light'));
+    mediaDark.addEventListener('change', listner);
+    return () => mediaDark.removeEventListener('change', listner);
+  }, [modeProp]);
 
   React.useEffect(() => {
     setTwoToneColor(currentTheme.primaryColor);
   }, [currentTheme.primaryColor]);
-
-  React.useEffect(() => {
-    setDefaultOptions({ locale: dateFnsLocale });
-  }, [dateFnsLocale]);
 
   React.useEffect(() => {
     const styleElement = document.createElement('link');
@@ -99,7 +114,7 @@ function ThemeProvider({
   }, []);
 
   return (
-    <ConfigProvider locale={antdLocale} theme={currentTheme.antd}>
+    <ConfigProvider locale={antdLocale} theme={currentTheme.antd} componentSize='large'>
       <ConfigEmotion theme={currentTheme}>
         {!disableResetStyles && <ResetCss />}
         <CustomCss />

@@ -29,7 +29,7 @@ index 95405f6..ead5cc7 100644
  }
  function makeGithubEditUrl(_a) {
 diff --git a/node_modules/dokz/dist/components/Playground.js b/node_modules/dokz/dist/components/Playground.js
-index c052028..7f925ae 100644
+index c052028..f615877 100644
 --- a/node_modules/dokz/dist/components/Playground.js
 +++ b/node_modules/dokz/dist/components/Playground.js
 @@ -62,6 +62,7 @@ var provider_1 = require("../provider");
@@ -47,7 +47,7 @@ index c052028..7f925ae 100644
 -        // transformCode: (code) => '/** @jsx mdx */' + code,
 -        scope: __assign(__assign({}, scope), { mdx: react_3.mdx }),
 +        transformCode: (code) => {
-+            return `<ThemeProvider disableToast disableDialogs disabledFontBase disableCssBaseline><div style={{ padding: 16 }}>${code.startsWith('()') ? `{React.createElement(${code})}` : code}</div></ThemeProvider>`
++            return `<ThemeProvider disableToast disableDialogs disabledFontBase disableResetStyles><div style={{ padding: 16 }}>${code.startsWith('()') ? `{React.createElement(${code})}` : code}</div></ThemeProvider>`
 +        },
 +        scope: __assign(__assign({}, scope), { mdx: react_3.mdx, ThemeProvider: ThemeProvider.default }),
      };
@@ -106,7 +106,7 @@ index 4e35179..42b1205 100644
              react_3.jsx(react_4.Global, { styles: support_1.globalStyles }),
              react_3.jsx(react_2.Stack, { className: 'dokz visibleInPrint noMarginInPrint', align: 'center', minHeight: '100%', color: bodyColor[colorMode], fontSize: fontSize, fontFamily: fontFamily, fontWeight: fontWeight },
 diff --git a/node_modules/dokz/dist/plugin/index.js b/node_modules/dokz/dist/plugin/index.js
-index 808d06b..28cee89 100644
+index 808d06b..61f172e 100644
 --- a/node_modules/dokz/dist/plugin/index.js
 +++ b/node_modules/dokz/dist/plugin/index.js
 @@ -102,7 +102,7 @@ var writeMdxIndex = throttle_1.default(function () {
@@ -157,7 +157,7 @@ index 808d06b..28cee89 100644
 +
 +    if(node.children === undefined) return node;
 +    if(node.children.length === 0) return null;
-+  
++    if(node.path.includes('node_modules')) return null;
 +  
 +    node.children = node.children.reduce((acc, node) => {
 +      const resultNode = clean(node);
@@ -216,7 +216,7 @@ index 3ee818f..897dc4c 100644
  }
  function makeGithubEditUrl(_a) {
 diff --git a/node_modules/dokz/esm/components/Playground.js b/node_modules/dokz/esm/components/Playground.js
-index 86a74cf..adefb53 100644
+index 86a74cf..ad49955 100644
 --- a/node_modules/dokz/esm/components/Playground.js
 +++ b/node_modules/dokz/esm/components/Playground.js
 @@ -37,6 +37,7 @@ import { useDokzConfig } from '../provider';
@@ -234,7 +234,7 @@ index 86a74cf..adefb53 100644
 -        // transformCode: (code) => '/** @jsx mdx */' + code,
 -        scope: __assign(__assign({}, scope), { mdx: mdx }),
 +        transformCode: (code) => {
-+            return `<ThemeProvider disableToast disableDialogs disabledFontBase disableCssBaseline><div style={{ padding: 16 }}>${code.startsWith('()') ? `{React.createElement(${code})}` : code}</div></ThemeProvider>`
++            return `<ThemeProvider disableToast disableDialogs disabledFontBase disableResetStyles><div style={{ padding: 16 }}>${code.startsWith('()') ? `{React.createElement(${code})}` : code}</div></ThemeProvider>`
 +        },
 +        scope: __assign(__assign({}, scope), { mdx: mdx, ThemeProvider: ThemeProvider }),
      };

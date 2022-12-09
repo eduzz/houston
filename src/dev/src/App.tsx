@@ -25,6 +25,14 @@ declare module '@eduzz/houston-styles' {
   }
 }
 
+const LogoWrapper = ({ children, className }: { children: React.ReactNode; className: string }) => {
+  return (
+    <a className={className} href='https://orbita.eduzz.com/producer/dashboard' target='_blank' rel='noreferrer'>
+      {children}
+    </a>
+  );
+};
+
 function App() {
   const [themeMode, setThemeMode] = React.useState<'dark' | 'light'>('light');
 
@@ -41,17 +49,21 @@ function App() {
             user={{
               name: 'Eduzz Tecnologia',
               belt: 'Red Belt',
-              supportId: 1,
-              isSupport: true,
               avatar: houston,
               tag: 'unity'
             }}
+            logoWrapper={LogoWrapper}
           >
             {/* <Topbar.UnitySupportChat /> */}
 
-            <Topbar.Action icon={themeMode === 'light' ? <BulbOutlined /> : <BulbFilled />} onClick={toogleTheme} />
-            <Topbar.Action active icon={<NotificationOutline size={25} />} />
-            <Topbar.Action icon={<MessageOutlined />} label='Chat' />
+            <Topbar.Action
+              badgeDot
+              icon={themeMode === 'light' ? <BulbOutlined /> : <BulbFilled />}
+              onClick={toogleTheme}
+              tooltip='Theme'
+            />
+            <Topbar.Action badgeCount={1} active icon={<NotificationOutline size={25} />} />
+            <Topbar.Action badgeCount={3} icon={<MessageOutlined />} label='Chat' />
 
             <Topbar.UserMenu>
               <Topbar.UserMenuItem icon={<BellOutlined />}>Meus Dados</Topbar.UserMenuItem>
