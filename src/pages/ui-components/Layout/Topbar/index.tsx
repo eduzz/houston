@@ -27,6 +27,7 @@ export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivEle
   logo?: string;
   logoMobile?: string;
   currentApplication?: string;
+  logoWrapper?: React.JSXElementConstructor<{ children: React.ReactNode; className: string }>;
   blackMode?: boolean;
   user?: {
     id?: number;
@@ -42,7 +43,18 @@ export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivEle
 }
 
 const Topbar = React.memo<TopbarProps>(
-  ({ children, currentApplication, logo, logoMobile, className, blackMode, user, disableApps, ...rest }) => {
+  ({
+    children,
+    currentApplication,
+    logo,
+    logoMobile,
+    className,
+    blackMode,
+    user,
+    disableApps,
+    logoWrapper: LogoWrapper,
+    ...rest
+  }) => {
     const theme = useHoustonTheme();
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
@@ -87,16 +99,20 @@ const Topbar = React.memo<TopbarProps>(
 
               {!disableApps && <Apps />}
 
-              <div className='hst-topbar-logo'>
-                <img
-                  className='hst-topbar-logo-default'
-                  src={logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz.svg'}
-                />
-                <img
-                  className='hst-topbar-logo-mobile'
-                  src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'}
-                />
-              </div>
+              {React.createElement(
+                LogoWrapper ?? 'div',
+                { className: 'hst-topbar-logo' } as any,
+                <>
+                  <img
+                    className='hst-topbar-logo-default'
+                    src={logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz.svg'}
+                  />
+                  <img
+                    className='hst-topbar-logo-mobile'
+                    src={logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'}
+                  />
+                </>
+              )}
 
               {!!user?.tag && (
                 <Typography

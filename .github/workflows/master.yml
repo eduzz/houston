@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - support/*
 
 concurrency: 
   group: publish-${{ github.ref }}
