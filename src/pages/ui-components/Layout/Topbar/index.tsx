@@ -29,6 +29,7 @@ export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivEle
   logoMobile?: string;
   logoDarkMode?: string;
   logoMobileDarkMode?: string;
+  logoWrapper?: React.JSXElementConstructor<{ children: React.ReactNode; className: string }>;
   currentApplication?: string;
   user?: {
     id?: number;
@@ -51,6 +52,7 @@ const Topbar = React.memo<TopbarProps>(
     logoMobile,
     logoDarkMode,
     logoMobileDarkMode,
+    logoWrapper,
     className,
     user,
     disableApps,
@@ -104,6 +106,7 @@ const Topbar = React.memo<TopbarProps>(
                 logoMobile={logoMobile}
                 logoDarkMode={logoDarkMode}
                 logoMobileDarkMode={logoMobileDarkMode}
+                wrapper={logoWrapper}
               />
 
               {!!user?.tag && (
