@@ -8,9 +8,9 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, share, switchMap } from 'rxjs/operators';
 import * as yup from 'yup';
 
-import FormAdapter from '@eduzz/houston-forms/deprecated/formAdapter';
 import useObservable from '@eduzz/houston-hooks/useObservable';
 
+import FormAdapter from '../deprecated/formAdapter';
 import { useFormContext } from './context';
 
 export declare type FormikInstance<Values = any> = ReturnType<typeof useForm> & {
@@ -37,7 +37,7 @@ export interface UseFormParams<Values> {
  * Hook implemation of FormAdapter
  * @param UseFormParams
  */
-export default function useForm<Values = Record<string, never>>({
+export default function useForm<Values extends { [key: string]: any } = Record<string, never>>({
   onSubmit,
   onSubmitWithErrors,
   validationSchema,
