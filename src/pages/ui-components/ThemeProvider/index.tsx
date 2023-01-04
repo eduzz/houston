@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ConfigProvider } from 'antd';
-import type { AliasToken } from 'antd/es/theme';
+import type { AliasToken } from 'antd/es/theme/interface';
 import type { ThemeConfig as AntdThemeConfig } from 'antd/lib/config-provider/context';
 import type { Locale as AntdLocale } from 'antd/lib/locale-provider';
 import antdLocalePtBR from 'antd/locale/pt_BR';
