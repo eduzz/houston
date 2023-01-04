@@ -1,5 +1,6 @@
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
-import Paragraph, { ParagraphProps } from '@eduzz/houston-ui/Typography/Paragraph';
+
+import Paragraph, { ParagraphProps } from '../../Typography/Paragraph';
 
 export interface ShowcaseTextProps extends Omit<ParagraphProps, 'size' | 'color'> {
   disableTypography?: boolean;

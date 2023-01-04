@@ -5,7 +5,7 @@ import { createTheme } from '@mui/material/styles';
 
 import { HoustonThemeProps } from '@eduzz/houston-styles';
 
-import createThemeNew from '../../createTheme';
+import createThemeNew from '../../compat/createTheme';
 import components from './components';
 import palette from './palette';
 import typography from './typography';

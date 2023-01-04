@@ -3,11 +3,9 @@ import type { ThemeConfig as AntdThemeConfig } from 'antd/lib/config-provider/co
 
 import { BrandColor } from './brands';
 
-const { darkAlgorithm } = theme;
-
 export default function antdTheme(brancColor: BrandColor, mode: 'dark' | 'light'): AntdThemeConfig {
   return {
-    algorithm: mode == 'dark' ? [darkAlgorithm] : [],
+    algorithm: mode == 'dark' ? [theme.darkAlgorithm] : [],
     token: removeUndef({
       colorPrimary: brancColor.primary,
       colorBgLayout: mode === 'light' ? '#fcfcfc' : undefined,

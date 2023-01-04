@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
-import Caption from '@eduzz/houston-ui/Typography/Caption';
 
+import Caption from '../Typography/Caption';
 import { styleContent } from './styles';
 
 export interface TooltipBody extends StyledProp {

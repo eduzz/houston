@@ -4,10 +4,10 @@ import { theme as antdTheme } from 'antd';
 
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 
-import { HoustonTheme } from '.';
+import { HoustonThemeDeprecated } from '.';
 
 export interface ConfigEmotionProps {
-  theme: HoustonTheme;
+  theme: HoustonThemeDeprecated;
   children: React.ReactNode;
 }
 
