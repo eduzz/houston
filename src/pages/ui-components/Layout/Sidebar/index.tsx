@@ -2,9 +2,8 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
-import styled, { css, cx, StyledProp } from '@eduzz/houston-ui/styled';
-
 import Overlay from '../../Overlay';
+import styled, { css, cx, StyledProp } from '../../styled';
 import { useMediaQueryDown } from '../../ThemeProvider/mediaQuery/useMediaQuery';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { MENU_WIDTH } from '../context';

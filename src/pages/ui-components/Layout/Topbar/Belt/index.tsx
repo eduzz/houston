@@ -4,8 +4,7 @@ import { Typography } from 'antd';
 
 import { useContextSelector } from 'use-context-selector';
 
-import BeltIcon from '@eduzz/houston-ui/Icons/Belt';
-
+import BeltIcon from '../../../Icons/Belt';
 import styled, { css, cx, StyledProp } from '../../../styled';
 import TopbarContext from '../context';
 

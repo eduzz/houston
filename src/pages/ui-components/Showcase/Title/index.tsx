@@ -1,5 +1,6 @@
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
-import Heading, { HeadingProps } from '@eduzz/houston-ui/Typography/Heading';
+
+import Heading, { HeadingProps } from '../../Typography/Heading';
 
 export interface ShowcaseTitleProps extends Omit<HeadingProps, 'size' | 'as' | 'color'> {
   disableTypography?: boolean;

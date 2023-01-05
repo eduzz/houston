@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { createContext, useContextSelector } from 'use-context-selector';
 
-import FormAdapter from '@eduzz/houston-forms/deprecated/formAdapter';
+import FormAdapter from './formAdapter';
 
 const FormContext = createContext<FormAdapter<any> | null>(null);
 
-export function useFormContext<T = any>(): FormAdapter<T> | null {
+export function useFormContext<T extends { [key: string]: any } = any>(): FormAdapter<T> | null {
   return useContextSelector(FormContext, context => context);
 }
 

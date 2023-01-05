@@ -3,9 +3,9 @@ import * as React from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import styled, { cx, css, StyledProp } from '@eduzz/houston-styles';
-import Divider from '@eduzz/houston-ui/Divider';
-import Typography from '@eduzz/houston-ui/Typography';
 
+import Divider from '../../../Divider';
+import Typography from '../../../Typography';
 import { AccordionContext } from '../../context';
 import { ItemContext } from '../context';
 
