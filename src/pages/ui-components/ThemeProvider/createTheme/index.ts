@@ -3,8 +3,9 @@
 import { HoustonThemeCustomVariables, HoustonTheme } from '..';
 import { mediaUtils } from '../mediaQuery';
 import antdTheme from './antd';
+import { beltColor } from './beltColor';
 import { BrandColor, BrandsBuildin, brandsColors } from './brands';
-import { hexToRgba, spacing } from './utils';
+import { hexToRgba, spacing, pxToRem } from './utils';
 
 const DEFAULT_PRIMARY_COLOR = '#0d2772';
 const DEFAULT_SECONDARY_COLOR = '#FFBC00';
@@ -22,7 +23,9 @@ export default function createTheme(
     secondaryColor: brandColor.secondary ?? DEFAULT_SECONDARY_COLOR,
     mediaQuery: mediaUtils,
     spacing: spacing as any,
+    beltColor,
     hexToRgba,
+    pxToRem,
     components: {
       topBarHeight: 64
     },

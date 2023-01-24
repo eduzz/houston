@@ -16,15 +16,6 @@ const theme = createTheme('eduzz');
 const { Sidebar, Topbar, Content } = Layout;
 const { Item, Group } = Sidebar;
 
-declare module '@eduzz/houston-styles' {
-  interface HoustonThemePropsCustomVariables {
-    customVar: string;
-    customObject: {
-      prop: number;
-    };
-  }
-}
-
 const LogoWrapper = ({ children, className }: { children: React.ReactNode; className: string }) => {
   return (
     <a className={className} href='https://orbita.eduzz.com/producer/dashboard' target='_blank' rel='noreferrer'>
@@ -32,6 +23,8 @@ const LogoWrapper = ({ children, className }: { children: React.ReactNode; class
     </a>
   );
 };
+
+console.log({ theme });
 
 function App() {
   const [themeMode, setThemeMode] = React.useState<'dark' | 'light'>('light');

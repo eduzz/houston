@@ -1,6 +1,12 @@
 const HEXADECIMAL_BASE = 16;
 const UNIT_BASE = 8;
 
+const PIXELS_IN_ONE_REM = 16;
+
+export function pxToRem(value: number, rate: number = PIXELS_IN_ONE_REM) {
+  return value / rate;
+}
+
 function decimalToHexadecimal(value: string) {
   return parseInt(value, HEXADECIMAL_BASE);
 }

@@ -14,6 +14,7 @@ import localeData from 'dayjs/plugin/localeData';
 import weekday from 'dayjs/plugin/weekday';
 
 import withForm, { WithFormProps } from '../Form/withForm';
+import dateMask from '../masks/date';
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
@@ -35,10 +36,12 @@ const defaultFormats = {
 } as const;
 
 const DatePicker = React.forwardRef<any, any>(
-  ({ value, format, showTime, minDate, maxDate, onChange, ...props }, ref) => {
-    format = format ?? defaultFormats[`${showTime ? 'datetime' : 'date'}`];
+  // eslint-disable-next-line sonarjs/cognitive-complexity
+  ({ value, format: formatProp, showTime, minDate, maxDate, onChange, ...props }, ref) => {
+    const format = formatProp ?? defaultFormats[`${showTime ? 'datetime' : 'date'}`];
+    const maskTimeout = React.useRef<any>();
 
-    const handleChange = React.useCallback((date: Dayjs) => onChange(date.toDate()), [onChange]);
+    const handleChange = React.useCallback((date: Dayjs) => onChange(date?.toDate()), [onChange]);
 
     const disableDate = React.useCallback(
       (date: Date | null) => {
@@ -48,6 +51,23 @@ const DatePicker = React.forwardRef<any, any>(
         return false;
       },
       [maxDate, minDate]
+    );
+
+    const onKeyDown = React.useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (formatProp || showTime) return;
+
+        const input = e.target as HTMLInputElement;
+        maskTimeout.current && clearTimeout(maskTimeout.current);
+        maskTimeout.current = setTimeout(() => {
+          input.value = dateMask.apply(input.value) ?? '';
+          console.log({ v: input.value });
+          const result = dayjs(input.value, format);
+          result.isValid() && onChange(result.toDate());
+          !input.value && onChange(null);
+        }, 0);
+      },
+      [format, formatProp, onChange, showTime]
     );
 
     const dayjsValue = React.useMemo(() => (value ? dayjs(value) : value), [value]);
@@ -60,6 +80,7 @@ const DatePicker = React.forwardRef<any, any>(
         value={dayjsValue}
         showTime={showTime}
         onChange={handleChange}
+        onKeyDown={onKeyDown}
         {...props}
       />
     );

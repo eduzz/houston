@@ -10,6 +10,7 @@ import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/r
 
 import ConfigEmotion from './ConfigEmotion';
 import createThemeInternal, { CreateTheme } from './createTheme';
+import { BeltColor } from './createTheme/beltColor';
 import CustomCss from './css/custom';
 import ResetCss from './css/reset';
 import { mediaUtils } from './mediaQuery';
@@ -25,8 +26,10 @@ export interface HoustonTheme {
   mode: 'dark' | 'light';
   primaryColor: string;
   secondaryColor: string;
+  beltColor: BeltColor;
   mediaQuery: typeof mediaUtils;
   hexToRgba: (hexColor: string, opacity?: number) => string;
+  pxToRem: (value: number, rate?: number) => number;
   variables?: HoustonThemeCustomVariables;
   spacing: (unit?: number) => string;
 
