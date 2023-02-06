@@ -13,26 +13,33 @@ export interface TopbarSearchProps {
   className?: string;
   placeholder?: string;
   disableShortcut?: boolean;
-  onEnter?: (value: string) => void;
+  onEnter?: (value: string, clear: () => void) => void;
 }
 
 const isMacOS = navigator.userAgent.toLowerCase().includes('mac os');
+
+const inputClearBlur = (input: HTMLInputElement) => {
+  input.blur();
+  setTimeout(() => (input.value = ''), 0);
+};
 
 const TopbarSearch = ({ className, disableShortcut, onEnter, placeholder = 'Pesquisar' }: TopbarSearchProps) => {
   const inputRef = useRef<InputRef>(null);
   const container = useContextSelector(LayoutContext, context => context.topbar.centerPortal);
 
+  console.log('here');
+
   const onKeyDown = useCallback(
     (event: ReactKeyboardEvent<HTMLInputElement>) => {
+      const input = event.currentTarget;
+
       if (event.key === 'Escape') {
-        event.currentTarget.blur();
-        const input = event.currentTarget;
-        setTimeout(() => (input.value = ''), 0);
+        inputClearBlur(input);
         return;
       }
 
       if (event.key !== 'Enter') return;
-      onEnter && onEnter(event.currentTarget.value);
+      onEnter && onEnter(input.value, () => inputClearBlur(input));
     },
     [onEnter]
   );

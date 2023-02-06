@@ -33,8 +33,9 @@ function App() {
     setThemeMode(theme => (theme === 'dark' ? 'light' : 'dark'));
   }, []);
 
-  const onSearchEnter = React.useCallback((search: string) => {
+  const onSearchEnter = React.useCallback((search: string, clear: () => void) => {
     message.info(search);
+    clear();
   }, []);
 
   return (
