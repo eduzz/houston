@@ -4,23 +4,24 @@ import { Typography } from 'antd';
 
 import { useContextSelector } from 'use-context-selector';
 
-import IconClose from '../../Icons/Close';
-import IconMenu from '../../Icons/Menu';
-import styled, { css, cx, StyledProp } from '../../styled';
-import nestedComponent from '../../utils/nestedComponent';
-import LayoutContext from '../context';
 import Action from './Action';
 import Actions from './Actions';
 import Apps from './Apps';
 import Belt from './Belt';
 import TopbarContext, { TopbarContextType } from './context';
 import Logo from './Logo';
+import Search from './Search';
 import UnitySupportChat from './UnitySupportChat';
 import User from './User';
 import UserMenu from './UserMenu';
 import UserMenuDivider from './UserMenu/Divider';
 import UserMenuItem from './UserMenu/Item';
 import UserMenuGroup from './UserMenu/ItemGroup';
+import IconClose from '../../Icons/Close';
+import IconMenu from '../../Icons/Menu';
+import styled, { css, cx, StyledProp } from '../../styled';
+import nestedComponent from '../../utils/nestedComponent';
+import LayoutContext from '../context';
 
 export interface TopbarProps extends StyledProp, React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -60,6 +61,7 @@ const Topbar = React.memo<TopbarProps>(
   }) => {
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
+    const registerCenterPortal = useContextSelector(LayoutContext, context => context.topbar.registerCenterPortal);
     const sidebarOpened = useContextSelector(LayoutContext, context => context.sidebar.opened);
 
     React.useEffect(() => {
@@ -114,6 +116,8 @@ const Topbar = React.memo<TopbarProps>(
               )}
             </div>
 
+            <div className='hts-topbar-center' ref={registerCenterPortal} />
+
             <div className='hst-topbar-quick-access'>
               <Belt />
               <Actions>{children}</Actions>
@@ -156,6 +160,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
       display: flex;
       justify-content: space-between;
       z-index: 105;
+      gap: 1rem;
       transition: 0.15s ease-out, background-color 0.3s, border-bottom-color 0.3s;
 
       ${theme.mediaQuery.down('xs')} {
@@ -205,6 +210,14 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
         }
       }
 
+      & > .hts-topbar-center {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        max-width: 400px;
+      }
+
       & > .hst-topbar-quick-access {
         display: flex;
         align-items: center;
@@ -220,5 +233,6 @@ export default nestedComponent(TopbarStyled, {
   UserMenu,
   UserMenuItem,
   UserMenuDivider,
-  UserMenuGroup
+  UserMenuGroup,
+  Search
 });
