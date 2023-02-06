@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import ChevronDown from '@eduzz/houston-icons/ChevronDown';
 
+import SelectContext, { SelectContextProps, SelectOptionProps } from './context';
+import SelectOption from './Option';
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
 import nestedComponent from '../../utils/nestedComponent';
 import Fieldset, { FieldsetProps } from '../_utils/Fieldset';
 import withForm from '../Form/withForm';
-import SelectContext, { SelectContextProps, SelectOptionProps } from './context';
-import SelectOption from './Option';
 
 interface OwnProperties extends Omit<FieldsetProps, 'focused' | 'endAdornment'> {
   value?: any;

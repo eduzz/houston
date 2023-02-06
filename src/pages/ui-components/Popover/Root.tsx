@@ -3,9 +3,9 @@ import * as React from 'react';
 
 import { createPopper } from '@popperjs/core';
 
+import PopoverContext, { PopoverContextProps, PopoverContextState } from './context';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 import warning from '../utils/warning';
-import PopoverContext, { PopoverContextProps, PopoverContextState } from './context';
 
 export interface PopoverProps {
   children?: React.ReactNode;

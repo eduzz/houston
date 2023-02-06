@@ -2,15 +2,15 @@ import * as React from 'react';
 
 import styled, { css, CSSInterpolation, cx, StyledProp } from '@eduzz/houston-styles';
 
+import Content from './Content';
+import DrawerContextProvider from './context';
+import Footer from './Footer';
+import Header from './Header';
 import useEscapeKey from '../hooks/useEscapeKey';
 import { ModalProps, modalSizesInPx } from '../Modal';
 import Overlay from '../Overlay';
 import Portal from '../Portal';
 import nestedComponent from '../utils/nestedComponent';
-import Content from './Content';
-import DrawerContextProvider from './context';
-import Footer from './Footer';
-import Header from './Header';
 
 export type DrawerPlacement = 'left' | 'right';
 

@@ -5,9 +5,9 @@ import { useContext } from 'use-context-selector';
 import Cancel from '@eduzz/houston-icons/Cancel';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
+import SelectContext from './context';
 import Typography from '../../Typography';
 import Checkbox from '../Checkbox';
-import SelectContext from './context';
 
 export interface SelectOptionProps extends StyledProp {
   id?: string;

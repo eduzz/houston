@@ -1,7 +1,7 @@
 import styled, { css, StyledProp, cx } from '@eduzz/houston-styles';
 
-import Typography, { TypographyProps } from '../Typography';
 import ProgressBar from './Bar';
+import Typography, { TypographyProps } from '../Typography';
 
 export type ProgressFormat = 'percentage' | 'text';
 

@@ -2,15 +2,15 @@ import * as React from 'react';
 
 import styled, { StyledProp, css, cx, CSSInterpolation } from '@eduzz/houston-styles';
 
-import useEscapeKey from '../hooks/useEscapeKey';
-import Overlay from '../Overlay';
-import Portal from '../Portal';
-import nestedComponent from '../utils/nestedComponent';
 import ModalBase from './__utils/ModalBase';
 import Content from './Content';
 import ModalContextProvider from './context';
 import Footer from './Footer';
 import Header from './Header';
+import useEscapeKey from '../hooks/useEscapeKey';
+import Overlay from '../Overlay';
+import Portal from '../Portal';
+import nestedComponent from '../utils/nestedComponent';
 
 /**
  * @deprecated Use Modal from Antd

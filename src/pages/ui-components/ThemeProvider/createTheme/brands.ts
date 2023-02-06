@@ -10,7 +10,7 @@ export const brands = [
   'next'
 ] as const;
 
-export type BrandsBuildin = typeof brands[number];
+export type BrandsBuildin = (typeof brands)[number];
 export type BrandColor = { primary: `#${string}`; secondary: `#${string}` };
 
 export const brandsColors: Record<BrandsBuildin, BrandColor> = {

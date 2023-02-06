@@ -4,9 +4,9 @@ import { flushSync } from 'react-dom';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import { StyledProp } from '@eduzz/houston-styles/styled';
 
+import TooltipBody from './TooltipBody';
 import Popover from '../Popover';
 import usePopover from '../Popover/usePopover';
-import TooltipBody from './TooltipBody';
 
 export type TooltipPlacement =
   | 'bottom-end'

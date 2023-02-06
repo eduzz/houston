@@ -10,8 +10,8 @@ import * as yup from 'yup';
 
 import useObservable from '@eduzz/houston-hooks/useObservable';
 
-import FormAdapter from '../deprecated/formAdapter';
 import { useFormContext } from './context';
+import FormAdapter from '../deprecated/formAdapter';
 
 export declare type FormikInstance<Values = any> = ReturnType<typeof useForm> & {
   values: Partial<Values>;

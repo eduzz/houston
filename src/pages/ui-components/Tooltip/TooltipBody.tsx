@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
-import Caption from '../Typography/Caption';
 import { styleContent } from './styles';
+import Caption from '../Typography/Caption';
 
 export interface TooltipBody extends StyledProp {
   title: React.ReactNode;

@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import styled, { css, cx, StyledProp, CSSInterpolation } from '@eduzz/houston-styles';
 
+import Icon from './icons';
 import Button, { ButtonProps } from '../Button';
 import Typography from '../Typography';
-import Icon from './icons';
 
 export type AlertTypes = 'informative' | 'positive' | 'negative' | 'warning';
 

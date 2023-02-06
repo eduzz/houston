@@ -4,10 +4,10 @@ import { useContextSelector } from 'use-context-selector';
 
 import { cx, StyledProp } from '@eduzz/houston-styles';
 
+import SortLabel from './SortLabel';
 import error from '../../utils/error';
 import TableContext from '../context';
 import TableHeaderContext from '../Header/context';
-import SortLabel from './SortLabel';
 
 export interface TableColumnProps extends StyledProp, React.ThHTMLAttributes<HTMLTableCellElement> {
   width?: number;

@@ -2,14 +2,14 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
+import SidebarContext, { SidebarContextType } from './context';
+import Group from './Group';
+import Item from './Item';
 import Overlay from '../../Overlay';
 import styled, { css, cx, StyledProp } from '../../styled';
 import { useMediaQueryDown } from '../../ThemeProvider/mediaQuery/useMediaQuery';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { MENU_WIDTH } from '../context';
-import SidebarContext, { SidebarContextType } from './context';
-import Group from './Group';
-import Item from './Item';
 
 export interface SidebarProps extends StyledProp {
   /**

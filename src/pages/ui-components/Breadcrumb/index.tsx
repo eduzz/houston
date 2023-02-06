@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
-import nestedComponent from '../utils/nestedComponent';
 import { BreadcrumbProvider } from './context';
 import Item from './Item';
 import Link from './Link';
+import nestedComponent from '../utils/nestedComponent';
 
 export interface BreadcrumbProps extends StyledProp, React.HTMLAttributes<HTMLElement> {
   separator?: React.ReactNode;

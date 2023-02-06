@@ -3,8 +3,8 @@ import { memo, useState, useEffect } from 'react';
 
 import usePromiseCallback from '@eduzz/houston-hooks/usePromiseCallback';
 
-import Button from '../Button';
 import Dialog from './Dialog';
+import Button from '../Button';
 
 export interface DialogShowParams {
   message: React.ReactNode;

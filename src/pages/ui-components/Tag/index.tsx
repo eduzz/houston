@@ -3,12 +3,12 @@ import * as React from 'react';
 import { Cancel } from '@eduzz/houston-icons';
 import styled, { StyledProp, css, cx } from '@eduzz/houston-styles';
 
-import nestedComponent from '../utils/nestedComponent';
 import Left from './__utils/Left';
 import Right from './__utils/Right';
 import Text from './__utils/Text';
 import Category from './Category';
 import Highlight from './Highlight';
+import nestedComponent from '../utils/nestedComponent';
 
 export interface TagProps extends StyledProp, React.HTMLAttributes<HTMLSpanElement> {
   children?: React.ReactNode;
