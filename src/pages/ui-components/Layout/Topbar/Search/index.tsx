@@ -1,4 +1,12 @@
-import { useCallback, KeyboardEvent as ReactKeyboardEvent, useEffect, useRef } from 'react';
+import {
+  useCallback,
+  KeyboardEvent as ReactKeyboardEvent,
+  useEffect,
+  useRef,
+  memo,
+  useState,
+  ChangeEvent
+} from 'react';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { Input, InputRef, Tag } from 'antd';
@@ -12,37 +20,48 @@ import LayoutContext from '../../context';
 export interface TopbarSearchProps {
   className?: string;
   placeholder?: string;
+  disableEscape?: boolean;
   disableShortcut?: boolean;
   onEnter?: (value: string, clear: () => void) => void;
 }
 
 const isMacOS = navigator.userAgent.toLowerCase().includes('mac os');
 
-const inputClearBlur = (input: HTMLInputElement) => {
-  input.blur();
-  setTimeout(() => (input.value = ''), 0);
-};
-
-const TopbarSearch = ({ className, disableShortcut, onEnter, placeholder = 'Pesquisar' }: TopbarSearchProps) => {
+const TopbarSearch = ({
+  className,
+  disableShortcut,
+  disableEscape,
+  onEnter,
+  placeholder = 'Pesquisar'
+}: TopbarSearchProps) => {
   const inputRef = useRef<InputRef>(null);
-  const container = useContextSelector(LayoutContext, context => context.topbar.centerPortal);
 
-  console.log('here');
+  const [value, setValue] = useState<string>();
+  const container = useContextSelector(LayoutContext, context => context.topbar.centerPortal);
 
   const onKeyDown = useCallback(
     (event: ReactKeyboardEvent<HTMLInputElement>) => {
       const input = event.currentTarget;
 
-      if (event.key === 'Escape') {
-        inputClearBlur(input);
+      if (!disableEscape && event.key === 'Escape') {
+        setValue('');
+        input.blur();
         return;
       }
 
       if (event.key !== 'Enter') return;
-      onEnter && onEnter(input.value, () => inputClearBlur(input));
+      onEnter &&
+        onEnter(input.value, () => {
+          setValue('');
+          input.blur();
+        });
     },
-    [onEnter]
+    [disableEscape, onEnter]
   );
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.currentTarget.value);
+  };
 
   useEffect(() => {
     const listener = (e: KeyboardEvent) => {
@@ -74,6 +93,8 @@ const TopbarSearch = ({ className, disableShortcut, onEnter, placeholder = 'Pesq
           prefix={<SearchOutlined />}
           allowClear
           placeholder={placeholder}
+          value={value}
+          onChange={onChange}
           suffix={disableShortcut ? undefined : <Tag>{`${isMacOS ? '⌘' : 'Ctrl'}+K`}</Tag>}
           onKeyDown={disableShortcut ? undefined : onKeyDown}
         />
@@ -82,7 +103,7 @@ const TopbarSearch = ({ className, disableShortcut, onEnter, placeholder = 'Pesq
   );
 };
 
-export default styled(TopbarSearch)(
+export default styled(memo(TopbarSearch))(
   ({ theme }) => css`
     display: flex;
     flex: 1;
