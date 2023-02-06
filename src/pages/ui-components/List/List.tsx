@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-import nestedComponent from '../utils/nestedComponent';
 import ListContextProvider from './context';
 import Item from './Item';
 import Left from './Left';
 import Right from './Right';
 import Text from './Text';
+import nestedComponent from '../utils/nestedComponent';
 
 export interface ListProps extends StyledProp, React.HTMLAttributes<HTMLUListElement> {
   children: React.ReactNode;

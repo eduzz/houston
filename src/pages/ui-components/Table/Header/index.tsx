@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
+import TableHeaderContext, { TableHeaderContextProps } from './context';
 import usePrevious from '../../utils/usePrevious';
 import TableColumn from '../Column';
 import TableContext from '../context';
-import TableHeaderContext, { TableHeaderContextProps } from './context';
 
 export interface TableHeadProps extends TableHeaderContextProps {
   id?: string;

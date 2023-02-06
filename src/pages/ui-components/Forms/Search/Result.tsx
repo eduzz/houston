@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
-import Typography from '../../Typography';
 import { useSearch } from './context';
+import Typography from '../../Typography';
 
 export type SearchResultProps = StyledProp & {
   children: string;

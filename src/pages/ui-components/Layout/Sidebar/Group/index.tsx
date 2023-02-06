@@ -4,9 +4,9 @@ import { Typography } from 'antd';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
+import SidebarGroupContext, { SidebarGroupContextType } from './context';
 import CollapseEffect from '../../../CollapseEffect';
 import styled, { cx, css, StyledProp } from '../../../styled';
-import SidebarGroupContext, { SidebarGroupContextType } from './context';
 
 export interface SidebarGroupProps extends StyledProp {
   label?: React.ReactNode;

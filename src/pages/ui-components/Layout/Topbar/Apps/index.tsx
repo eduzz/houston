@@ -5,13 +5,13 @@ import { useContextSelector } from 'use-context-selector';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import usePromise from '@eduzz/houston-hooks/usePromise';
 
+import Dropdown from './Dropdown';
 import useClickOutside from '../../../hooks/useClickOutside';
 import useEscapeKey from '../../../hooks/useEscapeKey';
 import IconApps from '../../../Icons/Apps';
 import styled, { StyledProp } from '../../../styled';
 import Action from '../Action';
 import TopbarContext from '../context';
-import Dropdown from './Dropdown';
 
 export type TopbarApplication = React.HTMLAttributes<HTMLDivElement> & {
   application: string;

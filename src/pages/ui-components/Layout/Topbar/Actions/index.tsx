@@ -4,13 +4,13 @@ import { useContextSelector } from 'use-context-selector';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
+import TopbarActionsContext, { TopbarActionsContextType } from './context';
 import useClickOutside from '../../../hooks/useClickOutside';
 import IconChevronLeft from '../../../Icons/ChevronLeft';
 import IconChevronRight from '../../../Icons/ChevronRight';
 import styled, { css, cx } from '../../../styled';
 import Action from '../Action';
 import TopbarContext from '../context';
-import TopbarActionsContext, { TopbarActionsContextType } from './context';
 
 interface ActionsProps {
   children: React.ReactNode;

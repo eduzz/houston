@@ -5,9 +5,9 @@ import { useContextSelector } from 'use-context-selector';
 
 import { StyledProp, cx } from '@eduzz/houston-styles';
 
+import PopoverContext from './context';
 import styled, { css, keyframes } from '../styled';
 import warning from '../utils/warning';
-import PopoverContext from './context';
 
 export interface PopoverProps extends StyledProp {
   targetRef: React.RefObject<HTMLElement>;

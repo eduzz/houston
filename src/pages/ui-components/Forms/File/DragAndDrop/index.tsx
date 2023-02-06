@@ -10,12 +10,12 @@ import * as yup from 'yup';
 import UploadIcon from '@eduzz/houston-icons/Upload';
 import styled, { css, cx } from '@eduzz/houston-styles';
 
-import Link from '../../../Link';
-import nestedComponent from '../../../utils/nestedComponent';
 import withForm from './FormWrapper';
 import { DragAndDropProps, UploadChangeParam, UploadFile } from './types';
 import UploadList from './UploadList';
 import { file2Obj, getFileItem, removeFileItem, updateFileList } from './utils';
+import Link from '../../../Link';
+import nestedComponent from '../../../utils/nestedComponent';
 
 /**
  * @deprecated

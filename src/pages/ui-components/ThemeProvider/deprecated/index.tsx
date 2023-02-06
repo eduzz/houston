@@ -11,11 +11,11 @@ import setDefaultOptions from 'date-fns/setDefaultOptions';
 import { HoustonThemeProps } from '@eduzz/houston-styles';
 import createThemeStyles from '@eduzz/houston-styles/createTheme';
 
+import generateTheme from './_generator';
+import GlobalStyles from './reset';
 import DialogGlobal from '../../Dialog/Global';
 import PopoverRoot from '../../Popover/Root';
 import ToastContainer from '../../Toast/Container';
-import generateTheme from './_generator';
-import GlobalStyles from './reset';
 
 setDefaultOptions({ locale: ptBR });
 

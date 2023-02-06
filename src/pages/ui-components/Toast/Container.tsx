@@ -2,8 +2,8 @@ import { ToastContainer as ToastContainerToastify, ToastContainerProps, Slide } 
 
 import useHoustonTheme from '@eduzz/houston-styles/useHoustonTheme';
 
-import useMediaQuery from '../hooks/useMediaQuery';
 import styles from './styles';
+import useMediaQuery from '../hooks/useMediaQuery';
 
 const ToastContainer = (props: ToastContainerProps) => {
   const theme = useHoustonTheme();

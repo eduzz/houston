@@ -3,12 +3,12 @@ import * as React from 'react';
 import styled, { HoustonThemeProps, css, cx, StyledProp } from '@eduzz/houston-styles';
 import type { HoustonTokens } from '@eduzz/houston-tokens';
 
-import nestedComponent from '../utils/nestedComponent';
-import warning from '../utils/warning';
 import Caption from './Caption';
 import Heading from './Heading';
 import Paragraph from './Paragraph';
 import Subtitle from './Subtitle';
+import nestedComponent from '../utils/nestedComponent';
+import warning from '../utils/warning';
 
 type MountColorVariants<Obj, K extends keyof Obj & string = keyof Obj & string> = `${K}${Obj[K] extends object
   ? `.${MountColorVariants<Obj[K]>}`

@@ -6,8 +6,8 @@ const COLUMNS = 12;
 const columnSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'auto', 'fill'] as const;
 const breakpoints = ['xs', 'sm', 'md', 'lg', 'xlg'] as const;
 
-type ColumnSize = typeof columnSizes[number];
-export type ColumnBreakPoints = typeof breakpoints[number];
+type ColumnSize = (typeof columnSizes)[number];
+export type ColumnBreakPoints = (typeof breakpoints)[number];
 
 export type ColumnProps = StyledProp &
   Partial<Record<ColumnBreakPoints, ColumnSize>> &

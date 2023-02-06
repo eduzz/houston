@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { StyledProp } from '@eduzz/houston-styles';
 
-import nestedComponent from '../utils/nestedComponent';
 import { AccordionProvider } from './context';
 import Item, { ItemProps } from './Item';
 import Content from './Item/Content';
 import Title from './Item/Title';
+import nestedComponent from '../utils/nestedComponent';
 
 interface AccordionProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   children: React.ReactElement<ItemProps>[];

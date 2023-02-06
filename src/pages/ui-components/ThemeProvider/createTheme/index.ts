@@ -1,11 +1,11 @@
 /* eslint-disable import/export */
 
-import { HoustonThemeCustomVariables, HoustonTheme } from '..';
-import { mediaUtils } from '../mediaQuery';
 import antdTheme from './antd';
 import { beltColor } from './beltColor';
 import { BrandColor, BrandsBuildin, brandsColors } from './brands';
 import { hexToRgba, spacing, pxToRem } from './utils';
+import { HoustonThemeCustomVariables, HoustonTheme } from '..';
+import { mediaUtils } from '../mediaQuery';
 
 const DEFAULT_PRIMARY_COLOR = '#0d2772';
 const DEFAULT_SECONDARY_COLOR = '#FFBC00';

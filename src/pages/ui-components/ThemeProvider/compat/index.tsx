@@ -11,14 +11,14 @@ import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/r
 
 import type { HoustonTokens, Spacing } from '@eduzz/houston-tokens';
 
+import ConfigEmotion from './ConfigEmotion';
+import createThemeInternal, { CreateTheme } from './createTheme';
 import DialogGlobal from '../../Dialog/Global';
 import PopoverRoot from '../../Popover/Root';
 import ToastContainer from '../../Toast/Container';
 import CustomCss from '../css/custom';
 import ResetCss from '../css/reset';
 import { mediaUtils } from '../mediaQuery';
-import ConfigEmotion from './ConfigEmotion';
-import createThemeInternal, { CreateTheme } from './createTheme';
 
 const mediaDark =
   typeof window !== 'undefined' && window?.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;

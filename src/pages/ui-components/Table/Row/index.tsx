@@ -7,12 +7,12 @@ import IconChevronDown from '@eduzz/houston-icons/ChevronDown';
 import IconDotsHorizontal from '@eduzz/houston-icons/DotsHorizontal';
 import { cx, StyledProp } from '@eduzz/houston-styles';
 
+import TableRowContext, { TableRowContextProps } from './context';
 import IconButton from '../../IconButton';
 import Spinner from '../../Loaders/Spinner';
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
 import TableContext from '../context';
-import TableRowContext, { TableRowContextProps } from './context';
 
 let actionIncremeter = 0;
 

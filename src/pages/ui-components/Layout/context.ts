@@ -8,7 +8,9 @@ export const MENU_WIDTH = 248;
 export interface LayoutContextType {
   topbar: {
     exists: boolean;
+    centerPortal: HTMLDivElement | null;
     register(): () => void;
+    registerCenterPortal(container: HTMLDivElement): void;
   };
 
   sidebar: {
@@ -23,9 +25,9 @@ export interface LayoutContextType {
   userMenu: {
     exists: boolean;
     opened: boolean;
-    container: HTMLDivElement | null;
+    containerPortal: HTMLDivElement | null;
     register(): () => void;
-    registerContainer(container: HTMLDivElement): void;
+    registerContainerPortal(container: HTMLDivElement): void;
     toogleOpened(): void;
     trueOpened(): void;
     falseOpened(): void;
@@ -35,7 +37,9 @@ export interface LayoutContextType {
 const LayoutContext = createContext<LayoutContextType>({
   topbar: {
     exists: false,
-    register: () => () => null
+    centerPortal: null,
+    register: () => () => null,
+    registerCenterPortal: () => null
   },
 
   sidebar: {
@@ -50,9 +54,9 @@ const LayoutContext = createContext<LayoutContextType>({
   userMenu: {
     exists: false,
     opened: false,
-    container: null,
+    containerPortal: null,
     register: () => () => null,
-    registerContainer: () => null,
+    registerContainerPortal: () => null,
     toogleOpened: () => null,
     trueOpened: () => null,
     falseOpened: () => null

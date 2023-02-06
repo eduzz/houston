@@ -1,9 +1,9 @@
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
-import Progress from '../../../../Progress';
-import { UploadFile } from '../types';
 import FileIcon from './FileIcon';
 import RemoveIcon from './RemoveIcon';
+import Progress from '../../../../Progress';
+import { UploadFile } from '../types';
 
 export type UploadListProps = StyledProp & {
   items: UploadFile[];

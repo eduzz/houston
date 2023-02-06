@@ -3,8 +3,8 @@ import * as React from 'react';
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 import { Spacing } from '@eduzz/houston-tokens';
 
-import withForm, { WithFormProps } from '../Form/withForm';
 import { RadioProps } from './Item';
+import withForm, { WithFormProps } from '../Form/withForm';
 
 export type RadioGroupProps = StyledProp &
   WithFormProps<never> &

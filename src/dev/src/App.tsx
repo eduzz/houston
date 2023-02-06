@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { MessageOutlined, BellOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
-import { Avatar } from 'antd';
+import { Avatar, message } from 'antd';
 
 import NotificationOutline from '@eduzz/houston-icons/NotificationOutline';
 import Layout from '@eduzz/houston-ui/Layout';
@@ -33,6 +33,11 @@ function App() {
     setThemeMode(theme => (theme === 'dark' ? 'light' : 'dark'));
   }, []);
 
+  const onSearchEnter = React.useCallback((search: string, clear: () => void) => {
+    message.info(search);
+    clear();
+  }, []);
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme} mode={themeMode}>
@@ -48,6 +53,8 @@ function App() {
             logoWrapper={LogoWrapper}
           >
             {/* <Topbar.UnitySupportChat /> */}
+
+            <Topbar.Search onEnter={onSearchEnter} />
 
             <Topbar.Action
               badgeDot

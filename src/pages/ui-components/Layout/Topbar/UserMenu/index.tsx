@@ -14,7 +14,7 @@ export type UserMenuProps = StyledProp &
 const UserMenu = ({ className, children, ...rest }: UserMenuProps) => {
   const opened = useContextSelector(LayoutContext, context => context.userMenu.opened);
   const register = useContextSelector(LayoutContext, context => context.userMenu.register);
-  const container = useContextSelector(LayoutContext, context => context.userMenu.container);
+  const container = useContextSelector(LayoutContext, context => context.userMenu.containerPortal);
 
   React.useEffect(() => {
     const unregister = register();

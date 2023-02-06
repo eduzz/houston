@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
-import styled, { css, cx, StyledProp } from '../styled';
-import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import LayoutContext, { LayoutContextType } from './context';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
+import styled, { css, cx, StyledProp } from '../styled';
+import nestedComponent from '../utils/nestedComponent';
 
 export type LayoutProps = StyledProp &
   React.HTMLAttributes<HTMLDivElement> & {
@@ -18,6 +18,7 @@ const Layout = ({ className, children, ...rest }: LayoutProps) => {
   const [hasTopbar, setHasTopbar] = React.useState(false);
   const [hasSidebar, setHasSidebar] = React.useState(false);
   const [hasUserMenu, setHasUserMenu] = React.useState(false);
+  const [topbarCenterContainer, setTopbarCenterContainer] = React.useState<HTMLDivElement | null>(null);
   const [userMenuContainer, setUserMenuContainer] = React.useState<HTMLDivElement | null>(null);
 
   const [userMenuOpened, toogleUserMenuOpened, trueUserMenuOpened, falseUserMenuOpened] = useBoolean(false);
@@ -33,6 +34,10 @@ const Layout = ({ className, children, ...rest }: LayoutProps) => {
     return () => setHasSidebar(false);
   }, []);
 
+  const registerTopbarCenterContainer = React.useCallback((div: HTMLDivElement) => {
+    setTopbarCenterContainer(div);
+  }, []);
+
   const registerUserMenu = React.useCallback(() => {
     setHasUserMenu(true);
     return () => setHasUserMenu(false);
@@ -46,7 +51,9 @@ const Layout = ({ className, children, ...rest }: LayoutProps) => {
     () => ({
       topbar: {
         exists: hasTopbar,
-        register: registerTopbar
+        centerPortal: topbarCenterContainer,
+        register: registerTopbar,
+        registerCenterPortal: registerTopbarCenterContainer
       },
       sidebar: {
         exists: hasSidebar,
@@ -58,10 +65,10 @@ const Layout = ({ className, children, ...rest }: LayoutProps) => {
       },
       userMenu: {
         opened: userMenuOpened,
-        container: userMenuContainer,
+        containerPortal: userMenuContainer,
         exists: hasUserMenu,
         register: registerUserMenu,
-        registerContainer: registerUserMenuContainer,
+        registerContainerPortal: registerUserMenuContainer,
         toogleOpened: toogleUserMenuOpened,
         trueOpened: trueUserMenuOpened,
         falseOpened: falseUserMenuOpened
@@ -75,11 +82,13 @@ const Layout = ({ className, children, ...rest }: LayoutProps) => {
       hasUserMenu,
       registerSidebar,
       registerTopbar,
+      registerTopbarCenterContainer,
       registerUserMenu,
       registerUserMenuContainer,
       sidebarOpened,
       toogleSidebarOpened,
       toogleUserMenuOpened,
+      topbarCenterContainer,
       trueSidebarOpened,
       trueUserMenuOpened,
       userMenuContainer,
