@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-node@v3
       - name: Cache Yarn
         id: cache-nodemodules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-packages-${{ hashFiles('**/yarn.lock') }}
@@ -40,7 +40,7 @@ jobs:
         run: npm run publish -- --ci
       - name: Check Skip Release
         id: skip-release
-        run: echo '::set-output name=SKIP::'$(cat .skip-release)
+        run: echo 'SKIP='$(cat .skip-release) >> $GITHUB_OUTPUT
       - name: Create tag
         uses: actions/github-script@v3
         with:
