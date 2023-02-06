@@ -68,7 +68,7 @@ const TopbarSearch = ({
       if (e.target !== document.body || !inputRef.current) return;
 
       const metaKey = isMacOS ? e.metaKey : e.ctrlKey;
-      if (e.key !== 'k' || !metaKey) return;
+      if (e.key.toLowerCase() !== 'k' || !metaKey) return;
 
       e.preventDefault();
       e.stopPropagation();
