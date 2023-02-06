@@ -4,11 +4,11 @@ import { useContextSelector } from 'use-context-selector';
 
 import styled, { StyledProp, css } from '@eduzz/houston-styles';
 
+import Icon from './icons';
 import Divider from '../../Divider';
 import Typography from '../../Typography';
 import { DialogContext } from '../context';
 import { DialogTypes } from '../Dialog';
-import Icon from './icons';
 
 export interface DialogHeaderProps {
   children: React.ReactNode;

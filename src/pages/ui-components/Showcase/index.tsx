@@ -2,10 +2,6 @@ import * as React from 'react';
 
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
-import ModalBase from '../Modal/__utils/ModalBase';
-import Overlay from '../Overlay';
-import Portal from '../Portal';
-import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import ShowcaseContextProvider from './context';
 import Footer from './Footer';
@@ -14,6 +10,10 @@ import Step from './Step';
 import Text from './Text';
 import Title from './Title';
 import useResize from './useResize';
+import ModalBase from '../Modal/__utils/ModalBase';
+import Overlay from '../Overlay';
+import Portal from '../Portal';
+import nestedComponent from '../utils/nestedComponent';
 
 export interface ShowcaseProps {
   open: boolean;

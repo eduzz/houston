@@ -2,16 +2,16 @@ import * as React from 'react';
 
 import styled, { StyledProp, css, cx, CSSInterpolation } from '@eduzz/houston-styles';
 
-import { ModalProps, modalSizesInPx } from '../Modal';
-import ModalBase from '../Modal/__utils/ModalBase';
-import Overlay from '../Overlay';
-import Portal from '../Portal';
-import nestedComponent from '../utils/nestedComponent';
 import Content from './Content';
 import DialogContextProvider from './context';
 import Footer from './Footer';
 import { showAlert, showConfirm } from './Global';
 import Header from './Header';
+import { ModalProps, modalSizesInPx } from '../Modal';
+import ModalBase from '../Modal/__utils/ModalBase';
+import Overlay from '../Overlay';
+import Portal from '../Portal';
+import nestedComponent from '../utils/nestedComponent';
 
 export type DialogTypes = 'positive' | 'informative' | 'warning' | 'negative';
 

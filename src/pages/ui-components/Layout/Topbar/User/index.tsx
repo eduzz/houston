@@ -19,7 +19,7 @@ const User = React.memo<StyledProp>(({ className }) => {
   const hasMenu = useContextSelector(LayoutContext, context => context.userMenu.exists);
   const toogleOpened = useContextSelector(LayoutContext, context => context.userMenu.toogleOpened);
   const falseOpened = useContextSelector(LayoutContext, context => context.userMenu.falseOpened);
-  const registerContainer = useContextSelector(LayoutContext, context => context.userMenu.registerContainer);
+  const registerContainer = useContextSelector(LayoutContext, context => context.userMenu.registerContainerPortal);
 
   useClickOutside(wrapperMenuUser, () => hasMenu && falseOpened(), [hasMenu]);
   useEscapeKey(() => hasMenu && falseOpened(), [hasMenu]);

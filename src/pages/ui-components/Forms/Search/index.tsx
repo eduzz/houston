@@ -4,14 +4,14 @@ import CancelIcon from '@eduzz/houston-icons/Cancel';
 import SearchOutlineIcon from '@eduzz/houston-icons/SearchOutline';
 import styled, { clsx, css, StyledProp } from '@eduzz/houston-styles';
 
+import { SearchContextProvider } from './context';
+import Result from './Result';
 import IconButton from '../../IconButton';
 import Popover from '../../Popover';
 import usePopover from '../../Popover/usePopover';
 import nestedComponent from '../../utils/nestedComponent';
 import Fieldset, { FieldsetProps } from '../_utils/Fieldset';
 import withForm, { WithFormProps } from '../Form/withForm';
-import { SearchContextProvider } from './context';
-import Result from './Result';
 
 type OwnProperties<V = any> = Omit<FieldsetProps, 'focused' | 'endAdornment' | 'startAdornment' | 'size'> & {
   value?: V | null | undefined;

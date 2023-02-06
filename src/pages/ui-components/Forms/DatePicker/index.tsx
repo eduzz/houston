@@ -14,10 +14,10 @@ import ChevronRight from '@eduzz/houston-icons/ChevronRight';
 import styled, { css, cx } from '@eduzz/houston-styles';
 import { pxToRem } from '@eduzz/houston-tokens/variables/utils';
 
-import withForm, { WithFormProps } from '../Form/withForm';
-import Input, { InputProps } from '../Input';
 import styles from './styles';
 import { DateFormat } from './types';
+import withForm, { WithFormProps } from '../Form/withForm';
+import Input, { InputProps } from '../Input';
 
 setDefaultOptions({ locale: datePtBR });
 

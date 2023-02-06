@@ -16,12 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Node
         uses: actions/setup-node@v3
       - name: Set Version
         id: current-version
-        run: echo '::set-output name=VERSION::'$(node -p -e "require('./package.json').version") && echo '::set-output name=BETA::'$(node -p -e "require('./package.json').version.includes('beta') || require('./package.json').version.includes('rc')")
+        run: echo 'VERSION='$(node -p -e "require('./package.json').version") >> $GITHUB_OUTPUT && echo 'BETA='$(node -p -e "require('./package.json').version.includes('beta') || require('./package.json').version.includes('rc')") >> $GITHUB_OUTPUT
     outputs:
       VERSION: ${{ steps.current-version.outputs.VERSION }}
       BETA: ${{ steps.current-version.outputs.BETA }}
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Node
         uses: actions/setup-node@v3
       - name: Deps
@@ -40,6 +40,6 @@ jobs:
         run: node ./scripts/should-release.js
       - name: Check Skip Release
         id: skip-release
-        run: echo '::set-output name=SKIP::'$(cat .skip-release)
+        run: echo 'SKIP='$(cat .skip-release) >> $GITHUB_OUTPUT
     outputs:
       SKIP: ${{ steps.skip-release.outputs.SKIP }}

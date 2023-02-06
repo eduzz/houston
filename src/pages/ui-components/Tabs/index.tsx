@@ -2,18 +2,18 @@ import * as React from 'react';
 
 import styled, { breakpoints, css, cx, StyledProp } from '@eduzz/houston-styles';
 
-import Collapse from '../Collapse';
-import Select from '../Forms/Select';
-import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
-import useMediaQuery from '../hooks/useMediaQuery';
-import IconButton from '../IconButton';
-import nestedComponent from '../utils/nestedComponent';
 import { ChevronLeft, ChevronRight } from './Icons';
 import Tab from './Tab';
 import useCheckDisabledArrows from './useCheckDisabledArrows';
 import useTabDragScroller from './useTabDragScroller';
 import useTabSteps from './useTabSteps';
 import Vertical from './Vertical';
+import Collapse from '../Collapse';
+import Select from '../Forms/Select';
+import { useChildrenProps, useChildrenComponent } from '../hooks/useChildrenProps';
+import useMediaQuery from '../hooks/useMediaQuery';
+import IconButton from '../IconButton';
+import nestedComponent from '../utils/nestedComponent';
 
 export interface TabsProps extends StyledProp, Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   children: React.ReactNode;

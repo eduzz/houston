@@ -4,9 +4,9 @@ import { flushSync } from 'react-dom';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import styled, { css, StyledProp } from '@eduzz/houston-styles';
 
+import Root from './Root';
 import Popover from '../Popover';
 import usePopover from '../Popover/usePopover';
-import Root from './Root';
 
 export type DropdownPlacement =
   | 'bottom-end'

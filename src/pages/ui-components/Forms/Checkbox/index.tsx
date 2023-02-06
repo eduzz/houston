@@ -4,10 +4,10 @@ import * as React from 'react';
 import Done from '@eduzz/houston-icons/Done';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
+import Group from './Group';
 import Typography from '../../Typography';
 import nestedComponent from '../../utils/nestedComponent';
 import withForm, { WithFormProps } from '../Form/withForm';
-import Group from './Group';
 
 type OwnProperties = StyledProp &
   WithFormProps<never> & {

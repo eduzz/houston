@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v3
       - name: Get Issue Url
         id: issue-url
-        run: echo '::set-output name=URL::'$(node -p -e "'${{ github.event.project_card.content_url }}'.replace('https://api.github.com/repos', 'https://github.com')")
+        run: echo 'URL='$(node -p -e "'${{ github.event.project_card.content_url }}'.replace('https://api.github.com/repos', 'https://github.com')") >> $GITHUB_OUTPUT
       - name: Discord
         uses: appleboy/discord-action@master
         with:

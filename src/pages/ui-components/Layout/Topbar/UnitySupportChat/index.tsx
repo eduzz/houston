@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 
 import { useContextSelector } from 'use-context-selector';
 
+import chatInit from './chat';
 import { css, GlobalStyles } from '../../../styled';
 import TopbarContext from '../context';
-import chatInit from './chat';
 
 const TopbarUnitySupportChat = () => {
   const user = useContextSelector(TopbarContext, context => context.user);

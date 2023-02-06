@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import styled, { cx } from '@eduzz/houston-styles';
 
-import nestedComponent from '../utils/nestedComponent';
 import Thumbnail from './Thumbnail';
+import nestedComponent from '../utils/nestedComponent';
 
 export type ImageFits = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
 

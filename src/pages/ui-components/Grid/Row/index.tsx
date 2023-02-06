@@ -7,9 +7,9 @@ const justifyContent = ['flex-start', 'flex-end', 'space-between', 'center', 'sp
 const alignItems = ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'] as const;
 const spacing = ['none', 'nano', 'xxxs', 'xxs', 'xs', 'md', 'xl'] as const;
 
-export type AlignItemsRow = typeof alignItems[number];
-export type JustifyContentRow = typeof justifyContent[number];
-export type Spacing = typeof spacing[number];
+export type AlignItemsRow = (typeof alignItems)[number];
+export type JustifyContentRow = (typeof justifyContent)[number];
+export type Spacing = (typeof spacing)[number];
 
 export type RowProps = StyledProp &
   React.HTMLAttributes<HTMLDivElement> & {

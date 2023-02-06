@@ -4,10 +4,10 @@ import ChevronLeft from '@eduzz/houston-icons/ChevronLeft';
 import ChevronRight from '@eduzz/houston-icons/ChevronRight';
 import styled, { css, cx, StyledProp } from '@eduzz/houston-styles';
 
+import PaginationPages from './Pages';
 import Select from '../Forms/Select';
 import IconButton from '../IconButton';
 import Typography from '../Typography';
-import PaginationPages from './Pages';
 
 export interface PaginationProps extends StyledProp {
   id?: string;
