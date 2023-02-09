@@ -10,6 +10,7 @@ import {
 
 import { SearchOutlined } from '@ant-design/icons';
 import { Input, InputRef, Tag } from 'antd';
+import type { InputStatus } from 'antd/lib/_util/statusUtils';
 
 import { useContextSelector } from 'use-context-selector';
 
@@ -19,6 +20,7 @@ import LayoutContext from '../../context';
 
 export interface TopbarSearchProps {
   className?: string;
+  status?: InputStatus;
   placeholder?: string;
   disableEscape?: boolean;
   disableShortcut?: boolean;
@@ -32,6 +34,7 @@ const TopbarSearch = ({
   disableShortcut,
   disableEscape,
   onEnter,
+  status,
   placeholder = 'Pesquisar'
 }: TopbarSearchProps) => {
   const inputRef = useRef<InputRef>(null);
@@ -91,6 +94,7 @@ const TopbarSearch = ({
         <Input
           ref={inputRef}
           prefix={<SearchOutlined />}
+          status={status}
           allowClear
           placeholder={placeholder}
           value={value}
