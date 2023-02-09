@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { ConfigProvider } from 'antd';
 import type { AliasToken } from 'antd/es/theme/interface';
+import type { ConfigProviderProps } from 'antd/lib/config-provider';
 import type { ThemeConfig as AntdThemeConfig } from 'antd/lib/config-provider/context';
-import type { Locale as AntdLocale } from 'antd/lib/locale-provider';
 import antdLocalePtBR from 'antd/locale/pt_BR';
 
 import type { ThemeProviderProps as EmotionThemeProviderProps } from '@emotion/react/types/theming';
@@ -46,13 +46,14 @@ declare module '@emotion/react' {
   }
 }
 
-export interface ThemeProviderProps extends Pick<EmotionThemeProviderProps, 'children'> {
+export interface ThemeProviderProps
+  extends Pick<EmotionThemeProviderProps, 'children'>,
+    Omit<ConfigProviderProps, 'theme' | 'children' | 'componentSize'> {
   theme?: CreateTheme;
   /**
    * Dark mode experimental
    */
   mode?: 'dark' | 'light' | 'system';
-  antdLocale?: AntdLocale;
   disableResetStyles?: boolean;
 }
 
@@ -61,9 +62,9 @@ const defaultTheme = createTheme('eduzz');
 function ThemeProvider({
   theme = defaultTheme,
   mode: modeProp = 'light',
-  antdLocale = antdLocalePtBR,
   children,
-  disableResetStyles
+  disableResetStyles,
+  ...configProps
 }: ThemeProviderProps) {
   const [mode, setMode] = React.useState<'light' | 'dark'>(() => {
     if (modeProp !== 'system') {
@@ -96,7 +97,7 @@ function ThemeProvider({
   }, []);
 
   return (
-    <ConfigProvider locale={antdLocale} theme={currentTheme.antd} componentSize='large'>
+    <ConfigProvider theme={currentTheme.antd} componentSize='large' locale={antdLocalePtBR} {...configProps}>
       <ConfigEmotion theme={currentTheme}>
         {!disableResetStyles && <ResetCss />}
         <CustomCss />
