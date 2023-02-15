@@ -37,9 +37,9 @@ const Input = React.forwardRef<InputRef, InputProps>(
       (e: React.KeyboardEvent<HTMLInputElement>) => {
         const target = e.target as HTMLInputElement;
 
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && onPressEnter) {
           e.preventDefault();
-          onPressEnter && onPressEnter(maskClean(target.value));
+          onPressEnter(maskClean(target.value));
         }
       },
       [onPressEnter, maskClean]
