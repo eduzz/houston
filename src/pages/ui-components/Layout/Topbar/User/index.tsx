@@ -52,7 +52,7 @@ const User = React.memo<StyledProp>(({ className }) => {
 
           <div className='hst-topbar-user-mobile'>
             <Avatar src={user.avatar} onClick={toogleOpened}>
-              {user.name?.charAt(1)}
+              {user.name?.charAt(0)}
             </Avatar>
           </div>
         </div>
