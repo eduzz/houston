@@ -8,6 +8,7 @@ import useMask, { BuildInMasks, MaskAdapter } from '../masks';
 export interface InputProps
   extends Omit<AntdInputProps, 'onChange' | 'onBlur' | 'onPressEnter'>,
     WithFormProps<InputRef> {
+  password?: boolean;
   mask?: BuildInMasks | MaskAdapter;
   onChange?: (value: string | number | null | undefined, event: React.ChangeEvent<HTMLInputElement>) => any;
   onBlur?: (value: string | number | null | undefined, event: React.FocusEvent<HTMLInputElement>) => any;
@@ -15,7 +16,7 @@ export interface InputProps
 }
 
 const Input = React.forwardRef<InputRef, InputProps>(
-  ({ mask, value, onChange, onBlur, onPressEnter, ...props }, ref) => {
+  ({ mask, value, onChange, onBlur, onPressEnter, password, ...props }, ref) => {
     const { maskClean, maskedValue } = useMask(mask, value);
 
     const handleChange = React.useCallback(
@@ -45,17 +46,15 @@ const Input = React.forwardRef<InputRef, InputProps>(
       [onPressEnter, maskClean]
     );
 
-    return (
-      <AntdInput
-        ref={ref}
-        value={maskedValue}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        onPressEnter={handlePressEnter}
-        prefix={mask === 'money' ? 'R$' : undefined}
-        {...props}
-      />
-    );
+    return React.createElement(password ? AntdInput.Password : AntdInput, {
+      ref,
+      value: maskedValue,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      onPressEnter: handlePressEnter,
+      prefix: mask === 'money' ? 'R$' : undefined,
+      ...props
+    });
   }
 );
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ConfigProvider } from 'antd';
+import { App, ConfigProvider } from 'antd';
 import type { AliasToken } from 'antd/es/theme/interface';
 import type { ConfigProviderProps } from 'antd/lib/config-provider';
 import type { ThemeConfig as AntdThemeConfig } from 'antd/lib/config-provider/context';
@@ -98,12 +98,14 @@ function ThemeProvider({
 
   return (
     <ConfigProvider theme={currentTheme.antd} componentSize='large' locale={antdLocalePtBR} {...configProps}>
-      <ConfigEmotion theme={currentTheme}>
-        {!disableResetStyles && <ResetCss />}
-        <CustomCss />
+      <App>
+        <ConfigEmotion theme={currentTheme}>
+          {!disableResetStyles && <ResetCss />}
+          <CustomCss />
 
-        {children}
-      </ConfigEmotion>
+          {children}
+        </ConfigEmotion>
+      </App>
     </ConfigProvider>
   );
 }
