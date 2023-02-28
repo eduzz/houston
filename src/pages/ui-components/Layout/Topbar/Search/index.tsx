@@ -1,19 +1,11 @@
-import {
-  useCallback,
-  KeyboardEvent as ReactKeyboardEvent,
-  useEffect,
-  useRef,
-  memo,
-  useState,
-  ChangeEvent
-} from 'react';
-
-import { SearchOutlined } from '@ant-design/icons';
-import { Input, InputRef, Tag } from 'antd';
+import { useCallback, KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, memo, useState } from 'react';
 
 import type { InputStatus } from 'antd/lib/_util/statusUtils';
 import { useContextSelector } from 'use-context-selector';
 
+import SearchOutline from '@eduzz/houston-icons/SearchOutline';
+
+import Input from '../../../Forms/Input';
 import Portal from '../../../Portal';
 import { styled, css } from '../../../styled';
 import TopbarContext from '../context';
@@ -37,10 +29,10 @@ const TopbarSearch = ({
   status,
   placeholder = 'Pesquisar'
 }: TopbarSearchProps) => {
-  const inputRef = useRef<InputRef>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [value, setValue] = useState<string>();
-  const container = useContextSelector(TopbarContext, context => context.centerPortal?.current);
+  const container = useContextSelector(TopbarContext, context => context.centerPortal);
 
   const onKeyDown = useCallback(
     (event: ReactKeyboardEvent<HTMLInputElement>) => {
@@ -61,10 +53,6 @@ const TopbarSearch = ({
     },
     [disableEscape, onEnter]
   );
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.currentTarget.value);
-  };
 
   useEffect(() => {
     const listener = (e: KeyboardEvent) => {
@@ -93,13 +81,20 @@ const TopbarSearch = ({
       <div className={className}>
         <Input
           ref={inputRef}
-          prefix={<SearchOutlined />}
-          status={status}
-          allowClear
+          size='sm'
+          startAdornment={<SearchOutline />}
+          // prefix={<SearchOutlined />}
+          // status={status}
+          // allowClear
+          errorMessage={status === 'error' ? ' ' : undefined}
           placeholder={placeholder}
           value={value}
-          onChange={onChange}
-          suffix={disableShortcut ? undefined : <Tag>{`${isMacOS ? '⌘' : 'Ctrl'}+K`}</Tag>}
+          onChange={setValue}
+          endAdornment={
+            disableShortcut ? undefined : (
+              <span className='hts-topbar-search-shortcut'>{`${isMacOS ? '⌘' : 'Ctrl'}+K`}</span>
+            )
+          }
           onKeyDown={disableShortcut ? undefined : onKeyDown}
         />
       </div>
@@ -111,6 +106,35 @@ export default styled(memo(TopbarSearch))(
   ({ theme }) => css`
     display: flex;
     flex: 1;
+
+    & input {
+      height: auto !important;
+    }
+
+    & .hst-fieldset-message {
+      display: none;
+    }
+
+    & .hts-topbar-search-shortcut {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      color: rgba(0, 0, 0, 0.88);
+      font-size: 12px;
+      line-height: 20px;
+      list-style: none;
+      display: inline-block;
+      height: auto;
+      margin-inline-end: 8px;
+      padding-inline: 7px;
+      white-space: nowrap;
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      opacity: 1;
+      transition: all 0.2s;
+      text-align: start;
+    }
 
     ${theme.mediaQuery.down('md')} {
       display: none;

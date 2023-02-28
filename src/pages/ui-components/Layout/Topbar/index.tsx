@@ -56,7 +56,7 @@ const Topbar = React.memo<TopbarProps>(
     logoWrapper: LogoWrapper,
     ...rest
   }) => {
-    const centerPortalRef = React.useRef<HTMLDivElement>(null);
+    const [centerPortal, setCenterPortal] = React.useState<HTMLDivElement | null>(null);
     const theme = useHoustonTheme();
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
@@ -76,8 +76,8 @@ const Topbar = React.memo<TopbarProps>(
     }, [theme]);
 
     const contextValue = React.useMemo<TopbarContextType>(
-      () => ({ currentApplication, user, centerPortal: centerPortalRef }),
-      [currentApplication, user]
+      () => ({ currentApplication, user, centerPortal }),
+      [centerPortal, currentApplication, user]
     );
 
     return (
@@ -128,7 +128,7 @@ const Topbar = React.memo<TopbarProps>(
               )}
             </div>
 
-            <div className='hts-topbar-center' ref={centerPortalRef} />
+            <div className='hts-topbar-center' ref={setCenterPortal} />
 
             <div className='hst-topbar-quick-access'>
               <Belt />
