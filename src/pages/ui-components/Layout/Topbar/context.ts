@@ -17,6 +17,7 @@ export interface HoustonTopbarUser {
 export interface TopbarContextType {
   user?: HoustonTopbarUser;
   currentApplication?: string;
+  centerPortal?: React.RefObject<HTMLDivElement | null>;
 }
 
 const TopbarContext = createContext<TopbarContextType>({});

@@ -50,6 +50,8 @@ function App() {
             <Topbar.Action icon={<NotificationOutline size={25} />} />
             <Topbar.Action icon={<InfoChatOutline size={25} />} />
 
+            <Topbar.Search />
+
             <Topbar.UserMenu>
               <Topbar.UserMenuItem>Meus Dados</Topbar.UserMenuItem>
               <Topbar.UserMenuItem>Minhas Compras</Topbar.UserMenuItem>

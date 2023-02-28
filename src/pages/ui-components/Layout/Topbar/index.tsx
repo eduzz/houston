@@ -14,6 +14,7 @@ import Action from './Action';
 import Apps from './Apps';
 import Belt from './Belt';
 import TopbarContext, { TopbarContextType } from './context';
+import Search from './Search';
 import UnitySupportChat from './UnitySupportChat';
 import User from './User';
 import UserMenu from './UserMenu';
@@ -55,6 +56,7 @@ const Topbar = React.memo<TopbarProps>(
     logoWrapper: LogoWrapper,
     ...rest
   }) => {
+    const centerPortalRef = React.useRef<HTMLDivElement>(null);
     const theme = useHoustonTheme();
     const register = useContextSelector(LayoutContext, context => context.topbar.register);
     const sidebarToogleOpened = useContextSelector(LayoutContext, context => context.sidebar.toogleOpened);
@@ -74,7 +76,7 @@ const Topbar = React.memo<TopbarProps>(
     }, [theme]);
 
     const contextValue = React.useMemo<TopbarContextType>(
-      () => ({ currentApplication, user }),
+      () => ({ currentApplication, user, centerPortal: centerPortalRef }),
       [currentApplication, user]
     );
 
@@ -126,6 +128,8 @@ const Topbar = React.memo<TopbarProps>(
               )}
             </div>
 
+            <div className='hts-topbar-center' ref={centerPortalRef} />
+
             <div className='hst-topbar-quick-access'>
               <Belt />
 
@@ -158,6 +162,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
       display: flex;
       justify-content: space-between;
       z-index: 105;
+      gap: 1rem;
       transition: 0.15s ease-out;
 
       & > .hst-topbar-start {
@@ -230,6 +235,14 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
         }
       }
 
+      & > .hts-topbar-center {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        max-width: 400px;
+      }
+
       & > .hst-topbar-quick-access {
         display: flex;
         align-items: center;
@@ -246,6 +259,7 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
 
 export default nestedComponent(TopbarStyled, {
   Action,
+  Search,
   UnitySupportChat,
   UserMenu,
   UserMenuItem,
