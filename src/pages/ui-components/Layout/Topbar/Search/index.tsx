@@ -112,7 +112,7 @@ export default styled(memo(TopbarSearch))(
     }
 
     & .hst-fieldset-message {
-      display: none;
+      display: none !important;
     }
 
     & .hts-topbar-search-shortcut {
