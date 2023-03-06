@@ -21,7 +21,7 @@ export interface UseFormParams<T extends FieldValues> extends UseFormProps<T> {
    * @deprecated Utilizar defaultValues
    */
   initialValues?: DefaultValues<T>;
-  validationSchema?: yup.SchemaOf<T> | ((yup: Yup) => yup.SchemaOf<T>) | undefined;
+  validationSchema?: yup.Schema<T> | ((yup: Yup) => yup.Schema<T>) | undefined;
 }
 
 export type FormModel<Form> = Form extends HookUseFormReturn<infer M> ? M : Form;

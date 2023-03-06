@@ -30,4 +30,4 @@ const Textarea = React.forwardRef<TextAreaRef, TextAreaProps>(({ value, onChange
   return <AntdInput.TextArea ref={ref} value={value} onChange={handleChange} onBlur={handleBlur} rows={4} {...props} />;
 });
 
-export default withForm(Textarea);
+export default withForm(Textarea as React.ComponentType<TextAreaProps>);
