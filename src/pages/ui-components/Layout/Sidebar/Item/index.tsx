@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Typography } from 'antd';
+import { Space, Typography } from 'antd';
 
 import { useContextSelector } from 'use-context-selector';
 
@@ -22,10 +22,11 @@ export interface SidebarItemProps extends StyledProp {
    * @example NavLink, Link (react-router-dom)
    */
   as?: React.ElementType;
+  endIcon?: React.ReactNode;
 }
 
 const SidebarItem = React.forwardRef<HTMLElement, SidebarItemProps>(
-  ({ className, children, isActive: isActiveProp, tabIndex, as: Component, disabled, to, ...rest }, ref) => {
+  ({ className, children, isActive: isActiveProp, tabIndex, as: Component, disabled, to, endIcon, ...rest }, ref) => {
     const isActiveItem = useContextSelector(SidebarContext, context => context.isActiveItem);
     const onItemActive = useContextSelector(SidebarGroupContext, context => context.onItemActive);
 
@@ -48,9 +49,12 @@ const SidebarItem = React.forwardRef<HTMLElement, SidebarItemProps>(
       <li>
         <IconBullet className='hst-sidebar-item-icon' size='md' />
 
-        <Typography.Text className='hst-sidebar-item-label' strong={active}>
-          {children}
-        </Typography.Text>
+        <Space align='center'>
+          <Typography.Text className='hst-sidebar-item-label' strong={active}>
+            {children}
+          </Typography.Text>
+          {endIcon}
+        </Space>
       </li>
     );
   }
