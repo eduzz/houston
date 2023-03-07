@@ -7,13 +7,13 @@ export type WithFormProps<R> = {
   label?: string;
   name?: string;
   disabled?: boolean;
-  genericRef?: R;
+  _genericRef?: R;
   help?: React.ReactNode;
   error?: string;
 };
 
 const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P>) =>
-  React.forwardRef<P['genericRef'], Omit<P, 'genericRef'>>(({ name, disabled, label, help, error, ...props }, ref) => {
+  React.forwardRef<P['_genericRef'], P>(({ name, disabled, label, help, error, ...props }, ref) => {
     const form = useFormContext();
 
     if (!form || !name) {
