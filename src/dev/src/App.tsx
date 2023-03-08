@@ -87,8 +87,8 @@ function App() {
             </Group>
 
             <Group>
-              <Item>Relatórios</Item>
-              <Item>Financeiro</Item>
+              <Item isExternal>Relatórios</Item>
+              <Item target='_blank'>Financeiro</Item>
               <Item>Soluções</Item>
             </Group>
 
