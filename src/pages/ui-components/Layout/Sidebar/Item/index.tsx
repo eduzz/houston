@@ -1,19 +1,22 @@
 import * as React from 'react';
 
-import { Space, Typography } from 'antd';
+import { Typography } from 'antd';
 
 import { useContextSelector } from 'use-context-selector';
 
 import IconBullet from '../../../Icons/Bullet';
+import IconExternalLink from '../../../Icons/ExternalLink';
 import styled, { cx, css, StyledProp } from '../../../styled';
 import SidebarContext from '../context';
 import SidebarGroupContext from '../Group/context';
+import {} from '@ant-design/icons';
 
 export interface SidebarItemProps extends StyledProp {
   [key: string]: any;
   id?: string;
   tabIndex?: number;
   isActive?: boolean;
+  isExternal?: boolean;
   onClick?: () => void;
   disabled?: boolean;
   children: React.ReactNode;
@@ -22,11 +25,14 @@ export interface SidebarItemProps extends StyledProp {
    * @example NavLink, Link (react-router-dom)
    */
   as?: React.ElementType;
-  endIcon?: React.ReactNode;
 }
 
 const SidebarItem = React.forwardRef<HTMLElement, SidebarItemProps>(
-  ({ className, children, isActive: isActiveProp, tabIndex, as: Component, disabled, to, endIcon, ...rest }, ref) => {
+  (
+    { className, children, isActive: isActiveProp, tabIndex, as: Component, disabled, to, isExternal, ...rest },
+    ref
+  ) => {
+    isExternal = isExternal ?? rest?.target === '_blank';
     const isActiveItem = useContextSelector(SidebarContext, context => context.isActiveItem);
     const onItemActive = useContextSelector(SidebarGroupContext, context => context.onItemActive);
 
@@ -49,12 +55,12 @@ const SidebarItem = React.forwardRef<HTMLElement, SidebarItemProps>(
       <li>
         <IconBullet className='hst-sidebar-item-icon' size='md' />
 
-        <Space align='center'>
+        <div className='hst-sidebar-item-label-wrapper'>
           <Typography.Text className='hst-sidebar-item-label' strong={active}>
             {children}
           </Typography.Text>
-          {endIcon}
-        </Space>
+          {isExternal && <IconExternalLink className='hst-sidebar-item-label-external' size={20} />}
+        </div>
       </li>
     );
   }
@@ -96,13 +102,24 @@ export default styled(React.memo(SidebarItem), { label: 'hst-sidebar-item' })(
         padding: 0.3rem 1rem;
       }
 
-      & .hst-sidebar-item-label {
-        grid-column: 2;
-        transition: 0.15s ease-in;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        min-width: 0;
-        font-size: 15.5px;
+      & .hst-sidebar-item-label-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & .hst-sidebar-item-label {
+          grid-column: 2;
+          transition: 0.15s ease-in;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          min-width: 0;
+          font-size: 15.5px;
+        }
+
+        & .hst-sidebar-item-label-external {
+          fill: ${theme.antd.colorText};
+          opacity: 0.5;
+        }
       }
 
       & .hst-sidebar-item-icon {
