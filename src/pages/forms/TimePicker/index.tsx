@@ -9,6 +9,8 @@ import type { Dayjs } from 'dayjs';
 // @ts-ignore
 import dayjs from 'dayjs';
 // @ts-ignore
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+// @ts-ignore
 import localeData from 'dayjs/plugin/localeData';
 // @ts-ignore
 import weekday from 'dayjs/plugin/weekday';
@@ -17,6 +19,7 @@ import withForm, { WithFormProps } from '../Form/withForm';
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 
 dayjs.locale('pt-br');
 

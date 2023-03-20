@@ -12,7 +12,10 @@ export type WithFormProps<R> = {
   error?: string;
 };
 
-const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P>) =>
+const withForm = <P extends WithFormProps<any>>(
+  Component: React.ComponentType<P>,
+  options?: { disableMargin: boolean }
+) =>
   React.forwardRef<P['_genericRef'], P>(({ name, disabled, label, help, error, ...props }, ref) => {
     const form = useFormContext();
 
@@ -36,6 +39,7 @@ const withForm = <P extends WithFormProps<any>>(Component: React.ComponentType<P
         render={({ field, fieldState, formState }) => (
           <AntdForm.Item
             label={label}
+            style={options?.disableMargin ? { marginBottom: 0 } : undefined}
             labelCol={{ span: 24 }}
             validateStatus={fieldState?.error?.message ? 'error' : undefined}
             help={error ?? fieldState?.error?.message ?? help}

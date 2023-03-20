@@ -1,0 +1,52 @@
+---
+name: Radio
+---
+
+import { Playground } from 'dokz';
+
+import Radio from './';
+
+# Radio
+
+[Radio do Antd](https://ant.design/components/Radio/) com a
+configuração do [react-form-hook](https://react-hook-form.com).
+
+### Importação
+
+```js
+import Radio from '@eduzz/houston-forms/Radio';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const [check, setCheck] = React.useState(undefined);
+    const [text, setText] = React.useState(undefined);
+    return (
+      <div>
+        <Radio value={check} onChange={setCheck}>
+          Test checked: {(check || '').toString()}
+        </Radio>
+        {(text || '').toString()}
+        <Radio value={text} checkedValue='string 1' onChange={setText}>
+          Test string 1
+        </Radio>
+        <Radio value={text} checkedValue='string 2' onChange={setText}>
+          Test string 2
+        </Radio>
+      </div>
+    );
+  }}
+</Playground>
+
+### Radio Props
+
+Todas as props do Radio do Antd são validos, abaixos as props extras.
+
+| prop         | tipo     | obrigatório | padrão | descrição                                                                           |
+| ------------ | -------- | ----------- | ------ | ----------------------------------------------------------------------------------- |
+| name         | `string` | `false`     | -      | O name é importante para poder linkar o campo com o formulário                      |
+| checkedValue | `any`    | `false`     | true   | Valor customizado se checked                                                        |
+| help         | `string` | `false`     | -      | Exibe texto de ajuda abaixo do componente de texto.                                 |
+| error        | `string` | `false`     | -      | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |

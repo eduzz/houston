@@ -1,0 +1,52 @@
+---
+name: Checkbox
+---
+
+import { Playground } from 'dokz';
+
+import Checkbox from './';
+
+# Checkbox
+
+[Checkbox do Antd](https://ant.design/components/Checkbox/) com a
+configuração do [react-form-hook](https://react-hook-form.com).
+
+### Importação
+
+```js
+import Checkbox from '@eduzz/houston-forms/Checkbox';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const [check, setCheck] = React.useState(undefined);
+    const [text, setText] = React.useState(undefined);
+    return (
+      <div>
+        <Checkbox value={check} onChange={setCheck}>
+          Test checked: {(check || '').toString()}
+        </Checkbox>
+        {(text || '').toString()}
+        <Checkbox value={text} checkedValue='string 1' onChange={setText}>
+          Test string 1
+        </Checkbox>
+        <Checkbox value={text} checkedValue='string 2' onChange={setText}>
+          Test string 2
+        </Checkbox>
+      </div>
+    );
+  }}
+</Playground>
+
+### Checkbox Props
+
+Todas as props do Checkbox do Antd são validos, abaixos as props extras.
+
+| prop         | tipo     | obrigatório | padrão | descrição                                                                           |
+| ------------ | -------- | ----------- | ------ | ----------------------------------------------------------------------------------- |
+| name         | `string` | `false`     | -      | O name é importante para poder linkar o campo com o formulário                      |
+| checkedValue | `any`    | `false`     | true   | Valor customizado se checked                                                        |
+| help         | `string` | `false`     | -      | Exibe texto de ajuda abaixo do componente de texto.                                 |
+| error        | `string` | `false`     | -      | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |

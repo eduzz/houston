@@ -1,0 +1,66 @@
+---
+name: Switch
+---
+
+import { Playground } from 'dokz';
+
+import Switch from './';
+
+# Switch
+
+[Switch do Antd](https://ant.design/components/Switch/) com a
+configuração do [react-form-hook](https://react-hook-form.com).
+
+### Importação
+
+```js
+import Switch from '@eduzz/houston-forms/Switch';
+```
+
+### Exemplo
+
+<Playground>
+  {() => {
+    const [check, setCheck] = React.useState(undefined);
+    const [text, setText] = React.useState(undefined);
+    return (
+      <div>
+        <Switch value={check} onChange={setCheck}>
+          Test checked: {(check || '').toString()}
+        </Switch>
+        {(text || '').toString()}
+        <Switch value={text} checkedValue='string 1' onChange={setText}>
+          Test string 1
+        </Switch>
+        <Switch value={text} checkedValue='string 2' onChange={setText}>
+          Test string 2
+        </Switch>
+        <Switch value={text} checkedValue='string 2' onChange={setText}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel ullamcorper justo, ut consequat neque.
+          Curabitur est mi, scelerisque et iaculis sed, vestibulum eu mi. Orci varius natoque penatibus et magnis dis
+          parturient montes, nascetur ridiculus mus. Ut convallis, justo nec ullamcorper posuere, lacus dui aliquam
+          magna, eu blandit nisl odio nec libero. In sodales purus non justo euismod viverra. Quisque diam libero,
+          volutpat et cursus a, volutpat sodales ante. Nullam fermentum suscipit arcu luctus dignissim. Nullam ac
+          posuere mi, at lacinia est. Proin mattis aliquet lacus, eget semper risus cursus ut. Proin eu est a dui
+          interdum ultrices at luctus leo. Nam sed fermentum ante. Ut euismod, justo eu faucibus sodales, risus nibh
+          lacinia justo, in vestibulum massa eros a nunc. Donec facilisis ultrices augue ac egestas. Donec placerat,
+          risus vel ullamcorper lacinia, ante sem ultricies sapien, vitae rutrum leo est at nibh. Morbi pellentesque
+          mollis felis, non pellentesque nunc tempus sit amet. Sed risus nulla, faucibus et lectus mollis, sollicitudin
+          faucibus mi.
+        </Switch>
+      </div>
+    );
+  }}
+</Playground>
+
+### Switch Props
+
+Todas as props do Switch do Antd são validos, abaixos as props extras.
+
+| prop         | tipo        | obrigatório | padrão | descrição                                                                           |
+| ------------ | ----------- | ----------- | ------ | ----------------------------------------------------------------------------------- |
+| name         | `string`    | `false`     | -      | O name é importante para poder linkar o campo com o formulário                      |
+| checkedValue | `any`       | `false`     | true   | Valor customizado se checked                                                        |
+| children     | `ReactNode` | `false`     | -      | Label do switch                                                                     |
+| help         | `string`    | `false`     | -      | Exibe texto de ajuda abaixo do componente de texto.                                 |
+| error        | `string`    | `false`     | -      | Exibe uma mensagem de erro no componente de texto, assim como indica erro no campo. |

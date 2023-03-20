@@ -9,6 +9,8 @@ import type { Dayjs } from 'dayjs';
 // @ts-ignore
 import dayjs from 'dayjs';
 // @ts-ignore
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+// @ts-ignore
 import localeData from 'dayjs/plugin/localeData';
 // @ts-ignore
 import weekday from 'dayjs/plugin/weekday';
@@ -18,14 +20,15 @@ import dateMask from '../masks/date';
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 
 dayjs.locale('pt-br');
 
 export type DatePickerProps = Omit<AntdDatePickerProps, 'value' | 'onChange'> &
   WithFormProps<any> & {
-    minDate?: Date;
-    maxDate?: Date;
-    value?: Date;
+    minDate?: Date | null;
+    maxDate?: Date | null;
+    value?: Date | null;
     onChange?: (value: Date) => void;
     showTime?: boolean;
   };
@@ -61,9 +64,17 @@ const DatePicker = React.forwardRef<any, any>(
         maskTimeout.current && clearTimeout(maskTimeout.current);
         maskTimeout.current = setTimeout(() => {
           input.value = dateMask.apply(input.value) ?? '';
-          console.log({ v: input.value });
+
           const result = dayjs(input.value, format);
-          result.isValid() && onChange(result.toDate());
+          const sameFormat = input.value?.length === format.length;
+
+          console.log({ valid: result.isValid(), sameFormat, format });
+
+          if (result.isValid() && sameFormat) {
+            onChange(result.toDate());
+            return;
+          }
+
           !input.value && onChange(null);
         }, 0);
       },

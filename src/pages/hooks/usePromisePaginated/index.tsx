@@ -14,6 +14,7 @@ export interface PaginationParams<D extends Record<string, any> = Record<string,
   perPage: number;
   sortField?: keyof D;
   sortDirection?: 'asc' | 'desc';
+  filters?: any;
 }
 
 export interface PaginationResponse<T> {
@@ -173,6 +174,7 @@ export default function usePromisePaginated<P extends PaginationParams, R>(
       mergeParams(
         current =>
           ({
+            filters,
             page: pagination.current ?? current.page,
             perPage: pagination.pageSize ?? current.perPage,
             sortField: sort.field,
