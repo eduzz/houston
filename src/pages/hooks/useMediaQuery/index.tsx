@@ -1,22 +1,30 @@
-import { useEffect, useState } from 'react';
+import * as React from 'react';
 
-export default function useMediaQuery(query: string): boolean {
-  const getMatches = (query: string): boolean => {
-    // Prevents SSR issues
-    if (typeof window !== 'undefined') {
-      return window.matchMedia(query).matches;
-    }
+import { Theme, useTheme } from '@emotion/react';
 
-    return false;
-  };
+type Query = string | ((antd: Theme['antd']) => string);
 
-  const [matches, setMatches] = useState(getMatches(query));
-
-  function handleChange() {
-    setMatches(getMatches(query));
+function getMatches(query: string): boolean {
+  // Prevents SSR issues
+  if (typeof window !== 'undefined') {
+    return window.matchMedia(query).matches;
   }
 
-  useEffect(() => {
+  return false;
+}
+
+export default function useMediaQuery(queryParam: Query): boolean {
+  const theme = useTheme();
+  const isCallback = typeof queryParam === 'function';
+  const query = React.useMemo(
+    () => (isCallback ? queryParam(theme.antd) : queryParam),
+    [queryParam, isCallback, theme.antd]
+  );
+
+  const [matches, setMatches] = React.useState(() => getMatches(query));
+
+  React.useEffect(() => {
+    const handleChange = () => setMatches(getMatches(query));
     const matchMedia = window.matchMedia(query);
 
     // Triggered at the first client-side load and if query changes

@@ -2,8 +2,9 @@
 name: useMediaQuery
 ---
 
-import useMediaQuery from '.';
 import { Playground } from 'dokz';
+
+import useMediaQuery from '.';
 
 # useMediaQuery
 
@@ -16,14 +17,24 @@ import useMediaQuery from '@eduzz/houston-hooks/useMediaQuery';
 
 const Component = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
+  return <div>{isMobile ? 'Mobile' : 'Desktop'}</div>;
+};
+```
 
+## Com tamanho do tema
+
+```tsx
+import useMediaQuery from '@eduzz/houston-hooks/useMediaQuery';
+
+const Component = () => {
+  const isMobile = useMediaQuery(antd => `(max-width: ${antd.screenMD}px)`);
   return <div>{isMobile ? 'Mobile' : 'Desktop'}</div>;
 };
 ```
 
 <Playground>
   {() => {
-    const isMobile = useMediaQuery('(max-width: 768px)');
+    const isMobile = useMediaQuery(antd => `(max-width: ${antd.screenMD}px)`);
     return <div>A sua tela é {isMobile ? 'menor que' : 'maior que'} 768px de largura</div>;
   }}
 </Playground>
