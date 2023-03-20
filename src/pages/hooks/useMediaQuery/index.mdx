@@ -1,0 +1,29 @@
+---
+name: useMediaQuery
+---
+
+import useMediaQuery from '.';
+import { Playground } from 'dokz';
+
+# useMediaQuery
+
+É usado para lidar com dimensionamento das telas e responsividade em componentes React
+
+## Como usar
+
+```tsx
+import useMediaQuery from '@eduzz/houston-hooks/useMediaQuery';
+
+const Component = () => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  return <div>{isMobile ? 'Mobile' : 'Desktop'}</div>;
+};
+```
+
+<Playground>
+  {() => {
+    const isMobile = useMediaQuery('(max-width: 768px)');
+    return <div>A sua tela é {isMobile ? 'menor que' : 'maior que'} 768px de largura</div>;
+  }}
+</Playground>
