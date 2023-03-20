@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Switch as AndtSwitch, SwitchProps as AntdSwitchProps } from 'antd';
+import { Switch as AndtSwitch, SwitchProps as AntdSwitchProps, Typography } from 'antd';
 import type { SwitchChangeEventHandler } from 'antd/es/switch/index';
 
 import styled, { StyledProp } from '@eduzz/houston-ui/styled';
@@ -30,7 +30,7 @@ const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     return (
       <div className={className}>
         <AndtSwitch ref={ref} checked={value === checkedValue} {...props} onChange={handleChange} />
-        <div>{children}</div>
+        <div>{typeof children === 'string' ? <Typography.Text>{children}</Typography.Text> : children}</div>
       </div>
     );
   }
