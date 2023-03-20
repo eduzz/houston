@@ -68,8 +68,6 @@ const DatePicker = React.forwardRef<any, any>(
           const result = dayjs(input.value, format);
           const sameFormat = input.value?.length === format.length;
 
-          console.log({ valid: result.isValid(), sameFormat, format });
-
           if (result.isValid() && sameFormat) {
             onChange(result.toDate());
             return;
