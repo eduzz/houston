@@ -1,9 +1,5 @@
 import * as React from 'react';
 
-import { Theme, useTheme } from '@emotion/react';
-
-type Query = string | ((antd: Theme['antd']) => string);
-
 function getMatches(query: string): boolean {
   // Prevents SSR issues
   if (typeof window !== 'undefined') {
@@ -13,14 +9,7 @@ function getMatches(query: string): boolean {
   return false;
 }
 
-export default function useMediaQuery(queryParam: Query): boolean {
-  const theme = useTheme();
-  const isCallback = typeof queryParam === 'function';
-  const query = React.useMemo(
-    () => (isCallback ? queryParam(theme.antd) : queryParam),
-    [queryParam, isCallback, theme.antd]
-  );
-
+export default function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = React.useState(() => getMatches(query));
 
   React.useEffect(() => {

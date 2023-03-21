@@ -1,0 +1,36 @@
+---
+name: useMediaBreakpoint
+---
+
+import { Playground } from 'dokz';
+
+import useMediaBreakpoint from '.';
+
+# useMediaBreakpoint
+
+É usado para lidar com dimensionamento das telas e responsividade em componentes React com tamanhos pré-definidos do tema
+
+## Como usar
+
+```tsx
+import useMediaBreakpoint from '@eduzz/houston-hooks/useMediaBreakpoint';
+
+const Component = () => {
+  const isMobile = useMediaBreakpoint('md');
+  return <div>{isMobile ? 'Mobile' : 'Desktop'}</div>;
+};
+```
+
+<Playground>
+  {() => {
+    const isMobile = useMediaBreakpoint('md');
+    return <div>A sua tela é {isMobile ? 'menor que' : 'maior que'} 768px de largura</div>;
+  }}
+</Playground>
+
+<Playground>
+  {() => {
+    const isDesktop = useMediaBreakpoint('md', 'up');
+    return <div style={{ color: isDesktop ? 'green' : 'red' }}>Eu sou vermelho no mobile</div>;
+  }}
+</Playground>
