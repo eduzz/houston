@@ -27,7 +27,7 @@ export interface TopbarSearchProps {
   onEnter?: (value: string, clear: () => void) => void;
 }
 
-const isMacOS = navigator.userAgent.toLowerCase().includes('mac os');
+const isMacOS = typeof window !== 'undefined' ? navigator.userAgent.toLowerCase().includes('mac os') : false;
 
 const TopbarSearch = ({
   className,
