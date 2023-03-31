@@ -207,6 +207,10 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
           &.hst-topbar-tag-partner {
             background: #ededed;
           }
+
+          ${theme.mediaQuery.down('xs')} {
+            display: none;
+          }
         }
       }
 
