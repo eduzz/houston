@@ -45,8 +45,8 @@ function App() {
           >
             {/* <Topbar.UnitySupportChat /> */}
 
-            <Topbar.Action icon={<NotificationOutline size={25} />} />
-            <Topbar.Action icon={<InfoChatOutline size={25} />} />
+            <Topbar.Action badgeCount={0} icon={<NotificationOutline size={25} />} />
+            <Topbar.Action badgeDot icon={<InfoChatOutline size={25} />} />
 
             <Topbar.Search />
 

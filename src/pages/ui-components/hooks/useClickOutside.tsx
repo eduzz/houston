@@ -2,7 +2,7 @@ import * as React from 'react';
 
 type AnyEvent = MouseEvent | TouchEvent;
 
-function useOnClickOutside<T extends HTMLElement = HTMLElement>(
+function useClickOutside<T extends HTMLElement = HTMLElement>(
   ref: React.RefObject<T> | T | undefined | null,
   handler: (event: AnyEvent) => void,
   deps: React.DependencyList
@@ -15,15 +15,18 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
     if (!el) return undefined;
 
     let throttle = false;
+    const setThrottle = () => {
+      throttle = true;
+      setTimeout(() => (throttle = false), 500);
+    };
 
     const listener = (event: AnyEvent) => {
       if (!el || !el.contains || el.contains(event.target as Node) || throttle) {
+        setThrottle();
         return;
       }
 
-      throttle = true;
-      setTimeout(() => (throttle = false), 500);
-
+      setThrottle();
       callback(event);
     };
 
@@ -39,4 +42,4 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   }, [ref, callback]);
 }
 
-export default useOnClickOutside;
+export default useClickOutside;

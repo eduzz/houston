@@ -11,6 +11,7 @@ import Typography from '../../Typography';
 import nestedComponent from '../../utils/nestedComponent';
 import LayoutContext, { TOPBAR_HEIGHT } from '../context';
 import Action from './Action';
+import Actions from './Actions';
 import Apps from './Apps';
 import Belt from './Belt';
 import TopbarContext, { TopbarContextType } from './context';
@@ -133,7 +134,7 @@ const Topbar = React.memo<TopbarProps>(
             <div className='hst-topbar-quick-access'>
               <Belt />
 
-              {children}
+              <Actions>{children}</Actions>
               <User />
             </div>
           </header>
@@ -164,6 +165,10 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
       z-index: 105;
       gap: 1rem;
       transition: 0.15s ease-out;
+
+      ${breakpoints.down('xs')} {
+        padding: 0.5rem 0.5rem 0.5rem 0.3rem;
+      }
 
       & > .hst-topbar-start {
         display: flex;

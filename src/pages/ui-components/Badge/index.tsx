@@ -46,6 +46,7 @@ const Badge = ({
         `hst-badge-color-${color}`,
         `hst-badge-offset-${offset}`,
         { 'hst-badge-has-not-children': !hasChildren },
+        { 'hst-badge-hide': !dot && !hasCount },
         { 'hst-badge-dot': dot || !hasCount },
         { 'hst-badge-number': hasCount && !dot }
       )}
@@ -131,8 +132,8 @@ const BadgeWrapper = styled(Badge, { label: 'hst-badge' })`
       & > .hst-badge-count {
         position: absolute;
         display: inline-flex;
-        top: 0;
-        right: 0;
+        top: 8px;
+        right: 5px;
         z-index: 2;
         transform-origin: 100% 0%;
         white-space: nowrap;
@@ -145,6 +146,10 @@ const BadgeWrapper = styled(Badge, { label: 'hst-badge' })`
         font-weight: ${theme.font.weight.regular};
         border-radius: ${theme.border.radius.pill};
         border: ${theme.border.width.xs} solid ${theme.neutralColor.high.pure};
+      }
+
+      &.hst-badge-hide > .hst-badge-count {
+        display: none;
       }
     `;
   }}
