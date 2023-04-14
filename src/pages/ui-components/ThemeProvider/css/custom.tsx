@@ -54,8 +54,7 @@ const CustomCss = () => {
           height: auto;
         }
 
-        .ant-select,
-        .ant-picker {
+        .ant-select {
           width: 100%;
         }
 
