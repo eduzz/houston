@@ -3,24 +3,11 @@ import * as React from 'react';
 import type { TableProps } from 'antd';
 
 import { getConfig } from '../config';
+import { PaginationParams, PaginationResponse } from '../pagination';
 import usePromiseEffect from '../usePromiseEffect';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const isEqual = require('lodash/isEqual');
-
-export interface PaginationParams<D extends Record<string, any> = Record<string, any>> {
-  [key: string]: any;
-  page: number;
-  perPage: number;
-  sortField?: keyof D;
-  sortDirection?: 'asc' | 'desc';
-  filters?: any;
-}
-
-export interface PaginationResponse<T> {
-  total: number;
-  result: T[];
-}
 
 interface DataState<T> extends PaginationResponse<T> {
   hasMore: boolean;
