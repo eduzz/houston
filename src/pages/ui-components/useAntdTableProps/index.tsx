@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { EllipsisOutlined } from '@ant-design/icons';
-import { Result, Empty, Button, Dropdown } from 'antd';
+import { Result, Empty, Button, Dropdown, Tooltip } from 'antd';
 import type { TableProps, TableColumnType } from 'antd';
 import type { MenuItemType } from 'antd/es/menu/hooks/useItems';
 
@@ -115,6 +115,25 @@ function generateColumns<R>(columns: TableColumnType<R>[] | undefined, actions: 
             className: 'houston-table-action',
             render: (_: any, item: R) => {
               const items = Array.isArray(actions) ? actions : actions(item);
+
+              if (items.length === 1) {
+                return (
+                  <Tooltip
+                    title={items[0].label}
+                    trigger={['hover']}
+                    placement='bottomRight'
+                    open={items[0].disabled ? false : undefined}
+                  >
+                    <Button
+                      icon={items[0].icon}
+                      shape='circle'
+                      type='text'
+                      onClick={() => items[0].onClick(item)}
+                      disabled={items[0].disabled}
+                    />
+                  </Tooltip>
+                );
+              }
 
               return (
                 <Dropdown

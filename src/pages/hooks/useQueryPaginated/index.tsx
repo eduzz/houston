@@ -14,7 +14,7 @@ export type PaginationMergeParams<P> =
 
 export interface UseQueryPaginatedOptions<P extends PaginationParams, R = unknown>
   extends Omit<UseQueryOptions<PaginationResponse<R>>, 'queryFn'> {
-  initialParams?: P;
+  initialParams?: Partial<P>;
   queryFn: (params: P) => Promise<PaginationResponse<R>>;
 }
 
