@@ -1,6 +1,6 @@
 {
   "name": "@eduzz/docs",
-  "version": "1.8.2",
+  "version": "1.9.0",
   "private": true,
   "scripts": {
     "start": "next dev",
@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
-    "@eduzz/houston-forms": "1.8.2",
-    "@eduzz/houston-hooks": "1.8.2",
-    "@eduzz/houston-icons": "1.8.2",
-    "@eduzz/houston-ui": "1.8.2",
+    "@eduzz/houston-forms": "1.9.0",
+    "@eduzz/houston-hooks": "1.9.0",
+    "@eduzz/houston-icons": "1.9.0",
+    "@eduzz/houston-ui": "1.9.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "dokz": "2.0.9",
