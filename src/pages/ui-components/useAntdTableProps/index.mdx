@@ -1,0 +1,53 @@
+---
+name: useAntdTableProps
+---
+
+# useAntdTableProps
+
+Hook para facilitar o uso da table do Antd
+
+## Como usar
+
+```tsx
+// Pode ser usado com os seguinte hooks:
+const request = useQueryPaginated({
+  // ...
+});
+const request = useQuery({
+  // ...
+});
+const request = usePromisePaginated({
+  // ...
+});
+
+const antdTableProps = useAntdTableProps(request, {
+  minWidth: 500,
+  columns: [
+    { title: 'Nome', dataIndex: 'name' },
+    { title: 'Email', dataIndex: 'email' },
+    { title: 'Admin', dataIndex: 'roles', render: value => (value === 'admin' ? 'Sim' : 'Não') }
+  ],
+  actions: item => [
+    {
+      label: 'Editar',
+      icon: <EditOutlined />,
+      key: 'edit',
+      onClick: () => onEdit(item)
+    },
+    {
+      label: 'Enviar nova senha',
+      icon: <SendOutlined />,
+      key: 'resend-password',
+      onClick: () => onResendPassword(item),
+      disabled: item.id === currentUser?.id
+    },
+    {
+      label: 'Remover',
+      icon: <DeleteOutlined />,
+      key: 'remove',
+      onClick: () => onRemove(item),
+      disabled: item.id === currentUser?.id
+    }
+  ]
+});
+```

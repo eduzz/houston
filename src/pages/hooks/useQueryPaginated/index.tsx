@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
 
+import { getConfig } from '../config';
 import { PaginationParams, PaginationResponse } from '../pagination';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -54,9 +55,14 @@ export default function useQueryPaginated<P extends PaginationParams, R>(
   const result = useQuery({
     ...queryOptions,
     queryFn: async () => {
-      const sendParams = { ...params } as P & { _refresh?: number };
-      delete sendParams._refresh;
-      return await queryFn(sendParams);
+      try {
+        const sendParams = { ...params } as P & { _refresh?: number };
+        delete sendParams._refresh;
+        return await queryFn(sendParams);
+      } catch (err) {
+        getConfig().onUnhandledError(err, 'hooks');
+        throw err;
+      }
     }
   });
 
