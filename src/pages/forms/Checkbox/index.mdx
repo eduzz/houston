@@ -23,6 +23,7 @@ import Checkbox from '@eduzz/houston-forms/Checkbox';
   {() => {
     const [check, setCheck] = React.useState(undefined);
     const [text, setText] = React.useState(undefined);
+    const [multiple, setMultiple] = useState(undefined);
     return (
       <div>
         <Checkbox value={check} onChange={setCheck}>
@@ -34,6 +35,13 @@ import Checkbox from '@eduzz/houston-forms/Checkbox';
         </Checkbox>
         <Checkbox value={text} checkedValue='string 2' onChange={setText}>
           Test string 2
+        </Checkbox>
+        {(multiple || []).toString()}
+        <Checkbox value={multiple} checkedValue='multiple 1' onChange={setMultiple} multiple>
+          Test Multiple 1
+        </Checkbox>
+        <Checkbox value={multiple} checkedValue='multiple 2' onChange={setMultiple} multiple>
+          Test Multiple 2
         </Checkbox>
       </div>
     );
