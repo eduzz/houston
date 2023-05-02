@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-hooks",
   "description": "Eduzz Houston Hooks",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -21,6 +21,6 @@
   "dependencies": {
     "lodash": "^4",
     "rxjs": "^7",
-    "@tanstack/react-query": "^4.29.5"
+    "@tanstack/react-query": "^4"
   }
 }
