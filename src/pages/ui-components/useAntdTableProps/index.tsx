@@ -5,31 +5,41 @@ import { Result, Empty, Button, Dropdown } from 'antd';
 import type { TableProps, TableColumnType } from 'antd';
 import type { MenuItemType } from 'antd/es/menu/hooks/useItems';
 
+import { UseQueryResult } from '@tanstack/react-query';
+
 import { PaginationParams } from '@eduzz/houston-hooks/pagination';
 import { UsePromisePaginated } from '@eduzz/houston-hooks/usePromisePaginated';
 import { UseQueryPaginatedResult } from '@eduzz/houston-hooks/useQueryPaginated';
 
-export type UseAntdTrableProps<R> = {
+export type UseAntTableAction<R> = Array<Omit<MenuItemType, 'onClick'> & { onClick: (item: R) => void }>;
+
+export type UseAntdTableProps<R> = {
   columns?: TableColumnType<R>[];
-  actions?: Array<Omit<MenuItemType, 'onClick'> & { onClick: (item: R) => void }>;
+  actions?: UseAntTableAction<R> | ((item: R) => UseAntTableAction<R>);
 };
 
-export default function useAntdTrableProps<P extends PaginationParams, R>(
-  { mergeParams, params, isLoading, refresh, ...rest }: UseQueryPaginatedResult<P, R> | UsePromisePaginated<P, R>,
-  { columns, actions }: UseAntdTrableProps<R>
+// eslint-disable-next-line sonarjs/cognitive-complexity
+export default function useAntdTableProps<P extends PaginationParams, R>(
+  data: UseQueryResult<Array<R>> | UseQueryPaginatedResult<P, R> | UsePromisePaginated<P, R>,
+  { columns, actions }: UseAntdTableProps<R>
 ): TableProps<R> {
-  const queryData = rest as UseQueryPaginatedResult<P, R>;
-  const promiseData = rest as UsePromisePaginated<P, R>;
+  const queryData = data as Partial<UseQueryResult<Array<R>>>;
+  const queryPaginatedData = data as Partial<UseQueryPaginatedResult<P, R>>;
+  const promiseData = data as Partial<UsePromisePaginated<P, R>>;
 
-  const isError = queryData.isError ?? !!promiseData.error;
-  const result = queryData.data?.result ?? promiseData.result ?? [];
-  const total = queryData.data?.total ?? promiseData.total ?? 0;
+  const isError = queryPaginatedData.isError ?? !!promiseData.error;
+  const result = queryPaginatedData.data?.result ?? promiseData.result ?? queryData.data ?? [];
+  const total = queryPaginatedData.data?.total ?? promiseData.total;
+  const refresh = queryPaginatedData.refetch ?? promiseData.refresh ?? queryData.refetch;
+  const isLoading = queryPaginatedData.isFetching ?? promiseData.isLoading;
+
+  const { mergeParams, params } = queryPaginatedData;
 
   const handleAntdChange = useCallback<NonNullable<TableProps<R>['onChange']>>(
     (pagination, filters, sorter) => {
       const sort = Array.isArray(sorter) ? sorter[0] : sorter;
 
-      mergeParams(
+      mergeParams?.(
         current =>
           ({
             filters,
@@ -47,41 +57,52 @@ export default function useAntdTrableProps<P extends PaginationParams, R>(
     loading: isLoading,
     rowKey: 'id',
     columns: generateColumns<R>(columns, actions),
-    onChange: handleAntdChange,
+    onChange: mergeParams ? handleAntdChange : undefined,
     dataSource: result,
     showSorterTooltip: true,
-    pagination: {
-      disabled: isLoading,
-      responsive: true,
-      pageSize: params.perPage,
-      current: params.page,
-      showSizeChanger: true,
-      total
-    },
-    locale: {
-      emptyText: isError ? (
-        <>
-          <Result
-            status={500}
-            title='Um problema aconteceu'
-            extra={
-              <Button type='default' onClick={refresh}>
-                Tentar Novamente
-              </Button>
-            }
-          />
-        </>
-      ) : (
-        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-      )
-    }
+    pagination: generatePagination<P>(total, isLoading, params),
+    locale: generateLocale(isError, refresh)
   };
 }
 
-function generateColumns<R>(
-  columns: TableColumnType<R>[] | undefined,
-  actions: (Omit<MenuItemType, 'onClick'> & { onClick: (item: R) => void })[] | undefined
+function generateLocale(isError: boolean, refresh: (() => void) | undefined) {
+  return {
+    emptyText: isError ? (
+      <>
+        <Result
+          status={500}
+          title='Um problema aconteceu'
+          extra={
+            <Button type='default' onClick={() => refresh?.()}>
+              Tentar Novamente
+            </Button>
+          }
+        />
+      </>
+    ) : (
+      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+    )
+  };
+}
+
+function generatePagination<P extends PaginationParams>(
+  total: number | undefined,
+  isLoading: boolean | undefined,
+  params: P | undefined
 ) {
+  if (total === undefined || total === null) return false;
+
+  return {
+    disabled: isLoading,
+    responsive: true,
+    pageSize: params?.perPage,
+    current: params?.page,
+    showSizeChanger: true,
+    total
+  };
+}
+
+function generateColumns<R>(columns: TableColumnType<R>[] | undefined, actions: UseAntdTableProps<R>['actions']) {
   return [
     ...(columns ?? []),
     ...(actions
@@ -90,15 +111,19 @@ function generateColumns<R>(
             title: 'Ações',
             fixed: 'right' as const,
             className: 'houston-table-action',
-            render: (_: any, item: R) => (
-              <Dropdown
-                placement='bottomRight'
-                menu={{ items: actions.map(a => ({ ...a, onClick: () => a.onClick(item) } as MenuItemType)) }}
-                trigger={['click']}
-              >
-                <Button shape='circle' type='text' icon={<EllipsisOutlined />} />
-              </Dropdown>
-            )
+            render: (_: any, item: R) => {
+              const items = Array.isArray(actions) ? actions : actions(item);
+
+              return (
+                <Dropdown
+                  placement='bottomRight'
+                  menu={{ items: items.map(a => ({ ...a, onClick: () => a.onClick(item) } as MenuItemType)) }}
+                  trigger={['click']}
+                >
+                  <Button shape='circle' type='text' icon={<EllipsisOutlined />} />
+                </Dropdown>
+              );
+            }
           }
         ]
       : [])

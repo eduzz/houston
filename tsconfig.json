@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "ignoreDeprecations": "5.0",
     "outDir": "./src/pages",
     "declaration": true,
     "declarationDir": "./src/pages",

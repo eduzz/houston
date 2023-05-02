@@ -39,6 +39,8 @@ export type UseQueryPaginatedResult<P extends PaginationParams = PaginationParam
 export default function useQueryPaginated<P extends PaginationParams, R>(
   options: UseQueryPaginatedOptions<P, R>
 ): UseQueryPaginatedResult<P, R> {
+  const firstRender = React.useRef(true);
+
   const { initialParams: initialParamsOption, queryFn, ...queryOptions } = options;
   const [initialParams] = React.useState<P>(
     () =>
@@ -57,6 +59,20 @@ export default function useQueryPaginated<P extends PaginationParams, R>(
       return await queryFn(sendParams);
     }
   });
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (firstRender.current) {
+        firstRender.current = false;
+        return;
+      }
+
+      result.refetch();
+    }, 0);
+
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
 
   const mergeParams = React.useCallback(
     (newParams: PaginationMergeParams<P>, reset?: boolean) => {
