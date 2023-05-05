@@ -1,13 +1,11 @@
 import * as React from 'react';
 
+import isEqual from 'lodash-es/isEqual';
 import { Observable, of } from 'rxjs';
 import { delay, switchMap, tap } from 'rxjs/operators';
 
 import { getConfig } from '../config';
 import useObservable from '../useObservable';
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const isEqual = require('lodash/isEqual');
 
 export interface PaginationParams {
   [key: string]: any;

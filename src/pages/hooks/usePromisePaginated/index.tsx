@@ -2,12 +2,11 @@ import * as React from 'react';
 
 import type { TableProps } from 'antd';
 
+import isEqual from 'lodash-es/isEqual';
+
 import { getConfig } from '../config';
 import { PaginationParams, PaginationResponse } from '../pagination';
 import usePromiseEffect from '../usePromiseEffect';
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const isEqual = require('lodash/isEqual');
 
 interface DataState<T> extends PaginationResponse<T> {
   hasMore: boolean;

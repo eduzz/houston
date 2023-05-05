@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-hooks",
   "description": "Eduzz Houston Hooks",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
@@ -19,7 +19,7 @@
     "check-update-deps": "yarn ncu -u"
   },
   "dependencies": {
-    "lodash": "^4"
+    "lodash-es": "^4"
   },
   "devDependencies": {
     "rxjs": "^7",

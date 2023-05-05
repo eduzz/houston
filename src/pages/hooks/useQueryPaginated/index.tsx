@@ -1,12 +1,10 @@
 import * as React from 'react';
 
 import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
+import isEqual from 'lodash-es/isEqual';
 
 import { getConfig } from '../config';
 import { PaginationParams, PaginationResponse } from '../pagination';
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const isEqual = require('lodash/isEqual');
 
 export type PaginationMergeParams<P> =
   | Partial<P & { _refresh?: number }>
