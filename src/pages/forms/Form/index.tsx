@@ -12,9 +12,21 @@ export interface FormProps<T extends FieldValues> {
 const Form = <T extends FieldValues>({ context, onSubmit, ...rest }: FormProps<T>) => {
   const handleReset = React.useCallback(() => context.reset(), [context]);
 
+  // https://github.com/react-hook-form/react-hook-form/issues/10101
+  const onSubmitFixer = React.useCallback(
+    async (data: any) => {
+      try {
+        await onSubmit(data);
+      } catch (err) {
+        /// Ignorado
+      }
+    },
+    [onSubmit]
+  );
+
   return (
     <FormProvider {...context}>
-      <form {...rest} onReset={handleReset} onSubmit={context.handleSubmit(onSubmit)} noValidate />
+      <form {...rest} onReset={handleReset} onSubmit={context.handleSubmit(onSubmitFixer)} noValidate />
     </FormProvider>
   );
 };
