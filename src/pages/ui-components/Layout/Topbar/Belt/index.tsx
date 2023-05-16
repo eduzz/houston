@@ -57,21 +57,23 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
     color: white;
     display: flex;
     align-items: center;
-    padding: 8px 22px 8px 16px;
-    border-radius: 50px;
+    padding: 8px 16px 8px 16px;
+    border-radius: 16px;
     border-top-left-radius: 0;
     border-bottom-right-radius: 0;
     margin-right: ${theme.spacing.inline.xxs};
     height: ${theme.pxToRem(32)}rem;
+    box-sizing: border-box;
 
     ${theme.breakpoints.down('md')} {
       display: none;
     }
 
     ${theme.breakpoints.down('lg')} {
+      padding: 8px 10px 8px 10px;
+
       & .hst-topbar-belt-text {
         display: none;
-        padding: 8px 16px 8px 16px;
       }
     }
 
@@ -82,35 +84,58 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
     &.hst-topbar-belt-color-white {
       background-color: ${theme.beltColor.white};
       color: ${theme.beltColor.white};
+
+      .hst-topbar-belt-badge {
+        color: #4d4d4d;
+      }
     }
 
     &.hst-topbar-belt-color-red {
       background-color: ${theme.beltColor.red};
       color: ${theme.beltColor.red};
+
+      .hst-topbar-belt-badge {
+        color: #4d1414;
+      }
     }
 
     &.hst-topbar-belt-color-orange {
       background-color: ${theme.beltColor.orange};
       color: ${theme.beltColor.orange};
+
+      .hst-topbar-belt-badge {
+        color: #4d3111;
+      }
     }
 
     &.hst-topbar-belt-color-green {
       background-color: ${theme.beltColor.green};
       color: ${theme.beltColor.green};
+
+      .hst-topbar-belt-badge {
+        color: #124d2b;
+      }
     }
 
     &.hst-topbar-belt-color-black {
       background-color: ${theme.beltColor.black};
       color: ${theme.beltColor.black};
+
+      .hst-topbar-belt-badge {
+        color: #ffffff;
+      }
     }
 
     &.hst-topbar-belt-color-golden {
       background-color: ${theme.beltColor.golden};
       color: ${theme.beltColor.golden};
+
+      .hst-topbar-belt-badge {
+        color: #4d3e00;
+      }
     }
 
     .hst-topbar-belt-badge {
-      color: white;
       display: flex;
       align-items: center;
 
@@ -118,6 +143,7 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
         white-space: nowrap;
         text-transform: uppercase;
         font-style: italic;
+        font-weight: 500;
         font-size: 14px;
         margin-left: ${theme.spacing.inline.quarck};
       }

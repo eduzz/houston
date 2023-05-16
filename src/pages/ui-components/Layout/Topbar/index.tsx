@@ -166,7 +166,8 @@ const TopbarStyled = styled(Topbar, { label: 'hst-topbar' })(
       gap: 1rem;
       transition: 0.15s ease-out;
 
-      ${breakpoints.down('xs')} {
+      ${breakpoints.down('sm')} {
+        gap: 0rem;
         padding: 0.5rem 0.5rem 0.5rem 0.3rem;
       }
 

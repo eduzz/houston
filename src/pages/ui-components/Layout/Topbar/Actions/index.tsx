@@ -38,7 +38,7 @@ const Actions = ({ children, className }: ActionsProps) => {
     <div
       ref={ref}
       className={cx(className, {
-        '--hts-enabled': actions.length > 1,
+        '--hts-enabled': actions.length > 2,
         '--hst-has-user': hasUser,
         '--hst-expanded': expanded
       })}
