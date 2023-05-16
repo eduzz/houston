@@ -13,6 +13,7 @@ import ThemeProvider from '..';
 import DialogGlobal from '../../Dialog/Global';
 import PopoverRoot from '../../Popover/Root';
 import ToastContainer from '../../Toast/Container';
+import type { BeltForegroundColor } from '../createTheme/beltColor';
 import { mediaUtils } from '../mediaQuery';
 
 export const createTheme = createThemeInternal;
@@ -27,6 +28,7 @@ export interface HoustonThemeDeprecated extends Omit<HoustonTokens, 'hexToRgba' 
   hexToRgba: (hexColor: string, opacity?: number) => string;
   variables?: HoustonThemeDeprecatedCustomVariables;
   spacing: ((unit?: number) => string) & Spacing;
+  beltForegroundColor: BeltForegroundColor;
 
   components: {
     topBarHeight: number;

@@ -4,6 +4,7 @@ import { brands as deprecatedBrands } from '@eduzz/houston-tokens/variables/bran
 
 import { HoustonThemeDeprecatedCustomVariables, HoustonThemeDeprecated } from '..';
 import antdTheme from '../../createTheme/antd';
+import { beltForegroundColor } from '../../createTheme/beltColor';
 import { BrandColor, BrandsBuildin, brandsColors } from '../../createTheme/brands';
 import { hexToRgba, spacing } from '../../createTheme/utils';
 import { mediaUtils } from '../../mediaQuery';
@@ -38,6 +39,7 @@ export default function createTheme(
 
   const base: Omit<HoustonThemeDeprecated, 'mode' | 'antd'> = {
     ...tokens,
+    beltForegroundColor,
     primaryColor: brandColor.antd.primary ?? DEFAULT_PRIMARY_COLOR,
     secondaryColor: brandColor.antd.secondary ?? DEFAULT_SECONDARY_COLOR,
     mediaQuery: mediaUtils,
