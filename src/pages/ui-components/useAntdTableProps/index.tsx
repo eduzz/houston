@@ -60,7 +60,7 @@ export default function useAntdTableProps<P extends PaginationParams, R>(
     rowKey: 'id',
     columns: generateColumns<R>(columns, actions),
     onChange: mergeParams ? handleAntdChange : undefined,
-    dataSource: result,
+    dataSource: isError ? [] : result,
     showSorterTooltip: true,
     pagination: generatePagination<P>(total, isLoading, params),
     locale: generateLocale(isError, refresh)
