@@ -3,7 +3,7 @@ import * as React from 'react';
 import useBoolean from '@eduzz/houston-hooks/useBoolean';
 import CancelIcon from '@eduzz/houston-icons/Cancel';
 import ExpandIcon from '@eduzz/houston-icons/Expand';
-import styled, { css, StyledProp, cx, keyframes } from '@eduzz/houston-styles';
+import styled, { css, StyledProp, cx } from '@eduzz/houston-styles';
 
 import { TopbarApplication } from '..';
 import Button from '../../../../Button';
@@ -107,11 +107,6 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
   }
 );
 
-const descriptionAnimation = keyframes`
-  0% { text-indent: -1000px; }
-  100% {  text-indent: 0px; }
-`;
-
 export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
   ({ theme }) => css`
     width: ${theme.pxToRem(TOPBAR_DROPDOWN_WIDTH)}rem;
@@ -122,13 +117,11 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
     left: ${theme.spacing.inline.nano};
     border-radius: 0 0 ${theme.border.radius.sm} ${theme.border.radius.sm};
     z-index: 105;
-    transition: 0.15s ease-in-out;
     opacity: 0;
     visibility: hidden;
     user-select: none;
     box-sizing: border-box;
     transform: scale(0.1);
-    transform-origin: top left;
     max-height: calc(100vh - ${theme.pxToRem(TOPBAR_HEIGHT)}rem);
     overflow-y: auto;
 
@@ -170,7 +163,6 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
       .hst-topbar-apps-dropdown-item {
         width: 100%;
         text-align: center;
-        transition: 0.15s ease-out;
         border-radius: ${theme.border.radius.xs};
         cursor: pointer;
         text-decoration: none;
@@ -186,12 +178,6 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
         .hst-topbar-apps-dropdown-description {
           display: none;
           overflow: hidden;
-
-          ${theme.breakpoints.up('md')} {
-            text-indent: -1000px;
-            animation: ${descriptionAnimation} 0.2s ease-in-out forwards;
-            animation-delay: 0s;
-          }
         }
 
         &.hst-topbar-apps-dropdown-current {

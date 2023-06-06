@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import InfoChatOutline from '@eduzz/houston-icons/InfoChatOutline';
 import NotificationOutline from '@eduzz/houston-icons/NotificationOutline';
 import Layout from '@eduzz/houston-ui/Layout';
-import ThemeProvider from '@eduzz/houston-ui/ThemeProvider';
+import ThemeProvider from '@eduzz/houston-ui/ThemeProvider/deprecated';
 
 import houston from './assets/houston.png';
 import ComponentDev from './components';

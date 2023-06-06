@@ -94,7 +94,6 @@ export default styled(User, { label: 'hst-topbar-user' })(
 
     & .hst-topbar-user-menu-arrow {
       display: block;
-      transition: 0.15s ease-out;
     }
 
     &.hst-topbar-user-active .hst-topbar-user-menu-arrow {

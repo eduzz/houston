@@ -8,6 +8,7 @@
     "@eduzz/houston-icons": "1.0.15",
     "@eduzz/houston-ui": "1.0.15",
     "react-dom": "^18",
+    "@mui/material": "^5.13.4",
     "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
     "react": "^18"

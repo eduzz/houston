@@ -47,9 +47,6 @@ export default styled(UserMenu, { label: 'hst-topbar-user-menu' })(
     right: ${theme.spacing.inline.nano};
     box-shadow: ${theme.shadow.level[2]};
     padding: ${theme.spacing.nano};
-    transition: 0.15s ease-out;
-    transform: scale(0.1);
-    transform-origin: top right;
     box-sizing: border-box;
     visibility: hidden;
     opacity: 0;

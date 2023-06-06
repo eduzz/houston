@@ -75,14 +75,12 @@ const SidebarStyled = styled(Sidebar, { label: 'hst-sidebar' })`
       display: inline-flex;
       flex-direction: column;
       width: ${MENU_WIDTH}px;
-      transition: 0.2s ease-out, top 0s;
       z-index: 104;
       flex-grow: 1;
       position: fixed;
       bottom: 0;
       left: 0;
       top: 0;
-      animation-delay: 0.3s;
 
       a {
         text-decoration: none;
