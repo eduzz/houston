@@ -54,8 +54,8 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
     color: white;
     display: flex;
     align-items: center;
-    padding: 8px 22px 8px 16px;
-    border-radius: 50px;
+    padding: 8px 16px 8px 16px;
+    border-radius: 16px;
     border-top-left-radius: 0;
     border-bottom-right-radius: 0;
     margin-right: 1.5rem;
@@ -66,8 +66,7 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
     }
 
     ${theme.mediaQuery.down('lg')} {
-      padding: 8px 18px 8px 16px;
-      border-radius: 30px;
+      padding: 8px 10px 8px 10px;
       border-top-left-radius: 0;
       border-bottom-right-radius: 0;
 
@@ -83,35 +82,58 @@ export default styled(Belt, { label: 'hst-topbar-belt' })(
     &.hst-topbar-belt-color-white {
       background-color: ${theme.beltColor.white};
       color: ${theme.beltColor.white};
+
+      .hst-topbar-belt-badge {
+        color: ${theme.beltForegroundColor?.white ?? 'black'};
+      }
     }
 
     &.hst-topbar-belt-color-red {
       background-color: ${theme.beltColor.red};
       color: ${theme.beltColor.red};
+
+      .hst-topbar-belt-badge {
+        color: ${theme.beltForegroundColor?.red ?? 'white'};
+      }
     }
 
     &.hst-topbar-belt-color-orange {
       background-color: ${theme.beltColor.orange};
       color: ${theme.beltColor.orange};
+
+      .hst-topbar-belt-badge {
+        color: ${theme.beltForegroundColor?.orange ?? 'white'};
+      }
     }
 
     &.hst-topbar-belt-color-green {
       background-color: ${theme.beltColor.green};
       color: ${theme.beltColor.green};
+
+      .hst-topbar-belt-badge {
+        color: ${theme.beltForegroundColor?.green ?? 'white'};
+      }
     }
 
     &.hst-topbar-belt-color-black {
       background-color: ${theme.beltColor.black};
       color: ${theme.beltColor.black};
+
+      .hst-topbar-belt-badge {
+        color: ${theme.beltForegroundColor?.black ?? 'white'};
+      }
     }
 
     &.hst-topbar-belt-color-golden {
       background-color: ${theme.beltColor.golden};
       color: ${theme.beltColor.golden};
+
+      .hst-topbar-belt-badge {
+        color: ${theme.beltForegroundColor?.golden ?? 'white'};
+      }
     }
 
     .hst-topbar-belt-badge {
-      color: white;
       display: flex;
       align-items: center;
 

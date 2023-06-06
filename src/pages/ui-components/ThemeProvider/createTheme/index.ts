@@ -1,7 +1,7 @@
 /* eslint-disable import/export */
 
 import antdTheme from './antd';
-import { beltColor } from './beltColor';
+import { beltColor, beltForegroundColor } from './beltColor';
 import { BrandColor, BrandsBuildin, brandsColors } from './brands';
 import { hexToRgba, spacing, pxToRem } from './utils';
 import { HoustonThemeCustomVariables, HoustonTheme } from '..';
@@ -24,6 +24,7 @@ export default function createTheme(
     mediaQuery: mediaUtils,
     spacing: spacing as any,
     beltColor,
+    beltForegroundColor,
     hexToRgba,
     pxToRem,
     components: {
