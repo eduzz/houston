@@ -1,7 +1,7 @@
 {
   "name": "@eduzz/houston-hooks",
   "description": "Eduzz Houston Hooks",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": "Eduzz Team",
