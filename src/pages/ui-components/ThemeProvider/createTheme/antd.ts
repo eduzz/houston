@@ -7,6 +7,7 @@ export default function antdTheme(brancColor: BrandColor, mode: 'dark' | 'light'
   return {
     algorithm: mode == 'dark' ? [theme.darkAlgorithm] : [],
     token: removeUndef({
+      motion: false,
       colorPrimary: brancColor.primary,
       colorBgLayout: mode === 'light' ? '#fcfcfc' : undefined,
       colorBgTextHover: mode === 'light' ? 'rgba(0, 0, 0, 0.03)' : undefined,

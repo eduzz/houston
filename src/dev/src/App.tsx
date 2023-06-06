@@ -2,7 +2,10 @@ import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { MessageOutlined, BellOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
-import { Avatar, message } from 'antd';
+import { Avatar, App as AntdApp } from 'antd';
+import type { MessageInstance } from 'antd/es/message/interface';
+import type { ModalStaticFunctions } from 'antd/es/modal/confirm';
+import type { NotificationInstance } from 'antd/es/notification/interface';
 
 import NotificationOutline from '@eduzz/houston-icons/NotificationOutline';
 import Layout from '@eduzz/houston-ui/Layout';
@@ -11,6 +14,10 @@ import createTheme from '@eduzz/houston-ui/ThemeProvider/createTheme';
 
 import houston from './assets/houston.png';
 import ComponentDev from './components';
+
+export let message: MessageInstance;
+export let notification: NotificationInstance;
+export let modal: Omit<ModalStaticFunctions, 'warn'>;
 
 const theme = createTheme('eduzz');
 const { Sidebar, Topbar, Content } = Layout;
@@ -23,8 +30,6 @@ const LogoWrapper = ({ children, className }: { children: React.ReactNode; class
     </a>
   );
 };
-
-console.log({ theme });
 
 function App() {
   const [themeMode, setThemeMode] = React.useState<'dark' | 'light'>('light');
@@ -41,6 +46,7 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme} mode={themeMode}>
+        <AppBinder />
         <Layout>
           <Topbar
             currentApplication='orbita'
@@ -113,3 +119,11 @@ function App() {
 }
 
 export default App;
+
+function AppBinder() {
+  const staticFunction = AntdApp.useApp();
+  message = staticFunction.message;
+  modal = staticFunction.modal;
+  notification = staticFunction.notification;
+  return <div id='portal-modal' />;
+}
