@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import * as React from 'react';
 
 import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
