@@ -87,9 +87,26 @@ const CustomCss = () => {
         }
 
         /* add blur to modal */
-        .ant-modal-mask {
+        .ant-modal-mask,
+        .ant-image-preview-mask {
           backdrop-filter: blur(0.5rem);
           -webkit-backdrop-filter: blur(0.5rem);
+        }
+
+        .ant-modal {
+          transform: none !important;
+        }
+
+        .ant-modal-mask.ant-fade-leave {
+          pointer-events: none;
+
+          + .ant-modal-wrap {
+            pointer-events: none;
+          }
+        }
+
+        .ant-wave {
+          display: none;
         }
 
         /* fix avatar inside of a button  */

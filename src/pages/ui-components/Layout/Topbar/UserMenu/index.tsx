@@ -46,15 +46,12 @@ export default styled(UserMenu, { label: 'hst-topbar-user-menu' })(
     right: 0.5rem;
     box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.16);
     padding: 0.5rem;
-    transition: 0.15s ease-out;
-    transform: scale(0.1);
-    transform-origin: top right;
     box-sizing: border-box;
     visibility: hidden;
     opacity: 0;
     user-select: none;
     background: ${theme.antd.colorBgElevated};
-    border-radius: 0.5rem;
+    border-radius: 0 0 0.5rem 0.5rem;
 
     &::-webkit-scrollbar {
       width: 3px;

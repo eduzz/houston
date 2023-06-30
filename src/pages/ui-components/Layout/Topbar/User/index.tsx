@@ -74,17 +74,13 @@ export default styled(User, { label: 'hst-topbar-user' })(
       pointer-events: all;
     }
 
-    & .hst-topbar-user-menu-arrow {
-      transition: 0.15s ease-out;
-    }
-
     &.hst-topbar-user-active {
       & .hst-topbar-user-button {
         background-color: rgba(0, 0, 0, 0.05);
       }
 
       & .hst-topbar-user-menu-arrow {
-        transform: rotate(-180deg);
+        transform: rotateX(-180deg);
         margin-bottom: 0;
         margin-top: -5px;
       }

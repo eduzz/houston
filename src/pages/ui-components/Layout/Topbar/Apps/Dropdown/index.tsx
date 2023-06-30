@@ -7,7 +7,7 @@ import useBoolean from '@eduzz/houston-hooks/useBoolean';
 
 import { TopbarApplication } from '..';
 import IconClose from '../../../../Icons/Close';
-import styled, { css, StyledProp, cx, keyframes } from '../../../../styled';
+import styled, { css, StyledProp, cx } from '../../../../styled';
 import { TOPBAR_DROPDOWN_WIDTH } from '../../../context';
 
 export type AppsDropdownProps = StyledProp &
@@ -90,11 +90,6 @@ const AppsDropdown = React.memo<AppsDropdownProps>(
   }
 );
 
-const descriptionAnimation = keyframes`
-  0% { text-indent: -1000px; }
-  100% {  text-indent: 0px; }
-`;
-
 export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
   ({ theme }) => css`
     width: ${theme.pxToRem(TOPBAR_DROPDOWN_WIDTH)}rem;
@@ -105,13 +100,10 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
     left: 0.5rem;
     border-radius: 0 0 0.5rem 0.5rem;
     z-index: 105;
-    transition: 0.15s ease-in-out;
     opacity: 0;
     visibility: hidden;
     user-select: none;
     box-sizing: border-box;
-    transform: scale(0.1);
-    transform-origin: top left;
     max-height: calc(100vh - ${theme.pxToRem(theme.components.topBarHeight)}rem);
     overflow-y: auto;
 
@@ -122,7 +114,6 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
 
     &.hst-topbar-apps-dropdown-opened {
       opacity: 1;
-      transform: scale(1);
       visibility: visible;
       user-select: initial;
     }
@@ -157,7 +148,6 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
       .hst-topbar-apps-dropdown-item {
         width: 100%;
         text-align: center;
-        transition: 0.15s ease-out;
         border-radius: 0.25rem;
         cursor: pointer;
         text-decoration: none;
@@ -177,12 +167,6 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
           font-size: 16px;
           color: ${theme.antd.colorTextDescription};
           margin-top: 2px;
-
-          ${theme.mediaQuery.up('md')} {
-            text-indent: -1000px;
-            animation: ${descriptionAnimation} 0.2s ease-in-out forwards;
-            animation-delay: 0s;
-          }
         }
 
         &.hst-topbar-apps-dropdown-current {
@@ -210,6 +194,10 @@ export default styled(AppsDropdown, { label: 'hst-topbar-apps-dropdown' })(
         width: 100%;
         padding: 0.5rem 2rem;
         border-bottom: 1px solid ${theme.hexToRgba('#000000', 0.12)};
+
+        h5 {
+          margin-bottom: 0;
+        }
 
         button {
           display: flex;

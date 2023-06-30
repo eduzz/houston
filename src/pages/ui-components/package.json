@@ -19,7 +19,7 @@
     "check-update-deps": "yarn ncu -u"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
+    "@ant-design/icons": "^5.1.4",
     "@eduzz/houston-forms": "1.9.8",
     "@eduzz/houston-hooks": "1.9.8",
     "@eduzz/houston-icons": "1.9.8",
@@ -29,7 +29,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@popperjs/core": "^2.11.7",
-    "antd": "^5.4.6",
+    "antd": "^5.5.2",
     "date-fns": "^2",
     "lodash-es": "^4",
     "rc-upload": "^4.3.4",
