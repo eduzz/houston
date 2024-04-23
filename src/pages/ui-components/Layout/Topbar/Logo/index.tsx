@@ -16,14 +16,14 @@ const Logo = ({ logo, logoMobile, logoDarkMode, logoMobileDarkMode, className, w
   function getLogos() {
     if (theme.mode === 'dark') {
       return {
-        desktop: logoDarkMode ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-white.svg',
-        mobile: logoMobileDarkMode ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'
+        desktop: logoDarkMode ?? '//cdn.eduzzcdn.com/topbar/myeduzz-white.svg',
+        mobile: logoMobileDarkMode ?? '//cdn.eduzzcdn.com/topbar/myeduzz-mobile.svg'
       };
     }
 
     return {
-      desktop: logo ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz.svg',
-      mobile: logoMobile ?? '//eduzz-houston.s3.amazonaws.com/topbar/logos/myeduzz-mobile.svg'
+      desktop: logo ?? '//cdn.eduzzcdn.com/topbar/myeduzz.svg',
+      mobile: logoMobile ?? '//cdn.eduzzcdn.com/topbar/myeduzz-mobile.svg'
     };
   }
 
